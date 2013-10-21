@@ -3,6 +3,8 @@ package com.wessles.MERCury.geom;
 import com.wessles.MERCury.opengl.Color;;
 
 /**
+ * A rectangle shape.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

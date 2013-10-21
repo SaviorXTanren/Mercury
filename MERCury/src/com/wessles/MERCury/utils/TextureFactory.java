@@ -12,6 +12,8 @@ import static org.lwjgl.opengl.GL11.*;
 import com.wessles.MERCury.opengl.Texture;
 
 /**
+ * A utility class to get texture grids and strips from single files. It is more efficient to store all textures on one image than having multiple resources on different files
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

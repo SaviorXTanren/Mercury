@@ -3,6 +3,8 @@ package com.wessles.MERCury.utils;
 import com.wessles.MERCury.opengl.Color;
 
 /**
+ * A utilities class for Color.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

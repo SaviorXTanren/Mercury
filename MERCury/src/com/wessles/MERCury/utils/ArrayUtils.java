@@ -3,6 +3,8 @@ package com.wessles.MERCury.utils;
 import com.wessles.MERCury.geom.Vector2f;
 
 /**
+ * A utilities class for arrays.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

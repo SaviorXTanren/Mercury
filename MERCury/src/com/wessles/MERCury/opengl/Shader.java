@@ -10,6 +10,8 @@ import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.GL11;
 
 /**
+ * An object version of shaders. Does all of the tedius stuff for you and lets you use the shader easily.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

@@ -12,6 +12,8 @@ import com.wessles.MERCury.geom.Triangle;
 import com.wessles.MERCury.utils.ColorUtils;
 
 /**
+ * An object used for graphics. It will draw just about anything for you.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

@@ -5,6 +5,8 @@ import com.wessles.MERCury.opengl.Texture;
 import com.wessles.MERCury.opengl.Textured;
 
 /**
+ * A textured version of a rectangle.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

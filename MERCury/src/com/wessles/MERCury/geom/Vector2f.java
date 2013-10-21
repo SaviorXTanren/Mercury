@@ -1,6 +1,9 @@
 package com.wessles.MERCury.geom;
 
 /**
+ * A Vector that contains 2 values: x and y.
+ * This class makes vector math easy, and makes your life a whole lot easier.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

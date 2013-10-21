@@ -13,6 +13,8 @@ import com.wessles.MERCury.opengl.Graphics;
 import com.wessles.MERCury.opengl.VAOGraphics;
 
 /**
+ * The {@code Core} that will host the game. It is ran above by the {@code Runner} class.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com
@@ -37,12 +39,24 @@ public abstract class Core {
 		Runner.boot(this, WIDTH, HEIGHT, fullscreen, vsync);
 	}
 
+	/**
+	 * Called first (after {@code initDisplay}, {@code initGraphics}, and {@code initAudio}), used to initialize all resources, and for whatever you wish to do for initialization.
+	 */
 	public abstract void init(ResourceManager RM);
 
+	/**
+	 * Called once every frame, and used to handle all logic.
+	 */
 	public abstract void update(float delta);
 
+	/**
+	 * Called once every frame, and used to render everything, via {@code Graphics g}.
+	 */
 	public abstract void render(Graphics g);
 
+	/**
+	 * Called 
+	 */
 	public abstract void cleanup(ResourceManager RM);
 
 	public void initDisplay(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
@@ -79,10 +93,16 @@ public abstract class Core {
 		TinySound.init();
 	}
 	
+	/**
+	 * Returns whether or not the core is running.
+	 */
 	public final boolean isRunning() {
 		return running;
 	}
 
+	/**
+	 * Ends the core, setting the {@code running} variable to false.
+	 */
 	public final void end() {
 		running = false;
 	}

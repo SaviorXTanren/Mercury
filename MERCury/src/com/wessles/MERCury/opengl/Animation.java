@@ -7,6 +7,8 @@ import com.wessles.MERCury.geom.TexturedRectangle;
 import com.wessles.MERCury.utils.TextureFactory;
 
 /**
+ * An easy to use animation class. Just render, and watch the moving picture!
+ * 
  * @from MERCtest
  * @author wessles
  * @website www.wessles.com

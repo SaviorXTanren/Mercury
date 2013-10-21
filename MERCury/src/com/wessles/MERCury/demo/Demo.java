@@ -1,10 +1,6 @@
 package com.wessles.MERCury.demo;
 
-import static org.lwjgl.opengl.GL11.*;
-
 import java.io.IOException;
-
-import org.lwjgl.opengl.Display;
 
 import com.wessles.MERCury.*;
 import com.wessles.MERCury.opengl.*;
@@ -28,6 +24,8 @@ public class Demo extends Core {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Runner.getGraphicsObject().scale(2);
+		Runner.setDeltaFactor(.1f);
 	}
 
 	public void render(Graphics g) {
@@ -35,27 +33,7 @@ public class Demo extends Core {
 	}
 
 	public void update(float delta) {
-		World.update();
-	}
-	
-	public Graphics initGraphics() {
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
-		glMatrixMode(GL_MODELVIEW);
-		
-		glEnable(GL_BLEND);
-		glEnable(GL_ALPHA_TEST);
-		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_DEPTH_SCALE);
-		glDepthMask(true);
-		glDepthFunc(GL_LEQUAL);
-		
-		glAlphaFunc(GL_GREATER, 0.1f);
-		
-		Graphics g = new VAOGraphics();
-		g.scale(2);
-		return g;
+		World.update(delta);
 	}
 
 	@Override

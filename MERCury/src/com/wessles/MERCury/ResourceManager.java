@@ -9,6 +9,12 @@ import com.wessles.MERCury.opengl.Shader;
 import com.wessles.MERCury.opengl.Texture;
 
 /**
+ * An object that will hold, handle, and load all resources, so that one resource will only have one instance.
+ * 
+ * With this class, you may load an object; loading means that you will input a resource, and it will be stored with a given key.
+ * 
+ * You may also get an object; getting it means that you give the key and it returns the resource(s) associated with that key.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

@@ -2,8 +2,9 @@ package com.wessles.MERCury.opengl;
 
 import org.lwjgl.opengl.GL11;
 
-
 /**
+ * A class for Color, that will hold the three values; r, g, and b, and will darken, brighten, multiply, etc.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

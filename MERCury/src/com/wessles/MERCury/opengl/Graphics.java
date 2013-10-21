@@ -5,6 +5,8 @@ import com.wessles.MERCury.geom.Rectangle;
 import com.wessles.MERCury.geom.Triangle;
 
 /**
+ * An abstraction for all graphics.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

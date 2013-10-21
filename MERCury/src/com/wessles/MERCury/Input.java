@@ -7,6 +7,8 @@ import org.lwjgl.opengl.Display;
 import com.wessles.MERCury.geom.Point;
 
 /**
+ * An object form of input.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com
@@ -60,14 +62,23 @@ public class Input {
 		return Mouse.getY();
 	}
 	
+	/**
+	 * 'Corrects' the mouse position.
+	 */
 	public Point getAbsoluteMousePosition() {
 		return new Point(Mouse.getX(), Display.getHeight()-1-Mouse.getY());
 	}
 	
+	/**
+	 * 'Corrects' the mouse position's x.
+	 */
 	public int getAbsoluteMouseX() {
 		return Mouse.getX();
 	}
 	
+	/**
+	 * 'Corrects' the mouse position's y.
+	 */
 	public int getAbsoluteMouseY() {
 		return Display.getHeight()-1-Mouse.getY();
 	}

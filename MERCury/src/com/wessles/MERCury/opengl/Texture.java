@@ -12,6 +12,8 @@ import org.lwjgl.BufferUtils;
 import static org.lwjgl.opengl.GL11.*;
 
 /**
+ * An object version of a texture. This will store the width and height of the object.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

@@ -5,6 +5,8 @@ import com.wessles.MERCury.utils.ArrayUtils;
 import com.wessles.MERCury.utils.ColorUtils;
 
 /**
+ * The abstraction of all shapes.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

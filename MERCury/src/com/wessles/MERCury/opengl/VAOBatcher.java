@@ -10,6 +10,8 @@ import org.lwjgl.BufferUtils;
 import com.wessles.MERCury.utils.ColorUtils;
 
 /**
+ * A very simple batcher.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

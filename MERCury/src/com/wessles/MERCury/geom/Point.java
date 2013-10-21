@@ -1,7 +1,7 @@
 package com.wessles.MERCury.geom;
 
 /**
- * Shape version of a vector basically. YOLO.
+ * A point shape. No sides, just a point.
  * 
  * @from MERCury
  * @author wessles
@@ -17,13 +17,17 @@ public class Point extends Shape {
 	public String toString() {
 		return "Point at " + nx + ", " + ny;
 	}
+	
+	public float getArea() {
+		return 1;
+	}
+	
+	public Vector2f toVector2f() {
+		return new Vector2f(nx, ny);
+	}
 
 	public static Point getPoint(float x, float y) {
 		return new Point(x, y);
-	}
-
-	public float getArea() {
-		return 1;
 	}
 
 	public static Point getPoint(Point point) {

@@ -7,6 +7,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 
 /**
+ * A utilities class for vertex array objects.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

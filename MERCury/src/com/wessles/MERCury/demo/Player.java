@@ -20,9 +20,9 @@ public class Player extends Entity {
 
 	public void update(float delta) {
 		if (Runner.getInput().keyDown(Keyboard.KEY_RIGHT) && x < 300 - w)
-			x += 3f;
+			x += 3f*delta;
 		else if (Runner.getInput().keyDown(Keyboard.KEY_LEFT) && x > 0)
-			x -= 3f;
+			x -= 3f*delta;
 	}
 	
 	public void render(Graphics g) {

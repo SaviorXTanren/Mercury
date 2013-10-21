@@ -2,7 +2,6 @@ package com.wessles.MERCury.demo;
 
 import java.util.ArrayList;
 
-import com.wessles.MERCury.Runner;
 import com.wessles.MERCury.opengl.Graphics;
 
 /**
@@ -21,9 +20,9 @@ public class World {
 		entities.add(player);
 	}
 	
-	public static void update() {
+	public static void update(float delta) {
 		for(Entity ent : entities)
-			ent.update(Runner.getDelta(.1f));
+			ent.update(delta);
 		Background.allStep();
 	}
 	

@@ -8,7 +8,7 @@ import org.lwjgl.opengl.Display;
 import com.wessles.MERCury.opengl.Graphics;
 
 /**
- * A class that will run your core, and give out a delta variable staticly.
+ * A class that will run your core, and give out the graphics object, current core, resource manager, and input staticly.
  * 
  * @from MERCury
  * @author wessles
@@ -18,6 +18,7 @@ import com.wessles.MERCury.opengl.Graphics;
 public class Runner {
 	private static long lastframe;
 	private static int delta = 1;
+	private static float deltafactor = 1;
 	
 	private static Core core;
 	private static Graphics graphicsobject;
@@ -72,13 +73,20 @@ public class Runner {
 	public Core getCore() {
 		return Runner.core;
 	}
-
-	public static float getDelta(float factor) {
-		return getDelta() * factor;
+	
+	/**
+	 * You may want to downsize or enlarge the delta as it is speeding (or slowing) things down too much.
+	 * Note that this will not change how the delta behaves.
+	 */
+	public static void setDeltaFactor(float factor) {
+		deltafactor = factor;
 	}
 
-	public static int getDelta() {
-		return delta;
+	/**
+	 * Get the current delta variable.
+	 */
+	public static float getDelta() {
+		return delta*deltafactor;
 	}
 
 	public static ResourceManager getResourceManager() {
@@ -87,11 +95,6 @@ public class Runner {
 	
 	public static Graphics getGraphicsObject() {
 		return graphicsobject;
-	}
-	
-	public static void setGraphicsObject(Graphics graphicsobject) {
-		Runner.graphicsobject = graphicsobject;
-		graphicsobject.init();
 	}
 	
 	public static Input getInput() {

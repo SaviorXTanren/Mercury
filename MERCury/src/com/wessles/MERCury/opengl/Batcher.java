@@ -1,6 +1,8 @@
 package com.wessles.MERCury.opengl;
 
 /**
+ * An abstraction for batchers.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

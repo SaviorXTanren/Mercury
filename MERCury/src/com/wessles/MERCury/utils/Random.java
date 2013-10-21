@@ -1,44 +1,27 @@
 package com.wessles.MERCury.utils;
 
 /**
+ * A utilities class for getting a random value.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com
  */
 public class Random {
-	private static java.util.Random rand = new java.util.Random();
 
 	public static boolean nextBoolean() {
-		refreshSeed();
-		return rand.nextBoolean();
+		return ((int) getRandom(0, 20)) % 2 == 0;
 	}
 
 	public static int nextInt() {
-		refreshSeed();
-		return rand.nextInt();
-	}
-
-	public static long nextLong() {
-		refreshSeed();
-		return rand.nextLong();
+		return (int) getRandom(0, 1000000000);
 	}
 
 	public static float nextFloat() {
-		refreshSeed();
-		return rand.nextFloat();
+		return getRandom(0, 1000000000);
 	}
 
-	public static double nextDouble() {
-		refreshSeed();
-		return rand.nextDouble();
-	}
-
-	public static double nextGaussian() {
-		refreshSeed();
-		return rand.nextGaussian();
-	}
-
-	private static void refreshSeed() {
-		rand.setSeed((long) (System.currentTimeMillis() / 1000 + System.currentTimeMillis() * 7.4));
+	public static final float getRandom(float minimum, float maximum) {
+		return (float) (Math.random() * (maximum - minimum)) + minimum;
 	}
 }
