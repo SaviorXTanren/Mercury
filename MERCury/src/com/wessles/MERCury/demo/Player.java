@@ -14,7 +14,7 @@ public class Player extends Entity {
 	Animation anim;
 
 	public Player() {
-		super(40, 60, 20, 80);
+		super(40, 100, 8, 32);
 		this.anim = Runner.getResourceManager().getAnimation("player_anim");
 	}
 

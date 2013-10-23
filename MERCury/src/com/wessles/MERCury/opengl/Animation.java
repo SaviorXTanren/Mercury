@@ -34,6 +34,8 @@ public class Animation {
 			if (tex.getTextureHeight() > this.h)
 				this.h = tex.getTextureHeight();
 		}
+		
+		this.frame = 0;
 	}
 
 	public Animation(float w, float h, int frameratemillis, Texture... texs) {
@@ -44,6 +46,8 @@ public class Animation {
 		this.texs = texs;
 		this.w = w;
 		this.h = h;
+		
+		this.frame = 0;
 	}
 
 	public void reverse() {
@@ -83,6 +87,22 @@ public class Animation {
 
 			lastframemillis = System.currentTimeMillis();
 		}
+	}
+	
+	public void setFrame(int frame) {
+		this.frame = frame;
+	}
+	
+	public int getFrame() {
+		return frame;
+	}
+	
+	public int getLength() {
+		return texs.length;
+	}
+	
+	public boolean isLastFrame() {
+		return frame+1==texs.length;
 	}
 
 	public static Animation loadAnimationFromStrip(String location, int divwidth, int frameratemillis) throws FileNotFoundException, IOException {

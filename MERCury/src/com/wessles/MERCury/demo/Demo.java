@@ -21,6 +21,8 @@ public class Demo extends Core {
 		try {
 			RM.loadTexture(Texture.loadTexture("res/scrolling_bg.png"), "scrolling-bg");
 			RM.loadAnimation(Animation.loadAnimationFromStrip("res/player_strip.png", 5, 200), "player_anim");
+			RM.loadAnimation(Animation.loadAnimationFromStrip("res/comet_strip.png", 8, 300), "comet_anim");
+			RM.loadAnimation(Animation.loadAnimationFromStrip("res/comet_explosion.png", 8, 300), "comet_exp_anim");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
