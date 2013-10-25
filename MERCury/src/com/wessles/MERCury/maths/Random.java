@@ -1,4 +1,4 @@
-package com.wessles.MERCury.utils;
+package com.wessles.MERCury.maths;
 
 /**
  * A utilities class for getting a random value.

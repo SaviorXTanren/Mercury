@@ -25,6 +25,10 @@ public abstract class Shape {
 		this(ColorUtils.getColorArray(ColorUtils.DEFAULT_DRAWING, coords.length/2), ArrayUtils.getVector2fs(coords), true);
 	}
 	
+	public Shape(Vector2f... coords) {
+		this(ColorUtils.getColorArray(ColorUtils.DEFAULT_DRAWING, coords.length), coords, true);
+	}
+	
 	public Shape(Color[] colors, float[] coords) {
 		this(colors, ArrayUtils.getVector2fs(coords), false);
 	}

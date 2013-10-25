@@ -150,7 +150,7 @@ public class VAOBatcher implements Batcher {
 
 	public void vertex(float x, float y, float r, float g, float b, float a, float u, float v) {
 		if (vtxcount >= maxvtx)
-			cycle();
+			restart();
 
 		vd.put(x).put(y);
 		cd.put(r).put(g).put(b).put(a);
@@ -159,8 +159,8 @@ public class VAOBatcher implements Batcher {
 		vtxcount++;
 	}
 
-	private void cycle() {
-		begin();
+	private void restart() {
 		end();
+		begin();
 	}
 }

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.lwjgl.opengl.Display;
 
 import com.wessles.MERCury.geom.Vector2f;
+import com.wessles.MERCury.maths.Random;
 import com.wessles.MERCury.opengl.Graphics;
-import com.wessles.MERCury.utils.Random;
 
 /**
  * @from MERCtest

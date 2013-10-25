@@ -4,11 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import org.lwjgl.opengl.Display;
 
-import com.wessles.MERCury.geom.Point;
-import com.wessles.MERCury.geom.Rectangle;
-import com.wessles.MERCury.geom.TexturedRectangle;
-import com.wessles.MERCury.geom.TexturedTriangle;
-import com.wessles.MERCury.geom.Triangle;
+import com.wessles.MERCury.geom.*;
 import com.wessles.MERCury.utils.ColorUtils;
 
 /**
@@ -175,9 +171,53 @@ public class VAOGraphics implements Graphics {
 		for (Triangle triangle : triangles)
 			drawTriangle(triangle);
 	}
+	
+	public void drawEllipse(Ellipse ellipse) {
+		batcher.clearTextures();
+
+		Vector2f[] vs = ellipse.getVertices();
+
+		for (int c = 0; c < vs.length; c++) {
+			batcher.vertex(ellipse.getCenterX(), ellipse.getCenterY(), 0, 0);
+
+			if (c >= vs.length-1)
+				batcher.vertex(vs[0].x, vs[0].y, 0, 0);
+			else
+				batcher.vertex(vs[c].x, vs[c].y, 0, 0);
+			
+			if(c >= vs.length-1)
+				batcher.vertex(vs[vs.length-1].x, vs[vs.length-1].y, 0, 0);
+			else
+			batcher.vertex(vs[c + 1].x, vs[c + 1].y, 0, 0);
+		}
+	}
+	
+	public void drawEllipse(float x, float y, float radx, float rady) {
+		drawEllipse(new Ellipse(x, y, radx, rady));
+	}
+	
+	public void drawEllipses(Ellipse[] ellipses) {
+		for(Ellipse ellipse : ellipses)
+			drawEllipse(ellipse);
+	}
+
+	public void drawCircle(Circle circle) {
+		drawEllipse((Ellipse) circle);
+	}
+
+	public void drawCircle(float x, float y, float radius) {
+		drawCircle(new Circle(x, y, radius));
+	}
+
+	public void drawCircles(Circle[] circs) {
+		for(Circle circ : circs)
+			drawCircle(circ);
+	}
 
 	public void drawPoint(Point point) {
-		drawRect(new Rectangle(point.getX1(), point.getY1(), point.getX1(), point.getY1(), point.getX1(), point.getY1(), point.getX1(), point.getY1()));
+		float x = point.getX1();
+		float y = point.getY1();
+		drawRect(new Rectangle(x, y, x + 1, y, x + 1, y + 1, x, y + 1));
 	}
 
 	public void drawPoint(float x, float y) {
