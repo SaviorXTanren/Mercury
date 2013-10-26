@@ -90,15 +90,23 @@ public class TextureFactory {
 	public static Texture[][] getTextureGrid(BufferedImage bi, int divwidth, int divheight, boolean local_fliphor, boolean local_flipvert, int filter) {
 		Texture[][] result = new Texture[bi.getWidth() / divwidth][bi.getHeight() / divheight];
 
-		int cx = 0, cy = 0;
 		for (int x = 0; x < bi.getWidth(); x += divwidth) {
 			for (int y = 0; y < bi.getHeight(); y += divheight) {
-				result[cx][cy] = Texture.loadTexture(bi.getSubimage(x, y, divwidth, divheight));
-				cy++;
+				result[x/divwidth][y/divheight] = Texture.loadTexture(bi.getSubimage(x, y, divwidth, divheight));
 			}
-			cx++;
 		}
 
 		return result;
+	}
+	
+	public static Texture[] getTextureStripFromGrid(Texture[][] textures) {
+			Texture[] result = new Texture[textures.length*textures[0].length];
+			int index = 0;
+			for(int x = 0; x < textures.length; x++)
+				for(int y = 0; y < textures[0].length; y++) {
+					result[index] = textures[x][y];
+					index++;
+				}
+			return result;
 	}
 }

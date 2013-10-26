@@ -48,6 +48,9 @@ public interface Graphics {
 	public void drawCircle(float x, float y, float radius);
 	public void drawCircles(Circle[] circles);
 
+	public void drawString(float x, float y, String str, Font font);
+	public void drawString(float x, float y, String str, Font font, float size);
+	
 	public void drawPoint(Point point);
 	public void drawPoint(float x, float y);
 	public void drawPoints(Point[] points);

@@ -171,7 +171,7 @@ public class VAOGraphics implements Graphics {
 		for (Triangle triangle : triangles)
 			drawTriangle(triangle);
 	}
-	
+
 	public void drawEllipse(Ellipse ellipse) {
 		batcher.clearTextures();
 
@@ -180,24 +180,24 @@ public class VAOGraphics implements Graphics {
 		for (int c = 0; c < vs.length; c++) {
 			batcher.vertex(ellipse.getCenterX(), ellipse.getCenterY(), 0, 0);
 
-			if (c >= vs.length-1)
+			if (c >= vs.length - 1)
 				batcher.vertex(vs[0].x, vs[0].y, 0, 0);
 			else
 				batcher.vertex(vs[c].x, vs[c].y, 0, 0);
-			
-			if(c >= vs.length-1)
-				batcher.vertex(vs[vs.length-1].x, vs[vs.length-1].y, 0, 0);
+
+			if (c >= vs.length - 1)
+				batcher.vertex(vs[vs.length - 1].x, vs[vs.length - 1].y, 0, 0);
 			else
-			batcher.vertex(vs[c + 1].x, vs[c + 1].y, 0, 0);
+				batcher.vertex(vs[c + 1].x, vs[c + 1].y, 0, 0);
 		}
 	}
-	
+
 	public void drawEllipse(float x, float y, float radx, float rady) {
 		drawEllipse(new Ellipse(x, y, radx, rady));
 	}
-	
+
 	public void drawEllipses(Ellipse[] ellipses) {
-		for(Ellipse ellipse : ellipses)
+		for (Ellipse ellipse : ellipses)
 			drawEllipse(ellipse);
 	}
 
@@ -210,8 +210,32 @@ public class VAOGraphics implements Graphics {
 	}
 
 	public void drawCircles(Circle[] circs) {
-		for(Circle circ : circs)
+		for (Circle circ : circs)
 			drawCircle(circ);
+	}
+
+	public void drawString(float x, float y, String str, Font font) {
+		drawString(x, y, str, font, 1);
+	}
+
+	public void drawString(float x, float y, String str, Font font, float size) {
+		if (font instanceof BitmapFont) {
+			BitmapFont bmfont = (BitmapFont) font;
+			
+			int w = bmfont.getCharWidth();
+			int h = bmfont.getCharHeight();
+			
+			int ax = 0;
+	        for (int i = 0; i < str.length(); i++) {
+	            int asciiCode = (int) str.charAt(i);
+	            int cx = ((int) asciiCode % bmfont.getTextures().length);
+	            int cy = ((int) asciiCode / bmfont.getTextures()[0].length);
+	            
+	            drawRect(new TexturedRectangle(x+ax, y, x+ax+w*size, y, x+ax+w*size, y+h*size, x+ax, y+h*size, bmfont.getTextures()[cx][cy]));
+	            
+	            ax+= w*size;
+	        }
+		}
 	}
 
 	public void drawPoint(Point point) {

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import kuusisto.tinysound.Sound;
 
 import com.wessles.MERCury.opengl.Animation;
+import com.wessles.MERCury.opengl.Font;
 import com.wessles.MERCury.opengl.Shader;
 import com.wessles.MERCury.opengl.Texture;
 
@@ -25,14 +26,7 @@ public class ResourceManager {
 	private final HashMap<String, Animation> animations = new HashMap<String, Animation>();
 	private final HashMap<String, Sound> sounds = new HashMap<String, Sound>();
 	private final HashMap<String, Shader> shaders = new HashMap<String, Shader>();
-
-	public void loadSound(Sound sound, String name) {
-		sounds.put(name, sound);
-	}
-
-	public Sound getSound(String name) {
-		return sounds.get(name);
-	}
+	private final HashMap<String, Font> fonts = new HashMap<String, Font>();
 
 	public void loadTexture(Texture texture, String name) {
 		textures.put(name, texture);
@@ -60,7 +54,23 @@ public class ResourceManager {
 	public Animation getAnimation(String name) {
 		return animations.get(name);
 	}
+	
+	public void loadSound(Sound sound, String name) {
+		sounds.put(name, sound);
+	}
 
+	public Sound getSound(String name) {
+		return sounds.get(name);
+	}
+	
+	public void loadFont(Font font, String name) {
+		fonts.put(name, font);
+	}
+	
+	public Font getFont(String name) {
+		return fonts.get(name);
+	}
+	
 	public void loadShader(Shader shader, String name) {
 		shaders.put(name, shader);
 	}

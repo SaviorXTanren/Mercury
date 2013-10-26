@@ -23,6 +23,7 @@ public class Demo extends Core {
 			RM.loadAnimation(Animation.loadAnimationFromStrip("res/player_strip.png", 5, 200), "player_anim");
 			RM.loadAnimation(Animation.loadAnimationFromStrip("res/comet_strip.png", 8, 300), "comet_anim");
 			RM.loadAnimation(Animation.loadAnimationFromStrip("res/comet_explosion.png", 8, 300), "comet_exp_anim");
+			RM.loadFont(BitmapFont.loadFont("res/font.png", 20, 32), "mfont");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
