@@ -101,8 +101,20 @@ public class Animation {
 		return texs.length;
 	}
 	
+	public int getWidth() {
+		return getTextures()[0].getTextureWidth();
+	}
+	
+	public int getHeight() {
+		return getTextures()[0].getTextureHeight();
+	}
+	
 	public boolean isLastFrame() {
 		return frame+1==texs.length;
+	}
+	
+	public Texture[] getTextures() {
+		return texs;
 	}
 
 	public static Animation loadAnimationFromStrip(String location, int divwidth, int frameratemillis) throws FileNotFoundException, IOException {
