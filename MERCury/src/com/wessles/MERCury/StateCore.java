@@ -12,6 +12,22 @@ import com.wessles.MERCury.opengl.Graphics;
 public abstract class StateCore extends Core {
 	public HashMap<Integer, GameState> gamestates = new HashMap<Integer, GameState>();
 	private int states = 0, current_state = 0;
+	
+	public StateCore() {
+		super(500,500);
+	}
+
+	public StateCore(int WIDTH, int HEIGHT) {
+		super(WIDTH, HEIGHT, true);
+	}
+
+	public StateCore(int WIDTH, int HEIGHT, boolean vsync) {
+		super(WIDTH, HEIGHT, false, vsync);
+	}
+
+	public StateCore( int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
+		super(WIDTH, HEIGHT, fullscreen, vsync);
+	}
 
 	public abstract void init(ResourceManager RM);
 
