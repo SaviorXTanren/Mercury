@@ -5,6 +5,8 @@ import java.util.HashMap;
 import com.wessles.MERCury.opengl.Graphics;
 
 /**
+ * A sub-class of {@code Core} that will add in the capabilities to handle {@code GameState}s.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com
@@ -12,17 +14,13 @@ import com.wessles.MERCury.opengl.Graphics;
 public abstract class StateCore extends Core {
 	public HashMap<Integer, GameState> gamestates = new HashMap<Integer, GameState>();
 	private int states = 0, current_state = 0;
-	
-	public StateCore() {
-		super(500,500);
-	}
 
 	public StateCore(int WIDTH, int HEIGHT) {
-		super(WIDTH, HEIGHT, true);
+		this(WIDTH, HEIGHT, true);
 	}
 
 	public StateCore(int WIDTH, int HEIGHT, boolean vsync) {
-		super(WIDTH, HEIGHT, false, vsync);
+		this(WIDTH, HEIGHT, false, vsync);
 	}
 
 	public StateCore( int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {

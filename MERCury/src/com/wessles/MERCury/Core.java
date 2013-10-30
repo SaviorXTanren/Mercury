@@ -21,11 +21,9 @@ import com.wessles.MERCury.opengl.VAOGraphics;
  */
 
 public abstract class Core {
+	private int WIDTH, HEIGHT;
+	private boolean fullscreen, vsync;
 	private boolean running = true;
-
-	public Core() {
-		this(500, 500);
-	}
 
 	public Core(int WIDTH, int HEIGHT) {
 		this(WIDTH, HEIGHT, true);
@@ -36,7 +34,10 @@ public abstract class Core {
 	}
 
 	public Core( int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
-		Runner.boot(this, WIDTH, HEIGHT, fullscreen, vsync);
+		this.WIDTH = WIDTH;
+		this.HEIGHT = HEIGHT;
+		this.fullscreen = fullscreen;
+		this.vsync = vsync;
 	}
 
 	/**
@@ -55,9 +56,13 @@ public abstract class Core {
 	public abstract void render(Graphics g);
 
 	/**
-	 * Called 
+	 * Called when the Runner is done
 	 */
 	public abstract void cleanup(ResourceManager RM);
+	
+	public void run() {
+		Runner.boot(this, WIDTH, HEIGHT, fullscreen, vsync);
+	}
 
 	public void initDisplay(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
 		try {
