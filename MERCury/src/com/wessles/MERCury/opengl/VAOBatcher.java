@@ -149,7 +149,7 @@ public class VAOBatcher implements Batcher {
 	}
 
 	public void vertex(float x, float y, float r, float g, float b, float a, float u, float v) {
-		if (vtxcount >= maxvtx)
+		if (vtxcount >= maxvtx-1)
 			restart();
 
 		vd.put(x).put(y);
