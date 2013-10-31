@@ -2,10 +2,9 @@ package com.wessles.MERCury;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import javax.swing.JOptionPane;
-
 import kuusisto.tinysound.TinySound;
 
+import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
@@ -13,7 +12,8 @@ import com.wessles.MERCury.opengl.Graphics;
 import com.wessles.MERCury.opengl.VAOGraphics;
 
 /**
- * The {@code Core} that will host the game. It is ran above by the {@code Runner} class.
+ * The {@code Core} that will host the game. It is ran above by the
+ * {@code Runner} class.
  * 
  * @from MERCury
  * @author wessles
@@ -33,7 +33,7 @@ public abstract class Core {
 		this(WIDTH, HEIGHT, false, vsync);
 	}
 
-	public Core( int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
+	public Core(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;
 		this.fullscreen = fullscreen;
@@ -41,7 +41,9 @@ public abstract class Core {
 	}
 
 	/**
-	 * Called first (after {@code initDisplay}, {@code initGraphics}, and {@code initAudio}), used to initialize all resources, and for whatever you wish to do for initialization.
+	 * Called first (after {@code initDisplay}, {@code initGraphics}, and
+	 * {@code initAudio}), used to initialize all resources, and for whatever
+	 * you wish to do for initialization.
 	 */
 	public abstract void init(ResourceManager RM);
 
@@ -51,7 +53,8 @@ public abstract class Core {
 	public abstract void update(float delta);
 
 	/**
-	 * Called once every frame, and used to render everything, via {@code Graphics g}.
+	 * Called once every frame, and used to render everything, via
+	 * {@code Graphics g}.
 	 */
 	public abstract void render(Graphics g);
 
@@ -59,45 +62,45 @@ public abstract class Core {
 	 * Called when the Runner is done
 	 */
 	public abstract void cleanup(ResourceManager RM);
-	
+
 	public void run() {
 		Runner.boot(this, WIDTH, HEIGHT, fullscreen, vsync);
 	}
 
 	public void initDisplay(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
 		try {
-			Display.setTitle(getClass().getSimpleName());
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
+			Display.setTitle(getClass().getSimpleName());
 			Display.setFullscreen(fullscreen);
 			Display.setVSyncEnabled(vsync);
 			Display.create();
-		} catch(Exception e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
+		} catch (LWJGLException e) {
+			e.printStackTrace();
 		}
 	}
-	
+
 	public Graphics initGraphics() {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
-		
+
 		glEnable(GL_BLEND);
 		glEnable(GL_ALPHA_TEST);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_DEPTH_SCALE);
 		glDepthMask(true);
 		glDepthFunc(GL_LEQUAL);
-		
+
 		glAlphaFunc(GL_GREATER, 0.1f);
-		
+
 		return new VAOGraphics();
 	}
-	
+
 	public void initAudio() {
 		TinySound.init();
 	}
-	
+
 	/**
 	 * Returns whether or not the core is running.
 	 */
