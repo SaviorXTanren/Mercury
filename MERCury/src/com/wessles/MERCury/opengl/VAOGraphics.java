@@ -2,8 +2,7 @@ package com.wessles.MERCury.opengl;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import org.lwjgl.opengl.Display;
-
+import com.wessles.MERCury.Runner;
 import com.wessles.MERCury.geom.*;
 import com.wessles.MERCury.utils.ColorUtils;
 
@@ -17,14 +16,21 @@ import com.wessles.MERCury.utils.ColorUtils;
 
 public class VAOGraphics implements Graphics {
 	private VAOBatcher batcher;
+	private Color background_color;
 
 	public void init() {
-		setBackground(ColorUtils.DEFAULT_BACKGROUND);
 		batcher = new VAOBatcher();
 	}
 
 	public void pre() {
 		batcher.begin();
+
+		float x = Runner.camera().getOffsetX();
+		float y = Runner.camera().getOffsetY();
+		float w = Runner.width(Runner.SCALE);
+		float h = Runner.height(Runner.SCALE);
+
+		drawRect(new Rectangle(x, y, x + w, y, x + w, y + h, x, y + h, new Color[] {background_color, background_color, background_color, background_color}));
 	}
 
 	public void post() {
@@ -40,7 +46,7 @@ public class VAOGraphics implements Graphics {
 	}
 
 	public void setBackground(Color color) {
-		Display.setInitialBackground(color.r, color.g, color.b);
+		background_color = color;
 	}
 
 	public void setColor(Color color) {
@@ -221,20 +227,20 @@ public class VAOGraphics implements Graphics {
 	public void drawString(float x, float y, String str, Font font, float size) {
 		if (font instanceof BitmapFont) {
 			BitmapFont bmfont = (BitmapFont) font;
-			
+
 			int w = bmfont.getCharWidth();
 			int h = bmfont.getCharHeight();
-			
+
 			int ax = 0;
-	        for (int i = 0; i < str.length(); i++) {
-	            int asciiCode = (int) str.charAt(i);
-	            int cx = ((int) asciiCode % bmfont.getTextures().length);
-	            int cy = ((int) asciiCode / bmfont.getTextures()[0].length);
-	            
-	            drawRect(new TexturedRectangle(x+ax, y, x+ax+w*size, y, x+ax+w*size, y+h*size, x+ax, y+h*size, bmfont.getTextures()[cx][cy]));
-	            
-	            ax+= w*size;
-	        }
+			for (int i = 0; i < str.length(); i++) {
+				int asciiCode = (int) str.charAt(i);
+				int cx = ((int) asciiCode % bmfont.getTextures().length);
+				int cy = ((int) asciiCode / bmfont.getTextures()[0].length);
+
+				drawRect(new TexturedRectangle(x + ax, y, x + ax + w * size, y, x + ax + w * size, y + h * size, x + ax, y + h * size, bmfont.getTextures()[cx][cy]));
+
+				ax += w * size;
+			}
 		}
 	}
 

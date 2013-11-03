@@ -1,5 +1,6 @@
 package com.wessles.MERCury.geom;
 
+import com.wessles.MERCury.maths.MTrig;
 import com.wessles.MERCury.opengl.Color;
 import com.wessles.MERCury.utils.ArrayUtils;
 import com.wessles.MERCury.utils.ColorUtils;
@@ -14,7 +15,7 @@ import com.wessles.MERCury.utils.ColorUtils;
 
 public abstract class Shape {
 	public boolean ignorecolored;
-	
+
 	protected Vector2f center;
 	protected Vector2f[] vertices;
 	protected Color[] colors;
@@ -22,13 +23,13 @@ public abstract class Shape {
 	protected float radius;
 
 	public Shape(float... coords) {
-		this(ColorUtils.getColorArray(ColorUtils.DEFAULT_DRAWING, coords.length/2), ArrayUtils.getVector2fs(coords), true);
+		this(ColorUtils.getColorArray(ColorUtils.DEFAULT_DRAWING, coords.length / 2), ArrayUtils.getVector2fs(coords), true);
 	}
-	
+
 	public Shape(Vector2f... coords) {
 		this(ColorUtils.getColorArray(ColorUtils.DEFAULT_DRAWING, coords.length), coords, true);
 	}
-	
+
 	public Shape(Color[] colors, float[] coords) {
 		this(colors, ArrayUtils.getVector2fs(coords), false);
 	}
@@ -42,6 +43,10 @@ public abstract class Shape {
 		this.vertices = vertices;
 		regen();
 	}
+
+	public abstract boolean intersects(Shape s);
+
+	public abstract boolean contains(Vector2f v);
 
 	public void translate(float x, float y) {
 		for (Vector2f vertex : vertices) {
@@ -60,6 +65,26 @@ public abstract class Shape {
 			vertex.y = Math.abs(vertex.x - ny + origy + x);
 		}
 		regen();
+	}
+
+	public void rotate(float origx, float origy, float angle) {
+		for (Vector2f p : vertices) {
+			float s = MTrig.sin(angle);
+			float c = MTrig.cos(angle);
+
+			p.x -= origx;
+			p.y -= origy;
+
+			float xnew = p.x * c - p.y * s;
+			float ynew = p.x * s + p.y * c;
+
+			p.x = xnew + origx;
+			p.y = ynew + origy;
+		}
+	}
+
+	public void rotateTo(float angle) {
+
 	}
 
 	public float getArea() {
@@ -134,7 +159,7 @@ public abstract class Shape {
 	public Vector2f[] getVertices() {
 		return vertices;
 	}
-	
+
 	public Color[] getColors() {
 		return colors;
 	}

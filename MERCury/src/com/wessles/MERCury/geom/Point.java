@@ -33,4 +33,12 @@ public class Point extends Shape {
 	public static Point getPoint(Point point) {
 		return new Point(point.nx, point.ny);
 	}
+
+	public boolean intersects(Shape s) {
+		return s.contains(Vector2f.get(getX1(), getY1()));
+	}
+
+	public boolean contains(Vector2f v) {
+		return v.x == getX1() && v.y == getY1();
+	}
 }

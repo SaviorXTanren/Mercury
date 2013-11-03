@@ -24,4 +24,12 @@ public class Triangle extends Shape {
 	public float getArea() {
 		return getWidth()*getHeight()/2;
 	}
+
+	public boolean intersects(Shape s) {
+		return new Rectangle(getX1(), getY1(), getX2()/2, getY1(), getX2()/2, getY2()/2, getX1(), getY2()/2).intersects(s);
+	}
+
+	public boolean contains(Vector2f v) {
+		return new Rectangle(getX1(), getY1(), getX2()/2, getY1(), getX2()/2, getY2()/2, getX1(), getY2()/2).contains(v);
+	}
 }
