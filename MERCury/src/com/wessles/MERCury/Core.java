@@ -15,6 +15,9 @@ import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glLoadIdentity;
 import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.opengl.GL11.glOrtho;
+
+import java.io.File;
+
 import kuusisto.tinysound.TinySound;
 
 import org.lwjgl.LWJGLException;
@@ -37,6 +40,7 @@ public abstract class Core {
 	private int WIDTH, HEIGHT;
 	private boolean fullscreen, vsync;
 	private boolean running = true;
+	private File log;
 
 	public Core(int WIDTH, int HEIGHT) {
 		this(WIDTH, HEIGHT, true);
@@ -47,10 +51,15 @@ public abstract class Core {
 	}
 
 	public Core(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
+		this(WIDTH, HEIGHT, fullscreen, vsync, null);
+	}
+	
+	public Core(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, File log) {
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;
 		this.fullscreen = fullscreen;
 		this.vsync = vsync;
+		this.log = log;
 	}
 
 	/**
@@ -77,7 +86,7 @@ public abstract class Core {
 	public abstract void cleanup(ResourceManager RM);
 
 	public void run() {
-		Runner.boot(this, WIDTH, HEIGHT, fullscreen, vsync);
+		Runner.boot(this, WIDTH, HEIGHT, fullscreen, vsync, log);
 	}
 
 	public void initDisplay(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {

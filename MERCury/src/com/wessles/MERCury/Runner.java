@@ -4,6 +4,8 @@ import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
 
+import java.io.File;
+
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 
@@ -38,10 +40,13 @@ public class Runner {
 	}
 
 	public static void boot(Core core, int WIDTH, int HEIGHT, boolean fullscreen) {
-		boot(core, WIDTH, HEIGHT, fullscreen, true);
+		boot(core, WIDTH, HEIGHT, fullscreen, true, null);
 	}
 
-	public static void boot(Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
+	public static void boot(Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, File log) {
+		if (log != null) {
+			Logger.setLog(log);
+		}
 
 		// Init some stuffs!
 		Logger.println("# MERCury Started!");
@@ -55,6 +60,7 @@ public class Runner {
 		Logger.println("                                        __/ |");
 		Logger.println("                                       |___/ ");
 		Logger.println("Maitenance Enhanced and Reliable Coding Engine");
+		Logger.println("          by wessles of www.wessles.com");
 		Logger.println();
 
 		Logger.printDateAndTime();

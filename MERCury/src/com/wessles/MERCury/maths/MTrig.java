@@ -1,6 +1,8 @@
 package com.wessles.MERCury.maths;
 
 /**
+ * A trig class that uses floats and degrees only.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

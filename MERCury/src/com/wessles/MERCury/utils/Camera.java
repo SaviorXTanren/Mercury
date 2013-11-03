@@ -8,6 +8,8 @@ import com.wessles.MERCury.geom.Vector2f;
 import com.wessles.MERCury.opengl.Graphics;
 
 /**
+ * An object for the camera.
+ * 
  * @from Horde
  * @author wessles
  * @website www.wessles.com

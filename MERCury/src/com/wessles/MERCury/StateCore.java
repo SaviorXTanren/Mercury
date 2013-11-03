@@ -1,5 +1,6 @@
 package com.wessles.MERCury;
 
+import java.io.File;
 import java.util.HashMap;
 
 import com.wessles.MERCury.opengl.Graphics;
@@ -25,7 +26,11 @@ public abstract class StateCore extends Core {
 	}
 
 	public StateCore(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
-		super(WIDTH, HEIGHT, fullscreen, vsync);
+		this(WIDTH, HEIGHT, fullscreen, vsync, null);
+	}
+	
+	public StateCore(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, File log) {
+		super(WIDTH, HEIGHT, fullscreen, vsync, log);
 	}
 
 	public abstract void init(ResourceManager RM);

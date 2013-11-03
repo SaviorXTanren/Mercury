@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
+ * A class that you use in place of System.out, which can also print all things to a file
+ * 
  * @from Horde
  * @author wessles
  * @website www.wessles.com
