@@ -35,8 +35,9 @@ public abstract class Shape {
 	}
 
 	public Shape(Color[] colors, Vector2f[] vertices, boolean ignorecolored) {
-		if (vertices.length != colors.length)
+		if (vertices.length != colors.length) {
 			throw new IllegalArgumentException("The number of colors and vertices must be equal!");
+		}
 
 		this.ignorecolored = ignorecolored;
 		this.colors = colors;
@@ -142,18 +143,20 @@ public abstract class Shape {
 		fy = ny;
 
 		for (Vector2f vertex : vertices) {
-			if (vertex.x < nx)
+			if (vertex.x < nx) {
 				nx = vertex.x;
-			else if (vertex.x > fx)
+			} else if (vertex.x > fx) {
 				fx = vertex.x;
+			}
 
-			if (vertex.y < ny || vertex.y > fy)
+			if (vertex.y < ny || vertex.y > fy) {
 				ny = vertex.y;
-			else if (vertex.y > fy)
+			} else if (vertex.y > fy) {
 				fy = vertex.y;
+			}
 		}
-		this.center = new Vector2f((nx + fx) / 2, (ny + fy) / 2);
-		this.radius = Math.abs(getWidth() > getHeight() ? getWidth() : getHeight());
+		center = new Vector2f((nx + fx) / 2, (ny + fy) / 2);
+		radius = Math.abs(getWidth() > getHeight() ? getWidth() : getHeight());
 	}
 
 	public Vector2f[] getVertices() {

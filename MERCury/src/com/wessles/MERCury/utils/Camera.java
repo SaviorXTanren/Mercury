@@ -1,6 +1,8 @@
 package com.wessles.MERCury.utils;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.glPopMatrix;
+import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.glTranslatef;
 
 import com.wessles.MERCury.geom.Vector2f;
 import com.wessles.MERCury.opengl.Graphics;
@@ -20,7 +22,7 @@ public class Camera {
 	public Camera(float x, float y) {
 		this.x = x;
 		this.y = y;
-		this.relsnap = Vector2f.get(0, 0);
+		relsnap = Vector2f.get(0, 0);
 	}
 
 	public void pre(Graphics g) {
@@ -29,18 +31,19 @@ public class Camera {
 
 			x = snap.x;
 			y = snap.y;
-		} else
+		} else {
 			snapped = false;
-		
+		}
+
 		glPushMatrix();
-		glTranslatef(-x+relsnap.x, -y+relsnap.y, 0);
+		glTranslatef(-x + relsnap.x, -y + relsnap.y, 0);
 
 		g.pre();
 	}
 
 	public void post(Graphics g) {
 		g.post();
-		
+
 		glPopMatrix();
 	}
 
@@ -51,7 +54,7 @@ public class Camera {
 	public void setSnapRelativeToScreen(Vector2f relsnap) {
 		this.relsnap = relsnap;
 	}
-	
+
 	public Vector2f getSnap() {
 		return snap;
 	}
@@ -59,15 +62,15 @@ public class Camera {
 	public boolean snapped() {
 		return snapped;
 	}
-	
+
 	public float getOffsetX() {
 		return x;
 	}
-	
+
 	public float getOffsetY() {
 		return y;
 	}
-	
+
 	public Vector2f getOffset() {
 		return Vector2f.get(x, y);
 	}

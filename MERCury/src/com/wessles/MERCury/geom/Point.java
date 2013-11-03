@@ -17,11 +17,11 @@ public class Point extends Shape {
 	public String toString() {
 		return "Point at " + nx + ", " + ny;
 	}
-	
+
 	public float getArea() {
 		return 1;
 	}
-	
+
 	public Vector2f toVector2f() {
 		return new Vector2f(nx, ny);
 	}

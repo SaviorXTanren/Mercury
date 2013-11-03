@@ -1,7 +1,8 @@
 package com.wessles.MERCury;
 
 import org.lwjgl.LWJGLException;
-import org.lwjgl.input.*;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import com.wessles.MERCury.geom.Point;
@@ -14,7 +15,7 @@ import com.wessles.MERCury.geom.Point;
  * @website www.wessles.com
  */
 public class Input {
-	
+
 	public void create() {
 		try {
 			Mouse.create();
@@ -25,61 +26,65 @@ public class Input {
 	}
 
 	public boolean keyDown(int key) {
-		if(Keyboard.isKeyDown(key))
+		if (Keyboard.isKeyDown(key)) {
 			return true;
+		}
 		return false;
 	}
-	
+
 	public boolean keyClicked(int key) {
-		while (Keyboard.next())
-			if (Keyboard.getEventKeyState())
-				if (Keyboard.getEventKey() == key)
+		while (Keyboard.next()) {
+			if (Keyboard.getEventKeyState()) {
+				if (Keyboard.getEventKey() == key) {
 					return true;
+				}
+			}
+		}
 		return false;
 	}
-	
+
 	public boolean keyUp(int key) {
 		return !keyDown(key);
 	}
-	
+
 	public boolean mouseDown(int button) {
 		return Mouse.isButtonDown(0);
 	}
-	
+
 	public boolean mouseUp(int button) {
 		return !mouseDown(button);
 	}
-	
+
 	public Point getMousePosition() {
 		return new Point(Mouse.getX(), Mouse.getY());
 	}
-	
+
 	public int getMouseX() {
 		return Mouse.getX();
 	}
-	
+
 	public int getMouseY() {
 		return Mouse.getY();
 	}
-	
+
 	/**
 	 * 'Corrects' the mouse position.
 	 */
 	public Point getAbsoluteMousePosition() {
-		return new Point(Mouse.getX(), Display.getHeight()-1-Mouse.getY());
+		return new Point(Mouse.getX(), Display.getHeight() - 1 - Mouse.getY());
 	}
-	
+
 	/**
 	 * 'Corrects' the mouse position's x.
 	 */
 	public int getAbsoluteMouseX() {
 		return Mouse.getX();
 	}
-	
+
 	/**
 	 * 'Corrects' the mouse position's y.
 	 */
 	public int getAbsoluteMouseY() {
-		return Display.getHeight()-1-Mouse.getY();
+		return Display.getHeight() - 1 - Mouse.getY();
 	}
 }

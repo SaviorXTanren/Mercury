@@ -1,7 +1,20 @@
 package com.wessles.MERCury.opengl;
 
-import static com.wessles.MERCury.opengl.VAOUtils.*;
-import static org.lwjgl.opengl.GL11.*;
+import static com.wessles.MERCury.opengl.VAOUtils.COLOR_ARRAY_POINTER;
+import static com.wessles.MERCury.opengl.VAOUtils.TEXTURE_COORD_ARRAY_POINTER;
+import static com.wessles.MERCury.opengl.VAOUtils.VERTEX_ARRAY_POINTER;
+import static com.wessles.MERCury.opengl.VAOUtils.disableBuffer;
+import static com.wessles.MERCury.opengl.VAOUtils.drawBuffers;
+import static com.wessles.MERCury.opengl.VAOUtils.enableBuffer;
+import static com.wessles.MERCury.opengl.VAOUtils.pointBuffer;
+import static org.lwjgl.opengl.GL11.GL_COLOR;
+import static org.lwjgl.opengl.GL11.GL_COLOR_ARRAY;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_COORD_ARRAY;
+import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
+import static org.lwjgl.opengl.GL11.GL_VERTEX_ARRAY;
+import static org.lwjgl.opengl.GL11.glEnable;
 
 import java.nio.FloatBuffer;
 
@@ -35,23 +48,25 @@ public class VAOBatcher implements Batcher {
 
 	public VAOBatcher(int maxvtx) {
 		this.maxvtx = maxvtx;
-		this.vtxcount = 0;
-		this.vd = BufferUtils.createFloatBuffer(maxvtx * VL);
-		this.cd = BufferUtils.createFloatBuffer(maxvtx * CL);
-		this.td = BufferUtils.createFloatBuffer(maxvtx * TL);
-		this.active = false;
+		vtxcount = 0;
+		vd = BufferUtils.createFloatBuffer(maxvtx * VL);
+		cd = BufferUtils.createFloatBuffer(maxvtx * CL);
+		td = BufferUtils.createFloatBuffer(maxvtx * TL);
+		active = false;
 	}
 
 	public void begin() {
-		if (active)
+		if (active) {
 			throw new IllegalStateException("Must be inactive before calling begin()!");
+		}
 
 		active = true;
 	}
 
 	public void end() {
-		if (!active)
+		if (!active) {
 			throw new IllegalStateException("Must be active before calling end()!");
+		}
 
 		vd.flip();
 		cd.flip();
@@ -89,38 +104,43 @@ public class VAOBatcher implements Batcher {
 	}
 
 	public void setTexture(Texture texture) {
-		if (texture.equals(last_tex))
+		if (texture.equals(last_tex)) {
 			return;
+		}
 		end();
-		this.last_tex = texture;
+		last_tex = texture;
 		Texture.bindTexture(texture);
 		begin();
 	}
 
 	public void clearTextures() {
-		if (last_tex.equals(Texture.getEmptyTexture()))
+		if (last_tex.equals(Texture.getEmptyTexture())) {
 			return;
+		}
 		end();
-		this.last_tex = Texture.getEmptyTexture();
+		last_tex = Texture.getEmptyTexture();
 		Texture.unbindTextures();
 		begin();
 	}
 
 	public void setColor(Color color) {
-		if (color.equals(last_col))
+		if (color.equals(last_col)) {
 			return;
+		}
 		last_col = color;
 	}
 
 	public void clearColors() {
-		if (last_col.equals(ColorUtils.DEFAULT_DRAWING))
+		if (last_col.equals(ColorUtils.DEFAULT_DRAWING)) {
 			return;
+		}
 		last_col = ColorUtils.DEFAULT_DRAWING;
 	}
 
 	public void setShader(Shader shader) {
-		if (last_shader.equals(shader))
+		if (last_shader.equals(shader)) {
 			return;
+		}
 		end();
 		last_shader = shader;
 		Shader.useShader(shader);
@@ -128,8 +148,9 @@ public class VAOBatcher implements Batcher {
 	}
 
 	public void clearShaders() {
-		if (last_shader.equals(Shader.getEmptyShader()))
+		if (last_shader.equals(Shader.getEmptyShader())) {
 			return;
+		}
 		end();
 		last_shader = Shader.getEmptyShader();
 		Shader.releaseShaders();
@@ -139,7 +160,7 @@ public class VAOBatcher implements Batcher {
 	public void vertex(float x, float y, float u, float v) {
 		vertex(x, y, last_col, u, v);
 	}
-	
+
 	public void vertex(float x, float y, Color color, float u, float v) {
 		vertex(x, y, color.r, color.g, color.b, color.a, u, v);
 	}
@@ -149,8 +170,9 @@ public class VAOBatcher implements Batcher {
 	}
 
 	public void vertex(float x, float y, float r, float g, float b, float a, float u, float v) {
-		if (vtxcount >= maxvtx-1)
+		if (vtxcount >= maxvtx - 1) {
 			restart();
+		}
 
 		vd.put(x).put(y);
 		cd.put(r).put(g).put(b).put(a);

@@ -1,6 +1,5 @@
 package com.wessles.MERCury;
 
-
 /**
  * An abstraction for objects that can be updated.
  * 

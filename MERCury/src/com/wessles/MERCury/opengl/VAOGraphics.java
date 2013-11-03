@@ -1,9 +1,16 @@
 package com.wessles.MERCury.opengl;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.glScalef;
 
 import com.wessles.MERCury.Runner;
-import com.wessles.MERCury.geom.*;
+import com.wessles.MERCury.geom.Circle;
+import com.wessles.MERCury.geom.Ellipse;
+import com.wessles.MERCury.geom.Point;
+import com.wessles.MERCury.geom.Rectangle;
+import com.wessles.MERCury.geom.TexturedRectangle;
+import com.wessles.MERCury.geom.TexturedTriangle;
+import com.wessles.MERCury.geom.Triangle;
+import com.wessles.MERCury.geom.Vector2f;
 import com.wessles.MERCury.utils.ColorUtils;
 
 /**
@@ -30,7 +37,7 @@ public class VAOGraphics implements Graphics {
 		float w = Runner.width(Runner.SCALE);
 		float h = Runner.height(Runner.SCALE);
 
-		drawRect(new Rectangle(x, y, x + w, y, x + w, y + h, x, y + h, new Color[] {background_color, background_color, background_color, background_color}));
+		drawRect(new Rectangle(x, y, x + w, y, x + w, y + h, x, y + h, new Color[] { background_color, background_color, background_color, background_color }));
 	}
 
 	public void post() {
@@ -98,9 +105,9 @@ public class VAOGraphics implements Graphics {
 			c4 = rectangle.getColors()[3];
 		}
 
-		if (!(rectangle instanceof TexturedRectangle))
+		if (!(rectangle instanceof TexturedRectangle)) {
 			batcher.clearTextures();
-		else {
+		} else {
 			TexturedRectangle texrect = (TexturedRectangle) rectangle;
 			batcher.setTexture(texrect.getTexture());
 		}
@@ -129,8 +136,9 @@ public class VAOGraphics implements Graphics {
 	}
 
 	public void drawRects(Rectangle[] rects) {
-		for (Rectangle rect : rects)
+		for (Rectangle rect : rects) {
 			drawRect(rect);
+		}
 	}
 
 	public void drawTriangle(Triangle triangle) {
@@ -151,9 +159,9 @@ public class VAOGraphics implements Graphics {
 			c3 = triangle.getColors()[2];
 		}
 
-		if (!(triangle instanceof TexturedTriangle))
+		if (!(triangle instanceof TexturedTriangle)) {
 			batcher.clearTextures();
-		else {
+		} else {
 			TexturedTriangle texrect = (TexturedTriangle) triangle;
 			batcher.setTexture(texrect.getTexture());
 		}
@@ -174,8 +182,9 @@ public class VAOGraphics implements Graphics {
 	}
 
 	public void drawTriangles(Triangle[] triangles) {
-		for (Triangle triangle : triangles)
+		for (Triangle triangle : triangles) {
 			drawTriangle(triangle);
+		}
 	}
 
 	public void drawEllipse(Ellipse ellipse) {
@@ -186,15 +195,17 @@ public class VAOGraphics implements Graphics {
 		for (int c = 0; c < vs.length; c++) {
 			batcher.vertex(ellipse.getCenterX(), ellipse.getCenterY(), 0, 0);
 
-			if (c >= vs.length - 1)
+			if (c >= vs.length - 1) {
 				batcher.vertex(vs[0].x, vs[0].y, 0, 0);
-			else
+			} else {
 				batcher.vertex(vs[c].x, vs[c].y, 0, 0);
+			}
 
-			if (c >= vs.length - 1)
+			if (c >= vs.length - 1) {
 				batcher.vertex(vs[vs.length - 1].x, vs[vs.length - 1].y, 0, 0);
-			else
+			} else {
 				batcher.vertex(vs[c + 1].x, vs[c + 1].y, 0, 0);
+			}
 		}
 	}
 
@@ -203,12 +214,13 @@ public class VAOGraphics implements Graphics {
 	}
 
 	public void drawEllipses(Ellipse[] ellipses) {
-		for (Ellipse ellipse : ellipses)
+		for (Ellipse ellipse : ellipses) {
 			drawEllipse(ellipse);
+		}
 	}
 
 	public void drawCircle(Circle circle) {
-		drawEllipse((Ellipse) circle);
+		drawEllipse(circle);
 	}
 
 	public void drawCircle(float x, float y, float radius) {
@@ -216,8 +228,9 @@ public class VAOGraphics implements Graphics {
 	}
 
 	public void drawCircles(Circle[] circs) {
-		for (Circle circ : circs)
+		for (Circle circ : circs) {
 			drawCircle(circ);
+		}
 	}
 
 	public void drawString(float x, float y, String str, Font font) {
@@ -233,9 +246,9 @@ public class VAOGraphics implements Graphics {
 
 			int ax = 0;
 			for (int i = 0; i < str.length(); i++) {
-				int asciiCode = (int) str.charAt(i);
-				int cx = ((int) asciiCode % bmfont.getTextures().length);
-				int cy = ((int) asciiCode / bmfont.getTextures()[0].length);
+				int asciiCode = str.charAt(i);
+				int cx = asciiCode % bmfont.getTextures().length;
+				int cy = asciiCode / bmfont.getTextures()[0].length;
 
 				drawRect(new TexturedRectangle(x + ax, y, x + ax + w * size, y, x + ax + w * size, y + h * size, x + ax, y + h * size, bmfont.getTextures()[cx][cy]));
 
@@ -255,7 +268,8 @@ public class VAOGraphics implements Graphics {
 	}
 
 	public void drawPoints(Point[] points) {
-		for (Point point : points)
+		for (Point point : points) {
 			drawPoint(point);
+		}
 	}
 }

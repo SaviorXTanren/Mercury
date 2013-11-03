@@ -23,34 +23,38 @@ public class Animation {
 	private float w, h;
 
 	public Animation(int frameratemillis, Texture... texs) {
-		if (texs.length == 0)
+		if (texs.length == 0) {
 			throw new IllegalArgumentException("Must be at least 1 texture!");
+		}
 
 		this.frameratemillis = frameratemillis;
 		this.texs = texs;
-		this.w = 0;
-		this.h = 0;
+		w = 0;
+		h = 0;
 
 		for (Texture tex : this.texs) {
-			if (tex.getTextureWidth() > this.w)
-				this.w = tex.getTextureWidth();
-			if (tex.getTextureHeight() > this.h)
-				this.h = tex.getTextureHeight();
+			if (tex.getTextureWidth() > w) {
+				w = tex.getTextureWidth();
+			}
+			if (tex.getTextureHeight() > h) {
+				h = tex.getTextureHeight();
+			}
 		}
 
-		this.frame = 0;
+		frame = 0;
 	}
 
 	public Animation(float w, float h, int frameratemillis, Texture... texs) {
-		if (texs.length == 0)
+		if (texs.length == 0) {
 			throw new IllegalArgumentException("Must be at least 1 texture!");
+		}
 
 		this.frameratemillis = frameratemillis;
 		this.texs = texs;
 		this.w = w;
 		this.h = h;
 
-		this.frame = 0;
+		frame = 0;
 	}
 
 	public void reverse() {
@@ -75,10 +79,11 @@ public class Animation {
 
 		if (framemillis - lastframemillis >= frameratemillis) {
 
-			if (frame < texs.length - 1)
+			if (frame < texs.length - 1) {
 				frame++;
-			else
+			} else {
 				frame = 0;
+			}
 
 			lastframemillis = System.currentTimeMillis();
 		}
@@ -86,8 +91,8 @@ public class Animation {
 
 	public void render(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float origx, float origy, float rot, Graphics g) {
 		Vector2f[] vs = ArrayUtils.getVector2fs(new float[] { x1, y1, x2, y2, x3, y3, x4, y4 });
-		
-		for(Vector2f p : vs) {
+
+		for (Vector2f p : vs) {
 			float s = MTrig.sin(rot);
 			float c = MTrig.cos(rot);
 
@@ -107,10 +112,11 @@ public class Animation {
 
 		if (framemillis - lastframemillis >= frameratemillis) {
 
-			if (frame < texs.length - 1)
+			if (frame < texs.length - 1) {
 				frame++;
-			else
+			} else {
 				frame = 0;
+			}
 
 			lastframemillis = System.currentTimeMillis();
 		}
@@ -153,11 +159,12 @@ public class Animation {
 		Texture[] texs_s = new Texture[texs_g.length * texs_g[0].length];
 		int cnt = 0;
 
-		for (int x = 0; x < texs_g.length; x++)
+		for (Texture[] element : texs_g) {
 			for (int y = 0; y < texs_g[0].length; y++) {
-				texs_s[cnt] = texs_g[x][y];
+				texs_s[cnt] = element[y];
 				cnt++;
 			}
+		}
 
 		return new Animation(frameratemillis, texs_s);
 	}

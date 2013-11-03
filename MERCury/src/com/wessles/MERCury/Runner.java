@@ -1,6 +1,8 @@
 package com.wessles.MERCury;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
 
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
@@ -19,8 +21,8 @@ import com.wessles.MERCury.utils.Camera;
  */
 
 public class Runner {
-	public static float SCALE=1;
-	
+	public static float SCALE = 1;
+
 	private static long lastframe;
 	private static int delta = 1;
 	private static float deltafactor = 1;
@@ -89,7 +91,7 @@ public class Runner {
 		Logger.println();
 
 		while (core.isRunning()) {
-			long time = ((Sys.getTime() * 1000) / Sys.getTimerResolution());
+			long time = Sys.getTime() * 1000 / Sys.getTimerResolution();
 			delta = (int) (time - lastframe);
 			lastframe = time;
 
@@ -101,8 +103,9 @@ public class Runner {
 			Runner.core.render(graphicsobject);
 			camera.post(graphicsobject);
 
-			if (Display.isCloseRequested())
+			if (Display.isCloseRequested()) {
 				Runner.core.end();
+			}
 
 			Display.update();
 			Display.sync(60);
@@ -123,19 +126,19 @@ public class Runner {
 	public static int width() {
 		return Display.getWidth();
 	}
-	
+
 	public static float width(float numerator) {
-		return width()/numerator;
+		return width() / numerator;
 	}
-	
+
 	public static int height() {
 		return Display.getHeight();
 	}
-	
+
 	public static float height(float numerator) {
-		return height()/numerator;
+		return height() / numerator;
 	}
-	
+
 	public static Core getCore() {
 		return Runner.core;
 	}

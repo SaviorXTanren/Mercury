@@ -1,6 +1,5 @@
 package com.wessles.MERCury.opengl;
 
-
 /**
  * An abstraction for objects that are textured.
  * 

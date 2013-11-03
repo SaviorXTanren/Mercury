@@ -22,7 +22,7 @@ public class Logger {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void printDateAndTime() {
 		DateFormat dfd = new SimpleDateFormat("yyyy/MM/dd");
 		DateFormat dft = new SimpleDateFormat("HH:mm:ss");
@@ -32,36 +32,39 @@ public class Logger {
 		print("#TIME: ");
 		println(dft.format(cal.getTime()));
 	}
-	
+
 	public static void print(Object... nums) {
 		for (int n = 0; n < nums.length; n++) {
-			String line = nums[n] + ((n != nums.length-1) ? ", " : "");
+			String line = nums[n] + (n != nums.length - 1 ? ", " : "");
 			System.out.print(line);
-			if(log != null)
+			if (log != null) {
 				log.print(line);
+			}
 		}
 	}
-	
+
 	public static void println(Object... nums) {
 		print(nums);
 		println();
 	}
-	
+
 	public static void println() {
 		printlns(1);
 	}
-	
+
 	public static void printlns(int lines) {
-		for(int l = 0; l < lines; l ++) {
+		for (int l = 0; l < lines; l++) {
 			System.out.println();
-			if(log != null)
+			if (log != null) {
 				log.println();
+			}
 		}
 	}
-	
+
 	public static void cleanup() {
-		if(log == null)
+		if (log == null) {
 			return;
+		}
 		log.close();
 	}
 }

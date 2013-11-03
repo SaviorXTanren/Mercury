@@ -1,5 +1,7 @@
 package com.wessles.MERCury.utils;
 
+import static org.lwjgl.opengl.GL11.GL_NEAREST;
+
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,12 +9,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import static org.lwjgl.opengl.GL11.*;
-
 import com.wessles.MERCury.opengl.Texture;
 
 /**
- * A utility class to get texture grids and strips from single files. It is more efficient to store all textures on one image than having multiple resources on different files
+ * A utility class to get texture grids and strips from single files. It is more
+ * efficient to store all textures on one image than having multiple resources
+ * on different files
  * 
  * @from MERCury
  * @author wessles
@@ -92,21 +94,22 @@ public class TextureFactory {
 
 		for (int x = 0; x < bi.getWidth(); x += divwidth) {
 			for (int y = 0; y < bi.getHeight(); y += divheight) {
-				result[x/divwidth][y/divheight] = Texture.loadTexture(bi.getSubimage(x, y, divwidth, divheight));
+				result[x / divwidth][y / divheight] = Texture.loadTexture(bi.getSubimage(x, y, divwidth, divheight));
 			}
 		}
 
 		return result;
 	}
-	
+
 	public static Texture[] getTextureStripFromGrid(Texture[][] textures) {
-			Texture[] result = new Texture[textures.length*textures[0].length];
-			int index = 0;
-			for(int x = 0; x < textures.length; x++)
-				for(int y = 0; y < textures[0].length; y++) {
-					result[index] = textures[x][y];
-					index++;
-				}
-			return result;
+		Texture[] result = new Texture[textures.length * textures[0].length];
+		int index = 0;
+		for (Texture[] texture : textures) {
+			for (int y = 0; y < textures[0].length; y++) {
+				result[index] = texture[y];
+				index++;
+			}
+		}
+		return result;
 	}
 }

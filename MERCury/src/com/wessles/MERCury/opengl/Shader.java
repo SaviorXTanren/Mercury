@@ -10,7 +10,8 @@ import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.GL11;
 
 /**
- * An object version of shaders. Does all of the tedius stuff for you and lets you use the shader easily.
+ * An object version of shaders. Does all of the tedius stuff for you and lets
+ * you use the shader easily.
  * 
  * @from MERCury
  * @author wessles
@@ -37,31 +38,33 @@ public class Shader {
 	public void release() {
 		ARBShaderObjects.glUseProgramObjectARB(DEFAULT_SHADER);
 	}
-	
-	public void setUniformf(String name, float...values) {
+
+	public void setUniformf(String name, float... values) {
 		int location = ARBShaderObjects.glGetUniformLocationARB(programobject, name);
-		
-		if(values.length == 1)
+
+		if (values.length == 1) {
 			ARBShaderObjects.glUniform1fARB(location, values[0]);
-		else if(values.length == 2)
+		} else if (values.length == 2) {
 			ARBShaderObjects.glUniform2fARB(location, values[0], values[1]);
-		else if(values.length == 3)
+		} else if (values.length == 3) {
 			ARBShaderObjects.glUniform3fARB(location, values[0], values[1], values[2]);
-		else if(values.length == 4)
+		} else if (values.length == 4) {
 			ARBShaderObjects.glUniform4fARB(location, values[0], values[1], values[2], values[3]);
+		}
 	}
-	
-	public void setUniformi(String name, int...values) {
+
+	public void setUniformi(String name, int... values) {
 		int location = ARBShaderObjects.glGetUniformLocationARB(programobject, name);
-		
-		if(values.length == 1)
+
+		if (values.length == 1) {
 			ARBShaderObjects.glUniform1iARB(location, values[0]);
-		else if(values.length == 2)
+		} else if (values.length == 2) {
 			ARBShaderObjects.glUniform2iARB(location, values[0], values[1]);
-		else if(values.length == 3)
+		} else if (values.length == 3) {
 			ARBShaderObjects.glUniform3iARB(location, values[0], values[1], values[2]);
-		else if(values.length == 4)
+		} else if (values.length == 4) {
 			ARBShaderObjects.glUniform4iARB(location, values[0], values[1], values[2], values[3]);
+		}
 	}
 
 	public static void useShader(Shader shader) {
@@ -77,8 +80,9 @@ public class Shader {
 
 		program = ARBShaderObjects.glCreateProgramObjectARB();
 
-		if (program == 0)
+		if (program == 0) {
 			return null;
+		}
 
 		ARBShaderObjects.glAttachObjectARB(program, vert);
 		ARBShaderObjects.glAttachObjectARB(program, frag);
@@ -110,14 +114,16 @@ public class Shader {
 			exc.printStackTrace();
 			return null;
 		} finally {
-			if (vertShader == 0 || fragShader == 0)
+			if (vertShader == 0 || fragShader == 0) {
 				return null;
+			}
 		}
 
 		program = ARBShaderObjects.glCreateProgramObjectARB();
 
-		if (program == 0)
+		if (program == 0) {
 			return null;
+		}
 
 		ARBShaderObjects.glAttachObjectARB(program, vertShader);
 		ARBShaderObjects.glAttachObjectARB(program, fragShader);
@@ -150,14 +156,16 @@ public class Shader {
 		try {
 			shader = ARBShaderObjects.glCreateShaderObjectARB(shaderType);
 
-			if (shader == 0)
+			if (shader == 0) {
 				return 0;
+			}
 
 			ARBShaderObjects.glShaderSourceARB(shader, readShader(filename));
 			ARBShaderObjects.glCompileShaderARB(shader);
 
-			if (ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_COMPILE_STATUS_ARB) == GL11.GL_FALSE)
+			if (ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_COMPILE_STATUS_ARB) == GL11.GL_FALSE) {
 				throw new RuntimeException("Error creating shader: " + ARBShaderObjects.glGetInfoLogARB(shader, ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB)));
+			}
 
 			return shader;
 		} catch (Exception exc) {
@@ -180,42 +188,47 @@ public class Shader {
 			Exception innerExc = null;
 			try {
 				String line;
-				while ((line = reader.readLine()) != null)
+				while ((line = reader.readLine()) != null) {
 					source.append(line).append('\n');
+				}
 			} catch (Exception exc) {
 				exception = exc;
 			} finally {
 				try {
 					reader.close();
 				} catch (Exception exc) {
-					if (innerExc == null)
+					if (innerExc == null) {
 						innerExc = exc;
-					else
+					} else {
 						exc.printStackTrace();
+					}
 				}
 			}
 
-			if (innerExc != null)
+			if (innerExc != null) {
 				throw innerExc;
+			}
 		} catch (Exception exc) {
 			exception = exc;
 		} finally {
 			try {
 				in.close();
 			} catch (Exception exc) {
-				if (exception == null)
+				if (exception == null) {
 					exception = exc;
-				else
+				} else {
 					exc.printStackTrace();
+				}
 			}
 
-			if (exception != null)
+			if (exception != null) {
 				throw exception;
+			}
 		}
 
 		return source.toString();
 	}
-	
+
 	public static Shader getEmptyShader() {
 		return new Shader(DEFAULT_SHADER);
 	}

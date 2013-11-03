@@ -1,6 +1,5 @@
 package com.wessles.MERCury.geom;
 
-import com.wessles.MERCury.geom.Rectangle;
 import com.wessles.MERCury.opengl.Texture;
 import com.wessles.MERCury.opengl.Textured;
 

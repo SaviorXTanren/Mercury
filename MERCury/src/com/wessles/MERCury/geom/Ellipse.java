@@ -35,32 +35,32 @@ public class Ellipse extends Shape {
 	public boolean intersects(Shape s) {
 		float cx = getCenterX();
 		float cy = getCenterY();
-		
-		float x1 = cx-radx/2;
-		float y1 = cy-rady/2;
-		
-		float x2 = cx+radx/2;
-		float y2 = cy-rady/2;
-		
-		float x3 = cx+radx/2;
-		float y3 = cy+rady/2;
-		
-		float x4 = cx-radx/2;
-		float y4 = cy+rady/2;
-		
+
+		float x1 = cx - radx / 2;
+		float y1 = cy - rady / 2;
+
+		float x2 = cx + radx / 2;
+		float y2 = cy - rady / 2;
+
+		float x3 = cx + radx / 2;
+		float y3 = cy + rady / 2;
+
+		float x4 = cx - radx / 2;
+		float y4 = cy + rady / 2;
+
 		return new Rectangle(x1, y1, x2, y2, x3, y3, x4, y4).intersects(s);
 	}
 
 	public boolean contains(Vector2f v) {
 		float cx = getCenterX();
 		float cy = getCenterY();
-		
-		float x1 = cx-radx/2;
-		float y1 = cy-rady/2;
-		
-		float x3 = cx+radx/2;
-		float y3 = cy+rady/2;
-		
+
+		float x1 = cx - radx / 2;
+		float y1 = cy - rady / 2;
+
+		float x3 = cx + radx / 2;
+		float y3 = cy + rady / 2;
+
 		return v.x > x1 && v.x < x3 && v.y > y1 && v.y < y3;
 	}
 }
