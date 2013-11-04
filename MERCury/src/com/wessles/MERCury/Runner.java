@@ -96,6 +96,12 @@ public class Runner {
 		Logger.println();
 		Logger.println();
 
+		/*
+		 * Initial 'last time...' Otherwise the first delta will be about
+		 * 50000000.
+		 */
+		lastframe = Sys.getTime() * 1000 / Sys.getTimerResolution();
+
 		while (core.isRunning()) {
 			long time = Sys.getTime() * 1000 / Sys.getTimerResolution();
 			delta = (int) (time - lastframe);
