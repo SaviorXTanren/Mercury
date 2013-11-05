@@ -27,7 +27,7 @@ public class Runner {
 
 	private static boolean logfps = false;
 	private static int delta = 1;
-	private static int FPS_TARGET = 60, FPS = 60;
+	private static int FPS_TARGET = 60, FPS;
 	private static long lastframe;
 	private static float deltafactor = 1;
 
@@ -98,13 +98,16 @@ public class Runner {
 		Logger.println();
 		Logger.println();
 
+		// To the main loop!
+
+		int _FPS = 0;
+		long lastfps;
+
 		/*
 		 * Initial 'last time...' Otherwise the first delta will be about
 		 * 50000000.
 		 */
-		lastframe = Sys.getTime() * 1000 / Sys.getTimerResolution();
-
-		int _FPS = 0;
+		lastfps = lastframe = Sys.getTime() * 1000 / Sys.getTimerResolution();
 
 		while (core.isRunning()) {
 			// Set time for FPS and Delta calculations
@@ -114,12 +117,16 @@ public class Runner {
 			delta = (int) (time - lastframe);
 
 			// Update FPS
-			if (time - lastframe < 1000) {
+			if (time - lastfps < 1000) {
 				_FPS++;
 			} else {
+				lastfps = time;
 				FPS = _FPS;
 				_FPS = 0;
 			}
+			
+			if(FPS == 0)
+				FPS = FPS_TARGET;
 
 			// End all time calculations.
 			lastframe = time;
