@@ -53,7 +53,7 @@ public abstract class Core {
 	public Core(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
 		this(WIDTH, HEIGHT, fullscreen, vsync, null);
 	}
-	
+
 	public Core(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, File log) {
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;

@@ -28,7 +28,7 @@ public abstract class StateCore extends Core {
 	public StateCore(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
 		this(WIDTH, HEIGHT, fullscreen, vsync, null);
 	}
-	
+
 	public StateCore(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, File log) {
 		super(WIDTH, HEIGHT, fullscreen, vsync, log);
 	}

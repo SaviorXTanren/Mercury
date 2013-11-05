@@ -114,9 +114,9 @@ public class Runner {
 			delta = (int) (time - lastframe);
 
 			// Update FPS
-			if (time - lastframe < 1000)
+			if (time - lastframe < 1000) {
 				_FPS++;
-			else {
+			} else {
 				FPS = _FPS;
 				_FPS = 0;
 			}
@@ -125,8 +125,9 @@ public class Runner {
 			lastframe = time;
 
 			// Log FPS
-			if (logfps)
+			if (logfps) {
 				Logger.println("FPS:" + FPS);
+			}
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
