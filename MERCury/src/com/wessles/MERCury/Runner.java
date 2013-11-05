@@ -25,8 +25,10 @@ import com.wessles.MERCury.utils.Camera;
 public class Runner {
 	public static float SCALE = 1;
 
-	private static long lastframe;
+	private static boolean logfps = false;
 	private static int delta = 1;
+	private static int FPS_TARGET = 60, FPS = 60;
+	private static long lastframe;
 	private static float deltafactor = 1;
 
 	private static Core core;
@@ -102,10 +104,29 @@ public class Runner {
 		 */
 		lastframe = Sys.getTime() * 1000 / Sys.getTimerResolution();
 
+		int _FPS = 0;
+
 		while (core.isRunning()) {
+			// Set time for FPS and Delta calculations
 			long time = Sys.getTime() * 1000 / Sys.getTimerResolution();
+
+			// Calculate delta
 			delta = (int) (time - lastframe);
+
+			// Update FPS
+			if (time - lastframe < 1000)
+				_FPS++;
+			else {
+				FPS = _FPS;
+				_FPS = 0;
+			}
+
+			// End all time calculations.
 			lastframe = time;
+
+			// Log FPS
+			if (logfps)
+				Logger.println("FPS:" + FPS);
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -120,7 +141,7 @@ public class Runner {
 			}
 
 			Display.update();
-			Display.sync(60);
+			Display.sync(FPS_TARGET);
 		}
 
 		Logger.println();
@@ -133,6 +154,18 @@ public class Runner {
 		Logger.println("#MERCury: MERCury Shutting down...");
 		Logger.printDateAndTime();
 		Logger.cleanup();
+	}
+
+	public static int fps() {
+		return FPS;
+	}
+
+	public static void setFpsTarget(int target) {
+		FPS_TARGET = target;
+	}
+
+	public static void setLogFPS(boolean logfps) {
+		Runner.logfps = logfps;
 	}
 
 	public static int width() {
@@ -151,7 +184,7 @@ public class Runner {
 		return height() / numerator;
 	}
 
-	public static Core getCore() {
+	public static Core core() {
 		return Runner.core;
 	}
 
