@@ -22,6 +22,8 @@ public abstract class Shape {
 	protected float nx, ny, fx, fy;
 	protected float radius;
 
+	private float rot = 0;
+
 	public Shape(float... coords) {
 		this(ColorUtils.getColorArray(ColorUtils.DEFAULT_DRAWING, coords.length / 2), ArrayUtils.getVector2fs(coords), true);
 	}
@@ -82,10 +84,19 @@ public abstract class Shape {
 			p.x = xnew + origx;
 			p.y = ynew + origy;
 		}
+		rot = angle;
+	}
+	
+	public void rotate(float angle) {
+		rotate(nx+getWidth()/2, ny+getHeight()/2, angle);
 	}
 
+	public void rotateTo(float origx, float origy, float angle) {
+		rotate(origx, origy, rot-angle);
+	}
+	
 	public void rotateTo(float angle) {
-
+		rotateTo(nx+getWidth()/2, ny+getHeight()/2, angle);
 	}
 
 	public float getArea() {

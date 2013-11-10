@@ -4,9 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.wessles.MERCury.geom.TexturedRectangle;
-import com.wessles.MERCury.geom.Vector2f;
-import com.wessles.MERCury.maths.MTrig;
-import com.wessles.MERCury.utils.ArrayUtils;
 import com.wessles.MERCury.utils.TextureFactory;
 
 /**
@@ -64,15 +61,18 @@ public class Animation {
 		frame = texs.length - 1 - frame;
 	}
 
-	public void render(float x, float y, Graphics g) {
-		render(x, y, getAnimationWidth(), getAnimationHeight(), g);
+	public boolean render(float x, float y, Graphics g) {
+		return render(x, y, getAnimationWidth(), getAnimationHeight(), g);
 	}
 
-	public void render(float x, float y, float w, float h, Graphics g) {
-		render(x, y, x + w, y, x + w, y + h, x, y + h, g);
+	public boolean render(float x, float y, float w, float h, Graphics g) {
+		return render(x, y, x + w, y, x + w, y + h, x, y + h, g);
 	}
 
-	public void render(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, Graphics g) {
+	/**
+	 * @return whether or not this is the last frame.
+	 */
+	public boolean render(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, Graphics g) {
 		g.drawRect(new TexturedRectangle(x1, y1, x2, y2, x3, y3, x4, y4, texs[frame]));
 
 		framemillis = System.currentTimeMillis();
@@ -86,27 +86,18 @@ public class Animation {
 			}
 
 			lastframemillis = System.currentTimeMillis();
+			return frame == 0;
 		}
+		return false;
 	}
 
-	public void render(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float origx, float origy, float rot, Graphics g) {
-		Vector2f[] vs = ArrayUtils.getVector2fs(new float[] { x1, y1, x2, y2, x3, y3, x4, y4 });
-
-		for (Vector2f p : vs) {
-			float s = MTrig.sin(rot);
-			float c = MTrig.cos(rot);
-
-			p.x -= origx;
-			p.y -= origy;
-
-			float xnew = p.x * c - p.y * s;
-			float ynew = p.x * s + p.y * c;
-
-			p.x = xnew + origx;
-			p.y = ynew + origy;
-		}
-
-		g.drawRect(new TexturedRectangle(vs[0].x, vs[0].y, vs[1].x, vs[1].y, vs[2].x, vs[2].y, vs[3].x, vs[3].y, texs[frame]));
+	/**
+	 * @return whether or not this is the last frame.
+	 */
+	public boolean render(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float origx, float origy, float rot, Graphics g) {
+		TexturedRectangle render = new TexturedRectangle(x1, y1, x2, y2, x3, y3, x4, y4, texs[frame]);
+		render.rotate(origx, origy, rot);
+		g.drawRect(render);
 
 		framemillis = System.currentTimeMillis();
 
@@ -119,7 +110,9 @@ public class Animation {
 			}
 
 			lastframemillis = System.currentTimeMillis();
+			return frame == 0;
 		}
+		return false;
 	}
 
 	public void setFrame(int frame) {
@@ -143,7 +136,7 @@ public class Animation {
 	}
 
 	public boolean isLastFrame() {
-		return frame + 1 == texs.length;
+		return frame == texs.length - 1;
 	}
 
 	public Texture[] getTextures() {
