@@ -1,6 +1,6 @@
 package com.wessles.MERCury.opengl;
 
-import static org.lwjgl.opengl.GL11.glScalef;
+import static org.lwjgl.opengl.GL11.*;
 
 import com.wessles.MERCury.Runner;
 import com.wessles.MERCury.geom.Circle;
@@ -66,6 +66,20 @@ public class VAOGraphics implements Graphics {
 
 	public void releaseShaders() {
 		batcher.clearShaders();
+	}
+	
+	public Batcher getBatcher() {
+		return batcher;
+	}
+	
+	public void drawRawVertices(VAOBatcher.VertexData... verts) {
+		if (verts.length % 3 != 0) {
+			throw new IllegalArgumentException("Vertices must be in multiples of 3!");
+		}
+
+		for(VAOBatcher.VertexData vdo : verts) {
+			batcher.vertex(vdo);
+		}
 	}
 
 	public void drawTexture(Texture texture, float x, float y) {

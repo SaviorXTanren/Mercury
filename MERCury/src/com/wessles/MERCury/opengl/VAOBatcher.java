@@ -168,15 +168,19 @@ public class VAOBatcher implements Batcher {
 	public void vertex(float x, float y, float r, float g, float b, float u, float v) {
 		vertex(x, y, r, g, b, 1, u, v);
 	}
-
+	
 	public void vertex(float x, float y, float r, float g, float b, float a, float u, float v) {
+		vertex(new VertexData(x, y, r, g, b, a, u, v));
+	}
+	
+	public void vertex(VertexData vdo) {
 		if (vtxcount >= maxvtx - 1) {
 			restart();
 		}
 
-		vd.put(x).put(y);
-		cd.put(r).put(g).put(b).put(a);
-		td.put(u).put(v);
+		vd.put(vdo.x).put(vdo.y);
+		cd.put(vdo.r).put(vdo.g).put(vdo.b).put(vdo.a);
+		td.put(vdo.u).put(vdo.v);
 
 		vtxcount++;
 	}
@@ -184,5 +188,20 @@ public class VAOBatcher implements Batcher {
 	private void restart() {
 		end();
 		begin();
+	}
+
+	public static class VertexData {
+		float x, y, r, g, b, a, u, v;
+
+		public VertexData(float x, float y, float r, float g, float b, float a, float u, float v) {
+			this.x = x;
+			this.y = y;
+			this.r = r;
+			this.g = g;
+			this.b = b;
+			this.a = a;
+			this.u = u;
+			this.v = v;
+		}
 	}
 }
