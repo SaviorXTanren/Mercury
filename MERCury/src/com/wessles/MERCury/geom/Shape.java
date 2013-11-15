@@ -1,6 +1,6 @@
 package com.wessles.MERCury.geom;
 
-import com.wessles.MERCury.maths.MTrig;
+import com.wessles.MERCury.maths.MercMath;
 import com.wessles.MERCury.opengl.Color;
 import com.wessles.MERCury.utils.ArrayUtils;
 import com.wessles.MERCury.utils.ColorUtils;
@@ -72,8 +72,8 @@ public abstract class Shape {
 
 	public void rotate(float origx, float origy, float angle) {
 		for (Vector2f p : vertices) {
-			float s = MTrig.sin(angle);
-			float c = MTrig.cos(angle);
+			float s = MercMath.sin(angle);
+			float c = MercMath.cos(angle);
 
 			p.x -= origx;
 			p.y -= origy;

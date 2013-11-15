@@ -1,6 +1,6 @@
 package com.wessles.MERCury.geom;
 
-import com.wessles.MERCury.maths.MTrig;
+import com.wessles.MERCury.maths.MercMath;
 
 /**
  * @from MERCury
@@ -26,7 +26,7 @@ public class Ellipse extends Shape {
 		float angle = 0, step = 360 / MAX_VERTS;
 
 		for (int a = 0; a < MAX_VERTS; a++) {
-			verts[a] = new Vector2f(x + MTrig.cos(angle) * radx, y + MTrig.sin(angle) * rady);
+			verts[a] = new Vector2f(x + MercMath.cos(angle) * radx, y + MercMath.sin(angle) * rady);
 			angle += step;
 		}
 		return verts;
