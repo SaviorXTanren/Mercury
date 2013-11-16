@@ -23,7 +23,7 @@ import com.wessles.MERCury.utils.ColorUtils;
 
 public class VAOGraphics implements Graphics {
 	private VAOBatcher batcher;
-	private Color background_color;
+	private Color background_color = ColorUtils.DEFAULT_BACKGROUND;
 
 	public void init() {
 		batcher = new VAOBatcher();
