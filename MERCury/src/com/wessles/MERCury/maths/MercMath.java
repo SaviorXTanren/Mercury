@@ -17,7 +17,7 @@ public class MercMath {
 	 *         .
 	 */
 	public static final double random(double minimum, double maximum) {
-		return (float) (Math.random() * (maximum - minimum)) + minimum;
+		return (float) minimum + (int)(Math.random() * ((maximum - minimum) + 1));
 	}
 
 	/**
