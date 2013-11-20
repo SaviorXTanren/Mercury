@@ -37,9 +37,8 @@ public abstract class Shape {
 	}
 
 	public Shape(Color[] colors, Vector2f[] vertices, boolean ignorecolored) {
-		if (vertices.length != colors.length) {
+		if (vertices.length != colors.length)
 			throw new IllegalArgumentException("The number of colors and vertices must be equal!");
-		}
 
 		this.ignorecolored = ignorecolored;
 		this.colors = colors;
@@ -86,17 +85,17 @@ public abstract class Shape {
 		}
 		rot = angle;
 	}
-	
+
 	public void rotate(float angle) {
-		rotate(nx+getWidth()/2, ny+getHeight()/2, angle);
+		rotate(nx + getWidth() / 2, ny + getHeight() / 2, angle);
 	}
 
 	public void rotateTo(float origx, float origy, float angle) {
-		rotate(origx, origy, rot-angle);
+		rotate(origx, origy, rot - angle);
 	}
-	
+
 	public void rotateTo(float angle) {
-		rotateTo(nx+getWidth()/2, ny+getHeight()/2, angle);
+		rotateTo(nx + getWidth() / 2, ny + getHeight() / 2, angle);
 	}
 
 	public float getArea() {
@@ -154,17 +153,15 @@ public abstract class Shape {
 		fy = ny;
 
 		for (Vector2f vertex : vertices) {
-			if (vertex.x < nx) {
+			if (vertex.x < nx)
 				nx = vertex.x;
-			} else if (vertex.x > fx) {
+			else if (vertex.x > fx)
 				fx = vertex.x;
-			}
 
-			if (vertex.y < ny || vertex.y > fy) {
+			if (vertex.y < ny || vertex.y > fy)
 				ny = vertex.y;
-			} else if (vertex.y > fy) {
+			else if (vertex.y > fy)
 				fy = vertex.y;
-			}
 		}
 		center = new Vector2f((nx + fx) / 2, (ny + fy) / 2);
 		radius = Math.abs(getWidth() > getHeight() ? getWidth() : getHeight());

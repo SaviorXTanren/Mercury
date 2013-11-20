@@ -7,6 +7,7 @@ import static org.lwjgl.opengl.GL11.glClear;
 import java.io.File;
 
 import org.lwjgl.Sys;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import com.wessles.MERCury.log.Logger;
@@ -15,7 +16,7 @@ import com.wessles.MERCury.utils.Camera;
 
 /**
  * A class that will run your core, and give out the graphics object, current
- * core, resource manager, and input staticly.
+ * core, resource manager, and input ly.
  * 
  * @from MERCury
  * @author wessles
@@ -23,32 +24,35 @@ import com.wessles.MERCury.utils.Camera;
  */
 
 public class Runner {
-	public static float SCALE = 1;
+	private final static Runner singleton = new Runner();
 
-	private static boolean logfps = false;
-	private static int delta = 1;
-	private static int FPS_TARGET = 60, FPS;
-	private static long lastframe;
-	private static float deltafactor = 1;
+	private boolean running = false;
+	private boolean vsync;
+	private boolean logfps = false;
+	private int delta = 1;
+	private int FPS_TARGET = 60, FPS;
+	private long lastframe;
+	private float deltafactor = 1;
 
-	private static Core core;
-	private static Camera camera;
-	private static Graphics graphicsobject;
-	private static ResourceManager RM;
-	private static Input input;
+	private Core core;
 
-	public static void boot(Core core, int WIDTH, int HEIGHT) {
-		boot(core, WIDTH, HEIGHT, true);
+	private Graphics graphicsobject;
+	private ResourceManager RM;
+
+	private Camera camera;
+	private Input input;
+
+	public void init(Core core, int WIDTH, int HEIGHT) {
+		init(core, WIDTH, HEIGHT, false);
 	}
 
-	public static void boot(Core core, int WIDTH, int HEIGHT, boolean fullscreen) {
-		boot(core, WIDTH, HEIGHT, fullscreen, true, null);
+	public void init(Core core, int WIDTH, int HEIGHT, boolean fullscreen) {
+		init(core, WIDTH, HEIGHT, fullscreen, true, null);
 	}
 
-	public static void boot(Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, File log) {
-		if (log != null) {
+	public void init(Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, File log) {
+		if (log != null)
 			Logger.setLog(log);
-		}
 
 		// Init some stuffs!
 		Logger.println("# MERCury Started!");
@@ -62,38 +66,52 @@ public class Runner {
 		Logger.println("                                        __/ |");
 		Logger.println("                                       |___/ ");
 		Logger.println("Maitenance Enhanced and Reliable Coding Engine");
-		Logger.println("          by wessles of www.wessles.com");
+		Logger.println("             by wessles");
+		Logger.println();
+		Logger.println("             Email wessles@wessles.com for support");
+		Logger.println("             Go to www.reddit.com/r/MERCuryGameEngine for community");
+		Logger.println();
+		Logger.println("                        Copyright www.wessles.com 2013");
+		Logger.println("                        All Rights Reserved");
 		Logger.println();
 
 		Logger.printDateAndTime();
 
 		Logger.println();
 
-		Runner.core = core;
+		this.core = core;
 		Logger.println("#MERCury: Made Core...");
-		Runner.RM = new ResourceManager();
+		this.vsync = vsync;
+		this.core.initDisplay(WIDTH, HEIGHT, fullscreen, vsync);
+		Logger.println("#MERCury: Initialized Display...");
+		graphicsobject = this.core.initGraphics();
+		Logger.println("#MERCury: Made Graphics...");
+		camera = new Camera(0, 0);
+		Logger.println("#MERCury: Initialized Camera...");
+		this.core.initAudio();
+		Logger.println("#MERCury: Initialized Audio...");
+		RM = new ResourceManager();
 		Logger.println("#MERCury: Initialized Resource Manager...");
 
-		Runner.core.initDisplay(WIDTH, HEIGHT, fullscreen, vsync);
-		Logger.println("#MERCury: Initialized Display...");
-		Runner.camera = new Camera(0, 0);
-		Logger.println("#MERCury: Initialized Camera...");
-		Runner.graphicsobject = Runner.core.initGraphics();
-		Logger.println("#MERCury: Made Graphics...");
-		Runner.core.initAudio();
-		Logger.println("#MERCury: Initialized Audio...");
-		Runner.core.init(RM);
+		this.core.init(RM);
 		Logger.println("#MERCury: Initialized Core...");
 
-		Runner.graphicsobject.init();
+		graphicsobject.init();
 		Logger.println("#MERCury: Initialized Graphics...");
-		Runner.input = new Input();
+		input = new Input();
 		Logger.println("#MERCury: Created Input...");
-		Runner.input.create();
+		input.create();
 		Logger.println("#MERCury: Initialized Input...");
+
 		Logger.println("#MERCury: Done Initializing.");
 
+		Logger.println("#MERCury: Ready to begin game loop. Awaiting permission from Core...");
+	}
+
+	public void run() {
+		Logger.println("#MERCury: Run permission granted by Core...");
 		Logger.println("#MERCury: Starting Game Loop...");
+		running = true;
 		Logger.println("-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-");
 		Logger.println();
 		Logger.println();
@@ -109,7 +127,7 @@ public class Runner {
 		 */
 		lastfps = lastframe = Sys.getTime() * 1000 / Sys.getTimerResolution();
 
-		while (core.isRunning()) {
+		while (running) {
 			// Set time for FPS and Delta calculations
 			long time = Sys.getTime() * 1000 / Sys.getTimerResolution();
 
@@ -117,36 +135,34 @@ public class Runner {
 			delta = (int) (time - lastframe);
 
 			// Update FPS
-			if (time - lastfps < 1000) {
+			if (time - lastfps < 1000)
 				_FPS++;
-			} else {
+			else {
 				lastfps = time;
 				FPS = _FPS;
 				_FPS = 0;
 			}
-			
-			if(FPS == 0)
+
+			if (FPS == 0)
 				FPS = FPS_TARGET;
 
 			// End all time calculations.
 			lastframe = time;
 
 			// Log FPS
-			if (logfps) {
+			if (logfps)
 				Logger.println("FPS:" + FPS);
-			}
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			Runner.core.update(delta());
+			core.update(delta());
 
 			camera.pre(graphicsobject);
-			Runner.core.render(graphicsobject);
+			core.render(graphicsobject);
 			camera.post(graphicsobject);
 
-			if (Display.isCloseRequested()) {
-				Runner.core.end();
-			}
+			if (Display.isCloseRequested())
+				end();
 
 			Display.update();
 			Display.sync(FPS_TARGET);
@@ -158,65 +174,123 @@ public class Runner {
 		Logger.println("#MERCury: Ending Game Loop...");
 
 		Logger.println("#MERCury: Starting Cleanup...");
-		Runner.core.cleanup(RM);
+		core.cleanup(RM);
+		Logger.println("#MERCury: Cleaned up Core...");
+		RM.cleanup();
+		Logger.println("#MERCury: Cleaned up ResourceManager...");
+		core.cleanupAudio();
+		Logger.println("#MERCury: Cleaned up OpenAL Sound...");
 		Logger.println("#MERCury: MERCury Shutting down...");
 		Logger.printDateAndTime();
 		Logger.cleanup();
 	}
 
-	public static int fps() {
+	public int fps() {
 		return FPS;
 	}
 
-	public static void setFpsTarget(int target) {
+	public void setFpsTarget(int target) {
 		FPS_TARGET = target;
 	}
 
-	public static void setLogFPS(boolean logfps) {
-		Runner.logfps = logfps;
+	public void setLogFPS(boolean logfps) {
+		this.logfps = logfps;
 	}
 
-	public static int width() {
+	public int width() {
 		return Display.getWidth();
 	}
 
-	public static float width(float numerator) {
+	public float width(float numerator) {
 		return width() / numerator;
 	}
 
-	public static int height() {
+	public int height() {
 		return Display.getHeight();
 	}
 
-	public static float height(float numerator) {
+	public float height(float numerator) {
 		return height() / numerator;
 	}
 
-	public static Core core() {
-		return Runner.core;
+	public float aspectRatio() {
+		return width() / height();
 	}
 
-	public static float delta() {
+	public float aspectRatio(float numerator) {
+		return width(numerator) / height(numerator);
+	}
+
+	public float getTime() {
+		return Sys.getTime() * 1000 / Sys.getTimerResolution();
+	}
+
+	public void sleep(int milliseconds) throws InterruptedException {
+		Thread.sleep(milliseconds);
+	}
+
+	public void mousegrab(boolean grab) {
+		Mouse.setGrabbed(grab);
+	}
+
+	public void vsync(boolean vsync) {
+		this.vsync = vsync;
+		Display.setVSyncEnabled(vsync);
+	}
+
+	public boolean focused() {
+		return Display.isActive();
+	}
+
+	public void setTitle(String title) {
+		Display.setTitle(title);
+	}
+
+	public void setResizable(boolean resizable) {
+		Display.setResizable(resizable);
+
+		remakeDisplay();
+	}
+
+	private void remakeDisplay() {
+		Display.destroy();
+		core().initDisplay(width(), height(), Display.isFullscreen(), vsync);
+		graphicsobject = core().initGraphics();
+	}
+
+	public void end() {
+		running = false;
+	}
+
+	public float delta() {
 		return delta * deltafactor;
 	}
 
-	public static void setDeltaFactor(float factor) {
+	public void setDeltaFactor(float factor) {
 		deltafactor = factor;
 	}
 
-	public static Camera camera() {
-		return camera;
+	public Core core() {
+		return core;
 	}
 
-	public static ResourceManager resourceManager() {
-		return RM;
-	}
-
-	public static Graphics graphics() {
+	public Graphics graphics() {
 		return graphicsobject;
 	}
 
-	public static Input input() {
+	public ResourceManager resourceManager() {
+		return RM;
+	}
+
+	public Input input() {
 		return input;
+	}
+
+	public Camera camera() {
+		return camera;
+	}
+
+	public static Runner getInstance() {
+		return singleton;
 	}
 }

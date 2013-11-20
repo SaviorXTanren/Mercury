@@ -3,6 +3,8 @@ package com.wessles.MERCury.geom;
 import com.wessles.MERCury.maths.MercMath;
 
 /**
+ * An ellipse that can have a length and width.
+ * 
  * @from MERCury
  * @author wessles
  * @website www.wessles.com

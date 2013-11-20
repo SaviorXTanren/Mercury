@@ -38,13 +38,12 @@ public class VAOUtils {
 	}
 
 	public static void pointBuffer(int type, int size, FloatBuffer buff) {
-		if (type == TEXTURE_COORD_ARRAY_POINTER) {
+		if (type == TEXTURE_COORD_ARRAY_POINTER)
 			glTexCoordPointer(size, 0, buff);
-		} else if (type == VERTEX_ARRAY_POINTER) {
+		else if (type == VERTEX_ARRAY_POINTER)
 			glVertexPointer(size, 0, buff);
-		} else if (type == COLOR_ARRAY_POINTER) {
+		else if (type == COLOR_ARRAY_POINTER)
 			glColorPointer(size, 0, buff);
-		}
 	}
 
 	public static void drawBuffers(int mode, int vertices) {

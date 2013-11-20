@@ -40,9 +40,8 @@ public class Logger {
 		for (int n = 0; n < nums.length; n++) {
 			String line = nums[n] + (n != nums.length - 1 ? ", " : "");
 			System.out.print(line);
-			if (log != null) {
+			if (log != null)
 				log.print(line);
-			}
 		}
 	}
 
@@ -58,16 +57,14 @@ public class Logger {
 	public static void printlns(int lines) {
 		for (int l = 0; l < lines; l++) {
 			System.out.println();
-			if (log != null) {
+			if (log != null)
 				log.println();
-			}
 		}
 	}
 
 	public static void cleanup() {
-		if (log == null) {
+		if (log == null)
 			return;
-		}
 		log.close();
 	}
 }

@@ -65,12 +65,10 @@ public class Color {
 		b = value & 0x000000FF;
 		a = (value & 0xFF000000) >> 24;
 
-		if (a < 0) {
+		if (a < 0)
 			a += 256;
-		}
-		if (a == 0) {
+		if (a == 0)
 			a = 255;
-		}
 
 		r = r / 255.0f;
 		g = g / 255.0f;
@@ -123,9 +121,8 @@ public class Color {
 	public boolean equals(Object obj) {
 		if (obj instanceof Color) {
 			Color col = (Color) obj;
-			if (col.r == r && col.g == g && col.b == b && col.a == a) {
+			if (col.r == r && col.g == g && col.b == b && col.a == a)
 				return true;
-			}
 		}
 		return false;
 	}

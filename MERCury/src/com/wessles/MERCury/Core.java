@@ -16,11 +16,8 @@ import static org.lwjgl.opengl.GL11.glLoadIdentity;
 import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.opengl.GL11.glOrtho;
 
-import java.io.File;
-
-import kuusisto.tinysound.TinySound;
-
 import org.lwjgl.LWJGLException;
+import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
@@ -37,29 +34,10 @@ import com.wessles.MERCury.opengl.VAOGraphics;
  */
 
 public abstract class Core {
-	private int WIDTH, HEIGHT;
-	private boolean fullscreen, vsync;
-	private boolean running = true;
-	private File log;
+	public final String name;
 
-	public Core(int WIDTH, int HEIGHT) {
-		this(WIDTH, HEIGHT, true);
-	}
-
-	public Core(int WIDTH, int HEIGHT, boolean vsync) {
-		this(WIDTH, HEIGHT, false, vsync);
-	}
-
-	public Core(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
-		this(WIDTH, HEIGHT, fullscreen, vsync, null);
-	}
-
-	public Core(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, File log) {
-		this.WIDTH = WIDTH;
-		this.HEIGHT = HEIGHT;
-		this.fullscreen = fullscreen;
-		this.vsync = vsync;
-		this.log = log;
+	public Core(String name) {
+		this.name = name;
 	}
 
 	/**
@@ -85,15 +63,21 @@ public abstract class Core {
 	 */
 	public abstract void cleanup(ResourceManager RM);
 
-	public void run() {
-		Runner.boot(this, WIDTH, HEIGHT, fullscreen, vsync, log);
-	}
-
 	public void initDisplay(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
 		try {
-			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
-			Display.setTitle(getClass().getSimpleName());
-			Display.setFullscreen(fullscreen);
+			DisplayMode dm = new DisplayMode(WIDTH, HEIGHT);
+
+			if (fullscreen) {
+				Display.setFullscreen(fullscreen);
+				DisplayMode[] modes = Display.getAvailableDisplayModes();
+
+				for (DisplayMode mode : modes)
+					if (mode.getWidth() >= WIDTH && mode.getHeight() >= HEIGHT && mode.isFullscreenCapable())
+						dm = mode;
+			}
+
+			Display.setDisplayMode(dm);
+			Display.setTitle(name);
 			Display.setVSyncEnabled(vsync);
 			Display.create();
 		} catch (LWJGLException e) {
@@ -120,20 +104,14 @@ public abstract class Core {
 	}
 
 	public void initAudio() {
-		TinySound.init();
+		try {
+			AL.create();
+		} catch (LWJGLException e) {
+			e.printStackTrace();
+		}
 	}
 
-	/**
-	 * Returns whether or not the core is running.
-	 */
-	public final boolean isRunning() {
-		return running;
-	}
-
-	/**
-	 * Ends the core, setting the {@code running} variable to false.
-	 */
-	public final void end() {
-		running = false;
+	public void cleanupAudio() {
+		AL.destroy();
 	}
 }

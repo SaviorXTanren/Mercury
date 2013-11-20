@@ -1,6 +1,6 @@
 package com.wessles.MERCury.opengl;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.glScalef;
 
 import com.wessles.MERCury.Runner;
 import com.wessles.MERCury.geom.Circle;
@@ -32,10 +32,10 @@ public class VAOGraphics implements Graphics {
 	public void pre() {
 		batcher.begin();
 
-		float x = Runner.camera().getOffsetX();
-		float y = Runner.camera().getOffsetY();
-		float w = Runner.width(Runner.SCALE);
-		float h = Runner.height(Runner.SCALE);
+		float x = Runner.getInstance().camera().getOffsetX();
+		float y = Runner.getInstance().camera().getOffsetY();
+		float w = Runner.getInstance().width(Runner.getInstance().camera().SCALE);
+		float h = Runner.getInstance().height(Runner.getInstance().camera().SCALE);
 
 		drawRect(new Rectangle(x, y, x + w, y, x + w, y + h, x, y + h, new Color[] { background_color, background_color, background_color, background_color }));
 	}
@@ -67,19 +67,17 @@ public class VAOGraphics implements Graphics {
 	public void releaseShaders() {
 		batcher.clearShaders();
 	}
-	
+
 	public Batcher getBatcher() {
 		return batcher;
 	}
-	
-	public void drawRawVertices(VAOBatcher.VertexData... verts) {
-		if (verts.length % 3 != 0) {
-			throw new IllegalArgumentException("Vertices must be in multiples of 3!");
-		}
 
-		for(VAOBatcher.VertexData vdo : verts) {
+	public void drawRawVertices(VAOBatcher.VertexData... verts) {
+		if (verts.length % 3 != 0)
+			throw new IllegalArgumentException("Vertices must be in multiples of 3!");
+
+		for (VAOBatcher.VertexData vdo : verts)
 			batcher.vertex(vdo);
-		}
 	}
 
 	public void drawTexture(Texture texture, float x, float y) {
@@ -119,9 +117,9 @@ public class VAOGraphics implements Graphics {
 			c4 = rectangle.getColors()[3];
 		}
 
-		if (!(rectangle instanceof TexturedRectangle)) {
+		if (!(rectangle instanceof TexturedRectangle))
 			batcher.clearTextures();
-		} else {
+		else {
 			TexturedRectangle texrect = (TexturedRectangle) rectangle;
 			batcher.setTexture(texrect.getTexture());
 		}
@@ -150,9 +148,8 @@ public class VAOGraphics implements Graphics {
 	}
 
 	public void drawRects(Rectangle[] rects) {
-		for (Rectangle rect : rects) {
+		for (Rectangle rect : rects)
 			drawRect(rect);
-		}
 	}
 
 	public void drawTriangle(Triangle triangle) {
@@ -173,9 +170,9 @@ public class VAOGraphics implements Graphics {
 			c3 = triangle.getColors()[2];
 		}
 
-		if (!(triangle instanceof TexturedTriangle)) {
+		if (!(triangle instanceof TexturedTriangle))
 			batcher.clearTextures();
-		} else {
+		else {
 			TexturedTriangle texrect = (TexturedTriangle) triangle;
 			batcher.setTexture(texrect.getTexture());
 		}
@@ -196,9 +193,8 @@ public class VAOGraphics implements Graphics {
 	}
 
 	public void drawTriangles(Triangle[] triangles) {
-		for (Triangle triangle : triangles) {
+		for (Triangle triangle : triangles)
 			drawTriangle(triangle);
-		}
 	}
 
 	public void drawEllipse(Ellipse ellipse) {
@@ -209,17 +205,15 @@ public class VAOGraphics implements Graphics {
 		for (int c = 0; c < vs.length; c++) {
 			batcher.vertex(ellipse.getCenterX(), ellipse.getCenterY(), 0, 0);
 
-			if (c >= vs.length - 1) {
+			if (c >= vs.length - 1)
 				batcher.vertex(vs[0].x, vs[0].y, 0, 0);
-			} else {
+			else
 				batcher.vertex(vs[c].x, vs[c].y, 0, 0);
-			}
 
-			if (c >= vs.length - 1) {
+			if (c >= vs.length - 1)
 				batcher.vertex(vs[vs.length - 1].x, vs[vs.length - 1].y, 0, 0);
-			} else {
+			else
 				batcher.vertex(vs[c + 1].x, vs[c + 1].y, 0, 0);
-			}
 		}
 	}
 
@@ -228,9 +222,8 @@ public class VAOGraphics implements Graphics {
 	}
 
 	public void drawEllipses(Ellipse[] ellipses) {
-		for (Ellipse ellipse : ellipses) {
+		for (Ellipse ellipse : ellipses)
 			drawEllipse(ellipse);
-		}
 	}
 
 	public void drawCircle(Circle circle) {
@@ -242,9 +235,8 @@ public class VAOGraphics implements Graphics {
 	}
 
 	public void drawCircles(Circle[] circs) {
-		for (Circle circ : circs) {
+		for (Circle circ : circs)
 			drawCircle(circ);
-		}
 	}
 
 	public void drawString(float x, float y, String str, Font font) {
@@ -282,8 +274,7 @@ public class VAOGraphics implements Graphics {
 	}
 
 	public void drawPoints(Point[] points) {
-		for (Point point : points) {
+		for (Point point : points)
 			drawPoint(point);
-		}
 	}
 }

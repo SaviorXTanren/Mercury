@@ -15,6 +15,8 @@ import com.wessles.MERCury.opengl.Graphics;
  * @website www.wessles.com
  */
 public class Camera {
+	public int SCALE = 1;
+
 	private float x, y;
 
 	private Vector2f snap;
@@ -33,9 +35,8 @@ public class Camera {
 
 			x = snap.x;
 			y = snap.y;
-		} else {
+		} else
 			snapped = false;
-		}
 
 		glPushMatrix();
 		glTranslatef(-x + relsnap.x, -y + relsnap.y, 0);

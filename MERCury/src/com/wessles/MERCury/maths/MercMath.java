@@ -17,7 +17,7 @@ public class MercMath {
 	 *         .
 	 */
 	public static final double random(double minimum, double maximum) {
-		return (float) minimum + (int)(Math.random() * ((maximum - minimum) + 1));
+		return (float) minimum + (int) (Math.random() * (maximum - minimum + 1));
 	}
 
 	/**
@@ -33,13 +33,11 @@ public class MercMath {
 	 * @return A boolean that has a {@code percent}% chance of being true.
 	 */
 	public static boolean chance(int percent) {
-		if (percent > 100) {
+		if (percent > 100)
 			percent %= 100;
-		}
 
-		if (random(0, 100) < percent) {
+		if (random(0, 100) < percent)
 			return true;
-		}
 		return false;
 	}
 
@@ -49,13 +47,11 @@ public class MercMath {
 	 * @return A boolean that has a {@code percent}% chance of being true.
 	 */
 	public static boolean chance(float percent) {
-		if (percent > 1) {
+		if (percent > 1)
 			percent %= 1;
-		}
 
-		if (random(0, 1000) < percent * 1000) {
+		if (random(0, 1000) < percent * 1000)
 			return true;
-		}
 		return false;
 	}
 

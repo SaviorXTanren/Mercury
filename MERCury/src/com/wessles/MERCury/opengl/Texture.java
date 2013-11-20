@@ -22,6 +22,8 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.BufferUtils;
 
+import com.wessles.MERCury.Resource;
+
 /**
  * An object version of a texture. This will store the width and height of the
  * object.
@@ -31,7 +33,7 @@ import org.lwjgl.BufferUtils;
  * @website www.wessles.com
  */
 
-public class Texture {
+public class Texture implements Resource {
 	public static final int BYTES_PER_PIXEL = 4;
 
 	private final int textureid, width, height;
@@ -50,10 +52,6 @@ public class Texture {
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	public void delete() {
-		glDeleteTextures(textureid);
-	}
-
 	public int getTextureWidth() {
 		return width;
 	}
@@ -66,12 +64,15 @@ public class Texture {
 		return textureid;
 	}
 
+	public void clean() {
+		glDeleteTextures(textureid);
+	}
+
 	public boolean equals(Object obj) {
 		if (obj instanceof Texture) {
 			Texture other = (Texture) obj;
-			if (other.getTextureHeight() == getTextureHeight() && other.getTextureWidth() == getTextureWidth() && other.getTextureId() == getTextureId()) {
+			if (other.getTextureHeight() == getTextureHeight() && other.getTextureWidth() == getTextureWidth() && other.getTextureId() == getTextureId())
 				return true;
-			}
 		}
 		return false;
 	}
@@ -115,15 +116,13 @@ public class Texture {
 	public static Texture loadTexture(BufferedImage bi, boolean fliphor, boolean flipvert, int filter) {
 		int[][] pixels = new int[bi.getWidth()][bi.getHeight()];
 
-		for (int y = 0; y < bi.getHeight(); y++) {
-			for (int x = 0; x < bi.getWidth(); x++) {
+		for (int y = 0; y < bi.getHeight(); y++)
+			for (int x = 0; x < bi.getWidth(); x++)
 				pixels[x][y] = bi.getRGB(x, y);
-			}
-		}
 
 		ByteBuffer buffer = BufferUtils.createByteBuffer(bi.getWidth() * bi.getHeight() * BYTES_PER_PIXEL);
 
-		for (int y = flipvert ? bi.getHeight() - 1 : 0; flipvert ? y > -1 : y < bi.getHeight(); y += flipvert ? -1 : 1) {
+		for (int y = flipvert ? bi.getHeight() - 1 : 0; flipvert ? y > -1 : y < bi.getHeight(); y += flipvert ? -1 : 1)
 			for (int x = fliphor ? bi.getWidth() - 1 : 0; fliphor ? x > -1 : x < bi.getWidth(); x += fliphor ? -1 : 1) {
 				int pixel = pixels[x][y];
 				buffer.put((byte) (pixel >> 16 & 0xFF));
@@ -131,7 +130,6 @@ public class Texture {
 				buffer.put((byte) (pixel & 0xFF));
 				buffer.put((byte) (pixel >> 24 & 0xFF));
 			}
-		}
 
 		buffer.flip();
 

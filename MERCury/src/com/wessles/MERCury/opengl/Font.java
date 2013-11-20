@@ -1,5 +1,7 @@
 package com.wessles.MERCury.opengl;
 
+import com.wessles.MERCury.Resource;
+
 /**
  * An abstraction for fonts.
  * 
@@ -7,6 +9,6 @@ package com.wessles.MERCury.opengl;
  * @author wessles
  * @website www.wessles.com
  */
-public interface Font {
+public interface Font extends Resource {
 
 }

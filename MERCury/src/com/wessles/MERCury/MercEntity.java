@@ -1,7 +1,5 @@
 package com.wessles.MERCury;
 
-import com.wessles.MERCury.opengl.Graphics;
-
 /**
  * An abstraction of objects that can be updated and rendered.
  * 
@@ -10,8 +8,6 @@ import com.wessles.MERCury.opengl.Graphics;
  * @website www.wessles.com
  */
 
-public interface ObjectUR {
-	public void update(float delta);
+public interface MercEntity extends Updatable, Renderable {
 
-	public void render(Graphics g);
 }

@@ -3,6 +3,7 @@ package com.wessles.MERCury.opengl;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import com.wessles.MERCury.Resource;
 import com.wessles.MERCury.geom.TexturedRectangle;
 import com.wessles.MERCury.utils.TextureFactory;
 
@@ -13,16 +14,15 @@ import com.wessles.MERCury.utils.TextureFactory;
  * @author wessles
  * @website www.wessles.com
  */
-public class Animation {
+public class Animation implements Resource {
 	private Texture[] texs;
 	private int frame = 0, frameratemillis;
 	private long framemillis = 0, lastframemillis;
 	private float w, h;
 
 	public Animation(int frameratemillis, Texture... texs) {
-		if (texs.length == 0) {
+		if (texs.length == 0)
 			throw new IllegalArgumentException("Must be at least 1 texture!");
-		}
 
 		this.frameratemillis = frameratemillis;
 		this.texs = texs;
@@ -30,21 +30,18 @@ public class Animation {
 		h = 0;
 
 		for (Texture tex : this.texs) {
-			if (tex.getTextureWidth() > w) {
+			if (tex.getTextureWidth() > w)
 				w = tex.getTextureWidth();
-			}
-			if (tex.getTextureHeight() > h) {
+			if (tex.getTextureHeight() > h)
 				h = tex.getTextureHeight();
-			}
 		}
 
 		frame = 0;
 	}
 
 	public Animation(float w, float h, int frameratemillis, Texture... texs) {
-		if (texs.length == 0) {
+		if (texs.length == 0)
 			throw new IllegalArgumentException("Must be at least 1 texture!");
-		}
 
 		this.frameratemillis = frameratemillis;
 		this.texs = texs;
@@ -55,9 +52,8 @@ public class Animation {
 	}
 
 	public void reverse() {
-		for (int f = 0; f < texs.length; f++) {
+		for (int f = 0; f < texs.length; f++)
 			texs[texs.length - 1 - f] = texs[f];
-		}
 		frame = texs.length - 1 - frame;
 	}
 
@@ -79,11 +75,10 @@ public class Animation {
 
 		if (framemillis - lastframemillis >= frameratemillis) {
 
-			if (frame < texs.length - 1) {
+			if (frame < texs.length - 1)
 				frame++;
-			} else {
+			else
 				frame = 0;
-			}
 
 			lastframemillis = System.currentTimeMillis();
 			return frame == 0;
@@ -103,11 +98,10 @@ public class Animation {
 
 		if (framemillis - lastframemillis >= frameratemillis) {
 
-			if (frame < texs.length - 1) {
+			if (frame < texs.length - 1)
 				frame++;
-			} else {
+			else
 				frame = 0;
-			}
 
 			lastframemillis = System.currentTimeMillis();
 			return frame == 0;
@@ -152,13 +146,18 @@ public class Animation {
 		Texture[] texs_s = new Texture[texs_g.length * texs_g[0].length];
 		int cnt = 0;
 
-		for (Texture[] element : texs_g) {
+		for (Texture[] element : texs_g)
 			for (int y = 0; y < texs_g[0].length; y++) {
 				texs_s[cnt] = element[y];
 				cnt++;
 			}
-		}
 
 		return new Animation(frameratemillis, texs_s);
+	}
+
+	public void clean() {
+		for (Texture tex : texs)
+			tex.clean();
+		texs = null;
 	}
 }

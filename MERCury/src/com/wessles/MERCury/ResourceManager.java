@@ -2,13 +2,6 @@ package com.wessles.MERCury;
 
 import java.util.HashMap;
 
-import kuusisto.tinysound.Sound;
-
-import com.wessles.MERCury.opengl.Animation;
-import com.wessles.MERCury.opengl.Font;
-import com.wessles.MERCury.opengl.Shader;
-import com.wessles.MERCury.opengl.Texture;
-
 /**
  * An object that will hold, handle, and load all resources, so that one
  * resource will only have one instance.
@@ -17,7 +10,7 @@ import com.wessles.MERCury.opengl.Texture;
  * resource, and it will be stored with a given key.
  * 
  * You may also get an object; getting it means that you give the key and it
- * returns the resource(s) associated with that key.
+ * returns the resource associated with that key.
  * 
  * @from MERCury
  * @author wessles
@@ -25,69 +18,26 @@ import com.wessles.MERCury.opengl.Texture;
  */
 
 public class ResourceManager {
-	private final HashMap<String, Texture> textures = new HashMap<String, Texture>();
-	private final HashMap<String, Animation> animations = new HashMap<String, Animation>();
-	private final HashMap<String, Sound> sounds = new HashMap<String, Sound>();
-	private final HashMap<String, Shader> shaders = new HashMap<String, Shader>();
-	private final HashMap<String, Font> fonts = new HashMap<String, Font>();
+	private final HashMap<String, Resource> resources = new HashMap<String, Resource>();
 
-	public void loadTexture(Texture texture, String name) {
-		textures.put(name, texture);
+	public void loadResource(Resource res, String key) {
+		resources.put(key, res);
 	}
 
-	public void loadTextures(Texture[] textures, String name) {
-		for (int t = 0; t < textures.length; t++) {
-			this.textures.put(name + "_" + t, textures[t]);
-		}
+	public void loadResources(Resource[] resources, String key) {
+		for (int t = 0; t < resources.length; t++)
+			this.resources.put(key + "_" + t, resources[t]);
 	}
 
-	public void loadTextures(Texture[][] textures, String name) {
-		for (int x = 0; x < textures.length; x++) {
-			for (int y = 0; y < textures.length; y++) {
-				this.textures.put(name + "_" + x + "_" + y, textures[x][y]);
-			}
-		}
+	public Resource retrieveResource(String key) {
+		return resources.get(key);
 	}
 
-	public Texture getTexture(String name) {
-		return textures.get(name);
-	}
-
-	public void loadAnimation(Animation animation, String name) {
-		animations.put(name, animation);
-	}
-
-	public Animation getAnimation(String name) {
-		return animations.get(name);
-	}
-
-	public void loadSound(Sound sound, String name) {
-		sounds.put(name, sound);
-	}
-
-	public Sound getSound(String name) {
-		return sounds.get(name);
-	}
-
-	public void loadFont(Font font, String name) {
-		fonts.put(name, font);
-	}
-
-	public Font getFont(String name) {
-		return fonts.get(name);
-	}
-
-	public void loadShader(Shader shader, String name) {
-		shaders.put(name, shader);
-	}
-
-	public Shader getShader(String name) {
-		return shaders.get(name);
+	public void clearResource(String key) {
+		resources.remove(key);
 	}
 
 	public void cleanup() {
-		sounds.clear();
-		textures.clear();
-		shaders.clear();
+		resources.clear();
 	}
 }

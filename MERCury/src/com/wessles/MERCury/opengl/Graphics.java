@@ -32,9 +32,9 @@ public interface Graphics {
 	public void useShader(Shader shader);
 
 	public void releaseShaders();
-	
+
 	public Batcher getBatcher();
-	
+
 	public void drawRawVertices(VAOBatcher.VertexData... verts);
 
 	public void drawTexture(Texture texture, float x, float y);

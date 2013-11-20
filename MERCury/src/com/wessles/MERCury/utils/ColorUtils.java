@@ -16,9 +16,8 @@ public class ColorUtils {
 
 	public static Color[] getColorArray(Color col, int length) {
 		Color[] cols = new Color[length];
-		for (int j = 0; j < length; j++) {
+		for (int j = 0; j < length; j++)
 			cols[j] = col;
-		}
 
 		return cols;
 	}

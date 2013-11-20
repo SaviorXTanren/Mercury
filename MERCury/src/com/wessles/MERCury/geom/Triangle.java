@@ -4,7 +4,7 @@ import com.wessles.MERCury.opengl.Color;
 import com.wessles.MERCury.utils.ColorUtils;
 
 /**
- * A triangle shape.
+ * A triangle shape; 3 sides.
  * 
  * @from MERCury
  * @author wessles

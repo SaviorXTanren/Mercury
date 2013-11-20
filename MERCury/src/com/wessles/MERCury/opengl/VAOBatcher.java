@@ -31,8 +31,7 @@ import com.wessles.MERCury.utils.ColorUtils;
  */
 public class VAOBatcher implements Batcher {
 	private static final int VL = 2, CL = 4, TL = 2;
-
-	private final int maxvtx;
+	public static final int MAX_VERTICES_PER_RENDER_STACK = 50000;
 
 	private FloatBuffer vd, cd, td;
 	private int vtxcount;
@@ -43,30 +42,23 @@ public class VAOBatcher implements Batcher {
 	private Shader last_shader = Shader.getEmptyShader();
 
 	public VAOBatcher() {
-		this(1000);
-	}
-
-	public VAOBatcher(int maxvtx) {
-		this.maxvtx = maxvtx;
 		vtxcount = 0;
-		vd = BufferUtils.createFloatBuffer(maxvtx * VL);
-		cd = BufferUtils.createFloatBuffer(maxvtx * CL);
-		td = BufferUtils.createFloatBuffer(maxvtx * TL);
+		vd = BufferUtils.createFloatBuffer(MAX_VERTICES_PER_RENDER_STACK * VL);
+		cd = BufferUtils.createFloatBuffer(MAX_VERTICES_PER_RENDER_STACK * CL);
+		td = BufferUtils.createFloatBuffer(MAX_VERTICES_PER_RENDER_STACK * TL);
 		active = false;
 	}
 
 	public void begin() {
-		if (active) {
+		if (active)
 			throw new IllegalStateException("Must be inactive before calling begin()!");
-		}
 
 		active = true;
 	}
 
 	public void end() {
-		if (!active) {
+		if (!active)
 			throw new IllegalStateException("Must be active before calling end()!");
-		}
 
 		vd.flip();
 		cd.flip();
@@ -104,9 +96,8 @@ public class VAOBatcher implements Batcher {
 	}
 
 	public void setTexture(Texture texture) {
-		if (texture.equals(last_tex)) {
+		if (texture.equals(last_tex))
 			return;
-		}
 		end();
 		last_tex = texture;
 		Texture.bindTexture(texture);
@@ -114,9 +105,8 @@ public class VAOBatcher implements Batcher {
 	}
 
 	public void clearTextures() {
-		if (last_tex.equals(Texture.getEmptyTexture())) {
+		if (last_tex.equals(Texture.getEmptyTexture()))
 			return;
-		}
 		end();
 		last_tex = Texture.getEmptyTexture();
 		Texture.unbindTextures();
@@ -124,23 +114,20 @@ public class VAOBatcher implements Batcher {
 	}
 
 	public void setColor(Color color) {
-		if (color.equals(last_col)) {
+		if (color.equals(last_col))
 			return;
-		}
 		last_col = color;
 	}
 
 	public void clearColors() {
-		if (last_col.equals(ColorUtils.DEFAULT_DRAWING)) {
+		if (last_col.equals(ColorUtils.DEFAULT_DRAWING))
 			return;
-		}
 		last_col = ColorUtils.DEFAULT_DRAWING;
 	}
 
 	public void setShader(Shader shader) {
-		if (last_shader.equals(shader)) {
+		if (last_shader.equals(shader))
 			return;
-		}
 		end();
 		last_shader = shader;
 		Shader.useShader(shader);
@@ -148,9 +135,8 @@ public class VAOBatcher implements Batcher {
 	}
 
 	public void clearShaders() {
-		if (last_shader.equals(Shader.getEmptyShader())) {
+		if (last_shader.equals(Shader.getEmptyShader()))
 			return;
-		}
 		end();
 		last_shader = Shader.getEmptyShader();
 		Shader.releaseShaders();
@@ -168,15 +154,14 @@ public class VAOBatcher implements Batcher {
 	public void vertex(float x, float y, float r, float g, float b, float u, float v) {
 		vertex(x, y, r, g, b, 1, u, v);
 	}
-	
+
 	public void vertex(float x, float y, float r, float g, float b, float a, float u, float v) {
 		vertex(new VertexData(x, y, r, g, b, a, u, v));
 	}
-	
+
 	public void vertex(VertexData vdo) {
-		if (vtxcount >= maxvtx - 1) {
+		if (vtxcount >= MAX_VERTICES_PER_RENDER_STACK - 1)
 			restart();
-		}
 
 		vd.put(vdo.x).put(vdo.y);
 		cd.put(vdo.r).put(vdo.g).put(vdo.b).put(vdo.a);
