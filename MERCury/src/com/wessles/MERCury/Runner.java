@@ -93,11 +93,10 @@ public class Runner {
 		RM = new ResourceManager();
 		Logger.println("#MERCury: Initialized Resource Manager...");
 
-		this.core.init(RM);
-		Logger.println("#MERCury: Initialized Core...");
-
 		graphicsobject.init();
 		Logger.println("#MERCury: Initialized Graphics...");
+		this.core.init(RM);
+		Logger.println("#MERCury: Initialized Core...");
 		input = new Input();
 		Logger.println("#MERCury: Created Input...");
 		input.create();

@@ -13,8 +13,8 @@ public class MercMath {
 	/**
 	 * Base method for random number methods.
 	 * 
-	 * @return a random double value between {@code minimum} and {@code maximum}
-	 *         .
+	 * @return a random double value between {@code minimum} and
+	 *         {@code maximum} .
 	 */
 	public static final double random(double minimum, double maximum) {
 		return (float) minimum + (int) (Math.random() * (maximum - minimum + 1));
@@ -29,7 +29,7 @@ public class MercMath {
 
 	/**
 	 * @param percent
-	 *            Percent chance of true
+	 *              Percent chance of true
 	 * @return A boolean that has a {@code percent}% chance of being true.
 	 */
 	public static boolean chance(int percent) {
@@ -43,7 +43,7 @@ public class MercMath {
 
 	/**
 	 * @param percent
-	 *            Percent chance of true
+	 *              Percent chance of true
 	 * @return A boolean that has a {@code percent}% chance of being true.
 	 */
 	public static boolean chance(float percent) {

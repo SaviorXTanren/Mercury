@@ -98,7 +98,8 @@ public class AudioBufferData {
 			return null;
 		}
 
-		// Make returning variable, close inputstream, and return the returning
+		// Make returning variable, close inputstream, and return the
+		// returning
 		// variable.
 		AudioBufferData wavebufdata = new AudioBufferData(buf, chans, (int) audform.getSampleRate());
 		try {
@@ -135,7 +136,8 @@ public class AudioBufferData {
 		result.order(ByteOrder.nativeOrder());
 
 		ByteBuffer src = ByteBuffer.wrap(audbytes);
-		// Order the source bytes by little endian (store the least signifigant
+		// Order the source bytes by little endian (store the least
+		// signifigant
 		// byte in the smallest adress)...
 		src.order(ByteOrder.LITTLE_ENDIAN);
 

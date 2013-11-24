@@ -92,8 +92,8 @@ public class TextureFactory {
 	public static Texture[][] getTextureGrid(BufferedImage bi, int divwidth, int divheight, boolean local_fliphor, boolean local_flipvert, int filter) {
 		Texture[][] result = new Texture[bi.getWidth() / divwidth][bi.getHeight() / divheight];
 
-		for (int x = 0; x < bi.getWidth(); x += divwidth)
-			for (int y = 0; y < bi.getHeight(); y += divheight)
+		for (int y = 0; y < bi.getHeight(); y += divheight)
+			for (int x = 0; x < bi.getWidth(); x += divwidth)
 				result[x / divwidth][y / divheight] = Texture.loadTexture(bi.getSubimage(x, y, divwidth, divheight));
 
 		return result;
