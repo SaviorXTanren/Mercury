@@ -67,6 +67,7 @@ public class Shader implements Resource {
 			ARBShaderObjects.glUniform4iARB(location, values[0], values[1], values[2], values[3]);
 	}
 
+	@Override
 	public void clean() {
 
 	}

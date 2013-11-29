@@ -118,6 +118,7 @@ public class Color {
 		return (int) a * 255;
 	}
 
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Color) {
 			Color col = (Color) obj;

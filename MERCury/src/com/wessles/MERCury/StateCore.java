@@ -20,16 +20,20 @@ public abstract class StateCore extends Core {
 		super(name);
 	}
 
+	@Override
 	public abstract void init(ResourceManager RM);
 
+	@Override
 	public void update(float delta) {
 		updateGameState(delta);
 	}
 
+	@Override
 	public void render(Graphics g) {
 		renderGameState(g);
 	}
 
+	@Override
 	public abstract void cleanup(ResourceManager RM);
 
 	public void updateGameState(float delta) {

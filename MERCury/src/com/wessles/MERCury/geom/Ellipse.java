@@ -34,6 +34,7 @@ public class Ellipse extends Shape {
 		return verts;
 	}
 
+	@Override
 	public boolean intersects(Shape s) {
 		float cx = getCenterX();
 		float cy = getCenterY();
@@ -53,6 +54,7 @@ public class Ellipse extends Shape {
 		return new Rectangle(x1, y1, x2, y2, x3, y3, x4, y4).intersects(s);
 	}
 
+	@Override
 	public boolean contains(Vector2f v) {
 		float cx = getCenterX();
 		float cy = getCenterY();

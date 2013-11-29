@@ -1,5 +1,6 @@
 package com.wessles.MERCury.opengl;
 
+import com.wessles.MERCury.font.Font;
 import com.wessles.MERCury.geom.Circle;
 import com.wessles.MERCury.geom.Ellipse;
 import com.wessles.MERCury.geom.Point;
@@ -25,6 +26,10 @@ public interface Graphics {
 
 	public void scale(float x, float y);
 
+	public void setFont(Font font);
+
+	public Font getFont();
+
 	public void setBackground(Color col);
 
 	public void setColor(Color color);
@@ -37,7 +42,17 @@ public interface Graphics {
 
 	public void drawRawVertices(VAOBatcher.VertexData... verts);
 
+	public void drawString(float x, float y, String what);
+
+	public void drawString(Font font, float x, float y, String what);
+
+	public void drawString(Font font, float x, float y, float sizemult, String what);
+
 	public void drawTexture(Texture texture, float x, float y);
+
+	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y);
+
+	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x1, float y1, float x2, float y2);
 
 	public void drawRect(Rectangle rectangle);
 
@@ -62,10 +77,6 @@ public interface Graphics {
 	public void drawCircle(float x, float y, float radius);
 
 	public void drawCircles(Circle[] circles);
-
-	public void drawString(float x, float y, String str, Font font);
-
-	public void drawString(float x, float y, String str, Font font, float size);
 
 	public void drawPoint(Point point);
 

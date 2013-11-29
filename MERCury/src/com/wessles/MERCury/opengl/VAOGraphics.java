@@ -2,7 +2,10 @@ package com.wessles.MERCury.opengl;
 
 import static org.lwjgl.opengl.GL11.glScalef;
 
-import com.wessles.MERCury.Runner;
+import org.lwjgl.opengl.GL11;
+
+import com.wessles.MERCury.font.Font;
+import com.wessles.MERCury.font.TrueTypeFont;
 import com.wessles.MERCury.geom.Circle;
 import com.wessles.MERCury.geom.Ellipse;
 import com.wessles.MERCury.geom.Point;
@@ -23,55 +26,75 @@ import com.wessles.MERCury.utils.ColorUtils;
 
 public class VAOGraphics implements Graphics {
 	private VAOBatcher batcher;
-	private Color background_color = ColorUtils.DEFAULT_BACKGROUND;
 
+	private Font current_font;
+	private Color background_color;
+
+	@Override
 	public void init() {
 		batcher = new VAOBatcher();
+		current_font = TrueTypeFont.loadTrueTypeFont(new java.awt.Font("Verdana", 0, 12), true);
+		background_color = ColorUtils.DEFAULT_BACKGROUND;
 	}
 
+	@Override
 	public void pre() {
 		batcher.begin();
 
-		float x = Runner.getInstance().camera().getOffsetX();
-		float y = Runner.getInstance().camera().getOffsetY();
-		float w = Runner.getInstance().width(Runner.getInstance().camera().SCALE);
-		float h = Runner.getInstance().height(Runner.getInstance().camera().SCALE);
-
-		drawRect(new Rectangle(x, y, x + w, y, x + w, y + h, x, y + h, new Color[] { background_color, background_color, background_color, background_color }));
+		GL11.glClearColor(background_color.r, background_color.g, background_color.b, background_color.a);
 	}
 
+	@Override
 	public void post() {
 		batcher.end();
 	}
 
+	@Override
 	public void scale(float factor) {
 		scale(factor, factor);
 	}
 
+	@Override
 	public void scale(float x, float y) {
 		glScalef(x, y, 1);
 	}
 
+	@Override
+	public void setFont(Font font) {
+		current_font = font;
+	}
+
+	@Override
+	public Font getFont() {
+		return current_font;
+	}
+
+	@Override
 	public void setBackground(Color color) {
 		background_color = color;
 	}
 
+	@Override
 	public void setColor(Color color) {
 		batcher.setColor(color);
 	}
 
+	@Override
 	public void useShader(Shader shad) {
 		batcher.setShader(shad);
 	}
 
+	@Override
 	public void releaseShaders() {
 		batcher.clearShaders();
 	}
 
+	@Override
 	public Batcher getBatcher() {
 		return batcher;
 	}
 
+	@Override
 	public void drawRawVertices(VAOBatcher.VertexData... verts) {
 		if (verts.length % 3 != 0)
 			throw new IllegalArgumentException("Vertices must be in multiples of 3!");
@@ -80,21 +103,96 @@ public class VAOGraphics implements Graphics {
 			batcher.vertex(vdo);
 	}
 
+	@Override
+	public void drawString(float x, float y, String what) {
+		drawString(current_font, x, y, what);
+	}
+
+	@Override
+	public void drawString(Font font, float x, float y, String what) {
+		drawString(font, x, y, 1, what);
+	}
+
+	@Override
+	public void drawString(Font font, float x, float y, float sizemult, String what) {
+		if (font instanceof TrueTypeFont) {
+			TrueTypeFont jf = (TrueTypeFont) font;
+
+			int current_x = 0;
+
+			for (int ci = 0; ci < what.toCharArray().length; ci++) {
+				if (what.toCharArray()[ci] == '\n') {
+					y += jf.getLineHeight();
+					current_x = 0;
+				}
+
+				TrueTypeFont.IntObject intobj = jf.chars[what.toCharArray()[ci]];
+
+				drawTexture(jf.font_tex, intobj.x, intobj.y, intobj.x + intobj.w, intobj.y + intobj.h, x + current_x, y, x + current_x + intobj.w * sizemult, y + intobj.h * sizemult);
+				current_x += intobj.w * sizemult;
+			}
+		}
+	}
+
+	@Override
 	public void drawTexture(Texture texture, float x, float y) {
 		float w = texture.getTextureWidth();
 		float h = texture.getTextureHeight();
 
 		batcher.setTexture(texture);
 
-		batcher.vertex(x, y, ColorUtils.DEFAULT_TEXTURE_COLOR, 0, 0);
-		batcher.vertex(x + w, y, ColorUtils.DEFAULT_TEXTURE_COLOR, 1, 0);
-		batcher.vertex(x, y + h, ColorUtils.DEFAULT_TEXTURE_COLOR, 0, 1);
+		batcher.vertex(x, y, 0, 0);
+		batcher.vertex(x + w, y, 1, 0);
+		batcher.vertex(x, y + h, 0, 1);
 
-		batcher.vertex(x + w, y + h, ColorUtils.DEFAULT_TEXTURE_COLOR, 1, 1);
-		batcher.vertex(x + w, y, ColorUtils.DEFAULT_TEXTURE_COLOR, 1, 0);
-		batcher.vertex(x, y + h, ColorUtils.DEFAULT_TEXTURE_COLOR, 0, 1);
+		batcher.vertex(x + w, y + h, 1, 1);
+		batcher.vertex(x + w, y, 1, 0);
+		batcher.vertex(x, y + h, 0, 1);
 	}
 
+	@Override
+	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y) {
+		float w = texture.getTextureWidth();
+		float h = texture.getTextureHeight();
+		sx1 /= w;
+		sy1 /= h;
+		sx2 /= w;
+		sy2 /= h;
+		w *= sx2 - sx1;
+		h *= sy2 - sy1;
+
+		batcher.setTexture(texture);
+
+		batcher.vertex(x, y, sx1, sy1);
+		batcher.vertex(x + w, y, sx2, sy1);
+		batcher.vertex(x, y + h, sx1, sy2);
+
+		batcher.vertex(x + w, y + h, sx2, sy2);
+		batcher.vertex(x + w, y, sx2, sy1);
+		batcher.vertex(x, y + h, sx1, sy2);
+	}
+
+	@Override
+	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x1, float y1, float x2, float y2) {
+		float w = texture.getTextureWidth();
+		float h = texture.getTextureHeight();
+		sx1 /= w;
+		sy1 /= h;
+		sx2 /= w;
+		sy2 /= h;
+
+		batcher.setTexture(texture);
+
+		batcher.vertex(x1, y1, sx1, sy1);
+		batcher.vertex(x2, y1, sx2, sy1);
+		batcher.vertex(x1, y2, sx1, sy2);
+
+		batcher.vertex(x2, y2, sx2, sy2);
+		batcher.vertex(x2, y1, sx2, sy1);
+		batcher.vertex(x1, y2, sx1, sy2);
+	}
+
+	@Override
 	public void drawRect(Rectangle rectangle) {
 		float x1 = rectangle.getVertices()[0].x;
 		float y1 = rectangle.getVertices()[0].y;
@@ -143,15 +241,18 @@ public class VAOGraphics implements Graphics {
 		}
 	}
 
+	@Override
 	public void drawRect(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
 		drawRect(new Rectangle(x1, y1, x2, y2, x3, y3, x4, y4));
 	}
 
+	@Override
 	public void drawRects(Rectangle[] rects) {
 		for (Rectangle rect : rects)
 			drawRect(rect);
 	}
 
+	@Override
 	public void drawTriangle(Triangle triangle) {
 		float x1 = triangle.getVertices()[0].x;
 		float y1 = triangle.getVertices()[0].y;
@@ -188,15 +289,18 @@ public class VAOGraphics implements Graphics {
 		}
 	}
 
+	@Override
 	public void drawTriangle(float x1, float y1, float x2, float y2, float x3, float y3) {
 		drawTriangle(new Triangle(x1, y1, x2, y2, x3, y3));
 	}
 
+	@Override
 	public void drawTriangles(Triangle[] triangles) {
 		for (Triangle triangle : triangles)
 			drawTriangle(triangle);
 	}
 
+	@Override
 	public void drawEllipse(Ellipse ellipse) {
 		batcher.clearTextures();
 
@@ -217,62 +321,46 @@ public class VAOGraphics implements Graphics {
 		}
 	}
 
+	@Override
 	public void drawEllipse(float x, float y, float radx, float rady) {
 		drawEllipse(new Ellipse(x, y, radx, rady));
 	}
 
+	@Override
 	public void drawEllipses(Ellipse[] ellipses) {
 		for (Ellipse ellipse : ellipses)
 			drawEllipse(ellipse);
 	}
 
+	@Override
 	public void drawCircle(Circle circle) {
 		drawEllipse(circle);
 	}
 
+	@Override
 	public void drawCircle(float x, float y, float radius) {
 		drawCircle(new Circle(x, y, radius));
 	}
 
+	@Override
 	public void drawCircles(Circle[] circs) {
 		for (Circle circ : circs)
 			drawCircle(circ);
 	}
 
-	public void drawString(float x, float y, String str, Font font) {
-		drawString(x, y, str, font, 1);
-	}
-
-	public void drawString(float x, float y, String str, Font font, float size) {
-		if (font instanceof BitmapFont) {
-			BitmapFont bmfont = (BitmapFont) font;
-
-			int w = bmfont.getCharWidth();
-			int h = bmfont.getCharHeight();
-
-			int ax = 0;
-			for (int i = 0; i < str.length(); i++) {
-				int asciiCode = str.charAt(i);
-				int cx = asciiCode % bmfont.getTextures().length;
-				int cy = asciiCode / bmfont.getTextures()[0].length;
-
-				drawRect(new TexturedRectangle(x + ax, y, x + ax + w * size, y, x + ax + w * size, y + h * size, x + ax, y + h * size, bmfont.getTextures()[cx][cy]));
-
-				ax += w * size;
-			}
-		}
-	}
-
+	@Override
 	public void drawPoint(Point point) {
 		float x = point.getX1();
 		float y = point.getY1();
 		drawRect(new Rectangle(x, y, x + 1, y, x + 1, y + 1, x, y + 1));
 	}
 
+	@Override
 	public void drawPoint(float x, float y) {
 		drawPoint(new Point(x, y));
 	}
 
+	@Override
 	public void drawPoints(Point[] points) {
 		for (Point point : points)
 			drawPoint(point);

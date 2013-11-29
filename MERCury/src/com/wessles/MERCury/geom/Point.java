@@ -14,10 +14,12 @@ public class Point extends Shape {
 		super(x, y);
 	}
 
+	@Override
 	public String toString() {
 		return "Point at " + nx + ", " + ny;
 	}
 
+	@Override
 	public float getArea() {
 		return 1;
 	}
@@ -34,10 +36,12 @@ public class Point extends Shape {
 		return new Point(point.nx, point.ny);
 	}
 
+	@Override
 	public boolean intersects(Shape s) {
 		return s.contains(Vector2f.get(getX1(), getY1()));
 	}
 
+	@Override
 	public boolean contains(Vector2f v) {
 		return v.x == getX1() && v.y == getY1();
 	}

@@ -155,6 +155,7 @@ public class Animation implements Resource {
 		return new Animation(frameratemillis, texs_s);
 	}
 
+	@Override
 	public void clean() {
 		for (Texture tex : texs)
 			tex.clean();

@@ -59,6 +59,7 @@ public class Audio implements Resource {
 		return loadAudio(BufferUtils.createIntBuffer(1), BufferUtils.createIntBuffer(1).put(buf));
 	}
 
+	@Override
 	public void clean() {
 		AL10.alDeleteSources(src);
 		AL10.alDeleteBuffers(buf);

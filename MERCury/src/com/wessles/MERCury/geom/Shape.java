@@ -175,6 +175,7 @@ public abstract class Shape {
 		return colors;
 	}
 
+	@Override
 	public String toString() {
 		return "Shape with: x1:" + nx + ", y1:" + ny + ", x2:" + fx + ", y2:" + fy;
 	}

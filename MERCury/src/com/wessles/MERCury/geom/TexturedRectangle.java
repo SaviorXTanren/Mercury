@@ -19,6 +19,7 @@ public class TexturedRectangle extends Rectangle implements Textured {
 		this.texture = texture;
 	}
 
+	@Override
 	public Texture getTexture() {
 		return texture;
 	}

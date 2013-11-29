@@ -49,6 +49,7 @@ public class VAOBatcher implements Batcher {
 		active = false;
 	}
 
+	@Override
 	public void begin() {
 		if (active)
 			throw new IllegalStateException("Must be inactive before calling begin()!");
@@ -56,6 +57,7 @@ public class VAOBatcher implements Batcher {
 		active = true;
 	}
 
+	@Override
 	public void end() {
 		if (!active)
 			throw new IllegalStateException("Must be active before calling end()!");
@@ -75,6 +77,7 @@ public class VAOBatcher implements Batcher {
 		active = false;
 	}
 
+	@Override
 	public void render() {
 		glEnable(GL_TEXTURE);
 		glEnable(GL_TEXTURE_2D);
@@ -95,6 +98,7 @@ public class VAOBatcher implements Batcher {
 		disableBuffer(GL_TEXTURE_COORD_ARRAY);
 	}
 
+	@Override
 	public void setTexture(Texture texture) {
 		if (texture.equals(last_tex))
 			return;
@@ -104,6 +108,7 @@ public class VAOBatcher implements Batcher {
 		begin();
 	}
 
+	@Override
 	public void clearTextures() {
 		if (last_tex.equals(Texture.getEmptyTexture()))
 			return;
@@ -113,18 +118,21 @@ public class VAOBatcher implements Batcher {
 		begin();
 	}
 
+	@Override
 	public void setColor(Color color) {
 		if (color.equals(last_col))
 			return;
 		last_col = color;
 	}
 
+	@Override
 	public void clearColors() {
 		if (last_col.equals(ColorUtils.DEFAULT_DRAWING))
 			return;
 		last_col = ColorUtils.DEFAULT_DRAWING;
 	}
 
+	@Override
 	public void setShader(Shader shader) {
 		if (last_shader.equals(shader))
 			return;
@@ -134,6 +142,7 @@ public class VAOBatcher implements Batcher {
 		begin();
 	}
 
+	@Override
 	public void clearShaders() {
 		if (last_shader.equals(Shader.getEmptyShader()))
 			return;
@@ -143,18 +152,22 @@ public class VAOBatcher implements Batcher {
 		begin();
 	}
 
+	@Override
 	public void vertex(float x, float y, float u, float v) {
 		vertex(x, y, last_col, u, v);
 	}
 
+	@Override
 	public void vertex(float x, float y, Color color, float u, float v) {
 		vertex(x, y, color.r, color.g, color.b, color.a, u, v);
 	}
 
+	@Override
 	public void vertex(float x, float y, float r, float g, float b, float u, float v) {
 		vertex(x, y, r, g, b, 1, u, v);
 	}
 
+	@Override
 	public void vertex(float x, float y, float r, float g, float b, float a, float u, float v) {
 		vertex(new VertexData(x, y, r, g, b, a, u, v));
 	}

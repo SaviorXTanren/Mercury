@@ -64,10 +64,12 @@ public class Texture implements Resource {
 		return textureid;
 	}
 
+	@Override
 	public void clean() {
 		glDeleteTextures(textureid);
 	}
 
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Texture) {
 			Texture other = (Texture) obj;
