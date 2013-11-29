@@ -143,6 +143,8 @@ public class Texture implements Resource {
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, bi.getWidth(), bi.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 
+		unbindTextures();
+
 		return new Texture(textureid, bi.getWidth(), bi.getHeight());
 	}
 
