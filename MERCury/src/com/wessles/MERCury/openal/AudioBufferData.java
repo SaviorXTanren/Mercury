@@ -51,7 +51,7 @@ public class AudioBufferData {
 			// exception.
 			else
 				try {
-					throw new MERCuryException("The sample size (bits) is not 8 nor 16! Invalid sample size!");
+					throw new MERCuryException("The sample size '" + audform.getSampleSizeInBits() + " bits' is not 8 nor 16! Invalid sample size!");
 				} catch (MERCuryException e) {
 					e.printStackTrace();
 				}
@@ -69,7 +69,7 @@ public class AudioBufferData {
 			// exception.
 			else
 				try {
-					throw new MERCuryException("The sample size (bits) is not 8 nor 16! Invalid sample size!");
+					throw new MERCuryException("The sample size '" + audform.getSampleSizeInBits() + " bits' is not 8 nor 16! Invalid sample size!");
 				} catch (MERCuryException e) {
 					e.printStackTrace();
 				}
@@ -124,7 +124,11 @@ public class AudioBufferData {
 				e1.printStackTrace();
 			}
 		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
+			try {
+				throw new UnsupportedAudioFileException("Audio file not supported!");
+			} catch (UnsupportedAudioFileException e1) {
+				e1.printStackTrace();
+			}
 		}
 		return null;
 	}
