@@ -30,16 +30,19 @@ public class Audio implements Resource {
 		this.buf = buf;
 	}
 
-	public void play() {
+	public Audio play() {
 		AL10.alSourcePlay(src);
+		return this;
 	}
 
-	public void stop() {
+	public Audio stop() {
 		AL10.alSourceStop(src);
+		return this;
 	}
 
-	public void pause() {
+	public Audio pause() {
 		AL10.alSourcePause(src);
+		return this;
 	}
 
 	/**
@@ -52,6 +55,11 @@ public class Audio implements Resource {
 
 	public Audio setPitch(float pit) {
 		AL10.alSourcef(src, AL10.AL_PITCH, pit);
+		return this;
+	}
+
+	public Audio setLooping(boolean looping) {
+		AL10.alSourcei(src, AL10.AL_LOOPING, AL10.AL_TRUE);
 		return this;
 	}
 
