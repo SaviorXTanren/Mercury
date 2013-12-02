@@ -1,7 +1,11 @@
 package com.wessles.MERCury.utils;
 
-import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+
+import com.wessles.MERCury.log.Logger;
 
 /**
  * A utility class for reading tile maps from Doppler Indie Games. Credit to
@@ -13,20 +17,69 @@ import java.util.Scanner;
  */
 
 public class DopplerTileMapReader {
-	public static int[][] getTiles(int readwidth, int readheight, BufferedInputStream bis) {
-		Scanner scan = new Scanner(bis);
-		int[][] tiles = new int[readwidth][readheight];
+	public static final int DIGITS_PER_TILE = 4;
 
-		int x = 0, y = 0;
-		while (scan.hasNextLine()) {
-			while (scan.hasNextInt()) {
-				tiles[x][y] = scan.nextInt();
-				x++;
+	public static int[][] getTiles(String readlocation) throws CorruptMapException, IOException {
+
+		// Read WIDTH and HEIGHT
+		int[] dimensions = readDimensions(readlocation);
+		int WIDTH = dimensions[0], HEIGHT = dimensions[1];
+
+		// Read data
+		int[][] result = readData(WIDTH, HEIGHT, readlocation);
+
+		Logger.print(WIDTH, HEIGHT);
+
+		return result;
+	}
+
+	private static int[] readDimensions(String readlocation) throws FileNotFoundException {
+		int WIDTH = 0, HEIGHT = 0;
+
+		Scanner read = new Scanner(new FileInputStream(readlocation));
+
+		while (read.hasNextLine()) {
+			String line = read.nextLine();
+			if (line.startsWith("texture"))
+				break;
+
+			WIDTH = line.length() / DIGITS_PER_TILE;
+			HEIGHT++;
+		}
+
+		read.close();
+
+		return new int[] { WIDTH, HEIGHT };
+	}
+
+	private static int[][] readData(int WIDTH, int HEIGHT, String readlocation) throws FileNotFoundException {
+		int[][] data = new int[WIDTH][HEIGHT];
+
+		Scanner read = new Scanner(new FileInputStream(readlocation));
+
+		int y = 0;
+		while (read.hasNextLine()) {
+			String line = read.nextLine();
+			if (line.startsWith("texture"))
+				break;
+
+			for (int x = 0; x < WIDTH * DIGITS_PER_TILE; x += DIGITS_PER_TILE) {
+				Logger.println(line, Integer.valueOf(line.substring(x, x + DIGITS_PER_TILE)), x, y);
+				data[x/DIGITS_PER_TILE][y] = Integer.valueOf(line.substring(x, x + DIGITS_PER_TILE));
 			}
+
 			y++;
 		}
 
-		scan.close();
-		return null;
+		read.close();
+
+		return data;
+	}
+
+	@SuppressWarnings("serial")
+	public static class CorruptMapException extends Exception {
+		public CorruptMapException(String message) {
+			super(message);
+		}
 	}
 }

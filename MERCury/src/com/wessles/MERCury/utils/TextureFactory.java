@@ -94,7 +94,7 @@ public class TextureFactory {
 
 		for (int y = 0; y < bi.getHeight(); y += divheight)
 			for (int x = 0; x < bi.getWidth(); x += divwidth)
-				result[x / divwidth][y / divheight] = Texture.loadTexture(bi.getSubimage(x, y, divwidth, divheight));
+				result[x / divwidth][y / divheight] = Texture.loadTexture(bi.getSubimage(x, y, divwidth, divheight), local_fliphor, local_flipvert, filter);
 
 		return result;
 	}
@@ -102,11 +102,12 @@ public class TextureFactory {
 	public static Texture[] getTextureStripFromGrid(Texture[][] textures) {
 		Texture[] result = new Texture[textures.length * textures[0].length];
 		int index = 0;
-		for (Texture[] texture : textures)
-			for (int y = 0; y < textures[0].length; y++) {
+		for (int y = 0; y < textures[0].length; y++) {
+			for (Texture[] texture : textures) {
 				result[index] = texture[y];
 				index++;
 			}
+		}
 		return result;
 	}
 }
