@@ -112,4 +112,13 @@ public class MercMath {
 	public static float atan2(float x, float y) {
 		return (float) Math.toDegrees(Math.atan2(y, x));
 	}
+	
+	/**
+	 * @return If number is negative, -1, otherwise, 1.
+	 */
+	public static float negpos(float mult) {
+		if(mult == 0)
+			return 0;
+		return (float) mult/Math.abs(mult);
+	}
 }

@@ -5,8 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-import com.wessles.MERCury.log.Logger;
-
 /**
  * A utility class for reading tile maps from Doppler Indie Games. Credit to
  * Doppler from {@link https://github.com/doppl3r}.
@@ -27,8 +25,6 @@ public class DopplerTileMapReader {
 
 		// Read data
 		int[][] result = readData(WIDTH, HEIGHT, readlocation);
-
-		Logger.print(WIDTH, HEIGHT);
 
 		return result;
 	}
@@ -64,7 +60,6 @@ public class DopplerTileMapReader {
 				break;
 
 			for (int x = 0; x < WIDTH * DIGITS_PER_TILE; x += DIGITS_PER_TILE) {
-				Logger.println(line, Integer.valueOf(line.substring(x, x + DIGITS_PER_TILE)), x, y);
 				data[x/DIGITS_PER_TILE][y] = Integer.valueOf(line.substring(x, x + DIGITS_PER_TILE));
 			}
 
