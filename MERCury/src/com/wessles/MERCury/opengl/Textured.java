@@ -9,5 +9,5 @@ package com.wessles.MERCury.opengl;
  */
 
 public interface Textured {
-	public Texture getTexture();
+  public Texture getTexture();
 }

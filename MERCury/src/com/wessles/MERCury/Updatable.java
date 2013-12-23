@@ -9,5 +9,5 @@ package com.wessles.MERCury;
  */
 
 public interface Updatable {
-	public void update(float delta);
+  public void update(float delta);
 }

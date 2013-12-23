@@ -8,5 +8,5 @@ package com.wessles.MERCury.opengl;
  * @website www.wessles.com
  */
 public interface Animated {
-	public Animation getAnimation();
+  public Animation getAnimation();
 }

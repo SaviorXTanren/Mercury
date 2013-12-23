@@ -9,5 +9,5 @@ package com.wessles.MERCury;
  */
 
 public interface MercEntity extends Updatable, Renderable {
-
+  
 }

@@ -11,5 +11,5 @@ import com.wessles.MERCury.opengl.Graphics;
  */
 
 public interface Renderable {
-	public void render(Graphics g);
+  public void render(Graphics g);
 }
