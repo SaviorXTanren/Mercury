@@ -14,9 +14,10 @@ import com.wessles.MERCury.opengl.Texture;
 /**
  * A utility class to get texture grids and strips from single files. It is more efficient to store all textures on one image than having multiple resources on different files
  * 
- * @from MERCury
- * @author wessles
+ * @from MERCury in com.wessles.MERCury.utils
+ * @by wessles
  * @website www.wessles.com
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
  */
 public class TextureFactory {
   public static Texture[] getTextureStrip(String location, int divwidth) throws FileNotFoundException, IOException {

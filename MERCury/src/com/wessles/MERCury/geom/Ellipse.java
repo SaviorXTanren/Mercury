@@ -5,9 +5,10 @@ import com.wessles.MERCury.maths.MercMath;
 /**
  * An ellipse that can have a length and width.
  * 
- * @from MERCury
- * @author wessles
+ * @from MERCury in com.wessles.MERCury.geom
+ * @by wessles
  * @website www.wessles.com
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
  */
 public class Ellipse extends Shape {
   public float radx, rady;

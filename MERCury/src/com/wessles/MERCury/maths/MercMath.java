@@ -3,9 +3,10 @@ package com.wessles.MERCury.maths;
 /**
  * A utilities class for math.
  * 
- * @from MERCury
- * @author wessles
+ * @from MERCury in com.wessles.MERCury.maths
+ * @by wessles
  * @website www.wessles.com
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
  */
 public class MercMath {
   public static final float PI = 3.141592653589793f;

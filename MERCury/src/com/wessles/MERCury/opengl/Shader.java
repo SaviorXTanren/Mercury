@@ -14,9 +14,10 @@ import com.wessles.MERCury.Resource;
 /**
  * An object version of shaders. Does all of the tedius stuff for you and lets you use the shader easily.
  * 
- * @from MERCury
- * @author wessles
+ * @from MERCury in com.wessles.MERCury.opengl
+ * @by wessles
  * @website www.wessles.com
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
  */
 
 public class Shader implements Resource {

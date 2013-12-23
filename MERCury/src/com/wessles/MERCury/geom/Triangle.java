@@ -1,23 +1,23 @@
 package com.wessles.MERCury.geom;
 
 import com.wessles.MERCury.opengl.Color;
-import com.wessles.MERCury.utils.ColorUtils;
 
 /**
  * A triangle shape; 3 sides.
  * 
- * @from MERCury
- * @author wessles
+ * @from MERCury in com.wessles.MERCury.geom
+ * @by wessles
  * @website www.wessles.com
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
  */
 
 public class Triangle extends Shape {
   
   public Triangle(float x1, float y1, float x2, float y2, float x3, float y3) {
-    this(x1, y1, x2, y2, x3, y3, ColorUtils.getColorArray(ColorUtils.DEFAULT_DRAWING, 3));
+    super(x1, y1, x2, y2, x3, y3);
   }
   
-  public Triangle(float x1, float y1, float x2, float y2, float x3, float y3, Color[] colors) {
+  public Triangle(Color[] colors, float x1, float y1, float x2, float y2, float x3, float y3) {
     super(colors, new float[] { x1, y1, x2, y2, x3, y3 });
   }
   

@@ -7,9 +7,10 @@ import com.wessles.MERCury.geom.Vector2f;
 /**
  * A utilities class for arrays.
  * 
- * @from MERCury
- * @author wessles
+ * @from MERCury in com.wessles.MERCury.utils
+ * @by wessles
  * @website www.wessles.com
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
  */
 public class ArrayUtils {
   public static Vector2f[] getVector2fs(float... coords) {

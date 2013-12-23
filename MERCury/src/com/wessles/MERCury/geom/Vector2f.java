@@ -3,9 +3,10 @@ package com.wessles.MERCury.geom;
 /**
  * A Vector that contains 2 values: x and y. This class makes vector math easy, and makes your life a whole lot easier.
  * 
- * @from MERCury
- * @author wessles
+ * @from MERCury in com.wessles.MERCury.geom
+ * @by wessles
  * @website www.wessles.com
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
  */
 public class Vector2f {
   public float x = 0, y = 0;

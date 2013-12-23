@@ -6,16 +6,17 @@ import com.wessles.MERCury.opengl.Textured;
 /**
  * A textured version of a rectangle.
  * 
- * @from MERCury
- * @author wessles
+ * @from MERCury in com.wessles.MERCury.geom
+ * @by wessles
  * @website www.wessles.com
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
  */
 
 public class TexturedRectangle extends Rectangle implements Textured {
   private Texture texture;
   
-  public TexturedRectangle(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, Texture texture) {
-    super(x1, y1, x2, y2, x3, y3, x4, y4);
+  public TexturedRectangle(Rectangle rect, Texture texture) {
+    super(rect.colors, rect.nx, rect.ny, rect.fx, rect.ny, rect.fx, rect.fy, rect.nx, rect.fy);
     this.texture = texture;
   }
   

@@ -7,9 +7,10 @@ import com.wessles.MERCury.opengl.Graphics;
 /**
  * A sub-class of {@code Core} that will add in the capabilities to handle {@code GameState}s.
  * 
- * @from MERCury
- * @author wessles
+ * @from MERCury in com.wessles.MERCury
+ * @by wessles
  * @website www.wessles.com
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
  */
 public abstract class StateCore extends Core {
   public HashMap<Integer, GameState> gamestates = new HashMap<Integer, GameState>();

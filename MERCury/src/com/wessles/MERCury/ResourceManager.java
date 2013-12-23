@@ -9,9 +9,10 @@ import java.util.HashMap;
  * 
  * You may also get an object; getting it means that you give the key and it returns the resource associated with that key.
  * 
- * @from MERCury
- * @author wessles
+ * @from MERCury in com.wessles.MERCury
+ * @by wessles
  * @website www.wessles.com
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
  */
 
 public class ResourceManager {

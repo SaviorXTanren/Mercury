@@ -1,14 +1,16 @@
 package com.wessles.MERCury.gui;
 
 import com.wessles.MERCury.Renderable;
+import com.wessles.MERCury.geom.Rectangle;
 import com.wessles.MERCury.geom.TexturedRectangle;
 import com.wessles.MERCury.opengl.Graphics;
 import com.wessles.MERCury.opengl.Texture;
 
 /**
- * @from MERCury
- * @author wessles
+ * @from MERCury in com.wessles.MERCury.gui
+ * @by wessles
  * @website www.wessles.com
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
  */
 
 public class Component implements Renderable {
@@ -42,7 +44,7 @@ public class Component implements Renderable {
   
   @Override
   public void render(Graphics g) {
-    g.drawRect(new TexturedRectangle(x, y, x + w, y, x + w, y + h, x, y + h, tex));
+    g.drawRect(new TexturedRectangle(new Rectangle(x, y, x + w, y, x + w, y + h, x, y + h), tex));
     
     if (text_centered) {
       float textx = g.getFont().getWidth(text.toCharArray()) / 2;

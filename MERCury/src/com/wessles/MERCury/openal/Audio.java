@@ -17,9 +17,10 @@ import com.wessles.MERCury.Resource;
  * 
  * When using a sound effect, it is adviced that you clone the audio, since only one instance of the sound can play at a time.
  * 
- * @from MERCury
- * @author wessles
+ * @from MERCury in com.wessles.MERCury.openal
+ * @by wessles
  * @website www.wessles.com
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
  */
 public class Audio implements Resource {
   public final int src, buf;

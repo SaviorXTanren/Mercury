@@ -10,10 +10,12 @@ import java.util.Calendar;
 /**
  * A class that you use in place of System.out, which can also print all things to a file
  * 
- * @from Horde
- * @author wessles
+ * @from MERCury in com.wessles.MERCury.log
+ * @by wessles
  * @website www.wessles.com
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
  */
+
 public class Logger {
   private static PrintWriter log;
   

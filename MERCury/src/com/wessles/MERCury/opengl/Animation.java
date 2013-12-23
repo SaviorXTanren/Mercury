@@ -4,15 +4,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.wessles.MERCury.Resource;
+import com.wessles.MERCury.geom.Rectangle;
 import com.wessles.MERCury.geom.TexturedRectangle;
 import com.wessles.MERCury.utils.TextureFactory;
 
 /**
  * An easy to use animation class. Just render, and watch the moving picture.
  * 
- * @from MERCtest
- * @author wessles
+ * @from MERCury in com.wessles.MERCury.opengl
+ * @by wessles
  * @website www.wessles.com
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
  */
 public class Animation implements Resource {
   private Texture[] texs;
@@ -69,7 +71,7 @@ public class Animation implements Resource {
    * @return whether or not this is the last frame.
    */
   public boolean render(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, Graphics g) {
-    g.drawRect(new TexturedRectangle(x1, y1, x2, y2, x3, y3, x4, y4, texs[frame]));
+    g.drawRect(new TexturedRectangle(new Rectangle(x1, y1, x2, y2, x3, y3, x4, y4), texs[frame]));
     
     framemillis = System.currentTimeMillis();
     
@@ -90,7 +92,7 @@ public class Animation implements Resource {
    * @return whether or not this is the last frame.
    */
   public boolean render(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float origx, float origy, float rot, Graphics g) {
-    TexturedRectangle render = new TexturedRectangle(x1, y1, x2, y2, x3, y3, x4, y4, texs[frame]);
+    TexturedRectangle render = new TexturedRectangle(new Rectangle(x1, y1, x2, y2, x3, y3, x4, y4), texs[frame]);
     render.rotate(origx, origy, rot);
     g.drawRect(render);
     
