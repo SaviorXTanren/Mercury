@@ -6,30 +6,31 @@ import org.lwjgl.opengl.GL11;
  * A class for Color, that will hold the three values; r, g, and b, and will
  * darken, brighten, multiply, etc.
  * 
- * @from MERCury
- * @author wessles
+ * @from MERCury in com.wessles.MERCury.opengl
+ * @by wessles
  * @website www.wessles.com
+ * @license This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
  */
 
 public class Color {
-	public static final Color red = new Color(255, 0, 0);
-	public static final Color green = new Color(0, 255, 0);
-	public static final Color blue = new Color(0, 0, 255);
+	public static final Color red = new Color(1f, 0f, 0f);
+	public static final Color green = new Color(0f, 1f, 0f);
+	public static final Color blue = new Color(0f, 0f, 1f);
 
-	public static final Color yellow = new Color(255, 255, 0);
-	public static final Color purple = new Color(255, 0, 255);
-	public static final Color babyblue = new Color(0, 255, 255);
+	public static final Color yellow = new Color(1f, 1f, 0f);
+	public static final Color purple = new Color(1f, 0f, 1f);
+	public static final Color babyblue = new Color(0f, 1f, 1f);
 
-	public static final Color white = new Color(255, 255, 255);
-	public static final Color black = new Color(0, 0, 0);
+	public static final Color white = new Color(1f, 1f, 1f);
+	public static final Color black = new Color(0f, 0f, 0f);
 
-	public static final Color gray = new Color(128, 128, 128);
-	public static final Color darkred = new Color(128, 0, 0);
-	public static final Color darkgreen = new Color(0, 128, 0);
-	public static final Color darkblue = new Color(0, 0, 128);
-	public static final Color mustard = new Color(128, 128, 0);
-	public static final Color darkpurple = new Color(128, 0, 128);
-	public static final Color darkbabyblue = new Color(0, 128, 128);
+	public static final Color gray = new Color(0.5f, 0.5f, 0.5f);
+	public static final Color darkred = new Color(0.5f, 0f, 0f);
+	public static final Color darkgreen = new Color(0f, 0.5f, 0f);
+	public static final Color darkblue = new Color(0f, 0f, 0.5f);
+	public static final Color mustard = new Color(0.5f, 0.5f, 0f);
+	public static final Color darkpurple = new Color(0.5f, 0f, 0.5f);
+	public static final Color darkbabyblue = new Color(0f, 0.5f, 0.5f);
 
 	public float r = 0, g = 0, b = 0, a = 0;
 
@@ -46,17 +47,17 @@ public class Color {
 	}
 
 	public Color(int r, int g, int b) {
-		this.r = r / 255;
-		this.g = g / 255;
-		this.b = b / 255;
+		this.r = r / 255f;
+		this.g = g / 255f;
+		this.b = b / 255f;
 		a = 1;
 	}
 
 	public Color(int r, int g, int b, int a) {
-		this.r = r / 255;
-		this.g = g / 255;
-		this.b = b / 255;
-		this.a = a / 255;
+		this.r = r / 255f;
+		this.g = g / 255f;
+		this.b = b / 255f;
+		this.a = a / 255f;
 	}
 
 	public Color(int value) {
