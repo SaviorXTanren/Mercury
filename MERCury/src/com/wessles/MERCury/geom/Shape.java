@@ -104,46 +104,57 @@ public abstract class Shape {
   }
   
   public float getX1() {
+    regen();
     return nx;
   }
   
   public float getY1() {
+    regen();
     return ny;
   }
   
   public float getX2() {
+    regen();
     return fx;
   }
   
   public float getY2() {
+    regen();
     return fy;
   }
   
   public Point getPoint1() {
+    regen();
     return new Point(nx, ny);
   }
   
   public Point getPoint2() {
+    regen();
     return new Point(fx, fy);
   }
   
   public float getWidth() {
+    regen();
     return Math.abs(fx - nx);
   }
   
   public float getHeight() {
+    regen();
     return Math.abs(fy - ny);
   }
   
   public Vector2f getCenterPoint() {
+    regen();
     return center;
   }
   
   public float getCenterX() {
+    regen();
     return center.x;
   }
   
   public float getCenterY() {
+    regen();
     return center.y;
   }
   
@@ -154,18 +165,14 @@ public abstract class Shape {
     fy = ny;
     
     for (Vector2f vertex : vertices) {
-      if (vertex.x < nx)
-        nx = vertex.x;
-      else if (vertex.x > fx)
-        fx = vertex.x;
-      
-      if (vertex.y < ny || vertex.y > fy)
-        ny = vertex.y;
-      else if (vertex.y > fy)
-        fy = vertex.y;
+      nx = Math.min(vertex.x, nx);
+      ny = Math.min(vertex.y, ny);
+      fx = Math.max(vertex.x, fx);
+      fy = Math.max(vertex.y, fy);
     }
+    
     center = new Vector2f((nx + fx) / 2, (ny + fy) / 2);
-    radius = Math.abs(getWidth() > getHeight() ? getWidth() : getHeight());
+    radius = Math.abs(fx-nx > fy-ny ? fx-nx : fy-ny);
   }
   
   public Vector2f[] getVertices() {

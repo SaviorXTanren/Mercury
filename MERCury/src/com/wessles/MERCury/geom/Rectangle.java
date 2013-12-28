@@ -36,7 +36,7 @@ public class Rectangle extends Shape {
   
   @Override
   public boolean intersects(Shape s) {
-    return s.getX1() > getX1() && s.getX1() < getX2() && s.getY1() > getY1() && s.getY1() < getY2() || s.getX2() < getX2() && s.getX2() > getX1() && s.getY2() < getY2() && s.getY2() > getY1();
+    return !((nx > (s.fx)) || (fx < s.nx) || (ny > (s.fy)) || (fy < s.ny));
   }
   
   @Override
