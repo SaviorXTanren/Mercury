@@ -8,7 +8,7 @@ import com.wessles.MERCury.maths.MercMath;
  * @from MERCury in com.wessles.MERCury.geom
  * @by wessles
  * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */
 public class Ellipse extends Shape {
   public float radx, rady;

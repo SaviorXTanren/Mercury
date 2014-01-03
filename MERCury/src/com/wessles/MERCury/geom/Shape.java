@@ -11,7 +11,7 @@ import com.wessles.MERCury.utils.ColorUtils;
  * @from MERCury in com.wessles.MERCury.geom
  * @by wessles
  * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under GPLv2.0 license. You can find the license itself at bit.ly/1eyRQJ7.
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */
 
 public abstract class Shape {
@@ -172,7 +172,7 @@ public abstract class Shape {
     }
     
     center = new Vector2f((nx + fx) / 2, (ny + fy) / 2);
-    radius = Math.abs(fx-nx > fy-ny ? fx-nx : fy-ny);
+    radius = Math.abs(fx - nx > fy - ny ? fx - nx : fy - ny);
   }
   
   public Vector2f[] getVertices() {
