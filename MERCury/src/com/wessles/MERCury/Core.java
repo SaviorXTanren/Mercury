@@ -25,90 +25,107 @@ import com.wessles.MERCury.opengl.Graphics;
 import com.wessles.MERCury.opengl.VAOGraphics;
 
 /**
- * The {@code Core} that will host the game. It is ran above by the {@code Runner} class.
+ * The {@code Core} that will host the game. It is ran above by the
+ * {@code Runner} class.
  * 
  * @from MERCury in com.wessles.MERCury
  * @by wessles
  * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
+ *          project 'MERCury' are licensed under WTFPL license. You can find the
+ *          license itself at http://www.wtfpl.net/about/.
  */
 
-public abstract class Core {
-  public final String name;
-  
-  public Core(String name) {
-    this.name = name;
-  }
-  
-  /**
-   * Called first (after {@code initDisplay}, {@code initGraphics}, and {@code initAudio}), used to initialize all resources, and for whatever you wish to do for initialization.
-   */
-  public abstract void init(ResourceManager RM);
-  
-  /**
-   * Called once every frame, and used to handle all logic.
-   */
-  public abstract void update(float delta);
-  
-  /**
-   * Called once every frame, and used to render everything, via {@code Graphics g}.
-   */
-  public abstract void render(Graphics g);
-  
-  /**
-   * Called when the Runner is done
-   */
-  public abstract void cleanup(ResourceManager RM);
-  
-  public void initDisplay(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
-    try {
-      DisplayMode dm = new DisplayMode(WIDTH, HEIGHT);
-      
-      if (fullscreen) {
-        Display.setFullscreen(fullscreen);
-        DisplayMode[] modes = Display.getAvailableDisplayModes();
-        
-        for (DisplayMode mode : modes)
-          if (mode.getWidth() >= WIDTH && mode.getHeight() >= HEIGHT && mode.isFullscreenCapable())
-            dm = mode;
-      }
-      
-      Display.setDisplayMode(dm);
-      Display.setTitle(name);
-      Display.setVSyncEnabled(vsync);
-      Display.create();
-    } catch (LWJGLException e) {
-      e.printStackTrace();
-    }
-  }
-  
-  public Graphics initGraphics() {
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
-    glMatrixMode(GL_MODELVIEW);
-    
-    glEnable(GL_BLEND);
-    glEnable(GL_ALPHA_TEST);
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_DEPTH_SCALE);
-    glDepthMask(true);
-    glDepthFunc(GL_LEQUAL);
-    
-    glAlphaFunc(GL_GREATER, 0.1f);
-    
-    return new VAOGraphics();
-  }
-  
-  public void initAudio() {
-    try {
-      AL.create();
-    } catch (LWJGLException e) {
-      e.printStackTrace();
-    }
-  }
-  
-  public void cleanupAudio() {
-    AL.destroy();
-  }
+public abstract class Core
+{
+	public final String name;
+
+	public Core(String name)
+	{
+		this.name = name;
+	}
+
+	/**
+	 * Called first (after {@code initDisplay}, {@code initGraphics}, and
+	 * {@code initAudio}), used to initialize all resources, and for whatever
+	 * you wish to do for initialization.
+	 */
+	public abstract void init(ResourceManager RM);
+
+	/**
+	 * Called once every frame, and used to handle all logic.
+	 */
+	public abstract void update(float delta);
+
+	/**
+	 * Called once every frame, and used to render everything, via
+	 * {@code Graphics g}.
+	 */
+	public abstract void render(Graphics g);
+
+	/**
+	 * Called when the Runner is done
+	 */
+	public abstract void cleanup(ResourceManager RM);
+
+	public void initDisplay(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync)
+	{
+		try
+		{
+			DisplayMode dm = new DisplayMode(WIDTH, HEIGHT);
+
+			if (fullscreen)
+			{
+				Display.setFullscreen(fullscreen);
+				DisplayMode[] modes = Display.getAvailableDisplayModes();
+
+				for (DisplayMode mode : modes)
+					if (mode.getWidth() >= WIDTH && mode.getHeight() >= HEIGHT && mode.isFullscreenCapable())
+						dm = mode;
+			}
+
+			Display.setDisplayMode(dm);
+			Display.setTitle(name);
+			Display.setVSyncEnabled(vsync);
+			Display.create();
+		} catch (LWJGLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public Graphics initGraphics()
+	{
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
+		glMatrixMode(GL_MODELVIEW);
+
+		glEnable(GL_BLEND);
+		glEnable(GL_ALPHA_TEST);
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_DEPTH_SCALE);
+		glDepthMask(true);
+		glDepthFunc(GL_LEQUAL);
+
+		glAlphaFunc(GL_GREATER, 0.1f);
+
+		return new VAOGraphics();
+	}
+
+	public void initAudio()
+	{
+		try
+		{
+			AL.create();
+		} catch (LWJGLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void cleanupAudio()
+	{
+		AL.destroy();
+	}
 }

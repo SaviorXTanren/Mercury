@@ -54,7 +54,7 @@ public class Runner {
     if (log != null)
       Logger.setLog(log);
     
-    // Init some stuffs!
+    // Initialize Some Stuff!
     Logger.println("# MERCury Started!");
     Logger.println();
     Logger.println("  __  __ ______ _____   _____                 ");
