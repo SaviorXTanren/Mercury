@@ -14,6 +14,18 @@ import java.io.IOException;
 public class MercData {
   public File file;
   
+  // Testing commit! 
+  // oi 1v1 me m8 kk m8 glhf
+  // SWERVE
+  // OMG WALLBANG
+  // get
+  // on my
+  // level
+  // its colberintim
+  // #swege
+  // thanks based doge
+  // GOTTA GO SPEED - SONIC 2006
+  
   public MercData(String location) throws IOException {
     if(!location.contains("."))
       location += ".MERC.dat";
