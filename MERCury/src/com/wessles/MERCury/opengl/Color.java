@@ -31,6 +31,8 @@ public class Color {
   public static final Color darkpurple = new Color(0.5f, 0f, 0.5f);
   public static final Color darkbabyblue = new Color(0f, 0.5f, 0.5f);
   
+  public static final Color testingcolorred = new Color(0xFF6464);
+  
   public float r = 0, g = 0, b = 0, a = 0;
   
   public Color(float r, float g, float b) {
