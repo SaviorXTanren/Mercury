@@ -1,4 +1,4 @@
-package com.wessles.MERCury;
+package com.wessles.MERCury.environment;
 
 import com.wessles.MERCury.geom.Ellipse;
 import com.wessles.MERCury.geom.Rectangle;

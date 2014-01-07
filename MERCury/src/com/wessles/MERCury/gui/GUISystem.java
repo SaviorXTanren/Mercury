@@ -2,7 +2,7 @@ package com.wessles.MERCury.gui;
 
 import java.util.ArrayList;
 
-import com.wessles.MERCury.Renderable;
+import com.wessles.MERCury.environment.Renderable;
 import com.wessles.MERCury.opengl.Graphics;
 
 /**

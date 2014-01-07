@@ -1,7 +1,9 @@
-package com.wessles.MERCury;
+package com.wessles.MERCury.environment;
+
+import com.wessles.MERCury.opengl.Graphics;
 
 /**
- * An abstraction of objects that can be updated and rendered.
+ * An abstraction for objects that can be rendered.
  * 
  * @from MERCury in com.wessles.MERCury
  * @by wessles
@@ -9,6 +11,6 @@ package com.wessles.MERCury;
  * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */
 
-public interface MercEntity extends Updatable, Renderable {
-  
+public interface Renderable {
+  public void render(Graphics g);
 }

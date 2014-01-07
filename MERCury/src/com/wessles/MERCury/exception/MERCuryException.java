@@ -1,4 +1,4 @@
-package com.wessles.MERCury;
+package com.wessles.MERCury.exception;
 
 /**
  * @from MERCury in com.wessles.MERCury

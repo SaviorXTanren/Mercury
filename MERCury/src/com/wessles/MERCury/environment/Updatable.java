@@ -1,4 +1,4 @@
-package com.wessles.MERCury;
+package com.wessles.MERCury.environment;
 
 /**
  * An abstraction for objects that can be updated.

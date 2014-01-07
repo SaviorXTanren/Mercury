@@ -1,7 +1,12 @@
 package com.wessles.MERCury.data;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * @from MERCury in com.wessles.MERCury.data
@@ -11,24 +16,84 @@ import java.io.IOException;
  */
 
 public class MercData {
-  public File file;
+  public static final int PARSER_VERSION = 1;
   
-  public MercData(String location) throws IOException {
-    if (!location.contains("."))
-      location += ".MERC.dat";
+  public String location;
+  
+  public HashMap<String, String> vals = new HashMap<String, String>();
+  
+  public MercData(String location) {
+    this.location = location;
     
-    File _file = new File(location);
+    if (location.contains("."))
+      this.location = this.location.substring(0, this.location.indexOf('.')) + ".MERC.dat";
+    else
+      this.location += ".MERC.dat";
     
-    if (!_file.exists())
-      try {
-        _file.createNewFile();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+    if (new File(this.location).exists())
+      load();
+  }
+  
+  public void setProperty(String prop, String val) throws FileNotFoundException {
+    vals.put(prop, val);
+  }
+  
+  public String getProperty(String prop) {
+    return vals.get(prop);
+  }
+  
+  public void close() {
+    save();
+    vals.clear();
+  }
+  
+  /**
+   * To be used to load all of our properties
+   */
+  private void load() {
+    Scanner scan = null;
+    try {
+      scan = new Scanner(new FileInputStream(location));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
     
-    if (_file.canWrite()) {
+    String parser = scan.nextLine();
+    parser = parser.substring(parser.indexOf(" ") + 1, parser.lastIndexOf(" "));
+    if (Integer.parseInt(parser) != PARSER_VERSION)
+      System.out.println("RAR!");
+    
+    while (scan.hasNext()) {
+      String prop = scan.next();
+      String val = scan.next();
+      System.out.println(prop + " " + val);
+      vals.put(prop, val);
+    }
+    
+    scan.close();
+  }
+  
+  /**
+   * To be used to SAVE your changes!
+   */
+  private void save() {
+    PrintWriter write = null;
+    
+    try {
+      write = new PrintWriter(new FileOutputStream(new File(location)));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    
+    write.println("<! " + PARSER_VERSION + " >");
+    
+    for (int i = 0; i < vals.size(); i++) {
+      String prop = (String) vals.keySet().toArray()[i];
+      String val = (String) vals.values().toArray()[i];
       
-    } else
-      throw new IOException("Cannot write to file!");
+      write.println(prop + " " + val);
+    }
+    
+    write.close();
   }
 }
