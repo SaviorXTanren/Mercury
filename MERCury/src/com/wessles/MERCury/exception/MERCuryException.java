@@ -1,6 +1,8 @@
 package com.wessles.MERCury.exception;
 
 /**
+ * A general exception for MERCury, which will print its stacktrace to a file using StackTraceSaver.
+ * 
  * @from MERCury in com.wessles.MERCury
  * @by wessles
  * @website www.wessles.com
@@ -8,8 +10,28 @@ package com.wessles.MERCury.exception;
  */
 
 @SuppressWarnings("serial")
-public class MERCuryException extends Exception {
-  public MERCuryException(String reason) {
-    super(reason);
-  }
+public class MERCuryException extends Exception
+{
+    private static boolean save = true;
+    private static String saveto;
+    
+    public MERCuryException(String reason)
+    {
+        super(reason);
+        if (save)
+            if (saveto == null)
+                StackTraceSaver.save(this);
+            else
+                StackTraceSaver.save(saveto, this);
+    }
+    
+    public static void setSaveStackTrace(boolean save)
+    {
+        MERCuryException.save = save;
+    }
+    
+    public static void setSaveTo(String saveto)
+    {
+        MERCuryException.saveto = saveto;
+    }
 }
