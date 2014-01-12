@@ -32,6 +32,8 @@ public class Color
     public static final Color darkpurple = new Color(0.5f, 0f, 0.5f);
     public static final Color darkbabyblue = new Color(0f, 0.5f, 0.5f);
     
+    public static final Color testingcolorred = new Color(0xFF6464);
+    
     public float r = 0, g = 0, b = 0, a = 0;
     
     public Color(float r, float g, float b)
@@ -70,16 +72,6 @@ public class Color
         g = (value & 0x0000FF00) >> 8;
         b = value & 0x000000FF;
         a = (value & 0xFF000000) >> 24;
-        
-        if (a < 0)
-            a += 256;
-        if (a == 0)
-            a = 255;
-        
-        r = r / 255.0f;
-        g = g / 255.0f;
-        b = b / 255.0f;
-        a = a / 255.0f;
     }
     
     public void bind()
