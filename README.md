@@ -5,12 +5,13 @@ Maitenance Enhanced and Reliable Coding Engine
           by wessles of www.wessles.com
 
 
-Libgdx, and slick2d. Those are both GREAT libraries, way more than this will ever be.
+MERCury is a project that I started a while back for my own education on opengl. It was fun to code the batcher, and add in everything. Then I posted it, and people liked it. So I expanded, and even got some friends to help out! We have been working together on networking, GUI, and other fun stuffs.
 
-However...
+Our goal is simple: create an engine that can have plugins, and be ultra-flexible yet easy to use.
 
-That is why I made this. Sure, they are great, but they are LARGE. They have tons of utilities that few people use, like Slick2d's TileMap class. MERCury is compact, and gets the job done still at a high framerate.
+Sincerly,
+wessles - Team Alluminum Founder
 
-You can stick to libGDX, Slick2d, but if you want a small lib/engine, you have to look around (as you could guess, smaller engines/libs are less popular).
-
-But I am not pitching this to you, I am sharing my progress on this project. This is for my learning benifit. If it comes in handy for you, then I feel like I have accomplished that much more!
+Special thanks to:
+Jev (http://www.kemoy.net/)
+opiop65 (http://www.pancakesimone.co.nf/)
