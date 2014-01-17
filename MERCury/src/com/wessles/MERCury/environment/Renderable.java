@@ -1,6 +1,6 @@
 package com.wessles.MERCury.environment;
 
-import com.wessles.MERCury.opengl.Graphics;
+import com.wessles.MERCury.graphics.Graphics;
 
 /**
  * An abstraction for objects that can be rendered.

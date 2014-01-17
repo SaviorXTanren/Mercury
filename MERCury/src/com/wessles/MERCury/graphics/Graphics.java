@@ -1,4 +1,4 @@
-package com.wessles.MERCury.opengl;
+package com.wessles.MERCury.graphics;
 
 import com.wessles.MERCury.font.Font;
 import com.wessles.MERCury.geom.Circle;

@@ -1,7 +1,7 @@
 package com.wessles.MERCury.geom;
 
-import com.wessles.MERCury.opengl.Texture;
-import com.wessles.MERCury.opengl.Textured;
+import com.wessles.MERCury.graphics.Texture;
+import com.wessles.MERCury.graphics.Textured;
 
 /**
  * A textured version of a triangle.

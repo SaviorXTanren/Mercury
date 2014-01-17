@@ -9,7 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import com.wessles.MERCury.opengl.Texture;
+import com.wessles.MERCury.graphics.Texture;
 
 /**
  * @from MERCury in com.wessles.MERCury.font

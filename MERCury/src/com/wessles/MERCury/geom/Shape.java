@@ -1,7 +1,7 @@
 package com.wessles.MERCury.geom;
 
+import com.wessles.MERCury.graphics.Color;
 import com.wessles.MERCury.maths.MercMath;
-import com.wessles.MERCury.opengl.Color;
 import com.wessles.MERCury.utils.ArrayUtils;
 import com.wessles.MERCury.utils.ColorUtils;
 

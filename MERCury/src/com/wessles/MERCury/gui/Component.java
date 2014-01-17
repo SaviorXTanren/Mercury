@@ -3,8 +3,8 @@ package com.wessles.MERCury.gui;
 import com.wessles.MERCury.environment.Renderable;
 import com.wessles.MERCury.geom.Rectangle;
 import com.wessles.MERCury.geom.TexturedRectangle;
-import com.wessles.MERCury.opengl.Graphics;
-import com.wessles.MERCury.opengl.Texture;
+import com.wessles.MERCury.graphics.Graphics;
+import com.wessles.MERCury.graphics.Texture;
 
 /**
  * @from MERCury in com.wessles.MERCury.gui

@@ -1,6 +1,6 @@
 package com.wessles.MERCury.geom;
 
-import com.wessles.MERCury.opengl.Color;
+import com.wessles.MERCury.graphics.Color;
 
 /**
  * A triangle shape; 3 sides.
@@ -54,7 +54,7 @@ public class Triangle extends Shape
         //
         // Simply signed, The Loomy Narty.
         
-        return (base * base_to_top_height) / 2;
+        return base * base_to_top_height / 2;
     }
     
     @Override

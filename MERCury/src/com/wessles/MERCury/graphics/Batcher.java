@@ -1,4 +1,4 @@
-package com.wessles.MERCury.opengl;
+package com.wessles.MERCury.graphics;
 
 /**
  * An abstraction for batchers.

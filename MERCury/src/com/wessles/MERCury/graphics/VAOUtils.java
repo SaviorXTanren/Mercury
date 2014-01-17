@@ -1,4 +1,4 @@
-package com.wessles.MERCury.opengl;
+package com.wessles.MERCury.graphics;
 
 import static org.lwjgl.opengl.GL11.glColorPointer;
 import static org.lwjgl.opengl.GL11.glDisableClientState;

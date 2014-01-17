@@ -7,6 +7,7 @@ import paulscode.sound.SoundSystem;
 import paulscode.sound.SoundSystemConfig;
 
 import com.wessles.MERCury.exception.MERCuryException;
+import com.wessles.MERCury.exception.PluginNotFoundException;
 import com.wessles.MERCury.framework.Runner;
 import com.wessles.MERCury.resource.Resource;
 
@@ -91,7 +92,14 @@ public class Audio implements Resource
     
     public static SoundSystem getSoundSystem()
     {
-        return Runner.getInstance().soundSystem();
+        try
+        {
+            return ((PaulscodeSoundSystemPlugin) Runner.getInstance().getPlugin(PaulscodeSoundSystemPlugin.class.getSimpleName())).soundsystem;
+        } catch (PluginNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
     
     @Override

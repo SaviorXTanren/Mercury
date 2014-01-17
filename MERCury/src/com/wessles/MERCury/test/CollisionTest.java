@@ -4,8 +4,8 @@ import com.wessles.MERCury.framework.Core;
 import com.wessles.MERCury.framework.Runner;
 import com.wessles.MERCury.geom.Ellipse;
 import com.wessles.MERCury.geom.Rectangle;
+import com.wessles.MERCury.graphics.Graphics;
 import com.wessles.MERCury.logging.Logger;
-import com.wessles.MERCury.opengl.Graphics;
 import com.wessles.MERCury.resource.ResourceManager;
 
 /**

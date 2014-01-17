@@ -3,11 +3,12 @@ package com.wessles.MERCury.test;
 import org.lwjgl.input.Keyboard;
 
 import com.wessles.MERCury.audio.Audio;
+import com.wessles.MERCury.audio.PaulscodeSoundSystemPlugin;
 import com.wessles.MERCury.exception.MERCuryException;
 import com.wessles.MERCury.framework.Core;
 import com.wessles.MERCury.framework.Runner;
+import com.wessles.MERCury.graphics.Graphics;
 import com.wessles.MERCury.input.Input;
-import com.wessles.MERCury.opengl.Graphics;
 import com.wessles.MERCury.resource.ResourceManager;
 
 /**
@@ -26,6 +27,7 @@ public class AudioTest extends Core
     public AudioTest()
     {
         super("yo");
+        rnr.addPlugin(new PaulscodeSoundSystemPlugin());
         rnr.init(this, 100, 100);
         rnr.run();
     }

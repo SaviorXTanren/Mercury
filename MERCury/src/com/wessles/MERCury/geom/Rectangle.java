@@ -1,6 +1,6 @@
 package com.wessles.MERCury.geom;
 
-import com.wessles.MERCury.opengl.Color;
+import com.wessles.MERCury.graphics.Color;
 
 /**
  * A rectangle shape.

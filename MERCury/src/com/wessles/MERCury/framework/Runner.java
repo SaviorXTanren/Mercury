@@ -4,15 +4,16 @@ import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
 
+import java.util.ArrayList;
+
 import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
-import paulscode.sound.SoundSystem;
-
+import com.wessles.MERCury.exception.PluginNotFoundException;
+import com.wessles.MERCury.graphics.Graphics;
 import com.wessles.MERCury.input.Input;
 import com.wessles.MERCury.logging.Logger;
-import com.wessles.MERCury.opengl.Graphics;
 import com.wessles.MERCury.resource.ResourceManager;
 import com.wessles.MERCury.utils.Camera;
 
@@ -29,6 +30,8 @@ public class Runner
 {
     private final static Runner singleton = new Runner();
     
+    private final ArrayList<Plugin> plugs = new ArrayList<Plugin>();
+    
     private boolean running = false;
     private boolean vsync;
     private boolean logfps = false;
@@ -40,7 +43,6 @@ public class Runner
     private Core core;
     
     private Graphics graphicsobject;
-    private SoundSystem soundsystem;
     
     private ResourceManager RM;
     
@@ -59,7 +61,7 @@ public class Runner
     
     public void init(Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync)
     {
-        // Initialize Some Stuff!
+        // Initialize Some Stuff! IN ORDER
         Logger.debug("MERCury Started!");
         Logger.log("  __  __ ______ _____   _____                 ");
         Logger.log(" |  \\/  |  ____|  __ \\ / ____|                ");
@@ -85,22 +87,25 @@ public class Runner
         graphicsobject = this.core.initGraphics();
         Logger.debug("Initializing Camera...");
         camera = new Camera(0, 0);
-        Logger.debug("Initializing Audio...");
-        this.core.initAudio();
-        soundsystem = new SoundSystem();
         Logger.debug("Initializing Resource Manager...");
         RM = new ResourceManager();
         
         Logger.debug("Initializing Graphics...");
         graphicsobject.init();
-        Logger.debug("Initializing Core...");
-        this.core.init(RM);
         Logger.debug("Creating Input...");
         input = new Input();
         Logger.debug("Initializing Input...");
         input.create();
         
-        Logger.debug("Done Making and Initializing MERCury Game Engine.");
+        Logger.debug("Starting plugins...");
+        for (Plugin plug : plugs)
+        {
+            Logger.debug("     Initializing up " + plug.getClass().getSimpleName() + "...");
+            plug.init();
+        }
+        
+        Logger.debug("Initializing Core...");
+        this.core.init(RM);
         
         Logger.debug("Ready to begin game loop. Awaiting permission from Core...");
     }
@@ -177,8 +182,12 @@ public class Runner
         core.cleanup(RM);
         Logger.debug("Cleaning up ResourceManager...");
         RM.cleanup();
-        Logger.debug("Cleaning up OpenAL Sound...");
-        core.cleanupAudio();
+        Logger.debug("Cleaning up plugins...");
+        for (Plugin plug : plugs)
+        {
+            Logger.debug("     Cleaning up " + plug.getClass().getSimpleName() + "...");
+            plug.cleanup();
+        }
         Logger.debug("Cleanup complete.");
         Logger.debug("MERCury Game Engine shutting down...");
     }
@@ -298,11 +307,6 @@ public class Runner
         return graphicsobject;
     }
     
-    public SoundSystem soundSystem()
-    {
-        return soundsystem;
-    }
-    
     public ResourceManager resourceManager()
     {
         return RM;
@@ -316,6 +320,19 @@ public class Runner
     public Camera camera()
     {
         return camera;
+    }
+    
+    public void addPlugin(Plugin plugin)
+    {
+        plugs.add(plugin);
+    }
+    
+    public Plugin getPlugin(String name) throws PluginNotFoundException
+    {
+        for (Plugin plug : plugs)
+            if (plug.getClass().getSimpleName().equalsIgnoreCase(name))
+                return plug;
+        throw new PluginNotFoundException("Plugin '" + name + "' not found!");
     }
     
     public static Runner getInstance()

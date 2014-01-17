@@ -2,8 +2,8 @@ package com.wessles.MERCury.environment;
 
 import com.wessles.MERCury.geom.Ellipse;
 import com.wessles.MERCury.geom.Rectangle;
-import com.wessles.MERCury.opengl.Graphics;
-import com.wessles.MERCury.opengl.Texture;
+import com.wessles.MERCury.graphics.Graphics;
+import com.wessles.MERCury.graphics.Texture;
 
 /**
  * @from MERCury in com.wessles.MERCury

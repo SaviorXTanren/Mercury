@@ -5,7 +5,7 @@ import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 
 import com.wessles.MERCury.geom.Vector2f;
-import com.wessles.MERCury.opengl.Graphics;
+import com.wessles.MERCury.graphics.Graphics;
 
 /**
  * An object for the camera.

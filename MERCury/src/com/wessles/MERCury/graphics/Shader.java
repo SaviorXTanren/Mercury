@@ -1,4 +1,4 @@
-package com.wessles.MERCury.opengl;
+package com.wessles.MERCury.graphics;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

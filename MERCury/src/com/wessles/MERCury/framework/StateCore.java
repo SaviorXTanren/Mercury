@@ -2,7 +2,7 @@ package com.wessles.MERCury.framework;
 
 import java.util.HashMap;
 
-import com.wessles.MERCury.opengl.Graphics;
+import com.wessles.MERCury.graphics.Graphics;
 import com.wessles.MERCury.resource.ResourceManager;
 
 /**

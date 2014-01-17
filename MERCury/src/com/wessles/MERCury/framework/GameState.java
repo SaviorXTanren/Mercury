@@ -1,6 +1,6 @@
 package com.wessles.MERCury.framework;
 
-import com.wessles.MERCury.opengl.Graphics;
+import com.wessles.MERCury.graphics.Graphics;
 
 /**
  * A game state class to be used in {@code StateCore}.

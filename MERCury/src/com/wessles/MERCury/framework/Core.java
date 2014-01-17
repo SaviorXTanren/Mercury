@@ -20,12 +20,8 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-import paulscode.sound.SoundSystemConfig;
-import paulscode.sound.SoundSystemException;
-
-import com.wessles.MERCury.logging.Logger;
-import com.wessles.MERCury.opengl.Graphics;
-import com.wessles.MERCury.opengl.VAOGraphics;
+import com.wessles.MERCury.graphics.Graphics;
+import com.wessles.MERCury.graphics.VAOGraphics;
 import com.wessles.MERCury.resource.ResourceManager;
 
 /**
@@ -109,49 +105,5 @@ public abstract class Core
         glAlphaFunc(GL_GREATER, 0.1f);
         
         return new VAOGraphics();
-    }
-    
-    public void initAudio()
-    {
-        try
-        {
-            try
-            {
-                Class.forName("paulscode.sound.libraries.LibraryLWJGLOpenAL", false, this.getClass().getClassLoader());
-                SoundSystemConfig.addLibrary(Class.forName("paulscode.sound.libraries.LibraryLWJGLOpenAL"));
-            } catch (ClassNotFoundException e)
-            {
-                Logger.warn("LibraryLWJGLOpenAL not found!");
-            }
-            try
-            {
-                Class.forName("paulscode.sound.codecs.CodecWav", false, this.getClass().getClassLoader());
-                SoundSystemConfig.setCodec("wav", Class.forName("paulscode.sound.codecs.CodecWav"));
-            } catch (ClassNotFoundException e)
-            {
-                Logger.warn("No CodecWav found!");
-            }
-            try
-            {
-                Class.forName("paulscode.sound.codecs.CodecJOgg", false, this.getClass().getClassLoader());
-                SoundSystemConfig.setCodec("ogg", Class.forName("paulscode.sound.codecs.CodecJOgg"));
-                try {
-                    Class.forName("com.jcraft.jogg.Page", false, this.getClass().getClassLoader());
-                } catch (ClassNotFoundException e) {
-                    Logger.warn("CodecJOgg found without jogg!");
-                }
-            } catch (ClassNotFoundException e)
-            {
-                Logger.warn("No CodecJOgg found!");
-            }
-        } catch (SoundSystemException e)
-        {
-            e.printStackTrace();
-        }
-    }
-    
-    public void cleanupAudio()
-    {
-        Runner.getInstance().soundSystem().cleanup();
     }
 }

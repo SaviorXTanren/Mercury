@@ -1,12 +1,12 @@
-package com.wessles.MERCury.opengl;
+package com.wessles.MERCury.graphics;
 
-import static com.wessles.MERCury.opengl.VAOUtils.COLOR_ARRAY_POINTER;
-import static com.wessles.MERCury.opengl.VAOUtils.TEXTURE_COORD_ARRAY_POINTER;
-import static com.wessles.MERCury.opengl.VAOUtils.VERTEX_ARRAY_POINTER;
-import static com.wessles.MERCury.opengl.VAOUtils.disableBuffer;
-import static com.wessles.MERCury.opengl.VAOUtils.drawBuffers;
-import static com.wessles.MERCury.opengl.VAOUtils.enableBuffer;
-import static com.wessles.MERCury.opengl.VAOUtils.pointBuffer;
+import static com.wessles.MERCury.graphics.VAOUtils.COLOR_ARRAY_POINTER;
+import static com.wessles.MERCury.graphics.VAOUtils.TEXTURE_COORD_ARRAY_POINTER;
+import static com.wessles.MERCury.graphics.VAOUtils.VERTEX_ARRAY_POINTER;
+import static com.wessles.MERCury.graphics.VAOUtils.disableBuffer;
+import static com.wessles.MERCury.graphics.VAOUtils.drawBuffers;
+import static com.wessles.MERCury.graphics.VAOUtils.enableBuffer;
+import static com.wessles.MERCury.graphics.VAOUtils.pointBuffer;
 import static org.lwjgl.opengl.GL11.GL_COLOR;
 import static org.lwjgl.opengl.GL11.GL_COLOR_ARRAY;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE;

@@ -3,7 +3,7 @@ package com.wessles.MERCury.gui;
 import java.util.ArrayList;
 
 import com.wessles.MERCury.environment.Renderable;
-import com.wessles.MERCury.opengl.Graphics;
+import com.wessles.MERCury.graphics.Graphics;
 
 /**
  * @from MERCury in com.wessles.MERCury.gui
