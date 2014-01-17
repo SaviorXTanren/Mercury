@@ -30,7 +30,31 @@ public class Triangle extends Shape
     @Override
     public float getArea()
     {
-        return getWidth() * getHeight() / 2;
+        float base = (float) Math.sqrt(Math.abs(vertices[2].x - vertices[0].x) * Math.abs(vertices[2].y - vertices[0].y));
+        Vector2f midpoint = new Vector2f((vertices[2].x + vertices[0].x) / 2, (vertices[2].y + vertices[0].y) / 2);
+        float base_to_top_height = (float) Math.sqrt(Math.abs(midpoint.x - vertices[1].x) * Math.abs(midpoint.y - vertices[1].y));
+        
+        // The whistle was blown,
+        // t'was the code as follows
+        // that made me revise,
+        // this perfect little snippet
+        //
+        // return (getWidth() getHeight()) / 2;
+        //
+        // He said base != width-ippit
+        //
+        // He unfortunately went missing in an eppit.
+        // Well here is a quite big tippet.
+        // Don't ask too many questions, source lurkits...
+        // Not one too many... Beware... crickets...
+        //
+        // But the saddest little ippet
+        // is that this snippet of code, may still not be right.
+        // Double, triple, quadtippet your code, younglings.
+        //
+        // Simply signed, The Loomy Narty.
+        
+        return (base * base_to_top_height) / 2;
     }
     
     @Override

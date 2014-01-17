@@ -23,7 +23,6 @@ import org.lwjgl.opengl.DisplayMode;
 import paulscode.sound.SoundSystemConfig;
 import paulscode.sound.SoundSystemException;
 
-import com.wessles.MERCury.exception.SevereLogException;
 import com.wessles.MERCury.logging.Logger;
 import com.wessles.MERCury.opengl.Graphics;
 import com.wessles.MERCury.opengl.VAOGraphics;
@@ -122,13 +121,7 @@ public abstract class Core
                 SoundSystemConfig.addLibrary(Class.forName("paulscode.sound.libraries.LibraryLWJGLOpenAL"));
             } catch (ClassNotFoundException e)
             {
-                try
-                {
-                    Logger.severe("LibraryLWJGLOpenAL not found!");
-                } catch (SevereLogException e1)
-                {
-                    e1.printStackTrace();
-                }
+                Logger.warn("LibraryLWJGLOpenAL not found!");
             }
             try
             {
@@ -142,6 +135,11 @@ public abstract class Core
             {
                 Class.forName("paulscode.sound.codecs.CodecJOgg", false, this.getClass().getClassLoader());
                 SoundSystemConfig.setCodec("ogg", Class.forName("paulscode.sound.codecs.CodecJOgg"));
+                try {
+                    Class.forName("com.jcraft.jogg.Page", false, this.getClass().getClassLoader());
+                } catch (ClassNotFoundException e) {
+                    Logger.warn("CodecJOgg found without jogg!");
+                }
             } catch (ClassNotFoundException e)
             {
                 Logger.warn("No CodecJOgg found!");
