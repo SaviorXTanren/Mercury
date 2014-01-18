@@ -1,7 +1,7 @@
 package com.wessles.MERCury.font;
 
 import com.wessles.MERCury.graphics.Texture;
-import com.wessles.MERCury.resource.Resource;
+import com.wessles.MERCury.res.Resource;
 
 /**
  * An abstraction for fonts.

@@ -14,7 +14,7 @@ import com.wessles.MERCury.geom.TexturedRectangle;
 import com.wessles.MERCury.geom.TexturedTriangle;
 import com.wessles.MERCury.geom.Triangle;
 import com.wessles.MERCury.geom.Vector2f;
-import com.wessles.MERCury.utils.ColorUtils;
+import com.wessles.MERCury.util.ColorUtils;
 
 /**
  * An object used for graphics. It will draw just about anything for you.

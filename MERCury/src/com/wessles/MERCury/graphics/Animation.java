@@ -5,8 +5,8 @@ import java.io.IOException;
 
 import com.wessles.MERCury.geom.Rectangle;
 import com.wessles.MERCury.geom.TexturedRectangle;
-import com.wessles.MERCury.resource.Resource;
-import com.wessles.MERCury.utils.TextureFactory;
+import com.wessles.MERCury.res.Resource;
+import com.wessles.MERCury.util.TextureFactory;
 
 /**
  * An easy to use animation class. Just render, and watch the moving picture.

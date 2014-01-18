@@ -9,7 +9,7 @@ import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.GL11;
 
-import com.wessles.MERCury.resource.Resource;
+import com.wessles.MERCury.res.Resource;
 
 /**
  * An object version of shaders. Does all of the tedius stuff for you and lets you use the shader easily.

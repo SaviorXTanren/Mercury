@@ -2,14 +2,14 @@ package com.wessles.MERCury.test;
 
 import org.lwjgl.input.Keyboard;
 
-import com.wessles.MERCury.audio.Audio;
-import com.wessles.MERCury.audio.PaulscodeSoundSystemPlugin;
+import com.wessles.MERCury.aud.Audio;
+import com.wessles.MERCury.aud.PaulscodeSoundSystemPlugin;
 import com.wessles.MERCury.exception.MERCuryException;
 import com.wessles.MERCury.framework.Core;
 import com.wessles.MERCury.framework.Runner;
 import com.wessles.MERCury.graphics.Graphics;
-import com.wessles.MERCury.input.Input;
-import com.wessles.MERCury.resource.ResourceManager;
+import com.wessles.MERCury.in.Input;
+import com.wessles.MERCury.res.ResourceManager;
 
 /**
  * A simple test to show that sounds can be played. If this works, then Music does too.

@@ -22,7 +22,7 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.BufferUtils;
 
-import com.wessles.MERCury.resource.Resource;
+import com.wessles.MERCury.res.Resource;
 
 /**
  * An object version of a texture. This will store the width and height of the object.

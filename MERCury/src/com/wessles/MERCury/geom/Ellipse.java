@@ -1,6 +1,6 @@
 package com.wessles.MERCury.geom;
 
-import com.wessles.MERCury.maths.MercMath;
+import com.wessles.MERCury.math.MercMath;
 
 /**
  * An ellipse that can have a length and width.

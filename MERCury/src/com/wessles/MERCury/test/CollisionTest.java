@@ -5,8 +5,8 @@ import com.wessles.MERCury.framework.Runner;
 import com.wessles.MERCury.geom.Ellipse;
 import com.wessles.MERCury.geom.Rectangle;
 import com.wessles.MERCury.graphics.Graphics;
-import com.wessles.MERCury.logging.Logger;
-import com.wessles.MERCury.resource.ResourceManager;
+import com.wessles.MERCury.log.Logger;
+import com.wessles.MERCury.res.ResourceManager;
 
 /**
  * According to this test, the following collision events are valid: [see method render()].

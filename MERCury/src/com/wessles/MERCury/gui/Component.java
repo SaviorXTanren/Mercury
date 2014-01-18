@@ -1,6 +1,6 @@
 package com.wessles.MERCury.gui;
 
-import com.wessles.MERCury.environment.Renderable;
+import com.wessles.MERCury.env.Renderable;
 import com.wessles.MERCury.geom.Rectangle;
 import com.wessles.MERCury.geom.TexturedRectangle;
 import com.wessles.MERCury.graphics.Graphics;

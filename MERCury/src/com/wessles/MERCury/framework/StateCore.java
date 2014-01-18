@@ -3,7 +3,7 @@ package com.wessles.MERCury.framework;
 import java.util.HashMap;
 
 import com.wessles.MERCury.graphics.Graphics;
-import com.wessles.MERCury.resource.ResourceManager;
+import com.wessles.MERCury.res.ResourceManager;
 
 /**
  * A sub-class of {@code Core} that will add in the capabilities to handle {@code GameState}s.

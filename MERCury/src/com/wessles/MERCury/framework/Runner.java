@@ -12,10 +12,10 @@ import org.lwjgl.opengl.Display;
 
 import com.wessles.MERCury.exception.PluginNotFoundException;
 import com.wessles.MERCury.graphics.Graphics;
-import com.wessles.MERCury.input.Input;
-import com.wessles.MERCury.logging.Logger;
-import com.wessles.MERCury.resource.ResourceManager;
-import com.wessles.MERCury.utils.Camera;
+import com.wessles.MERCury.in.Input;
+import com.wessles.MERCury.log.Logger;
+import com.wessles.MERCury.res.ResourceManager;
+import com.wessles.MERCury.util.Camera;
 
 /**
  * A class that will run your core, and give out the graphics object, current core, resource manager, and input ly.

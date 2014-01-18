@@ -20,7 +20,7 @@ import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
 
-import com.wessles.MERCury.utils.ColorUtils;
+import com.wessles.MERCury.util.ColorUtils;
 
 /**
  * A very simple batcher.

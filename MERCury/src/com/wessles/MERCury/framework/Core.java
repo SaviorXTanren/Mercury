@@ -22,7 +22,7 @@ import org.lwjgl.opengl.DisplayMode;
 
 import com.wessles.MERCury.graphics.Graphics;
 import com.wessles.MERCury.graphics.VAOGraphics;
-import com.wessles.MERCury.resource.ResourceManager;
+import com.wessles.MERCury.res.ResourceManager;
 
 /**
  * The {@code Core} that will host the game. It is ran above by the {@code Runner} class.

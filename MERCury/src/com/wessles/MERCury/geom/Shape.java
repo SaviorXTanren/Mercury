@@ -1,9 +1,9 @@
 package com.wessles.MERCury.geom;
 
 import com.wessles.MERCury.graphics.Color;
-import com.wessles.MERCury.maths.MercMath;
-import com.wessles.MERCury.utils.ArrayUtils;
-import com.wessles.MERCury.utils.ColorUtils;
+import com.wessles.MERCury.math.MercMath;
+import com.wessles.MERCury.util.ArrayUtils;
+import com.wessles.MERCury.util.ColorUtils;
 
 /**
  * The abstraction of all shapes.
