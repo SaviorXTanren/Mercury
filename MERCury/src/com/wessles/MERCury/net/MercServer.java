@@ -31,6 +31,7 @@ public class MercServer {
 	public void createServer() {
 		server = new Server();
 		serverCreated = true;
+		openServer();
 	}
 
 	// Starts and binds the server. Must be called after createServer()!
@@ -61,6 +62,11 @@ public class MercServer {
 			// add logging
 			e.printStackTrace();
 		}
+	}
+	
+	//Register the objects you want to send. Must be registered before being able to send. The Object also has to be static and cannot have a constructor!
+	public void registerObject(Class<?> object){
+		getKryo().register(object);
 	}
 
 	// Send to all connected clients via TCP

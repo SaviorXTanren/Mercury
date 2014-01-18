@@ -30,10 +30,11 @@ public class MercClient {
 	public void createClient() {
 		client = new Client();
 		clientCreated = true;
+		openClient();
 	}
 
 	// Starts and binds the client. Must be called after createclient()!
-	public boolean openclient() {
+	public boolean openClient() {
 		if (clientCreated) {
 			client.start();
 		} else if (!clientCreated) {
@@ -65,6 +66,11 @@ public class MercClient {
 			// add logging
 			e.printStackTrace();
 		}
+	}
+	
+	//Register the objects you want to send. Must be registered before being able to send. The Object also has to be static and cannot have a constructor!
+	public void registerObject(Class<?> object){
+		getKryo().register(object);
 	}
 	
 	public void sendTCP(Object object){
