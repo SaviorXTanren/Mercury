@@ -27,7 +27,7 @@ public class MercClient {
 	}
 
 	// Creates a new instance of the client
-	public void createclient() {
+	public void createClient() {
 		client = new Client();
 		clientCreated = true;
 	}
