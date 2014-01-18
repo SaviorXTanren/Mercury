@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="libs/CodecWav.jar"/>
 	<classpathentry kind="lib" path="libs/SoundSystem.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="libs/kryonet-2.21-all.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
