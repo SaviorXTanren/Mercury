@@ -15,6 +15,7 @@ import com.wessles.MERCury.graphics.Graphics;
 import com.wessles.MERCury.in.Input;
 import com.wessles.MERCury.log.Logger;
 import com.wessles.MERCury.res.ResourceManager;
+import com.wessles.MERCury.splash.SplashScreen;
 import com.wessles.MERCury.util.Camera;
 
 /**
@@ -30,13 +31,16 @@ public class Runner
 {
     private final static Runner singleton = new Runner();
     
+    private final ArrayList<SplashScreen> splashes = new ArrayList<SplashScreen>();
     private final ArrayList<Plugin> plugs = new ArrayList<Plugin>();
     
     private boolean running = false;
+    private boolean splashed = false;
     private boolean vsync;
     private boolean logfps = false;
     private int delta = 1;
     private int FPS_TARGET = 60, FPS;
+    private int splashidx = 0;
     private long lastframe;
     private float deltafactor = 1;
     
@@ -100,12 +104,17 @@ public class Runner
         Logger.debug("Starting plugins...");
         for (Plugin plug : plugs)
         {
-            Logger.debug("     Initializing up " + plug.getClass().getSimpleName() + "...");
+            Logger.debug("     Initializing " + plug.getClass().getSimpleName() + "...");
             plug.init();
         }
         
         Logger.debug("Initializing Core...");
         this.core.init(RM);
+        if (splashes.size() == 0)
+        {
+            splashed = true;
+            Logger.debug("No splashes loaded by Core.");
+        }
         
         Logger.debug("Ready to begin game loop. Awaiting permission from Core...");
     }
@@ -158,10 +167,19 @@ public class Runner
             
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             
-            core.update(delta());
+            if (splashed)
+                core.update(delta());
             
             camera.pre(graphicsobject);
-            core.render(graphicsobject);
+            {
+                if (splashed)
+                    core.render(graphicsobject);
+                else if (!splashes.get(splashidx).show(graphicsobject))
+                    if (splashidx < splashes.size() - 1)
+                        splashidx++;
+                    else
+                        splashed = true;
+            }
             camera.post(graphicsobject);
             
             if (Display.isCloseRequested())
@@ -237,6 +255,9 @@ public class Runner
         return width(numerator) / height(numerator);
     }
     
+    /**
+     * @return Time in milliseconds
+     */
     public float getTime()
     {
         return Sys.getTime() * 1000 / Sys.getTimerResolution();
@@ -320,6 +341,11 @@ public class Runner
     public Camera camera()
     {
         return camera;
+    }
+    
+    public void addSplashScreen(SplashScreen splash)
+    {
+        splashes.add(splash);
     }
     
     public void addPlugin(Plugin plugin)
