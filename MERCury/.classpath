@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="res"/>
+	<classpathentry kind="lib" path="libs/lwjgl/jar/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="MERCury/libs/lwjgl/native/universal"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="libs/jogg.jar"/>
+	<classpathentry kind="lib" path="libs/CodecJOgg.jar"/>
+	<classpathentry kind="lib" path="libs/LibraryLWJGLOpenAL.jar"/>
+	<classpathentry kind="lib" path="libs/CodecWav.jar"/>
+	<classpathentry kind="lib" path="libs/SoundSystem.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="libs/kryonet-2.21-all.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
