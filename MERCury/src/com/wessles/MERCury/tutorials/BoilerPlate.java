@@ -6,6 +6,8 @@ import com.wessles.MERCury.graphics.Graphics;
 import com.wessles.MERCury.res.ResourceManager;
 
 /**
+ * All you will need to get started on a MERCury project
+ * 
  * @from MERCury in com.wessles.MERCury.tutorials
  * @by wessles
  * @website www.wessles.com
