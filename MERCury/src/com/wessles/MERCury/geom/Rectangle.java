@@ -1,7 +1,5 @@
 package com.wessles.MERCury.geom;
 
-import com.wessles.MERCury.graphics.Color;
-
 /**
  * A rectangle shape.
  * 
@@ -14,30 +12,17 @@ import com.wessles.MERCury.graphics.Color;
 public class Rectangle extends Shape
 {
     
-    public Rectangle(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
-    {
-        super(x1, y1, x2, y2, x3, y3, x4, y4);
-    }
-    
-    public Rectangle(Color[] colors, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
-    {
-        super(colors, new float[]
-        {
-                x1, y1, x2, y2, x3, y3, x4, y4
-        });
-    }
-    
     public Rectangle(float x, float y, float w, float h)
     {
-        super(x, y, x + w, y, x + w, y + h, x, y + h);
-    }
-    
-    public Rectangle(Color[] colors, float x, float y, float w, float h)
-    {
-        super(colors, new float[]
+        super(new float[]
         {
                 x, y, x + w, y, x + w, y + h, x, y + h
         });
+    }
+    
+    public Rectangle(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
+    {
+        super(x1, y1, x2, y2, x3, y3, x4, y4);
     }
     
     @Override

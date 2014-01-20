@@ -1,9 +1,7 @@
 package com.wessles.MERCury.geom;
 
-import com.wessles.MERCury.graphics.Color;
 import com.wessles.MERCury.math.MercMath;
 import com.wessles.MERCury.util.ArrayUtils;
-import com.wessles.MERCury.util.ColorUtils;
 
 /**
  * The abstraction of all shapes.
@@ -16,11 +14,8 @@ import com.wessles.MERCury.util.ColorUtils;
 
 public abstract class Shape
 {
-    public boolean ignorecolored;
-    
     protected Vector2f center;
     protected Vector2f[] vertices;
-    protected Color[] colors;
     protected float nx, ny, fx, fy;
     protected float radius;
     
@@ -28,26 +23,11 @@ public abstract class Shape
     
     public Shape(float... coords)
     {
-        this(ColorUtils.getColorArray(ColorUtils.DEFAULT_DRAWING, coords.length / 2), ArrayUtils.getVector2fs(coords), true);
+        this(ArrayUtils.getVector2fs(coords));
     }
     
-    public Shape(Vector2f... coords)
+    public Shape(Vector2f... vertices)
     {
-        this(ColorUtils.getColorArray(ColorUtils.DEFAULT_DRAWING, coords.length), coords, true);
-    }
-    
-    public Shape(Color[] colors, float[] coords)
-    {
-        this(colors, ArrayUtils.getVector2fs(coords), false);
-    }
-    
-    public Shape(Color[] colors, Vector2f[] vertices, boolean ignorecolored)
-    {
-        if (vertices.length != colors.length)
-            throw new IllegalArgumentException("The number of colors and vertices must be equal!");
-        
-        this.ignorecolored = ignorecolored;
-        this.colors = colors;
         this.vertices = vertices;
         regen();
     }
@@ -207,11 +187,6 @@ public abstract class Shape
     public Vector2f[] getVertices()
     {
         return vertices;
-    }
-    
-    public Color[] getColors()
-    {
-        return colors;
     }
     
     @Override

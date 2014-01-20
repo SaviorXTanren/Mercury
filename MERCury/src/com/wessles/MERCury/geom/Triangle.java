@@ -1,7 +1,5 @@
 package com.wessles.MERCury.geom;
 
-import com.wessles.MERCury.graphics.Color;
-
 /**
  * A triangle shape; 3 sides.
  * 
@@ -16,12 +14,7 @@ public class Triangle extends Shape
     
     public Triangle(float x1, float y1, float x2, float y2, float x3, float y3)
     {
-        super(x1, y1, x2, y2, x3, y3);
-    }
-    
-    public Triangle(Color[] colors, float x1, float y1, float x2, float y2, float x3, float y3)
-    {
-        super(colors, new float[]
+        super(new float[]
         {
                 x1, y1, x2, y2, x3, y3
         });

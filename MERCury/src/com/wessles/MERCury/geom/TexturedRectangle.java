@@ -18,7 +18,7 @@ public class TexturedRectangle extends Rectangle implements Textured
     
     public TexturedRectangle(Rectangle rect, Texture texture)
     {
-        super(rect.colors, rect.nx, rect.ny, rect.fx, rect.ny, rect.fx, rect.fy, rect.nx, rect.fy);
+        super(rect.nx, rect.ny, rect.fx, rect.ny, rect.fx, rect.fy, rect.nx, rect.fy);
         this.texture = texture;
     }
     

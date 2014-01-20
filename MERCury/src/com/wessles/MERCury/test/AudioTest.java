@@ -1,5 +1,7 @@
 package com.wessles.MERCury.test;
 
+import java.io.IOException;
+
 import org.lwjgl.input.Keyboard;
 
 import com.wessles.MERCury.aud.Audio;
@@ -8,8 +10,10 @@ import com.wessles.MERCury.exception.MERCuryException;
 import com.wessles.MERCury.framework.Core;
 import com.wessles.MERCury.framework.Runner;
 import com.wessles.MERCury.graphics.Graphics;
+import com.wessles.MERCury.graphics.Texture;
 import com.wessles.MERCury.in.Input;
 import com.wessles.MERCury.res.ResourceManager;
+import com.wessles.MERCury.splash.SplashScreen;
 
 /**
  * A simple test to show that sounds can be played. If this works, then Music does too.
@@ -40,6 +44,18 @@ public class AudioTest extends Core
             RM.loadResource(Audio.loadAudio("res/test/AudioTest/sound.ogg", false), "ogg");
             RM.loadResource(Audio.loadAudio("res/test/AudioTest/sound.wav", false), "wav");
         } catch (MERCuryException e)
+        {
+            e.printStackTrace();
+        }
+        
+        try
+        {
+            Texture tex = Texture.loadTexture("res/splash.png");
+            float ratio = tex.getTextureWidth() / tex.getTextureHeight();
+            int height = (int) (rnr.width() / ratio);
+            SplashScreen splash = new SplashScreen(tex, 3000, rnr.width(), height, true);
+            rnr.addSplashScreen(splash);
+        } catch (IOException e)
         {
             e.printStackTrace();
         }

@@ -1,12 +1,16 @@
 package com.wessles.MERCury.test;
 
+import java.io.IOException;
+
 import com.wessles.MERCury.framework.Core;
 import com.wessles.MERCury.framework.Runner;
 import com.wessles.MERCury.geom.Ellipse;
 import com.wessles.MERCury.geom.Rectangle;
 import com.wessles.MERCury.graphics.Graphics;
+import com.wessles.MERCury.graphics.Texture;
 import com.wessles.MERCury.log.Logger;
 import com.wessles.MERCury.res.ResourceManager;
+import com.wessles.MERCury.splash.SplashScreen;
 
 /**
  * According to this test, the following collision events are valid: [see method render()].
@@ -32,18 +36,30 @@ public class CollisionTest extends Core
     @Override
     public void init(ResourceManager RM)
     {
-        
+        try
+        {
+            Texture tex = Texture.loadTexture("res/splash.png");
+            float ratio = tex.getTextureWidth() / tex.getTextureHeight();
+            int height = (int) (rnr.width() / ratio);
+            SplashScreen splash = new SplashScreen(tex, 3000, rnr.width(), height, true);
+            rnr.addSplashScreen(splash);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
     
     @Override
     public void update(float delta)
     {
-        rnr.end();
+        
     }
     
     @Override
     public void render(Graphics g)
     {
+        g.scale(8);
+        
         /* RECTANGLE TO RECTANGLE */
         Rectangle r1 = new Rectangle(0, 0, 10, 0, 10, 10, 0, 10);
         Rectangle r2 = new Rectangle(5, 5, 15, 5, 15, 15, 5, 15);
@@ -72,6 +88,11 @@ public class CollisionTest extends Core
         System.out.println("circ/ellipse1" + ", " + e1.getX1() + ", " + e1.getY1() + ", " + e1.getX2() + ", " + e1.getY2());
         System.out.println("circ/ellipse2" + ", " + e2.getX1() + ", " + e2.getY1() + ", " + e2.getX2() + ", " + e2.getY2());
         System.out.println(e1.intersects(e2));
+        
+        g.drawRect(r1);
+        g.drawRect(r2);
+        g.drawEllipse(e1);
+        g.drawEllipse(e2);
     }
     
     @Override

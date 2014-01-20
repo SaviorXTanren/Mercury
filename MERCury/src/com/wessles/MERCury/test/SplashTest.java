@@ -39,8 +39,9 @@ public class SplashTest extends Core
         try
         {
             Texture tex = Texture.loadTexture("res/splash.png");
-            
-            SplashScreen splash = new SplashScreen(tex, 3000, (int) (tex.getTextureWidth() * 0.8f), (int) (tex.getTextureHeight() * 0.8f), true);
+            float ratio = tex.getTextureWidth() / tex.getTextureHeight();
+            int height = (int) (rnr.width() / ratio);
+            SplashScreen splash = new SplashScreen(tex, 3000, rnr.width(), height, true);
             rnr.addSplashScreen(splash);
         } catch (IOException e)
         {

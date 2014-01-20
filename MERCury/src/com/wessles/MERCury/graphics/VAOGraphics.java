@@ -228,19 +228,6 @@ public class VAOGraphics implements Graphics
         float x4 = rectangle.getVertices()[3].x;
         float y4 = rectangle.getVertices()[3].y;
         
-        Color c1 = null;
-        Color c2 = null;
-        Color c3 = null;
-        Color c4 = null;
-        
-        if (!rectangle.ignorecolored)
-        {
-            c1 = rectangle.getColors()[0];
-            c2 = rectangle.getColors()[1];
-            c3 = rectangle.getColors()[2];
-            c4 = rectangle.getColors()[3];
-        }
-        
         if (!(rectangle instanceof TexturedRectangle))
             batcher.clearTextures();
         else
@@ -249,25 +236,13 @@ public class VAOGraphics implements Graphics
             batcher.setTexture(texrect.getTexture());
         }
         
-        if (rectangle.ignorecolored)
-        {
-            batcher.vertex(x1, y1, 0, 0);
-            batcher.vertex(x2, y2, 1, 0);
-            batcher.vertex(x4, y4, 0, 1);
-            
-            batcher.vertex(x3, y3, 1, 1);
-            batcher.vertex(x4, y4, 0, 1);
-            batcher.vertex(x2, y2, 1, 0);
-        } else
-        {
-            batcher.vertex(x1, y1, c1, 0, 0);
-            batcher.vertex(x2, y2, c2, 1, 0);
-            batcher.vertex(x4, y4, c4, 0, 1);
-            
-            batcher.vertex(x3, y3, c3, 1, 1);
-            batcher.vertex(x4, y4, c4, 0, 1);
-            batcher.vertex(x2, y2, c2, 1, 0);
-        }
+        batcher.vertex(x1, y1, 0, 0);
+        batcher.vertex(x2, y2, 1, 0);
+        batcher.vertex(x4, y4, 0, 1);
+        
+        batcher.vertex(x3, y3, 1, 1);
+        batcher.vertex(x4, y4, 0, 1);
+        batcher.vertex(x2, y2, 1, 0);
     }
     
     @Override
@@ -293,17 +268,6 @@ public class VAOGraphics implements Graphics
         float x3 = triangle.getVertices()[2].x;
         float y3 = triangle.getVertices()[2].y;
         
-        Color c1 = null;
-        Color c2 = null;
-        Color c3 = null;
-        
-        if (!triangle.ignorecolored)
-        {
-            c1 = triangle.getColors()[0];
-            c2 = triangle.getColors()[1];
-            c3 = triangle.getColors()[2];
-        }
-        
         if (!(triangle instanceof TexturedTriangle))
             batcher.clearTextures();
         else
@@ -312,17 +276,9 @@ public class VAOGraphics implements Graphics
             batcher.setTexture(texrect.getTexture());
         }
         
-        if (triangle.ignorecolored)
-        {
-            batcher.vertex(x1, y1, 0, 0);
-            batcher.vertex(x3, y3, 1, 0);
-            batcher.vertex(x2, y2, 0, 1);
-        } else
-        {
-            batcher.vertex(x1, y1, c1, 0, 0);
-            batcher.vertex(x3, y3, c3, 1, 0);
-            batcher.vertex(x2, y2, c2, 0, 1);
-        }
+        batcher.vertex(x1, y1, 0, 0);
+        batcher.vertex(x3, y3, 1, 0);
+        batcher.vertex(x2, y2, 0, 1);
     }
     
     @Override
