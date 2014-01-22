@@ -1,4 +1,4 @@
-package com.teama.merc.dat;
+package com.teama.merc.data;
 
 import java.io.File;
 import java.io.FileInputStream;
