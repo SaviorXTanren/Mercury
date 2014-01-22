@@ -1,7 +1,7 @@
 package com.teama.merc.tuts;
 
-import com.teama.merc.fwk.Core;
-import com.teama.merc.fwk.Runner;
+import com.teama.merc.fmwk.Core;
+import com.teama.merc.fmwk.Runner;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.res.ResourceManager;
 

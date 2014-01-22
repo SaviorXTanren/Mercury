@@ -8,7 +8,7 @@ import paulscode.sound.SoundSystemConfig;
 
 import com.teama.merc.exc.MERCuryException;
 import com.teama.merc.exc.PluginNotFoundException;
-import com.teama.merc.fwk.Runner;
+import com.teama.merc.fmwk.Runner;
 import com.teama.merc.res.Resource;
 
 /**

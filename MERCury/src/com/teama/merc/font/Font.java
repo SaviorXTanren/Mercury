@@ -1,4 +1,4 @@
-package com.teama.merc.fnt;
+package com.teama.merc.font;
 
 import com.teama.merc.gfx.Texture;
 import com.teama.merc.res.Resource;

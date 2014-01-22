@@ -1,4 +1,4 @@
-package com.teama.merc.fwk;
+package com.teama.merc.fmwk;
 
 /**
  * Plugins are to be used for both official and 3rd party extensions of MERCury game engine.

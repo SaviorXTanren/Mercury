@@ -1,4 +1,4 @@
-package com.teama.merc.fwk;
+package com.teama.merc.fmwk;
 
 import static org.lwjgl.opengl.GL11.GL_ALPHA_TEST;
 import static org.lwjgl.opengl.GL11.GL_BLEND;

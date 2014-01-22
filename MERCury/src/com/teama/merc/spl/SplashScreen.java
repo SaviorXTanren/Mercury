@@ -3,7 +3,7 @@ package com.teama.merc.spl;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.teama.merc.fwk.Runner;
+import com.teama.merc.fmwk.Runner;
 import com.teama.merc.geo.Rectangle;
 import com.teama.merc.geo.TexturedRectangle;
 import com.teama.merc.gfx.Graphics;

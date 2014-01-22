@@ -2,8 +2,8 @@ package com.teama.merc.test;
 
 import java.io.IOException;
 
-import com.teama.merc.fwk.Core;
-import com.teama.merc.fwk.Runner;
+import com.teama.merc.fmwk.Core;
+import com.teama.merc.fmwk.Runner;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.gfx.Texture;
 import com.teama.merc.math.MercMath;

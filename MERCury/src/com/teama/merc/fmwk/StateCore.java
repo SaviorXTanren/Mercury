@@ -1,4 +1,4 @@
-package com.teama.merc.fwk;
+package com.teama.merc.fmwk;
 
 import java.util.HashMap;
 

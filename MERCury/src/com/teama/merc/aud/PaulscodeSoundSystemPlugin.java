@@ -4,7 +4,7 @@ import paulscode.sound.SoundSystem;
 import paulscode.sound.SoundSystemConfig;
 import paulscode.sound.SoundSystemException;
 
-import com.teama.merc.fwk.Plugin;
+import com.teama.merc.fmwk.Plugin;
 import com.teama.merc.log.Logger;
 
 /**

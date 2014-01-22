@@ -1,4 +1,4 @@
-package com.teama.merc.fnt;
+package com.teama.merc.font;
 
 import java.awt.FontFormatException;
 import java.awt.FontMetrics;
@@ -18,7 +18,7 @@ import com.teama.merc.gfx.Texture;
  * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */
 
-public class TrueTypeFont implements com.teama.merc.fnt.Font
+public class TrueTypeFont implements com.teama.merc.font.Font
 {
     
     public final IntObject[] chars = new IntObject[256];

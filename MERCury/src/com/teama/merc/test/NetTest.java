@@ -3,8 +3,8 @@ package com.teama.merc.test;
 import org.lwjgl.input.Keyboard;
 
 import com.esotericsoftware.kryonet.Connection;
-import com.teama.merc.fwk.Core;
-import com.teama.merc.fwk.Runner;
+import com.teama.merc.fmwk.Core;
+import com.teama.merc.fmwk.Runner;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.in.Input;
 import com.teama.merc.net.MercClient;
