@@ -5,7 +5,7 @@ import com.teama.merc.exc.SevereLogException;
 /**
  * A class that will log in different levels of impact, from NULL to SEVERE, SEVERE being the program killer.
  * 
- * @from MERCury in com.wessles.MERCury.logging
+ * @from merc in com.teama.merc.log
  * @by wessles
  * @website www.wessles.com
  * @license (C) Jan 9, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.

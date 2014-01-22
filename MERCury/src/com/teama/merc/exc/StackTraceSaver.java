@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * @from MERCury in com.wessles.MERCury.exception
+ * @from merc in com.teama.merc.exc
  * @by wessles
  * @website www.wessles.com
  * @license (C) Jan 7, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
@@ -28,12 +28,14 @@ public class StackTraceSaver
         try
         {
             pw = new PrintWriter(new File(location));
-        } catch (Exception e1)
+        }
+        catch (Exception e1)
         {
             e1.printStackTrace();
         }
         
         e.printStackTrace(pw);
+        
         pw.close();
         
         e.printStackTrace();
@@ -43,6 +45,7 @@ public class StackTraceSaver
     {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm-ss");
         Calendar cal = Calendar.getInstance();
+        
         return dateFormat.format(cal.getTime());
     }
     

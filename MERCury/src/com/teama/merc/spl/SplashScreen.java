@@ -10,7 +10,7 @@ import com.teama.merc.gfx.Graphics;
 import com.teama.merc.gfx.Texture;
 
 /**
- * @from MERCury in com.wessles.MERCury.gui
+ * @from merc in com.teama.merc.spl
  * @by wessles
  * @website www.wessles.com
  * @license (C) Jan 18, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.

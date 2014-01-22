@@ -14,7 +14,7 @@ import com.teama.merc.gfx.Texture;
 /**
  * A utility class to get texture grids and strips from single files. It is more efficient to store all textures on one image than having multiple resources on different files
  * 
- * @from MERCury in com.wessles.MERCury.utils
+ * @from merc in com.teama.merc.util
  * @by wessles
  * @website www.wessles.com
  * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.

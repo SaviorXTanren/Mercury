@@ -14,7 +14,7 @@ import com.teama.merc.res.Resource;
 /**
  * A simple resource that wraps around paulscode to provide an easy way to play sounds with MERCury.
  * 
- * @from MERCury in com.wessles.MERCury.audio
+ * @from merc in com.teama.merc.aud
  * @by wessles
  * @website www.wessles.com
  * @license (C) Jan 11, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
@@ -35,6 +35,7 @@ public class Audio implements Resource
     {
         if (getSoundSystem().playing(src))
             getSoundSystem().stop(src);
+        
         getSoundSystem().play(src);
     }
     
@@ -77,7 +78,8 @@ public class Audio implements Resource
         try
         {
             getSoundSystem().newSource(false, src, new File(location).toURI().toURL(), location, loop, 0, 0, 0, SoundSystemConfig.ATTENUATION_ROLLOFF, SoundSystemConfig.getDefaultRolloff());
-        } catch (MalformedURLException e)
+        }
+        catch (MalformedURLException e)
         {
             throw new MERCuryException("Problems finding file '" + location + "'");
         }
@@ -95,7 +97,8 @@ public class Audio implements Resource
         try
         {
             return ((PaulscodeSoundSystemPlugin) Runner.getInstance().getPlugin(PaulscodeSoundSystemPlugin.class.getSimpleName())).soundsystem;
-        } catch (PluginNotFoundException e)
+        }
+        catch (PluginNotFoundException e)
         {
             e.printStackTrace();
         }
@@ -105,5 +108,6 @@ public class Audio implements Resource
     @Override
     public void clean()
     {
+    	
     }
 }

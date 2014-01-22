@@ -16,7 +16,7 @@ import com.teama.merc.spl.SplashScreen;
  * According to this test, the following collision events are valid: [see method render()].
  * 
  * 
- * @from MERCury in com.wessles.MERCury.test
+ * @from merc in com.teama.merc.test
  * @by wessles
  * @website www.wessles.com
  * @license (C) Dec 27, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.

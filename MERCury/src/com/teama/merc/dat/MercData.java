@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * @from MERCury in com.wessles.MERCury.data
- * @by wessles kpars
+ * @from merc in com.teama.merc.dat
+ * @by wessles, kpars
  * @website www.wessles.com
  * @license (C) Jan 5, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */
