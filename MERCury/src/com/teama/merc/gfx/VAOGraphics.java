@@ -4,8 +4,8 @@ import static org.lwjgl.opengl.GL11.glScalef;
 
 import org.lwjgl.opengl.GL11;
 
-import com.teama.merc.fnt.Font;
-import com.teama.merc.fnt.TrueTypeFont;
+import com.teama.merc.font.Font;
+import com.teama.merc.font.TrueTypeFont;
 import com.teama.merc.geo.Circle;
 import com.teama.merc.geo.Ellipse;
 import com.teama.merc.geo.Point;

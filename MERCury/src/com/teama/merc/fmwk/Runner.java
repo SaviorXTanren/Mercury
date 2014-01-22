@@ -22,7 +22,11 @@ import com.teama.merc.util.Camera;
  * A class that will run your core, and give out the graphics object, current core, resource manager, and input ly.
  * 
  * @from merc in com.teama.merc
+<<<<<<< HEAD
  * @authors wessles
+=======
+ * @by wessles
+>>>>>>> branch 'master' of https://github.com/weslgames/MERCury.git
  * @website www.wessles.com
  * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http//www.wtfpl.net/about/.
  */
