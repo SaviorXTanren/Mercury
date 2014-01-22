@@ -11,7 +11,7 @@ import com.teama.merc.geo.Triangle;
  * An abstraction for all graphics.
  * 
  * @from merc in com.teama.merc.gfx
- * @by wessles
+ * @authors wessles, Jeviny
  * @website www.wessles.com
  * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */
@@ -44,11 +44,11 @@ public interface Graphics
     
     public void drawRawVertices(VAOBatcher.VertexData... verts);
     
-    public void drawString(float x, float y, String what);
+    public void drawString(float x, float y, String msg);
     
-    public void drawString(Font font, float x, float y, String what);
+    public void drawString(Font font, float x, float y, String msg);
     
-    public void drawString(Font font, float x, float y, float sizemult, String what);
+    public void drawString(Font font, float x, float y, float sizemult, String msg);
     
     public void drawTexture(Texture texture, float x, float y);
     

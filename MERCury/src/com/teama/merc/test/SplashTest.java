@@ -2,8 +2,8 @@ package com.teama.merc.test;
 
 import java.io.IOException;
 
-import com.teama.merc.fwk.Core;
-import com.teama.merc.fwk.Runner;
+import com.teama.merc.fmwk.Core;
+import com.teama.merc.fmwk.Runner;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.gfx.Texture;
 import com.teama.merc.math.MercMath;
@@ -12,7 +12,7 @@ import com.teama.merc.spl.SplashScreen;
 
 /**
  * @from merc in com.teama.merc.test
- * @by wessles
+ * @authors wessles
  * @website www.wessles.com
  * @license (C) Jan 18, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */

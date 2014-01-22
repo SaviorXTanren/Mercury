@@ -6,7 +6,7 @@ import com.teama.merc.math.MercMath;
  * An ellipse that can have a length and width.
  * 
  * @from merc in com.teama.merc.geo
- * @by wessles
+ * @authors wessles
  * @website www.wessles.com
  * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */

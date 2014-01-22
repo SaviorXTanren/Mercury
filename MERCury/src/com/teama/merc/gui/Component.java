@@ -8,7 +8,7 @@ import com.teama.merc.gfx.Texture;
 
 /**
  * @from merc in com.teama.merc.gui
- * @by wessles
+ * @authors wessles, Jeviny
  * @website www.wessles.com
  * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */
@@ -16,19 +16,19 @@ import com.teama.merc.gfx.Texture;
 public class Component implements Renderable
 {
     public Texture tex;
-    public String text;
+    public String txt;
     
-    public boolean text_centered;
+    public boolean txtCentered;
     
     private ActionCheck acheck;
     public float x, y, w, h;
     
-    public Component(String text, Texture tex, float x, float y, float w, float h, boolean text_centered)
+    public Component(String txt, Texture tex, float x, float y, float w, float h, boolean txtCentered)
     {
-        this.text = text;
+        this.txt = txt;
         this.tex = tex;
         
-        this.text_centered = text_centered;
+        this.txtCentered = txtCentered;
         
         this.x = x;
         this.y = y;
@@ -39,10 +39,16 @@ public class Component implements Renderable
     public void update()
     {
         if (acheck != null)
+        {
             if (acheck.isActed())
+            {
                 acheck.act();
+            }
             else
+            {
                 acheck.noAct();
+            }
+        }
     }
     
     @Override
@@ -50,14 +56,17 @@ public class Component implements Renderable
     {
         g.drawRect(new TexturedRectangle(new Rectangle(x, y, x + w, y, x + w, y + h, x, y + h), tex));
         
-        if (text_centered)
+        if (txtCentered)
         {
-            float textx = g.getFont().getWidth(text.toCharArray()) / 2;
+            float textx = g.getFont().getWidth(txt.toCharArray()) / 2;
             float texty = g.getFont().getHeight() / 2;
             
-            g.drawString(x - textx + w / 2, y - texty + h / 2, text);
-        } else
-            g.drawString(x, y, text);
+            g.drawString(x - textx + w / 2, y - texty + h / 2, txt);
+        }
+        else
+        {
+            g.drawString(x, y, txt);
+        }
     }
     
     public Component setActionCheck(ActionCheck acheck)

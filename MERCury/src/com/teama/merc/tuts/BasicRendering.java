@@ -1,7 +1,7 @@
 package com.teama.merc.tuts;
 
-import com.teama.merc.fwk.Core;
-import com.teama.merc.fwk.Runner;
+import com.teama.merc.fmwk.Core;
+import com.teama.merc.fmwk.Runner;
 import com.teama.merc.geo.Rectangle;
 import com.teama.merc.gfx.Color;
 import com.teama.merc.gfx.Graphics;
@@ -11,7 +11,7 @@ import com.teama.merc.res.ResourceManager;
  * A tutorial outlining the basics of rendering in MERCury
  * 
  * @from merc in com.teama.merc.tuts
- * @by wessles
+ * @authors wessles
  * @website www.wessles.com
  * @license (C) Jan 20, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */

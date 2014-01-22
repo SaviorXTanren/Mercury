@@ -4,12 +4,12 @@ import paulscode.sound.SoundSystem;
 import paulscode.sound.SoundSystemConfig;
 import paulscode.sound.SoundSystemException;
 
-import com.teama.merc.fwk.Plugin;
+import com.teama.merc.fmwk.Plugin;
 import com.teama.merc.log.Logger;
 
 /**
  * @from merc in com.teama.merc.aud
- * @by wessles
+ * @authors wessles
  * @website www.wessles.com
  * @license (C) Jan 17, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */

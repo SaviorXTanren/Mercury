@@ -3,7 +3,7 @@ package com.teama.merc.spl;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.teama.merc.fwk.Runner;
+import com.teama.merc.fmwk.Runner;
 import com.teama.merc.geo.Rectangle;
 import com.teama.merc.geo.TexturedRectangle;
 import com.teama.merc.gfx.Graphics;
@@ -11,7 +11,7 @@ import com.teama.merc.gfx.Texture;
 
 /**
  * @from merc in com.teama.merc.spl
- * @by wessles
+ * @authors wessles
  * @website www.wessles.com
  * @license (C) Jan 18, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */

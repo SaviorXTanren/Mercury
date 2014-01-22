@@ -7,8 +7,8 @@ import org.lwjgl.input.Keyboard;
 import com.teama.merc.aud.Audio;
 import com.teama.merc.aud.PaulscodeSoundSystemPlugin;
 import com.teama.merc.exc.MERCuryException;
-import com.teama.merc.fwk.Core;
-import com.teama.merc.fwk.Runner;
+import com.teama.merc.fmwk.Core;
+import com.teama.merc.fmwk.Runner;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.gfx.Texture;
 import com.teama.merc.in.Input;
@@ -19,7 +19,7 @@ import com.teama.merc.spl.SplashScreen;
  * A simple test to show that sounds can be played. If this works, then Music does too.
  * 
  * @from merc in com.teama.merc.test
- * @by wessles
+ * @authors wessles
  * @website www.wessles.com
  * @license (C) Jan 9, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */

@@ -1,4 +1,4 @@
-package com.teama.merc.fwk;
+package com.teama.merc.fmwk;
 
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
@@ -22,7 +22,7 @@ import com.teama.merc.util.Camera;
  * A class that will run your core, and give out the graphics object, current core, resource manager, and input ly.
  * 
  * @from merc in com.teama.merc
- * @by wessles
+ * @authors wessles
  * @website www.wessles.com
  * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http//www.wtfpl.net/about/.
  */

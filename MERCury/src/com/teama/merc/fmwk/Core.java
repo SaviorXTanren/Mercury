@@ -1,4 +1,4 @@
-package com.teama.merc.fwk;
+package com.teama.merc.fmwk;
 
 import static org.lwjgl.opengl.GL11.GL_ALPHA_TEST;
 import static org.lwjgl.opengl.GL11.GL_BLEND;
@@ -27,8 +27,8 @@ import com.teama.merc.res.ResourceManager;
 /**
  * The {@code Core} that will host the game. It is ran above by the {@code Runner} class.
  * 
- * @from merc in com.teama.merc.fwk
- * @by wessles
+ * @from merc in com.teama.merc.fmwk
+ * @authors wessles
  * @website www.wessles.com
  * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */

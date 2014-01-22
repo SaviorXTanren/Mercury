@@ -8,14 +8,14 @@ import paulscode.sound.SoundSystemConfig;
 
 import com.teama.merc.exc.MERCuryException;
 import com.teama.merc.exc.PluginNotFoundException;
-import com.teama.merc.fwk.Runner;
+import com.teama.merc.fmwk.Runner;
 import com.teama.merc.res.Resource;
 
 /**
  * A simple resource that wraps around paulscode to provide an easy way to play sounds with MERCury.
  * 
  * @from merc in com.teama.merc.aud
- * @by wessles
+ * @authors wessles
  * @website www.wessles.com
  * @license (C) Jan 11, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */

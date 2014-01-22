@@ -1,7 +1,7 @@
 package com.teama.merc.tuts;
 
-import com.teama.merc.fwk.Core;
-import com.teama.merc.fwk.Runner;
+import com.teama.merc.fmwk.Core;
+import com.teama.merc.fmwk.Runner;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.res.ResourceManager;
 
@@ -9,7 +9,7 @@ import com.teama.merc.res.ResourceManager;
  * All you will need to get started on a MERCury project
  * 
  * @from merc in com.teama.merc.tuts
- * @by wessles
+ * @authors wessles
  * @website www.wessles.com
  * @license (C) Jan 19, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */

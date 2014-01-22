@@ -3,8 +3,8 @@ package com.teama.merc.test;
 import org.lwjgl.input.Keyboard;
 
 import com.esotericsoftware.kryonet.Connection;
-import com.teama.merc.fwk.Core;
-import com.teama.merc.fwk.Runner;
+import com.teama.merc.fmwk.Core;
+import com.teama.merc.fmwk.Runner;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.in.Input;
 import com.teama.merc.net.MercClient;
@@ -14,7 +14,7 @@ import com.teama.merc.res.ResourceManager;
 
 /**
  * @from merc in com.teama.merc.test
- * @by opiop65
+ * @authors opiop65
  * @website www.wessles.com
  * @license (C) Jan 18, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */

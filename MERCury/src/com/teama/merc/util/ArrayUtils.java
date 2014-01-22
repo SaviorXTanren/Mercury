@@ -8,7 +8,7 @@ import com.teama.merc.geo.Vector2f;
  * A utilities class for arrays.
  * 
  * @from merc in com.teama.merc.util
- * @by wessles
+ * @authors wessles
  * @website www.wessles.com
  * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */

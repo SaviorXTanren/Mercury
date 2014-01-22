@@ -15,7 +15,7 @@ import com.teama.merc.res.Resource;
  * An object version of shaders. Does all of the tedius stuff for you and lets you use the shader easily.
  * 
  * @from merc in com.teama.merc.gfx
- * @by wessles
+ * @authors wessles
  * @website www.wessles.com
  * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */
