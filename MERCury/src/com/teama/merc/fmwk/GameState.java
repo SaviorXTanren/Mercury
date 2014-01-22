@@ -6,11 +6,7 @@ import com.teama.merc.gfx.Graphics;
  * A game state class to be used in {@code StateCore}.
  * 
  * @from merc in com.teama.merc
-<<<<<<< HEAD
  * @authors wessles
-=======
- * @by wessles
->>>>>>> branch 'master' of https://github.com/weslgames/MERCury.git
  * @website www.wessles.com
  * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */
