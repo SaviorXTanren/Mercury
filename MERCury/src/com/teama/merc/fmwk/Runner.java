@@ -63,6 +63,11 @@ public class Runner
         init(core, WIDTH, HEIGHT, fullscreen, false);
     }
     
+    public void init(Core core, boolean fullscreen, boolean vsync)
+    {
+        init(core, Display.getDesktopDisplayMode().getWidth(), Display.getDesktopDisplayMode().getHeight(), fullscreen, vsync);
+    }
+    
     public void init(Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync)
     {
         // Initialize Some Stuff! IN ORDER
@@ -120,7 +125,7 @@ public class Runner
     }
     
     public void run()
-    {        
+    {
         Logger.debug("Run permission granted by Core...");
         Logger.debug("Starting Game Loop...");
         running = true;

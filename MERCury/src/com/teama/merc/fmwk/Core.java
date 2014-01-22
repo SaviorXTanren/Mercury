@@ -22,6 +22,7 @@ import org.lwjgl.opengl.DisplayMode;
 
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.gfx.VAOGraphics;
+import com.teama.merc.log.Logger;
 import com.teama.merc.res.ResourceManager;
 
 /**
@@ -66,21 +67,42 @@ public abstract class Core
     {
         try
         {
+            Display.setVSyncEnabled(vsync);
+            
             DisplayMode dm = new DisplayMode(WIDTH, HEIGHT);
+            
+            boolean fullscreen_matched = false;
             
             if (fullscreen)
             {
-                Display.setFullscreen(fullscreen);
                 DisplayMode[] modes = Display.getAvailableDisplayModes();
                 
+                Logger.debug("Full-screen requested; attempting to find matching fullscreen display mode...");
                 for (DisplayMode mode : modes)
-                    if (mode.getWidth() >= WIDTH && mode.getHeight() >= HEIGHT && mode.isFullscreenCapable())
+                    if (mode.getWidth() == dm.getWidth() && mode.getHeight() == dm.getHeight())
+                    {
                         dm = mode;
+                        fullscreen_matched = true;
+                    }
+                
+                if (!fullscreen_matched)
+                {
+                    Logger.debug("No fullscreen matched. Finding lowest sized available fullscreen display mode...");
+                    DisplayMode lowest_mode = modes[0];
+                    for (DisplayMode mode : modes)
+                        if (mode.isFullscreenCapable())
+                            if (mode.getWidth() < lowest_mode.getWidth() || mode.getHeight() < lowest_mode.getHeight())
+                                lowest_mode = mode;
+                    dm = lowest_mode;
+                }
+                
+                Logger.debug("Fullscreen matched: " + dm.toString());
+                
+                Display.setFullscreen(true);
             }
             
             Display.setDisplayMode(dm);
             Display.setTitle(name);
-            Display.setVSyncEnabled(vsync);
             Display.create();
         } catch (LWJGLException e)
         {
