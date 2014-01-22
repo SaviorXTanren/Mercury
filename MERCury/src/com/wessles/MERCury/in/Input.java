@@ -5,7 +5,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
-import com.wessles.MERCury.geom.Point;
+import com.wessles.MERCury.geo.Point;
 
 /**
  * An object form of input.

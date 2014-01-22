@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import com.wessles.MERCury.graphics.Texture;
+import com.wessles.MERCury.gfx.Texture;
 
 /**
  * A utility class to get texture grids and strips from single files. It is more efficient to store all textures on one image than having multiple resources on different files

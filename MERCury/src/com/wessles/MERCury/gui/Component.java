@@ -1,10 +1,10 @@
 package com.wessles.MERCury.gui;
 
 import com.wessles.MERCury.env.Renderable;
-import com.wessles.MERCury.geom.Rectangle;
-import com.wessles.MERCury.geom.TexturedRectangle;
-import com.wessles.MERCury.graphics.Graphics;
-import com.wessles.MERCury.graphics.Texture;
+import com.wessles.MERCury.geo.Rectangle;
+import com.wessles.MERCury.geo.TexturedRectangle;
+import com.wessles.MERCury.gfx.Graphics;
+import com.wessles.MERCury.gfx.Texture;
 
 /**
  * @from MERCury in com.wessles.MERCury.gui

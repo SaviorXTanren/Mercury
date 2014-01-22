@@ -1,6 +1,6 @@
 package com.wessles.MERCury.font;
 
-import com.wessles.MERCury.graphics.Texture;
+import com.wessles.MERCury.gfx.Texture;
 import com.wessles.MERCury.res.Resource;
 
 /**

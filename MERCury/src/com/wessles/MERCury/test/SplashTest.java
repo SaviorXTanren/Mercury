@@ -2,13 +2,13 @@ package com.wessles.MERCury.test;
 
 import java.io.IOException;
 
-import com.wessles.MERCury.framework.Core;
-import com.wessles.MERCury.framework.Runner;
-import com.wessles.MERCury.graphics.Graphics;
-import com.wessles.MERCury.graphics.Texture;
+import com.wessles.MERCury.fwk.Core;
+import com.wessles.MERCury.fwk.Runner;
+import com.wessles.MERCury.gfx.Graphics;
+import com.wessles.MERCury.gfx.Texture;
 import com.wessles.MERCury.math.MercMath;
 import com.wessles.MERCury.res.ResourceManager;
-import com.wessles.MERCury.splash.SplashScreen;
+import com.wessles.MERCury.spl.SplashScreen;
 
 /**
  * @from MERCury in com.wessles.MERCury.test

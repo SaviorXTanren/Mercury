@@ -8,7 +8,7 @@ import paulscode.sound.SoundSystemConfig;
 
 import com.wessles.MERCury.exception.MERCuryException;
 import com.wessles.MERCury.exception.PluginNotFoundException;
-import com.wessles.MERCury.framework.Runner;
+import com.wessles.MERCury.fwk.Runner;
 import com.wessles.MERCury.res.Resource;
 
 /**

@@ -2,15 +2,15 @@ package com.wessles.MERCury.test;
 
 import java.io.IOException;
 
-import com.wessles.MERCury.framework.Core;
-import com.wessles.MERCury.framework.Runner;
-import com.wessles.MERCury.geom.Ellipse;
-import com.wessles.MERCury.geom.Rectangle;
-import com.wessles.MERCury.graphics.Graphics;
-import com.wessles.MERCury.graphics.Texture;
+import com.wessles.MERCury.fwk.Core;
+import com.wessles.MERCury.fwk.Runner;
+import com.wessles.MERCury.geo.Ellipse;
+import com.wessles.MERCury.geo.Rectangle;
+import com.wessles.MERCury.gfx.Graphics;
+import com.wessles.MERCury.gfx.Texture;
 import com.wessles.MERCury.log.Logger;
 import com.wessles.MERCury.res.ResourceManager;
-import com.wessles.MERCury.splash.SplashScreen;
+import com.wessles.MERCury.spl.SplashScreen;
 
 /**
  * According to this test, the following collision events are valid: [see method render()].

@@ -2,7 +2,7 @@ package com.wessles.MERCury.util;
 
 import java.util.ArrayList;
 
-import com.wessles.MERCury.geom.Vector2f;
+import com.wessles.MERCury.geo.Vector2f;
 
 /**
  * A utilities class for arrays.

@@ -4,7 +4,7 @@ import paulscode.sound.SoundSystem;
 import paulscode.sound.SoundSystemConfig;
 import paulscode.sound.SoundSystemException;
 
-import com.wessles.MERCury.framework.Plugin;
+import com.wessles.MERCury.fwk.Plugin;
 import com.wessles.MERCury.log.Logger;
 
 /**

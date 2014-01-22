@@ -7,13 +7,13 @@ import org.lwjgl.input.Keyboard;
 import com.wessles.MERCury.aud.Audio;
 import com.wessles.MERCury.aud.PaulscodeSoundSystemPlugin;
 import com.wessles.MERCury.exception.MERCuryException;
-import com.wessles.MERCury.framework.Core;
-import com.wessles.MERCury.framework.Runner;
-import com.wessles.MERCury.graphics.Graphics;
-import com.wessles.MERCury.graphics.Texture;
+import com.wessles.MERCury.fwk.Core;
+import com.wessles.MERCury.fwk.Runner;
+import com.wessles.MERCury.gfx.Graphics;
+import com.wessles.MERCury.gfx.Texture;
 import com.wessles.MERCury.in.Input;
 import com.wessles.MERCury.res.ResourceManager;
-import com.wessles.MERCury.splash.SplashScreen;
+import com.wessles.MERCury.spl.SplashScreen;
 
 /**
  * A simple test to show that sounds can be played. If this works, then Music does too.

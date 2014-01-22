@@ -3,9 +3,9 @@ package com.wessles.MERCury.test;
 import org.lwjgl.input.Keyboard;
 
 import com.esotericsoftware.kryonet.Connection;
-import com.wessles.MERCury.framework.Core;
-import com.wessles.MERCury.framework.Runner;
-import com.wessles.MERCury.graphics.Graphics;
+import com.wessles.MERCury.fwk.Core;
+import com.wessles.MERCury.fwk.Runner;
+import com.wessles.MERCury.gfx.Graphics;
 import com.wessles.MERCury.in.Input;
 import com.wessles.MERCury.net.MercClient;
 import com.wessles.MERCury.net.MercServer;

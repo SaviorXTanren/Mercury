@@ -1,6 +1,6 @@
 package com.wessles.MERCury.util;
 
-import com.wessles.MERCury.graphics.Color;
+import com.wessles.MERCury.gfx.Color;
 
 /**
  * A utilities class for Color.
