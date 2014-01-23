@@ -34,7 +34,11 @@ public interface Graphics
     
     public void setBackground(Color col);
     
+    public Color getBackground();
+    
     public void setColor(Color color);
+    
+    public Color getColor();
     
     public void useShader(Shader shader);
     

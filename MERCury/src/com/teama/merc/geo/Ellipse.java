@@ -22,18 +22,18 @@ public class Ellipse extends Shape
         this.rady = rady;
     }
     
-    public static Vector2f[] getTrigVerts(float x, float y, float radx, float rady)
+    public static Vec2[] getTrigVerts(float x, float y, float radx, float rady)
     {
         radx = Math.abs(radx);
         rady = Math.abs(rady);
         
-        Vector2f[] verts = new Vector2f[MAX_VERTS];
+        Vec2[] verts = new Vec2[MAX_VERTS];
         
         float angle = 0, step = 360 / MAX_VERTS;
         
         for (int a = 0; a < MAX_VERTS; a++)
         {
-            verts[a] = new Vector2f(x + MercMath.cos(angle) * radx, y + MercMath.sin(angle) * rady);
+            verts[a] = new Vec2(x + MercMath.cos(angle) * radx, y + MercMath.sin(angle) * rady);
             angle += step;
         }
         
@@ -62,7 +62,7 @@ public class Ellipse extends Shape
     }
     
     @Override
-    public boolean contains(Vector2f v)
+    public boolean contains(Vec2 v)
     {
         float cx = getCenterX();
         float cy = getCenterY();

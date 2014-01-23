@@ -17,9 +17,7 @@ import com.teama.merc.res.ResourceManager;
 public class BoilerPlate extends Core
 {
     /**
-     * ALWAYS USE Runner.getInstance()!
-     * CANNOT STRESS ENOUGH!
-     * ALWAYS USE Runner.getInstance()!
+     * ALWAYS USE Runner.getInstance()! CANNOT STRESS ENOUGH! ALWAYS USE Runner.getInstance()!
      */
     Runner rnr = Runner.getInstance();
     

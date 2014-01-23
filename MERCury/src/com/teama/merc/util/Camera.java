@@ -4,7 +4,7 @@ import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 
-import com.teama.merc.geo.Vector2f;
+import com.teama.merc.geo.Vec2;
 import com.teama.merc.gfx.Graphics;
 
 /**
@@ -21,15 +21,15 @@ public class Camera
     
     private float x, y;
     
-    private Vector2f snap;
-    private Vector2f relsnap;
+    private Vec2 snap;
+    private Vec2 relsnap;
     private boolean snapped = false;
     
     public Camera(float x, float y)
     {
         this.x = x;
         this.y = y;
-        relsnap = Vector2f.get(0, 0);
+        relsnap = new Vec2(0, 0);
     }
     
     public void pre(Graphics g)
@@ -56,17 +56,17 @@ public class Camera
         glPopMatrix();
     }
     
-    public void snapTo(Vector2f snap)
+    public void snapTo(Vec2 snap)
     {
         this.snap = snap;
     }
     
-    public void setSnapRelativeToScreen(Vector2f relsnap)
+    public void setSnapRelativeToScreen(Vec2 relsnap)
     {
         this.relsnap = relsnap;
     }
     
-    public Vector2f getSnap()
+    public Vec2 getSnap()
     {
         return snap;
     }
@@ -86,8 +86,8 @@ public class Camera
         return y;
     }
     
-    public Vector2f getOffset()
+    public Vec2 getOffset()
     {
-        return Vector2f.get(x, y);
+        return new Vec2(x, y);
     }
 }

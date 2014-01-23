@@ -28,8 +28,7 @@ public class StackTraceSaver
         try
         {
             pw = new PrintWriter(new File(location));
-        }
-        catch (Exception e1)
+        } catch (Exception e1)
         {
             e1.printStackTrace();
         }

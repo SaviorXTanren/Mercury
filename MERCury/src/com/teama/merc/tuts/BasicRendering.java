@@ -73,7 +73,7 @@ public class BasicRendering extends Core
         
         /** A moving ellipse? ACTION! */
         g.setColor(Color.gray);
-        g.drawEllipse(this.x += 0.2f, 30, 10, 10);
+        g.drawEllipse(x += 0.2f, 30, 10, 10);
         /** 'x' is declared outside of the render() method. This will just add 0.2 to it every render. */
     }
     

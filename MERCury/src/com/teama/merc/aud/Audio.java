@@ -78,8 +78,7 @@ public class Audio implements Resource
         try
         {
             getSoundSystem().newSource(false, src, new File(location).toURI().toURL(), location, loop, 0, 0, 0, SoundSystemConfig.ATTENUATION_ROLLOFF, SoundSystemConfig.getDefaultRolloff());
-        }
-        catch (MalformedURLException e)
+        } catch (MalformedURLException e)
         {
             throw new MERCuryException("Problems finding file '" + location + "'");
         }
@@ -97,8 +96,7 @@ public class Audio implements Resource
         try
         {
             return ((PaulscodeSoundSystemPlugin) Runner.getInstance().getPlugin(PaulscodeSoundSystemPlugin.class.getSimpleName())).soundsystem;
-        }
-        catch (PluginNotFoundException e)
+        } catch (PluginNotFoundException e)
         {
             e.printStackTrace();
         }
@@ -108,6 +106,6 @@ public class Audio implements Resource
     @Override
     public void clean()
     {
-    	
+        
     }
 }

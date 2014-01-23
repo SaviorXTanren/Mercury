@@ -20,8 +20,6 @@ import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
 
-import com.teama.merc.util.ColorUtils;
-
 /**
  * A very simple batcher.
  * 
@@ -40,7 +38,7 @@ public class VAOBatcher implements Batcher
     private boolean active;
     
     private Texture last_tex = Texture.getEmptyTexture();
-    private Color last_col = ColorUtils.DEFAULT_DRAWING;
+    private Color last_col = Color.DEFAULT_DRAWING;
     private Shader last_shader = Shader.getEmptyShader();
     
     public VAOBatcher()
@@ -137,9 +135,9 @@ public class VAOBatcher implements Batcher
     @Override
     public void clearColors()
     {
-        if (last_col.equals(ColorUtils.DEFAULT_DRAWING))
+        if (last_col.equals(Color.DEFAULT_DRAWING))
             return;
-        last_col = ColorUtils.DEFAULT_DRAWING;
+        last_col = Color.DEFAULT_DRAWING;
     }
     
     @Override

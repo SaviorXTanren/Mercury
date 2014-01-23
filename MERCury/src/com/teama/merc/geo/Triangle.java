@@ -24,7 +24,7 @@ public class Triangle extends Shape
     public float getArea()
     {
         float base = (float) Math.sqrt(Math.abs(vertices[2].x - vertices[0].x) * Math.abs(vertices[2].y - vertices[0].y));
-        Vector2f midpoint = new Vector2f((vertices[2].x + vertices[0].x) / 2, (vertices[2].y + vertices[0].y) / 2);
+        Vec2 midpoint = new Vec2((vertices[2].x + vertices[0].x) / 2, (vertices[2].y + vertices[0].y) / 2);
         float base_to_top_height = (float) Math.sqrt(Math.abs(midpoint.x - vertices[1].x) * Math.abs(midpoint.y - vertices[1].y));
         
         // The whistle was blown,
@@ -57,7 +57,7 @@ public class Triangle extends Shape
     }
     
     @Override
-    public boolean contains(Vector2f v)
+    public boolean contains(Vec2 v)
     {
         return new Rectangle(getX1(), getY1(), getX2() / 2, getY1(), getX2() / 2, getY2() / 2, getX1(), getY2() / 2).contains(v);
     }

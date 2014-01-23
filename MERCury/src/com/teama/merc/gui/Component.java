@@ -39,16 +39,10 @@ public class Component implements Renderable
     public void update()
     {
         if (acheck != null)
-        {
             if (acheck.isActed())
-            {
                 acheck.act();
-            }
             else
-            {
                 acheck.noAct();
-            }
-        }
     }
     
     @Override
@@ -62,11 +56,8 @@ public class Component implements Renderable
             float texty = g.getFont().getHeight() / 2;
             
             g.drawString(x - textx + w / 2, y - texty + h / 2, txt);
-        }
-        else
-        {
+        } else
             g.drawString(x, y, txt);
-        }
     }
     
     public Component setActionCheck(ActionCheck acheck)

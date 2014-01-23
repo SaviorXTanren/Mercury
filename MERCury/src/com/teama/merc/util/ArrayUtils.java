@@ -2,7 +2,7 @@ package com.teama.merc.util;
 
 import java.util.ArrayList;
 
-import com.teama.merc.geo.Vector2f;
+import com.teama.merc.geo.Vec2;
 
 /**
  * A utilities class for arrays.
@@ -14,23 +14,23 @@ import com.teama.merc.geo.Vector2f;
  */
 public class ArrayUtils
 {
-    public static Vector2f[] getVector2fs(float... coords)
+    public static Vec2[] getVector2fs(float... coords)
     {
         if (coords.length % 2 != 0)
             throw new IllegalArgumentException("Vertex coords must be even!");
         
-        Vector2f[] vectors = new Vector2f[coords.length / 2];
+        Vec2[] vectors = new Vec2[coords.length / 2];
         
         for (int v = 0; v < coords.length; v += 2)
-            vectors[v / 2] = new Vector2f(coords[v], coords[v + 1]);
+            vectors[v / 2] = new Vec2(coords[v], coords[v + 1]);
         
         return vectors;
     }
     
-    public static ArrayList<Vector2f> getListFromVectors(Vector2f[] vecs)
+    public static ArrayList<Vec2> getListFromVectors(Vec2[] vecs)
     {
-        ArrayList<Vector2f> result = new ArrayList<Vector2f>();
-        for (Vector2f v : vecs)
+        ArrayList<Vec2> result = new ArrayList<Vec2>();
+        for (Vec2 v : vecs)
             result.add(v);
         return result;
     }

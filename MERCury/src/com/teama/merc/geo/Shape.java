@@ -14,8 +14,8 @@ import com.teama.merc.util.ArrayUtils;
 
 public abstract class Shape
 {
-    protected Vector2f center;
-    protected Vector2f[] vertices;
+    protected Vec2 center;
+    protected Vec2[] vertices;
     protected float nx, ny, fx, fy;
     protected float radius;
     
@@ -26,7 +26,7 @@ public abstract class Shape
         this(ArrayUtils.getVector2fs(coords));
     }
     
-    public Shape(Vector2f... vertices)
+    public Shape(Vec2... vertices)
     {
         this.vertices = vertices;
         regen();
@@ -34,11 +34,11 @@ public abstract class Shape
     
     public abstract boolean intersects(Shape s);
     
-    public abstract boolean contains(Vector2f v);
+    public abstract boolean contains(Vec2 v);
     
     public void translate(float x, float y)
     {
-        for (Vector2f vertex : vertices)
+        for (Vec2 vertex : vertices)
         {
             vertex.x += x;
             vertex.y += y;
@@ -52,7 +52,7 @@ public abstract class Shape
     
     public void translateTo(float x, float y, float origx, float origy)
     {
-        for (Vector2f vertex : vertices)
+        for (Vec2 vertex : vertices)
         {
             vertex.x = Math.abs(vertex.x - nx + origx + y);
             vertex.y = Math.abs(vertex.x - ny + origy + x);
@@ -62,7 +62,7 @@ public abstract class Shape
     
     public void rotate(float origx, float origy, float angle)
     {
-        for (Vector2f p : vertices)
+        for (Vec2 p : vertices)
         {
             float s = MercMath.sin(angle);
             float c = MercMath.cos(angle);
@@ -147,7 +147,7 @@ public abstract class Shape
         return Math.abs(fy - ny);
     }
     
-    public Vector2f getCenterPoint()
+    public Vec2 getCenterPoint()
     {
         regen();
         return center;
@@ -172,7 +172,7 @@ public abstract class Shape
         fx = nx;
         fy = ny;
         
-        for (Vector2f vertex : vertices)
+        for (Vec2 vertex : vertices)
         {
             nx = Math.min(vertex.x, nx);
             ny = Math.min(vertex.y, ny);
@@ -180,11 +180,11 @@ public abstract class Shape
             fy = Math.max(vertex.y, fy);
         }
         
-        center = new Vector2f((nx + fx) / 2, (ny + fy) / 2);
+        center = new Vec2((nx + fx) / 2, (ny + fy) / 2);
         radius = Math.abs(fx - nx > fy - ny ? fx - nx : fy - ny);
     }
     
-    public Vector2f[] getVertices()
+    public Vec2[] getVertices()
     {
         return vertices;
     }

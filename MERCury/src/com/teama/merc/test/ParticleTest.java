@@ -1,11 +1,11 @@
 package com.teama.merc.test;
 
-import org.lwjgl.input.Keyboard;
-
 import com.teama.merc.fmwk.Core;
 import com.teama.merc.fmwk.Runner;
-import com.teama.merc.geo.Rectangle;
+import com.teama.merc.geo.Vec2;
+import com.teama.merc.gfx.Color;
 import com.teama.merc.gfx.Graphics;
+import com.teama.merc.part.ParticleEmitter;
 import com.teama.merc.res.ResourceManager;
 
 /**
@@ -15,42 +15,41 @@ import com.teama.merc.res.ResourceManager;
  * @license (C) Jan 22, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */
 
-public class FullscreenTest extends Core
+public class ParticleTest extends Core
 {
     Runner rnr = Runner.getInstance();
     
-    public FullscreenTest()
+    ParticleEmitter emitter;
+    
+    public ParticleTest()
     {
-        super("ga");
-        /** Will choose lowest resolution, since near no monitor will view fullscreen at these dimensions. */
-        rnr.init(this, 500, 500, true, true);
+        super("Particle Test");
+        rnr.init(this, 600, 600);
         rnr.run();
     }
     
     public static void main(String[] args)
     {
-        new FullscreenTest();
+        new ParticleTest();
     }
     
     @Override
     public void init(ResourceManager RM)
     {
+        emitter = new ParticleEmitter(rnr.width(2), rnr.height(2), new Vec2(0, 360), 1f, Color.yellow, 3, 3, new Vec2(0, 0.2f), 90);
     }
     
     @Override
     public void update(float delta)
     {
-        if (rnr.input().keyDown(Keyboard.KEY_ESCAPE))
-            rnr.end();
+        emitter.update(delta);
+        emitter.validangle.y -= 0.5f;
     }
-    
-    float x, y;
     
     @Override
     public void render(Graphics g)
     {
-        /** Testing for vsync stuffs */
-        g.drawRect(new Rectangle(x += 1, y += 3, 100, 100));
+        emitter.render(g);
     }
     
     @Override

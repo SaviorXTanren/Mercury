@@ -38,7 +38,7 @@ public class Rectangle extends Shape
     }
     
     @Override
-    public boolean contains(Vector2f v)
+    public boolean contains(Vec2 v)
     {
         return v.x >= getX1() && v.x <= getX2() && v.y >= getY1() && v.y <= getY2();
     }

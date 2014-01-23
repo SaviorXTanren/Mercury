@@ -13,8 +13,7 @@ import com.teama.merc.geo.Rectangle;
 import com.teama.merc.geo.TexturedRectangle;
 import com.teama.merc.geo.TexturedTriangle;
 import com.teama.merc.geo.Triangle;
-import com.teama.merc.geo.Vector2f;
-import com.teama.merc.util.ColorUtils;
+import com.teama.merc.geo.Vec2;
 
 /**
  * An object used for graphics. It will draw just about anything for you.
@@ -31,13 +30,15 @@ public class VAOGraphics implements Graphics
     
     private Font current_font;
     private Color background_color;
+    private Color current_color;
     
     @Override
     public void init()
     {
         batcher = new VAOBatcher();
         current_font = TrueTypeFont.loadTrueTypeFont(new java.awt.Font("Verdana", 0, 12), true);
-        background_color = ColorUtils.DEFAULT_BACKGROUND;
+        background_color = Color.DEFAULT_BACKGROUND;
+        current_color = Color.DEFAULT_DRAWING;
     }
     
     @Override
@@ -85,9 +86,22 @@ public class VAOGraphics implements Graphics
     }
     
     @Override
+    public Color getBackground()
+    {
+        return background_color;
+    }
+    
+    @Override
     public void setColor(Color color)
     {
-        batcher.setColor(color);
+        current_color = color;
+        batcher.setColor(current_color);
+    }
+    
+    @Override
+    public Color getColor()
+    {
+        return current_color;
     }
     
     @Override
@@ -299,7 +313,7 @@ public class VAOGraphics implements Graphics
     {
         batcher.clearTextures();
         
-        Vector2f[] vs = ellipse.getVertices();
+        Vec2[] vs = ellipse.getVertices();
         
         for (int c = 0; c < vs.length; c++)
         {

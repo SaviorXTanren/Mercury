@@ -29,9 +29,9 @@ public class Point extends Shape
         return 1;
     }
     
-    public Vector2f toVector2f()
+    public Vec2 toVector2f()
     {
-        return new Vector2f(nx, ny);
+        return new Vec2(nx, ny);
     }
     
     public static Point getPoint(float x, float y)
@@ -47,11 +47,11 @@ public class Point extends Shape
     @Override
     public boolean intersects(Shape s)
     {
-        return s.contains(Vector2f.get(getX1(), getY1()));
+        return s.contains(new Vec2(getX1(), getY1()));
     }
     
     @Override
-    public boolean contains(Vector2f v)
+    public boolean contains(Vec2 v)
     {
         return v.x == getX1() && v.y == getY1();
     }

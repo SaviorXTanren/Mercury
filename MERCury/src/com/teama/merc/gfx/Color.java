@@ -32,7 +32,9 @@ public class Color
     public static final Color darkpurple = new Color(0.5f, 0f, 0.5f);
     public static final Color darkbabyblue = new Color(0f, 0.5f, 0.5f);
     
-    public static final Color testingcolorred = new Color(0xFF6464);
+    public static final Color DEFAULT_BACKGROUND = black;
+    public static final Color DEFAULT_DRAWING = white;
+    public static final Color DEFAULT_TEXTURE_COLOR = white;
     
     public float r = 0, g = 0, b = 0, a = 0;
     
