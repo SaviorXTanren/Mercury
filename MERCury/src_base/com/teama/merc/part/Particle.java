@@ -18,42 +18,53 @@ public class Particle implements MercEntity, Wipeable
 {
     public Color color;
     public float size;
+    private final float max_size;
+    public boolean shrink;
     
     public Vec2 pos;
     public Vec2 vel;
-    public Vec2 grav;
     
-    public int lifeinframes;
+    public final int lifeinframes;
+    public int life;
     
-    public Particle(Color color, float size, float x, float y, float angle, float speed, Vec2 grav, int lifeinframes)
+    public ParticleEmitter emitter;
+    
+    public Particle(Color color, float size, boolean shrink, float x, float y, float angle, float speed, int lifeinframes, ParticleEmitter emitter)
     {
         this.color = color;
         this.size = size;
+        this.max_size = size;
+        this.shrink = shrink;
         
         pos = new Vec2(x, y);
         vel = new Vec2(angle);
         vel.scale(speed);
-        this.grav = grav;
         
         this.lifeinframes = lifeinframes;
+        this.life = lifeinframes;
+        
+        this.emitter = emitter;
     }
     
     @Override
     public void update(float delta)
     {
-        if (lifeinframes < 0)
+        if (life < 0)
             wipe();
         
         pos.add(vel);
-        vel.add(grav);
+        vel.add(emitter.getGravity());
         
-        lifeinframes -= 1;
+        if(shrink)
+            size = max_size*((float)life/(float)lifeinframes);
+        
+        life -= 1;
     }
     
     @Override
     public void render(Graphics g)
     {
-        g.setColor(color);
+        g.setColor(new Color(color.r, color.g, color.b, life));
         g.drawRect(new Rectangle(pos.x, pos.y, size, size));
     }
     
