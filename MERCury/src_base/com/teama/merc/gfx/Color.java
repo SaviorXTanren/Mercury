@@ -13,24 +13,24 @@ import org.lwjgl.opengl.GL11;
 
 public class Color
 {
-    public static final Color red = new Color(1f, 0f, 0f);
-    public static final Color green = new Color(0f, 1f, 0f);
-    public static final Color blue = new Color(0f, 0f, 1f);
+    public static final Color red = new Color(255, 0, 0, 255);
+    public static final Color orange = new Color(255, 125, 0, 255);
+    public static final Color yellow = new Color(255, 255, 0, 255);
+    public static final Color springgreen = new Color(125, 255, 0, 255);
+    public static final Color green = new Color(0, 255, 0, 255);
+    public static final Color turquoise = new Color(0, 255, 125, 255);
+    public static final Color cyan = new Color(0, 255, 255, 255);
+    public static final Color ocean = new Color(0, 125, 255, 255);
+    public static final Color blue = new Color(0, 0, 255, 255);
+    public static final Color violet = new Color(125, 0, 255, 255);
+    public static final Color magenta = new Color(255, 0, 255, 255);
+    public static final Color rasberry = new Color(255, 0, 125, 255);
     
-    public static final Color yellow = new Color(1f, 1f, 0f);
-    public static final Color purple = new Color(1f, 0f, 1f);
-    public static final Color babyblue = new Color(0f, 1f, 1f);
-    
-    public static final Color white = new Color(1f, 1f, 1f);
-    public static final Color black = new Color(0f, 0f, 0f);
-    
-    public static final Color gray = new Color(0.5f, 0.5f, 0.5f);
-    public static final Color darkred = new Color(0.5f, 0f, 0f);
-    public static final Color darkgreen = new Color(0f, 0.5f, 0f);
-    public static final Color darkblue = new Color(0f, 0f, 0.5f);
-    public static final Color mustard = new Color(0.5f, 0.5f, 0f);
-    public static final Color darkpurple = new Color(0.5f, 0f, 0.5f);
-    public static final Color darkbabyblue = new Color(0f, 0.5f, 0.5f);
+    public static final Color white = new Color(255, 255, 255, 255);
+    public static final Color marble = new Color(188, 188, 188, 255);
+    public static final Color gray = new Color(125, 125, 125, 255);
+    public static final Color coal = new Color(63, 63, 63, 255);
+    public static final Color black = new Color(0, 0, 0, 255);
     
     public static final Color DEFAULT_BACKGROUND = black;
     public static final Color DEFAULT_DRAWING = white;
