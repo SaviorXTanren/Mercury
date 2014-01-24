@@ -125,6 +125,24 @@ public class MercMath
     }
     
     /**
+     * 
+     * @return The equivalent of {@code angle} in radians.
+     */
+    public static double toRadians(double angle)
+    {
+    	return angle * (Math.PI / 180);
+    }
+    
+    /**
+     * 
+     * @return The equivalent of {@code angle} in degrees.
+     */
+    public static double toDegrees(double angle)
+    {
+    	return angle * (180 / Math.PI);
+    }
+    
+    /**
      * @return If number is negative, -1, otherwise, 1.
      */
     public static float negpos(float mult)

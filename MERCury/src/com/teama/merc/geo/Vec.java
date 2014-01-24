@@ -15,6 +15,10 @@ public abstract class Vec
     
     public abstract void sub(Vec vec);
     
+    public abstract void mul(Vec vec);
+    
+    public abstract void div(Vec vec);
+    
     public abstract void set(Vec vec);
     
     public abstract void set(float... coord);
@@ -30,6 +34,10 @@ public abstract class Vec
     public abstract float dot(Vec vec);
     
     public abstract float distance(Vec vec);
+    
+    public abstract void rotate(float angle);
+    
+    public abstract Vec copy();
     
     @Override
     public abstract String toString();

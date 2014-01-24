@@ -24,11 +24,11 @@ public class Shader implements Resource
 {
     public static final int DEFAULT_SHADER = 0;
     
-    private int programobject;
+    private static int programobject;
     
     public Shader(int programobject)
     {
-        this.programobject = programobject;
+    	Shader.programobject = programobject;
     }
     
     public int getProgramObject()
@@ -92,38 +92,35 @@ public class Shader implements Resource
     
     public static Shader getShader(int vert, int frag)
     {
-        int program = 0;
+        programobject = ARBShaderObjects.glCreateProgramObjectARB();
         
-        program = ARBShaderObjects.glCreateProgramObjectARB();
-        
-        if (program == 0)
+        if (programobject == 0)
             return null;
         
-        ARBShaderObjects.glAttachObjectARB(program, vert);
-        ARBShaderObjects.glAttachObjectARB(program, frag);
+        ARBShaderObjects.glAttachObjectARB(programobject, vert);
+        ARBShaderObjects.glAttachObjectARB(programobject, frag);
         
-        ARBShaderObjects.glLinkProgramARB(program);
-        if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL11.GL_FALSE)
+        ARBShaderObjects.glLinkProgramARB(programobject);
+        if (ARBShaderObjects.glGetObjectParameteriARB(programobject, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL11.GL_FALSE)
         {
-            System.err.println(ARBShaderObjects.glGetInfoLogARB(program, ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB)));
+            System.err.println(ARBShaderObjects.glGetInfoLogARB(programobject, ARBShaderObjects.glGetObjectParameteriARB(programobject, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB)));
             return null;
         }
         
-        ARBShaderObjects.glValidateProgramARB(program);
-        if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL11.GL_FALSE)
+        ARBShaderObjects.glValidateProgramARB(programobject);
+        if (ARBShaderObjects.glGetObjectParameteriARB(programobject, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL11.GL_FALSE)
         {
-            System.err.println(ARBShaderObjects.glGetInfoLogARB(program, ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB)));
+            System.err.println(ARBShaderObjects.glGetInfoLogARB(programobject, ARBShaderObjects.glGetObjectParameteriARB(programobject, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB)));
             return null;
         }
         
-        return new Shader(program);
+        return new Shader(programobject);
     }
     
     public static Shader getShader(String locationvert, String locationfrag)
     {
         int vertShader = 0;
         int fragShader = 0;
-        int program = 0;
         
         try
         {
@@ -139,29 +136,29 @@ public class Shader implements Resource
                 return null;
         }
         
-        program = ARBShaderObjects.glCreateProgramObjectARB();
+        programobject = ARBShaderObjects.glCreateProgramObjectARB();
         
-        if (program == 0)
+        if (programobject == 0)
             return null;
         
-        ARBShaderObjects.glAttachObjectARB(program, vertShader);
-        ARBShaderObjects.glAttachObjectARB(program, fragShader);
+        ARBShaderObjects.glAttachObjectARB(programobject, vertShader);
+        ARBShaderObjects.glAttachObjectARB(programobject, fragShader);
         
-        ARBShaderObjects.glLinkProgramARB(program);
-        if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL11.GL_FALSE)
+        ARBShaderObjects.glLinkProgramARB(programobject);
+        if (ARBShaderObjects.glGetObjectParameteriARB(programobject, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL11.GL_FALSE)
         {
-            System.err.println(ARBShaderObjects.glGetInfoLogARB(program, ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB)));
+            System.err.println(ARBShaderObjects.glGetInfoLogARB(programobject, ARBShaderObjects.glGetObjectParameteriARB(programobject, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB)));
             return null;
         }
         
-        ARBShaderObjects.glValidateProgramARB(program);
-        if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL11.GL_FALSE)
+        ARBShaderObjects.glValidateProgramARB(programobject);
+        if (ARBShaderObjects.glGetObjectParameteriARB(programobject, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL11.GL_FALSE)
         {
-            System.err.println(ARBShaderObjects.glGetInfoLogARB(program, ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB)));
+            System.err.println(ARBShaderObjects.glGetInfoLogARB(programobject, ARBShaderObjects.glGetObjectParameteriARB(programobject, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB)));
             return null;
         }
         
-        return new Shader(program);
+        return new Shader(programobject);
     }
     
     private static int createVertexShader(String filename) throws Exception
