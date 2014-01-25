@@ -1,8 +1,5 @@
 package com.teama.merc.test;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
-
 import com.teama.merc.fmwk.Core;
 import com.teama.merc.fmwk.Runner;
 import com.teama.merc.geo.Rectangle;
@@ -48,7 +45,7 @@ public class ShaderTest extends Core
 	public void render(Graphics g)
 	{
 		g.setBackground(Color.cyan);
-		g.getBatcher().setShader(program);
+		g.useShader(program);
 		g.drawRect(new Rectangle(400, 300, 50, 50));
 	}
 
