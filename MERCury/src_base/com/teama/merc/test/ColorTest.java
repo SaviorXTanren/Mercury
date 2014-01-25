@@ -1,13 +1,28 @@
 package com.teama.merc.test;
 
+import static com.teama.merc.gfx.Color.black;
+import static com.teama.merc.gfx.Color.blue;
+import static com.teama.merc.gfx.Color.coal;
+import static com.teama.merc.gfx.Color.cyan;
+import static com.teama.merc.gfx.Color.gray;
+import static com.teama.merc.gfx.Color.green;
+import static com.teama.merc.gfx.Color.magenta;
+import static com.teama.merc.gfx.Color.marble;
+import static com.teama.merc.gfx.Color.ocean;
+import static com.teama.merc.gfx.Color.orange;
+import static com.teama.merc.gfx.Color.rasberry;
+import static com.teama.merc.gfx.Color.red;
+import static com.teama.merc.gfx.Color.springgreen;
+import static com.teama.merc.gfx.Color.turquoise;
+import static com.teama.merc.gfx.Color.violet;
+import static com.teama.merc.gfx.Color.white;
+import static com.teama.merc.gfx.Color.yellow;
+
 import java.awt.Toolkit;
 
 import com.teama.merc.fmwk.Core;
 import com.teama.merc.fmwk.Runner;
 import com.teama.merc.geo.Rectangle;
-
-import static com.teama.merc.gfx.Color.*;
-
 import com.teama.merc.gfx.Color;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.res.ResourceManager;

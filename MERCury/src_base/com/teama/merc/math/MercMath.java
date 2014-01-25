@@ -130,7 +130,7 @@ public class MercMath
      */
     public static double toRadians(double angle)
     {
-    	return angle * (Math.PI / 180);
+        return angle * (Math.PI / 180);
     }
     
     /**
@@ -139,7 +139,7 @@ public class MercMath
      */
     public static double toDegrees(double angle)
     {
-    	return angle * (180 / Math.PI);
+        return angle * (180 / Math.PI);
     }
     
     /**

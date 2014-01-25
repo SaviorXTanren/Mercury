@@ -33,7 +33,7 @@ public class Particle implements MercEntity, Wipeable
     {
         this.color = color;
         this.size = size;
-        this.max_size = size;
+        max_size = size;
         this.shrink = shrink;
         
         pos = new Vec2(x, y);
@@ -41,7 +41,7 @@ public class Particle implements MercEntity, Wipeable
         vel.scale(speed);
         
         this.lifeinframes = lifeinframes;
-        this.life = lifeinframes;
+        life = lifeinframes;
         
         this.emitter = emitter;
     }
@@ -55,8 +55,8 @@ public class Particle implements MercEntity, Wipeable
         pos.add(vel);
         vel.add(emitter.getGravity());
         
-        if(shrink)
-            size = max_size*((float)life/(float)lifeinframes);
+        if (shrink)
+            size = max_size * ((float) life / (float) lifeinframes);
         
         life -= 1;
     }
