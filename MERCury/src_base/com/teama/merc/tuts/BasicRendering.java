@@ -36,8 +36,8 @@ public class BasicRendering extends Core
     public void init(ResourceManager RM)
     {
         /** Let's initialize the graphics by scaling and all dat background infos (pun). */
-        rnr.graphics().scale(2);
-        rnr.graphics().setBackground(Color.blue);
+        rnr.getGraphics().scale(2);
+        rnr.getGraphics().setBackground(Color.blue);
     }
     
     @Override

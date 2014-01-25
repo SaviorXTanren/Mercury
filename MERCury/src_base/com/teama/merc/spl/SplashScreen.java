@@ -26,7 +26,7 @@ public class SplashScreen
     public SplashScreen(Texture tex, long showtimemillis, int WIDTH, int HEIGHT, boolean center)
     {
         // Center or no center? That is the question.
-        texrect = center ? new TexturedRectangle(new Rectangle(Runner.getInstance().width() / 2 - WIDTH / 2, Runner.getInstance().height() / 2 - HEIGHT / 2, WIDTH, HEIGHT), tex) : new TexturedRectangle(new Rectangle(0, 0, WIDTH, HEIGHT), tex);
+        texrect = center ? new TexturedRectangle(new Rectangle(Runner.getInstance().getWidth() / 2 - WIDTH / 2, Runner.getInstance().getHeight() / 2 - HEIGHT / 2, WIDTH, HEIGHT), tex) : new TexturedRectangle(new Rectangle(0, 0, WIDTH, HEIGHT), tex);
         this.showtimemillis = showtimemillis;
     }
     

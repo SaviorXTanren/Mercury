@@ -1,7 +1,8 @@
-package com.teama.merc.net;
+package com.teama.merc.kryonet;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.esotericsoftware.kryonet.Listener.ThreadedListener;
 
 /**
  * @from merc in com.teama.merc.net
@@ -10,10 +11,17 @@ import com.esotericsoftware.kryonet.Listener;
  * @license (C) Jan 17, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */
 
-public class Network extends Listener
+public class ThreadedNetwork extends ThreadedListener
 {
     
-    // called when a remote client is connected. Client must be connected before any transferring of packets can take place. This method will not block any threads by design.
+    // All the methods in this class will be seperately threaded through the QueuedListener in the Kryonet library.
+    
+    // Requires a Listener from the Kryonet package, probably need to update it to reference from the Network.java from the MERCury engine.
+    public ThreadedNetwork(Listener listener)
+    {
+        super(listener);
+    }
+    
     @Override
     public void connected(Connection connection)
     {
@@ -36,4 +44,5 @@ public class Network extends Listener
     public void idle(Connection connection)
     {
     }
+    
 }

@@ -7,9 +7,9 @@ import com.teama.merc.fmwk.Core;
 import com.teama.merc.fmwk.Runner;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.in.Input;
-import com.teama.merc.net.MercClient;
-import com.teama.merc.net.MercServer;
-import com.teama.merc.net.Network;
+import com.teama.merc.kryonet.MercClient;
+import com.teama.merc.kryonet.MercServer;
+import com.teama.merc.kryonet.Network;
 import com.teama.merc.res.ResourceManager;
 
 /**
@@ -55,7 +55,7 @@ public class NetTest extends Core
     @Override
     public void update(float delta)
     {
-        Input in = rnr.input();
+        Input in = rnr.getInput();
         if (in.keyDown(Keyboard.KEY_W))
         {
             Packet p = new Packet();
@@ -82,7 +82,7 @@ public class NetTest extends Core
         }
         if (in.keyDown(Keyboard.KEY_ESCAPE))
         {
-            cleanup(rnr.resourceManager());
+            cleanup(rnr.getResourceManager());
             rnr.end();
         }
     }

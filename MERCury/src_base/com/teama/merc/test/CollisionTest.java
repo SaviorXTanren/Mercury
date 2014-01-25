@@ -40,8 +40,8 @@ public class CollisionTest extends Core
         {
             Texture tex = Texture.loadTexture("res/splash.png");
             float ratio = tex.getTextureWidth() / tex.getTextureHeight();
-            int height = (int) (rnr.width() / ratio);
-            SplashScreen splash = new SplashScreen(tex, 3000, rnr.width(), height, true);
+            int height = (int) (rnr.getWidth() / ratio);
+            SplashScreen splash = new SplashScreen(tex, 3000, rnr.getWidth(), height, true);
             rnr.addSplashScreen(splash);
         } catch (IOException e)
         {

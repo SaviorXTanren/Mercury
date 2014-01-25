@@ -14,6 +14,7 @@ import com.teama.merc.gfx.Texture;
 import com.teama.merc.in.Input;
 import com.teama.merc.part.ParticleEmitter;
 import com.teama.merc.res.ResourceManager;
+import com.teama.merc.spl.SplashScreen;
 
 /**
  * @from MERCury in com.teama.merc.test
@@ -32,7 +33,7 @@ public class ParticleTest extends Core
     {
         super("Particle Test");
         rnr.init(this, 600, 600);
-        rnr.mousegrab(true);
+        rnr.setMouseGrab(true);
         rnr.run();
     }
     
@@ -54,7 +55,19 @@ public class ParticleTest extends Core
             e.printStackTrace();
         }
         
-        rnr.graphics().scale(4);
+        try
+        {
+            Texture tex = Texture.loadTexture("res/splash.png");
+            float ratio = tex.getTextureWidth() / tex.getTextureHeight();
+            int height = (int) (rnr.getWidth() / ratio);
+            SplashScreen splash = new SplashScreen(tex, 3000, rnr.getWidth(), height, true);
+            rnr.addSplashScreen(splash);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        
+        rnr.getGraphics().scale(4);
         
         emitter1 = new ParticleEmitter(new Rectangle(0, 0, 10, 10), new Vec2(265, 275), new Vec2(0, -0.01f), 1f, Color.red, 2, true, 0.2f, 100);
         emitter2 = new ParticleEmitter(new Rectangle(0, 0, 10, 10), new Vec2(255, 285), new Vec2(0, -0.03f), 1f, Color.yellow, 4, true, 0.3f, 100);
@@ -63,10 +76,10 @@ public class ParticleTest extends Core
     @Override
     public void update(float delta)
     {
-        Input in = rnr.input();
+        Input in = rnr.getInput();
         
         if (in.keyDown(Keyboard.KEY_ESCAPE))
-            rnr.mousegrab(false);
+            rnr.setMouseGrab(false);
         
         emitter1.move(in.getAbsoluteMouseX() / 4 - emitter1.getBounds().getX1(), in.getAbsoluteMouseY() / 4 - emitter1.getBounds().getY1());
         emitter2.move(in.getAbsoluteMouseX() / 4 - emitter2.getBounds().getX1(), in.getAbsoluteMouseY() / 4 - emitter2.getBounds().getY1());
@@ -79,7 +92,7 @@ public class ParticleTest extends Core
     @Override
     public void render(Graphics g)
     {
-        g.drawTexture((Texture) rnr.resourceManager().retrieveResource("torch"), torchpos.x, torchpos.y);
+        g.drawTexture((Texture) rnr.getResourceManager().retrieveResource("torch"), torchpos.x, torchpos.y);
         emitter2.render(g);
         emitter1.render(g);
     }

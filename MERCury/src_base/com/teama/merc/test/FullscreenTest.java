@@ -40,7 +40,7 @@ public class FullscreenTest extends Core
     @Override
     public void update(float delta)
     {
-        if (rnr.input().keyDown(Keyboard.KEY_ESCAPE))
+        if (rnr.getInput().keyDown(Keyboard.KEY_ESCAPE))
             rnr.end();
     }
     

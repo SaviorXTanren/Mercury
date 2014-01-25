@@ -173,7 +173,7 @@ public class Runner
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             
             if (splashed)
-                core.update(delta());
+                core.update(getDelta());
             
             camera.pre(graphicsobject);
             {
@@ -215,7 +215,7 @@ public class Runner
         Logger.debug("MERCury Game Engine shutting down...");
     }
     
-    public int fps()
+    public int getFps()
     {
         return FPS;
     }
@@ -230,34 +230,19 @@ public class Runner
         this.logfps = logfps;
     }
     
-    public int width()
+    public int getWidth()
     {
         return Display.getWidth();
     }
     
-    public float width(float numerator)
-    {
-        return width() / numerator;
-    }
-    
-    public int height()
+    public int getHeight()
     {
         return Display.getHeight();
     }
     
-    public float height(float numerator)
+    public float getAspectRatio()
     {
-        return height() / numerator;
-    }
-    
-    public float aspectRatio()
-    {
-        return width() / height();
-    }
-    
-    public float aspectRatio(float numerator)
-    {
-        return width(numerator) / height(numerator);
+        return getWidth() / getHeight();
     }
     
     /**
@@ -273,18 +258,18 @@ public class Runner
         Thread.sleep(milliseconds);
     }
     
-    public void mousegrab(boolean grab)
+    public void setMouseGrab(boolean grab)
     {
         Mouse.setGrabbed(grab);
     }
     
-    public void vsync(boolean vsync)
+    public void setVsync(boolean vsync)
     {
         this.vsync = vsync;
         Display.setVSyncEnabled(vsync);
     }
     
-    public boolean focused()
+    public boolean isFocused()
     {
         return Display.isActive();
     }
@@ -304,8 +289,8 @@ public class Runner
     private void remakeDisplay()
     {
         Display.destroy();
-        core().initDisplay(width(), height(), Display.isFullscreen(), vsync);
-        graphicsobject = core().initGraphics();
+        getCore().initDisplay(getWidth(), getHeight(), Display.isFullscreen(), vsync);
+        graphicsobject = getCore().initGraphics();
     }
     
     public void end()
@@ -313,7 +298,7 @@ public class Runner
         running = false;
     }
     
-    public float delta()
+    public float getDelta()
     {
         return delta * deltafactor;
     }
@@ -323,27 +308,27 @@ public class Runner
         deltafactor = factor;
     }
     
-    public Core core()
+    public Core getCore()
     {
         return core;
     }
     
-    public Graphics graphics()
+    public Graphics getGraphics()
     {
         return graphicsobject;
     }
     
-    public ResourceManager resourceManager()
+    public ResourceManager getResourceManager()
     {
         return RM;
     }
     
-    public Input input()
+    public Input getInput()
     {
         return input;
     }
     
-    public Camera camera()
+    public Camera getCamera()
     {
         return camera;
     }

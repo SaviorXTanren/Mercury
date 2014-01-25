@@ -1,4 +1,4 @@
-package com.teama.merc.aud;
+package com.teama.merc.paulscodeaud;
 
 import paulscode.sound.SoundSystem;
 import paulscode.sound.SoundSystemConfig;

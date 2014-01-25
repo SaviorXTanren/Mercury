@@ -55,8 +55,8 @@ public class ColorTest extends Core
     @Override
     public void init(ResourceManager RM)
     {
-        rnr.graphics().setBackground(Color.black);
-        rnr.graphics().scale(8);
+        rnr.getGraphics().setBackground(Color.black);
+        rnr.getGraphics().scale(8);
     }
     
     @Override

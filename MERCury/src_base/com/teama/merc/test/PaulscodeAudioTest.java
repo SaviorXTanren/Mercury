@@ -4,14 +4,14 @@ import java.io.IOException;
 
 import org.lwjgl.input.Keyboard;
 
-import com.teama.merc.aud.Audio;
-import com.teama.merc.aud.PaulscodeSoundSystemPlugin;
 import com.teama.merc.exc.MERCuryException;
 import com.teama.merc.fmwk.Core;
 import com.teama.merc.fmwk.Runner;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.gfx.Texture;
 import com.teama.merc.in.Input;
+import com.teama.merc.paulscodeaud.Audio;
+import com.teama.merc.paulscodeaud.PaulscodeSoundSystemPlugin;
 import com.teama.merc.res.ResourceManager;
 import com.teama.merc.spl.SplashScreen;
 
@@ -24,13 +24,13 @@ import com.teama.merc.spl.SplashScreen;
  * @license (C) Jan 9, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */
 
-public class AudioTest extends Core
+public class PaulscodeAudioTest extends Core
 {
     Runner rnr = Runner.getInstance();
     
-    public AudioTest()
+    public PaulscodeAudioTest()
     {
-        super("yo");
+        super("Paulscode Audio Test!");
         rnr.addPlugin(new PaulscodeSoundSystemPlugin());
         rnr.init(this, 100, 100);
         rnr.run();
@@ -52,8 +52,8 @@ public class AudioTest extends Core
         {
             Texture tex = Texture.loadTexture("res/splash.png");
             float ratio = tex.getTextureWidth() / tex.getTextureHeight();
-            int height = (int) (rnr.width() / ratio);
-            SplashScreen splash = new SplashScreen(tex, 3000, rnr.width(), height, true);
+            int height = (int) (rnr.getWidth() / ratio);
+            SplashScreen splash = new SplashScreen(tex, 3000, rnr.getWidth(), height, true);
             rnr.addSplashScreen(splash);
         } catch (IOException e)
         {
@@ -64,11 +64,11 @@ public class AudioTest extends Core
     @Override
     public void update(float delta)
     {
-        Input in = rnr.input();
+        Input in = rnr.getInput();
         if (in.keyDown(Keyboard.KEY_W))
-            ((Audio) rnr.resourceManager().retrieveResource("wav")).play();
+            ((Audio) rnr.getResourceManager().retrieveResource("wav")).play();
         else if (in.keyClicked(Keyboard.KEY_O))
-            ((Audio) rnr.resourceManager().retrieveResource("ogg")).toggle();
+            ((Audio) rnr.getResourceManager().retrieveResource("ogg")).toggle();
     }
     
     @Override
@@ -84,6 +84,6 @@ public class AudioTest extends Core
     
     public static void main(String[] args)
     {
-        new AudioTest();
+        new PaulscodeAudioTest();
     }
 }

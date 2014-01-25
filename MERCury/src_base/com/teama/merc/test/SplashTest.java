@@ -40,8 +40,8 @@ public class SplashTest extends Core
         {
             Texture tex = Texture.loadTexture("res/splash.png");
             float ratio = tex.getTextureWidth() / tex.getTextureHeight();
-            int height = (int) (rnr.width() / ratio);
-            SplashScreen splash = new SplashScreen(tex, 3000, rnr.width(), height, true);
+            int height = (int) (rnr.getWidth() / ratio);
+            SplashScreen splash = new SplashScreen(tex, 3000, rnr.getWidth(), height, true);
             rnr.addSplashScreen(splash);
         } catch (IOException e)
         {
@@ -59,7 +59,7 @@ public class SplashTest extends Core
     public void render(Graphics g)
     {
         for (int trolol = 0; trolol < 10; trolol++)
-            g.drawString((float) MercMath.random(0, rnr.width()), (float) MercMath.random(0, rnr.height()), "LEL,                      This is a GAME!                deal with it!");
+            g.drawString((float) MercMath.random(0, rnr.getWidth()), (float) MercMath.random(0, rnr.getHeight()), "LEL,                      This is a GAME!                deal with it!");
     }
     
     @Override

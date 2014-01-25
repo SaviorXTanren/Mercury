@@ -1,4 +1,4 @@
-package com.teama.merc.net;
+package com.teama.merc.kryonet;
 
 import java.io.IOException;
 
