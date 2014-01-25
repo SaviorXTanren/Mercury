@@ -68,8 +68,8 @@ public class ParticleTest extends Core
         if (in.keyDown(Keyboard.KEY_ESCAPE))
             rnr.mousegrab(false);
         
-        emitter1.move(in.getAbsoluteMouseX()/4 - emitter1.getBounds().getX1(), in.getAbsoluteMouseY()/4 - emitter1.getBounds().getY1());
-        emitter2.move(in.getAbsoluteMouseX()/4 - emitter2.getBounds().getX1(), in.getAbsoluteMouseY()/4 - emitter2.getBounds().getY1());
+        emitter1.move(in.getAbsoluteMouseX() / 4 - emitter1.getBounds().getX1(), in.getAbsoluteMouseY() / 4 - emitter1.getBounds().getY1());
+        emitter2.move(in.getAbsoluteMouseX() / 4 - emitter2.getBounds().getX1(), in.getAbsoluteMouseY() / 4 - emitter2.getBounds().getY1());
         torchpos.set(emitter1.getBounds().getX1() + 2.5f, emitter1.getBounds().getY1());
         
         emitter1.update(delta);
@@ -79,7 +79,7 @@ public class ParticleTest extends Core
     @Override
     public void render(Graphics g)
     {
-        g.drawTexture(((Texture) rnr.resourceManager().retrieveResource("torch")), torchpos.x, torchpos.y);
+        g.drawTexture((Texture) rnr.resourceManager().retrieveResource("torch"), torchpos.x, torchpos.y);
         emitter2.render(g);
         emitter1.render(g);
     }

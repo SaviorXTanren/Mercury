@@ -28,7 +28,7 @@ public class Shader implements Resource
     
     public Shader(int programobject)
     {
-    	Shader.programobject = programobject;
+        Shader.programobject = programobject;
     }
     
     public int getProgramObject()

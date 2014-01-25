@@ -152,7 +152,7 @@ public class ParticleEmitter extends AdvancedMercEntity
     
     public void setParticleShrinking(boolean shrinking)
     {
-        this.shrink = shrinking;
+        shrink = shrinking;
     }
     
     public void setParticleLifeInFrames(int lifeinframes)

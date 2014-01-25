@@ -35,8 +35,6 @@ public abstract class Vec
     
     public abstract float distance(Vec vec);
     
-    public abstract void rotate(float angle);
-    
     public abstract Vec copy();
     
     @Override
