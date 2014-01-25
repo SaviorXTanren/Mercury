@@ -20,6 +20,14 @@ public class Rectangle extends Shape
         });
     }
     
+    public Rectangle(float x, float y, float s)
+    {
+        super(new float[]
+        {
+                x, y, x + s, y, x + s, y + s, x, y + s
+        });
+    }
+    
     public Rectangle(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
     {
         super(x1, y1, x2, y2, x3, y3, x4, y4);
