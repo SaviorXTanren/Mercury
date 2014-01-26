@@ -1,5 +1,6 @@
 MERCury 2D Game Engine
-------------
+
+![alt tag](http://puu.sh/6bVuj.png)
                                        
 Maitenance Enhanced and Reliable Coding Engine
           by wessles of www.wessles.com
