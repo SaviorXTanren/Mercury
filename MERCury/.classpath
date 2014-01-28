@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src_base"/>
-	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="src" path="src_plugin"/>
 	<classpathentry kind="lib" path="libs/lwjgl/jar/lwjgl.jar">
 		<attributes>

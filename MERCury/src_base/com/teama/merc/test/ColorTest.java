@@ -18,14 +18,13 @@ import static com.teama.merc.gfx.Color.violet;
 import static com.teama.merc.gfx.Color.white;
 import static com.teama.merc.gfx.Color.yellow;
 
-import java.awt.Toolkit;
-
 import com.teama.merc.fmwk.Core;
 import com.teama.merc.fmwk.Runner;
 import com.teama.merc.geo.Rectangle;
 import com.teama.merc.gfx.Color;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.res.ResourceManager;
+import com.teama.merc.spl.SplashScreen;
 
 /**
  * Colors got screwed up... So this should be a good tool for the future and now.
@@ -43,7 +42,7 @@ public class ColorTest extends Core
     public ColorTest()
     {
         super("Color Test");
-        rnr.init(this, (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth(), 100);
+        rnr.init(this, 500, 500);
         rnr.run();
     }
     
@@ -57,6 +56,8 @@ public class ColorTest extends Core
     {
         rnr.getGraphics().setBackground(Color.black);
         rnr.getGraphics().scale(8);
+        
+        rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
     
     @Override

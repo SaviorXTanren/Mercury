@@ -3,9 +3,9 @@ package com.teama.merc.util;
 import static org.lwjgl.opengl.GL11.GL_NEAREST;
 
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
@@ -21,24 +21,24 @@ import com.teama.merc.gfx.Texture;
  */
 public class TextureFactory
 {
-    public static Texture[] getTextureStrip(String location, int divwidth) throws FileNotFoundException, IOException
+    public static Texture[] getTextureStrip(InputStream in, int divwidth) throws FileNotFoundException, IOException
     {
-        return getTextureStrip(ImageIO.read(new FileInputStream(location)), divwidth, false, false, GL_NEAREST);
+        return getTextureStrip(ImageIO.read(in), divwidth, false, false, GL_NEAREST);
     }
     
-    public static Texture[] getTextureStrip(String location, int divwidth, int filter) throws FileNotFoundException, IOException
+    public static Texture[] getTextureStrip(InputStream in, int divwidth, int filter) throws FileNotFoundException, IOException
     {
-        return getTextureStrip(ImageIO.read(new FileInputStream(location)), divwidth, false, false, filter);
+        return getTextureStrip(ImageIO.read(in), divwidth, false, false, filter);
     }
     
-    public static Texture[] getTextureStrip(String location, int divwidth, boolean local_fliphor, boolean local_flipvert) throws FileNotFoundException, IOException
+    public static Texture[] getTextureStrip(InputStream in, int divwidth, boolean local_fliphor, boolean local_flipvert) throws FileNotFoundException, IOException
     {
-        return getTextureStrip(ImageIO.read(new FileInputStream(location)), divwidth, local_fliphor, local_flipvert, GL_NEAREST);
+        return getTextureStrip(ImageIO.read(in), divwidth, local_fliphor, local_flipvert, GL_NEAREST);
     }
     
-    public static Texture[] getTextureStrip(String location, int divwidth, boolean local_fliphor, boolean local_flipvert, int filter) throws FileNotFoundException, IOException
+    public static Texture[] getTextureStrip(InputStream in, int divwidth, boolean local_fliphor, boolean local_flipvert, int filter) throws FileNotFoundException, IOException
     {
-        return getTextureStrip(ImageIO.read(new FileInputStream(location)), divwidth, local_fliphor, local_flipvert, filter);
+        return getTextureStrip(ImageIO.read(in), divwidth, local_fliphor, local_flipvert, filter);
     }
     
     public static Texture[] getTextureStrip(BufferedImage bi, int divwidth)
@@ -70,24 +70,24 @@ public class TextureFactory
         return result;
     }
     
-    public static Texture[][] getTextureGrid(String location, int divwidth, int divheight) throws FileNotFoundException, IOException
+    public static Texture[][] getTextureGrid(InputStream in, int divwidth, int divheight) throws FileNotFoundException, IOException
     {
-        return getTextureGrid(ImageIO.read(new FileInputStream(location)), divwidth, divheight, false, false, GL_NEAREST);
+        return getTextureGrid(ImageIO.read(in), divwidth, divheight, false, false, GL_NEAREST);
     }
     
-    public static Texture[][] getTextureGrid(String location, int divwidth, int divheight, int filter) throws FileNotFoundException, IOException
+    public static Texture[][] getTextureGrid(InputStream in, int divwidth, int divheight, int filter) throws FileNotFoundException, IOException
     {
-        return getTextureGrid(ImageIO.read(new FileInputStream(location)), divwidth, divheight, false, false, filter);
+        return getTextureGrid(ImageIO.read(in), divwidth, divheight, false, false, filter);
     }
     
-    public static Texture[][] getTextureGrid(String location, int divwidth, int divheight, boolean local_fliphor, boolean local_flipvert) throws FileNotFoundException, IOException
+    public static Texture[][] getTextureGrid(InputStream in, int divwidth, int divheight, boolean local_fliphor, boolean local_flipvert) throws FileNotFoundException, IOException
     {
-        return getTextureGrid(ImageIO.read(new FileInputStream(location)), divwidth, divheight, local_fliphor, local_flipvert, GL_NEAREST);
+        return getTextureGrid(ImageIO.read(in), divwidth, divheight, local_fliphor, local_flipvert, GL_NEAREST);
     }
     
-    public static Texture[][] getTextureGrid(String location, int divwidth, int divheight, boolean local_fliphor, boolean local_flipvert, int filter) throws FileNotFoundException, IOException
+    public static Texture[][] getTextureGrid(InputStream in, int divwidth, int divheight, boolean local_fliphor, boolean local_flipvert, int filter) throws FileNotFoundException, IOException
     {
-        return getTextureGrid(ImageIO.read(new FileInputStream(location)), divwidth, divheight, local_fliphor, local_flipvert, filter);
+        return getTextureGrid(ImageIO.read(in), divwidth, divheight, local_fliphor, local_flipvert, filter);
     }
     
     public static Texture[][] getTextureGrid(BufferedImage bi, int divwidth, int divheight)

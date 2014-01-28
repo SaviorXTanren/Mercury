@@ -14,8 +14,8 @@ import static org.lwjgl.opengl.GL11.glTexImage2D;
 import static org.lwjgl.opengl.GL11.glTexParameteri;
 
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 import javax.imageio.ImageIO;
@@ -99,9 +99,9 @@ public class Texture implements Resource
         glBindTexture(GL_TEXTURE_2D, 0);
     }
     
-    public static Texture loadTexture(String location) throws IOException
+    public static Texture loadTexture(InputStream in) throws IOException
     {
-        return loadTexture(location, false, false, GL_NEAREST);
+        return loadTexture(in, false, false, GL_NEAREST);
     }
     
     public static Texture loadTexture(BufferedImage bi)
@@ -109,9 +109,9 @@ public class Texture implements Resource
         return loadTexture(bi, false, false);
     }
     
-    public static Texture loadTexture(String location, boolean fliphor, boolean flipvert) throws IOException
+    public static Texture loadTexture(InputStream in, boolean fliphor, boolean flipvert) throws IOException
     {
-        return loadTexture(location, fliphor, flipvert, GL_NEAREST);
+        return loadTexture(in, fliphor, flipvert, GL_NEAREST);
     }
     
     public static Texture loadTexture(BufferedImage bi, boolean fliphor, boolean flipvert)
@@ -119,9 +119,9 @@ public class Texture implements Resource
         return loadTexture(bi, fliphor, flipvert, GL_NEAREST);
     }
     
-    public static Texture loadTexture(String location, int filter) throws IOException
+    public static Texture loadTexture(InputStream in, int filter) throws IOException
     {
-        return loadTexture(location, false, false, filter);
+        return loadTexture(in, false, false, filter);
     }
     
     public static Texture loadTexture(BufferedImage bi, int filter)
@@ -129,9 +129,9 @@ public class Texture implements Resource
         return loadTexture(bi, false, false, filter);
     }
     
-    public static Texture loadTexture(String location, boolean fliphor, boolean flipvert, int filter) throws IOException
+    public static Texture loadTexture(InputStream in, boolean fliphor, boolean flipvert, int filter) throws IOException
     {
-        return loadTexture(ImageIO.read(new FileInputStream(location)), fliphor, flipvert, filter);
+        return loadTexture(ImageIO.read(in), fliphor, flipvert, filter);
     }
     
     public static Texture loadTexture(BufferedImage bi, boolean fliphor, boolean flipvert, int filter)

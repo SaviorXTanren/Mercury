@@ -7,6 +7,7 @@ import com.teama.merc.fmwk.Runner;
 import com.teama.merc.geo.Rectangle;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.res.ResourceManager;
+import com.teama.merc.spl.SplashScreen;
 
 /**
  * @from MERCury in com.teama.merc.test
@@ -35,6 +36,7 @@ public class FullscreenTest extends Core
     @Override
     public void init(ResourceManager RM)
     {
+        rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
     
     @Override

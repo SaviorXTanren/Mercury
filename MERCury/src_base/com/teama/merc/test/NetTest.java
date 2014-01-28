@@ -11,6 +11,7 @@ import com.teama.merc.kryonet.MercClient;
 import com.teama.merc.kryonet.MercServer;
 import com.teama.merc.kryonet.Network;
 import com.teama.merc.res.ResourceManager;
+import com.teama.merc.spl.SplashScreen;
 
 /**
  * @from merc in com.teama.merc.test
@@ -50,6 +51,8 @@ public class NetTest extends Core
         client.registerObject(Packet.class);
         
         mob = new Circle(400, 300);
+        
+        rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
     
     @Override

@@ -1,17 +1,15 @@
 package com.teama.merc.test;
 
-import java.io.IOException;
-
 import org.lwjgl.input.Keyboard;
 
 import com.teama.merc.exc.MERCuryException;
 import com.teama.merc.fmwk.Core;
 import com.teama.merc.fmwk.Runner;
 import com.teama.merc.gfx.Graphics;
-import com.teama.merc.gfx.Texture;
 import com.teama.merc.in.Input;
 import com.teama.merc.paulscodeaud.Audio;
 import com.teama.merc.paulscodeaud.PaulscodeSoundSystemPlugin;
+import com.teama.merc.res.Loader;
 import com.teama.merc.res.ResourceManager;
 import com.teama.merc.spl.SplashScreen;
 
@@ -41,24 +39,14 @@ public class PaulscodeAudioTest extends Core
     {
         try
         {
-            RM.loadResource(Audio.loadAudio("res/test/AudioTest/sound.ogg", false), "ogg");
-            RM.loadResource(Audio.loadAudio("res/test/AudioTest/sound.wav", false), "wav");
+            RM.loadResource(Audio.loadAudio(Loader.URLFromClasspath("com/teama/merc/test/sound.ogg"), false), "ogg");
+            RM.loadResource(Audio.loadAudio(Loader.URLFromClasspath("com/teama/merc/test/sound.wav"), false), "wav");
         } catch (MERCuryException e)
         {
             e.printStackTrace();
         }
         
-        try
-        {
-            Texture tex = Texture.loadTexture("res/splash.png");
-            float ratio = tex.getTextureWidth() / tex.getTextureHeight();
-            int height = (int) (rnr.getWidth() / ratio);
-            SplashScreen splash = new SplashScreen(tex, 3000, rnr.getWidth(), height, true);
-            rnr.addSplashScreen(splash);
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
     
     @Override

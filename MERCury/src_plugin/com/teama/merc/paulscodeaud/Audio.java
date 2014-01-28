@@ -1,7 +1,6 @@
 package com.teama.merc.paulscodeaud;
 
-import java.io.File;
-import java.net.MalformedURLException;
+import java.net.URL;
 
 import paulscode.sound.SoundSystem;
 import paulscode.sound.SoundSystemConfig;
@@ -70,18 +69,12 @@ public class Audio implements Resource
         return this;
     }
     
-    public static Audio loadAudio(String location, boolean loop) throws MERCuryException
+    public static Audio loadAudio(URL in, boolean loop) throws MERCuryException
     {
         String src = "merc_src_" + srcnum;
         srcnum++;
         
-        try
-        {
-            getSoundSystem().newSource(false, src, new File(location).toURI().toURL(), location, loop, 0, 0, 0, SoundSystemConfig.ATTENUATION_ROLLOFF, SoundSystemConfig.getDefaultRolloff());
-        } catch (MalformedURLException e)
-        {
-            throw new MERCuryException("Problems finding file '" + location + "'");
-        }
+        getSoundSystem().newSource(false, src, in, in.getFile().substring(in.getFile().lastIndexOf("/"), in.getFile().length()), loop, 0, 0, 0, SoundSystemConfig.ATTENUATION_ROLLOFF, SoundSystemConfig.getDefaultRolloff());
         
         return new Audio(src);
     }

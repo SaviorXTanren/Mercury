@@ -13,6 +13,7 @@ import com.teama.merc.gfx.Graphics;
 import com.teama.merc.gfx.Texture;
 import com.teama.merc.in.Input;
 import com.teama.merc.part.ParticleEmitter;
+import com.teama.merc.res.Loader;
 import com.teama.merc.res.ResourceManager;
 import com.teama.merc.spl.SplashScreen;
 
@@ -49,19 +50,7 @@ public class ParticleTest extends Core
     {
         try
         {
-            RM.loadResource(Texture.loadTexture("res/test/ParticleTest/torch.png"), "torch");
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        
-        try
-        {
-            Texture tex = Texture.loadTexture("res/splash.png");
-            float ratio = tex.getTextureWidth() / tex.getTextureHeight();
-            int height = (int) (rnr.getWidth() / ratio);
-            SplashScreen splash = new SplashScreen(tex, 3000, rnr.getWidth(), height, true);
-            rnr.addSplashScreen(splash);
+            RM.loadResource(Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/torch.png")), "torch");
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -71,6 +60,8 @@ public class ParticleTest extends Core
         
         emitter1 = new ParticleEmitter(new Rectangle(0, 0, 10, 10), new Vec2(265, 275), new Vec2(0, -0.01f), 1f, Color.red, 2, true, 0.2f, 100);
         emitter2 = new ParticleEmitter(new Rectangle(0, 0, 10, 10), new Vec2(255, 285), new Vec2(0, -0.03f), 1f, Color.yellow, 4, true, 0.3f, 100);
+        
+        rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
     
     @Override

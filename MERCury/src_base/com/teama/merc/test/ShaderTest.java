@@ -6,7 +6,9 @@ import com.teama.merc.geo.Rectangle;
 import com.teama.merc.gfx.Color;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.gfx.Shader;
+import com.teama.merc.res.Loader;
 import com.teama.merc.res.ResourceManager;
+import com.teama.merc.spl.SplashScreen;
 
 /**
  * An object version of shaders. Does all of the tedius stuff for you and lets you use the shader easily.
@@ -19,43 +21,46 @@ import com.teama.merc.res.ResourceManager;
 
 public class ShaderTest extends Core
 {
-
-	Runner rnr = Runner.getInstance();
-	Shader program;
-	
-	public ShaderTest()
-	{
-		super("MERCury Shader Test");
-		rnr.init(this, 800, 600);
-		rnr.run();
-	}
-
-	@Override
-	public void init(ResourceManager RM)
-	{
-		program = Shader.getShader("res/gfx/shaders/custom.vs", Shader.VERTEX_SHADER);
-	}
-
-	@Override
-	public void update(float delta)
-	{
-	}
-
-	@Override
-	public void render(Graphics g)
-	{
-		g.setBackground(Color.cyan);
-		g.useShader(program);
-		g.drawRect(new Rectangle(400, 300, 50, 50));
-	}
-
-	@Override
-	public void cleanup(ResourceManager RM)
-	{
-	}
-
-	public static void main(String[] args)
-	{
-		new ShaderTest();
-	}
+    
+    Runner rnr = Runner.getInstance();
+    Shader program;
+    
+    public ShaderTest()
+    {
+        super("MERCury Shader Test");
+        rnr.init(this, 800, 600);
+        rnr.run();
+    }
+    
+    @Override
+    public void init(ResourceManager RM)
+    {
+        program = Shader.getShader(Loader.streamFromClasspath("com/teama/merc/test/custom.vs"), Shader.VERTEX_SHADER);
+        
+        rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
+    }
+    
+    @Override
+    public void update(float delta)
+    {
+    }
+    
+    @Override
+    public void render(Graphics g)
+    {
+        g.setBackground(Color.cyan);
+        g.useShader(program);
+        g.drawRect(new Rectangle(400, 300, 50, 50));
+        g.releaseShaders();
+    }
+    
+    @Override
+    public void cleanup(ResourceManager RM)
+    {
+    }
+    
+    public static void main(String[] args)
+    {
+        new ShaderTest();
+    }
 }

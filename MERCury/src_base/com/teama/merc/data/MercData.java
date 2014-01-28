@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -23,16 +24,16 @@ public class MercData
     
     public HashMap<String, String> vals = new HashMap<String, String>();
     
-    public MercData(String location)
+    public MercData(URL url)
     {
-        this.location = location;
+        location = url.getFile();
         
         if (location.contains("."))
-            this.location = this.location.substring(0, this.location.indexOf('.')) + ".MERC.dat";
+            location = location.substring(0, location.indexOf('.')) + ".MERC.dat";
         else
-            this.location += ".MERC.dat";
+            location += ".MERC.dat";
         
-        if (new File(this.location).exists())
+        if (new File(location).exists())
             load();
     }
     

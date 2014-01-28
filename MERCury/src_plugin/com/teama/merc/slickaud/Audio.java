@@ -1,9 +1,9 @@
 package com.teama.merc.slickaud;
 
-import org.newdawn.slick.openal.AudioLoader;
-import org.newdawn.slick.util.ResourceLoader;
+import java.net.URL;
 
-import com.teama.merc.exc.MERCuryException;
+import org.newdawn.slick.openal.AudioLoader;
+
 import com.teama.merc.res.Resource;
 
 /**
@@ -66,14 +66,15 @@ public class Audio implements Resource
         return this;
     }
     
-    public static Audio loadAudio(String location) throws MERCuryException
+    public static Audio loadAudio(URL url)
     {
         org.newdawn.slick.openal.Audio slickaud = null;
         
+        String format = url.getFile().substring(url.getFile().lastIndexOf(".") + 1, url.getFile().length());
+        
         try
         {
-            String format = location.substring(location.lastIndexOf(".") + 1);
-            slickaud = AudioLoader.getAudio(format.toUpperCase(), ResourceLoader.getResourceAsStream(location));
+            slickaud = AudioLoader.getAudio(format.toUpperCase(), url.openStream());
         } catch (Exception e)
         {
             e.printStackTrace();

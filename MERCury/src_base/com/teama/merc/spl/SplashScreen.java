@@ -1,5 +1,6 @@
 package com.teama.merc.spl;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -8,6 +9,7 @@ import com.teama.merc.geo.Rectangle;
 import com.teama.merc.geo.TexturedRectangle;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.gfx.Texture;
+import com.teama.merc.res.Loader;
 
 /**
  * @from merc in com.teama.merc.spl
@@ -38,18 +40,37 @@ public class SplashScreen
             final Timer timertodestruction = new Timer();
             timertodestruction.schedule(new TimerTask()
             {
-                @SuppressWarnings("deprecation")
                 @Override
                 public void run()
                 {
                     _return_ = false;
-                    Thread t = Thread.currentThread();
-                    t.stop();
+                    timertodestruction.cancel();
+                    timertodestruction.purge();
                 }
             }, showtimemillis);
             showing = true;
         }
         g.drawRect(texrect);
         return _return_;
+    }
+    
+    /**
+     * Show some love for MERCury and give some credit!
+     */
+    public static SplashScreen getMERCuryDefault()
+    {
+        try
+        {
+            Texture tex = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/spl/splash.png"));
+            float ratio = tex.getTextureWidth() / tex.getTextureHeight();
+            int height = (int) (Runner.getInstance().getWidth() / ratio);
+            SplashScreen splash = new SplashScreen(tex, 3000, Runner.getInstance().getWidth(), height, true);
+            return splash;
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        
+        return null;
     }
 }

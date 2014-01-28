@@ -1,11 +1,8 @@
 package com.teama.merc.test;
 
-import java.io.IOException;
-
 import com.teama.merc.fmwk.Core;
 import com.teama.merc.fmwk.Runner;
 import com.teama.merc.gfx.Graphics;
-import com.teama.merc.gfx.Texture;
 import com.teama.merc.math.MercMath;
 import com.teama.merc.res.ResourceManager;
 import com.teama.merc.spl.SplashScreen;
@@ -36,17 +33,7 @@ public class SplashTest extends Core
     @Override
     public void init(ResourceManager RM)
     {
-        try
-        {
-            Texture tex = Texture.loadTexture("res/splash.png");
-            float ratio = tex.getTextureWidth() / tex.getTextureHeight();
-            int height = (int) (rnr.getWidth() / ratio);
-            SplashScreen splash = new SplashScreen(tex, 3000, rnr.getWidth(), height, true);
-            rnr.addSplashScreen(splash);
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
     
     @Override

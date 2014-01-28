@@ -2,6 +2,7 @@ package com.teama.merc.gfx;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import com.teama.merc.geo.Rectangle;
 import com.teama.merc.geo.TexturedRectangle;
@@ -157,14 +158,14 @@ public class Animation implements Resource
         return texs;
     }
     
-    public static Animation loadAnimationFromStrip(String location, int divwidth, int frameratemillis) throws FileNotFoundException, IOException
+    public static Animation loadAnimationFromStrip(InputStream in, int divwidth, int frameratemillis) throws FileNotFoundException, IOException
     {
-        return new Animation(frameratemillis, TextureFactory.getTextureStrip(location, divwidth));
+        return new Animation(frameratemillis, TextureFactory.getTextureStrip(in, divwidth));
     }
     
-    public static Animation loadAnimationFromGrid(String location, int divwidth, int divheight, int frameratemillis) throws FileNotFoundException, IOException
+    public static Animation loadAnimationFromGrid(InputStream in, int divwidth, int divheight, int frameratemillis) throws FileNotFoundException, IOException
     {
-        Texture[][] texs_g = TextureFactory.getTextureGrid(location, divwidth, divheight);
+        Texture[][] texs_g = TextureFactory.getTextureGrid(in, divwidth, divheight);
         Texture[] texs_s = new Texture[texs_g.length * texs_g[0].length];
         int cnt = 0;
         
