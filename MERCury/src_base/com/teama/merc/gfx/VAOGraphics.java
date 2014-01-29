@@ -14,6 +14,7 @@ import com.teama.merc.geo.TexturedRectangle;
 import com.teama.merc.geo.TexturedTriangle;
 import com.teama.merc.geo.Triangle;
 import com.teama.merc.geo.Vec2;
+import com.teama.merc.log.Logger;
 
 /**
  * An object used for graphics. It will draw just about anything for you.
@@ -28,6 +29,7 @@ public class VAOGraphics implements Graphics
 {
     private VAOBatcher batcher;
     
+    private Vec2 scale;
     private Font current_font;
     private Color background_color;
     private Color current_color;
@@ -36,6 +38,7 @@ public class VAOGraphics implements Graphics
     public void init()
     {
         batcher = new VAOBatcher();
+        scale = new Vec2(1, 1);
         current_font = TrueTypeFont.loadTrueTypeFont(new java.awt.Font("Verdana", 0, 12), true);
         background_color = Color.DEFAULT_BACKGROUND;
         current_color = Color.DEFAULT_DRAWING;
@@ -65,6 +68,14 @@ public class VAOGraphics implements Graphics
     public void scale(float x, float y)
     {
         glScalef(x, y, 1);
+        scale.x = x;
+        scale.y = y;
+        Logger.debug(x+", "+y+" | "+scale.toString());
+    }
+    
+    public Vec2 getScale()
+    {
+        return scale;
     }
     
     @Override

@@ -8,6 +8,8 @@ import com.teama.merc.gfx.Graphics;
 import com.teama.merc.util.Wipeable;
 
 /**
+ * A class that will represent a single particle, with a parent emitter.
+ * 
  * @from MERCury in com.teama.merc.part
  * @by wessles
  * @website www.wessles.com

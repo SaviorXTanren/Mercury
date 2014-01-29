@@ -1,16 +1,15 @@
-package com.teama.merc.util;
+package com.teama.merc.gfx;
 
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 
 import com.teama.merc.geo.Vec2;
-import com.teama.merc.gfx.Graphics;
 
 /**
  * An object for the camera.
  * 
- * @from merc in com.teama.merc.util
+ * @from merc in com.teama.merc.gfx
  * @authors wessles
  * @website www.wessles.com
  * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.

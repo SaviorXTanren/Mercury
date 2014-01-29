@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
+ * A way to store information outside of local data and store data in files.
+ * 
  * @from merc in com.teama.merc.dat
  * @authors wessles, Jeviny
  * @website www.wessles.com

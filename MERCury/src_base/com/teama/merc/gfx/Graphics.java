@@ -6,6 +6,7 @@ import com.teama.merc.geo.Ellipse;
 import com.teama.merc.geo.Point;
 import com.teama.merc.geo.Rectangle;
 import com.teama.merc.geo.Triangle;
+import com.teama.merc.geo.Vec2;
 
 /**
  * An abstraction for all graphics.
@@ -27,6 +28,8 @@ public interface Graphics
     public void scale(float factor);
     
     public void scale(float x, float y);
+    
+    public Vec2 getScale();
     
     public void setFont(Font font);
     

@@ -11,12 +11,12 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import com.teama.merc.exc.PluginNotFoundException;
+import com.teama.merc.gfx.Camera;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.in.Input;
 import com.teama.merc.log.Logger;
 import com.teama.merc.res.ResourceManager;
 import com.teama.merc.spl.SplashScreen;
-import com.teama.merc.util.Camera;
 
 /**
  * A class that will run your core, and give out the graphics object, current core, resource manager, and input ly.
@@ -115,11 +115,6 @@ public class Runner
         
         Logger.debug("Initializing Core...");
         this.core.init(RM);
-        if (splashes.size() == 0)
-        {
-            splashed = true;
-            Logger.debug("No splashes loaded by Core.");
-        }
         
         Logger.debug("Ready to begin game loop. Awaiting permission from Core...");
     }
@@ -133,6 +128,12 @@ public class Runner
         Logger.log("-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-");
         Logger.line();
         Logger.line();
+        
+        if (splashes.size() == 0)
+        {
+            splashed = true;
+            Logger.debug("No splashes loaded by Core.");
+        }
         
         // To the main loop!
         

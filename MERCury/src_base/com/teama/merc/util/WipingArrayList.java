@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
+ * An arraylist that you can wipe Wipeables with.
+ * 
  * @from MERCury in com.teama.merc.util
  * @by wessles
  * @website www.wessles.com

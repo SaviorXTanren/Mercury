@@ -1,6 +1,8 @@
 package com.teama.merc.exc;
 
 /**
+ * An exception for when a plugin could not be found.
+ * 
  * @from merc in com.teama.merc.exc
  * @authors wessles
  * @website www.wessles.com

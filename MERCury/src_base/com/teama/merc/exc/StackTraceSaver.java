@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
+ * A utility for saving stack traces.
+ * 
  * @from merc in com.teama.merc.exc
  * @authors wessles
  * @website www.wessles.com

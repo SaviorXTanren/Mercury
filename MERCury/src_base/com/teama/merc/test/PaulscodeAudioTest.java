@@ -39,8 +39,8 @@ public class PaulscodeAudioTest extends Core
     {
         try
         {
-            RM.loadResource(Audio.loadAudio(Loader.URLFromClasspath("com/teama/merc/test/sound.ogg"), false), "ogg");
-            RM.loadResource(Audio.loadAudio(Loader.URLFromClasspath("com/teama/merc/test/sound.wav"), false), "wav");
+            RM.loadResource(Audio.loadAudio(Loader.loadFromClasspath("com/teama/merc/test/sound.ogg"), false), "ogg");
+            RM.loadResource(Audio.loadAudio(Loader.loadFromClasspath("com/teama/merc/test/sound.wav"), false), "wav");
         } catch (MERCuryException e)
         {
             e.printStackTrace();

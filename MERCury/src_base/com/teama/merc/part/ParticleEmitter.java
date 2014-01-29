@@ -9,6 +9,8 @@ import com.teama.merc.math.MercMath;
 import com.teama.merc.util.WipingArrayList;
 
 /**
+ * An object that will emit particle from a given point in a given direction, at a given speed (run-on!).
+ * 
  * @from MERCury in com.teama.merc.part
  * @by wessles
  * @website www.wessles.com

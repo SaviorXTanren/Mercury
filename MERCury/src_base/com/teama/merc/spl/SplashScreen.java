@@ -5,8 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.teama.merc.fmwk.Runner;
-import com.teama.merc.geo.Rectangle;
-import com.teama.merc.geo.TexturedRectangle;
+import com.teama.merc.geo.Vec2;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.gfx.Texture;
 import com.teama.merc.res.Loader;
@@ -22,14 +21,14 @@ public class SplashScreen
 {
     public boolean showing = false;
     private boolean _return_ = true;
-    public long showtimemillis;
-    public TexturedRectangle texrect;
     
-    public SplashScreen(Texture tex, long showtimemillis, int WIDTH, int HEIGHT, boolean center)
+    public long showtimemillis;
+    public Texture tex;
+    
+    public SplashScreen(Texture tex, long showtimemillis)
     {
-        // Center or no center? That is the question.
-        texrect = center ? new TexturedRectangle(new Rectangle(Runner.getInstance().getWidth() / 2 - WIDTH / 2, Runner.getInstance().getHeight() / 2 - HEIGHT / 2, WIDTH, HEIGHT), tex) : new TexturedRectangle(new Rectangle(0, 0, WIDTH, HEIGHT), tex);
         this.showtimemillis = showtimemillis;
+        this.tex = tex;
     }
     
     public boolean show(Graphics g)
@@ -50,27 +49,43 @@ public class SplashScreen
             }, showtimemillis);
             showing = true;
         }
-        g.drawRect(texrect);
+        
+        Vec2 scale = Runner.getInstance().getGraphics().getScale();
+        int scrw = (int) (Runner.getInstance().getWidth() / scale.x), scrh = (int) (Runner.getInstance().getHeight() / scale.y);
+        float width = tex.getTextureWidth(), height = tex.getTextureHeight();
+        float aspect = width / height;
+        
+        if (scrw > scrh)
+        {
+            width = scrw;
+            height = width / aspect;
+        }
+        else
+        {
+            width = scrw;
+            height = width / aspect;
+        }
+        
+        g.drawTexture(tex, 0, 0, tex.getTextureWidth(), tex.getTextureHeight(), 0, scrh/2-height/2, width, scrh/2-height/2+height);
         return _return_;
     }
     
     /**
      * Show some love for MERCury and give some credit!
+     * 
+     * @return The love of all developers from MERCury, unless you are a child murderer. Even if you code you can't get anybody's love. Sicko
      */
     public static SplashScreen getMERCuryDefault()
     {
+        Texture tex = null;
         try
         {
-            Texture tex = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/spl/splash.png"));
-            float ratio = tex.getTextureWidth() / tex.getTextureHeight();
-            int height = (int) (Runner.getInstance().getWidth() / ratio);
-            SplashScreen splash = new SplashScreen(tex, 3000, Runner.getInstance().getWidth(), height, true);
-            return splash;
+            tex = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/spl/splash.png"));
         } catch (IOException e)
         {
             e.printStackTrace();
         }
         
-        return null;
+        return new SplashScreen(tex, 3000);
     }
 }

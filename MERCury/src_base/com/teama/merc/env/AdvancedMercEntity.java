@@ -6,6 +6,8 @@ import com.teama.merc.gfx.Graphics;
 import com.teama.merc.gfx.Texture;
 
 /**
+ * A more advanced version of MercEntity, with movement and stuffs.
+ * 
  * @from merc in com.teama.merc.env
  * @authors wessles
  * @website www.wessles.com

@@ -12,6 +12,8 @@ import java.io.IOException;
 import com.teama.merc.gfx.Texture;
 
 /**
+ * A font type for .ttf's
+ * 
  * @from merc in com.teama.merc.fnt
  * @by wessles
  * @website www.wessles.com

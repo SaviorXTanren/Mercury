@@ -32,7 +32,7 @@ public class Triangle extends Shape
         // that made me revise,
         // this perfect little snippet
         //
-        // return (getWidth() getHeight()) / 2;
+        // return (getWidth()*getHeight()) / 2;
         //
         // He said base != width-ippit
         //

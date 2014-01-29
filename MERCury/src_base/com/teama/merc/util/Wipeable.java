@@ -1,6 +1,8 @@
 package com.teama.merc.util;
 
 /**
+ * An abstraction for objects that can 'wipe' themselves, or self destruct.
+ * 
  * @from MERCury in com.teama.merc.util
  * @by wessles
  * @website www.wessles.com

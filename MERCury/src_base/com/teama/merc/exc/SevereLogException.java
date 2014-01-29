@@ -1,6 +1,8 @@
 package com.teama.merc.exc;
 
 /**
+ * An exception thrown when there is a severe log entry.
+ * 
  * @from merc in com.teama.merc.exc
  * @authors wessles
  * @website www.wessles.com

@@ -33,7 +33,7 @@ public class ParticleTest extends Core
     public ParticleTest()
     {
         super("Particle Test");
-        rnr.init(this, 600, 600);
+        rnr.init(this, 500, 300);
         rnr.setMouseGrab(true);
         rnr.run();
     }

@@ -42,7 +42,7 @@ public class ColorTest extends Core
     public ColorTest()
     {
         super("Color Test");
-        rnr.init(this, 500, 500);
+        rnr.init(this, 640, 480);
         rnr.run();
     }
     
