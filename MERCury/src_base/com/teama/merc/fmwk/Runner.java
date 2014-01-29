@@ -4,12 +4,14 @@ import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
+import com.teama.merc.exc.MERCuryException;
 import com.teama.merc.exc.PluginNotFoundException;
 import com.teama.merc.gfx.Camera;
 import com.teama.merc.gfx.Graphics;
@@ -114,7 +116,13 @@ public class Runner
         }
         
         Logger.debug("Initializing Core...");
-        this.core.init(RM);
+        try
+        {
+            this.core.init(RM);
+        } catch (IOException | MERCuryException e)
+        {
+            e.printStackTrace();
+        }
         
         Logger.debug("Ready to begin game loop. Awaiting permission from Core...");
     }
@@ -174,12 +182,24 @@ public class Runner
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             
             if (splashed)
-                core.update(getDelta());
+                try
+                {
+                    core.update(getDelta());
+                } catch (MERCuryException e)
+                {
+                    e.printStackTrace();
+                }
             
             camera.pre(graphicsobject);
             {
                 if (splashed)
-                    core.render(graphicsobject);
+                    try
+                    {
+                        core.render(graphicsobject);
+                    } catch (MERCuryException e)
+                    {
+                        e.printStackTrace();
+                    }
                 else if (!splashes.get(splashidx).show(graphicsobject))
                     if (splashidx < splashes.size() - 1)
                         splashidx++;
@@ -203,7 +223,13 @@ public class Runner
         
         Logger.debug("Starting Cleanup...");
         Logger.debug("Cleaning up Core...");
-        core.cleanup(RM);
+        try
+        {
+            core.cleanup(RM);
+        } catch (IOException | MERCuryException e)
+        {
+            e.printStackTrace();
+        }
         Logger.debug("Cleaning up ResourceManager...");
         RM.cleanup();
         Logger.debug("Cleaning up plugins...");

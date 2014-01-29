@@ -16,10 +16,13 @@ import static org.lwjgl.opengl.GL11.glLoadIdentity;
 import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.opengl.GL11.glOrtho;
 
+import java.io.IOException;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import com.teama.merc.exc.MERCuryException;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.gfx.VAOGraphics;
 import com.teama.merc.log.Logger;
@@ -46,22 +49,22 @@ public abstract class Core
     /**
      * Called first (after {@code initDisplay}, {@code initGraphics}, and {@code initAudio}), used to initialize all resources, and for whatever you wish to do for initialization.
      */
-    public abstract void init(ResourceManager RM);
+    public abstract void init(ResourceManager RM) throws IOException, MERCuryException;
     
     /**
      * Called once every frame, and used to handle all logic.
      */
-    public abstract void update(float delta);
+    public abstract void update(float delta) throws MERCuryException;
     
     /**
      * Called once every frame, and used to render everything, via {@code Graphics g}.
      */
-    public abstract void render(Graphics g);
+    public abstract void render(Graphics g) throws MERCuryException;
     
     /**
      * Called when the Runner is done
      */
-    public abstract void cleanup(ResourceManager RM);
+    public abstract void cleanup(ResourceManager RM) throws IOException, MERCuryException;
     
     public void initDisplay(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync)
     {
