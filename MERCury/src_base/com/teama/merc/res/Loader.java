@@ -3,6 +3,7 @@ package com.teama.merc.res;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -31,7 +32,14 @@ public class Loader
     public static URL loadFromSys(String loc)
     {
         loc = loc.replace('\\', '/');
-        return Loader.class.getResource(loc);
+        try
+        {
+            return new URL("file:" + loc);
+        } catch (MalformedURLException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
     
     /**
