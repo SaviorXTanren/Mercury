@@ -1,8 +1,8 @@
 package com.teama.merc.util;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Scanner;
 
 /**
@@ -18,24 +18,24 @@ public class DopplerTileMapReader
 {
     public static final int DIGITS_PER_TILE = 4;
     
-    public static int[][] getTiles(String readlocation) throws CorruptMapException, IOException
+    public static int[][] getTiles(InputStream in) throws CorruptMapException, IOException
     {
         
         // Read WIDTH and HEIGHT
-        int[] dimensions = readDimensions(readlocation);
+        int[] dimensions = readDimensions(in);
         int WIDTH = dimensions[0], HEIGHT = dimensions[1];
         
         // Read data
-        int[][] result = readData(WIDTH, HEIGHT, readlocation);
+        int[][] result = readData(WIDTH, HEIGHT, in);
         
         return result;
     }
     
-    private static int[] readDimensions(String readlocation) throws FileNotFoundException
+    private static int[] readDimensions(InputStream in) throws FileNotFoundException
     {
         int WIDTH = 0, HEIGHT = 0;
         
-        Scanner read = new Scanner(new FileInputStream(readlocation));
+        Scanner read = new Scanner(in);
         
         while (read.hasNextLine())
         {
@@ -55,11 +55,11 @@ public class DopplerTileMapReader
         };
     }
     
-    private static int[][] readData(int WIDTH, int HEIGHT, String readlocation) throws FileNotFoundException
+    private static int[][] readData(int WIDTH, int HEIGHT, InputStream in) throws FileNotFoundException
     {
         int[][] data = new int[WIDTH][HEIGHT];
         
-        Scanner read = new Scanner(new FileInputStream(readlocation));
+        Scanner read = new Scanner(in);
         
         int y = 0;
         while (read.hasNextLine())
