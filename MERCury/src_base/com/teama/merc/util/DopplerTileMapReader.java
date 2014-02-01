@@ -1,6 +1,8 @@
 package com.teama.merc.util;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Scanner;
 
 /**
@@ -16,15 +18,14 @@ public class DopplerTileMapReader
 {
     public static final int DIGITS_PER_TILE = 4;
     
-    public static int[][] getTiles(InputStream in)
+    public static int[][] getTiles(URL in) throws IOException
     {
-        
         // Read WIDTH and HEIGHT
-        int[] dimensions = readDimensions(in);
+        int[] dimensions = readDimensions(in.openStream());
         int WIDTH = dimensions[0], HEIGHT = dimensions[1];
         
         // Read data
-        int[][] result = readData(WIDTH, HEIGHT, in);
+        int[][] result = readData(WIDTH, HEIGHT, in.openStream());
         
         return result;
     }
