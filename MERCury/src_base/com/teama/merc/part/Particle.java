@@ -66,8 +66,10 @@ public class Particle implements MercEntity, Wipeable
     @Override
     public void render(Graphics g)
     {
+        Color orig_col = g.getColor();
         g.setColor(new Color(color.r, color.g, color.b, life));
         g.drawRect(new Rectangle(pos.x, pos.y, size, size));
+        g.setColor(orig_col);
     }
     
     boolean wiped = false;
