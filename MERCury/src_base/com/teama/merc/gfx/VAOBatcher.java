@@ -120,7 +120,7 @@ public class VAOBatcher implements Batcher
             return;
         end();
         last_tex = Texture.getEmptyTexture();
-        Texture.unbindTextures();
+        last_tex.bind();
         begin();
     }
     
@@ -158,7 +158,7 @@ public class VAOBatcher implements Batcher
             return;
         end();
         last_shader = Shader.getDefaultShader();
-        Shader.releaseShaders();
+        Shader.useShader(last_shader);
         begin();
     }
     

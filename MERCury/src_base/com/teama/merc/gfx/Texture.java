@@ -22,6 +22,7 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.BufferUtils;
 
+import com.teama.merc.res.Loader;
 import com.teama.merc.res.Resource;
 
 /**
@@ -36,6 +37,7 @@ import com.teama.merc.res.Resource;
 public class Texture implements Resource
 {
     public static final int BYTES_PER_PIXEL = 4;
+    public static Texture BLANK_TEXTURE;
     
     private final int textureid, width, height;
     
@@ -171,6 +173,14 @@ public class Texture implements Resource
     
     public static Texture getEmptyTexture()
     {
-        return new Texture(0, 0, 0);
+        if (BLANK_TEXTURE == null)
+            try
+            {
+                BLANK_TEXTURE = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/gfx/empty.png"));
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        return BLANK_TEXTURE;
     }
 }
