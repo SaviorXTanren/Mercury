@@ -1,7 +1,9 @@
-varying vec4 color;
+varying vec4 v_color;
+varying vec2 v_texcoord;
 
 void main()
 {
-	color = gl_Color.rgba;
+	v_color = gl_Color.rgba;
+	v_texcoord = gl_MultiTexCoord0.xy;
 	gl_Position = ftransform(); 
 }

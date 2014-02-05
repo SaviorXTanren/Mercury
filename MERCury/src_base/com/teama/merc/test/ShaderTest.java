@@ -1,11 +1,14 @@
 package com.teama.merc.test;
 
+import java.io.IOException;
+
 import com.teama.merc.fmwk.Core;
 import com.teama.merc.fmwk.Runner;
 import com.teama.merc.geo.Rectangle;
 import com.teama.merc.gfx.Color;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.gfx.Shader;
+import com.teama.merc.gfx.Texture;
 import com.teama.merc.res.Loader;
 import com.teama.merc.res.ResourceManager;
 import com.teama.merc.spl.SplashScreen;
@@ -31,11 +34,14 @@ public class ShaderTest extends Core
         rnr.init(this, 800, 600);
         rnr.run();
     }
-    
+    Texture tex;
     @Override
-    public void init(ResourceManager RM)
+    public void init(ResourceManager RM) throws IOException
     {
-        program = Shader.getShader(Loader.streamFromClasspath("com/teama/merc/test/custom.vs"), Shader.VERTEX_SHADER);
+        rnr.getGraphics().scale(4);
+        
+        program = Shader.getDefaultShader();
+        tex = Texture.loadTexture(Loader.stream("com/teama/merc/test/torch.png"));
         
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
@@ -50,7 +56,8 @@ public class ShaderTest extends Core
     {
         g.setBackground(Color.cyan);
         g.useShader(program);
-        g.drawRect(new Rectangle(400, 300, 50, 50));
+        g.drawTexture(tex, 0, 0);
+        g.drawRect(new Rectangle(100, 100, 50, 50));
         g.releaseShaders();
     }
     

@@ -308,8 +308,8 @@ public class Shader implements Resource
         return source.toString();
     }
     
-    public static Shader getEmptyShader()
+    public static Shader getDefaultShader()
     {
-        return new Shader(DEFAULT_SHADER);
+        return Shader.getShader(Loader.streamFromClasspath("com/teama/merc/gfx/default.vs"), Loader.streamFromClasspath("com/teama/merc/gfx/default.fs"));
     }
 }

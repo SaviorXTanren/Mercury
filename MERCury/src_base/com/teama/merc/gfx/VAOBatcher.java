@@ -39,7 +39,7 @@ public class VAOBatcher implements Batcher
     
     private Texture last_tex = Texture.getEmptyTexture();
     private Color last_col = Color.DEFAULT_DRAWING;
-    private Shader last_shader = Shader.getEmptyShader();
+    private Shader last_shader = Shader.getDefaultShader();
     
     public VAOBatcher()
     {
@@ -154,10 +154,10 @@ public class VAOBatcher implements Batcher
     @Override
     public void clearShaders()
     {
-        if (last_shader.equals(Shader.getEmptyShader()))
+        if (last_shader.equals(Shader.getDefaultShader()))
             return;
         end();
-        last_shader = Shader.getEmptyShader();
+        last_shader = Shader.getDefaultShader();
         Shader.releaseShaders();
         begin();
     }
