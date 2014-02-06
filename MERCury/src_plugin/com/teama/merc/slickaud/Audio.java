@@ -1,5 +1,6 @@
 package com.teama.merc.slickaud;
 
+import java.io.IOException;
 import java.net.URL;
 
 import org.newdawn.slick.openal.AudioLoader;
@@ -77,7 +78,13 @@ public class Audio implements Resource
             slickaud = AudioLoader.getAudio(format.toUpperCase(), url.openStream());
         } catch (Exception e)
         {
-            e.printStackTrace();
+            try
+            {
+                slickaud = AudioLoader.getStreamingAudio(format.toUpperCase(), url);
+            } catch (IOException e1)
+            {
+                e1.printStackTrace();
+            }
         }
         
         return new Audio(slickaud);
