@@ -28,10 +28,11 @@ public class ParticleEmitter extends AdvancedMercEntity
     private float size;
     private boolean shrink;
     private float speed;
+    private float damp;
     private Vec2 grav;
     private int lifeinframes;
     
-    public ParticleEmitter(Rectangle spawnarea, Vec2 validangle, Vec2 grav, float percentchance, Color color, float size, boolean shrink, float speed, int lifeinframes)
+    public ParticleEmitter(Rectangle spawnarea, Vec2 validangle, Vec2 grav, float percentchance, Color color, float size, boolean shrink, float speed, float damp, int lifeinframes)
     {
         super(spawnarea.getX1(), spawnarea.getY1(), spawnarea.getWidth(), spawnarea.getHeight());
         
@@ -45,13 +46,14 @@ public class ParticleEmitter extends AdvancedMercEntity
         this.shrink = shrink;
         
         this.speed = speed;
+        this.damp = damp;
         this.grav = grav;
         this.lifeinframes = lifeinframes;
     }
     
-    public ParticleEmitter(float x, float y, Vec2 validangle, float percentchance, Color color, float size, boolean shrink, float speed, Vec2 grav, int lifeinframes)
+    public ParticleEmitter(float x, float y, Vec2 validangle, float percentchance, Color color, float size, float damp, boolean shrink, float speed, Vec2 grav, int lifeinframes)
     {
-        this(new Rectangle(x, y, 1, 1), validangle, grav, percentchance, color, size, shrink, speed, lifeinframes);
+        this(new Rectangle(x, y, 1, 1), validangle, grav, percentchance, color, size, shrink, speed, damp, lifeinframes);
     }
     
     @Override
@@ -61,7 +63,7 @@ public class ParticleEmitter extends AdvancedMercEntity
         {
             float angle = (float) MercMath.random(validangle.x, validangle.y);
             float x = (float) MercMath.random(getBounds().getX1(), getBounds().getX2()), y = (float) MercMath.random(getBounds().getY1(), getBounds().getY2());
-            parts.add(new Particle(color, size, shrink, x, y, angle, speed, lifeinframes, this));
+            parts.add(new Particle(color, size, shrink, x, y, angle, speed, damp, lifeinframes, this));
         }
         
         for (Particle part : parts)
@@ -112,6 +114,11 @@ public class ParticleEmitter extends AdvancedMercEntity
         return speed;
     }
     
+    public float getParticleDamp()
+    {
+        return damp;
+    }
+    
     public boolean getParticleShrinking()
     {
         return shrink;
@@ -150,6 +157,11 @@ public class ParticleEmitter extends AdvancedMercEntity
     public void setParticleSpeed(float speed)
     {
         this.speed = speed;
+    }
+    
+    public void setParticleDamp(float damp)
+    {
+        this.damp = damp;
     }
     
     public void setParticleShrinking(boolean shrinking)

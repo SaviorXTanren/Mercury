@@ -25,13 +25,14 @@ public class Particle implements MercEntity, Wipeable
     
     public Vec2 pos;
     public Vec2 vel;
+    public float damp;
     
     public final int lifeinframes;
     public int life;
     
     public ParticleEmitter emitter;
     
-    public Particle(Color color, float size, boolean shrink, float x, float y, float angle, float speed, int lifeinframes, ParticleEmitter emitter)
+    public Particle(Color color, float size, boolean shrink, float x, float y, float angle, float speed, float damp, int lifeinframes, ParticleEmitter emitter)
     {
         this.color = color;
         this.size = size;
@@ -41,6 +42,7 @@ public class Particle implements MercEntity, Wipeable
         pos = new Vec2(x, y);
         vel = new Vec2(angle);
         vel.scale(speed);
+        this.damp = damp;
         
         this.lifeinframes = lifeinframes;
         life = lifeinframes;
@@ -56,6 +58,7 @@ public class Particle implements MercEntity, Wipeable
         
         pos.add(vel);
         vel.add(emitter.getGravity());
+        vel.scale(damp);
         
         if (shrink)
             size = max_size * ((float) life / (float) lifeinframes);
