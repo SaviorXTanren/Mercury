@@ -1,34 +1,32 @@
 package com.teama.merc.gui;
 
 import com.teama.merc.env.Renderable;
-import com.teama.merc.geo.Rectangle;
-import com.teama.merc.geo.TexturedRectangle;
 import com.teama.merc.gfx.Graphics;
-import com.teama.merc.gfx.Texture;
 
 /**
  * @from merc in com.teama.merc.gui
  * @authors wessles, Jeviny
  * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
+ *          project 'MERCury' are licensed under WTFPL license. You can find the
+ *          license itself at http://www.wtfpl.net/about/.
  */
 
 public class Component implements Renderable
 {
-    public Texture tex;
     public String txt;
     
-    public boolean txtCentered;
+    public boolean cx, cy;
     
     private ActionCheck acheck;
     public float x, y, w, h;
     
-    public Component(String txt, Texture tex, float x, float y, float w, float h, boolean txtCentered)
+    public Component(String txt, float x, float y, float w, float h, boolean centerx, boolean centery)
     {
         this.txt = txt;
-        this.tex = tex;
         
-        this.txtCentered = txtCentered;
+        this.cx = centerx;
+        this.cy = centery;
         
         this.x = x;
         this.y = y;
@@ -48,16 +46,19 @@ public class Component implements Renderable
     @Override
     public void render(Graphics g)
     {
-        g.drawRect(new TexturedRectangle(new Rectangle(x, y, x + w, y, x + w, y + h, x, y + h), tex));
+        renderContent(g);
+    }
+    
+    public void renderContent(Graphics g)
+    {
+        float tx = 0, ty = 0;
         
-        if (txtCentered)
-        {
-            float textx = g.getFont().getWidth(txt.toCharArray()) / 2;
-            float texty = g.getFont().getHeight() / 2;
-            
-            g.drawString(x - textx + w / 2, y - texty + h / 2, txt);
-        } else
-            g.drawString(x, y, txt);
+        if (cx)
+            tx = w / 2 - g.getFont().getWidth(txt.toCharArray()) / 2;
+        if (cy)
+            ty = h / 2 - g.getFont().getHeight() / 4;
+        
+        g.drawString(x + tx, y + ty, txt);
     }
     
     public Component setActionCheck(ActionCheck acheck)

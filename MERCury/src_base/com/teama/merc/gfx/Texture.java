@@ -26,12 +26,15 @@ import com.teama.merc.res.Loader;
 import com.teama.merc.res.Resource;
 
 /**
- * An object version of a texture. This will store the width and height of the object.
+ * An object version of a texture. This will store the width and height of the
+ * object.
  * 
  * @from merc in com.teama.merc.gfx
  * @authors wessles
  * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
+ * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
+ *          project 'MERCury' are licensed under WTFPL license. You can find the
+ *          license itself at http://www.wtfpl.net/about/.
  */
 
 public class Texture implements Resource
@@ -39,13 +42,34 @@ public class Texture implements Resource
     public static final int BYTES_PER_PIXEL = 4;
     public static Texture BLANK_TEXTURE;
     
-    private final int textureid, width, height;
+    private final BufferedImage buf;
+    private final int textureid, filter, width, height;
+    private final boolean fliphor, flipvert;
     
-    public Texture(int textureid, int width, int height)
+    public Texture(BufferedImage buf, int textureid, boolean fliphor, boolean flipvert, int filter, int width, int height)
     {
         this.textureid = textureid;
+        this.fliphor = fliphor;
+        this.flipvert = flipvert;
+        this.filter = filter;
         this.width = width;
         this.height = height;
+        this.buf = buf;
+    }
+    
+    public Texture filter(int filter)
+    {
+        return loadTexture(buf, fliphor, flipvert, filter);
+    }
+    
+    public Texture flipX()
+    {
+        return loadTexture(buf, !fliphor, flipvert, filter);
+    }
+    
+    public Texture flipY()
+    {
+        return loadTexture(buf, fliphor, !flipvert, filter);
     }
     
     public void bind()
@@ -71,6 +95,11 @@ public class Texture implements Resource
     public int getTextureId()
     {
         return textureid;
+    }
+    
+    public BufferedImage getSourceImage()
+    {
+        return buf;
     }
     
     @Override
@@ -168,7 +197,7 @@ public class Texture implements Resource
         
         unbindTextures();
         
-        return new Texture(textureid, bi.getWidth(), bi.getHeight());
+        return new Texture(bi, textureid, fliphor, flipvert, filter, bi.getWidth(), bi.getHeight());
     }
     
     public static Texture getEmptyTexture()

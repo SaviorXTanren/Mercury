@@ -39,7 +39,7 @@ public class VAOGraphics implements Graphics
     {
         batcher = new VAOBatcher();
         scale = new Vec2(1, 1);
-        current_font = TrueTypeFont.loadTrueTypeFont(new java.awt.Font("Verdana", 0, 12), true);
+        current_font = TrueTypeFont.loadTrueTypeFont(new java.awt.Font("Verdana", 0, 20), true);
         background_color = Color.DEFAULT_BACKGROUND;
         current_color = Color.DEFAULT_DRAWING;
     }
