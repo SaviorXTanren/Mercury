@@ -16,6 +16,8 @@ public interface Batcher
     public void end();
     
     public void render();
+   
+    public void render(boolean hasColor, boolean hasTexture);
     
     public void setColor(Color color);
     

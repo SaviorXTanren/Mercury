@@ -1,5 +1,7 @@
 package com.teama.merc.gfx;
 
+import static org.lwjgl.opengl.GL20.glDeleteProgram;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,6 +11,7 @@ import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.GL11;
 
+import com.teama.merc.geo.Vec3;
 import com.teama.merc.res.Loader;
 import com.teama.merc.res.Resource;
 
@@ -49,6 +52,11 @@ public class Shader implements Resource
         ARBShaderObjects.glUseProgramObjectARB(DEFAULT_SHADER);
     }
     
+    public void setUniform3f(String name, Vec3 value) {
+    	int location = ARBShaderObjects.glGetUniformLocationARB(programobject, name);
+    	ARBShaderObjects.glUniform3fARB(location, value.x, value.y, value.z);
+    }
+    
     public void setUniformf(String name, float... values)
     {
         int location = ARBShaderObjects.glGetUniformLocationARB(programobject, name);
@@ -80,7 +88,7 @@ public class Shader implements Resource
     @Override
     public void clean()
     {
-        
+    	glDeleteProgram(programobject);
     }
     
     public static void useShader(Shader shader)
