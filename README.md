@@ -15,4 +15,4 @@ wessles - Team Alluminum Founder
 
 Special thanks to:
 Jev (http://www.kemoy.net/)
-opiop65 (http://www.pancakesimone.co.nf/)
+opiop65 (http://www.nishustudios.com/)
