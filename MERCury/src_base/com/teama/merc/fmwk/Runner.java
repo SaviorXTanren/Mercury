@@ -83,10 +83,10 @@ public class Runner
         Logger.log("                                        __/ |");
         Logger.log("                                       |___/ ");
         Logger.log("Maitenance Enhanced and Reliable Coding Engine");
-        Logger.log("             by wessles");
+        Logger.log("             by Team Alluminum");
         Logger.log("             Email wessles@wessles.com for support");
         Logger.log("             Go to www.reddit.com/r/MERCuryGameEngine for community");
-        Logger.log("                        Copyright www.wessles.com 2013");
+        Logger.log("                        Copyright www.wessles.com 2013-20XX");
         Logger.log("                        All Rights Reserved");
         
         Logger.debug("Making Core...");
