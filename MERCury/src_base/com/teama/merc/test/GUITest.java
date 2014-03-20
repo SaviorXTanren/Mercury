@@ -12,6 +12,7 @@ import com.teama.merc.gfx.Graphics;
 import com.teama.merc.gfx.Texture;
 import com.teama.merc.gui.TextBar;
 import com.teama.merc.gui.TextBox;
+import com.teama.merc.gui.TextPanel;
 import com.teama.merc.res.Loader;
 import com.teama.merc.res.ResourceManager;
 
@@ -30,7 +31,7 @@ public class GUITest extends Core
     
     TextBar tbar0;
     TextBox tbox0;
-    TextBox tbox1;
+    TextPanel tpan1;
     
     public GUITest()
     {
@@ -56,7 +57,7 @@ public class GUITest extends Core
         float tb1w = 640;
         float tb1h = 512;
         
-        tbox1 = new TextBox("Welcome to MERCury Game Engine! This is a demonstration of the GUI System, currently being developed by both Jeviny and Wessles. How was your day? Mine has been great. I've had to waste all of it because I'm writing this stupid-ass text just so I can test panels!", background, rnr.getWidth() - (tb1w + 32), 16, tb1w, tb1h, 48, Color.black);
+        tpan1 = new TextPanel("Welcome!", "Welcome to MERCury Game Engine! This is a demonstration of the GUI System, currently being developed by both Jeviny and Wessles. How was your day? Mine has been great. I've had to waste all of it because I'm writing this stupid-ass text just so I can test panels!", background, rnr.getWidth() - (tb1w + 32), 16, tb1w, tb1h, 48, Color.black);
     }
     
     @Override
@@ -72,7 +73,7 @@ public class GUITest extends Core
     	
         tbar0.render(g);
         tbox0.render(g);
-        tbox1.render(g);
+        tpan1.render(g);
     }
     
     @Override
