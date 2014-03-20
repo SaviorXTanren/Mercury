@@ -21,7 +21,7 @@ public class SplashTest extends Core
     public SplashTest()
     {
         super("Splash Screen Test!");
-        rnr.init(this, 800, 600);
+        rnr.init(this, 1024, 768);
         rnr.run();
     }
     
@@ -32,14 +32,14 @@ public class SplashTest extends Core
     
     @Override
     public void init(ResourceManager RM)
-    {
+    {	
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
     
     @Override
     public void update(float delta)
     {
-        
+       
     }
     
     @Override

@@ -51,6 +51,7 @@ public class TrueTypeFont implements com.teama.merc.font.Font
     {
         // Make a graphics object for the buffered image.
         BufferedImage imgTemp = new BufferedImage(texw, texh, BufferedImage.TYPE_INT_ARGB);
+        
         Graphics2D g = (Graphics2D) imgTemp.getGraphics();
         
         // Set the color to transparent
@@ -213,7 +214,9 @@ public class TrueTypeFont implements com.teama.merc.font.Font
     public static TrueTypeFont loadTrueTypeFont(String location, float size, int style, boolean antialias) throws FileNotFoundException, FontFormatException, IOException
     {
         java.awt.Font font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, new FileInputStream(location));
+        
         font = font.deriveFont(size);
+        
         return loadTrueTypeFont(font, antialias);
     }
     

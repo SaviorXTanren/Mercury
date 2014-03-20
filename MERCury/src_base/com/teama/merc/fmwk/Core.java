@@ -108,6 +108,7 @@ public abstract class Core
         
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_POLYGON_STIPPLE);
         glEnable(GL_ALPHA_TEST);
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_DEPTH_SCALE);
@@ -116,7 +117,7 @@ public abstract class Core
         
         glDepthFunc(GL_LEQUAL);
         
-        glAlphaFunc(GL_GREATER, 0.1f);
+        glAlphaFunc(GL_GREATER, 0.01f);
         
         return new VAOGraphics();
     }

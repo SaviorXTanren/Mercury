@@ -37,6 +37,7 @@ public class SplashScreen
         {
             // Evil timer
             final Timer timertodestruction = new Timer();
+            
             timertodestruction.schedule(new TimerTask()
             {
                 @Override
@@ -47,6 +48,7 @@ public class SplashScreen
                     timertodestruction.purge();
                 }
             }, showtimemillis);
+            
             showing = true;
         }
         
