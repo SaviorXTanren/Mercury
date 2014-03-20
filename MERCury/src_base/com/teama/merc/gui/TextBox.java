@@ -22,9 +22,13 @@ public class TextBox extends Component
     
     public Color textCol;
     
+    private boolean hasBackground = false;
+    
     public TextBox(String txt, float x, float y, float w, float h, float margin, Color textCol)
     {
         this(txt, Texture.getEmptyTexture(), Texture.getEmptyTexture(), x, y, w, h, margin, textCol);
+        
+        hasBackground = false;
     }
     
     public TextBox(String txt, Texture border_hor, Texture border_vert, float x, float y, float w, float h, float margin, Color textCol)
@@ -35,6 +39,8 @@ public class TextBox extends Component
         this.border_hor = border_hor;
         this.border_vert = border_vert;
         this.textCol = textCol;
+        
+        hasBackground = false;
     }
     
     public TextBox(String txt, Texture background_img, float x, float y, float w, float h, float margin, Color textCol)
@@ -44,11 +50,13 @@ public class TextBox extends Component
     	this.margin = margin;
     	this.background_img = background_img;
     	this.textCol = textCol;
+    	
+    	hasBackground = true;
     }
     
     public void render(Graphics g)
     {
-    	if (border_hor != null && border_vert != null)
+    	if (!hasBackground)
     	{
             float borderwidth = Math.min(border_hor.getTextureHeight(), border_hor.getTextureWidth());
             
@@ -60,9 +68,10 @@ public class TextBox extends Component
             g.drawTexture(border_hor, 0, 0, borderwidth, h+margin*2, x, y-margin);
             g.drawTexture(border_vert, 0, 0, w, borderwidth, x, y-margin);	
     	}
-    	
-        if (background_img != null)
+    	else
+    	{
         	g.drawTexture(background_img, x, y, w, h);
+    	}
         
         renderContent(g);
     }
@@ -71,6 +80,7 @@ public class TextBox extends Component
     {
     	g.setColor(textCol);
         g.drawString(x + margin, y + margin, txt);
+        g.setColor(Color.white);
     }
     
     private static String fitStringToBounds(String txt, float w, float margin)

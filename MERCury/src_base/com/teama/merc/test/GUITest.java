@@ -30,6 +30,8 @@ public class GUITest extends Core
     TextBox tbox0;
     TextBox tbox1;
     
+    double x = 0;
+    
     public GUITest()
     {
         super("GUI Test!");
@@ -56,7 +58,9 @@ public class GUITest extends Core
     @Override
     public void update(float delta) throws MERCuryException
     {
-        
+    	x = Math.sin(Runner.getInstance().getTime() / 550.0) * 500.0 + 150;
+    	
+        tbox1.x = (float) x;
     }
      
     @Override
