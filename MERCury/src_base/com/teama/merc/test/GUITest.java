@@ -30,8 +30,6 @@ public class GUITest extends Core
     TextBox tbox0;
     TextBox tbox1;
     
-    double x = 0;
-    
     public GUITest()
     {
         super("GUI Test!");
@@ -52,15 +50,13 @@ public class GUITest extends Core
         
         Texture background = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/panel_main.png"));
         
-        tbox1 = new TextBox("Welcome to MERCury Game Engine! This is a demonstration of the GUI System, currently being developed by both Jeviny and Wessles. How was your day? Mine has been great. I've had to waste all of it because I'm writing this stupid-ass text just so I can test panels!", background, 296, 16, 512, 512, 16, Color.black);
+        tbox1 = new TextBox("Welcome to MERCury Game Engine! This is a demonstration of the GUI System, currently being developed by both Jeviny and Wessles. How was your day? Mine has been great. I've had to waste all of it because I'm writing this stupid-ass text just so I can test panels!", background, 296, 16, 512, 512, 48, Color.black);
     }
     
     @Override
     public void update(float delta) throws MERCuryException
     {
-    	x = Math.sin(Runner.getInstance().getTime() / 550.0) * 500.0 + 150;
     	
-        tbox1.x = (float) x;
     }
      
     @Override

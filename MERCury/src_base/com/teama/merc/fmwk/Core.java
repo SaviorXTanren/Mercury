@@ -111,7 +111,9 @@ public abstract class Core
         glEnable(GL_ALPHA_TEST);
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_DEPTH_SCALE);
+        
         glDepthMask(true);
+        
         glDepthFunc(GL_LEQUAL);
         
         glAlphaFunc(GL_GREATER, 0.1f);

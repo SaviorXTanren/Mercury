@@ -95,25 +95,40 @@ public class Runner
         Logger.log("                        All Rights Reserved");
         
         Logger.debug("Making Core...");
+        
         this.core = core;
         this.vsync = vsync;
+        
         Logger.debug("Initializing Display...");
+        
         this.core.initDisplay(WIDTH, HEIGHT, fullscreen, vsync);
+        
         Logger.debug("Making Graphics...");
+        
         graphicsobject = this.core.initGraphics();
+        
         Logger.debug("Initializing Camera...");
+        
         camera = new Camera(0, 0);
+        
         Logger.debug("Initializing Resource Manager...");
+        
         RM = new ResourceManager();
         
         Logger.debug("Initializing Graphics...");
+        
         graphicsobject.init();
+        
         Logger.debug("Creating Input...");
+        
         input = new Input();
+        
         Logger.debug("Initializing Input...");
+        
         input.create();
         
         Logger.debug("Starting plugins...");
+        
         for (Plugin plug : plugs)
         {
             Logger.debug("     Initializing " + plug.getClass().getSimpleName() + "...");
@@ -121,10 +136,12 @@ public class Runner
         }
         
         Logger.debug("Initializing Core...");
+        
         try
         {
             this.core.init(RM);
-        } catch (IOException | MERCuryException e)
+        } 
+        catch (IOException | MERCuryException e)
         {
             e.printStackTrace();
         }
@@ -136,7 +153,9 @@ public class Runner
     {
         Logger.debug("Run permission granted by Core...");
         Logger.debug("Starting Game Loop...");
+        
         running = true;
+        
         Logger.line();
         Logger.log("-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-");
         Logger.line();
@@ -145,6 +164,7 @@ public class Runner
         if (splashes.size() == 0)
         {
             splashed = true;
+            
             Logger.debug("No splashes loaded by Core.");
         }
         
@@ -190,7 +210,8 @@ public class Runner
                 try
                 {
                     core.update(getDelta());
-                } catch (MERCuryException e)
+                } 
+            catch (MERCuryException e)
                 {
                     e.printStackTrace();
                 }

@@ -21,6 +21,7 @@ import java.nio.ByteBuffer;
 import javax.imageio.ImageIO;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
 
 import com.teama.merc.res.Loader;
 import com.teama.merc.res.Resource;
@@ -114,9 +115,11 @@ public class Texture implements Resource
         if (obj instanceof Texture)
         {
             Texture other = (Texture) obj;
+         
             if (other.getTextureHeight() == getTextureHeight() && other.getTextureWidth() == getTextureWidth() && other.getTextureId() == getTextureId())
                 return true;
         }
+        
         return false;
     }
     
@@ -179,6 +182,7 @@ public class Texture implements Resource
             for (int x = fliphor ? bi.getWidth() - 1 : 0; fliphor ? x > -1 : x < bi.getWidth(); x += fliphor ? -1 : 1)
             {
                 int pixel = pixels[x][y];
+                
                 buffer.put((byte) (pixel >> 16 & 0xFF));
                 buffer.put((byte) (pixel >> 8 & 0xFF));
                 buffer.put((byte) (pixel & 0xFF));
