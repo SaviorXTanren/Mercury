@@ -36,7 +36,9 @@ public class VAOBatcher implements Batcher
 	public static final int MAX_VERTICES_PER_RENDER_STACK = 50000;
 
 	private FloatBuffer vd, cd, td;
+
 	private int vtxcount;
+	
 	private boolean active;
 
 	private Texture last_tex = Texture.getEmptyTexture();
@@ -46,9 +48,11 @@ public class VAOBatcher implements Batcher
 	public VAOBatcher()
 	{
 		vtxcount = 0;
+		
 		vd = BufferUtils.createFloatBuffer(MAX_VERTICES_PER_RENDER_STACK * VL);
 		cd = BufferUtils.createFloatBuffer(MAX_VERTICES_PER_RENDER_STACK * CL);
 		td = BufferUtils.createFloatBuffer(MAX_VERTICES_PER_RENDER_STACK * TL);
+		
 		active = false;
 	}
 

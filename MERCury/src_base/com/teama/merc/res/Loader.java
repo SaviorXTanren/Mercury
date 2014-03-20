@@ -23,6 +23,7 @@ public class Loader
     public static URL loadFromClasspath(String loc)
     {
         loc = loc.replace('\\', '/');
+        
         return Loader.class.getClassLoader().getResource(loc);
     }
     
@@ -35,7 +36,8 @@ public class Loader
         try
         {
             return new URL("file:" + loc);
-        } catch (MalformedURLException e)
+        } 
+        catch (MalformedURLException e)
         {
             e.printStackTrace();
         }
@@ -50,7 +52,8 @@ public class Loader
         try
         {
             return new BufferedInputStream(loadFromClasspath(loc).openStream());
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             e.printStackTrace();
         }
@@ -65,7 +68,8 @@ public class Loader
         try
         {
             return new BufferedInputStream(loadFromSys(loc).openStream());
-        } catch (IOException e)
+        } 
+        catch (IOException e)
         {
             e.printStackTrace();
         }
@@ -79,10 +83,12 @@ public class Loader
     {
         URL filesys = loadFromSys(loc);
         URL classpath = loadFromClasspath(loc);
+        
         if (filesys != null)
             return filesys;
         else if (classpath != null)
             return classpath;
+        
         return null;
     }
     
@@ -93,10 +99,13 @@ public class Loader
     {
         InputStream filesys = streamFromSys(loc);
         InputStream classpath = streamFromClasspath(loc);
+        
         if (filesys != null)
             return filesys;
+        
         else if (classpath != null)
             return classpath;
+        
         return null;
     }
 }

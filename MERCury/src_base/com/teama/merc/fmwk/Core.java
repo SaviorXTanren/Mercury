@@ -67,6 +67,7 @@ public abstract class Core
                 DisplayMode[] modes = Display.getAvailableDisplayModes();
                 
                 Logger.debug("Full-screen requested; attempting to find matching fullscreen display mode...");
+                
                 for (DisplayMode mode : modes)
                     if (mode.getWidth() == dm.getWidth() && mode.getHeight() == dm.getHeight())
                     {
@@ -77,7 +78,9 @@ public abstract class Core
                 if (!fullscreen_matched)
                 {
                     Logger.debug("No fullscreen matched. Finding lowest sized available fullscreen display mode...");
+                    
                     DisplayMode lowest_mode = modes[0];
+                    
                     for (DisplayMode mode : modes)
                         if (mode.isFullscreenCapable())
                             if (mode.getWidth() < lowest_mode.getWidth() || mode.getHeight() < lowest_mode.getHeight())

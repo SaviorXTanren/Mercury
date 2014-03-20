@@ -52,7 +52,7 @@ public class TextBar extends Component
             tx = w / 2 - g.getFont().getWidth(txt.toCharArray()) / 2;
         
         if (cy)
-            ty = h / 2 - g.getFont().getHeight() / 4;
+            ty = h / 2 - g.getFont().getHeight() / 2;
         
         g.drawString(x + tx + left.getTextureWidth(), y + ty, txt);
     }

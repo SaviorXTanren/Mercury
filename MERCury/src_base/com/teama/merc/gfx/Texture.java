@@ -21,7 +21,6 @@ import java.nio.ByteBuffer;
 import javax.imageio.ImageIO;
 
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL11;
 
 import com.teama.merc.res.Loader;
 import com.teama.merc.res.Resource;
@@ -207,13 +206,15 @@ public class Texture implements Resource
     public static Texture getEmptyTexture()
     {
         if (BLANK_TEXTURE == null)
-            try
-            {
-                BLANK_TEXTURE = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/gfx/empty.png"));
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+			try
+			{
+				BLANK_TEXTURE = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/gfx/empty.png"));
+			}
+        	catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+        
         return BLANK_TEXTURE;
     }
 }

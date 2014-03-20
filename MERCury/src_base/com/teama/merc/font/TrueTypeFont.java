@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.teama.merc.gfx.Texture;
+import com.teama.merc.res.Loader;
 
 /**
  * A font type for .ttf's
@@ -213,7 +214,7 @@ public class TrueTypeFont implements com.teama.merc.font.Font
     
     public static TrueTypeFont loadTrueTypeFont(String location, float size, int style, boolean antialias) throws FileNotFoundException, FontFormatException, IOException
     {
-        java.awt.Font font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, new FileInputStream(location));
+        java.awt.Font font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, Loader.streamFromClasspath(location));
         
         font = font.deriveFont(size);
         

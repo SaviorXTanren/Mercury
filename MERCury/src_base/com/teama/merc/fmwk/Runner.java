@@ -342,7 +342,9 @@ public class Runner
     private void remakeDisplay()
     {
         Display.destroy();
+        
         getCore().initDisplay(getWidth(), getHeight(), Display.isFullscreen(), vsync);
+        
         graphicsobject = getCore().initGraphics();
     }
     

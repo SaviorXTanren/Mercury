@@ -25,7 +25,7 @@ import com.teama.merc.res.ResourceManager;
  */
 
 public class GUITest extends Core
-{
+{																					
     Runner rnr = Runner.getInstance();
     
     TextBar tbar0;
@@ -52,8 +52,11 @@ public class GUITest extends Core
         tbox0 = new TextBox("The main reason f0r the c1v1|_ w4r w45 d4 n0 5c0p35 63771n h1 1n d15 c|_uB Y0 1 h4z m0n3Y$ 0m6 m8 u 637 r3k7 50 h4rd, y0 m4mman 357 570094d", Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/border_tbox_hor.png")), Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/border_tbox_vert.png")), 10, 100, 300, 180, 16, Color.white);
         
         Texture background = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/panel_main.png"));
+       
+        float tb1w = 640;
+        float tb1h = 512;
         
-        tbox1 = new TextBox("Welcome to MERCury Game Engine! This is a demonstration of the GUI System, currently being developed by both Jeviny and Wessles. How was your day? Mine has been great. I've had to waste all of it because I'm writing this stupid-ass text just so I can test panels!", background, 296, 16, 512, 512, 48, Color.black);
+        tbox1 = new TextBox("Welcome to MERCury Game Engine! This is a demonstration of the GUI System, currently being developed by both Jeviny and Wessles. How was your day? Mine has been great. I've had to waste all of it because I'm writing this stupid-ass text just so I can test panels!", background, rnr.getWidth() - (tb1w + 32), 16, tb1w, tb1h, 48, Color.black);
     }
     
     @Override

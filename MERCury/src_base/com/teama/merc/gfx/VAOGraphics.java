@@ -2,6 +2,10 @@ package com.teama.merc.gfx;
 
 import static org.lwjgl.opengl.GL11.glScalef;
 
+import java.awt.FontFormatException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.lwjgl.opengl.GL11;
 
 import com.teama.merc.font.Font;
@@ -15,6 +19,7 @@ import com.teama.merc.geo.TexturedTriangle;
 import com.teama.merc.geo.Triangle;
 import com.teama.merc.geo.Vec2;
 import com.teama.merc.log.Logger;
+import com.teama.merc.res.Loader;
 
 /**
  * An object used for graphics. It will draw just about anything for you.
@@ -39,7 +44,24 @@ public class VAOGraphics implements Graphics
     {
         batcher = new VAOBatcher();
         scale = new Vec2(1, 1);
-        current_font = TrueTypeFont.loadTrueTypeFont(new java.awt.Font("Verdana", 0, 20), true);
+        
+        try
+		{
+			current_font = TrueTypeFont.loadTrueTypeFont("com/teama/merc/gfx/OpenSans-Semibold.ttf", 20, 1, true);
+		}
+        catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+        catch (FontFormatException e)
+		{
+			e.printStackTrace();
+		}
+        catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+        
         background_color = Color.DEFAULT_BACKGROUND;
         current_color = Color.DEFAULT_DRAWING;
     }
@@ -70,6 +92,7 @@ public class VAOGraphics implements Graphics
         glScalef(x, y, 1);
         scale.x = x;
         scale.y = y;
+        
         Logger.debug(x+", "+y+" | "+scale.toString());
     }
     
