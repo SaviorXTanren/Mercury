@@ -26,7 +26,7 @@ public class CollisionTest extends Core
     public CollisionTest()
     {
         super("CollisionTest");
-        rnr.init(this, 200, 200, false, false);
+        rnr.init(this, 800, 600, false, false);
         rnr.run();
     }
     

@@ -21,7 +21,7 @@ public class SplashTest extends Core
     public SplashTest()
     {
         super("Splash Screen Test!");
-        rnr.init(this, 640, 480);
+        rnr.init(this, 800, 600);
         rnr.run();
     }
     

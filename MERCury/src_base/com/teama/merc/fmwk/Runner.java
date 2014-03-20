@@ -83,7 +83,12 @@ public class Runner
         Logger.log("                                        __/ |");
         Logger.log("                                       |___/ ");
         Logger.log("Maitenance Enhanced and Reliable Coding Engine");
-        Logger.log("             by Team Alluminum");
+        Logger.log("             Designed by Team Alluminum");
+        Logger.log("                                             ");
+        Logger.log("             You may read the list of contributors");
+        Logger.log("             On the official MERCury website:");
+        Logger.log("             http://weslgames.github.io/MERCury/");
+        Logger.log("                                             ");
         Logger.log("             Email wessles@wessles.com for support");
         Logger.log("             Go to www.reddit.com/r/MERCuryGameEngine for community");
         Logger.log("                        Copyright www.wessles.com 2013-20XX");

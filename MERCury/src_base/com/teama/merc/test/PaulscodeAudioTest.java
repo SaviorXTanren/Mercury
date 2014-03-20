@@ -30,7 +30,7 @@ public class PaulscodeAudioTest extends Core
     {
         super("Paulscode Audio Test!");
         rnr.addPlugin(new PaulscodeSoundSystemPlugin());
-        rnr.init(this, 100, 100);
+        rnr.init(this, 800, 600);
         rnr.run();
     }
     
