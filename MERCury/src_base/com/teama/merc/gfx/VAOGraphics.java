@@ -20,7 +20,7 @@ import com.teama.merc.log.Logger;
  * An object used for graphics. It will draw just about anything for you.
  * 
  * @from merc in com.teama.merc.gfx
- * @authors wessles
+ * @authors wessles, Jeviny
  * @website www.wessles.com
  * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */
@@ -106,6 +106,7 @@ public class VAOGraphics implements Graphics
     public void setColor(Color color)
     {
         current_color = color;
+        
         batcher.setColor(current_color);
     }
     
@@ -198,10 +199,25 @@ public class VAOGraphics implements Graphics
     }
     
     @Override
+    public void drawTexture(Texture texture, float x, float y, float w, float h)
+    {
+    	batcher.setTexture(texture);
+    	
+    	batcher.vertex(x, y, 0, 0);
+    	batcher.vertex(x + w, y, 1, 0);
+    	batcher.vertex(x, y + h, 0, 1);
+    	
+    	batcher.vertex(x + w, y + h, 1, 1);
+    	batcher.vertex(x + w, y, 1, 0);
+    	batcher.vertex(x, y + h, 0, 1);
+    }
+    
+    @Override
     public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y)
     {
         float w = texture.getTextureWidth();
         float h = texture.getTextureHeight();
+        
         sx1 /= w;
         sy1 /= h;
         sx2 /= w;

@@ -1,12 +1,13 @@
 package com.teama.merc.gui;
 
 import com.teama.merc.fmwk.Runner;
+import com.teama.merc.gfx.Color;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.gfx.Texture;
 
 /**
  * @from MERCury in package com.teama.merc.gui;
- * @authors wessles
+ * @authors wessles, Jeviny
  * @website www.wessles.com
  * @license (C) Mar 3, 2014 www.wessles.com This file, and all others of the
  *          project 'MERCury' are licensed under WTFPL license. You can find the
@@ -16,37 +17,60 @@ import com.teama.merc.gfx.Texture;
 public class TextBox extends Component
 {
     public float margin;
-    public Texture border_hor, border_vert;
     
-    public TextBox(String txt, float x, float y, float w, float h, float margin)
+    public Texture border_hor, border_vert, background_img;
+    
+    public Color textCol;
+    
+    public TextBox(String txt, float x, float y, float w, float h, float margin, Color textCol)
     {
-        this(txt, Texture.getEmptyTexture(), Texture.getEmptyTexture(), x, y, w, h, margin);
+        this(txt, Texture.getEmptyTexture(), Texture.getEmptyTexture(), x, y, w, h, margin, textCol);
     }
     
-    public TextBox(String txt, Texture border_hor, Texture border_vert, float x, float y, float w, float h, float margin)
+    public TextBox(String txt, Texture border_hor, Texture border_vert, float x, float y, float w, float h, float margin, Color textCol)
     {
         super(fitStringToBounds(txt, w, margin), x, y, w, h, false, false);
+        
         this.margin = margin;
         this.border_hor = border_hor;
         this.border_vert = border_vert;
+        this.textCol = textCol;
+    }
+    
+    public TextBox(String txt, Texture background_img, float x, float y, float w, float h, float margin, Color textCol)
+    {
+    	super(fitStringToBounds(txt, w, margin), x, y, w, h, false, false);
+    	
+    	this.margin = margin;
+    	this.background_img = background_img;
+    	this.textCol = textCol;
     }
     
     public void render(Graphics g)
     {
-        float borderwidth = Math.min(border_hor.getTextureHeight(), border_hor.getTextureWidth());
-        g.drawTexture(border_vert, 0, 0, w, borderwidth, x, y+h-borderwidth+margin);
-        g.drawTexture(border_hor, 0, 0, borderwidth, h+margin*2, x+w-borderwidth, y-margin);
+    	if (border_hor != null && border_vert != null)
+    	{
+            float borderwidth = Math.min(border_hor.getTextureHeight(), border_hor.getTextureWidth());
+            
+            g.drawTexture(border_vert, 0, 0, w, borderwidth, x, y+h-borderwidth+margin);
+            g.drawTexture(border_hor, 0, 0, borderwidth, h+margin*2, x+w-borderwidth, y-margin);
+            
+            borderwidth = Math.min(border_vert.getTextureHeight(), border_vert.getTextureWidth());
+            
+            g.drawTexture(border_hor, 0, 0, borderwidth, h+margin*2, x, y-margin);
+            g.drawTexture(border_vert, 0, 0, w, borderwidth, x, y-margin);	
+    	}
+    	
+        if (background_img != null)
+        	g.drawTexture(background_img, x, y, w, h);
         
-        borderwidth = Math.min(border_vert.getTextureHeight(), border_vert.getTextureWidth());
-        g.drawTexture(border_hor, 0, 0, borderwidth, h+margin*2, x, y-margin);
-        g.drawTexture(border_vert, 0, 0, w, borderwidth, x, y-margin);
-
         renderContent(g);
     }
     
     public void renderContent(Graphics g)
     {
-        g.drawString(x+margin, y, txt);
+    	g.setColor(textCol);
+        g.drawString(x + margin, y + margin, txt);
     }
     
     private static String fitStringToBounds(String txt, float w, float margin)

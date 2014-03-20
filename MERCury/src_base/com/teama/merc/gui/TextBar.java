@@ -34,8 +34,10 @@ public class TextBar extends Component
     {
         if (left != null)
             g.drawTexture(left, x, y);
+        
         if (body != null)
             g.drawTexture(body, 0, 0, g.getFont().getWidth(txt.toCharArray()), body.getTextureHeight(), x + left.getTextureWidth(), y);
+        
         if (right != null)
             g.drawTexture(right, x + left.getTextureWidth() + w, y);
         
@@ -48,6 +50,7 @@ public class TextBar extends Component
         
         if (cx)
             tx = w / 2 - g.getFont().getWidth(txt.toCharArray()) / 2;
+        
         if (cy)
             ty = h / 2 - g.getFont().getHeight() / 4;
         

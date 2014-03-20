@@ -177,6 +177,7 @@ public class VAOBatcher implements Batcher
 	{
 		if (color.equals(last_col))
 			return;
+		
 		last_col = color;
 	}
 
