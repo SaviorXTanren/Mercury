@@ -5,7 +5,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -118,10 +117,13 @@ public class TrueTypeFont implements com.teama.merc.font.Font
         // Make and init graphics for character image.
         BufferedImage tempfontImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) tempfontImage.getGraphics();
+        
         if (antialias)
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
         g.setFont(font);
         // Font preperation
+        
         fmetrics = g.getFontMetrics();
         int charwidth = fmetrics.charWidth(ch);
         
