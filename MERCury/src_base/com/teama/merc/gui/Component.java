@@ -19,6 +19,7 @@ public class Component implements Renderable
     public boolean cx, cy;
     
     private ActionCheck acheck;
+    
     public float x, y, w, h;
     
     public Component(String txt, float x, float y, float w, float h, boolean centerx, boolean centery)

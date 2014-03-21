@@ -3,6 +3,7 @@ package com.teama.merc.gui;
 import java.awt.FontFormatException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.teama.merc.fmwk.Runner;
 import com.teama.merc.font.Font;
@@ -25,15 +26,15 @@ public class TextPanel extends Component
     public float margin;
     
     public Texture border_hor, border_vert, background_img;
-    
     public Color textCol;
+    public String title;
     
     private boolean hasBackground = false;
     
-    public String title;
+    private ArrayList<Button> buttons = new ArrayList<Button>();
     
-	Font titleFont = null;
-	Font txtFont = null;
+	private Font titleFont = null;
+	private Font txtFont = null;
     
     public TextPanel(String title, String txt, float x, float y, float w, float h, float margin, Color textCol)
     {
@@ -92,20 +93,43 @@ public class TextPanel extends Component
     	}
         
         renderContent(g);
+        
+        for (int i = 0; i < buttons.size(); i++)
+        {
+        	Button b = buttons.get(i);
+        	
+        	b.render(g);
+        }
     }
     
     public void renderContent(Graphics g)
     {
-
     	g.setFont(titleFont);
     	g.setColor(textCol);
         g.drawString(x + margin, y + margin, title);
-        g.setColor(Color.white);
         
         g.setFont(txtFont);
     	g.setColor(textCol);
         g.drawString(x + margin, (y + titleFont.getHeight()) + margin, txt);
         g.setColor(Color.white);
+    }
+    
+    public void update()
+    {
+    	super.update();
+    	
+    	for (int i = 0; i < buttons.size(); i++)
+    	{
+    		Button b = buttons.get(i);
+    		
+    		b.update();
+    	}
+    }
+    
+    public void addButton(String txt, Texture side, Texture body, GridLocation location)
+    {
+    	// Was going to put some stuff here, and I did, but it was bad, so I removed it. 
+    	// ^^^ Story of the year.
     }
     
     private static String fitStringToBounds(String txt, float w, float margin)
@@ -151,5 +175,10 @@ public class TextPanel extends Component
         }
         
         return finaltxt;
+    }
+    
+    public static enum GridLocation
+    {
+    	TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, MID_LEFT, MID_RIGHT; 
     }
 }

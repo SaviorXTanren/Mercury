@@ -10,6 +10,7 @@ import com.teama.merc.font.TrueTypeFont;
 import com.teama.merc.gfx.Color;
 import com.teama.merc.gfx.Graphics;
 import com.teama.merc.gfx.Texture;
+import com.teama.merc.gui.Button;
 import com.teama.merc.gui.TextBar;
 import com.teama.merc.gui.TextBox;
 import com.teama.merc.gui.TextPanel;
@@ -32,6 +33,7 @@ public class GUITest extends Core
     TextBar tbar0;
     TextBox tbox0;
     TextPanel tpan1;
+    Button button0;
     
     public GUITest()
     {
@@ -54,10 +56,15 @@ public class GUITest extends Core
         
         Texture background = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/panel_main.png"));
        
-        float tb1w = 1024;
-        float tb1h = 768;
+        // Texture bleft = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/button_left.png"));
+        // Texture bbody = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/button_body.png"));
+        
+        float tb1w = 800;
+        float tb1h = 600;
         
         tpan1 = new TextPanel("Welcome!", "Welcome to MERCury Game Engine! This is a demonstration of the GUI System, currently being developed by both Jeviny and Wessles. How was your day? Mine has been great. I've had to waste all of it because I'm writing this stupid-ass text just so I can test panels!", background, rnr.getWidth() - (tb1w + 32), 16, tb1w, tb1h, 64, Color.black);
+    
+        // tpan1.addButton("Click Me!", bleft, bbody, GridLocation.BOTTOM_LEFT);
     }
     
     @Override
@@ -79,6 +86,7 @@ public class GUITest extends Core
     @Override
     public void cleanup(ResourceManager RM) throws IOException, MERCuryException
     {
+    	
     }
     
     public static void main(String[] args)

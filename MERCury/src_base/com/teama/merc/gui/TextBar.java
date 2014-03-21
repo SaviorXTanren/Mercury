@@ -6,7 +6,7 @@ import com.teama.merc.gfx.Texture;
 
 /**
  * @from MERCury in package com.teama.merc.gui;
- * @authors wessles
+ * @authors wessles, Jeviny
  * @website www.wessles.com
  * @license (C) Mar 2, 2014 www.wessles.com This file, and all others of the
  *          project 'MERCury' are licensed under WTFPL license. You can find the
