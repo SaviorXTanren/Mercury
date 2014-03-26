@@ -83,7 +83,7 @@ public class Runner
         Logger.log("                                        __/ |");
         Logger.log("                                       |___/ ");
         Logger.log("Maitenance Enhanced and Reliable Coding Engine");
-        Logger.log("             Designed by Team Alluminum");
+        Logger.log("             Designed by Radirius");
         Logger.log("                                             ");
         Logger.log("             You may read the list of contributors");
         Logger.log("             On the official MERCury website:");
