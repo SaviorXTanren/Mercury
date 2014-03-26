@@ -318,6 +318,6 @@ public class Shader implements Resource
     
     public static Shader getDefaultShader()
     {
-        return Shader.getShader(Loader.streamFromClasspath("com/teama/merc/gfx/default.vs"), Loader.streamFromClasspath("com/teama/merc/gfx/default.fs"));
+        return Shader.getShader(Loader.streamFromClasspath("com/radirius/merc/gfx/default.vs"), Loader.streamFromClasspath("com/radirius/merc/gfx/default.fs"));
     }
 }

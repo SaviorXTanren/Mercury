@@ -47,7 +47,7 @@ public class VAOGraphics implements Graphics
         
         try
 		{
-			current_font = TrueTypeFont.loadTrueTypeFont("com/teama/merc/gfx/OpenSans-Semibold.ttf", 20, 1, true);
+			current_font = TrueTypeFont.loadTrueTypeFont("com/radirius/merc/gfx/OpenSans-Semibold.ttf", 20, 1, true);
 		}
         catch (FileNotFoundException e)
 		{

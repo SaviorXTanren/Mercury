@@ -46,15 +46,15 @@ public class GUITest extends Core
     @Override
     public void init(ResourceManager RM) throws IOException, MERCuryException
     {
-        Texture left = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/side_tbar.png"));
+        Texture left = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/side_tbar.png"));
         Texture right = left.flipX();
-        Texture body = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/body_tbar.png"));
-        TrueTypeFont.loadTrueTypeFont(new Font("com/teama/merc/test/OpenSans-Regular.ttf", 1, 12), true);
+        Texture body = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/body_tbar.png"));
+        TrueTypeFont.loadTrueTypeFont(new Font("com/radirius/merc/test/OpenSans-Regular.ttf", 1, 12), true);
         
         tbar0 = new TextBar("Progressive stupidity, a poem by wesslas", left, right, body, 10, 10);
-        tbox0 = new TextBox("The main reason f0r the c1v1|_ w4r w45 d4 n0 5c0p35 63771n h1 1n d15 c|_uB Y0 1 h4z m0n3Y$ 0m6 m8 u 637 r3k7 50 h4rd, y0 m4mman 357 570094d", Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/border_tbox_hor.png")), Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/border_tbox_vert.png")), 10, 100, 300, 180, 16, Color.white);
+        tbox0 = new TextBox("The main reason f0r the c1v1|_ w4r w45 d4 n0 5c0p35 63771n h1 1n d15 c|_uB Y0 1 h4z m0n3Y$ 0m6 m8 u 637 r3k7 50 h4rd, y0 m4mman 357 570094d", Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/border_tbox_hor.png")), Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/border_tbox_vert.png")), 10, 100, 300, 180, 16, Color.white);
         
-        Texture background = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/panel_main.png"));
+        Texture background = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/panel_main.png"));
        
         // Texture bleft = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/button_left.png"));
         // Texture bbody = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/button_body.png"));

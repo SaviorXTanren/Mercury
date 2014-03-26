@@ -53,8 +53,8 @@ public class TextPanel extends Component
     	
     	try
     	{
-    		titleFont = TrueTypeFont.loadTrueTypeFont("com/teama/merc/gfx/OpenSans-Bold.ttf", 32, 1, true);
-        	txtFont = TrueTypeFont.loadTrueTypeFont("com/teama/merc/gfx/OpenSans-Semibold.ttf", 20, 1, true);
+    		titleFont = TrueTypeFont.loadTrueTypeFont("com/radirius/merc/gfx/OpenSans-Bold.ttf", 32, 1, true);
+        	txtFont = TrueTypeFont.loadTrueTypeFont("com/radirius/merc/gfx/OpenSans-Semibold.ttf", 20, 1, true);
     	} 
     	catch (FileNotFoundException e)
     	{

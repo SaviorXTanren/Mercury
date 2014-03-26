@@ -208,7 +208,7 @@ public class Texture implements Resource
         if (BLANK_TEXTURE == null)
 			try
 			{
-				BLANK_TEXTURE = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/gfx/empty.png"));
+				BLANK_TEXTURE = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/gfx/empty.png"));
 			}
         	catch (IOException e)
 			{
