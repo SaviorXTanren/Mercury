@@ -21,7 +21,6 @@ import com.radirius.merc.geo.TexturedTriangle;
 import com.radirius.merc.geo.Triangle;
 import com.radirius.merc.geo.Vec2;
 import com.radirius.merc.log.Logger;
-import com.radirius.merc.res.Loader;
 
 /**
  * An object used for graphics. It will draw just about anything for you.
@@ -43,7 +42,6 @@ public class VAOGraphics implements Graphics
 	private Color background_color;
 	private Color current_color;
 	// drawMode(false) = filled, drawMode(true) = line
-	private boolean drawMode = false;
 
 	@Override
 	public void init()
@@ -88,11 +86,9 @@ public class VAOGraphics implements Graphics
 	{
 		if (mode == FILLED)
 		{
-			drawMode = false;
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		} else
 		{
-			drawMode = true;
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		}
 	}
