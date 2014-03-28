@@ -19,11 +19,15 @@ import com.radirius.merc.geo.Vec2;
 
 public interface Graphics
 {
+	public static final int LINE = 0, FILLED = 1;
+	
     public void init();
     
     public void pre();
     
     public void post();
+
+    public void setDrawMode(int mode);
     
     public void scale(float factor);
     
