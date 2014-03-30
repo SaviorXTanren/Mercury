@@ -132,7 +132,7 @@ public class Texture implements Resource
         glBindTexture(GL_TEXTURE_2D, 0);
     }
     
-    public static Texture loadTexture(InputStream in) throws IOException
+    public static Texture loadTexture(InputStream in) 
     {
         return loadTexture(in, false, false, GL_NEAREST);
     }
@@ -142,7 +142,7 @@ public class Texture implements Resource
         return loadTexture(bi, false, false);
     }
     
-    public static Texture loadTexture(InputStream in, boolean fliphor, boolean flipvert) throws IOException
+    public static Texture loadTexture(InputStream in, boolean fliphor, boolean flipvert) 
     {
         return loadTexture(in, fliphor, flipvert, GL_NEAREST);
     }
@@ -162,9 +162,17 @@ public class Texture implements Resource
         return loadTexture(bi, false, false, filter);
     }
     
-    public static Texture loadTexture(InputStream in, boolean fliphor, boolean flipvert, int filter) throws IOException
+    public static Texture loadTexture(InputStream in, boolean fliphor, boolean flipvert, int filter) 
     {
-        return loadTexture(ImageIO.read(in), fliphor, flipvert, filter);
+        try
+		{
+			return loadTexture(ImageIO.read(in), fliphor, flipvert, filter);
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+        
+        return null;
     }
     
     public static Texture loadTexture(BufferedImage bi, boolean fliphor, boolean flipvert, int filter)
@@ -206,14 +214,7 @@ public class Texture implements Resource
     public static Texture getEmptyTexture()
     {
         if (BLANK_TEXTURE == null)
-			try
-			{
-				BLANK_TEXTURE = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/gfx/empty.png"));
-			}
-        	catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			BLANK_TEXTURE = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/gfx/empty.png"));
         
         return BLANK_TEXTURE;
     }

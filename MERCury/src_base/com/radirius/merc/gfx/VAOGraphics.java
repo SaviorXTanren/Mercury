@@ -1,5 +1,9 @@
 package com.radirius.merc.gfx;
 
+import static org.lwjgl.opengl.GL11.GL_FILL;
+import static org.lwjgl.opengl.GL11.GL_FRONT_AND_BACK;
+import static org.lwjgl.opengl.GL11.GL_LINE;
+import static org.lwjgl.opengl.GL11.glPolygonMode;
 import static org.lwjgl.opengl.GL11.glScalef;
 
 import java.awt.FontFormatException;
@@ -7,8 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.lwjgl.opengl.GL11;
-import static org.lwjgl.opengl.GL11.*;
-
 
 import com.radirius.merc.font.Font;
 import com.radirius.merc.font.TrueTypeFont;
@@ -291,6 +293,37 @@ public class VAOGraphics implements Graphics
 		batcher.vertex(x2, y2, sx2, sy2);
 		batcher.vertex(x2, y1, sx2, sy1);
 		batcher.vertex(x1, y2, sx1, sy2);
+	}
+	
+	@Override
+	public void drawTexture(SubTexture texture, float x, float y)
+	{
+		float w = texture.getSheet().getSheetTexture().getTextureWidth() / texture.getSheet().getNumTextures();
+		float h = texture.getSheet().getSheetTexture().getTextureHeight() / texture.getSheet().getNumTextures();
+		
+		batcher.setTexture(texture.getSheet().getSheetTexture());
+
+		batcher.vertex(x, y, texture.getX(), texture.getY());
+		batcher.vertex(x + w, y, texture.getX() + texture.getSize(), texture.getY());
+		batcher.vertex(x, y + h, texture.getX(), texture.getY() + texture.getSize());
+
+		batcher.vertex(x + w, y + h, texture.getX() + texture.getSize(), texture.getY() + texture.getSize());
+		batcher.vertex(x + w, y, texture.getX() + texture.getSize(), texture.getY());
+		batcher.vertex(x, y + h, texture.getX(), texture.getY() + texture.getSize());
+	}
+	
+	@Override
+	public void drawTexture(SubTexture texture, float x, float y, float w, float h)
+	{
+		batcher.setTexture(texture.getSheet().getSheetTexture());
+
+		batcher.vertex(x, y, texture.getX(), texture.getY());
+		batcher.vertex(x + w, y, texture.getX() + texture.getSize(), texture.getY());
+		batcher.vertex(x, y + h, texture.getX(), texture.getY() + texture.getSize());
+
+		batcher.vertex(x + w, y + h, texture.getX() + texture.getSize(), texture.getY() + texture.getSize());
+		batcher.vertex(x + w, y, texture.getX() + texture.getSize(), texture.getY());
+		batcher.vertex(x, y + h, texture.getX(), texture.getY() + texture.getSize());
 	}
 
 	@Override

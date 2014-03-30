@@ -1,7 +1,5 @@
 package com.radirius.merc.test;
 
-import java.io.IOException;
-
 import org.lwjgl.input.Keyboard;
 
 import com.radirius.merc.fmwk.Core;
@@ -48,13 +46,7 @@ public class ParticleTest extends Core
     @Override
     public void init(ResourceManager RM)
     {
-        try
-        {
-            RM.loadResource(Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/torch.png")), "torch");
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        RM.loadResource(Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/torch.png")), "torch");
         
         rnr.getGraphics().scale(4);
         

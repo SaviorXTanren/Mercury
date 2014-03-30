@@ -1,6 +1,5 @@
 package com.radirius.merc.spl;
 
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -80,13 +79,7 @@ public class SplashScreen
     public static SplashScreen getMERCuryDefault()
     {
         Texture tex = null;
-        try
-        {
-            tex = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/spl/splash.png"));
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        tex = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/spl/splash.png"));
         
         return new SplashScreen(tex, 3000);
     }

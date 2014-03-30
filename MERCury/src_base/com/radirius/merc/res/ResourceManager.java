@@ -124,22 +124,10 @@ public class ResourceManager
 		switch (filename[1])
 		{
 		case "png":
-			try
-			{
-				loadResource(Texture.loadTexture(Loader.streamFromSys(file.getAbsoluteFile().toString())), filename[0]);
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			loadResource(Texture.loadTexture(Loader.streamFromSys(file.getAbsoluteFile().toString())), filename[0]);
 			break;
 		case "jpg":
-			try
-			{
-				loadResource(Texture.loadTexture(Loader.streamFromSys(file.getAbsoluteFile().toString())), filename[0]);
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			loadResource(Texture.loadTexture(Loader.streamFromSys(file.getAbsoluteFile().toString())), filename[0]);
 			break;
 		case "ogg":
 			loadResource(new Audio(file.getAbsoluteFile().toString()), filename[0]);

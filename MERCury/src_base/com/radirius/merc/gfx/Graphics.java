@@ -69,6 +69,10 @@ public interface Graphics
     
     public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x1, float y1, float x2, float y2);
     
+    public void drawTexture(SubTexture texture, float x, float y);
+
+    public void drawTexture(SubTexture texture, float x, float y, float w, float h);
+    
     public void drawRect(Rectangle rectangle);
     
     public void drawRect(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
