@@ -1,6 +1,7 @@
 package com.radirius.merc.gfx;
 
 import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 
 import com.radirius.merc.data.TextFile;
@@ -18,6 +19,7 @@ public class Spritesheet
 	private HashMap<String, SubTexture> textures = new HashMap<String, SubTexture>();
 	private Texture texture;
 	private int numTextures;
+	private float texSize;
 	
 	public Spritesheet(TextFile file, InputStream textureIn)
 	{
@@ -36,10 +38,11 @@ public class Spritesheet
 			if(i == 0)
 			{
 				numTextures = Integer.valueOf(lineData[1]);
+				this.texSize = 1.0f / numTextures;
 			} 
 			else 
 			{
-				textures.put(lineData[0], new SubTexture(this, Float.valueOf(lineData[1]), Float.valueOf(lineData[2]), Float.valueOf(lineData[3])));
+				textures.put(lineData[0], new SubTexture(this, Integer.valueOf(lineData[1]) * texSize, Integer.valueOf(lineData[2]) * texSize, texSize));
 			}
 		}
 	}
@@ -59,7 +62,7 @@ public class Spritesheet
 		return textures.get(value);
 	}
 	
-	public static Spritesheet loadSheet(InputStream in, InputStream textureIn)
+	public static Spritesheet loadSheet(URL in, InputStream textureIn)
 	{
 		return new Spritesheet(TextFile.loadFile(in), textureIn);
 	}
