@@ -68,11 +68,16 @@ public class TextFile
 		return lines.toString();
 	}
 
-	public void write(String data)
+	public void write(String data) 
+	{
+		write(data, true);
+	}
+	
+	public void write(String data, boolean append)
 	{
 		try
 		{
-			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file, append));
 			writer.newLine();
 			writer.append(data);
 			writer.close();

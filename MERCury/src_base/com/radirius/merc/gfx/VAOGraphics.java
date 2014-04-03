@@ -313,6 +313,12 @@ public class VAOGraphics implements Graphics
 	}
 	
 	@Override
+	public void drawTexture(SubTexture texture, float x, float y, float size) 
+	{
+		drawTexture(texture, x, y, size, size);
+	}
+	
+	@Override
 	public void drawTexture(SubTexture texture, float x, float y, float w, float h)
 	{
 		batcher.setTexture(texture.getSheet().getSheetTexture());
