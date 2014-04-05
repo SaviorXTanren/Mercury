@@ -108,4 +108,24 @@ public class Input
     {
         return Display.getHeight() - 1 - Mouse.getY();
     }
+    
+    public boolean next()
+    {
+    	return Keyboard.next();
+    }
+    
+    public boolean getEventKeyState()
+    {
+    	return Keyboard.getEventKeyState();
+    }
+    
+    public int getCurrentKeyPressed()
+    {
+    	return Keyboard.getEventKey();
+    }
+    
+    public char getCurrentChar()
+    {
+    	return Keyboard.getEventCharacter();
+    }
 }
