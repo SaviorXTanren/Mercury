@@ -2,12 +2,11 @@ package com.radirius.merc.test;
 
 import java.io.IOException;
 
+import com.radirius.merc.data.TextFile;
 import com.radirius.merc.exc.MERCuryException;
 import com.radirius.merc.fmwk.Core;
 import com.radirius.merc.fmwk.Runner;
-import com.radirius.merc.gfx.Color;
 import com.radirius.merc.gfx.Graphics;
-import com.radirius.merc.gfx.Spritesheet;
 import com.radirius.merc.res.Loader;
 import com.radirius.merc.res.ResourceManager;
 
@@ -15,16 +14,14 @@ import com.radirius.merc.res.ResourceManager;
  * @from MERCury_git in com.radirius.merc.test
  * @by opiop65
  * @website www.wessles.com
- * @license (C) Mar 29, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
+ * @license (C) Apr 1, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
  */
 
-public class SpritesheetTest extends Core
+public class TextFileTest extends Core
 {
-
 	private Runner rnr = Runner.getInstance();
-	private Spritesheet sheet;
-
-	public SpritesheetTest(String name)
+	
+	public TextFileTest(String name)
 	{
 		super(name);
 		rnr.init(this, 800, 600);
@@ -34,7 +31,10 @@ public class SpritesheetTest extends Core
 	@Override
 	public void init(ResourceManager RM) throws IOException, MERCuryException
 	{
-		sheet = Spritesheet.loadSheet(Loader.loadFromClasspath("com/radirius/merc/test/tiles.txt"), Loader.streamFromClasspath("com/radirius/merc/test/tiles.png"));
+		TextFile file = TextFile.loadFile(Loader.loadFromClasspath("com/radirius/merc/test/test.txt"));
+		System.out.println(file.getContent());
+		file.write("HAHAHAH");
+		System.out.println(file.getContent());
 	}
 
 	@Override
@@ -45,9 +45,6 @@ public class SpritesheetTest extends Core
 	@Override
 	public void render(Graphics g) throws MERCuryException
 	{
-		g.setBackground(Color.marble);
-		g.drawTexture(sheet.getTexture("Grass"), 10, 10, 128, 128);
-		g.drawTexture(sheet.getTexture("Void"), 200, 10, 128, 128);
 	}
 
 	@Override
@@ -57,6 +54,6 @@ public class SpritesheetTest extends Core
 
 	public static void main(String[] args)
 	{
-		new SpritesheetTest("Spritesheet Test");
+		new TextFileTest("Text File Test");
 	}
 }

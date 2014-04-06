@@ -1,0 +1,12 @@
+-draw an image specifying x, y, w, and h
+-Remove try and catch from most resources
+-Texture filtering
+	*Add filtering to splash, looks bad resizing
+    *Fading
+    *Tinting
+
+-Opensans font
+
+-make website
+
+http://pastebin.com/hTHEh7Lx
