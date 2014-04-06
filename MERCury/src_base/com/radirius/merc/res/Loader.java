@@ -7,12 +7,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * A utility for resource management to load different resources from specific roots.
+ * A utility for resource management to load different resources from specific
+ * roots.
  * 
  * @from MERCury in com.radirius.merc.res
  * @by wessles
  * @website www.wessles.com
- * @license (C) Jan 25, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
+ * @license (C) Jan 25, 2014 www.wessles.com This file, and all others of the
+ *          project 'MERCury' are licensed under WTFPL license. You can find the
+ *          license itself at http://www.wtfpl.net/about/.
  */
 
 public class Loader
@@ -23,10 +26,10 @@ public class Loader
     public static URL loadFromClasspath(String loc)
     {
         loc = loc.replace('\\', '/');
-        
+
         return Loader.class.getClassLoader().getResource(loc);
     }
-    
+
     /**
      * @return The URL from a file system.
      */
@@ -36,14 +39,13 @@ public class Loader
         try
         {
             return new URL("file:" + loc);
-        } 
-        catch (MalformedURLException e)
+        } catch (MalformedURLException e)
         {
             e.printStackTrace();
         }
         return null;
     }
-    
+
     /**
      * @return The InputStream from a classpath.
      */
@@ -52,14 +54,13 @@ public class Loader
         try
         {
             return new BufferedInputStream(loadFromClasspath(loc).openStream());
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             e.printStackTrace();
         }
         return null;
     }
-    
+
     /**
      * @return The InputStream from a file system.
      */
@@ -68,44 +69,45 @@ public class Loader
         try
         {
             return new BufferedInputStream(loadFromSys(loc).openStream());
-        } 
-        catch (IOException e)
+        } catch (IOException e)
         {
             e.printStackTrace();
         }
         return null;
     }
-    
+
     /**
-     * @return The URL from a file system. If null, from the classpath. This is for easier modding.
+     * @return The URL from a file system. If null, from the classpath. This is
+     *         for easier modding.
      */
     public static URL load(String loc)
     {
         URL filesys = loadFromSys(loc);
         URL classpath = loadFromClasspath(loc);
-        
+
         if (filesys != null)
             return filesys;
         else if (classpath != null)
             return classpath;
-        
+
         return null;
     }
-    
+
     /**
-     * @return The InputStream from a file system. If null, from the classpath. This is for easier modding.
+     * @return The InputStream from a file system. If null, from the classpath.
+     *         This is for easier modding.
      */
     public static InputStream stream(String loc)
     {
         InputStream filesys = streamFromSys(loc);
         InputStream classpath = streamFromClasspath(loc);
-        
+
         if (filesys != null)
             return filesys;
-        
+
         else if (classpath != null)
             return classpath;
-        
+
         return null;
     }
 }

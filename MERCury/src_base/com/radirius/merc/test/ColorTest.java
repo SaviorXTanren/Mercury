@@ -27,44 +27,47 @@ import com.radirius.merc.res.ResourceManager;
 import com.radirius.merc.spl.SplashScreen;
 
 /**
- * Colors got screwed up... So this should be a good tool for the future and now.
+ * Colors got screwed up... So this should be a good tool for the future and
+ * now.
  * 
  * @from MERCury in com.radirius.merc.test
  * @by wessles
  * @website www.wessles.com
- * @license (C) Jan 23, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
+ * @license (C) Jan 23, 2014 www.wessles.com This file, and all others of the
+ *          project 'MERCury' are licensed under WTFPL license. You can find the
+ *          license itself at http://www.wtfpl.net/about/.
  */
 
 public class ColorTest extends Core
 {
     Runner rnr = Runner.getInstance();
-    
+
     public ColorTest()
     {
         super("Color Test");
         rnr.init(this, 640, 480);
         rnr.run();
     }
-    
+
     public static void main(String[] args)
     {
         new ColorTest();
     }
-    
+
     @Override
     public void init(ResourceManager RM)
     {
         rnr.getGraphics().setBackground(Color.black);
         rnr.getGraphics().scale(8);
-        
+
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
-    
+
     @Override
     public void update(float delta)
     {
     }
-    
+
     @Override
     public void render(Graphics g)
     {
@@ -80,9 +83,9 @@ public class ColorTest extends Core
         test(violet, g);
         test(magenta, g);
         test(rasberry, g);
-        
+
         test(black, g);
-        
+
         test(white, g);
         test(marble, g);
         test(gray, g);
@@ -90,19 +93,19 @@ public class ColorTest extends Core
         test(black, g);
         colidx = 0;
     }
-    
+
     int colidx;
-    
+
     public void test(Color color, Graphics g)
     {
         g.setColor(color);
         g.drawRect(new Rectangle(colidx * 4, 0, 4, 8));
         colidx++;
     }
-    
+
     @Override
     public void cleanup(ResourceManager RM)
     {
     }
-    
+
 }

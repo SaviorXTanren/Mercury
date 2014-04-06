@@ -17,44 +17,46 @@ import com.radirius.merc.spl.SplashScreen;
  * @from merc in com.radirius.merc.test
  * @authors opiop65
  * @website www.wessles.com
- * @license (C) Jan 18, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
+ * @license (C) Jan 18, 2014 www.wessles.com This file, and all others of the
+ *          project 'MERCury' are licensed under WTFPL license. You can find the
+ *          license itself at http://www.wtfpl.net/about/.
  */
 
 public class NetTest extends Core
 {
-    
+
     Runner rnr = Runner.getInstance();
-    
+
     MercServer server;
     MercClient client;
-    
+
     public static Circle mob;
-    
+
     public NetTest()
     {
         super("NetTest");
-        rnr.init(this, 800, 600, false, false);
+        rnr.init(this, 800, 600, false, false, true);
         rnr.run();
     }
-    
+
     @Override
     public void init(ResourceManager RM)
     {
         server = new MercServer(8192, 8193);
         server.createServer();
         server.registerObject(Packet.class);
-        
+
         client = new MercClient(8192, 8193);
         client.createClient();
         client.connectToServer("localhost");
         client.addNetwork(new NetworkListener());
         client.registerObject(Packet.class);
-        
+
         mob = new Circle(400, 300);
-        
+
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
-    
+
     @Override
     public void update(float delta)
     {
@@ -89,47 +91,47 @@ public class NetTest extends Core
             rnr.end();
         }
     }
-    
+
     @Override
     public void render(Graphics g)
     {
         mob.render(g);
     }
-    
+
     @Override
     public void cleanup(ResourceManager RM)
     {
         server.stop();
         client.stop();
     }
-    
+
     public static void main(String[] args)
     {
         new NetTest();
     }
-    
+
     private class Circle
     {
-        
+
         public int x, y;
-        
+
         public Circle(int x, int y)
         {
             this.x = x;
             this.y = y;
         }
-        
+
         public void render(Graphics g)
         {
             g.drawCircle(x, y, 50);
         }
     }
-    
+
     static class Packet
     {
         public int x, y;
     }
-    
+
     private class NetworkListener extends Network
     {
         @Override
@@ -144,5 +146,5 @@ public class NetTest extends Core
             }
         }
     }
-    
+
 }

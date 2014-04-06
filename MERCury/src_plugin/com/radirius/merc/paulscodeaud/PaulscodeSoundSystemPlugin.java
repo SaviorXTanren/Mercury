@@ -11,13 +11,15 @@ import com.radirius.merc.log.Logger;
  * @from merc in com.teama.merc.aud
  * @authors wessles
  * @website www.wessles.com
- * @license (C) Jan 17, 2014 www.wessles.com This file, and all others of the project 'MERCury' are licensed under WTFPL license. You can find the license itself at http://www.wtfpl.net/about/.
+ * @license (C) Jan 17, 2014 www.wessles.com This file, and all others of the
+ *          project 'MERCury' are licensed under WTFPL license. You can find the
+ *          license itself at http://www.wtfpl.net/about/.
  */
 
 public class PaulscodeSoundSystemPlugin implements Plugin
 {
     public SoundSystem soundsystem;
-    
+
     @Override
     public void init()
     {
@@ -58,15 +60,15 @@ public class PaulscodeSoundSystemPlugin implements Plugin
         {
             e.printStackTrace();
         }
-        
+
         soundsystem = new SoundSystem();
     }
-    
+
     @Override
     public void update()
     {
     }
-    
+
     @Override
     public void cleanup()
     {

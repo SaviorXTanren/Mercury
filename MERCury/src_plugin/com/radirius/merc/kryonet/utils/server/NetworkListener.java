@@ -20,35 +20,33 @@ import com.radirius.merc.kryonet.utils.packets.Packet;
 public class NetworkListener extends Network
 {
 
-	MercServer server;
-	GenericServer gServer;
+    MercServer server;
+    GenericServer gServer;
 
-	public NetworkListener(MercServer server, GenericServer gServer)
-	{
-		this.server = server;
-		this.gServer = gServer;
-	}
+    public NetworkListener(MercServer server, GenericServer gServer)
+    {
+        this.server = server;
+        this.gServer = gServer;
+    }
 
-	@Override
-	public void received(Connection connection, Object object)
-	{
-		if (object instanceof Packet)
-		{
-			switch (((Packet) object).type)
-			{
-				case 0:
-					server.sendAllUDP(object);
-					break;
-				case 1:
-					gServer.returnPacket((Packet) object); 
-					break;
-				case 2:
-					break;
-				case 3:
-					server.sendUDPExcept(connection.getID(), object);
-					break;
-			}
-		}
+    @Override
+    public void received(Connection connection, Object object)
+    {
+        if (object instanceof Packet)
+            switch (((Packet) object).type)
+            {
+            case 0:
+                server.sendAllUDP(object);
+                break;
+            case 1:
+                gServer.returnPacket((Packet) object);
+                break;
+            case 2:
+                break;
+            case 3:
+                server.sendUDPExcept(connection.getID(), object);
+                break;
+            }
 
-	}
+    }
 }

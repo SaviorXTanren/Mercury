@@ -14,10 +14,10 @@ import javax.swing.JTextField;
 public class MERCuryLaunchOptions extends JFrame
 {
     private static final long serialVersionUID = 1L;
-    
+
     static String game_name;
     static int default_width, default_height;
-    
+
     private javax.swing.JButton start;
     private javax.swing.JButton exit;
     private javax.swing.JCheckBox vsync_setting;
@@ -28,18 +28,18 @@ public class MERCuryLaunchOptions extends JFrame
     private javax.swing.JPanel mpanel;
     private javax.swing.JTextField width_input;
     private javax.swing.JTextField height_input;
-    
+
     public boolean started = false;
-    
+
     public MERCuryLaunchOptions(String game_name, int default_width, int default_height)
     {
         MERCuryLaunchOptions.game_name = game_name;
         MERCuryLaunchOptions.default_width = default_width;
         MERCuryLaunchOptions.default_height = default_height;
-        
+
         initComponents(game_name, default_width, default_height);
     }
-    
+
     private void initComponents(String game_name, int default_width, int default_height)
     {
         mpanel = new JPanel();
@@ -52,7 +52,7 @@ public class MERCuryLaunchOptions extends JFrame
                 started = true;
             }
         });
-        
+
         exit = new JButton();
         exit.addActionListener(new ActionListener()
         {
@@ -62,7 +62,7 @@ public class MERCuryLaunchOptions extends JFrame
                 System.exit(0);
             }
         });
-        
+
         game_title = new JLabel();
         width_label = new JLabel();
         height_label = new JLabel();
@@ -70,40 +70,40 @@ public class MERCuryLaunchOptions extends JFrame
         height_input = new JTextField();
         vsync_setting = new JCheckBox();
         fullscreen_setting = new JCheckBox();
-        
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MERCury Game Engine - Launch Options");
         setAlwaysOnTop(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        
+
         mpanel.setBackground(new java.awt.Color(153, 153, 153));
-        
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(mpanel);
-        
+
         mpanel.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 0, Short.MAX_VALUE));
         jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 100, Short.MAX_VALUE));
-        
+
         start.setText("Start Game");
-        
+
         exit.setText("Exit");
-        
+
         game_title.setFont(new java.awt.Font("Tahoma", 0, 24));
         game_title.setText(game_name);
-        
+
         width_label.setText("Width");
-        
+
         height_label.setText("Height");
         height_label.setToolTipText("");
-        
+
         width_input.setText(String.valueOf(default_width));
-        
+
         height_input.setText(String.valueOf(default_height));
-        
+
         vsync_setting.setText("Enable VSync");
-        
+
         fullscreen_setting.setText("Enable Fullscreen");
-        
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
@@ -115,15 +115,15 @@ public class MERCuryLaunchOptions extends JFrame
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
                 layout.createSequentialGroup().addContainerGap().addComponent(mpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(game_title).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(width_label).addComponent(width_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(height_label).addComponent(height_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(vsync_setting).addComponent(fullscreen_setting)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE).addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(start).addComponent(exit)).addContainerGap()));
-        
+
         pack();
     }
-    
+
     public static void main(String[] a)
     {
         createWindow("Test", 800, 600);
     }
-    
+
     public static void createWindow(final String name, final int width, final int height)
     {
         try
@@ -147,7 +147,7 @@ public class MERCuryLaunchOptions extends JFrame
         {
             java.util.logging.Logger.getLogger(MERCuryLaunchOptions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+
         EventQueue.invokeLater(new Runnable()
         {
             @Override

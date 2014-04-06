@@ -22,74 +22,70 @@ import com.radirius.merc.kryonet.utils.packets.PacketMessage;
 
 public class GenericServer
 {
-	public static final int RELAY = 0, RETURN = 1, DISCARD = 2, RELAYNOSENDBACK = 3;
+    public static final int RELAY = 0, RETURN = 1, DISCARD = 2, RELAYNOSENDBACK = 3;
 
-	MercServer server;
-	List<Class<?>> packets;
-	private int udp, tcp;
+    MercServer server;
+    List<Class<?>> packets;
+    private int udp, tcp;
 
-	public GenericServer(int udp, int tcp)
-	{
-		this.udp = udp;
-		this.tcp = tcp;
-	}
+    public GenericServer(int udp, int tcp)
+    {
+        this.udp = udp;
+        this.tcp = tcp;
+    }
 
-	public void registerObject(Class<?>... object)
-	{
-		packets = new ArrayList<Class<?>>();
+    public void registerObject(Class<?>... object)
+    {
+        packets = new ArrayList<Class<?>>();
 
-		for (Class<?> obj : object)
-		{
-			packets.add(obj);
-		}
-	}
+        for (Class<?> obj : object)
+            packets.add(obj);
+    }
 
-	public void init()
-	{
-		server = new MercServer(udp, tcp);
-		server.createServer();
+    public void init()
+    {
+        server = new MercServer(udp, tcp);
+        server.createServer();
 
-		for (int i = 0; i < packets.size(); i++)
-		{
-			server.registerObject(packets.get(i));
-		}
+        for (int i = 0; i < packets.size(); i++)
+            server.registerObject(packets.get(i));
 
-		server.addNetwork(new NetworkListener(server, this));
-		System.out.println("Server started!");
-	}
+        server.addNetwork(new NetworkListener(server, this));
+        System.out.println("Server started!");
+    }
 
-	public void send(Connection connection, Object object)
-	{
-		server.sendUDP(connection.getID(), object);
-	}
+    public void send(Connection connection, Object object)
+    {
+        server.sendUDP(connection.getID(), object);
+    }
 
-	public void sendAll(Object object)
-	{
-		server.sendAllUDP(object);
-	}
-	
-	public void sendAllExcept(Connection connection, Object object)
-	{
-		server.sendUDPExcept(connection.getID(), object);
-	}
-	
-	public void disconnect()
-	{
-		PacketMessage message = new PacketMessage();
-		message.message = "Server disconnecting!";
-		server.sendAllUDP(message);
-		
-		server.close();
-	}
-	
-	public void closeServer()
-	{
-		disconnect();
-		server.stop();
-	}
+    public void sendAll(Object object)
+    {
+        server.sendAllUDP(object);
+    }
 
-	public Packet returnPacket(Packet packet)
-	{
-		return packet;
-	}
+    public void sendAllExcept(Connection connection, Object object)
+    {
+        server.sendUDPExcept(connection.getID(), object);
+    }
+
+    public void disconnect()
+    {
+        PacketMessage message = new PacketMessage();
+        message.message = "Server disconnecting!";
+        server.sendAllUDP(message);
+
+        server.close();
+    }
+
+    public void closeServer()
+    {
+        disconnect();
+        server.stop();
+    }
+
+    public Packet returnPacket(Packet packet)
+    {
+        return packet;
+    }
 }

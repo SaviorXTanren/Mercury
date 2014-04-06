@@ -23,139 +23,138 @@ import com.radirius.merc.gfx.Texture;
 public class TextPanel extends Component
 {
     public float margin;
-    
+
     public Texture border_hor, border_vert, background_img;
     public Color textCol;
     public String title;
-    
+
     private boolean hasBackground = false;
-    
+
     private ArrayList<Button> buttons = new ArrayList<Button>();
-    
-	private Font titleFont = null;
-	private Font txtFont = null;
-    
+
+    private Font titleFont = null;
+    private Font txtFont = null;
+
     public TextPanel(String title, String txt, float x, float y, float w, float h, float margin, Color textCol)
     {
         this(title, txt, Texture.getEmptyTexture(), x, y, w, h, margin, textCol);
-        
+
         hasBackground = false;
     }
-    
+
     public TextPanel(String title, String txt, Texture background_img, float x, float y, float w, float h, float margin, Color textCol)
     {
-    	super(fitStringToBounds(txt, w, margin), x, y, w, h, false, false);
-    	
-    	this.margin = margin;
-    	this.background_img = background_img;
-    	this.textCol = textCol;
-    	this.title = title;
-    	
-    	try
-    	{
-    		titleFont = TrueTypeFont.loadTrueTypeFont("com/radirius/merc/gfx/OpenSans-Bold.ttf", 32, 1, true);
-        	txtFont = TrueTypeFont.loadTrueTypeFont("com/radirius/merc/gfx/OpenSans-Semibold.ttf", 20, 1, true);
-    	} 
-    	catch (FileNotFoundException e)
-    	{
-    		e.printStackTrace();
-    	}
-    	catch (FontFormatException e)
-    	{
-    		e.printStackTrace();
-    	} 
-    	catch (IOException e)
-    	{
-    		e.printStackTrace();
-    	}
-    	
-    	hasBackground = true;
+        super(fitStringToBounds(txt, w, margin), x, y, w, h, false, false);
+
+        this.margin = margin;
+        this.background_img = background_img;
+        this.textCol = textCol;
+        this.title = title;
+
+        try
+        {
+            titleFont = TrueTypeFont.loadTrueTypeFont("com/radirius/merc/gfx/OpenSans-Bold.ttf", 32, 1, true);
+            txtFont = TrueTypeFont.loadTrueTypeFont("com/radirius/merc/gfx/OpenSans-Semibold.ttf", 20, 1, true);
+        } catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        } catch (FontFormatException e)
+        {
+            e.printStackTrace();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        hasBackground = true;
     }
-    
+
+    @Override
     public void render(Graphics g)
     {
-    	if (!hasBackground)
-    	{
+        if (!hasBackground)
+        {
             float borderwidth = Math.min(border_hor.getTextureHeight(), border_hor.getTextureWidth());
-            
-            g.drawTexture(border_vert, 0, 0, w, borderwidth, x, y+h-borderwidth+margin);
-            g.drawTexture(border_hor, 0, 0, borderwidth, h+margin*2, x+w-borderwidth, y-margin);
-            
+
+            g.drawTexture(border_vert, 0, 0, w, borderwidth, x, y + h - borderwidth + margin);
+            g.drawTexture(border_hor, 0, 0, borderwidth, h + margin * 2, x + w - borderwidth, y - margin);
+
             borderwidth = Math.min(border_vert.getTextureHeight(), border_vert.getTextureWidth());
-            
-            g.drawTexture(border_hor, 0, 0, borderwidth, h+margin*2, x, y-margin);
-            g.drawTexture(border_vert, 0, 0, w, borderwidth, x, y-margin);	
-    	}
-    	else
-    	{
-        	g.drawTexture(background_img, x, y, w, h);
-    	}
-        
+
+            g.drawTexture(border_hor, 0, 0, borderwidth, h + margin * 2, x, y - margin);
+            g.drawTexture(border_vert, 0, 0, w, borderwidth, x, y - margin);
+        } else
+            g.drawTexture(background_img, x, y, w, h);
+
         renderContent(g);
-        
+
         for (int i = 0; i < buttons.size(); i++)
         {
-        	Button b = buttons.get(i);
-        	
-        	b.render(g);
+            Button b = buttons.get(i);
+
+            b.render(g);
         }
     }
-    
+
+    @Override
     public void renderContent(Graphics g)
     {
-    	g.setFont(titleFont);
-    	g.setColor(textCol);
+        g.setFont(titleFont);
+        g.setColor(textCol);
         g.drawString(x + margin, y + margin, title);
-        
+
         g.setFont(txtFont);
-    	g.setColor(textCol);
-        g.drawString(x + margin, (y + titleFont.getHeight()) + margin, txt);
+        g.setColor(textCol);
+        g.drawString(x + margin, y + titleFont.getHeight() + margin, txt);
         g.setColor(Color.white);
     }
-    
+
+    @Override
     public void update()
     {
-    	super.update();
-    	
-    	for (int i = 0; i < buttons.size(); i++)
-    	{
-    		Button b = buttons.get(i);
-    		
-    		b.update();
-    	}
+        super.update();
+
+        for (int i = 0; i < buttons.size(); i++)
+        {
+            Button b = buttons.get(i);
+
+            b.update();
+        }
     }
-    
+
     public void addButton(String txt, Texture side, Texture body, GridLocation location)
     {
-    	// Was going to put some stuff here, and I did, but it was bad, so I removed it. 
-    	// ^^^ Story of the year.
+        // Was going to put some stuff here, and I did, but it was bad, so I
+        // removed it.
+        // ^^^ Story of the year.
     }
-    
+
     private static String fitStringToBounds(String txt, float w, float margin)
     {
         // A line of text
         String linetxt = "";
-        
+
         // The index character in the original string
         int idx = 0;
         int lidx = 0;
-        
+
         // The result
         String finaltxt = "";
-        
+
         // Begin fitting!
         while (idx < txt.length())
         {
             // Write character to line, and add to index
             linetxt += txt.charAt(idx);
             idx++;
-            
-            // If we are pushing the width limit or we are at the end of the text, new line (or not)!
-            if (Runner.getInstance().getGraphics().getFont().getWidth(txt.substring(lidx, idx).toCharArray()) >= w - margin*2 || idx >= txt.length())
+
+            // If we are pushing the width limit or we are at the end of the
+            // text, new line (or not)!
+            if (Runner.getInstance().getGraphics().getFont().getWidth(txt.substring(lidx, idx).toCharArray()) >= w - margin * 2 || idx >= txt.length())
             {
                 // Making sure no words get cut off, or split in half.
                 int lastspace = linetxt.lastIndexOf(' ');
-                
+
                 if (lastspace > 0)
                 {
                     idx -= linetxt.length() - lastspace;
@@ -164,7 +163,7 @@ public class TextPanel extends Component
 
                 // Trim whitespace
                 linetxt = linetxt.trim();
-                
+
                 // Add line to text, and reset variables
                 finaltxt += linetxt;
                 finaltxt += "\n";
@@ -172,12 +171,12 @@ public class TextPanel extends Component
                 lidx = idx;
             }
         }
-        
+
         return finaltxt;
     }
-    
+
     public static enum GridLocation
     {
-    	TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, MID_LEFT, MID_RIGHT; 
+        TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, MID_LEFT, MID_RIGHT;
     }
 }
