@@ -13,5 +13,4 @@ package com.radirius.merc.env;
 
 public interface MercEntity extends Updatable, Renderable
 {
-
 }

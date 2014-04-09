@@ -20,7 +20,7 @@ public class ThreadedNetwork extends ThreadedListener
     // QueuedListener in the Kryonet library.
 
     // Requires a Listener from the Kryonet package, probably need to update it
-    // to reference from the Network.java from the MERCury engine.
+    // to reference from the Network.java from the MERCury library.
     public ThreadedNetwork(Listener listener)
     {
         super(listener);

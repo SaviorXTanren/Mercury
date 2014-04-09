@@ -64,7 +64,7 @@ public class GUITest extends Core
         float tb1w = 800;
         float tb1h = 600;
 
-        tpan1 = new TextPanel("Welcome!", "Welcome to MERCury Game Engine! This is a demonstration of the GUI System, currently being developed by both Jeviny and Wessles. How was your day? Mine has been great. I've had to waste all of it because I'm writing this stupid-ass text just so I can test panels!", background, rnr.getWidth() - (tb1w + 32), 16, tb1w, tb1h, 64, Color.black);
+        tpan1 = new TextPanel("Welcome!", "Welcome to MERCury Game Library! This is a demonstration of the GUI System, currently being developed by both Jeviny and Wessles. How was your day? Mine has been great. I've had to waste all of it because I'm writing this stupid-ass text just so I can test panels!", background, rnr.getWidth() - (tb1w + 32), 16, tb1w, tb1h, 64, Color.black);
 
         // tpan1.addButton("Click Me!", bleft, bbody, GridLocation.BOTTOM_LEFT);
     }

@@ -72,7 +72,7 @@ public class MERCuryLaunchOptions extends JFrame
         fullscreen_setting = new JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("MERCury Game Engine - Launch Options");
+        setTitle("MERCury Game Library - Launch Options");
         setAlwaysOnTop(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 

@@ -28,9 +28,9 @@ public class BoilerPlate extends Core
     {
         /** Title for the window */
         super("Yo, world. Ya got da stuffs?");
-        /** Initialize the window, and engine */
+        /** Initialize the window, and library */
         rnr.init(this, 300, 100);
-        /** Run the engine */
+        /** Run the library */
         rnr.run();
     }
 
@@ -64,7 +64,7 @@ public class BoilerPlate extends Core
         g.drawString(0, 0, "Ya, we got da stuffs. You got da monez?");
     }
 
-    /** Used for cleaning up and finalizing everything before the engine closes */
+    /** Used for cleaning up and finalizing everything before the library closes */
     @Override
     public void cleanup(ResourceManager RM)
     {

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import com.radirius.merc.log.Logger;
 
 /**
- * A thread to be ran seperate from the engine itself so that in-game freezes
+ * A thread to be ran seperate from the library itself so that in-game freezes
  * will not effect the console, and that the Scanner will not freaking hang when
  * I ask for a simple line.
  * 
@@ -327,13 +327,7 @@ public class CommandThread implements Runnable
             else if (list_manual)
                 Logger.console(cmdl.manual);
             else
-                // try
-                // {
                 cmd.run(arguments);
-            // } catch (Exception e)
-            // {
-            // Logger.consoleproblem("Something went wrong in executing command! Perhaps insufficient or wrongly formatted arguments? Please type '?' for syntax help.");
-            // }
         }
 
         Logger.debug("Developer's console shutting down...");

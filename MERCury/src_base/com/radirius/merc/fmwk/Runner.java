@@ -23,6 +23,7 @@ import com.radirius.merc.in.Input;
 import com.radirius.merc.log.Logger;
 import com.radirius.merc.res.ResourceManager;
 import com.radirius.merc.spl.SplashScreen;
+import com.radirius.merc.util.TaskTiming;
 
 /**
  * A class that will run your core, and give out the graphics object, current
@@ -38,55 +39,129 @@ import com.radirius.merc.spl.SplashScreen;
 
 public class Runner
 {
+    /** The singleton instance of the Runner. This should be the ONLY Runner. */
     private final static Runner singleton = new Runner();
 
+    /** Whether or not the library is running */
     public boolean running = false;
 
+    /** A list of splash screens we have */
     private final ArrayList<SplashScreen> splashes = new ArrayList<SplashScreen>();
+    /** A list of plugins we have */
     private final ArrayList<Plugin> plugs = new ArrayList<Plugin>();
 
+    /** A Runnable for the console thread */
     private final CommandThread consolerunnable = new CommandThread();
+    /** A Thread for the console */
     private final Thread consolethread = new Thread(consolerunnable);
 
-    private boolean updatefreeze = false, renderfreeze = false;
+    /** Whether or not we are updating or not */
+    private boolean updatefreeze = false;
+    /** Whether or not we are rendering or not */
+    private boolean renderfreeze = false;
 
+    /** Whether or not we have 'splashed' the splash screens */
     private boolean splashed = false;
+    /** Whether or not we are vsyncing */
     private boolean vsync;
+    /** Whether or not we are logging the FPS */
     private boolean logfps = false;
+    /** The delta variable */
     private int delta = 1;
-    private int FPS_TARGET = 60, FPS;
+    /** The target fps */
+    private int FPS_TARGET = 60;
+    /** The current fps */
+    private int FPS;
+    /** The current splash screen */
     private int splashidx = 0;
+    /** The last frame; used for calculating fps */
     private long lastframe;
+    /** The factor by which delta is multiplied */
     private float deltafactor = 1;
 
+    /** The core being ran */
     private Core core;
 
+    /** The graphics object */
     private Graphics graphicsobject;
 
+    /** The resource manager */
     private ResourceManager RM;
 
+    /** The camera */
     private Camera camera;
+    /** The input node */
     private Input input;
 
+    // We don't want ANYONE attempting to create another. There is a singleton,
+    // and you must use it.
     private Runner()
     {
     }
 
+    /**
+     * Initializes the library
+     * 
+     * @param core
+     *            The core we shall run
+     * @param WIDTH
+     *            The width of the display
+     * @param HEIGHT
+     *            The height of the display
+     */
     public void init(Core core, int WIDTH, int HEIGHT)
     {
         init(core, WIDTH, HEIGHT, false);
     }
 
+    /**
+     * Initializes the library
+     * 
+     * @param core
+     *            The core we shall run
+     * @param WIDTH
+     *            The width of the display
+     * @param HEIGHT
+     *            The height of the display
+     * @param fullscreen
+     *            Whether or not the display is fullscreen
+     */
     public void init(Core core, int WIDTH, int HEIGHT, boolean fullscreen)
     {
         init(core, WIDTH, HEIGHT, fullscreen, false, true);
     }
 
+    /**
+     * Initializes the library
+     * 
+     * @param core
+     *            The core we shall run
+     * @param fullscreen
+     *            Whether or not the display is fullscreen
+     * @param vsync
+     *            Whether or not we are vsynced
+     */
     public void init(Core core, boolean fullscreen, boolean vsync)
     {
         init(core, Display.getDesktopDisplayMode().getWidth(), Display.getDesktopDisplayMode().getHeight(), fullscreen, vsync, true);
     }
 
+    /**
+     * Initializes the library
+     * 
+     * @param core
+     *            The core we shall run
+     * @param WIDTH
+     *            The width of the display
+     * @param HEIGHT
+     *            The height of the display
+     * @param fullscreen
+     *            Whether or not the display is fullscreen
+     * @param vsync
+     *            Whether or not we are vsynced
+     * @param devconsole
+     *            Whether or not we are enabling the developers console
+     */
     public void init(Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean devconsole)
     {
         // Initialize Some Stuff! IN ORDER
@@ -99,7 +174,7 @@ public class Runner
         Logger.log(" |_|  |_|______|_|  \\_\\_____\\__,|_| |   \\__, |");
         Logger.log("                                        __/ |");
         Logger.log("                                       |___/ ");
-        Logger.log("Maitenance Enhanced and Reliable Coding Engine");
+        Logger.log("Maitenance Enhanced and Reliable Coding Library");
         Logger.log("             Designed by Radirius");
         Logger.log("                                             ");
         Logger.log("             You may read the list of contributors");
@@ -107,7 +182,7 @@ public class Runner
         Logger.log("             http://weslgames.github.io/MERCury/");
         Logger.log("                                             ");
         Logger.log("             Email wessles@wessles.com for support");
-        Logger.log("             Go to www.reddit.com/r/MERCuryGameEngine for community");
+        Logger.log("             Go to www.reddit.com/r/MERCuryGameLibrary for community");
         Logger.log("                        Copyright www.wessles.com 2013-20XX");
         Logger.log("                        All Rights Reserved");
 
@@ -148,7 +223,7 @@ public class Runner
 
         for (Plugin plug : plugs)
         {
-            Logger.debug("     Initializing " + plug.getClass().getSimpleName() + "...");
+            Logger.debug("\tInitializing " + plug.getClass().getSimpleName() + "...");
             plug.init();
         }
 
@@ -260,11 +335,19 @@ public class Runner
         CommandList.addCommandList(cmdlmerc);
 
         Logger.debug("Booting Developers Console Thread...");
+        consolethread.setName("merc_devconsole");
         consolethread.start();
+
+        Logger.debug("Starting Task Timing Thread...");
+
+        TaskTiming.init();
 
         Logger.debug("Ready to begin game loop. Awaiting permission from Core...");
     }
 
+    /**
+     * The main game loop of the library.
+     */
     public void run()
     {
         Logger.debug("Run permission granted by Core...");
@@ -375,6 +458,10 @@ public class Runner
         Logger.debug("Cleaning up Developers Console");
         consolethread.interrupt();
 
+        Logger.debug("Cleaning up Task Timing Thread...");
+
+        TaskTiming.cleanup();
+
         Logger.debug("Cleaning up Core...");
         try
         {
@@ -392,34 +479,46 @@ public class Runner
             plug.cleanup();
         }
         Logger.debug("Cleanup complete.");
-        Logger.debug("MERCury Game Engine shutting down...");
+        Logger.debug("MERCury Game Library shutting down...");
     }
 
+    /** @return The fps */
     public int getFps()
     {
         return FPS;
     }
 
+    /**
+     * @param target
+     *            The new FPS target
+     */
     public void setFpsTarget(int target)
     {
         FPS_TARGET = target;
     }
 
+    /**
+     * @param logfps
+     *            Whether or not to log the FPS in the log
+     */
     public void setLogFPS(boolean logfps)
     {
         this.logfps = logfps;
     }
 
+    /** @return The Width of the display */
     public int getWidth()
     {
         return Display.getWidth();
     }
 
+    /** @return The Height of the display */
     public int getHeight()
     {
         return Display.getHeight();
     }
 
+    /** @return The aspect ratio of the display WIDTH/HEIGHT */
     public float getAspectRatio()
     {
         return getWidth() / getHeight();
@@ -433,32 +532,55 @@ public class Runner
         return Sys.getTime() * 1000 / Sys.getTimerResolution();
     }
 
+    /**
+     * Sleeps the thread for a few milliseconds
+     * 
+     * @param milliseconds
+     *            The milliseconds to wait
+     */
     public void sleep(long milliseconds) throws InterruptedException
     {
         Thread.sleep(milliseconds);
     }
 
+    /**
+     * @param grab
+     *            Whether or not to grab the mouse
+     */
     public void setMouseGrab(boolean grab)
     {
         Mouse.setGrabbed(grab);
     }
 
+    /**
+     * @param vsync
+     *            Whether or not to vsync
+     */
     public void setVsync(boolean vsync)
     {
         this.vsync = vsync;
         Display.setVSyncEnabled(vsync);
     }
 
+    /** @return Whether or not the window has the focus */
     public boolean isFocused()
     {
         return Display.isActive();
     }
 
+    /**
+     * @param title
+     *            The title of the window
+     */
     public void setTitle(String title)
     {
         Display.setTitle(title);
     }
 
+    /**
+     * @param resizable
+     *            The resizability of the window
+     */
     public void setResizable(boolean resizable)
     {
         Display.setResizable(resizable);
@@ -466,6 +588,7 @@ public class Runner
         remakeDisplay();
     }
 
+    /** Remakes the display */
     private void remakeDisplay()
     {
         Display.destroy();
@@ -475,66 +598,98 @@ public class Runner
         graphicsobject = getCore().initGraphics();
     }
 
+    /** Ends the loop */
     public void end()
     {
         running = false;
     }
 
+    /** @return The delta time variable */
     public float getDelta()
     {
         return delta * deltafactor;
     }
 
+    /**
+     * @param factor
+     *            The new delta factor
+     */
     public void setDeltaFactor(float factor)
     {
         deltafactor = factor;
     }
 
+    /** @return The core being ran */
     public Core getCore()
     {
         return core;
     }
 
+    /**
+     * @param freeze
+     *            Whether or not to freeze the updating
+     */
     public void setUpdateFreeze(boolean freeze)
     {
         updatefreeze = freeze;
     }
 
+    /** @return The graphics object */
     public Graphics getGraphics()
     {
         return graphicsobject;
     }
 
+    /**
+     * @param freeze
+     *            Whether or not to freeze the rendering
+     */
     public void setRenderFreeze(boolean freeze)
     {
         renderfreeze = freeze;
     }
 
+    /** @return The resource manager */
     public ResourceManager getResourceManager()
     {
         return RM;
     }
 
+    /** @return The input node */
     public Input getInput()
     {
         return input;
     }
 
+    /** @return The camera */
     public Camera getCamera()
     {
         return camera;
     }
 
+    /**
+     * @param splash
+     *            The splash screen to add
+     */
     public void addSplashScreen(SplashScreen splash)
     {
         splashes.add(splash);
     }
 
+    /**
+     * @param plugin
+     *            The plugin to add
+     */
     public void addPlugin(Plugin plugin)
     {
         plugs.add(plugin);
     }
 
+    /**
+     * @param name
+     *            The name of the plugin you want
+     * @return The plugin corresponding to name
+     */
     public Plugin getPlugin(String name) throws PluginNotFoundException
     {
         for (Plugin plug : plugs)
@@ -543,6 +698,7 @@ public class Runner
         throw new PluginNotFoundException("Plugin '" + name + "' not found!");
     }
 
+    /** @return The singleton instance of Runner */
     public static Runner getInstance()
     {
         return singleton;

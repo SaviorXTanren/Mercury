@@ -1,7 +1,7 @@
 package com.radirius.merc.exc;
 
 /**
- * An exception to be thrown when something in the dev console goes wrong.
+ * An exception to be thrown for exceptions involving the task timing.
  * 
  * @from MERCury in com.radirius.merc.exc
  * @authors wessles
@@ -12,9 +12,9 @@ package com.radirius.merc.exc;
  */
 
 @SuppressWarnings("serial")
-public class ConsoleException extends Exception
+public class TaskException extends Exception
 {
-    public ConsoleException(String msg)
+    public TaskException(String msg)
     {
         super(msg);
     }

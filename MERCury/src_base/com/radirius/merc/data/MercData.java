@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * A way to store information outside of local data and store data in files.
+ * A way to store information outside of local data and store data in files. Uses a system of properties and values.
  * 
  * @from merc in com.radirius.merc.data
  * @authors wessles, Jeviny
@@ -22,12 +22,26 @@ import java.util.Scanner;
 
 public class MercData
 {
+    /**
+     * In case we ever change the parser, we can tell early on that you have a
+     * faulty version.
+     */
     public static final int PARSER_VERSION = 1;
 
+    /**
+     * Location of the data file.
+     */
     public String location;
 
+    /**
+     * The values of the data file. This is temperary in-code storage.
+     */
     public HashMap<String, String> vals = new HashMap<String, String>();
 
+    /**
+     * @param A
+     *            URL indicating the location of the file.
+     */
     public MercData(URL url)
     {
         location = url.getFile();
@@ -41,16 +55,30 @@ public class MercData
             load();
     }
 
+    /**
+     * @param prop
+     *            The property you are modifying (case sensitive).
+     * @param val
+     *            The value that you are changing the property to.
+     */
     public void setProperty(String prop, String val) throws FileNotFoundException
     {
         vals.put(prop, val);
     }
 
+    /**
+     * @param The
+     *            property you want to see the value of.
+     * @return The property's value. If it does not exist, you get null.
+     */
     public String getProperty(String prop)
     {
         return vals.get(prop);
     }
 
+    /**
+     * Closes the file, and saves it.
+     */
     public void close()
     {
         save();

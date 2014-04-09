@@ -76,6 +76,18 @@ public abstract class Core
      */
     public abstract void cleanup(ResourceManager RM) throws IOException, MERCuryException;
 
+    /**
+     * Initializes the display.
+     * 
+     * @param WIDTH
+     *            The width of the display
+     * @param HEIGHT
+     *            The height of the display
+     * @param fullscreen
+     *            Whether or not this is fullscreen
+     * @param vsync
+     *            Whether or not we should vsync
+     */
     public void initDisplay(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync)
     {
         try
@@ -126,6 +138,9 @@ public abstract class Core
         }
     }
 
+    /**
+     * Initializes graphics.
+     */
     public Graphics initGraphics()
     {
         glMatrixMode(GL_PROJECTION);
