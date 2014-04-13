@@ -1,12 +1,70 @@
--draw an image specifying x, y, w, and h
--Remove try and catch from most resources
--Texture filtering
-	*Add filtering to splash, looks bad resizing
-    *Fading
-    *Tinting
+ __  __  ______  _____    _____                    
+|  \/  ||  ____||  __ \  / ____|                   
+| \  / || |__   | |__) || |     _   _  _ __  _   _ 
+| |\/| ||  __|  |  _  / | |    | | | || '__|| | | |
+| |  | || |____ | | \ \ | |____| |_| || |   | |_| |
+|_|  |_||______||_|  \_\ \_____|\__,_||_|    \__, |    
+                                              __/ |  \ o /
+                                             |___/     |
+                                   2D Game Library    / \
+                                       Designed by Team Radirius
+                                   
+Official To-Do List.
 
--Opensans font
+Key:
+[+] - Completed/Done
+[=] - In Progress
+[-] - Incomplete/Not Done
 
--make website
+Here's an example of what a proper list item should look like:
+'- [-] This is how to make a proper list item.'
 
-http://pastebin.com/hTHEh7Lx
+When you add an item to the to-do list, please do not forget to add the status symbol ('[-]') to the left of it,
+but not before the beginning dash. When a task is completed you should replace the dash inside the status symbol with
+a plus sign like so:
+'- [+] This is how to make a proper completed list item.'
+
+To add a sub-item to the list, please add a new line and indent it to 6 spaces (from the starting point, not past the
+beginning of the list item), then add the status symbol and a space. From that point you may describe the sub-item.
+
+Here's an example of what a proper list sub-item should look like:
+'- [-] This is how to make a proper list item.'
+'      [-] This is how to make a proper list sub-item.'      
+
+Please use proper grammar when adding items to the list, and to make a comment to the list do as you would do in the
+Java programming language: Make a new line, indent it by 3 spaces, add two forward-slashes ('//') with one extra 
+space at the end, and then add the text to your comment.
+
+Here's an example of what a proper list comment should look like:
+'- [-] This is a list item!'
+'   // This is a comment!'
+
+If you feel like doing so, you may make a comment stating who a task was completed by.
+
+Please do not forget to keep this updated! While 'list.txt' still a document it has feelings!
+
+Thanks for reading this gigantic block of text, sorry it was so long!
+- Jev
+
+---------------------------------------------------------------------------------------------
+
+Beginning of list.
+
+----
+Primary To-Do List:
+
+- [+] Open-Sans Typeface/Font
+- [+] Draw an image specifying X, Y, W, and H values.
+   // Jeviny already did this!
+- [=] Remove try and catch from most resources
+- [=] Texture filtering
+   // Add filtering to splash, looks bad resizing
+      [-] Fading
+      [-] Tinting
+- [-] Texture Post-Processing
+----
+Misc To-Do List:
+
+- [-] Buy official Radirius domain name.
+- [-] Make Website.
+----
