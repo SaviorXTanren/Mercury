@@ -8,6 +8,8 @@
                                              |___/     |
                                    2D Game Library    / \
                                        Designed by Team Radirius
+                                       
+----------------------------------------------------------------
                                    
 Official To-Do List.
 
@@ -50,7 +52,7 @@ Thanks for reading this gigantic block of text, sorry it was so long!
 
 Beginning of list.
 
-----
+---------------------------------------------------------------------------------------------
 Primary To-Do List:
 
 - [+] Open-Sans Typeface/Font
@@ -62,9 +64,13 @@ Primary To-Do List:
       [-] Fading
       [-] Tinting
 - [-] Texture Post-Processing
-----
+---------------------------------------------------------------------------------------------
 Misc To-Do List:
 
 - [-] Buy official Radirius domain name.
 - [-] Make Website.
-----
+---------------------------------------------------------------------------------------------
+
+End of list.
+
+---------------------------------------------------------------------------------------------
