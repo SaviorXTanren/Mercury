@@ -1,7 +1,7 @@
 ![alt tag](http://puu.sh/6bVuj.png)
-
 Maitenance Enhanced and Reliable Coding Engine
-          designed by Team Radirius
+
+   designed by Team Radirius
 
 # The Info
 
