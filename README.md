@@ -22,12 +22,12 @@ We hope to expand upon this library over time and hopefully create something tha
 
 Development Team & Project Contributors:
 
-Wessles, AKA Wesley: (http://www.wessles.com/)
-Jev, AKA Kris: (http://www.jeviny.pw/)
-Opiop65, AKA Toby: (http://www.nishustudios.com/)
+- Wessles, AKA Wesley: (http://www.wessles.com/)
+- Jev, AKA Kris: (http://www.jeviny.pw/)
+- Opiop65, AKA Toby: (http://www.nishustudios.com/)
 
-GrammarBro, for proofreading and correcting the documentation of the library.
-HeroesGraveDev, AKA HeroesGrave: (http://heroesgrave.github.io/)
-SHC, AKA Sri Harsha: (http://www.goharsha.com/)
+- GrammarBro, AKA Wesley's Grammar Nazi Brother
+- HeroesGraveDev, AKA HeroesGrave: (http://heroesgrave.github.io/)
+- SHC, AKA Sri Harsha: (http://www.goharsha.com/)
 
-Last, but not least, a great big thanks goes to everybody on JavaGaming.ORG, otherwise known as JGO! (http://www.javagaming.org/)
+And last, but not least, a great big thanks goes to everybody on JavaGaming.ORG, otherwise known as JGO! (http://www.javagaming.org/)
