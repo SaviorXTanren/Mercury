@@ -81,7 +81,7 @@ public class SplashScreen
     public static SplashScreen getMERCuryDefault()
     {
         Texture tex = null;
-        tex = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/spl/splash.png"));
+        tex = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/spl/splash.png"));
 
         return new SplashScreen(tex, 3000);
     }

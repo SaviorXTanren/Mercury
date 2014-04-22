@@ -48,7 +48,7 @@ public class ParticleTest extends Core
     @Override
     public void init(ResourceManager RM)
     {
-        RM.loadResource(Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/torch.png")), "torch");
+        RM.loadResource(Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/torch.png")), "torch");
 
         rnr.getGraphics().scale(4);
 

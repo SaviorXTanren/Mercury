@@ -43,7 +43,7 @@ public class ManagingResources extends Core
         rnr.getGraphics().setBackground(Color.cyan);
         rnr.getGraphics().scale(15.6f);
 
-        RM.loadResource(Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/tuts/lard.png")), "tex_lard");
+        RM.loadResource(Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/tuts/lard.png")), "tex_lard");
 
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }

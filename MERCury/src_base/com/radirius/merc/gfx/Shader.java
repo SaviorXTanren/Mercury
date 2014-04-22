@@ -185,11 +185,11 @@ public class Shader implements Resource
         {
             if (type == Shader.FRAGMENT_SHADER)
             {
-                vertShader = createVertexShader(Loader.streamFromClasspath("com/teama/merc/gfx/default.vs"));
+                vertShader = createVertexShader(Loader.streamFromClasspath("com/radirius/merc/gfx/default.vs"));
                 fragShader = createFragmentShader(in);
             } else if (type == Shader.VERTEX_SHADER)
             {
-                fragShader = createFragmentShader(Loader.streamFromClasspath("com/teama/merc/gfx/default.fs"));
+                fragShader = createFragmentShader(Loader.streamFromClasspath("com/radirius/merc/gfx/default.fs"));
                 vertShader = createVertexShader(in);
             }
         } catch (Exception exc)

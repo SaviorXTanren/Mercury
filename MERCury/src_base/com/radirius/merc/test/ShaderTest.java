@@ -46,7 +46,7 @@ public class ShaderTest extends Core
         rnr.getGraphics().scale(4);
 
         program = Shader.getDefaultShader();
-        tex = Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/torch.png"));
+        tex = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/torch.png"));
 
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }

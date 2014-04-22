@@ -1,12 +1,10 @@
 package com.radirius.merc.test;
 
-import java.awt.Font;
 import java.io.IOException;
 
 import com.radirius.merc.exc.MERCuryException;
 import com.radirius.merc.fmwk.Core;
 import com.radirius.merc.fmwk.Runner;
-import com.radirius.merc.font.TrueTypeFont;
 import com.radirius.merc.gfx.Color;
 import com.radirius.merc.gfx.Graphics;
 import com.radirius.merc.gfx.Texture;
@@ -49,7 +47,6 @@ public class GUITest extends Core
         Texture left = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/side_tbar.png"));
         Texture right = left.flipX();
         Texture body = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/body_tbar.png"));
-        TrueTypeFont.loadTrueTypeFont(new Font("com/radirius/merc/test/OpenSans-Regular.ttf", 1, 12), true);
 
         tbar0 = new TextBar("Progressive stupidity, a poem by wesslas", left, right, body, 10, 10);
         tbox0 = new TextBox("The main reason f0r the c1v1|_ w4r w45 d4 n0 5c0p35 63771n h1 1n d15 c|_uB Y0 1 h4z m0n3Y$ 0m6 m8 u 637 r3k7 50 h4rd, y0 m4mman 357 570094d", Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/border_tbox_hor.png")), Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/border_tbox_vert.png")), 10, 100, 300, 180, 16, Color.white);
@@ -57,9 +54,9 @@ public class GUITest extends Core
         Texture background = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/panel_main.png"));
 
         // Texture bleft =
-        // Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/button_left.png"));
+        // Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/button_left.png"));
         // Texture bbody =
-        // Texture.loadTexture(Loader.streamFromClasspath("com/teama/merc/test/button_body.png"));
+        // Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/button_body.png"));
 
         float tb1w = 800;
         float tb1h = 600;

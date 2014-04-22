@@ -43,8 +43,8 @@ public class SlickAudioTest extends Core
     @Override
     public void init(ResourceManager RM)
     {
-        RM.loadResource(Audio.loadAudio(Loader.loadFromClasspath("com/teama/merc/test/sound.ogg")), "ogg");
-        RM.loadResource(Audio.loadAudio(Loader.loadFromClasspath("com/teama/merc/test/sound.wav")), "wav");
+        RM.loadResource(Audio.loadAudio(Loader.loadFromClasspath("com/radirius/merc/test/sound.ogg")), "ogg");
+        RM.loadResource(Audio.loadAudio(Loader.loadFromClasspath("com/radirius/merc/test/sound.wav")), "wav");
 
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
