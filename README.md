@@ -7,6 +7,8 @@ Maitenance Enhanced and Reliable Coding Engine
 
 -------------------------------------------------------
 
+# Author's Note
+
 MERCury is a project that I started a while back for my own education on opengl. I got started by coding the batcher and adding features like vertex stacking and sound capabilities to the game library. I was off to a fun start. When I posted it, people liked it, so I expanded and even got some new friends to help me out! We have been working together on networking, GUI, and other fun stuffs.
 
 Our goal is simple: to create an ultra-flexible but easy-to-use video game library that includes support for plugins.
@@ -20,12 +22,11 @@ We hope to expand upon this library over time and hopefully create something tha
 
 -------------------------------------------------------
 
-Development Team & Project Contributors:
+# Development Team & Project Contributors:
 
 - Wessles, AKA Wesley: [Site Here](http://www.wessles.com/)
 - Jev, AKA Kris: [Site Here](http://www.jeviny.pw/)
 - Opiop65, AKA Toby: [Site Here](http://www.nishustudios.com/)
-- 
 - GrammarBro, AKA Wesley's Grammar Nazi Brother: (No Site Given)
 - HeroesGraveDev, AKA HeroesGrave: [Site Here](http://heroesgrave.github.io/)
 - SHC, AKA Sri Harsha: [Site Here](http://www.goharsha.com/)
