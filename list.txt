@@ -64,6 +64,8 @@ Primary To-Do List:
       [-] Fading
       [-] Tinting
 - [-] Texture Post-Processing
+- [-] Post-Processing support using VBOs
+- [-] Frackin' do the GUI FREAKING PIECE OF FRICK JEVINY
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
 
