@@ -1,13 +1,12 @@
 package com.radirius.merc.spl;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import com.radirius.merc.fmwk.Runner;
 import com.radirius.merc.geo.Vec2;
 import com.radirius.merc.gfx.Graphics;
 import com.radirius.merc.gfx.Texture;
 import com.radirius.merc.res.Loader;
+import com.radirius.merc.util.TaskTiming;
+import com.radirius.merc.util.TaskTiming.Task;
 
 /**
  * @from merc in com.radirius.merc.spl
@@ -37,19 +36,14 @@ public class SplashScreen
         if (!showing)
         {
             // Evil timer
-            final Timer timertodestruction = new Timer();
-
-            timertodestruction.schedule(new TimerTask()
+            TaskTiming.addTask(new Task(showtimemillis)
             {
-                @Override
                 public void run()
                 {
                     _return_ = false;
-                    timertodestruction.cancel();
-                    timertodestruction.purge();
                 }
-            }, showtimemillis);
-
+            });
+            
             showing = true;
         }
 

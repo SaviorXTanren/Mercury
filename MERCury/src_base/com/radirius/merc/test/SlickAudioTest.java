@@ -1,7 +1,5 @@
 package com.radirius.merc.test;
 
-import org.lwjgl.input.Keyboard;
-
 import com.radirius.merc.fmwk.Core;
 import com.radirius.merc.fmwk.Runner;
 import com.radirius.merc.gfx.Graphics;
@@ -53,16 +51,25 @@ public class SlickAudioTest extends Core
     public void update(float delta)
     {
         Input in = rnr.getInput();
-        if (in.keyDown(Keyboard.KEY_W))
-            ((Audio) rnr.getResourceManager().retrieveResource("wav")).play();
-        else if (in.keyClicked(Keyboard.KEY_O))
+        if (in.keyClicked(Input.KEY_W) || in.mouseClicked(Input.MOUSE_LEFT) || in.mouseClicked(Input.MOUSE_MID))
+            ((Audio) rnr.getResourceManager().retrieveResource("wav")).toggle();
+        else if (in.keyClicked(Input.KEY_O) || in.mouseClicked(Input.MOUSE_RIGHT) || in.mouseClicked(Input.MOUSE_MID))
             ((Audio) rnr.getResourceManager().retrieveResource("ogg")).toggle();
+
+        // This will be funny
+        if (in.mouseWheelUp())
+            rnr.getCamera().translate(0, 5f);
+        else if (in.mouseWheelDown())
+            rnr.getCamera().translate(0, -5f);
     }
+
+    String msg = "";
 
     @Override
     public void render(Graphics g)
     {
         g.drawString(0, 0, "O = OGG\nW = WAV");
+        g.drawString(0, 0, msg);
     }
 
     @Override

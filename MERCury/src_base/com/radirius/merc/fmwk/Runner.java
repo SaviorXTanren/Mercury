@@ -411,6 +411,7 @@ public class Runner
 
             if (!updatefreeze)
                 if (splashed)
+                {
                     try
                     {
                         core.update(getDelta());
@@ -418,6 +419,8 @@ public class Runner
                     {
                         e.printStackTrace();
                     }
+                    input.poll();
+                }
 
             if (!renderfreeze)
             {

@@ -18,34 +18,19 @@ import com.radirius.merc.geo.Vec2;
  */
 public class Camera
 {
-    public int SCALE = 1;
-
     private float x, y;
-
-    private Vec2 snap;
-    private Vec2 relsnap;
-    private boolean snapped = false;
+    private Vec2 origin = new Vec2(0, 0);
 
     public Camera(float x, float y)
     {
         this.x = x;
         this.y = y;
-        relsnap = new Vec2(0, 0);
     }
 
     public void pre(Graphics g)
     {
-        if (snap != null)
-        {
-            snapped = true;
-
-            x = snap.x;
-            y = snap.y;
-        } else
-            snapped = false;
-
         glPushMatrix();
-        glTranslatef(-x + relsnap.x, -y + relsnap.y, 0);
+        glTranslatef(x - origin.x, y - origin.y, 0);
 
         g.pre();
     }
@@ -57,37 +42,33 @@ public class Camera
         glPopMatrix();
     }
 
-    public void snapTo(Vec2 snap)
+    public void setOrigin(Vec2 origin)
     {
-        this.snap = snap;
+        this.origin = origin;
     }
 
-    public void setSnapRelativeToScreen(Vec2 relsnap)
+    public Vec2 getOrigin()
     {
-        this.relsnap = relsnap;
+        return origin;
     }
 
-    public Vec2 getSnap()
+    public void translate(float x, float y)
     {
-        return snap;
+        this.x += x;
+        this.y += y;
     }
 
-    public boolean snapped()
-    {
-        return snapped;
-    }
-
-    public float getOffsetX()
+    public float getPositionX()
     {
         return x;
     }
 
-    public float getOffsetY()
+    public float getPositionY()
     {
         return y;
     }
 
-    public Vec2 getOffset()
+    public Vec2 getPosition()
     {
         return new Vec2(x, y);
     }
