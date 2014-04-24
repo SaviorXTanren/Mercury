@@ -66,6 +66,7 @@ Primary To-Do List:
 - [-] Texture Post-Processing
 - [-] Post-Processing support using VBOs
 - [-] Frackin' do the GUI FREAKING PIECE OF FRICK JEVINY
+- [-] Easing utilities
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
 
