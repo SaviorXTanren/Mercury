@@ -77,3 +77,9 @@ Misc To-Do List:
 End of list.
 
 ---------------------------------------------------------------------------------------------
+
+THIS IS THE DARK SIDE OF THE LIST, THE MESSY PART. PLEASE PUT ANY UNORGANISED BULLSHIT HERE:
+
+[01:42] <DesertRock> Jeviny_Web: Tips for making me apperciate your project: 1) What language language? 2) Purpose? 3) Example of usage 4) Link to online documentation. If those things aren't on the Readme.md, I tend to avoid using the library.
+
+Let's listen to this guy.
