@@ -4,6 +4,7 @@ import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 
+import com.radirius.merc.fmwk.Runner;
 import com.radirius.merc.geo.Vec2;
 
 /**
@@ -52,24 +53,29 @@ public class Camera
         return origin;
     }
 
+    public void zoom(float zoom, Graphics g)
+    {
+        g.scale(zoom);
+    }
+    
     public void translate(float x, float y)
     {
-        this.x += x;
-        this.y += y;
+        this.x -= x;
+        this.y -= y;
     }
 
     public float getPositionX()
     {
-        return x;
+        return getPosition().x;
     }
 
     public float getPositionY()
     {
-        return y;
+        return getPosition().y;
     }
 
     public Vec2 getPosition()
     {
-        return new Vec2(x, y);
+        return new Vec2(Runner.getInstance().getWidth()-x, Runner.getInstance().getHeight()-y);
     }
 }

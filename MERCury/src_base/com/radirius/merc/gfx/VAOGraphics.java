@@ -8,6 +8,7 @@ import static org.lwjgl.opengl.GL11.glScalef;
 
 import org.lwjgl.opengl.GL11;
 
+import com.radirius.merc.fmwk.Runner;
 import com.radirius.merc.font.Font;
 import com.radirius.merc.font.TrueTypeFont;
 import com.radirius.merc.geo.Circle;
@@ -86,7 +87,12 @@ public class VAOGraphics implements Graphics
     @Override
     public void scale(float x, float y)
     {
+        Camera cam = Runner.getInstance().getCamera();
+        
+        GL11.glTranslatef(cam.getOrigin().x, cam.getOrigin().y, 0);
         glScalef(x, y, 1);
+        GL11.glTranslatef(-cam.getOrigin().x, -cam.getOrigin().y, 0);
+        
         scale.x = x;
         scale.y = y;
         
