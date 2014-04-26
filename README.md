@@ -1,15 +1,15 @@
-# MERCury 2D Game Library  
+![alt text](http://i.imgur.com/beAAMyu.png)
 
 MERCury is a project that I started a while back for my own education on OpenGL. I got started by coding the batcher and adding features like vertex stacking and sound capabilities to the library. I was off to a fun start. When I posted it, people liked it, so I expanded and even got some new friends to help me out! We have been working together on networking, GUI, and other fun stuffs.
 
-Our goal is simple: to create an ultra-flexible but easy-to-use game library that includes support for plugins.
+Our goal is simple: to create an ultra-flexible but easy-to-use 2D Java game library that includes support for plugins.
 
 Sincerely,  
 Wessles, Founder of Team Radirius
 
 ## The Present
 
-Currently, we have a simplistic 2D game library that is capable of handling basic plugins, minimal GUIs, and includes decent support for networking. We have a well-built rendering engine that is currently capable of doing all of the processes you would need to do to draw out a 2D game in real time, all using the power of OpenGL. We plan on adding more engine-like features and we hope to completely rewrite our plugin system. All of what we are doing is experimental, so we love getting new ideas and support from the community!
+Currently, we have a simplistic 2D Java game library that is capable of handling basic plugins, minimal GUIs, and includes decent support for networking. We have a well-built rendering engine that is currently capable of doing all of the processes you would need to do to draw out a 2D game in real time, all using the power of OpenGL. We plan on adding more engine-like features and we hope to completely rewrite our plugin system. All of what we are doing is experimental, so we love getting new ideas and support from the community!
 
 ## The Future
 
@@ -26,9 +26,9 @@ We hope to expand upon this library over time and hopefully create something tha
 
 Last, but not least, a huge thanks goes to everybody on JGO, otherwise known as [Java-Gaming.org](http://www.java-gaming.org/).
 
-## Meta
+#### Meta-File Info
 
-This file is changing every day with new information about the library. Please feel free to suggest any changes, as this is an experimental project. Thanks a lot for your support!
+This file is changing every day with new information about the library. Please feel free to suggest any changes. Thanks a lot for your support!
 
 People who have contributed to this file specifically: 
 
