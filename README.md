@@ -1,4 +1,4 @@
-# MERCury 2D Java Game Library  
+![alt text](http://i.imgur.com/beAAMyu.png)
 
 MERCury is a project that I started a while back for my own education on OpenGL. I got started by coding the batcher and adding features like vertex stacking and sound capabilities to the library. I was off to a fun start. When I posted it, people liked it, so I expanded and even got some new friends to help me out! We have been working together on networking, GUI, and other fun stuffs.
 
