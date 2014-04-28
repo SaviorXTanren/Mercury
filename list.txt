@@ -67,6 +67,7 @@ Primary To-Do List:
 - [-] Post-Processing support using VBOs
 - [-] Frackin' do the GUI FREAKING PIECE OF FRICK JEVINY
 - [-] Easing utilities
+- [-] Actually do something during splash screen
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
 
