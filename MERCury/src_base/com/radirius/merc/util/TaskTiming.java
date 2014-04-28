@@ -1,7 +1,6 @@
 package com.radirius.merc.util;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.radirius.merc.exc.TaskException;
 
@@ -21,7 +20,7 @@ public class TaskTiming implements Runnable
 {
     private static boolean running = true;
 
-    private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static CopyOnWriteArrayList<Task> tasks = new CopyOnWriteArrayList<Task>();
 
     public static void init()
     {
@@ -45,9 +44,8 @@ public class TaskTiming implements Runnable
     {
         while (running)
         {
-            for (Iterator<Task> it = tasks.iterator(); it.hasNext();)
+            for (Task task : tasks)
             {
-                Task task = it.next();
                 long time = System.currentTimeMillis();
                 long past = time - task.birth;
 
@@ -56,7 +54,7 @@ public class TaskTiming implements Runnable
                     task.run();
 
                     if (task.recur == 0)
-                        it.remove();
+                        tasks.remove(task);
                     else
                     {
                         if (task.recur > 0)
