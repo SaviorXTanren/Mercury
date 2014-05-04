@@ -76,7 +76,6 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
     {
         // Make a graphics object for the buffered image.
         BufferedImage imgTemp = new BufferedImage(texw, texh, BufferedImage.TYPE_INT_ARGB);
-        
         Graphics2D g = (Graphics2D) imgTemp.getGraphics();
         
         // Set the color to transparent
@@ -134,7 +133,7 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
         }
         
         // Load texture!
-        font_tex = Texture.loadTexture(imgTemp);
+        font_tex = Texture.loadTexture(imgTemp, true, false);
     }
     
     private BufferedImage getFontImage(char ch)

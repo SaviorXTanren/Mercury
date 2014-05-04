@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 import com.radirius.merc.exc.MERCuryException;
 import com.radirius.merc.fmwk.Core;
 import com.radirius.merc.fmwk.Runner;
+import com.radirius.merc.font.TrueTypeFont;
 import com.radirius.merc.gfx.FrameBuffer;
 import com.radirius.merc.gfx.Graphics;
 import com.radirius.merc.gfx.Shader;
@@ -60,6 +61,8 @@ public class FboTest extends Core
     {
         fbo.use();
         {
+            TrueTypeFont f = (TrueTypeFont)g.getFont();
+            g.drawTexture(f.font_tex, 0, x);
             g.drawTexture(cuteface, x++, x);
             
             g.getBatcher().flush();
