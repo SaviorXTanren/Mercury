@@ -65,14 +65,14 @@ Primary To-Do List:
       [-] Tinting
 - [+] Texture Post-Processing
 - [+] Post-Processing support using VBOs
-- [-] Frackin' do the GUI FREAKING PIECE OF FRICK JEVINY
+- [=] Frackin' do the GUI FREAKING PIECE OF FRICK JEVINY
 - [-] Easing utilities
 - [-] Actually do something during splash screen
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
 
 - [-] Buy official Radirius domain name.
-- [-] Make Website.
+- [=] Make Website.
 ---------------------------------------------------------------------------------------------
 
 End of list.
@@ -86,3 +86,5 @@ THIS IS THE DARK SIDE OF THE LIST, THE MESSY PART. PLEASE PUT ANY UNORGANISED BU
 Let's listen to this guy.
 
 zoomy narty, elez leleleslelsz
+
+u wot m8
