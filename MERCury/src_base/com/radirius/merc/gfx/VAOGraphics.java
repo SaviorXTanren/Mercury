@@ -179,13 +179,13 @@ public class VAOGraphics implements Graphics
     }
     
     @Override
-    public void drawString(float x, float y, String what)
+    public void drawString(float x, float y, String msg)
     {
-        drawString(current_font, x, y, what);
+        drawString(current_font, x, y, msg);
     }
     
     @Override
-    public void drawString(Font font, float x, float y, String what)
+    public void drawString(Font font, float x, float y, String msg)
     {
         if (font instanceof TrueTypeFont)
         {
@@ -193,15 +193,15 @@ public class VAOGraphics implements Graphics
             
             int current_x = 0;
             
-            for (int ci = 0; ci < what.toCharArray().length; ci++)
+            for (int ci = 0; ci < msg.toCharArray().length; ci++)
             {
-                if (what.toCharArray()[ci] == '\n')
+                if (msg.toCharArray()[ci] == '\n')
                 {
                     y += jf.getLineHeight();
                     current_x = 0;
                 }
                 
-                TrueTypeFont.IntObject intobj = jf.chars[what.toCharArray()[ci]];
+                TrueTypeFont.IntObject intobj = jf.chars[msg.toCharArray()[ci]];
                 
                 drawTexture(jf.font_tex, intobj.x, intobj.y, intobj.x + intobj.w, intobj.y + intobj.h, x + current_x, y, x + current_x + intobj.w, y + intobj.h);
                 current_x += intobj.w;
