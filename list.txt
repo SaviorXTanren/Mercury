@@ -68,6 +68,7 @@ Primary To-Do List:
 - [=] Frackin' do the GUI FREAKING PIECE OF FRICK JEVINY
 - [-] Easing utilities
 - [-] Actually do something during splash screen
+- [-] Resource lists
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
 
