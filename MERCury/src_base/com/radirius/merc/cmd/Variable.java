@@ -20,7 +20,7 @@ public abstract class Variable
      * for general instruction of using the variable.
      */
     public final String manual;
-
+    
     /**
      * @param name
      *            The name of the variable. This will be case-insensitive.
@@ -33,7 +33,7 @@ public abstract class Variable
         this.name = name.toLowerCase();
         this.manual = manual;
     }
-
+    
     /**
      * @param name
      *            The name of the variable. This will be case-insensitive.
@@ -42,7 +42,7 @@ public abstract class Variable
     {
         this(name, "Command List Developer did not provide a manual for Variable.");
     }
-
+    
     /**
      * @param args
      *            The given arguments of the variable. Use this info to return

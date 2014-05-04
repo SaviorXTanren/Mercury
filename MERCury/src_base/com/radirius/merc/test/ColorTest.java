@@ -41,33 +41,33 @@ import com.radirius.merc.spl.SplashScreen;
 public class ColorTest extends Core
 {
     Runner rnr = Runner.getInstance();
-
+    
     public ColorTest()
     {
         super("Color Test");
         rnr.init(this, 640, 480);
         rnr.run();
     }
-
+    
     public static void main(String[] args)
     {
         new ColorTest();
     }
-
+    
     @Override
     public void init(ResourceManager RM)
     {
         rnr.getGraphics().setBackground(Color.black);
         rnr.getGraphics().scale(8);
-
+        
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
-
+    
     @Override
     public void update(float delta)
     {
     }
-
+    
     @Override
     public void render(Graphics g)
     {
@@ -83,9 +83,9 @@ public class ColorTest extends Core
         test(violet, g);
         test(magenta, g);
         test(rasberry, g);
-
+        
         test(black, g);
-
+        
         test(white, g);
         test(marble, g);
         test(gray, g);
@@ -93,19 +93,19 @@ public class ColorTest extends Core
         test(black, g);
         colidx = 0;
     }
-
+    
     int colidx;
-
+    
     public void test(Color color, Graphics g)
     {
         g.setColor(color);
         g.drawRect(new Rectangle(colidx * 4, 0, 4, 8));
         colidx++;
     }
-
+    
     @Override
     public void cleanup(ResourceManager RM)
     {
     }
-
+    
 }

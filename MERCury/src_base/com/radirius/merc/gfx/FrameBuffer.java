@@ -1,8 +1,27 @@
 package com.radirius.merc.gfx;
 
-import static org.lwjgl.opengl.EXTFramebufferObject.*;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GLContext.*;
+import static org.lwjgl.opengl.EXTFramebufferObject.GL_COLOR_ATTACHMENT0_EXT;
+import static org.lwjgl.opengl.EXTFramebufferObject.GL_FRAMEBUFFER_EXT;
+import static org.lwjgl.opengl.EXTFramebufferObject.glBindFramebufferEXT;
+import static org.lwjgl.opengl.EXTFramebufferObject.glFramebufferTexture2DEXT;
+import static org.lwjgl.opengl.EXTFramebufferObject.glGenFramebuffersEXT;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_INT;
+import static org.lwjgl.opengl.GL11.GL_NEAREST;
+import static org.lwjgl.opengl.GL11.GL_RGBA;
+import static org.lwjgl.opengl.GL11.GL_RGBA8;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
+import static org.lwjgl.opengl.GL11.GL_VIEWPORT_BIT;
+import static org.lwjgl.opengl.GL11.glBindTexture;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glGenTextures;
+import static org.lwjgl.opengl.GL11.glPopAttrib;
+import static org.lwjgl.opengl.GL11.glPushAttrib;
+import static org.lwjgl.opengl.GL11.glTexImage2D;
+import static org.lwjgl.opengl.GL11.glTexParameteri;
+import static org.lwjgl.opengl.GL11.glViewport;
+import static org.lwjgl.opengl.GLContext.getCapabilities;
 
 import com.radirius.merc.fmwk.Runner;
 import com.radirius.merc.log.Logger;
@@ -25,9 +44,10 @@ public class FrameBuffer
     {
         this.fboid = fboid;
         
-        this.fbotex = Texture.createTextureObject(texid, width, height);
+        fbotex = Texture.createTextureObject(texid, width, height);
     }
     
+    /** Creates a new frame buffer object. */
     public static FrameBuffer getFrameBuffer()
     {
         if (!isSupported())
@@ -56,36 +76,42 @@ public class FrameBuffer
         return new FrameBuffer(fboid, texid, width, height);
     }
     
+    /** Begins recording of the FBO to the texture object. */
     public void use()
     {
         Texture.unbindTextures();
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fboid);
         glPushAttrib(GL_VIEWPORT_BIT);
-        glViewport(0, 0, (int)Runner.getInstance().getCamera().getWidth(), (int)Runner.getInstance().getCamera().getHeight());
+        glViewport(0, 0, (int) Runner.getInstance().getCamera().getWidth(), (int) Runner.getInstance().getCamera().getHeight());
         glClear(GL_COLOR_BUFFER_BIT);
     }
     
+    /** Finalizes the recording of the FBO, and releases it. */
     public void release()
     {
         releaseFrameBuffers();
         glPopAttrib();
     }
     
+    /** @return The last recorded texture. */
     public Texture getTextureObject()
     {
         return fbotex;
     }
     
+    /** Staticly 'use().' */
     public static void useFrameBuffer(FrameBuffer fbo)
     {
         fbo.use();
     }
     
+    /** Returns to original frame buffer (window). */
     public static void releaseFrameBuffers()
     {
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
     }
     
+    /** @return If FBOs are supported */
     public static boolean isSupported()
     {
         return getCapabilities().GL_EXT_framebuffer_object;

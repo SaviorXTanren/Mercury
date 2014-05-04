@@ -1,15 +1,7 @@
 package com.radirius.merc.res;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-
-import com.radirius.merc.gfx.Texture;
-import com.radirius.merc.log.Logger;
-import com.radirius.merc.paulscodeaud.Audio;
 
 /**
  * An object that will hold, handle, and load all resources, so that one
@@ -32,112 +24,51 @@ import com.radirius.merc.paulscodeaud.Audio;
 public class ResourceManager
 {
     private final HashMap<String, Resource> resources = new HashMap<String, Resource>();
-
+    
+    /** Loads a resource by the key key. */
     public void loadResource(Resource res, String key)
     {
         resources.put(key, res);
     }
-
+    
+    /**
+     * Loads multiple resources, simply concatinating "_n" to the key with each
+     * new one, n being the number of resources processed.
+     */
     public void loadResources(Resource[] resources, String key)
     {
         for (int t = 0; t < resources.length; t++)
             this.resources.put(key + "_" + t, resources[t]);
     }
-
+    
+    /** @return The resource of the key key. */
     public Resource retrieveResource(String key)
     {
         return resources.get(key);
     }
-
+    
+    /** Removes the resource of the key key. */
     public void clearResource(String key)
     {
         resources.remove(key);
     }
-
+    
+    /**
+     * A method for releasing anything that needs to be released, for it is the
+     * end!
+     */
     public void cleanup()
     {
         resources.clear();
     }
-
-    public void autoLoadExternal(String path)
-    {
-        path = path.replace('/', '\\');
-        loadExternal(path);
-    }
-
-    public void autoLoadInternal(String path, String jarname)
-    {
-        path = path.replace('/', '\\');
-        loadInternal(path, jarname);
-    }
-
-    private void loadExternal(String path)
-    {
-        Logger.debug("Auto loading resources from path: " + path);
-        File folder = new File(path);
-        if (folder.exists())
-        {
-            if (folder.isDirectory())
-                for (File currentFile : folder.listFiles())
-                {
-                    Logger.debug("Loading: " + currentFile.getName());
-                    loadFile(currentFile);
-                }
-            else
-                Logger.debug(path + " is not a valid dir ectory!");
-        } else
-            Logger.debug(path + " is not a valid location!");
-    }
-
-    private void loadInternal(String path, String jarname)
-    {
-        Logger.debug("Auto loading resources from path: " + path + seperatorChar() + jarname);
-        JarFile jar = null;
-        try
-        {
-            jar = new JarFile(path + seperatorChar() + jarname);
-        } catch (IOException e)
-        {
-            Logger.debug("Could not open: " + jarname + " at location: " + path);
-            e.printStackTrace();
-        }
-        for (Enumeration<JarEntry> files = jar.entries(); files.hasMoreElements();)
-        {
-            JarEntry entry = files.nextElement();
-            Logger.debug("Loading: " + entry.getName());
-            loadFileFromJar(entry);
-        }
-    }
-
-    private void loadFileFromJar(JarEntry entry)
-    {
-    }
-
-    private void loadFile(File file)
-    {
-        String[] filename = file.getName().split("\\.");
-        switch (filename[1])
-        {
-        case "png":
-            loadResource(Texture.loadTexture(Loader.streamFromSys(file.getAbsoluteFile().toString())), filename[0]);
-            break;
-        case "jpg":
-            loadResource(Texture.loadTexture(Loader.streamFromSys(file.getAbsoluteFile().toString())), filename[0]);
-            break;
-        case "ogg":
-            loadResource(new Audio(file.getAbsoluteFile().toString()), filename[0]);
-            break;
-        case "wav":
-            loadResource(new Audio(file.getAbsoluteFile().toString()), filename[0]);
-            break;
-        }
-    }
-
+    
+    /** @return The user's directory. */
     public String getUserDirectory()
     {
         return System.getProperty("user.dir");
     }
-
+    
+    /** @return The seperating character. */
     public char seperatorChar()
     {
         return File.separatorChar;

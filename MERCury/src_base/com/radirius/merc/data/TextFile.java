@@ -27,17 +27,17 @@ public class TextFile
      * The lines of the file.
      */
     private String lines;
-
+    
     /**
      * The file that we are modifying/reading.
      */
     private File file;
-
+    
     /**
      * Whether or not the file is updated.
      */
     private boolean updated;
-
+    
     /**
      * @param file
      *            The file that we are modifying/reading.
@@ -48,9 +48,9 @@ public class TextFile
     {
         this.file = file;
         this.lines = lines;
-        this.updated = true;
+        updated = true;
     }
-
+    
     /**
      * Loads a file given url.
      * 
@@ -61,7 +61,6 @@ public class TextFile
     {
         File file = new File(url.getFile());
         if (!file.exists())
-        {
             try
             {
                 throw new MERCuryException("File not found: " + url.getFile());
@@ -69,10 +68,9 @@ public class TextFile
             {
                 e.printStackTrace();
             }
-        }
         return new TextFile(file, read(file));
     }
-
+    
     /**
      * Reads a file.
      * 
@@ -87,18 +85,16 @@ public class TextFile
         {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             while ((line = reader.readLine()) != null)
-            {
                 lines.append(line).append("\n");
-            }
             reader.close();
         } catch (IOException e)
         {
             e.printStackTrace();
         }
-
+        
         return lines.toString();
     }
-
+    
     /**
      * Writes data to the file, appending.
      * 
@@ -109,7 +105,7 @@ public class TextFile
     {
         write(data, true);
     }
-
+    
     /**
      * Writes data to the file, appending depending on append.
      * 
@@ -132,7 +128,7 @@ public class TextFile
             e.printStackTrace();
         }
     }
-
+    
     /**
      * @return The content of the updated file.
      */
@@ -140,7 +136,7 @@ public class TextFile
     {
         if (!updated)
         {
-            this.lines = TextFile.read(file);
+            lines = TextFile.read(file);
             updated = true;
         }
         return lines;

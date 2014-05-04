@@ -20,19 +20,15 @@ import java.net.URL;
 
 public class Loader
 {
-    /**
-     * @return The URL from a classpath.
-     */
+    /** @return The URL from a classpath. */
     public static URL loadFromClasspath(String loc)
     {
         loc = loc.replace('\\', '/');
-
+        
         return Loader.class.getClassLoader().getResource(loc);
     }
-
-    /**
-     * @return The URL from a file system.
-     */
+    
+    /** @return The URL from a file system. */
     public static URL loadFromSys(String loc)
     {
         loc = loc.replace('\\', '/');
@@ -45,10 +41,8 @@ public class Loader
         }
         return null;
     }
-
-    /**
-     * @return The InputStream from a classpath.
-     */
+    
+    /** @return The InputStream from a classpath. */
     public static InputStream streamFromClasspath(String loc)
     {
         try
@@ -60,10 +54,8 @@ public class Loader
         }
         return null;
     }
-
-    /**
-     * @return The InputStream from a file system.
-     */
+    
+    /** @return The InputStream from a file system. */
     public static InputStream streamFromSys(String loc)
     {
         try
@@ -75,7 +67,7 @@ public class Loader
         }
         return null;
     }
-
+    
     /**
      * @return The URL from a file system. If null, from the classpath. This is
      *         for easier modding.
@@ -84,15 +76,15 @@ public class Loader
     {
         URL filesys = loadFromSys(loc);
         URL classpath = loadFromClasspath(loc);
-
+        
         if (filesys != null)
             return filesys;
         else if (classpath != null)
             return classpath;
-
+        
         return null;
     }
-
+    
     /**
      * @return The InputStream from a file system. If null, from the classpath.
      *         This is for easier modding.
@@ -101,13 +93,13 @@ public class Loader
     {
         InputStream filesys = streamFromSys(loc);
         InputStream classpath = streamFromClasspath(loc);
-
+        
         if (filesys != null)
             return filesys;
-
+        
         else if (classpath != null)
             return classpath;
-
+        
         return null;
     }
 }

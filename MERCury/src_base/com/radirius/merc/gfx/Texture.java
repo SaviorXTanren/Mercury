@@ -1,6 +1,17 @@
 package com.radirius.merc.gfx;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_NEAREST;
+import static org.lwjgl.opengl.GL11.GL_RGBA;
+import static org.lwjgl.opengl.GL11.GL_RGBA8;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
+import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
+import static org.lwjgl.opengl.GL11.glBindTexture;
+import static org.lwjgl.opengl.GL11.glDeleteTextures;
+import static org.lwjgl.opengl.GL11.glGenTextures;
+import static org.lwjgl.opengl.GL11.glTexImage2D;
+import static org.lwjgl.opengl.GL11.glTexParameteri;
 
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -32,12 +43,25 @@ import com.radirius.merc.res.Resource;
 
 public class Texture implements Resource
 {
-    public static final int BYTES_PER_PIXEL = 4;
-    public static Texture BLANK_TEXTURE;
+    private static final int BYTES_PER_PIXEL = 4;
+    private static Texture BLANK_TEXTURE;
     
     private final int textureid, width, height;
     private final BufferedImage buf;
     
+    /**
+     * Make a texture of the textureid, with a width and height, based off of
+     * bufferedimage buf.
+     * 
+     * @param textureid
+     *            The id of the texture.
+     * @param width
+     *            The width of the texture.
+     * @param height
+     *            The height of the texture.
+     * @param buf
+     *            The source of the image, the bufferedimage.
+     */
     public Texture(int textureid, int width, int height, BufferedImage buf)
     {
         this.textureid = textureid;
@@ -46,31 +70,37 @@ public class Texture implements Resource
         this.buf = buf;
     }
     
+    /** Binds the texture. */
     public void bind()
     {
         glBindTexture(GL_TEXTURE_2D, textureid);
     }
     
+    /** Unbinds the texture. */
     public void unbind()
     {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
     
+    /** @return The texture's width. */
     public int getTextureWidth()
     {
         return width;
     }
     
+    /** @return The texture's height. */
     public int getTextureHeight()
     {
         return height;
     }
     
+    /** @return The texture's id. */
     public int getTextureId()
     {
         return textureid;
     }
     
+    /** @return The source image. */
     public BufferedImage getSourceImage()
     {
         if (buf == null)
@@ -104,66 +134,102 @@ public class Texture implements Resource
         return false;
     }
     
+    /** Staticly 'bind().' */
     public static void bindTexture(Texture tex)
     {
         tex.bind();
     }
     
+    /** Unbinds textures */
     public static void unbindTextures()
     {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
     
+    /** Loads a texture from in */
     public static Texture loadTexture(InputStream in)
     {
         return loadTexture(in, false, false, GL_NEAREST);
     }
     
+    /** Loads a texture from bi */
     public static Texture loadTexture(BufferedImage bi)
     {
         return loadTexture(bi, false, false);
     }
     
+    /**
+     * Loads a texture from in, flipping it depending on fliphor horizontally,
+     * and flipvert vertically.
+     */
     public static Texture loadTexture(InputStream in, boolean fliphor, boolean flipvert)
     {
         return loadTexture(in, fliphor, flipvert, GL_NEAREST);
     }
     
+    /**
+     * Loads a texture from bi, flipping it depending on fliphor horizontally,
+     * and flipvert vertically.
+     */
     public static Texture loadTexture(BufferedImage bi, boolean fliphor, boolean flipvert)
     {
         return loadTexture(bi, fliphor, flipvert, GL_NEAREST);
     }
     
+    /**
+     * Loads a texture from in, filtered through filter.
+     */
     public static Texture loadTexture(InputStream in, int filter) throws IOException
     {
         return loadTexture(in, false, false, filter);
     }
     
+    /**
+     * Loads a texture from bi, filtered through filter.
+     */
     public static Texture loadTexture(BufferedImage bi, int filter)
     {
         return loadTexture(bi, false, false, filter);
     }
     
+    /**
+     * Loads a texture from in, flipping it depending on fliphor horizontally,
+     * and flipvert vertically, filtered through filter.
+     */
     public static Texture loadTexture(InputStream in, boolean fliphor, boolean flipvert, int filter)
     {
         return loadTexture(in, fliphor, flipvert, 0, filter);
     }
     
+    /**
+     * Loads a texture from bi, flipping it depending on fliphor horizontally,
+     * and flipvert vertically, filtered through filter.
+     */
     public static Texture loadTexture(BufferedImage bi, boolean fliphor, boolean flipvert, int filter)
     {
         return loadTexture(bi, fliphor, flipvert, 0, filter);
     }
     
+    /**
+     * Loads a texture from in, rotating it by rot, filtered through filter.
+     */
     public static Texture loadTexture(InputStream in, int rot, int filter)
     {
         return loadTexture(in, false, false, rot, filter);
     }
     
+    /**
+     * Loads a texture from bi, rotating it by rot, filtered through filter.
+     */
     public static Texture loadTexture(BufferedImage bi, int rot, int filter)
     {
         return loadTexture(bi, false, false, rot, filter);
     }
     
+    /**
+     * Loads a texture from in, flipping it depending on fliphor horizontally,
+     * and flipvert vertically, rotated by rot, filtered through filter.
+     */
     public static Texture loadTexture(InputStream in, boolean fliphor, boolean flipvert, int rot, int filter)
     {
         try
@@ -176,8 +242,13 @@ public class Texture implements Resource
         return null;
     }
     
+    /**
+     * Loads a texture from bi, flipping it depending on fliphor horizontally,
+     * and flipvert vertically, rotated by rot, filtered through filter.
+     */
     public static Texture loadTexture(BufferedImage bi, boolean fliphor, boolean flipvert, int rot, int filter)
     {
+        rot *= -1;
         rot -= 90;
         AffineTransform transform = new AffineTransform();
         transform.rotate(MercMath.toRadians(rot), bi.getWidth() / 2, bi.getHeight() / 2);
@@ -220,11 +291,13 @@ public class Texture implements Resource
         return new Texture(textureid, bi.getWidth(), bi.getHeight(), bi);
     }
     
+    /** @return A texture object with no data or source image. */
     public static Texture createTextureObject(int textureid, int width, int height)
     {
         return new Texture(textureid, width, height, null);
     }
     
+    /** @return A blank, 4x4 white texture. */
     public static Texture getEmptyTexture()
     {
         if (BLANK_TEXTURE == null)

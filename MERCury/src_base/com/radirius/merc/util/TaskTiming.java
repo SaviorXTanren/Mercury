@@ -19,70 +19,71 @@ import com.radirius.merc.exc.TaskException;
 public class TaskTiming implements Runnable
 {
     private static boolean running = true;
-
+    
     private static CopyOnWriteArrayList<Task> tasks = new CopyOnWriteArrayList<Task>();
-
+    
+    /** Initializes the timing thread. */
     public static void init()
     {
         Thread t = new Thread(new TaskTiming());
         t.setName("merc_timertask");
         t.start();
     }
-
+    
+    /** Adds a task. */
     public static void addTask(Task task)
     {
         tasks.add(task);
     }
-
+    
+    /** Cleans up the timing thread. */
     public static void cleanup()
     {
         running = false;
     }
-
+    
     @Override
     public void run()
     {
         while (running)
-        {
             for (Task task : tasks)
             {
                 long time = System.currentTimeMillis();
                 long past = time - task.birth;
-
+                
                 if (past > task.timeout)
                 {
                     task.run();
-
+                    
                     if (task.recur == 0)
                         tasks.remove(task);
                     else
                     {
                         if (task.recur > 0)
                             task.recur--;
-
+                        
                         task.birth = time;
                     }
                 }
             }
-        }
     }
-
+    
     public abstract static class Task
     {
         public int recur;
         public long birth, timeout;
-
+        
         public Task(long timeout)
         {
             this(timeout, 0);
         }
-
+        
         public Task(long timeout, int reccurances)
         {
-            this.recur = reccurances;
-
-            this.birth = System.currentTimeMillis();
-
+            recur = reccurances;
+            
+            birth = System.currentTimeMillis();
+            
             if (timeout <= 0)
                 try
                 {
@@ -93,7 +94,7 @@ public class TaskTiming implements Runnable
                 }
             this.timeout = timeout;
         }
-
+        
         public abstract void run();
     }
 }

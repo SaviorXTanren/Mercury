@@ -17,27 +17,27 @@ import com.radirius.merc.res.ResourceManager;
 public class BasicUpdating extends Core
 {
     Runner rnr = Runner.getInstance();
-
+    
     public BasicUpdating()
     {
         super("...                             Timing!");
         rnr.init(this, 500, 50);
         rnr.run();
     }
-
+    
     public static void main(String[] args)
     {
         new BasicUpdating();
     }
-
+    
     @Override
     public void init(ResourceManager RM)
     {
         rnr.setFpsTarget(5);
     }
-
+    
     float x;
-
+    
     @Override
     public void update(float delta)
     {
@@ -48,16 +48,16 @@ public class BasicUpdating extends Core
          * init() method
          */
     }
-
+    
     @Override
     public void render(Graphics g)
     {
         g.drawCircle(x, 10, 5);
     }
-
+    
     @Override
     public void cleanup(ResourceManager RM)
     {
     }
-
+    
 }

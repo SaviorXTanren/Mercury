@@ -20,7 +20,7 @@ public abstract class AdvancedMercEntity implements MercEntity
 {
     /** A texture to render the entity with (if provided) */
     public Texture tex;
-
+    
     /** The x position */
     public float x;
     /** The y position */
@@ -29,7 +29,7 @@ public abstract class AdvancedMercEntity implements MercEntity
     public float w;
     /** The y size */
     public float h;
-
+    
     /**
      * @param x
      *            The x position
@@ -50,7 +50,7 @@ public abstract class AdvancedMercEntity implements MercEntity
         this.h = h;
         this.tex = tex;
     }
-
+    
     /**
      * @param x
      *            The x position
@@ -64,11 +64,11 @@ public abstract class AdvancedMercEntity implements MercEntity
         this.x = x;
         this.y = y;
         this.tex = tex;
-
+        
         w = this.tex.getTextureWidth();
         h = this.tex.getTextureHeight();
     }
-
+    
     /**
      * @param x
      *            The x position
@@ -86,14 +86,14 @@ public abstract class AdvancedMercEntity implements MercEntity
         this.w = w;
         this.h = h;
     }
-
+    
     @Override
     public void render(Graphics g)
     {
         if (tex != null)
             g.drawTexture(tex, 0, 0, tex.getTextureWidth(), tex.getTextureHeight(), x, y, x + w, y + h);
     }
-
+    
     /**
      * Moves the entity if the hypothetical position passed into isValidPosition
      * is okay.
@@ -106,14 +106,14 @@ public abstract class AdvancedMercEntity implements MercEntity
     public void move(float mx, float my)
     {
         float dx = x + mx, dy = y + my;
-
+        
         if (isValidPosition(dx, y))
             x += mx;
-
+        
         if (isValidPosition(x, dy))
             y += my;
     }
-
+    
     /**
      * Returns whether or not a position is valid (i.e. does not collide with
      * walls or something) given x and y.
@@ -124,7 +124,7 @@ public abstract class AdvancedMercEntity implements MercEntity
      *            The hypothetical y position.
      */
     public abstract boolean isValidPosition(float x, float y);
-
+    
     /**
      * @return A rectangle representing the 'bounds' of the entity.
      */
@@ -132,7 +132,7 @@ public abstract class AdvancedMercEntity implements MercEntity
     {
         return new Rectangle(x, y, w, h);
     }
-
+    
     /**
      * @return An ellipse representing the 'bounds' of the entity.
      */

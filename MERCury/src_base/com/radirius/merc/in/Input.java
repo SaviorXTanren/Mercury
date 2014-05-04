@@ -21,7 +21,8 @@ import com.radirius.merc.geo.Point;
  */
 public class Input
 {
-    // No, I did not type out all of these keys; I stole it from kevglass' slick2d source code! Shout out to him for crafting this much stuff!
+    // No, I did not type out all of these keys; I stole it from kevglass'
+    // slick2d source code! Shout out to him for crafting this much stuff!
     // https://bitbucket.org/kevglass/slick/src/9d7443ec33af/trunk/Slick/src/org/newdawn/slick/Input.java?at=default
     public static final int KEY_ESCAPE = 0x01;
     public static final int KEY_1 = 0x02;
@@ -149,16 +150,17 @@ public class Input
     public static final int KEY_SLEEP = 0xDF;
     public static final int KEY_LALT = KEY_LMENU;
     public static final int KEY_RALT = KEY_RMENU;
-
+    
     public static final int MOUSE_LEFT = 0;
     public static final int MOUSE_RIGHT = 1;
     public static final int MOUSE_MID = 2;
-
+    
     private ArrayList<Integer> eventkeystates = new ArrayList<Integer>();
-
+    
     private ArrayList<Integer> eventmousebuttonstates = new ArrayList<Integer>();
     private int mousedwheel = 0;
-
+    
+    /** Creates the input things. */
     public void create()
     {
         try
@@ -170,33 +172,37 @@ public class Input
             e.printStackTrace();
         }
     }
-
+    
+    /** Updates a list of things that happened every frame. */
     public void pollKeyboard()
     {
         eventkeystates.clear();
-
+        
         while (Keyboard.next())
             if (Keyboard.getEventKeyState())
                 eventkeystates.add(Keyboard.getEventKey());
     }
-
+    
+    /** Updates a list of things that happened every frame. */
     public void pollMouse()
     {
         eventmousebuttonstates.clear();
-
+        
         while (Mouse.next())
             if (Mouse.getEventButtonState())
                 eventmousebuttonstates.add(Mouse.getEventButton());
-
+        
         mousedwheel = Mouse.getDWheel();
     }
-
+    
+    /** Polls keyboard and mouse. */
     public void poll()
     {
         pollKeyboard();
         pollMouse();
     }
-
+    
+    /** @return If key was clicked. */
     public boolean keyClicked(int key)
     {
         for (Integer eventkey : eventkeystates)
@@ -204,81 +210,94 @@ public class Input
                 return true;
         return false;
     }
-
+    
+    /** @return If key is down. */
     public boolean keyDown(int key)
     {
         if (Keyboard.isKeyDown(key))
             return true;
         return false;
     }
-
+    
+    /** @return If key is up. */
     public boolean keyUp(int key)
     {
         return !keyDown(key);
     }
-
+    
+    /** @return If mousebutton was clicked. */
     public boolean mouseClicked(int mousebutton)
     {
         for (Integer eventmousebutton : eventmousebuttonstates)
             if (eventmousebutton == mousebutton)
                 return true;
-
+        
         return false;
     }
-
-    public boolean mouseDown(int button)
+    
+    /** @return If mousebutton is down. */
+    public boolean mouseDown(int mousebutton)
     {
-        return Mouse.isButtonDown(button);
+        return Mouse.isButtonDown(mousebutton);
     }
-
-    public boolean mouseUp(int button)
+    
+    /** @return If mousebutton is up. */
+    public boolean mouseUp(int mousebutton)
     {
-        return !mouseDown(button);
+        return !mouseDown(mousebutton);
     }
-
+    
+    /** @return If mouse wheel is going up. */
     public boolean mouseWheelUp()
     {
         return mousedwheel > 0;
     }
-
+    
+    /** @return If mouse wheel is going down. */
     public boolean mouseWheelDown()
     {
         return mousedwheel < 0;
     }
-
+    
+    /** @return Mouse position. */
     public Point getMousePosition()
     {
         return new Point(Mouse.getX(), Mouse.getY());
     }
-
+    
+    /** @return Mouse's x position. */
     public int getMouseX()
     {
         return Mouse.getX();
     }
-
+    
+    /** @return Mouse's y position. */
     public int getMouseY()
     {
         return Mouse.getY();
     }
-
+    
     /**
-     * 'Corrects' the mouse position.
+     * @return The mouse 'correct' position (Has to do with the opengl origin
+     *         being bottom left, and ours being top left).
      */
     public Point getAbsoluteMousePosition()
     {
         return new Point(Mouse.getX(), Display.getHeight() - 1 - Mouse.getY());
     }
-
+    
     /**
-     * 'Corrects' the mouse position's x.
+     * @return The mouse position's 'correct' x (Has to do with the opengl
+     *         origin being bottom left, and ours being top left).
      */
     public int getAbsoluteMouseX()
     {
         return Mouse.getX();
     }
-
+    
     /**
-     * 'Corrects' the mouse position's y.
+     * @return The mouse position's 'correct' y (Has to do with the opengl
+     *         origin being bottom left, and ours being top left).
      */
     public int getAbsoluteMouseY()
     {

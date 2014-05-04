@@ -24,47 +24,47 @@ import com.radirius.merc.spl.SplashScreen;
 public class ManagingResources extends Core
 {
     Runner rnr = Runner.getInstance();
-
+    
     public ManagingResources()
     {
         super("Managing Resources");
         rnr.init(this, 500, 500);
         rnr.run();
     }
-
+    
     public static void main(String[] args)
     {
         new ManagingResources();
     }
-
+    
     @Override
     public void init(ResourceManager RM) throws IOException, MERCuryException
     {
         rnr.getGraphics().setBackground(Color.cyan);
         rnr.getGraphics().scale(15.6f);
-
+        
         RM.loadResource(Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/tuts/lard.png")), "tex_lard");
-
+        
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
-
+    
     @Override
     public void update(float delta) throws MERCuryException
     {
-
+        
     }
-
+    
     @Override
     public void render(Graphics g) throws MERCuryException
     {
         Texture tex = (Texture) rnr.getResourceManager().retrieveResource("tex_lard");
         g.drawTexture(tex, 0, 0);
     }
-
+    
     @Override
     public void cleanup(ResourceManager RM) throws IOException, MERCuryException
     {
-
+        
     }
-
+    
 }

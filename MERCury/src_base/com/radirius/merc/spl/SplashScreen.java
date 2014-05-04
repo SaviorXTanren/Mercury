@@ -21,16 +21,26 @@ public class SplashScreen
 {
     public boolean showing = false;
     private boolean _return_ = true;
-
+    
     public long showtimemillis;
     public Texture tex;
-
+    
+    /**
+     * @param tex
+     *            The texture of the splash screen.
+     * @param showtimemillis
+     *            The time that the splash screen is shown.
+     */
     public SplashScreen(Texture tex, long showtimemillis)
     {
         this.showtimemillis = showtimemillis;
         this.tex = tex;
     }
-
+    
+    /**
+     * Shows the splash screen on screen, whilst checking if it is time to stop
+     * as well.
+     */
     public boolean show(Graphics g)
     {
         if (!showing)
@@ -38,6 +48,7 @@ public class SplashScreen
             // Evil timer
             TaskTiming.addTask(new Task(showtimemillis)
             {
+                @Override
                 public void run()
                 {
                     _return_ = false;
@@ -46,12 +57,12 @@ public class SplashScreen
             
             showing = true;
         }
-
+        
         Vec2 scale = Runner.getInstance().getGraphics().getScale();
         int scrw = (int) (Runner.getInstance().getWidth() / scale.x), scrh = (int) (Runner.getInstance().getHeight() / scale.y);
         float width = tex.getTextureWidth(), height = tex.getTextureHeight();
         float aspect = width / height;
-
+        
         if (scrw > scrh)
         {
             width = scrw;
@@ -61,22 +72,22 @@ public class SplashScreen
             width = scrw;
             height = width / aspect;
         }
-
+        
         g.drawTexture(tex, 0, 0, tex.getTextureWidth(), tex.getTextureHeight(), 0, scrh / 2 - height / 2, width, scrh / 2 - height / 2 + height);
         return _return_;
     }
-
+    
     /**
      * Show some love for MERCury and give some credit!
      * 
      * @return The love of all developers from MERCury, unless you are a child
-     *         murderer. Even if you code you can't get anybody's love. Sicko
+     *         murderer. Even if you code you can't get anybody's love. Sicko.
      */
     public static SplashScreen getMERCuryDefault()
     {
         Texture tex = null;
         tex = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/spl/splash.png"));
-
+        
         return new SplashScreen(tex, 3000);
     }
 }

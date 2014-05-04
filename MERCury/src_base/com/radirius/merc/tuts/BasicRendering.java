@@ -21,19 +21,19 @@ import com.radirius.merc.res.ResourceManager;
 public class BasicRendering extends Core
 {
     Runner rnr = Runner.getInstance();
-
+    
     public BasicRendering()
     {
         super("Basic Rendering");
         rnr.init(this, 400, 400);
         rnr.run();
     }
-
+    
     public static void main(String[] args)
     {
         new BasicRendering();
     }
-
+    
     @Override
     public void init(ResourceManager RM)
     {
@@ -44,15 +44,15 @@ public class BasicRendering extends Core
         rnr.getGraphics().scale(2);
         rnr.getGraphics().setBackground(Color.blue);
     }
-
+    
     @Override
     public void update(float delta)
     {
-
+        
     }
-
+    
     float x;
-
+    
     @Override
     public void render(Graphics g)
     {
@@ -65,20 +65,20 @@ public class BasicRendering extends Core
         /** Make it red! */
         g.setColor(Color.red);
         g.drawRect(r);
-
+        
         /** Hows about a circle? */
         g.setColor(Color.green);
         g.drawCircle(40, 40, 10);
-
+        
         /** Triangle? */
         g.setColor(Color.black);
         g.drawTriangle(20, 15, 20, 20, 15, 20);
-
+        
         /** Some text? */
         g.setColor(Color.red);
         g.drawString(0, 20, "Yo, dis is a game. So gangsta.\nMuch cool");
         /** Going to look pixelated, due to the scaling we did at init() */
-
+        
         /** A moving ellipse? ACTION! */
         g.setColor(Color.gray);
         g.drawEllipse(x += 0.2f, 30, 10, 10);
@@ -87,11 +87,11 @@ public class BasicRendering extends Core
          * 0.2 to it every render.
          */
     }
-
+    
     @Override
     public void cleanup(ResourceManager RM)
     {
-
+        
     }
-
+    
 }

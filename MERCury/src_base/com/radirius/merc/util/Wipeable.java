@@ -13,7 +13,9 @@ package com.radirius.merc.util;
 
 public interface Wipeable
 {
+    /** Wipes the object. */
     public void wipe();
-
+    
+    /** @return Whether or not the object is wiped. */
     public boolean wiped();
 }

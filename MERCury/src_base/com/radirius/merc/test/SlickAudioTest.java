@@ -22,9 +22,9 @@ import com.radirius.merc.spl.SplashScreen;
 public class SlickAudioTest extends Core
 {
     public Runner rnr = Runner.getInstance();
-
+    
     public Audio ogg, wav;
-
+    
     public SlickAudioTest()
     {
         super("Slick Audio Test!");
@@ -32,21 +32,21 @@ public class SlickAudioTest extends Core
         rnr.init(this, 300, 300);
         rnr.run();
     }
-
+    
     public static void main(String[] args)
     {
         new SlickAudioTest();
     }
-
+    
     @Override
     public void init(ResourceManager RM)
     {
         RM.loadResource(Audio.loadAudio(Loader.loadFromClasspath("com/radirius/merc/test/sound.ogg")), "ogg");
         RM.loadResource(Audio.loadAudio(Loader.loadFromClasspath("com/radirius/merc/test/sound.wav")), "wav");
-
+        
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
-
+    
     @Override
     public void update(float delta)
     {
@@ -55,23 +55,23 @@ public class SlickAudioTest extends Core
             ((Audio) rnr.getResourceManager().retrieveResource("wav")).toggle();
         else if (in.keyClicked(Input.KEY_O) || in.mouseClicked(Input.MOUSE_RIGHT) || in.mouseClicked(Input.MOUSE_MID))
             ((Audio) rnr.getResourceManager().retrieveResource("ogg")).toggle();
-
+        
         // This will be funny
         if (in.mouseWheelUp())
             rnr.getCamera().translate(0, 5f);
         else if (in.mouseWheelDown())
             rnr.getCamera().translate(0, -5f);
     }
-
+    
     String msg = "";
-
+    
     @Override
     public void render(Graphics g)
     {
         g.drawString(0, 0, "O = OGG\nW = WAV");
         g.drawString(0, 0, msg);
     }
-
+    
     @Override
     public void cleanup(ResourceManager RM)
     {

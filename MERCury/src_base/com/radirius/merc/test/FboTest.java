@@ -61,7 +61,7 @@ public class FboTest extends Core
     {
         fbo.use();
         {
-            TrueTypeFont f = (TrueTypeFont)g.getFont();
+            TrueTypeFont f = (TrueTypeFont) g.getFont();
             g.drawTexture(f.font_tex, 0, x);
             g.drawTexture(cuteface, x++, x);
             

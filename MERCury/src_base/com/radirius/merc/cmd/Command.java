@@ -20,7 +20,7 @@ public abstract class Command
      * for general instruction of using the command.
      */
     public final String manual;
-
+    
     /**
      * @param name
      *            The name of the command. This will be case-insensitive.
@@ -33,7 +33,7 @@ public abstract class Command
         this.name = name.toLowerCase();
         this.manual = manual;
     }
-
+    
     /**
      * @param name
      *            The name of the command. This will be case-insensitive.
@@ -42,10 +42,13 @@ public abstract class Command
     {
         this(name, "Command List Developer did not provide a manual for Command.");
     }
-
+    
     /**
      * The action to do when the command is run given args.
-     * @param args The arguments given for the command. You do not need to use these.
+     * 
+     * @param args
+     *            The arguments given for the command. You do not need to use
+     *            these.
      */
     public abstract void run(String... args);
 }

@@ -27,35 +27,35 @@ import com.radirius.merc.spl.SplashScreen;
 
 public class ShaderTest extends Core
 {
-
+    
     Runner rnr = Runner.getInstance();
     Shader program;
-
+    
     public ShaderTest()
     {
         super("MERCury Shader Test");
         rnr.init(this, 800, 600);
         rnr.run();
     }
-
+    
     Texture tex;
-
+    
     @Override
     public void init(ResourceManager RM) throws IOException
     {
         rnr.getGraphics().scale(4);
-
+        
         program = Shader.getShader(Loader.streamFromClasspath("com/radirius/merc/test/custom.vs"), Shader.VERTEX_SHADER);
         tex = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/torch.png"));
-
+        
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
-
+    
     @Override
     public void update(float delta)
     {
     }
-
+    
     @Override
     public void render(Graphics g)
     {
@@ -65,12 +65,12 @@ public class ShaderTest extends Core
         g.drawRect(new Rectangle(100, 100, 50, 50));
         g.releaseShaders();
     }
-
+    
     @Override
     public void cleanup(ResourceManager RM)
     {
     }
-
+    
     public static void main(String[] args)
     {
         new ShaderTest();

@@ -28,7 +28,7 @@ import com.radirius.merc.spl.SplashScreen;
 public class PaulscodeAudioTest extends Core
 {
     Runner rnr = Runner.getInstance();
-
+    
     public PaulscodeAudioTest()
     {
         super("Paulscode Audio Test!");
@@ -36,7 +36,7 @@ public class PaulscodeAudioTest extends Core
         rnr.init(this, 800, 600);
         rnr.run();
     }
-
+    
     @Override
     public void init(ResourceManager RM)
     {
@@ -48,10 +48,10 @@ public class PaulscodeAudioTest extends Core
         {
             e.printStackTrace();
         }
-
+        
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
-
+    
     @Override
     public void update(float delta)
     {
@@ -61,18 +61,18 @@ public class PaulscodeAudioTest extends Core
         else if (in.keyClicked(Keyboard.KEY_O))
             ((Audio) rnr.getResourceManager().retrieveResource("ogg")).toggle();
     }
-
+    
     @Override
     public void render(Graphics g)
     {
         g.drawString(0, 0, "O = OGG\nW = WAV");
     }
-
+    
     @Override
     public void cleanup(ResourceManager RM)
     {
     }
-
+    
     public static void main(String[] args)
     {
         new PaulscodeAudioTest();

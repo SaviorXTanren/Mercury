@@ -16,7 +16,6 @@ import com.radirius.merc.geo.Ellipse;
 import com.radirius.merc.geo.Point;
 import com.radirius.merc.geo.Rectangle;
 import com.radirius.merc.geo.TexturedRectangle;
-import com.radirius.merc.geo.TexturedTriangle;
 import com.radirius.merc.geo.Triangle;
 import com.radirius.merc.geo.Vec2;
 
@@ -70,12 +69,9 @@ public class VAOGraphics implements Graphics
     public void setDrawMode(int mode)
     {
         if (mode == FILLED)
-        {
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        } else
-        {
+        else
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        }
     }
     
     @Override
@@ -101,6 +97,7 @@ public class VAOGraphics implements Graphics
         // Logger.debug(x + ", " + y + " | " + scale.toString());
     }
     
+    @Override
     public Vec2 getScale()
     {
         return scale;
@@ -334,13 +331,7 @@ public class VAOGraphics implements Graphics
         float x3 = triangle.getVertices()[2].x;
         float y3 = triangle.getVertices()[2].y;
         
-        if (!(triangle instanceof TexturedTriangle))
-            batcher.clearTextures();
-        else
-        {
-            TexturedTriangle texrect = (TexturedTriangle) triangle;
-            batcher.setTexture(texrect.getTexture());
-        }
+        batcher.clearTextures();
         
         batcher.vertex(x1, y1, 0, 1);
         batcher.vertex(x3, y3, 1, 1);

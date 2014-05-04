@@ -10,7 +10,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * A way to store information outside of local data and store data in files. Uses a system of properties and values.
+ * A way to store information outside of local data and store data in files.
+ * Uses a system of properties and values.
  * 
  * @from merc in com.radirius.merc.data
  * @authors wessles, Jeviny
@@ -27,17 +28,17 @@ public class MercData
      * faulty version.
      */
     public static final int PARSER_VERSION = 1;
-
+    
     /**
      * Location of the data file.
      */
     public String location;
-
+    
     /**
      * The values of the data file. This is temperary in-code storage.
      */
     public HashMap<String, String> vals = new HashMap<String, String>();
-
+    
     /**
      * @param A
      *            URL indicating the location of the file.
@@ -45,16 +46,16 @@ public class MercData
     public MercData(URL url)
     {
         location = url.getFile();
-
+        
         if (location.contains("."))
             location = location.substring(0, location.indexOf('.')) + ".MERC.dat";
         else
             location += ".MERC.dat";
-
+        
         if (new File(location).exists())
             load();
     }
-
+    
     /**
      * @param prop
      *            The property you are modifying (case sensitive).
@@ -65,7 +66,7 @@ public class MercData
     {
         vals.put(prop, val);
     }
-
+    
     /**
      * @param The
      *            property you want to see the value of.
@@ -75,7 +76,7 @@ public class MercData
     {
         return vals.get(prop);
     }
-
+    
     /**
      * Closes the file, and saves it.
      */
@@ -84,7 +85,7 @@ public class MercData
         save();
         vals.clear();
     }
-
+    
     /**
      * To be used to load all of our properties
      */
@@ -98,12 +99,12 @@ public class MercData
         {
             e.printStackTrace();
         }
-
+        
         String parser = scan.nextLine();
         parser = parser.substring(parser.indexOf(" ") + 1, parser.lastIndexOf(" "));
         if (Integer.parseInt(parser) != PARSER_VERSION)
             System.out.println("RAR!");
-
+        
         while (scan.hasNext())
         {
             String prop = scan.next();
@@ -111,17 +112,17 @@ public class MercData
             System.out.println(prop + " " + val);
             vals.put(prop, val);
         }
-
+        
         scan.close();
     }
-
+    
     /**
      * To be used to SAVE your changes!
      */
     private void save()
     {
         PrintWriter write = null;
-
+        
         try
         {
             write = new PrintWriter(new FileOutputStream(new File(location)));
@@ -129,17 +130,17 @@ public class MercData
         {
             e.printStackTrace();
         }
-
+        
         write.println("<! " + PARSER_VERSION + " >");
-
+        
         for (int i = 0; i < vals.size(); i++)
         {
             String prop = (String) vals.keySet().toArray()[i];
             String val = (String) vals.values().toArray()[i];
-
+            
             write.println(prop + " " + val);
         }
-
+        
         write.close();
     }
 }

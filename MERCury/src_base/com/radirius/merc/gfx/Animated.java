@@ -12,5 +12,6 @@ package com.radirius.merc.gfx;
  */
 public interface Animated
 {
+    /** @return The animation object. */
     public Animation getAnimation();
 }

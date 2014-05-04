@@ -17,6 +17,10 @@ import java.util.Iterator;
 @SuppressWarnings("serial")
 public class WipingArrayList<T extends Wipeable> extends ArrayList<T>
 {
+    /**
+     * Goes through list, removing any objects that have declared themselves
+     * 'wiped.'
+     */
     public void sweep()
     {
         for (Iterator<?> i = iterator(); i.hasNext();)

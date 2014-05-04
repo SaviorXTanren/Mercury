@@ -20,15 +20,15 @@ public class ArrayUtils
     {
         if (coords.length % 2 != 0)
             throw new IllegalArgumentException("Vertex coords must be even!");
-
+        
         Vec2[] vectors = new Vec2[coords.length / 2];
-
+        
         for (int v = 0; v < coords.length; v += 2)
             vectors[v / 2] = new Vec2(coords[v], coords[v + 1]);
-
+        
         return vectors;
     }
-
+    
     public static ArrayList<Vec2> getListFromVectors(Vec2[] vecs)
     {
         ArrayList<Vec2> result = new ArrayList<Vec2>();

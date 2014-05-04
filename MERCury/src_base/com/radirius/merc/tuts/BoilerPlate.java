@@ -23,7 +23,7 @@ public class BoilerPlate extends Core
      * Runner.getInstance()!
      */
     Runner rnr = Runner.getInstance();
-
+    
     public BoilerPlate()
     {
         /** Title for the window */
@@ -33,7 +33,7 @@ public class BoilerPlate extends Core
         /** Run the library */
         rnr.run();
     }
-
+    
     /**
      * Calls an instance of BoilerPlate, which extends Core
      */
@@ -41,7 +41,7 @@ public class BoilerPlate extends Core
     {
         new BoilerPlate();
     }
-
+    
     /**
      * Not used here, but will be used later for graphical settings, resource
      * loading, etc.
@@ -50,20 +50,20 @@ public class BoilerPlate extends Core
     public void init(ResourceManager RM)
     {
     }
-
+    
     /** Used for logic. Here, you handle input, data, etc. */
     @Override
     public void update(float delta)
     {
     }
-
+    
     /** Used for everything the user can sense. Lets just draw some lel */
     @Override
     public void render(Graphics g)
     {
         g.drawString(0, 0, "Ya, we got da stuffs. You got da monez?");
     }
-
+    
     /** Used for cleaning up and finalizing everything before the library closes */
     @Override
     public void cleanup(ResourceManager RM)

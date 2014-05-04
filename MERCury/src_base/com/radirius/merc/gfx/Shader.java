@@ -28,32 +28,50 @@ import com.radirius.merc.res.Resource;
 
 public class Shader implements Resource
 {
+    /** The default shader for OGL. */
     public static final int DEFAULT_SHADER = 0;
+    /** The vertex shader type. */
     public static final int VERTEX_SHADER = 0;
+    /** The fragment shader type. */
     public static final int FRAGMENT_SHADER = 1;
     
     private final int programobject;
     
+    /**
+     * @param programobject
+     *            The id for the program object you wish to encapsulate.
+     */
     public Shader(int programobject)
     {
         this.programobject = programobject;
     }
     
+    /** @return The id for the encapsulated program object. */
     public int getProgramObject()
     {
         return programobject;
     }
     
+    /** Uses the shader (only use if you know what you are doing). */
     public void use()
     {
         ARBShaderObjects.glUseProgramObjectARB(programobject);
     }
     
+    /** Sets the shader to default. */
     public void release()
     {
-        ARBShaderObjects.glUseProgramObjectARB(DEFAULT_SHADER);
+        releaseShaders();
     }
     
+    /**
+     * Passes a uniform variable into the shader
+     * 
+     * @param name
+     *            The name of the variable.
+     * @param values
+     *            The values you wish to pass in.
+     */
     public void setUniformf(String name, float... values)
     {
         int location = ARBShaderObjects.glGetUniformLocationARB(programobject, name);
@@ -68,6 +86,14 @@ public class Shader implements Resource
             ARBShaderObjects.glUniform4fARB(location, values[0], values[1], values[2], values[3]);
     }
     
+    /**
+     * Passes a uniform variable into the shader
+     * 
+     * @param name
+     *            The name of the variable.
+     * @param values
+     *            The values you wish to pass in.
+     */
     public void setUniformi(String name, int... values)
     {
         int location = ARBShaderObjects.glGetUniformLocationARB(programobject, name);
@@ -88,16 +114,25 @@ public class Shader implements Resource
         glDeleteProgram(programobject);
     }
     
+    /**
+     * Staticly 'use().'
+     */
     public static void useShader(Shader shader)
     {
         shader.use();
     }
     
+    /**
+     * Set the shader to default.
+     */
     public static void releaseShaders()
     {
         ARBShaderObjects.glUseProgramObjectARB(DEFAULT_SHADER);
     }
     
+    /**
+     * @return A shader based off of the two program objects vert and frag.
+     */
     public static Shader getShader(int vert, int frag)
     {
         int program = ARBShaderObjects.glCreateProgramObjectARB();
@@ -125,11 +160,25 @@ public class Shader implements Resource
         return new Shader(program);
     }
     
+    /**
+     * @param vin
+     *            The vertex shader's file
+     * @param fin
+     *            The fragment shader's file.
+     * @return A shader based off of the files in vin and fin.
+     */
     public static Shader getShader(InputStream vin, InputStream fin) throws Exception
     {
         return getShader(readShader(vin), readShader(fin));
     }
     
+    /**
+     * @param vsrc
+     *            The source of the vertex shader.
+     * @param fsrc
+     *            The source of the fragment shader.
+     * @return A shader based off of the sources vsrc and fsrc.
+     */
     public static Shader getShader(String vsrc, String fsrc)
     {
         int vertShader = 0;
@@ -174,10 +223,27 @@ public class Shader implements Resource
         return new Shader(program);
     }
     
-    public static Shader getShader(InputStream src, int type) {
+    /**
+     * @param src
+     *            The stream to the source file.
+     * @param type
+     *            The type of shader (the other half will use the MERCury
+     *            default shader).
+     * @return A shader based off of the stream src, of the type type.
+     */
+    public static Shader getShader(InputStream src, int type)
+    {
         return getShader(readShader(src), type);
     }
     
+    /**
+     * @param src
+     *            The source of the shader.
+     * @param type
+     *            The type of shader (the other half will use the MERCury
+     *            default shader).
+     * @return A shader based off of the src of the type type.
+     */
     public static Shader getShader(String src, int type)
     {
         int vertShader = 0;
@@ -328,6 +394,7 @@ public class Shader implements Resource
         return source.toString();
     }
     
+    /** The default shader for MERCury (not to be confused with shader 0). */
     public static Shader getDefaultShader()
     {
         try

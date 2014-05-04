@@ -93,7 +93,7 @@ public class VAOBatcher implements Batcher
     @Override
     public void cycle()
     {
-        if(active)
+        if (active)
             end();
         else
             begin();
@@ -132,7 +132,7 @@ public class VAOBatcher implements Batcher
     }
     
     @Override
-    public void render(boolean hasColor, boolean hasTexture)
+    public void flush(boolean hasColor, boolean hasTexture)
     {
         if (hasTexture)
         {

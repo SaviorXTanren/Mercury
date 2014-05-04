@@ -7,6 +7,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import com.radirius.merc.gfx.Texture;
 import com.radirius.merc.log.Logger;
@@ -36,9 +37,9 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
     {
         try
         {
-            OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont("com/radirius/merc/gfx/OpenSans-Semibold.ttf", 20, 1, true);
-            OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont("com/radirius/merc/gfx/OpenSans-Semibold.ttf", 20, 1, true);
-            OPENSANS_SEMIBOLD = TrueTypeFont.loadTrueTypeFont("com/radirius/merc/gfx/OpenSans-Semibold.ttf", 20, 1, true);
+            OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/merc/gfx/OpenSans-Semibold.ttf"), 20, 1, true);
+            OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/merc/gfx/OpenSans-Semibold.ttf"), 20, 1, true);
+            OPENSANS_SEMIBOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/merc/gfx/OpenSans-Semibold.ttf"), 20, 1, true);
         } catch (IOException e)
         {
             Logger.warn("Problems loading default opensans fonts.");
@@ -48,19 +49,26 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
         }
     }
     
+    /** All data for all characters. */
     public final IntObject[] chars = new IntObject[256];
     
+    /** Shall we antialias? */
     private boolean antialias;
     
+    /** The size of the font */
     private int font_size = 0;
+    /** The height of the font */
     private int font_height = 0;
     
+    /** The overall texture used for rendering the font. */
     public Texture font_tex;
     
     private int texw = 512;
     private int texh = 512;
     
+    /** Some awt jargon for fonts. */
     private java.awt.Font font;
+    /** Some awt jargon for fonts. */
     private FontMetrics fmetrics;
     
     private TrueTypeFont(java.awt.Font font, boolean antialias)
@@ -224,6 +232,7 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
         return font_tex;
     }
     
+    /** An object type for storing data for each character. */
     public static class IntObject
     {
         public int w;
@@ -238,14 +247,35 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
         font_tex.clean();
     }
     
-    public static TrueTypeFont loadTrueTypeFont(String location, float size, int style, boolean antialias) throws FileNotFoundException, FontFormatException, IOException
+    /**
+     * Let's load a font!
+     * 
+     * @param is
+     *            The stream for the font.
+     * @param size
+     *            The size of the font.
+     * @param style
+     *            The style of the font.
+     * @param antialias
+     *            Shall we antialias?
+     */
+    public static TrueTypeFont loadTrueTypeFont(InputStream is, float size, int style, boolean antialias) throws FileNotFoundException, FontFormatException, IOException
     {
-        java.awt.Font font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, Loader.streamFromClasspath(location));
+        java.awt.Font font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, is);
         
         font = font.deriveFont(size);
         
         return loadTrueTypeFont(font, antialias);
     }
+    
+    /**
+     * Let's load a font!
+     * 
+     * @param font
+     *            The base awt font.
+     * @param antialias
+     *            Shall we antialias?
+     */
     
     public static TrueTypeFont loadTrueTypeFont(java.awt.Font font, boolean antialias)
     {
