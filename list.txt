@@ -63,16 +63,16 @@ Primary To-Do List:
    // Add filtering to splash, looks bad resizing
       [-] Fading
       [-] Tinting
-- [-] Texture Post-Processing
-- [-] Post-Processing support using VBOs
-- [-] Frackin' do the GUI FREAKING PIECE OF FRICK JEVINY
+- [+] Texture Post-Processing
+- [+] Post-Processing support using VBOs
+- [=] Frackin' do the GUI FREAKING PIECE OF FRICK JEVINY
 - [-] Easing utilities
 - [-] Actually do something during splash screen
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
 
 - [-] Buy official Radirius domain name.
-- [-] Make Website.
+- [=] Make Website.
 ---------------------------------------------------------------------------------------------
 
 End of list.
@@ -84,3 +84,7 @@ THIS IS THE DARK SIDE OF THE LIST, THE MESSY PART. PLEASE PUT ANY UNORGANISED BU
 [01:42] <DesertRock> Jeviny_Web: Tips for making me apperciate your project: 1) What language language? 2) Purpose? 3) Example of usage 4) Link to online documentation. If those things aren't on the Readme.md, I tend to avoid using the library.
 
 Let's listen to this guy.
+
+zoomy narty, elez leleleslelsz
+
+u wot m8
