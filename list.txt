@@ -69,6 +69,7 @@ Primary To-Do List:
 - [-] Easing utilities
 - [-] Actually do something during splash screen
 - [-] Resource lists
+- [-] JEV YOU ALSO SHUD COMMENT OUT THE GUI STUFFS
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
 
