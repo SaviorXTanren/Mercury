@@ -45,7 +45,7 @@ public class GUITest extends Core
     public void init(ResourceManager RM) throws IOException, MERCuryException
     {
         Texture left = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/side_tbar.png"));
-        Texture right = left.flipX();
+        Texture right = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/side_tbar.png"), true, false);
         Texture body = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/body_tbar.png"));
 
         tbar0 = new TextBar("Progressive stupidity, a poem by wesslas", left, right, body, 10, 10);
@@ -77,8 +77,6 @@ public class GUITest extends Core
     {
         g.setBackground(Color.gray);
 
-        // tbar0.render(g);
-        // tbox0.render(g);
         tpan1.render(g);
     }
 

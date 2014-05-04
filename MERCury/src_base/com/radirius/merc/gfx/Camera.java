@@ -64,6 +64,16 @@ public class Camera
         this.y -= y;
     }
 
+    public float getWidth()
+    {
+        return Runner.getInstance().getWidth()/Runner.getInstance().getGraphics().getScale().x;
+    }
+    
+    public float getHeight()
+    {
+        return Runner.getInstance().getHeight()/Runner.getInstance().getGraphics().getScale().y;
+    }
+    
     public float getPositionX()
     {
         return getPosition().x;

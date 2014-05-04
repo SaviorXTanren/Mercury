@@ -56,12 +56,12 @@ public interface Graphics
     public Batcher getBatcher();
 
     public void drawRawVertices(VAOBatcher.VertexData... verts);
+    
+    public void flush();
 
     public void drawString(float x, float y, String msg);
 
     public void drawString(Font font, float x, float y, String msg);
-
-    public void drawString(Font font, float x, float y, float sizemult, String msg);
 
     public void drawTexture(Texture texture, float x, float y);
 

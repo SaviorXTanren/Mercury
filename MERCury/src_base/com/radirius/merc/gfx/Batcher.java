@@ -15,9 +15,13 @@ public interface Batcher
 
     public void begin();
 
+    public boolean isActive();
+    
     public void end();
+    
+    public void cycle();
 
-    public void render();
+    public void flush();
 
     public void render(boolean hasColor, boolean hasTexture);
 

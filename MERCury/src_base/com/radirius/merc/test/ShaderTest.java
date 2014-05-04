@@ -45,7 +45,7 @@ public class ShaderTest extends Core
     {
         rnr.getGraphics().scale(4);
 
-        program = Shader.getDefaultShader();
+        program = Shader.getShader(Loader.streamFromClasspath("com/radirius/merc/test/custom.vs"), Shader.VERTEX_SHADER);
         tex = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/torch.png"));
 
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());

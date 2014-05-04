@@ -173,6 +173,12 @@ public class VAOGraphics implements Graphics
     }
     
     @Override
+    public void flush()
+    {
+        batcher.flush();
+    }
+    
+    @Override
     public void drawString(float x, float y, String what)
     {
         drawString(current_font, x, y, what);
@@ -180,12 +186,6 @@ public class VAOGraphics implements Graphics
     
     @Override
     public void drawString(Font font, float x, float y, String what)
-    {
-        drawString(font, x, y, 1, what);
-    }
-    
-    @Override
-    public void drawString(Font font, float x, float y, float sizemult, String what)
     {
         if (font instanceof TrueTypeFont)
         {
@@ -203,8 +203,8 @@ public class VAOGraphics implements Graphics
                 
                 TrueTypeFont.IntObject intobj = jf.chars[what.toCharArray()[ci]];
                 
-                drawTexture(jf.font_tex, intobj.x, intobj.y, intobj.x + intobj.w, intobj.y + intobj.h, x + current_x, y, x + current_x + intobj.w * sizemult, y + intobj.h * sizemult);
-                current_x += intobj.w * sizemult;
+                drawTexture(jf.font_tex, intobj.x, intobj.y, intobj.x + intobj.w, intobj.y + intobj.h, x + current_x, y, x + current_x + intobj.w, y + intobj.h);
+                current_x += intobj.w;
             }
         }
     }
@@ -212,56 +212,19 @@ public class VAOGraphics implements Graphics
     @Override
     public void drawTexture(Texture texture, float x, float y)
     {
-        float w = texture.getTextureWidth();
-        float h = texture.getTextureHeight();
-        
-        batcher.setTexture(texture);
-        
-        batcher.vertex(x, y, 0, 0);
-        batcher.vertex(x + w, y, 1, 0);
-        batcher.vertex(x, y + h, 0, 1);
-        
-        batcher.vertex(x + w, y + h, 1, 1);
-        batcher.vertex(x + w, y, 1, 0);
-        batcher.vertex(x, y + h, 0, 1);
+        drawTexture(texture, x, y, texture.getTextureWidth(), texture.getTextureHeight());
     }
     
     @Override
     public void drawTexture(Texture texture, float x, float y, float w, float h)
     {
-        batcher.setTexture(texture);
-        
-        batcher.vertex(x, y, 0, 0);
-        batcher.vertex(x + w, y, 1, 0);
-        batcher.vertex(x, y + h, 0, 1);
-        
-        batcher.vertex(x + w, y + h, 1, 1);
-        batcher.vertex(x + w, y, 1, 0);
-        batcher.vertex(x, y + h, 0, 1);
+        drawTexture(texture, 0, 0, texture.getTextureWidth(), texture.getTextureHeight(), x, y, x + w, y + h);
     }
     
     @Override
     public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y)
     {
-        float w = texture.getTextureWidth();
-        float h = texture.getTextureHeight();
-        
-        sx1 /= w;
-        sy1 /= h;
-        sx2 /= w;
-        sy2 /= h;
-        w *= sx2 - sx1;
-        h *= sy2 - sy1;
-        
-        batcher.setTexture(texture);
-        
-        batcher.vertex(x, y, sx1, sy1);
-        batcher.vertex(x + w, y, sx2, sy1);
-        batcher.vertex(x, y + h, sx1, sy2);
-        
-        batcher.vertex(x + w, y + h, sx2, sy2);
-        batcher.vertex(x + w, y, sx2, sy1);
-        batcher.vertex(x, y + h, sx1, sy2);
+        drawTexture(texture, sx1, sy1, sx2, sy2, x, y, x + texture.getTextureWidth(), y + texture.getTextureHeight());
     }
     
     @Override
@@ -269,6 +232,10 @@ public class VAOGraphics implements Graphics
     {
         float w = texture.getTextureWidth();
         float h = texture.getTextureHeight();
+        
+        sy1 = h - sy1;
+        sy2 = h - sy2;
+        
         sx1 /= w;
         sy1 /= h;
         sx2 /= w;
@@ -290,16 +257,7 @@ public class VAOGraphics implements Graphics
     {
         float w = texture.getSheet().getSheetTexture().getTextureWidth() / texture.getSheet().getNumTextures();
         float h = texture.getSheet().getSheetTexture().getTextureHeight() / texture.getSheet().getNumTextures();
-        
-        batcher.setTexture(texture.getSheet().getSheetTexture());
-        
-        batcher.vertex(x, y, texture.getX(), texture.getY());
-        batcher.vertex(x + w, y, texture.getX() + texture.getSize(), texture.getY());
-        batcher.vertex(x, y + h, texture.getX(), texture.getY() + texture.getSize());
-        
-        batcher.vertex(x + w, y + h, texture.getX() + texture.getSize(), texture.getY() + texture.getSize());
-        batcher.vertex(x + w, y, texture.getX() + texture.getSize(), texture.getY());
-        batcher.vertex(x, y + h, texture.getX(), texture.getY() + texture.getSize());
+        drawTexture(texture, x, y, w, h);
     }
     
     @Override
@@ -313,13 +271,15 @@ public class VAOGraphics implements Graphics
     {
         batcher.setTexture(texture.getSheet().getSheetTexture());
         
-        batcher.vertex(x, y, texture.getX(), texture.getY());
-        batcher.vertex(x + w, y, texture.getX() + texture.getSize(), texture.getY());
-        batcher.vertex(x, y + h, texture.getX(), texture.getY() + texture.getSize());
+        float sx1 = texture.getX(), sx2 = texture.getX() + texture.getSize(), sy1 = texture.getY(), sy2 = texture.getY() + texture.getSize();
         
-        batcher.vertex(x + w, y + h, texture.getX() + texture.getSize(), texture.getY() + texture.getSize());
-        batcher.vertex(x + w, y, texture.getX() + texture.getSize(), texture.getY());
-        batcher.vertex(x, y + h, texture.getX(), texture.getY() + texture.getSize());
+        batcher.vertex(x, y, sx2, sy1);
+        batcher.vertex(x + w, y, sx1, sy1);
+        batcher.vertex(x, y + h, sx2, sy2);
+        
+        batcher.vertex(x + w, y + h, sx1, sy2);
+        batcher.vertex(x + w, y, sx1, sy1);
+        batcher.vertex(x, y + h, sx2, sy2);
     }
     
     @Override
@@ -342,13 +302,13 @@ public class VAOGraphics implements Graphics
             batcher.setTexture(texrect.getTexture());
         }
         
-        batcher.vertex(x1, y1, 0, 0);
-        batcher.vertex(x2, y2, 1, 0);
-        batcher.vertex(x4, y4, 0, 1);
+        batcher.vertex(x1, y1, 0, 1);
+        batcher.vertex(x2, y2, 1, 1);
+        batcher.vertex(x4, y4, 0, 0);
         
-        batcher.vertex(x3, y3, 1, 1);
-        batcher.vertex(x4, y4, 0, 1);
-        batcher.vertex(x2, y2, 1, 0);
+        batcher.vertex(x3, y3, 1, 0);
+        batcher.vertex(x4, y4, 0, 0);
+        batcher.vertex(x2, y2, 1, 1);
     }
     
     @Override
@@ -382,9 +342,9 @@ public class VAOGraphics implements Graphics
             batcher.setTexture(texrect.getTexture());
         }
         
-        batcher.vertex(x1, y1, 0, 0);
-        batcher.vertex(x3, y3, 1, 0);
-        batcher.vertex(x2, y2, 0, 1);
+        batcher.vertex(x1, y1, 0, 1);
+        batcher.vertex(x3, y3, 1, 1);
+        batcher.vertex(x2, y2, 0, 0);
     }
     
     @Override
