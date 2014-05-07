@@ -26,15 +26,24 @@ public class CommandThread implements Runnable
 {
     private volatile boolean running = false;
     
+    private static InputStream readstream = System.in;
+    private static boolean readstreamchanged = false;
+    
     @Override
     public void run()
     {
         running = true;
         
-        BufferedReader buf = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader buf = new BufferedReader(new InputStreamReader(readstream));
         
         runloop: while (running)
         {
+            if (readstreamchanged)
+            {
+                buf = new BufferedReader(new InputStreamReader(readstream));
+                readstreamchanged = false;
+            }
+            
             // Wait until we are ready... we don't want no hangin!
             try
             {
@@ -327,5 +336,11 @@ public class CommandThread implements Runnable
         }
         
         Logger.debug("Developer's console shutting down...");
+    }
+    
+    public static void setInputStream(InputStream in)
+    {
+        readstream = in;
+        readstreamchanged = true;
     }
 }
