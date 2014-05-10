@@ -12,12 +12,10 @@ import com.radirius.merc.gfx.Graphics;
  *          project 'MERCury' are licensed under WTFPL license. You can find the
  *          license itself at http://www.wtfpl.net/about/.
  */
-public abstract class GameState
-{
+public abstract class GameState {
     protected final StateCore parent_statecore;
     
-    public GameState(StateCore parent_statecore)
-    {
+    public GameState(StateCore parent_statecore) {
         this.parent_statecore = parent_statecore;
     }
     
@@ -25,8 +23,7 @@ public abstract class GameState
     
     public abstract void render(Graphics g);
     
-    public StateCore getParentStateCore()
-    {
+    public StateCore getParentStateCore() {
         return parent_statecore;
     }
 }

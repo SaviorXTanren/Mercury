@@ -21,8 +21,7 @@ import com.radirius.merc.res.Loader;
  *          project 'MERCury' are licensed under WTFPL license. You can find the
  *          license itself at http://www.wtfpl.net/about/.
  */
-public class TextPanel extends Component
-{
+public class TextPanel extends Component {
     public float margin;
     
     public Texture border_hor, border_vert, background_img;
@@ -36,15 +35,13 @@ public class TextPanel extends Component
     private Font titleFont = null;
     private Font txtFont = null;
     
-    public TextPanel(String title, String txt, float x, float y, float w, float h, float margin, Color textCol)
-    {
+    public TextPanel(String title, String txt, float x, float y, float w, float h, float margin, Color textCol) {
         this(title, txt, Texture.getEmptyTexture(), x, y, w, h, margin, textCol);
         
         hasBackground = false;
     }
     
-    public TextPanel(String title, String txt, Texture background_img, float x, float y, float w, float h, float margin, Color textCol)
-    {
+    public TextPanel(String title, String txt, Texture background_img, float x, float y, float w, float h, float margin, Color textCol) {
         super(fitStringToBounds(txt, w, margin), x, y, w, h, false, false);
         
         this.margin = margin;
@@ -52,18 +49,14 @@ public class TextPanel extends Component
         this.textCol = textCol;
         this.title = title;
         
-        try
-        {
+        try {
             titleFont = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/merc/gfx/OpenSans-Bold.ttf"), 32, 1, true);
             txtFont = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/merc/gfx/OpenSans-Semibold.ttf"), 20, 1, true);
-        } catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (FontFormatException e)
-        {
+        } catch (FontFormatException e) {
             e.printStackTrace();
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         
@@ -71,10 +64,8 @@ public class TextPanel extends Component
     }
     
     @Override
-    public void render(Graphics g)
-    {
-        if (!hasBackground)
-        {
+    public void render(Graphics g) {
+        if (!hasBackground) {
             float borderwidth = Math.min(border_hor.getTextureHeight(), border_hor.getTextureWidth());
             
             g.drawTexture(border_vert, 0, 0, w, borderwidth, x, y + h - borderwidth + margin);
@@ -89,8 +80,7 @@ public class TextPanel extends Component
         
         renderContent(g);
         
-        for (int i = 0; i < buttons.size(); i++)
-        {
+        for (int i = 0; i < buttons.size(); i++) {
             Button b = buttons.get(i);
             
             b.render(g);
@@ -98,8 +88,7 @@ public class TextPanel extends Component
     }
     
     @Override
-    public void renderContent(Graphics g)
-    {
+    public void renderContent(Graphics g) {
         g.setFont(titleFont);
         g.setColor(textCol);
         g.drawString(x + margin, y + margin, title);
@@ -111,27 +100,23 @@ public class TextPanel extends Component
     }
     
     @Override
-    public void update()
-    {
+    public void update() {
         super.update();
         
-        for (int i = 0; i < buttons.size(); i++)
-        {
+        for (int i = 0; i < buttons.size(); i++) {
             Button b = buttons.get(i);
             
             b.update();
         }
     }
     
-    public void addButton(String txt, Texture side, Texture body, GridLocation location)
-    {
+    public void addButton(String txt, Texture side, Texture body, GridLocation location) {
         // Was going to put some stuff here, and I did, but it was bad, so I
         // removed it.
         // ^^^ Story of the year.
     }
     
-    private static String fitStringToBounds(String txt, float w, float margin)
-    {
+    private static String fitStringToBounds(String txt, float w, float margin) {
         // A line of text
         String linetxt = "";
         
@@ -143,21 +128,18 @@ public class TextPanel extends Component
         String finaltxt = "";
         
         // Begin fitting!
-        while (idx < txt.length())
-        {
+        while (idx < txt.length()) {
             // Write character to line, and add to index
             linetxt += txt.charAt(idx);
             idx++;
             
             // If we are pushing the width limit or we are at the end of the
             // text, new line (or not)!
-            if (Runner.getInstance().getGraphics().getFont().getWidth(txt.substring(lidx, idx).toCharArray()) >= w - margin * 2 || idx >= txt.length())
-            {
+            if (Runner.getInstance().getGraphics().getFont().getWidth(txt.substring(lidx, idx).toCharArray()) >= w - margin * 2 || idx >= txt.length()) {
                 // Making sure no words get cut off, or split in half.
                 int lastspace = linetxt.lastIndexOf(' ');
                 
-                if (lastspace > 0)
-                {
+                if (lastspace > 0) {
                     idx -= linetxt.length() - lastspace;
                     linetxt = linetxt.substring(0, lastspace);
                 }
@@ -176,8 +158,7 @@ public class TextPanel extends Component
         return finaltxt;
     }
     
-    public static enum GridLocation
-    {
+    public static enum GridLocation {
         TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, MID_LEFT, MID_RIGHT;
     }
 }

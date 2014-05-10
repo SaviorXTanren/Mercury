@@ -10,8 +10,7 @@ package com.radirius.merc.gfx;
  *          project 'MERCury' are licensed under WTFPL license. You can find the
  *          license itself at http://www.wtfpl.net/about/.
  */
-public interface Animated
-{
+public interface Animated {
     /** @return The animation object. */
     public Animation getAnimation();
 }

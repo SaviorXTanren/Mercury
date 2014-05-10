@@ -12,8 +12,7 @@ import com.radirius.merc.math.MercMath;
  *          project 'MERCury' are licensed under WTFPL license. You can find the
  *          license itself at http://www.wtfpl.net/about/.
  */
-public class Ellipse extends Shape
-{
+public class Ellipse extends Shape {
     /** The radius in the respective axis. */
     public float radx, rady;
     /**
@@ -31,8 +30,7 @@ public class Ellipse extends Shape
      * @param rady
      *            The radius of the circle in the y axis.
      */
-    public Ellipse(float x, float y, float radx, float rady)
-    {
+    public Ellipse(float x, float y, float radx, float rady) {
         super(getTrigVerts(x, y, radx, rady));
         this.radx = radx;
         this.rady = rady;
@@ -42,8 +40,7 @@ public class Ellipse extends Shape
      * @return Basically the vertices for a whole bunch of triangles 'slices'
      *         that make up a circle, or 'pie.'
      */
-    public static Vec2[] getTrigVerts(float x, float y, float radx, float rady)
-    {
+    public static Vec2[] getTrigVerts(float x, float y, float radx, float rady) {
         radx = Math.abs(radx);
         rady = Math.abs(rady);
         
@@ -51,8 +48,7 @@ public class Ellipse extends Shape
         
         float angle = 0, step = 360 / MAX_VERTS;
         
-        for (int a = 0; a < MAX_VERTS; a++)
-        {
+        for (int a = 0; a < MAX_VERTS; a++) {
             verts[a] = new Vec2(x + MercMath.cos(angle) * radx, y + MercMath.sin(angle) * rady);
             angle += step;
         }
@@ -61,8 +57,7 @@ public class Ellipse extends Shape
     }
     
     @Override
-    public boolean intersects(Shape s)
-    {
+    public boolean intersects(Shape s) {
         float cx = getCenterX();
         float cy = getCenterY();
         
@@ -82,8 +77,7 @@ public class Ellipse extends Shape
     }
     
     @Override
-    public boolean contains(Vec2 v)
-    {
+    public boolean contains(Vec2 v) {
         float cx = getCenterX();
         float cy = getCenterY();
         

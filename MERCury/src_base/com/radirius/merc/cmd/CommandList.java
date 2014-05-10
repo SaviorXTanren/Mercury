@@ -15,8 +15,7 @@ import com.radirius.merc.exc.ConsoleException;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class CommandList
-{
+public class CommandList {
     /**
      * The general manual that will show up when requested in the dev console.
      */
@@ -30,14 +29,11 @@ public class CommandList
     /**
      * Adds a command list to the map commandlists.
      */
-    public static void addCommandList(CommandList cmdl)
-    {
+    public static void addCommandList(CommandList cmdl) {
         if (commandlists.containsKey(cmdl.name))
-            try
-            {
+            try {
                 throw new ConsoleException("A Command List already exists with the name '" + cmdl.name + "!' Command List adding failed.");
-            } catch (ConsoleException e)
-            {
+            } catch (ConsoleException e) {
                 e.printStackTrace();
             }
         commandlists.put(cmdl.name, cmdl);
@@ -61,8 +57,7 @@ public class CommandList
      *            The manual that will be shown when requested by the console
      *            user. Used for general instruction of using the command list.
      */
-    public CommandList(String name, final String manual)
-    {
+    public CommandList(String name, final String manual) {
         // CASE INSENSITIVE!!! HAW HAWH HAWW
         this.name = name.toLowerCase();
         this.manual = manual;
@@ -72,8 +67,7 @@ public class CommandList
      * @param name
      *            The name of the command list. This will be case-insensitive.
      */
-    public CommandList(String name)
-    {
+    public CommandList(String name) {
         this(name, "Command List Developer did not provide a manual.");
     }
     
@@ -83,14 +77,11 @@ public class CommandList
      * @param cmd
      *            The command that you want to add.
      */
-    public void addCommand(Command cmd)
-    {
+    public void addCommand(Command cmd) {
         if (commands.containsKey(cmd.name))
-            try
-            {
+            try {
                 throw new ConsoleException("A duplicate Command '" + cmd.name + "' has been attempted. Duplicate rejected.");
-            } catch (ConsoleException e)
-            {
+            } catch (ConsoleException e) {
                 e.printStackTrace();
             }
         commands.put(cmd.name, cmd);
@@ -102,23 +93,18 @@ public class CommandList
      * @param v
      *            The variable that you want to add.
      */
-    public void addVariable(Variable v)
-    {
+    public void addVariable(Variable v) {
         if (variables.containsKey(v.name))
-            try
-            {
+            try {
                 throw new ConsoleException("A duplicate Variable '" + v.name + "' has been attempted. Duplicate rejected.");
-            } catch (ConsoleException e)
-            {
+            } catch (ConsoleException e) {
                 e.printStackTrace();
             }
         
         if (commands.containsKey(v.name))
-            try
-            {
+            try {
                 throw new ConsoleException("A Variable '" + v.name + "' cannot share the same name as the Command! Duplicate rejected.");
-            } catch (ConsoleException e)
-            {
+            } catch (ConsoleException e) {
                 e.printStackTrace();
             }
         

@@ -22,8 +22,7 @@ import com.radirius.merc.spl.SplashScreen;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class NetTest extends Core
-{
+public class NetTest extends Core {
     
     Runner rnr = Runner.getInstance();
     
@@ -32,16 +31,14 @@ public class NetTest extends Core
     
     public static Circle mob;
     
-    public NetTest()
-    {
+    public NetTest() {
         super("NetTest");
         rnr.init(this, 800, 600, false, false, true);
         rnr.run();
     }
     
     @Override
-    public void init(ResourceManager RM)
-    {
+    public void init(ResourceManager RM) {
         server = new MercServer(8192, 8193);
         server.createServer();
         server.registerObject(Packet.class);
@@ -58,88 +55,72 @@ public class NetTest extends Core
     }
     
     @Override
-    public void update(float delta)
-    {
+    public void update(float delta) {
         Input in = rnr.getInput();
-        if (in.keyDown(Keyboard.KEY_W))
-        {
+        if (in.keyDown(Keyboard.KEY_W)) {
             Packet p = new Packet();
             p.y = -4;
             server.sendTCP(client.getID(), p);
         }
-        if (in.keyDown(Keyboard.KEY_S))
-        {
+        if (in.keyDown(Keyboard.KEY_S)) {
             Packet p = new Packet();
             p.y = 4;
             server.sendTCP(client.getID(), p);
         }
-        if (in.keyDown(Keyboard.KEY_A))
-        {
+        if (in.keyDown(Keyboard.KEY_A)) {
             Packet p = new Packet();
             p.x = -4;
             server.sendTCP(client.getID(), p);
         }
-        if (in.keyDown(Keyboard.KEY_D))
-        {
+        if (in.keyDown(Keyboard.KEY_D)) {
             Packet p = new Packet();
             p.x = 4;
             server.sendTCP(client.getID(), p);
         }
-        if (in.keyDown(Keyboard.KEY_ESCAPE))
-        {
+        if (in.keyDown(Keyboard.KEY_ESCAPE)) {
             cleanup(rnr.getResourceManager());
             rnr.end();
         }
     }
     
     @Override
-    public void render(Graphics g)
-    {
+    public void render(Graphics g) {
         mob.render(g);
     }
     
     @Override
-    public void cleanup(ResourceManager RM)
-    {
+    public void cleanup(ResourceManager RM) {
         server.stop();
         client.stop();
     }
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new NetTest();
     }
     
-    private class Circle
-    {
+    private class Circle {
         
         public int x, y;
         
-        public Circle(int x, int y)
-        {
+        public Circle(int x, int y) {
             this.x = x;
             this.y = y;
         }
         
-        public void render(Graphics g)
-        {
+        public void render(Graphics g) {
             g.drawCircle(x, y, 50);
         }
     }
     
-    static class Packet
-    {
+    static class Packet {
         public int x, y;
     }
     
-    private class NetworkListener extends Network
-    {
+    private class NetworkListener extends Network {
         @Override
-        public void received(Connection connection, Object object)
-        {
+        public void received(Connection connection, Object object) {
             System.out.println("Received: " + connection.getRemoteAddressTCP());
-            if (object instanceof Packet)
-            {
+            if (object instanceof Packet) {
                 System.out.println(((Packet) object).x + " , " + ((Packet) object).y);
                 mob.x += ((Packet) object).x;
                 mob.y += ((Packet) object).y;

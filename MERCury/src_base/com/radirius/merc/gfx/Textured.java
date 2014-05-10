@@ -11,7 +11,6 @@ package com.radirius.merc.gfx;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public interface Textured
-{
+public interface Textured {
     public Texture getTexture();
 }

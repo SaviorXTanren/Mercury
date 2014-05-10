@@ -24,8 +24,7 @@ import com.radirius.merc.res.Loader;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class TrueTypeFont implements com.radirius.merc.font.Font
-{
+public class TrueTypeFont implements com.radirius.merc.font.Font {
     /** A default opensans bold font! */
     public static TrueTypeFont OPENSANS_BOLD;
     /** A default opensans regular font! */
@@ -33,18 +32,14 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
     /** A default opensans almost-bold font! */
     public static TrueTypeFont OPENSANS_SEMIBOLD;
     
-    static
-    {
-        try
-        {
+    static {
+        try {
             OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/merc/gfx/OpenSans-Semibold.ttf"), 20, 1, true);
             OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/merc/gfx/OpenSans-Semibold.ttf"), 20, 1, true);
             OPENSANS_SEMIBOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/merc/gfx/OpenSans-Semibold.ttf"), 20, 1, true);
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             Logger.warn("Problems loading default opensans fonts.");
-        } catch (FontFormatException e)
-        {
+        } catch (FontFormatException e) {
             e.printStackTrace();
         }
     }
@@ -71,8 +66,7 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
     /** Some awt jargon for fonts. */
     private FontMetrics fmetrics;
     
-    private TrueTypeFont(java.awt.Font font, boolean antialias)
-    {
+    private TrueTypeFont(java.awt.Font font, boolean antialias) {
         this.font = font;
         font_size = font.getSize();
         this.antialias = antialias;
@@ -80,8 +74,7 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
         createSet();
     }
     
-    private void createSet()
-    {
+    private void createSet() {
         // Make a graphics object for the buffered image.
         BufferedImage imgTemp = new BufferedImage(texw, texh, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) imgTemp.getGraphics();
@@ -96,8 +89,7 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
         int positionY = 0;
         
         // Loop through all standard characters (256 of em')
-        for (int i = 0; i < 256; i++)
-        {
+        for (int i = 0; i < 256; i++) {
             char ch = (char) i;
             
             // BufferedImage for the character
@@ -109,8 +101,7 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
             newIntObject.h = fontImage.getHeight();
             
             // Go to next row if there is no room on x axis.
-            if (positionX + newIntObject.w >= texw)
-            {
+            if (positionX + newIntObject.w >= texw) {
                 positionX = 0;
                 positionY += rowHeight;
                 rowHeight = 0;
@@ -144,8 +135,7 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
         font_tex = Texture.loadTexture(imgTemp, true, false);
     }
     
-    private BufferedImage getFontImage(char ch)
-    {
+    private BufferedImage getFontImage(char ch) {
         // Make and init graphics for character image.
         BufferedImage tempfontImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) tempfontImage.getGraphics();
@@ -185,13 +175,11 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
     }
     
     @Override
-    public int getWidth(char[] what)
-    {
+    public int getWidth(char[] what) {
         int totalwidth = 0;
         IntObject intObject = null;
         int currentChar = 0;
-        for (char element : what)
-        {
+        for (char element : what) {
             currentChar = element;
             if (currentChar < 256)
                 intObject = chars[currentChar];
@@ -203,38 +191,32 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
     }
     
     @Override
-    public Font deriveFont(float size)
-    {
+    public Font deriveFont(float size) {
         return new TrueTypeFont(font.deriveFont(size), antialias);
     }
     
     @Override
-    public Font deriveFont(int style)
-    {
+    public Font deriveFont(int style) {
         return new TrueTypeFont(font.deriveFont(style), antialias);
     }
     
     @Override
-    public int getHeight()
-    {
+    public int getHeight() {
         return font_height;
     }
     
     @Override
-    public int getLineHeight()
-    {
+    public int getLineHeight() {
         return font_height;
     }
     
     @Override
-    public Texture getFontTexture()
-    {
+    public Texture getFontTexture() {
         return font_tex;
     }
     
     /** An object type for storing data for each character. */
-    public static class IntObject
-    {
+    public static class IntObject {
         public int w;
         public int h;
         public int x;
@@ -242,8 +224,7 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
     }
     
     @Override
-    public void clean()
-    {
+    public void clean() {
         font_tex.clean();
     }
     
@@ -259,8 +240,7 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
      * @param antialias
      *            Shall we antialias?
      */
-    public static TrueTypeFont loadTrueTypeFont(InputStream is, float size, int style, boolean antialias) throws FileNotFoundException, FontFormatException, IOException
-    {
+    public static TrueTypeFont loadTrueTypeFont(InputStream is, float size, int style, boolean antialias) throws FileNotFoundException, FontFormatException, IOException {
         java.awt.Font font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, is);
         
         font = font.deriveFont(size);
@@ -277,8 +257,7 @@ public class TrueTypeFont implements com.radirius.merc.font.Font
      *            Shall we antialias?
      */
     
-    public static TrueTypeFont loadTrueTypeFont(java.awt.Font font, boolean antialias)
-    {
+    public static TrueTypeFont loadTrueTypeFont(java.awt.Font font, boolean antialias) {
         return new TrueTypeFont(font, antialias);
     }
 }

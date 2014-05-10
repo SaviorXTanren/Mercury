@@ -32,8 +32,7 @@ import com.radirius.merc.log.Logger;
  *          project 'MERCury' are licensed under WTFPL license. You can find the
  *          license itself at http://www.wtfpl.net/about/.
  */
-public class VAOBatcher implements Batcher
-{
+public class VAOBatcher implements Batcher {
     private static final int VL = 2, CL = 4, TL = 2;
     public static final int MAX_VERTICES_PER_RENDER_STACK = 50000;
     
@@ -47,8 +46,7 @@ public class VAOBatcher implements Batcher
     private Color last_col = Color.DEFAULT_DRAWING;
     private Shader last_shader = Shader.getDefaultShader();
     
-    public VAOBatcher()
-    {
+    public VAOBatcher() {
         vtxcount = 0;
         
         vd = BufferUtils.createFloatBuffer(MAX_VERTICES_PER_RENDER_STACK * VL);
@@ -59,10 +57,8 @@ public class VAOBatcher implements Batcher
     }
     
     @Override
-    public void begin()
-    {
-        if (active)
-        {
+    public void begin() {
+        if (active) {
             Logger.warn("Must be inactive before calling begin(); ignoring request.");
             return;
         }
@@ -71,16 +67,13 @@ public class VAOBatcher implements Batcher
     }
     
     @Override
-    public boolean isActive()
-    {
+    public boolean isActive() {
         return active;
     }
     
     @Override
-    public void end()
-    {
-        if (!active)
-        {
+    public void end() {
+        if (!active) {
             Logger.warn("Must be active before calling end(); ignoring request.");
             return;
         }
@@ -91,8 +84,7 @@ public class VAOBatcher implements Batcher
     }
     
     @Override
-    public void cycle()
-    {
+    public void cycle() {
         if (active)
             end();
         else
@@ -100,8 +92,7 @@ public class VAOBatcher implements Batcher
     }
     
     @Override
-    public void flush()
-    {
+    public void flush() {
         vd.flip();
         cd.flip();
         td.flip();
@@ -132,10 +123,8 @@ public class VAOBatcher implements Batcher
     }
     
     @Override
-    public void flush(boolean hasColor, boolean hasTexture)
-    {
-        if (hasTexture)
-        {
+    public void flush(boolean hasColor, boolean hasTexture) {
+        if (hasTexture) {
             glEnable(GL_TEXTURE);
             glEnable(GL_TEXTURE_2D);
         }
@@ -164,8 +153,7 @@ public class VAOBatcher implements Batcher
     }
     
     @Override
-    public void setTexture(Texture texture)
-    {
+    public void setTexture(Texture texture) {
         if (texture.equals(last_tex))
             return;
         end();
@@ -175,8 +163,7 @@ public class VAOBatcher implements Batcher
     }
     
     @Override
-    public void clearTextures()
-    {
+    public void clearTextures() {
         if (last_tex.equals(Texture.getEmptyTexture()))
             return;
         end();
@@ -186,8 +173,7 @@ public class VAOBatcher implements Batcher
     }
     
     @Override
-    public void setColor(Color color)
-    {
+    public void setColor(Color color) {
         if (color.equals(last_col))
             return;
         
@@ -195,16 +181,14 @@ public class VAOBatcher implements Batcher
     }
     
     @Override
-    public void clearColors()
-    {
+    public void clearColors() {
         if (last_col.equals(Color.DEFAULT_DRAWING))
             return;
         last_col = Color.DEFAULT_DRAWING;
     }
     
     @Override
-    public void setShader(Shader shader)
-    {
+    public void setShader(Shader shader) {
         if (last_shader.equals(shader))
             return;
         end();
@@ -214,8 +198,7 @@ public class VAOBatcher implements Batcher
     }
     
     @Override
-    public void clearShaders()
-    {
+    public void clearShaders() {
         if (last_shader.equals(Shader.getDefaultShader()))
             return;
         end();
@@ -225,31 +208,26 @@ public class VAOBatcher implements Batcher
     }
     
     @Override
-    public void vertex(float x, float y, float u, float v)
-    {
+    public void vertex(float x, float y, float u, float v) {
         vertex(x, y, last_col, u, v);
     }
     
     @Override
-    public void vertex(float x, float y, Color color, float u, float v)
-    {
+    public void vertex(float x, float y, Color color, float u, float v) {
         vertex(x, y, color.r, color.g, color.b, color.a, u, v);
     }
     
     @Override
-    public void vertex(float x, float y, float r, float g, float b, float u, float v)
-    {
+    public void vertex(float x, float y, float r, float g, float b, float u, float v) {
         vertex(x, y, r, g, b, 1, u, v);
     }
     
     @Override
-    public void vertex(float x, float y, float r, float g, float b, float a, float u, float v)
-    {
+    public void vertex(float x, float y, float r, float g, float b, float a, float u, float v) {
         vertex(new VertexData(x, y, r, g, b, a, u, v));
     }
     
-    public void vertex(VertexData vdo)
-    {
+    public void vertex(VertexData vdo) {
         if (vtxcount >= MAX_VERTICES_PER_RENDER_STACK - 1)
             restart();
         
@@ -260,18 +238,15 @@ public class VAOBatcher implements Batcher
         vtxcount++;
     }
     
-    private void restart()
-    {
+    private void restart() {
         end();
         begin();
     }
     
-    public static class VertexData
-    {
+    public static class VertexData {
         float x, y, r, g, b, a, u, v;
         
-        public VertexData(float x, float y, float r, float g, float b, float a, float u, float v)
-        {
+        public VertexData(float x, float y, float r, float g, float b, float a, float u, float v) {
             this.x = x;
             this.y = y;
             this.r = r;

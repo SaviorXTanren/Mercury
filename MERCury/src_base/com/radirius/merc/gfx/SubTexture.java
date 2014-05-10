@@ -9,43 +9,36 @@ package com.radirius.merc.gfx;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class SubTexture
-{
+public class SubTexture {
     
     private Spritesheet sheet;
     private float x, y, size;
     
-    public SubTexture(Spritesheet sheet, float x, float y, float size)
-    {
+    public SubTexture(Spritesheet sheet, float x, float y, float size) {
         this.sheet = sheet;
         this.x = x;
         this.y = y;
         this.size = size;
     }
     
-    public Spritesheet getSheet()
-    {
+    public Spritesheet getSheet() {
         return sheet;
     }
     
-    public float getX()
-    {
+    public float getX() {
         return x;
     }
     
-    public float getY()
-    {
+    public float getY() {
         return y;
     }
     
-    public float getSize()
-    {
+    public float getSize() {
         return size;
     }
     
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "SIZE: " + size + " X: " + x + " Y: " + y;
     }
 }

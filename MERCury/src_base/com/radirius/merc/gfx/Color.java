@@ -12,8 +12,7 @@ package com.radirius.merc.gfx;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class Color
-{
+public class Color {
     public static final Color red = new Color(255, 0, 0, 255);
     public static final Color orange = new Color(255, 125, 0, 255);
     public static final Color yellow = new Color(255, 255, 0, 255);
@@ -39,38 +38,33 @@ public class Color
     
     public float r = 0, g = 0, b = 0, a = 0;
     
-    public Color(float r, float g, float b)
-    {
+    public Color(float r, float g, float b) {
         this.r = r;
         this.g = g;
         this.b = b;
         a = 1;
     }
     
-    public Color(float r, float g, float b, float a)
-    {
+    public Color(float r, float g, float b, float a) {
         this(r, g, b);
         this.a = a;
     }
     
-    public Color(int r, int g, int b)
-    {
+    public Color(int r, int g, int b) {
         this.r = r / 255f;
         this.g = g / 255f;
         this.b = b / 255f;
         a = 1;
     }
     
-    public Color(int r, int g, int b, int a)
-    {
+    public Color(int r, int g, int b, int a) {
         this.r = r / 255f;
         this.g = g / 255f;
         this.b = b / 255f;
         this.a = a / 255f;
     }
     
-    public Color(int value)
-    {
+    public Color(int value) {
         r = (value & 0x00FF0000) >> 16;
         g = (value & 0x0000FF00) >> 8;
         b = value & 0x000000FF;
@@ -78,8 +72,7 @@ public class Color
     }
     
     /** Darkens the color by 0.3. */
-    public void darken()
-    {
+    public void darken() {
         darken(.3f);
     }
     
@@ -87,8 +80,7 @@ public class Color
      * @param scale
      *            The factor of darkening.
      */
-    public void darken(float scale)
-    {
+    public void darken(float scale) {
         scale = 1 - scale;
         r *= scale;
         g *= scale;
@@ -96,8 +88,7 @@ public class Color
     }
     
     /** Brightens the color by 0.3. */
-    public void brighten()
-    {
+    public void brighten() {
         brighten(.3f);
     }
     
@@ -105,39 +96,32 @@ public class Color
      * @param scale
      *            The factor of brightening.
      */
-    public void brighten(float scale)
-    {
+    public void brighten(float scale) {
         scale++;
         r *= scale;
         g *= scale;
         b *= scale;
     }
     
-    public int getRed()
-    {
+    public int getRed() {
         return (int) r * 255;
     }
     
-    public int getGreen()
-    {
+    public int getGreen() {
         return (int) g * 255;
     }
     
-    public int getBlue()
-    {
+    public int getBlue() {
         return (int) b * 255;
     }
     
-    public int getAlpha()
-    {
+    public int getAlpha() {
         return (int) a * 255;
     }
     
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj instanceof Color)
-        {
+    public boolean equals(Object obj) {
+        if (obj instanceof Color) {
             Color col = (Color) obj;
             if (col.r == r && col.g == g && col.b == b && col.a == a)
                 return true;

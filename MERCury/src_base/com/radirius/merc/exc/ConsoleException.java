@@ -12,10 +12,8 @@ package com.radirius.merc.exc;
  */
 
 @SuppressWarnings("serial")
-public class ConsoleException extends Exception
-{
-    public ConsoleException(String msg)
-    {
+public class ConsoleException extends Exception {
+    public ConsoleException(String msg) {
         super(msg);
     }
 }

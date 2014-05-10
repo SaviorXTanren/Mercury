@@ -11,8 +11,7 @@ package com.radirius.merc.env;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public interface Updatable
-{
+public interface Updatable {
     /**
      * The method for updating. In here, logic should occur, given delta.
      * 

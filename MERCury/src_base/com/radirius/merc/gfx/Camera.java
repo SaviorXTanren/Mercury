@@ -17,8 +17,7 @@ import com.radirius.merc.geo.Vec2;
  *          project 'MERCury' are licensed under WTFPL license. You can find the
  *          license itself at http://www.wtfpl.net/about/.
  */
-public class Camera
-{
+public class Camera {
     /** The position on its respective axis */
     private float x, y;
     /** The point on the screen that anchors the camera to the world. */
@@ -30,8 +29,7 @@ public class Camera
      * @param y
      *            The y position.
      */
-    public Camera(float x, float y)
-    {
+    public Camera(float x, float y) {
         this.x = x;
         this.y = y;
     }
@@ -39,8 +37,7 @@ public class Camera
     /**
      * Prepares the camera for each frame.
      */
-    public void pre(Graphics g)
-    {
+    public void pre(Graphics g) {
         glPushMatrix();
         glTranslatef(x - origin.x, y - origin.y, 0);
         
@@ -50,8 +47,7 @@ public class Camera
     /**
      * Applies changes to OGL at the end of each frame.
      */
-    public void post(Graphics g)
-    {
+    public void post(Graphics g) {
         g.post();
         
         glPopMatrix();
@@ -61,14 +57,12 @@ public class Camera
      * @param origin
      *            The point to set the origin to (on screen).
      */
-    public void setOrigin(Vec2 origin)
-    {
+    public void setOrigin(Vec2 origin) {
         this.origin = origin;
     }
     
     /** @return The origin point (on screen). */
-    public Vec2 getOrigin()
-    {
+    public Vec2 getOrigin() {
         return origin;
     }
     
@@ -80,8 +74,7 @@ public class Camera
      * @param g
      *            The graphics object.
      */
-    public void zoom(float zoom, Graphics g)
-    {
+    public void zoom(float zoom, Graphics g) {
         g.scale(zoom);
     }
     
@@ -93,8 +86,7 @@ public class Camera
      * @param y
      *            The y movement.
      */
-    public void translate(float x, float y)
-    {
+    public void translate(float x, float y) {
         this.x -= x;
         this.y -= y;
     }
@@ -102,40 +94,35 @@ public class Camera
     /**
      * @return The real world width of the camera.
      */
-    public float getWidth()
-    {
+    public float getWidth() {
         return Runner.getInstance().getWidth() / Runner.getInstance().getGraphics().getScale().x;
     }
     
     /**
      * @return The real world height of the camera.
      */
-    public float getHeight()
-    {
+    public float getHeight() {
         return Runner.getInstance().getHeight() / Runner.getInstance().getGraphics().getScale().y;
     }
     
     /**
      * @return The real world x position of the camera.
      */
-    public float getPositionX()
-    {
+    public float getPositionX() {
         return getPosition().x;
     }
     
     /**
      * @return The real world y position of the camera.
      */
-    public float getPositionY()
-    {
+    public float getPositionY() {
         return getPosition().y;
     }
     
     /**
      * @return The real world position of the camera.
      */
-    public Vec2 getPosition()
-    {
+    public Vec2 getPosition() {
         return new Vec2(Runner.getInstance().getWidth() - x, Runner.getInstance().getHeight() - y);
     }
 }

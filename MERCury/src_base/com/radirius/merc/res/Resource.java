@@ -11,8 +11,7 @@ package com.radirius.merc.res;
  *          project 'MERCury' are licensed under WTFPL license. You can find the
  *          license itself at http://www.wtfpl.net/about/.
  */
-public interface Resource extends Cloneable
-{
+public interface Resource extends Cloneable {
     /**
      * A method for releasing anything that needs to be released, for it is the
      * end!

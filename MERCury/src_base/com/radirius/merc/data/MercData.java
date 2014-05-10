@@ -21,8 +21,7 @@ import java.util.Scanner;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class MercData
-{
+public class MercData {
     /**
      * In case we ever change the parser, we can tell early on that you have a
      * faulty version.
@@ -43,8 +42,7 @@ public class MercData
      * @param A
      *            URL indicating the location of the file.
      */
-    public MercData(URL url)
-    {
+    public MercData(URL url) {
         location = url.getFile();
         
         if (location.contains("."))
@@ -62,8 +60,7 @@ public class MercData
      * @param val
      *            The value that you are changing the property to.
      */
-    public void setProperty(String prop, String val) throws FileNotFoundException
-    {
+    public void setProperty(String prop, String val) throws FileNotFoundException {
         vals.put(prop, val);
     }
     
@@ -72,16 +69,14 @@ public class MercData
      *            property you want to see the value of.
      * @return The property's value. If it does not exist, you get null.
      */
-    public String getProperty(String prop)
-    {
+    public String getProperty(String prop) {
         return vals.get(prop);
     }
     
     /**
      * Closes the file, and saves it.
      */
-    public void close()
-    {
+    public void close() {
         save();
         vals.clear();
     }
@@ -89,14 +84,11 @@ public class MercData
     /**
      * To be used to load all of our properties
      */
-    private void load()
-    {
+    private void load() {
         Scanner scan = null;
-        try
-        {
+        try {
             scan = new Scanner(new FileInputStream(location));
-        } catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         
@@ -105,8 +97,7 @@ public class MercData
         if (Integer.parseInt(parser) != PARSER_VERSION)
             System.out.println("RAR!");
         
-        while (scan.hasNext())
-        {
+        while (scan.hasNext()) {
             String prop = scan.next();
             String val = scan.next();
             System.out.println(prop + " " + val);
@@ -119,22 +110,18 @@ public class MercData
     /**
      * To be used to SAVE your changes!
      */
-    private void save()
-    {
+    private void save() {
         PrintWriter write = null;
         
-        try
-        {
+        try {
             write = new PrintWriter(new FileOutputStream(new File(location)));
-        } catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         
         write.println("<! " + PARSER_VERSION + " >");
         
-        for (int i = 0; i < vals.size(); i++)
-        {
+        for (int i = 0; i < vals.size(); i++) {
             String prop = (String) vals.keySet().toArray()[i];
             String val = (String) vals.values().toArray()[i];
             

@@ -11,8 +11,7 @@ package com.radirius.merc.geo;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public abstract class Vec
-{
+public abstract class Vec {
     /**
      * @param vec
      *            The vector to add the values of.

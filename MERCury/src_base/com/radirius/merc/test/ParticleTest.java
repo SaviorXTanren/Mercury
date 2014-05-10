@@ -24,30 +24,26 @@ import com.radirius.merc.spl.SplashScreen;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class ParticleTest extends Core
-{
+public class ParticleTest extends Core {
     Runner rnr = Runner.getInstance();
     
     ParticleEmitter emitter2, emitter1;
     
-    public ParticleTest()
-    {
+    public ParticleTest() {
         super("Particle Test");
         rnr.init(this, 500, 300);
         rnr.setMouseGrab(true);
         rnr.run();
     }
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new ParticleTest();
     }
     
     Vec2 torchpos = new Vec2();
     
     @Override
-    public void init(ResourceManager RM)
-    {
+    public void init(ResourceManager RM) {
         RM.loadResource(Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/torch.png")), "torch");
         
         rnr.getGraphics().scale(4);
@@ -59,8 +55,7 @@ public class ParticleTest extends Core
     }
     
     @Override
-    public void update(float delta)
-    {
+    public void update(float delta) {
         Input in = rnr.getInput();
         
         if (in.keyDown(Keyboard.KEY_ESCAPE))
@@ -75,16 +70,14 @@ public class ParticleTest extends Core
     }
     
     @Override
-    public void render(Graphics g)
-    {
+    public void render(Graphics g) {
         g.drawTexture((Texture) rnr.getResourceManager().retrieveResource("torch"), torchpos.x, torchpos.y);
         emitter2.render(g);
         emitter1.render(g);
     }
     
     @Override
-    public void cleanup(ResourceManager RM)
-    {
+    public void cleanup(ResourceManager RM) {
     }
     
 }

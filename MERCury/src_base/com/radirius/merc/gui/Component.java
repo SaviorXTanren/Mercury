@@ -11,8 +11,7 @@ import com.radirius.merc.gfx.Graphics;
  *          project 'MERCury' are licensed under WTFPL license. You can find the
  *          license itself at http://www.wtfpl.net/about/.
  */
-public class Component implements Renderable
-{
+public class Component implements Renderable {
     public String txt;
     
     public boolean cx, cy;
@@ -21,8 +20,7 @@ public class Component implements Renderable
     
     public float x, y, w, h;
     
-    public Component(String txt, float x, float y, float w, float h, boolean centerx, boolean centery)
-    {
+    public Component(String txt, float x, float y, float w, float h, boolean centerx, boolean centery) {
         this.txt = txt;
         
         cx = centerx;
@@ -34,8 +32,7 @@ public class Component implements Renderable
         this.h = h;
     }
     
-    public void update()
-    {
+    public void update() {
         if (acheck != null)
             if (acheck.isActed())
                 acheck.act();
@@ -44,13 +41,11 @@ public class Component implements Renderable
     }
     
     @Override
-    public void render(Graphics g)
-    {
+    public void render(Graphics g) {
         renderContent(g);
     }
     
-    public void renderContent(Graphics g)
-    {
+    public void renderContent(Graphics g) {
         float tx = 0, ty = 0;
         
         if (cx)
@@ -61,15 +56,13 @@ public class Component implements Renderable
         g.drawString(x + tx, y + ty, txt);
     }
     
-    public Component setActionCheck(ActionCheck acheck)
-    {
+    public Component setActionCheck(ActionCheck acheck) {
         this.acheck = acheck;
         acheck.setParent(this);
         return this;
     }
     
-    public static abstract class ActionCheck
-    {
+    public static abstract class ActionCheck {
         public Component parent;
         
         public abstract boolean isActed();
@@ -78,8 +71,7 @@ public class Component implements Renderable
         
         public abstract void noAct();
         
-        public void setParent(Component parent)
-        {
+        public void setParent(Component parent) {
             this.parent = parent;
         }
     }

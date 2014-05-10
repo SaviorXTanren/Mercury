@@ -16,8 +16,7 @@ import com.radirius.merc.gfx.Texture;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public abstract class AdvancedMercEntity implements MercEntity
-{
+public abstract class AdvancedMercEntity implements MercEntity {
     /** A texture to render the entity with (if provided) */
     public Texture tex;
     
@@ -42,8 +41,7 @@ public abstract class AdvancedMercEntity implements MercEntity
      * @param tex
      *            A texture to render the entity with (if provided)
      */
-    public AdvancedMercEntity(float x, float y, float w, float h, Texture tex)
-    {
+    public AdvancedMercEntity(float x, float y, float w, float h, Texture tex) {
         this.x = x;
         this.y = y;
         this.w = w;
@@ -59,8 +57,7 @@ public abstract class AdvancedMercEntity implements MercEntity
      * @param tex
      *            A texture to render the entity with (if provided)
      */
-    public AdvancedMercEntity(float x, float y, Texture tex)
-    {
+    public AdvancedMercEntity(float x, float y, Texture tex) {
         this.x = x;
         this.y = y;
         this.tex = tex;
@@ -79,8 +76,7 @@ public abstract class AdvancedMercEntity implements MercEntity
      * @param h
      *            The y size
      */
-    public AdvancedMercEntity(float x, float y, float w, float h)
-    {
+    public AdvancedMercEntity(float x, float y, float w, float h) {
         this.x = x;
         this.y = y;
         this.w = w;
@@ -88,8 +84,7 @@ public abstract class AdvancedMercEntity implements MercEntity
     }
     
     @Override
-    public void render(Graphics g)
-    {
+    public void render(Graphics g) {
         if (tex != null)
             g.drawTexture(tex, 0, 0, tex.getTextureWidth(), tex.getTextureHeight(), x, y, x + w, y + h);
     }
@@ -103,8 +98,7 @@ public abstract class AdvancedMercEntity implements MercEntity
      * @param my
      *            Movement y
      */
-    public void move(float mx, float my)
-    {
+    public void move(float mx, float my) {
         float dx = x + mx, dy = y + my;
         
         if (isValidPosition(dx, y))
@@ -128,16 +122,14 @@ public abstract class AdvancedMercEntity implements MercEntity
     /**
      * @return A rectangle representing the 'bounds' of the entity.
      */
-    public Rectangle getBounds()
-    {
+    public Rectangle getBounds() {
         return new Rectangle(x, y, w, h);
     }
     
     /**
      * @return An ellipse representing the 'bounds' of the entity.
      */
-    public Ellipse getRadBounds()
-    {
+    public Ellipse getRadBounds() {
         return new Ellipse(x + w / 2, y + h / 2, w / 2, h / 2);
     }
 }

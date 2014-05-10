@@ -17,8 +17,7 @@ import com.radirius.merc.util.TaskTiming.Task;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class SplashScreen
-{
+public class SplashScreen {
     public boolean showing = false;
     private boolean _return_ = true;
     
@@ -31,8 +30,7 @@ public class SplashScreen
      * @param showtimemillis
      *            The time that the splash screen is shown.
      */
-    public SplashScreen(Texture tex, long showtimemillis)
-    {
+    public SplashScreen(Texture tex, long showtimemillis) {
         this.showtimemillis = showtimemillis;
         this.tex = tex;
     }
@@ -41,16 +39,12 @@ public class SplashScreen
      * Shows the splash screen on screen, whilst checking if it is time to stop
      * as well.
      */
-    public boolean show(Graphics g)
-    {
-        if (!showing)
-        {
+    public boolean show(Graphics g) {
+        if (!showing) {
             // Evil timer
-            TaskTiming.addTask(new Task(showtimemillis)
-            {
+            TaskTiming.addTask(new Task(showtimemillis) {
                 @Override
-                public void run()
-                {
+                public void run() {
                     _return_ = false;
                 }
             });
@@ -63,12 +57,10 @@ public class SplashScreen
         float width = tex.getTextureWidth(), height = tex.getTextureHeight();
         float aspect = width / height;
         
-        if (scrw > scrh)
-        {
+        if (scrw > scrh) {
             width = scrw;
             height = width / aspect;
-        } else
-        {
+        } else {
             width = scrw;
             height = width / aspect;
         }
@@ -83,8 +75,7 @@ public class SplashScreen
      * @return The love of all developers from MERCury, unless you are a child
      *         murderer. Even if you code you can't get anybody's love. Sicko.
      */
-    public static SplashScreen getMERCuryDefault()
-    {
+    public static SplashScreen getMERCuryDefault() {
         Texture tex = null;
         tex = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/spl/splash.png"));
         

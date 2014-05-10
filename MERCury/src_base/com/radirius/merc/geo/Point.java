@@ -11,8 +11,7 @@ package com.radirius.merc.geo;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class Point extends Shape
-{
+public class Point extends Shape {
     
     /**
      * @param x
@@ -20,38 +19,32 @@ public class Point extends Shape
      * @param y
      *            The y position.
      */
-    public Point(float x, float y)
-    {
+    public Point(float x, float y) {
         super(x, y);
     }
     
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Point at " + nx + ", " + ny;
     }
     
     @Override
-    public float getArea()
-    {
+    public float getArea() {
         return 1;
     }
     
     /** @return The point in the form of a vector. */
-    public Vec2 toVector2f()
-    {
+    public Vec2 toVector2f() {
         return new Vec2(nx, ny);
     }
     
     @Override
-    public boolean intersects(Shape s)
-    {
+    public boolean intersects(Shape s) {
         return s.contains(new Vec2(getX1(), getY1()));
     }
     
     @Override
-    public boolean contains(Vec2 v)
-    {
+    public boolean contains(Vec2 v) {
         return v.x == getX1() && v.y == getY1();
     }
 }

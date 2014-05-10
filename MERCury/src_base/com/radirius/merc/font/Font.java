@@ -13,8 +13,7 @@ import com.radirius.merc.res.Resource;
  *          project 'MERCury' are licensed under WTFPL license. You can find the
  *          license itself at http://www.wtfpl.net/about/.
  */
-public interface Font extends Resource
-{
+public interface Font extends Resource {
     /**
      * Derive another differently sized instance of this font. Very resource
      * heavy, so only call this once (NOT every single frame)

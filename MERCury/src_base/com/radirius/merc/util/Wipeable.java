@@ -11,8 +11,7 @@ package com.radirius.merc.util;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public interface Wipeable
-{
+public interface Wipeable {
     /** Wipes the object. */
     public void wipe();
     

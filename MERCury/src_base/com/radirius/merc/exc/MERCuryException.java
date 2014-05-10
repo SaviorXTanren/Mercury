@@ -13,13 +13,11 @@ package com.radirius.merc.exc;
  */
 
 @SuppressWarnings("serial")
-public class MERCuryException extends Exception
-{
+public class MERCuryException extends Exception {
     private static boolean save = true;
     private static String saveto;
     
-    public MERCuryException(String reason)
-    {
+    public MERCuryException(String reason) {
         super(reason);
         if (save)
             if (saveto == null)
@@ -28,13 +26,11 @@ public class MERCuryException extends Exception
                 StackTraceSaver.save(saveto, this);
     }
     
-    public static void setSaveStackTrace(boolean save)
-    {
+    public static void setSaveStackTrace(boolean save) {
         MERCuryException.save = save;
     }
     
-    public static void setSaveTo(String saveto)
-    {
+    public static void setSaveTo(String saveto) {
         MERCuryException.saveto = saveto;
     }
 }

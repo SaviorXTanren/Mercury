@@ -22,32 +22,27 @@ import com.radirius.merc.spl.SplashScreen;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class CollisionTest extends Core
-{
+public class CollisionTest extends Core {
     Runner rnr = Runner.getInstance();
     
-    public CollisionTest()
-    {
+    public CollisionTest() {
         super("CollisionTest");
         rnr.init(this, 800, 600, false, false, true);
         rnr.run();
     }
     
     @Override
-    public void init(ResourceManager RM)
-    {
+    public void init(ResourceManager RM) {
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
     
     @Override
-    public void update(float delta)
-    {
+    public void update(float delta) {
         
     }
     
     @Override
-    public void render(Graphics g)
-    {
+    public void render(Graphics g) {
         g.scale(8);
         
         /* RECTANGLE TO RECTANGLE */
@@ -86,13 +81,11 @@ public class CollisionTest extends Core
     }
     
     @Override
-    public void cleanup(ResourceManager RM)
-    {
+    public void cleanup(ResourceManager RM) {
         
     }
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new CollisionTest();
     }
 }

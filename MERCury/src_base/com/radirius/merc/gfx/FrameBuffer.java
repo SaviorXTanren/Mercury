@@ -35,23 +35,19 @@ import com.radirius.merc.log.Logger;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class FrameBuffer
-{
+public class FrameBuffer {
     private final int fboid;
     private final Texture fbotex;
     
-    private FrameBuffer(int fboid, int texid, int width, int height)
-    {
+    private FrameBuffer(int fboid, int texid, int width, int height) {
         this.fboid = fboid;
         
         fbotex = Texture.createTextureObject(texid, width, height);
     }
     
     /** Creates a new frame buffer object. */
-    public static FrameBuffer getFrameBuffer()
-    {
-        if (!isSupported())
-        {
+    public static FrameBuffer getFrameBuffer() {
+        if (!isSupported()) {
             Logger.warn("Framebuffers not supported!");
             return null;
         }
@@ -77,8 +73,7 @@ public class FrameBuffer
     }
     
     /** Begins recording of the FBO to the texture object. */
-    public void use()
-    {
+    public void use() {
         Texture.unbindTextures();
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fboid);
         glPushAttrib(GL_VIEWPORT_BIT);
@@ -87,33 +82,28 @@ public class FrameBuffer
     }
     
     /** Finalizes the recording of the FBO, and releases it. */
-    public void release()
-    {
+    public void release() {
         releaseFrameBuffers();
         glPopAttrib();
     }
     
     /** @return The last recorded texture. */
-    public Texture getTextureObject()
-    {
+    public Texture getTextureObject() {
         return fbotex;
     }
     
     /** Staticly 'use().' */
-    public static void useFrameBuffer(FrameBuffer fbo)
-    {
+    public static void useFrameBuffer(FrameBuffer fbo) {
         fbo.use();
     }
     
     /** Returns to original frame buffer (window). */
-    public static void releaseFrameBuffers()
-    {
+    public static void releaseFrameBuffers() {
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
     }
     
     /** @return If FBOs are supported */
-    public static boolean isSupported()
-    {
+    public static boolean isSupported() {
         return getCapabilities().GL_EXT_framebuffer_object;
     }
 }

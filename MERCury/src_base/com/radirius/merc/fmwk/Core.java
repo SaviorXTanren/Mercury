@@ -44,12 +44,10 @@ import com.radirius.merc.res.ResourceManager;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public abstract class Core
-{
+public abstract class Core {
     public final String name;
     
-    public Core(String name)
-    {
+    public Core(String name) {
         this.name = name;
     }
     
@@ -88,52 +86,33 @@ public abstract class Core
      * @param vsync
      *            Whether or not we should vsync
      */
-    public void initDisplay(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync)
-    {
-        try
-        {
+    public void initDisplay(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
+        try {
             Display.setVSyncEnabled(vsync);
             
             DisplayMode dm = new DisplayMode(WIDTH, HEIGHT);
+            boolean screendimmatched = false;
             
-            boolean fullscreen_matched = false;
-            
-            if (fullscreen)
-            {
+            if (fullscreen) {
                 DisplayMode[] modes = Display.getAvailableDisplayModes();
                 
-                Logger.debug("Full-screen requested; attempting to find matching fullscreen display mode...");
-                
-                for (DisplayMode mode : modes)
-                    if (mode.getWidth() == dm.getWidth() && mode.getHeight() == dm.getHeight())
-                    {
-                        dm = mode;
-                        fullscreen_matched = true;
+                for (int i = 0; i < modes.length; i++) {
+                    if (modes[i].getWidth() == WIDTH && modes[i].getHeight() == HEIGHT && modes[i].isFullscreenCapable()) {
+                        dm = modes[i];
+                        screendimmatched = true;
                     }
-                
-                if (!fullscreen_matched)
-                {
-                    Logger.debug("No fullscreen matched. Finding lowest sized available fullscreen display mode...");
-                    
-                    DisplayMode lowest_mode = modes[0];
-                    
-                    for (DisplayMode mode : modes)
-                        if (mode.isFullscreenCapable())
-                            if (mode.getWidth() < lowest_mode.getWidth() || mode.getHeight() < lowest_mode.getHeight())
-                                lowest_mode = mode;
-                    dm = lowest_mode;
                 }
                 
-                Logger.debug("Fullscreen matched: " + dm.toString());
-                
-                Display.setFullscreen(true);
+                if (!screendimmatched)
+                    Logger.warn("Dimensions " + WIDTH + "x" + HEIGHT + " is not supported! Defaulting to non-fullscreen.");
+                else
+                    Display.setFullscreen(true);
             }
             
             Display.setDisplayMode(dm);
             Display.setTitle(name);
             Display.create();
-        } catch (LWJGLException e)
-        {
+        } catch (LWJGLException e) {
             e.printStackTrace();
         }
     }
@@ -141,8 +120,7 @@ public abstract class Core
     /**
      * Initializes graphics.
      */
-    public Graphics initGraphics()
-    {
+    public Graphics initGraphics() {
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);

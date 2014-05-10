@@ -14,10 +14,8 @@ import com.radirius.merc.geo.Vec2;
  *          project 'MERCury' are licensed under WTFPL license. You can find the
  *          license itself at http://www.wtfpl.net/about/.
  */
-public class ArrayUtils
-{
-    public static Vec2[] getVector2fs(float... coords)
-    {
+public class ArrayUtils {
+    public static Vec2[] getVector2fs(float... coords) {
         if (coords.length % 2 != 0)
             throw new IllegalArgumentException("Vertex coords must be even!");
         
@@ -29,8 +27,7 @@ public class ArrayUtils
         return vectors;
     }
     
-    public static ArrayList<Vec2> getListFromVectors(Vec2[] vecs)
-    {
+    public static ArrayList<Vec2> getListFromVectors(Vec2[] vecs) {
         ArrayList<Vec2> result = new ArrayList<Vec2>();
         for (Vec2 v : vecs)
             result.add(v);

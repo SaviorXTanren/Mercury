@@ -11,6 +11,5 @@ package com.radirius.merc.env;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public interface MercEntity extends Updatable, Renderable
-{
+public interface MercEntity extends Updatable, Renderable {
 }

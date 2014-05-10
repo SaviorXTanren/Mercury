@@ -38,25 +38,21 @@ import com.radirius.merc.spl.SplashScreen;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class ColorTest extends Core
-{
+public class ColorTest extends Core {
     Runner rnr = Runner.getInstance();
     
-    public ColorTest()
-    {
+    public ColorTest() {
         super("Color Test");
         rnr.init(this, 640, 480);
         rnr.run();
     }
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new ColorTest();
     }
     
     @Override
-    public void init(ResourceManager RM)
-    {
+    public void init(ResourceManager RM) {
         rnr.getGraphics().setBackground(Color.black);
         rnr.getGraphics().scale(8);
         
@@ -64,13 +60,11 @@ public class ColorTest extends Core
     }
     
     @Override
-    public void update(float delta)
-    {
+    public void update(float delta) {
     }
     
     @Override
-    public void render(Graphics g)
-    {
+    public void render(Graphics g) {
         test(red, g);
         test(orange, g);
         test(yellow, g);
@@ -96,16 +90,14 @@ public class ColorTest extends Core
     
     int colidx;
     
-    public void test(Color color, Graphics g)
-    {
+    public void test(Color color, Graphics g) {
         g.setColor(color);
         g.drawRect(new Rectangle(colidx * 4, 0, 4, 8));
         colidx++;
     }
     
     @Override
-    public void cleanup(ResourceManager RM)
-    {
+    public void cleanup(ResourceManager RM) {
     }
     
 }

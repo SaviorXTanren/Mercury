@@ -19,20 +19,17 @@ import com.radirius.merc.res.ResourceManager;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class TextFileTest extends Core
-{
+public class TextFileTest extends Core {
     private Runner rnr = Runner.getInstance();
     
-    public TextFileTest(String name)
-    {
+    public TextFileTest(String name) {
         super(name);
         rnr.init(this, 800, 600);
         rnr.run();
     }
     
     @Override
-    public void init(ResourceManager RM) throws IOException, MERCuryException
-    {
+    public void init(ResourceManager RM) throws IOException, MERCuryException {
         TextFile file = TextFile.loadFile(Loader.loadFromClasspath("com/radirius/merc/test/test.txt"));
         System.out.println(file.getContent());
         file.write("HAHAHAH");
@@ -40,22 +37,18 @@ public class TextFileTest extends Core
     }
     
     @Override
-    public void update(float delta) throws MERCuryException
-    {
+    public void update(float delta) throws MERCuryException {
     }
     
     @Override
-    public void render(Graphics g) throws MERCuryException
-    {
+    public void render(Graphics g) throws MERCuryException {
     }
     
     @Override
-    public void cleanup(ResourceManager RM) throws IOException, MERCuryException
-    {
+    public void cleanup(ResourceManager RM) throws IOException, MERCuryException {
     }
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new TextFileTest("Text File Test");
     }
 }

@@ -15,30 +15,25 @@ import com.radirius.merc.data.TextFile;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class Spritesheet
-{
+public class Spritesheet {
     
     private HashMap<String, SubTexture> textures = new HashMap<String, SubTexture>();
     private Texture texture;
     private int numTextures;
     private float texSize;
     
-    public Spritesheet(TextFile file, InputStream textureIn)
-    {
+    public Spritesheet(TextFile file, InputStream textureIn) {
         parseSheet(file, textureIn);
     }
     
-    private void parseSheet(TextFile file, InputStream textureIn)
-    {
+    private void parseSheet(TextFile file, InputStream textureIn) {
         texture = Texture.loadTexture(textureIn);
         String tempData = file.getContent();
         
         String[] data = tempData.split("\\r?\\n");
-        for (int i = 0; i < data.length; i++)
-        {
+        for (int i = 0; i < data.length; i++) {
             String[] lineData = data[i].split(" ");
-            if (i == 0)
-            {
+            if (i == 0) {
                 numTextures = Integer.valueOf(lineData[1]);
                 texSize = 1.0f / numTextures;
             } else
@@ -46,23 +41,19 @@ public class Spritesheet
         }
     }
     
-    public int getNumTextures()
-    {
+    public int getNumTextures() {
         return numTextures;
     }
     
-    public Texture getSheetTexture()
-    {
+    public Texture getSheetTexture() {
         return texture;
     }
     
-    public SubTexture getTexture(String value)
-    {
+    public SubTexture getTexture(String value) {
         return textures.get(value);
     }
     
-    public static Spritesheet loadSheet(URL in, InputStream textureIn)
-    {
+    public static Spritesheet loadSheet(URL in, InputStream textureIn) {
         return new Spritesheet(TextFile.loadFile(in), textureIn);
     }
 }

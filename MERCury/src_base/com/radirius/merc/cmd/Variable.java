@@ -11,8 +11,7 @@ package com.radirius.merc.cmd;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public abstract class Variable
-{
+public abstract class Variable {
     /** The name of the variable. This will be case-insensitive. */
     public final String name;
     /**
@@ -28,8 +27,7 @@ public abstract class Variable
      *            The manual that will be shown when requested by the console
      *            user. Used for general instruction of using the variable.
      */
-    public Variable(String name, String manual)
-    {
+    public Variable(String name, String manual) {
         this.name = name.toLowerCase();
         this.manual = manual;
     }
@@ -38,8 +36,7 @@ public abstract class Variable
      * @param name
      *            The name of the variable. This will be case-insensitive.
      */
-    public Variable(String name)
-    {
+    public Variable(String name) {
         this(name, "Command List Developer did not provide a manual for Variable.");
     }
     

@@ -18,8 +18,7 @@ import com.radirius.merc.util.Wipeable;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class Particle implements MercEntity, Wipeable
-{
+public class Particle implements MercEntity, Wipeable {
     public Color color;
     public float size;
     private final float max_size;
@@ -34,8 +33,7 @@ public class Particle implements MercEntity, Wipeable
     
     public ParticleEmitter emitter;
     
-    public Particle(Color color, float size, boolean shrink, float x, float y, float angle, float speed, float damp, int lifeinframes, ParticleEmitter emitter)
-    {
+    public Particle(Color color, float size, boolean shrink, float x, float y, float angle, float speed, float damp, int lifeinframes, ParticleEmitter emitter) {
         this.color = color;
         this.size = size;
         max_size = size;
@@ -53,8 +51,7 @@ public class Particle implements MercEntity, Wipeable
     }
     
     @Override
-    public void update(float delta)
-    {
+    public void update(float delta) {
         if (life < 0)
             wipe();
         
@@ -69,8 +66,7 @@ public class Particle implements MercEntity, Wipeable
     }
     
     @Override
-    public void render(Graphics g)
-    {
+    public void render(Graphics g) {
         Color orig_col = g.getColor();
         g.setColor(new Color(color.r, color.g, color.b, life));
         g.drawRect(new Rectangle(pos.x, pos.y, size, size));
@@ -80,14 +76,12 @@ public class Particle implements MercEntity, Wipeable
     boolean wiped = false;
     
     @Override
-    public void wipe()
-    {
+    public void wipe() {
         wiped = true;
     }
     
     @Override
-    public boolean wiped()
-    {
+    public boolean wiped() {
         return wiped;
     }
 }

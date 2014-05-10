@@ -24,14 +24,12 @@ import com.radirius.merc.res.ResourceManager;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class FboTest extends Core
-{
+public class FboTest extends Core {
     Runner rnr = Runner.getInstance();
     
-    public FboTest()
-    {
+    public FboTest() {
         super("FBO Test!");
-        rnr.init(this, 700, 700);
+        rnr.init(this, 500,500);
         rnr.run();
     }
     
@@ -40,8 +38,7 @@ public class FboTest extends Core
     FrameBuffer fbo;
     
     @Override
-    public void init(ResourceManager RM) throws IOException, MERCuryException
-    {
+    public void init(ResourceManager RM) throws IOException, MERCuryException {
         Runner.getInstance().getGraphics().scale(1.1f);
         
         cuteface = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/dAWWWW.png"), 45, GL11.GL_NEAREST);
@@ -50,15 +47,13 @@ public class FboTest extends Core
     }
     
     @Override
-    public void update(float delta) throws MERCuryException
-    {
+    public void update(float delta) throws MERCuryException {
     }
     
     float x = 0;
     
     @Override
-    public void render(Graphics g) throws MERCuryException
-    {
+    public void render(Graphics g) throws MERCuryException {
         fbo.use();
         {
             TrueTypeFont f = (TrueTypeFont) g.getFont();
@@ -77,12 +72,10 @@ public class FboTest extends Core
     }
     
     @Override
-    public void cleanup(ResourceManager RM) throws IOException, MERCuryException
-    {
+    public void cleanup(ResourceManager RM) throws IOException, MERCuryException {
     }
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new FboTest();
     }
 }

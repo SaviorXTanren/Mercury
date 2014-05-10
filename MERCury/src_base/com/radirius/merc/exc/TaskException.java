@@ -12,10 +12,8 @@ package com.radirius.merc.exc;
  */
 
 @SuppressWarnings("serial")
-public class TaskException extends Exception
-{
-    public TaskException(String msg)
-    {
+public class TaskException extends Exception {
+    public TaskException(String msg) {
         super(msg);
     }
 }

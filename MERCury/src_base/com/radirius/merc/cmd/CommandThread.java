@@ -22,57 +22,46 @@ import com.radirius.merc.log.Logger;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class CommandThread implements Runnable
-{
+public class CommandThread implements Runnable {
     private volatile boolean running = false;
     
     private static InputStream readstream = System.in;
     private static boolean readstreamchanged = false;
     
     @Override
-    public void run()
-    {
+    public void run() {
         running = true;
         
         BufferedReader buf = new BufferedReader(new InputStreamReader(readstream));
         
-        runloop: while (running)
-        {
-            if (readstreamchanged)
-            {
+        runloop: while (running) {
+            if (readstreamchanged) {
                 buf = new BufferedReader(new InputStreamReader(readstream));
                 readstreamchanged = false;
             }
             
             // Wait until we are ready... we don't want no hangin!
-            try
-            {
+            try {
                 while (!buf.ready() && running)
-                    try
-                    {
+                    try {
                         Thread.sleep(200);
-                    } catch (InterruptedException e)
-                    {
+                    } catch (InterruptedException e) {
                         break runloop;
                     }
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             
             // Get a trimmed line
             String _line = null;
-            try
-            {
+            try {
                 _line = buf.readLine().trim();
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             
             // We know we can only have 1 '.?' in the commands
-            if (_line.lastIndexOf(".?") != _line.indexOf(".?"))
-            {
+            if (_line.lastIndexOf(".?") != _line.indexOf(".?")) {
                 Logger.consoleproblem("Can only reference 1 manual! Please type '?' for syntax help.");
                 continue runloop;
             }
@@ -89,8 +78,7 @@ public class CommandThread implements Runnable
             String[] arguments = new String[] {};
             
             // Seperate arguments by commas!
-            if (line.length >= 3)
-            {
+            if (line.length >= 3) {
                 String rawargs = _line.substring(line[0].length() + line[1].length() + 2);
                 
                 InputStream is = new ByteArrayInputStream(rawargs.getBytes());
@@ -124,29 +112,24 @@ public class CommandThread implements Runnable
                 // variable
                 String var = "";
                 
-                try
-                {
+                try {
                     // While we still have a character to read, loop.
-                    while ((_c = read.read()) > 0)
-                    {
+                    while ((_c = read.read()) > 0) {
                         idx++;
                         // Set the character
                         c = (char) _c;
                         
-                        if (c == '\\')
-                        {
+                        if (c == '\\') {
                             escapechar = true;
                             continue;
                         }
                         
                         // If we are escaped, we will ignore all
                         // syntax-important characters.
-                        if (escaped)
-                        {
+                        if (escaped) {
                             // We must stop escaping if there is a closing
                             // parenthesis.
-                            if (c == '\"' && !escapechar)
-                            {
+                            if (c == '\"' && !escapechar) {
                                 escaped = false;
                                 continue;
                             }
@@ -157,12 +140,9 @@ public class CommandThread implements Runnable
                             continue;
                         }
                         
-                        if (invar)
-                        {
-                            if (invarescaped)
-                            {
-                                if (c == '\"' && !escapechar)
-                                {
+                        if (invar) {
+                            if (invarescaped) {
+                                if (c == '\"' && !escapechar) {
                                     invarescaped = false;
                                     continue;
                                 }
@@ -170,8 +150,7 @@ public class CommandThread implements Runnable
                                 var += c;
                                 continue;
                             }
-                            if (c == '}' && !escapechar)
-                            {
+                            if (c == '}' && !escapechar) {
                                 vars.add(var);
                                 var = "";
                                 
@@ -191,16 +170,14 @@ public class CommandThread implements Runnable
                                 vars.toArray(varargs);
                                 
                                 CommandList cmdl = CommandList.commandlists.get(varcommandlist);
-                                if (cmdl == null)
-                                {
+                                if (cmdl == null) {
                                     Logger.consoleproblem("Could not find Command List '" + varcommandlist + "' supposed by Variable search. Please type '?' for syntax help.");
                                     invar = false;
                                     continue;
                                 }
                                 
                                 Variable varval = cmdl.variables.get(varname);
-                                if (varval == null)
-                                {
+                                if (varval == null) {
                                     Logger.consoleproblem("Could not find Variable '" + varname + "' in Command List '" + varcommandlist + ".' Please type '?' for syntax help.");
                                     invar = false;
                                     continue;
@@ -213,14 +190,12 @@ public class CommandThread implements Runnable
                                 continue;
                             }
                             
-                            if (c == '\"' && !escapechar)
-                            {
+                            if (c == '\"' && !escapechar) {
                                 invarescaped = true;
                                 continue;
                             }
                             
-                            if (c == ' ' && !escapechar)
-                            {
+                            if (c == ' ' && !escapechar) {
                                 vars.add(var);
                                 var = "";
                                 continue;
@@ -235,15 +210,13 @@ public class CommandThread implements Runnable
                         // variable.
                         
                         // But do we want to escape?
-                        if (c == '\"' && !escapechar)
-                        {
+                        if (c == '\"' && !escapechar) {
                             escaped = true;
                             continue;
                         }
                         
                         // Do we want to inject?
-                        if (c == '{' && !escapechar)
-                        {
+                        if (c == '{' && !escapechar) {
                             inj_idx = idx;
                             
                             if (inj_idx < 0)
@@ -254,8 +227,7 @@ public class CommandThread implements Runnable
                         }
                         
                         // Is there a new argument?
-                        if (c == ' ' && !escapechar)
-                        {
+                        if (c == ' ' && !escapechar) {
                             args.add(arg);
                             arg = "";
                             continue;
@@ -265,8 +237,7 @@ public class CommandThread implements Runnable
                         arg += c;
                         escapechar = false;
                     }
-                } catch (IOException e)
-                {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 
@@ -277,10 +248,8 @@ public class CommandThread implements Runnable
             }
             
             // We already have the answer, so lets just display it.
-            if (commandlist.equals("?"))
-            {
-                if (line.length > 1)
-                {
+            if (commandlist.equals("?")) {
+                if (line.length > 1) {
                     Logger.consoleproblem("Stray '?' in command. Please type '?' for syntax help.");
                     continue runloop;
                 }
@@ -291,33 +260,27 @@ public class CommandThread implements Runnable
             // Format them
             boolean list_manual = false, command_manual = false;
             
-            if (line.length == 1)
-            {
-                if (commandlist.endsWith(".?"))
-                {
+            if (line.length == 1) {
+                if (commandlist.endsWith(".?")) {
                     commandlist = commandlist.replace(".?", "");
                     list_manual = true;
                 }
             } else if (line.length == 2)
-                if (command.endsWith(".?"))
-                {
+                if (command.endsWith(".?")) {
                     command = command.replace(".?", "");
                     command_manual = true;
                 }
             
             // Find commandlists and commands
             CommandList cmdl = CommandList.commandlists.get(commandlist);
-            if (cmdl == null)
-            {
+            if (cmdl == null) {
                 Logger.consoleproblem("Could not find supposed CommandList '" + commandlist.toLowerCase() + ".' Please type '?' for syntax help.");
                 continue runloop;
             }
             Command cmd = cmdl.commands.get(command);
-            if (cmd == null && !list_manual)
-            {
+            if (cmd == null && !list_manual) {
                 Variable var = cmdl.variables.get(command.toLowerCase());
-                if (var == null && !list_manual)
-                {
+                if (var == null && !list_manual) {
                     Logger.consoleproblem("Could not find supposed Command '" + command.toLowerCase() + "' in Command List '" + commandlist.toLowerCase() + "' Please type '?' for syntax help.");
                     continue runloop;
                 }
@@ -338,8 +301,7 @@ public class CommandThread implements Runnable
         Logger.debug("Developer's console shutting down...");
     }
     
-    public static void setInputStream(InputStream in)
-    {
+    public static void setInputStream(InputStream in) {
         readstream = in;
         readstreamchanged = true;
     }

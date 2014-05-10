@@ -25,14 +25,12 @@ import com.radirius.merc.spl.SplashScreen;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class ShaderTest extends Core
-{
+public class ShaderTest extends Core {
     
     Runner rnr = Runner.getInstance();
     Shader program;
     
-    public ShaderTest()
-    {
+    public ShaderTest() {
         super("MERCury Shader Test");
         rnr.init(this, 800, 600);
         rnr.run();
@@ -41,8 +39,7 @@ public class ShaderTest extends Core
     Texture tex;
     
     @Override
-    public void init(ResourceManager RM) throws IOException
-    {
+    public void init(ResourceManager RM) throws IOException {
         rnr.getGraphics().scale(4);
         
         program = Shader.getShader(Loader.streamFromClasspath("com/radirius/merc/test/custom.vs"), Shader.VERTEX_SHADER);
@@ -52,13 +49,11 @@ public class ShaderTest extends Core
     }
     
     @Override
-    public void update(float delta)
-    {
+    public void update(float delta) {
     }
     
     @Override
-    public void render(Graphics g)
-    {
+    public void render(Graphics g) {
         g.setBackground(Color.cyan);
         g.useShader(program);
         g.drawTexture(tex, 0, 0);
@@ -67,12 +62,10 @@ public class ShaderTest extends Core
     }
     
     @Override
-    public void cleanup(ResourceManager RM)
-    {
+    public void cleanup(ResourceManager RM) {
     }
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new ShaderTest();
     }
 }

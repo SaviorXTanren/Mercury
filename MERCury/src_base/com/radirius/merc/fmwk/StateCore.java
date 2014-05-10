@@ -16,13 +16,11 @@ import com.radirius.merc.res.ResourceManager;
  *          project 'MERCury' are licensed under WTFPL license. You can find the
  *          license itself at http://www.wtfpl.net/about/.
  */
-public abstract class StateCore extends Core
-{
+public abstract class StateCore extends Core {
     public HashMap<Integer, GameState> gamestates = new HashMap<Integer, GameState>();
     private int states = 0, current_state = 0;
     
-    public StateCore(String name)
-    {
+    public StateCore(String name) {
         super(name);
     }
     
@@ -30,38 +28,32 @@ public abstract class StateCore extends Core
     public abstract void init(ResourceManager RM);
     
     @Override
-    public void update(float delta)
-    {
+    public void update(float delta) {
         updateGameState(delta);
     }
     
     @Override
-    public void render(Graphics g)
-    {
+    public void render(Graphics g) {
         renderGameState(g);
     }
     
     @Override
     public abstract void cleanup(ResourceManager RM);
     
-    public void updateGameState(float delta)
-    {
+    public void updateGameState(float delta) {
         gamestates.get(current_state).update(delta);
     }
     
-    public void renderGameState(Graphics g)
-    {
+    public void renderGameState(Graphics g) {
         gamestates.get(current_state).render(g);
     }
     
-    public void addState(GameState state)
-    {
+    public void addState(GameState state) {
         gamestates.put(states, state);
         states++;
     }
     
-    public void setState(int state)
-    {
+    public void setState(int state) {
         current_state = state;
     }
 }

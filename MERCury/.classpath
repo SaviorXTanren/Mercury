@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src_base"/>
 	<classpathentry kind="src" path="src_plugin"/>
+	<classpathentry kind="src" path="javadoc"/>
 	<classpathentry kind="lib" path="libs/lwjgl/jar/lwjgl.jar">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="MERCury/libs/lwjgl/native/universal"/>

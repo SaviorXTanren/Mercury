@@ -13,8 +13,7 @@ import com.radirius.merc.gfx.Texture;
  *          project 'MERCury' are licensed under WTFPL license. You can find the
  *          license itself at http://www.wtfpl.net/about/.
  */
-public class TextBox extends Component
-{
+public class TextBox extends Component {
     public float margin;
     
     public Texture border_hor, border_vert, background_img;
@@ -23,15 +22,13 @@ public class TextBox extends Component
     
     private boolean hasBackground = false;
     
-    public TextBox(String txt, float x, float y, float w, float h, float margin, Color textCol)
-    {
+    public TextBox(String txt, float x, float y, float w, float h, float margin, Color textCol) {
         this(txt, Texture.getEmptyTexture(), Texture.getEmptyTexture(), x, y, w, h, margin, textCol);
         
         hasBackground = false;
     }
     
-    public TextBox(String txt, Texture border_hor, Texture border_vert, float x, float y, float w, float h, float margin, Color textCol)
-    {
+    public TextBox(String txt, Texture border_hor, Texture border_vert, float x, float y, float w, float h, float margin, Color textCol) {
         super(fitStringToBounds(txt, w, margin), x, y, w, h, false, false);
         
         this.margin = margin;
@@ -42,8 +39,7 @@ public class TextBox extends Component
         hasBackground = false;
     }
     
-    public TextBox(String txt, Texture background_img, float x, float y, float w, float h, float margin, Color textCol)
-    {
+    public TextBox(String txt, Texture background_img, float x, float y, float w, float h, float margin, Color textCol) {
         super(fitStringToBounds(txt, w, margin), x, y, w, h, false, false);
         
         this.margin = margin;
@@ -54,10 +50,8 @@ public class TextBox extends Component
     }
     
     @Override
-    public void render(Graphics g)
-    {
-        if (!hasBackground)
-        {
+    public void render(Graphics g) {
+        if (!hasBackground) {
             float borderwidth = Math.min(border_hor.getTextureHeight(), border_hor.getTextureWidth());
             
             g.drawTexture(border_vert, 0, 0, w, borderwidth, x, y + h - borderwidth + margin);
@@ -74,15 +68,13 @@ public class TextBox extends Component
     }
     
     @Override
-    public void renderContent(Graphics g)
-    {
+    public void renderContent(Graphics g) {
         g.setColor(textCol);
         g.drawString(x + margin, y + margin, txt);
         g.setColor(Color.white);
     }
     
-    private static String fitStringToBounds(String txt, float w, float margin)
-    {
+    private static String fitStringToBounds(String txt, float w, float margin) {
         // A line of text
         String linetxt = "";
         
@@ -94,21 +86,18 @@ public class TextBox extends Component
         String finaltxt = "";
         
         // Begin fitting!
-        while (idx < txt.length())
-        {
+        while (idx < txt.length()) {
             // Write character to line, and add to index
             linetxt += txt.charAt(idx);
             idx++;
             
             // If we are pushing the width limit or we are at the end of the
             // text, new line (or not)!
-            if (Runner.getInstance().getGraphics().getFont().getWidth(txt.substring(lidx, idx).toCharArray()) >= w - margin * 2 || idx >= txt.length())
-            {
+            if (Runner.getInstance().getGraphics().getFont().getWidth(txt.substring(lidx, idx).toCharArray()) >= w - margin * 2 || idx >= txt.length()) {
                 // Making sure no words get cut off, or split in half.
                 int lastspace = linetxt.lastIndexOf(' ');
                 
-                if (lastspace > 0)
-                {
+                if (lastspace > 0) {
                     idx -= linetxt.length() - lastspace;
                     linetxt = linetxt.substring(0, lastspace);
                 }

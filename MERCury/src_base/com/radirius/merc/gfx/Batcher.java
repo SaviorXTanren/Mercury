@@ -10,8 +10,7 @@ package com.radirius.merc.gfx;
  *          project 'MERCury' are licensed under WTFPL license. You can find the
  *          license itself at http://www.wtfpl.net/about/.
  */
-public interface Batcher
-{
+public interface Batcher {
     
     /** Make active. */
     public void begin();

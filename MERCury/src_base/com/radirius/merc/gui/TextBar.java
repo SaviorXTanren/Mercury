@@ -12,26 +12,22 @@ import com.radirius.merc.gfx.Texture;
  *          project 'MERCury' are licensed under WTFPL license. You can find the
  *          license itself at http://www.wtfpl.net/about/.
  */
-public class TextBar extends Component
-{
+public class TextBar extends Component {
     public Texture left, right, body;
     
-    public TextBar(String txt, Texture left, Texture right, Texture body, float x, float y, float w, float h)
-    {
+    public TextBar(String txt, Texture left, Texture right, Texture body, float x, float y, float w, float h) {
         super(txt, x, y, w, h, true, true);
         this.left = left;
         this.right = right;
         this.body = body;
     }
     
-    public TextBar(String txt, Texture left, Texture right, Texture body, float x, float y)
-    {
+    public TextBar(String txt, Texture left, Texture right, Texture body, float x, float y) {
         this(txt, left, right, body, x, y, Runner.getInstance().getGraphics().getFont().getWidth(txt.toCharArray()), Runner.getInstance().getGraphics().getFont().getLineHeight());
     }
     
     @Override
-    public void render(Graphics g)
-    {
+    public void render(Graphics g) {
         if (left != null)
             g.drawTexture(left, x, y);
         
@@ -45,8 +41,7 @@ public class TextBar extends Component
     }
     
     @Override
-    public void renderContent(Graphics g)
-    {
+    public void renderContent(Graphics g) {
         float tx = 0, ty = 0;
         
         if (cx)

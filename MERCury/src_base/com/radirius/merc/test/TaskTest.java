@@ -22,71 +22,56 @@ import com.radirius.merc.util.TaskTiming.Task;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class TaskTest extends Core
-{
+public class TaskTest extends Core {
     Runner rnr = Runner.getInstance();
     
     boolean jumpscare = false;
     Texture lard;
     
-    public TaskTest()
-    {
+    public TaskTest() {
         super("Task Test!");
         rnr.init(this, 500, 500);
         rnr.run();
     }
     
     @Override
-    public void init(ResourceManager RM) throws IOException, MERCuryException
-    {
-        TaskTiming.addTask(new Task(1000)
-        {
+    public void init(ResourceManager RM) throws IOException, MERCuryException {
+        TaskTiming.addTask(new Task(1000) {
             @Override
-            public void run()
-            {
+            public void run() {
                 Logger.debug("It has been 1 second.");
             }
         });
-        TaskTiming.addTask(new Task(5000)
-        {
+        TaskTiming.addTask(new Task(5000) {
             @Override
-            public void run()
-            {
+            public void run() {
                 Logger.debug("It has been 5 seconds.");
             }
         });
-        TaskTiming.addTask(new Task(10000)
-        {
+        TaskTiming.addTask(new Task(10000) {
             @Override
-            public void run()
-            {
+            public void run() {
                 Logger.debug("It has been 10 seconds. And...");
             }
         });
-        TaskTiming.addTask(new Task(15000)
-        {
+        TaskTiming.addTask(new Task(15000) {
             @Override
-            public void run()
-            {
+            public void run() {
                 Logger.debug("It has been 15 se-- BOOOO!");
                 jumpscare = true;
             }
         });
-        TaskTiming.addTask(new Task(15400)
-        {
+        TaskTiming.addTask(new Task(15400) {
             @Override
-            public void run()
-            {
+            public void run() {
                 Logger.debug("Haw haw, that was golden.");
                 jumpscare = false;
             }
         });
         
-        TaskTiming.addTask(new Task(7000, -1)
-        {
+        TaskTiming.addTask(new Task(7000, -1) {
             @Override
-            public void run()
-            {
+            public void run() {
                 Logger.debug("INFINITELY RECURRING 7 SECOND REMINDER OF YOUR POOP");
                 jumpscare = false;
             }
@@ -98,31 +83,26 @@ public class TaskTest extends Core
     }
     
     @Override
-    public void update(float delta) throws MERCuryException
-    {
+    public void update(float delta) throws MERCuryException {
         
     }
     
     float zoom = 2;
     
     @Override
-    public void render(Graphics g) throws MERCuryException
-    {
-        if (jumpscare)
-        {
+    public void render(Graphics g) throws MERCuryException {
+        if (jumpscare) {
             g.drawTexture(lard, 0, 0);
             g.scale(zoom += 0.4f);
         }
     }
     
     @Override
-    public void cleanup(ResourceManager RM) throws IOException, MERCuryException
-    {
+    public void cleanup(ResourceManager RM) throws IOException, MERCuryException {
         
     }
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new TaskTest();
     }
 }

@@ -21,13 +21,11 @@ import java.util.HashMap;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class ResourceManager
-{
+public class ResourceManager {
     private final HashMap<String, Resource> resources = new HashMap<String, Resource>();
     
     /** Loads a resource by the key key. */
-    public void loadResource(Resource res, String key)
-    {
+    public void loadResource(Resource res, String key) {
         resources.put(key, res);
     }
     
@@ -35,21 +33,18 @@ public class ResourceManager
      * Loads multiple resources, simply concatinating "_n" to the key with each
      * new one, n being the number of resources processed.
      */
-    public void loadResources(Resource[] resources, String key)
-    {
+    public void loadResources(Resource[] resources, String key) {
         for (int t = 0; t < resources.length; t++)
             this.resources.put(key + "_" + t, resources[t]);
     }
     
     /** @return The resource of the key key. */
-    public Resource retrieveResource(String key)
-    {
+    public Resource retrieveResource(String key) {
         return resources.get(key);
     }
     
     /** Removes the resource of the key key. */
-    public void clearResource(String key)
-    {
+    public void clearResource(String key) {
         resources.remove(key);
     }
     
@@ -57,20 +52,17 @@ public class ResourceManager
      * A method for releasing anything that needs to be released, for it is the
      * end!
      */
-    public void cleanup()
-    {
+    public void cleanup() {
         resources.clear();
     }
     
     /** @return The user's directory. */
-    public String getUserDirectory()
-    {
+    public String getUserDirectory() {
         return System.getProperty("user.dir");
     }
     
     /** @return The seperating character. */
-    public char seperatorChar()
-    {
+    public char seperatorChar() {
         return File.separatorChar;
     }
 }

@@ -4,9 +4,14 @@ import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -37,8 +42,7 @@ import com.radirius.merc.util.TaskTiming;
  *          license itself at http//www.wtfpl.net/about/.
  */
 
-public class Runner
-{
+public class Runner {
     /** The singleton instance of the Runner. This should be the ONLY Runner. */
     private final static Runner singleton = new Runner();
     
@@ -95,8 +99,7 @@ public class Runner
     
     // We don't want ANYONE attempting to create another. There is a singleton,
     // and you must use it.
-    private Runner()
-    {
+    private Runner() {
     }
     
     /**
@@ -109,8 +112,7 @@ public class Runner
      * @param HEIGHT
      *            The height of the display
      */
-    public void init(Core core, int WIDTH, int HEIGHT)
-    {
+    public void init(Core core, int WIDTH, int HEIGHT) {
         init(core, WIDTH, HEIGHT, false);
     }
     
@@ -126,8 +128,7 @@ public class Runner
      * @param fullscreen
      *            Whether or not the display is fullscreen
      */
-    public void init(Core core, int WIDTH, int HEIGHT, boolean fullscreen)
-    {
+    public void init(Core core, int WIDTH, int HEIGHT, boolean fullscreen) {
         init(core, WIDTH, HEIGHT, fullscreen, false, true);
     }
     
@@ -141,8 +142,7 @@ public class Runner
      * @param vsync
      *            Whether or not we are vsynced
      */
-    public void init(Core core, boolean fullscreen, boolean vsync)
-    {
+    public void init(Core core, boolean fullscreen, boolean vsync) {
         init(core, Display.getDesktopDisplayMode().getWidth(), Display.getDesktopDisplayMode().getHeight(), fullscreen, vsync, true);
     }
     
@@ -162,8 +162,7 @@ public class Runner
      * @param devconsole
      *            Whether or not we are enabling the developers console
      */
-    public void init(Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean devconsole)
-    {
+    public void init(Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean devconsole) {
         // Initialize Some Stuff! IN ORDER
         Logger.debug("MERCury Started!");
         Logger.log("  __  __ ______ _____   _____                 ");
@@ -221,19 +220,16 @@ public class Runner
         
         Logger.debug("Starting plugins...");
         
-        for (Plugin plug : plugs)
-        {
+        for (Plugin plug : plugs) {
             Logger.debug("\tInitializing " + plug.getClass().getSimpleName() + "...");
             plug.init();
         }
         
         Logger.debug("Initializing Core...");
         
-        try
-        {
+        try {
             this.core.init(RM);
-        } catch (IOException | MERCuryException e)
-        {
+        } catch (IOException | MERCuryException e) {
             e.printStackTrace();
         }
         
@@ -242,102 +238,80 @@ public class Runner
         CommandList cmdlmerc = new CommandList("merc", "This is the default Command List for MERCury Developer Console. In it, you will find core functions to MERCury Developer Console that will allow you to modify projects within the runtime.");
         
         // Add in all the commands.
-        cmdlmerc.addCommand(new Command("end", "Ends the program.")
-        {
+        cmdlmerc.addCommand(new Command("end", "Ends the program.") {
             @Override
-            public void run(String... args)
-            {
+            public void run(String... args) {
                 end();
                 Logger.console("Ending MERCury...");
             }
         });
-        cmdlmerc.addCommand(new Command("togglefreeze", "Toggles the freezing of the update and the freezing of the rendering.")
-        {
+        cmdlmerc.addCommand(new Command("togglefreeze", "Toggles the freezing of the update and the freezing of the rendering.") {
             @Override
-            public void run(String... args)
-            {
+            public void run(String... args) {
                 setUpdateFreeze(!updatefreeze);
                 setRenderFreeze(!renderfreeze);
                 Logger.console("Update Freeze changed to " + updatefreeze + ", and Render Freeze changed to " + renderfreeze);
             }
         });
-        cmdlmerc.addCommand(new Command("setFpsTarget", "merc setFpsTarget [Fps Target]\nTargets for, or caps the framerate at a given height.")
-        {
+        cmdlmerc.addCommand(new Command("setFpsTarget", "merc setFpsTarget [Fps Target]\nTargets for, or caps the framerate at a given height.") {
             @Override
-            public void run(String... args)
-            {
+            public void run(String... args) {
                 setFpsTarget(Integer.parseInt(args[0]));
                 Logger.console("Framerate targeted for " + FPS_TARGET);
             }
         });
-        cmdlmerc.addCommand(new Command("setMouseGrab", "merc setMouseGrab [True/False]\nLocks or releases the mouse from the window.")
-        {
+        cmdlmerc.addCommand(new Command("setMouseGrab", "merc setMouseGrab [True/False]\nLocks or releases the mouse from the window.") {
             @Override
-            public void run(String... args)
-            {
+            public void run(String... args) {
                 setMouseGrab(Boolean.valueOf(args[0]));
                 Logger.console("Mouse " + (Boolean.valueOf(args[0]) ? "grabbed" : "released") + ".");
             }
         });
-        cmdlmerc.addCommand(new Command("setVsync", "Sets whether or not there is Vertical Sync.")
-        {
+        cmdlmerc.addCommand(new Command("setVsync", "Sets whether or not there is Vertical Sync.") {
             @Override
-            public void run(String... args)
-            {
+            public void run(String... args) {
                 setVsync(Boolean.valueOf(args[0]));
                 Logger.console("Vsync set to " + args[0]);
             }
         });
-        cmdlmerc.addCommand(new Command("setTitle", "Sets the title of the window.")
-        {
+        cmdlmerc.addCommand(new Command("setTitle", "Sets the title of the window.") {
             @Override
-            public void run(String... args)
-            {
+            public void run(String... args) {
                 setTitle(args[0]);
                 Logger.console("Window title set to '" + args[0] + ".'");
             }
         });
-        cmdlmerc.addCommand(new Command("setDeltaFactor", "Sets the delta factor, or, the number by which delta is multiplied by, to a given number.")
-        {
+        cmdlmerc.addCommand(new Command("setDeltaFactor", "Sets the delta factor, or, the number by which delta is multiplied by, to a given number.") {
             @Override
-            public void run(String... args)
-            {
+            public void run(String... args) {
                 setDeltaFactor(Float.valueOf(args[0]));
                 Logger.console("Delta factor set to " + args[0]);
             }
         });
-        cmdlmerc.addCommand(new Command("setUpdateFreeze", "Sets the freezing of the update.")
-        {
+        cmdlmerc.addCommand(new Command("setUpdateFreeze", "Sets the freezing of the update.") {
             @Override
-            public void run(String... args)
-            {
+            public void run(String... args) {
                 setUpdateFreeze(Boolean.valueOf(args[0]));
                 Logger.console("Set update freeze to " + renderfreeze);
             }
         });
-        cmdlmerc.addCommand(new Command("setRenderFreeze", "Sets the freezing of the render.")
-        {
+        cmdlmerc.addCommand(new Command("setRenderFreeze", "Sets the freezing of the render.") {
             @Override
-            public void run(String... args)
-            {
+            public void run(String... args) {
                 setRenderFreeze(Boolean.valueOf(args[0]));
                 Logger.console("Set render freeze to " + renderfreeze);
             }
         });
-        cmdlmerc.addCommand(new Command("echo", "Echos your every word.")
-        {
+        cmdlmerc.addCommand(new Command("echo", "Echos your every word.") {
             @Override
-            public void run(String... args)
-            {
+            public void run(String... args) {
                 for (String s : args)
                     Logger.console(s);
             }
         });
-        cmdlmerc.addVariable(new Variable("fps")
-        {
+        cmdlmerc.addVariable(new Variable("fps") {
             @Override
-            public String get(String... args)
-            {
+            public String get(String... args) {
                 return String.valueOf(getFps());
             }
         });
@@ -359,8 +333,7 @@ public class Runner
     /**
      * The main game loop of the library.
      */
-    public void run()
-    {
+    public void run() {
         Logger.debug("Run permission granted by Core...");
         Logger.debug("Starting Game Loop...");
         
@@ -371,8 +344,7 @@ public class Runner
         Logger.line();
         Logger.line();
         
-        if (splashes.size() == 0)
-        {
+        if (splashes.size() == 0) {
             splashed = true;
             
             Logger.debug("No splashes loaded by Core.");
@@ -389,8 +361,7 @@ public class Runner
          */
         lastfps = lastframe = Sys.getTime() * 1000 / Sys.getTimerResolution();
         
-        while (running)
-        {
+        while (running) {
             // Set time for FPS and Delta calculations
             long time = Sys.getTime() * 1000 / Sys.getTimerResolution();
             
@@ -400,8 +371,7 @@ public class Runner
             // Update FPS
             if (time - lastfps < 1000)
                 _FPS++;
-            else
-            {
+            else {
                 lastfps = time;
                 FPS = _FPS;
                 _FPS = 0;
@@ -421,28 +391,22 @@ public class Runner
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             
             if (!updatefreeze)
-                if (splashed)
-                {
-                    try
-                    {
+                if (splashed) {
+                    try {
                         core.update(getDelta());
-                    } catch (MERCuryException e)
-                    {
+                    } catch (MERCuryException e) {
                         e.printStackTrace();
                     }
                     input.poll();
                 }
             
-            if (!renderfreeze)
-            {
+            if (!renderfreeze) {
                 camera.pre(graphicsobject);
                 {
                     if (splashed)
-                        try
-                        {
+                        try {
                             core.render(graphicsobject);
-                        } catch (MERCuryException e)
-                        {
+                        } catch (MERCuryException e) {
                             e.printStackTrace();
                         }
                     else if (!splashes.get(splashidx).show(graphicsobject))
@@ -477,18 +441,15 @@ public class Runner
         TaskTiming.cleanup();
         
         Logger.debug("Cleaning up Core...");
-        try
-        {
+        try {
             core.cleanup(RM);
-        } catch (IOException | MERCuryException e)
-        {
+        } catch (IOException | MERCuryException e) {
             e.printStackTrace();
         }
         Logger.debug("Cleaning up ResourceManager...");
         RM.cleanup();
         Logger.debug("Cleaning up plugins...");
-        for (Plugin plug : plugs)
-        {
+        for (Plugin plug : plugs) {
             Logger.debug("     Cleaning up " + plug.getClass().getSimpleName() + "...");
             plug.cleanup();
         }
@@ -497,8 +458,7 @@ public class Runner
     }
     
     /** @return The fps */
-    public int getFps()
-    {
+    public int getFps() {
         return FPS;
     }
     
@@ -506,8 +466,7 @@ public class Runner
      * @param target
      *            The new FPS target
      */
-    public void setFpsTarget(int target)
-    {
+    public void setFpsTarget(int target) {
         FPS_TARGET = target;
     }
     
@@ -515,34 +474,29 @@ public class Runner
      * @param logfps
      *            Whether or not to log the FPS in the log
      */
-    public void setLogFPS(boolean logfps)
-    {
+    public void setLogFPS(boolean logfps) {
         this.logfps = logfps;
     }
     
     /** @return The Width of the display */
-    public int getWidth()
-    {
+    public int getWidth() {
         return Display.getWidth();
     }
     
     /** @return The Height of the display */
-    public int getHeight()
-    {
+    public int getHeight() {
         return Display.getHeight();
     }
     
     /** @return The aspect ratio of the display WIDTH/HEIGHT */
-    public float getAspectRatio()
-    {
+    public float getAspectRatio() {
         return getWidth() / getHeight();
     }
     
     /**
      * @return Time in milliseconds
      */
-    public float getTime()
-    {
+    public float getTime() {
         return Sys.getTime() * 1000 / Sys.getTimerResolution();
     }
     
@@ -552,17 +506,19 @@ public class Runner
      * @param milliseconds
      *            The milliseconds to wait
      */
-    public void sleep(long milliseconds) throws InterruptedException
-    {
-        Thread.sleep(milliseconds);
+    public void sleep(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     
     /**
      * @param grab
      *            Whether or not to grab the mouse
      */
-    public void setMouseGrab(boolean grab)
-    {
+    public void setMouseGrab(boolean grab) {
         Mouse.setGrabbed(grab);
     }
     
@@ -570,15 +526,13 @@ public class Runner
      * @param vsync
      *            Whether or not to vsync
      */
-    public void setVsync(boolean vsync)
-    {
+    public void setVsync(boolean vsync) {
         this.vsync = vsync;
         Display.setVSyncEnabled(vsync);
     }
     
     /** @return Whether or not the window has the focus */
-    public boolean isFocused()
-    {
+    public boolean isFocused() {
         return Display.isActive();
     }
     
@@ -586,25 +540,114 @@ public class Runner
      * @param title
      *            The title of the window
      */
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         Display.setTitle(title);
+    }
+    
+    /**
+     * @param is
+     *            The InputStream of the icon of the window.
+     */
+    public void setIcon(InputStream is) {
+        Display.setIcon(loadIcon(is));
+    }
+    
+    // Torn from this http://pastebin.com/9Ti23hTr. Thanks to this guy for
+    // solving a problem for me!
+    private ByteBuffer[] loadIcon(InputStream is) {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        ByteBuffer[] buffers = new ByteBuffer[3];
+        buffers[0] = loadIconInstance(image, 128);
+        buffers[1] = loadIconInstance(image, 32);
+        buffers[2] = loadIconInstance(image, 16);
+        
+        return buffers;
+    }
+    
+    // Torn from this http://pastebin.com/9Ti23hTr. Thanks to this guy for
+    // solving a problem for me!
+    private ByteBuffer loadIconInstance(BufferedImage image, int dimension) {
+        BufferedImage scaledIcon = new BufferedImage(dimension, dimension, BufferedImage.TYPE_INT_ARGB_PRE);
+        Graphics2D g = scaledIcon.createGraphics();
+        
+        double ratio = getIconRatio(image, scaledIcon);
+        double width = image.getWidth() * ratio;
+        double height = image.getHeight() * ratio;
+        
+        g.drawImage(image, (int) ((scaledIcon.getWidth() - width) / 2), (int) ((scaledIcon.getHeight() - height) / 2), (int) (width), (int) (height), null);
+        
+        g.dispose();
+        
+        return readImageAsByteBuffer(scaledIcon);
+    }
+    
+    // Torn from this http://pastebin.com/9Ti23hTr. Thanks to this guy for
+    // solving a problem for me!
+    private double getIconRatio(BufferedImage originalImage, BufferedImage icon) {
+        double ratio = 1;
+        
+        if (originalImage.getWidth() > icon.getWidth()) {
+            ratio = (double) (icon.getWidth()) / originalImage.getWidth();
+        } else {
+            ratio = icon.getWidth() / originalImage.getWidth();
+        }
+        if (originalImage.getHeight() > icon.getHeight()) {
+            double r2 = (double) (icon.getHeight()) / originalImage.getHeight();
+            
+            if (r2 < ratio) {
+                ratio = r2;
+            }
+        } else {
+            double r2 = icon.getHeight() / originalImage.getHeight();
+            
+            if (r2 < ratio) {
+                ratio = r2;
+            }
+        }
+        
+        return ratio;
+    }
+    
+    // Torn from this http://pastebin.com/9Ti23hTr. Thanks to this guy for
+    // solving a problem for me!
+    private ByteBuffer readImageAsByteBuffer(BufferedImage image) {
+        byte[] imageBuffer = new byte[image.getWidth() * image.getHeight() * 4];
+        
+        int counter = 0;
+        for (int i = 0; i < image.getHeight(); i++) {
+            for (int j = 0; j < image.getWidth(); j++) {
+                int colorSpace = image.getRGB(j, i);
+                
+                imageBuffer[counter] = (byte) ((colorSpace << 8) >> 24);
+                imageBuffer[counter + 1] = (byte) ((colorSpace << 16) >> 24);
+                imageBuffer[counter + 2] = (byte) ((colorSpace << 24) >> 24);
+                imageBuffer[counter + 3] = (byte) (colorSpace >> 24);
+                
+                counter += 4;
+            }
+        }
+        
+        return ByteBuffer.wrap(imageBuffer);
     }
     
     /**
      * @param resizable
      *            The resizability of the window
      */
-    public void setResizable(boolean resizable)
-    {
+    public void setResizable(boolean resizable) {
         Display.setResizable(resizable);
         
         remakeDisplay();
     }
     
     /** Remakes the display */
-    private void remakeDisplay()
-    {
+    private void remakeDisplay() {
         Display.destroy();
         
         getCore().initDisplay(getWidth(), getHeight(), Display.isFullscreen(), vsync);
@@ -613,14 +656,12 @@ public class Runner
     }
     
     /** Ends the loop */
-    public void end()
-    {
+    public void end() {
         running = false;
     }
     
     /** @return The delta time variable */
-    public float getDelta()
-    {
+    public float getDelta() {
         return delta * deltafactor;
     }
     
@@ -628,14 +669,12 @@ public class Runner
      * @param factor
      *            The new delta factor
      */
-    public void setDeltaFactor(float factor)
-    {
+    public void setDeltaFactor(float factor) {
         deltafactor = factor;
     }
     
     /** @return The core being ran */
-    public Core getCore()
-    {
+    public Core getCore() {
         return core;
     }
     
@@ -643,14 +682,12 @@ public class Runner
      * @param freeze
      *            Whether or not to freeze the updating
      */
-    public void setUpdateFreeze(boolean freeze)
-    {
+    public void setUpdateFreeze(boolean freeze) {
         updatefreeze = freeze;
     }
     
     /** @return The graphics object */
-    public Graphics getGraphics()
-    {
+    public Graphics getGraphics() {
         return graphicsobject;
     }
     
@@ -658,26 +695,22 @@ public class Runner
      * @param freeze
      *            Whether or not to freeze the rendering
      */
-    public void setRenderFreeze(boolean freeze)
-    {
+    public void setRenderFreeze(boolean freeze) {
         renderfreeze = freeze;
     }
     
     /** @return The resource manager */
-    public ResourceManager getResourceManager()
-    {
+    public ResourceManager getResourceManager() {
         return RM;
     }
     
     /** @return The input node */
-    public Input getInput()
-    {
+    public Input getInput() {
         return input;
     }
     
     /** @return The camera */
-    public Camera getCamera()
-    {
+    public Camera getCamera() {
         return camera;
     }
     
@@ -685,8 +718,7 @@ public class Runner
      * @param splash
      *            The splash screen to add
      */
-    public void addSplashScreen(SplashScreen splash)
-    {
+    public void addSplashScreen(SplashScreen splash) {
         splashes.add(splash);
     }
     
@@ -694,8 +726,7 @@ public class Runner
      * @param plugin
      *            The plugin to add
      */
-    public void addPlugin(Plugin plugin)
-    {
+    public void addPlugin(Plugin plugin) {
         plugs.add(plugin);
     }
     
@@ -704,8 +735,7 @@ public class Runner
      *            The name of the plugin you want
      * @return The plugin corresponding to name
      */
-    public Plugin getPlugin(String name) throws PluginNotFoundException
-    {
+    public Plugin getPlugin(String name) throws PluginNotFoundException {
         for (Plugin plug : plugs)
             if (plug.getClass().getSimpleName().equalsIgnoreCase(name))
                 return plug;
@@ -713,8 +743,7 @@ public class Runner
     }
     
     /** @return The singleton instance of Runner */
-    public static Runner getInstance()
-    {
+    public static Runner getInstance() {
         return singleton;
     }
 }

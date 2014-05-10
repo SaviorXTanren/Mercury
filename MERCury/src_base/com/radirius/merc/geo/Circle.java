@@ -10,8 +10,7 @@ package com.radirius.merc.geo;
  *          project 'MERCury' are licensed under WTFPL license. You can find the
  *          license itself at http://www.wtfpl.net/about/.
  */
-public class Circle extends Ellipse
-{
+public class Circle extends Ellipse {
     /**
      * This is a circle. It knows how to 'get around.' It also has a radius from
      * center to rim. And it's diameter goes from side to side; now isn't that
@@ -27,8 +26,7 @@ public class Circle extends Ellipse
      * @param radius
      *            The radius of the circle (half of the diameter).
      */
-    public Circle(float x, float y, float radius)
-    {
+    public Circle(float x, float y, float radius) {
         super(x, y, radius, radius);
     }
 }

@@ -19,8 +19,7 @@ import com.radirius.merc.geo.Vec2;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public interface Graphics
-{
+public interface Graphics {
     public static final int LINE = 0, FILLED = 1;
     
     /** Initializes the graphics object. */

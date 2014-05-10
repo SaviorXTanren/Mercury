@@ -12,11 +12,9 @@ package com.radirius.merc.exc;
  */
 
 @SuppressWarnings("serial")
-public class PluginNotFoundException extends Exception
-{
+public class PluginNotFoundException extends Exception {
     
-    public PluginNotFoundException(String msg)
-    {
+    public PluginNotFoundException(String msg) {
         super(msg);
     }
     

@@ -21,8 +21,7 @@ import com.radirius.merc.exc.MERCuryException;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class TextFile
-{
+public class TextFile {
     /**
      * The lines of the file.
      */
@@ -44,8 +43,7 @@ public class TextFile
      * @param lines
      *            The lines of the file.
      */
-    public TextFile(File file, String lines)
-    {
+    public TextFile(File file, String lines) {
         this.file = file;
         this.lines = lines;
         updated = true;
@@ -57,15 +55,12 @@ public class TextFile
      * @param url
      *            The URL indicating the location of the file.
      */
-    public static TextFile loadFile(URL url)
-    {
+    public static TextFile loadFile(URL url) {
         File file = new File(url.getFile());
         if (!file.exists())
-            try
-            {
+            try {
                 throw new MERCuryException("File not found: " + url.getFile());
-            } catch (MERCuryException e)
-            {
+            } catch (MERCuryException e) {
                 e.printStackTrace();
             }
         return new TextFile(file, read(file));
@@ -77,18 +72,15 @@ public class TextFile
      * @param file
      *            The file
      */
-    public static String read(File file)
-    {
+    public static String read(File file) {
         StringBuilder lines = new StringBuilder();
         String line;
-        try
-        {
+        try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             while ((line = reader.readLine()) != null)
                 lines.append(line).append("\n");
             reader.close();
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         
@@ -101,8 +93,7 @@ public class TextFile
      * @param data
      *            The data to write
      */
-    public void write(String data)
-    {
+    public void write(String data) {
         write(data, true);
     }
     
@@ -114,17 +105,14 @@ public class TextFile
      * @param append
      *            Whether or not to append
      */
-    public void write(String data, boolean append)
-    {
-        try
-        {
+    public void write(String data, boolean append) {
+        try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file, append));
             writer.newLine();
             writer.append(data);
             writer.close();
             updated = false;
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -132,10 +120,8 @@ public class TextFile
     /**
      * @return The content of the updated file.
      */
-    public String getContent()
-    {
-        if (!updated)
-        {
+    public String getContent() {
+        if (!updated) {
             lines = TextFile.read(file);
             updated = true;
         }

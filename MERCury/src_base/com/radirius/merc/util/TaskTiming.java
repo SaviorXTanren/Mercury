@@ -16,49 +16,41 @@ import com.radirius.merc.exc.TaskException;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class TaskTiming implements Runnable
-{
+public class TaskTiming implements Runnable {
     private static boolean running = true;
     
     private static CopyOnWriteArrayList<Task> tasks = new CopyOnWriteArrayList<Task>();
     
     /** Initializes the timing thread. */
-    public static void init()
-    {
+    public static void init() {
         Thread t = new Thread(new TaskTiming());
         t.setName("merc_timertask");
         t.start();
     }
     
     /** Adds a task. */
-    public static void addTask(Task task)
-    {
+    public static void addTask(Task task) {
         tasks.add(task);
     }
     
     /** Cleans up the timing thread. */
-    public static void cleanup()
-    {
+    public static void cleanup() {
         running = false;
     }
     
     @Override
-    public void run()
-    {
+    public void run() {
         while (running)
-            for (Task task : tasks)
-            {
+            for (Task task : tasks) {
                 long time = System.currentTimeMillis();
                 long past = time - task.birth;
                 
-                if (past > task.timeout)
-                {
+                if (past > task.timeout) {
                     task.run();
                     
                     if (task.recur == 0)
                         tasks.remove(task);
-                    else
-                    {
+                    else {
                         if (task.recur > 0)
                             task.recur--;
                         
@@ -68,28 +60,23 @@ public class TaskTiming implements Runnable
             }
     }
     
-    public abstract static class Task
-    {
+    public abstract static class Task {
         public int recur;
         public long birth, timeout;
         
-        public Task(long timeout)
-        {
+        public Task(long timeout) {
             this(timeout, 0);
         }
         
-        public Task(long timeout, int reccurances)
-        {
+        public Task(long timeout, int reccurances) {
             recur = reccurances;
             
             birth = System.currentTimeMillis();
             
             if (timeout <= 0)
-                try
-                {
+                try {
                     throw new TaskException("Timeout must be at least one millisecond!");
-                } catch (TaskException e)
-                {
+                } catch (TaskException e) {
                     e.printStackTrace();
                 }
             this.timeout = timeout;

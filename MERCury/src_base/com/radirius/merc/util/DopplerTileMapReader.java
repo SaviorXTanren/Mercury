@@ -17,16 +17,14 @@ import java.util.Scanner;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class DopplerTileMapReader
-{
+public class DopplerTileMapReader {
     public static final int DIGITS_PER_TILE = 4;
     
     /**
      * @return An integer array representing what the doppler tile map file
      *         contained. Each integer is stored result[x][y].
      */
-    public static int[][] getTiles(URL in) throws IOException
-    {
+    public static int[][] getTiles(URL in) throws IOException {
         // Read WIDTH and HEIGHT
         int[] dimensions = readDimensions(in.openStream());
         int WIDTH = dimensions[0], HEIGHT = dimensions[1];
@@ -37,14 +35,12 @@ public class DopplerTileMapReader
         return result;
     }
     
-    private static int[] readDimensions(InputStream in)
-    {
+    private static int[] readDimensions(InputStream in) {
         int WIDTH = 0, HEIGHT = 0;
         
         Scanner read = new Scanner(in);
         
-        while (read.hasNextLine())
-        {
+        while (read.hasNextLine()) {
             String line = read.nextLine();
             if (line.startsWith("texture"))
                 break;
@@ -55,19 +51,16 @@ public class DopplerTileMapReader
         
         read.close();
         
-        return new int[]
-        { WIDTH, HEIGHT };
+        return new int[] { WIDTH, HEIGHT };
     }
     
-    private static int[][] readData(int WIDTH, int HEIGHT, InputStream in)
-    {
+    private static int[][] readData(int WIDTH, int HEIGHT, InputStream in) {
         int[][] data = new int[WIDTH][HEIGHT];
         
         Scanner read = new Scanner(in);
         
         int y = 0;
-        while (read.hasNextLine())
-        {
+        while (read.hasNextLine()) {
             String line = read.nextLine();
             if (line.startsWith("texture"))
                 break;

@@ -19,28 +19,24 @@ import com.radirius.merc.spl.SplashScreen;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class SlickAudioTest extends Core
-{
+public class SlickAudioTest extends Core {
     public Runner rnr = Runner.getInstance();
     
     public Audio ogg, wav;
     
-    public SlickAudioTest()
-    {
+    public SlickAudioTest() {
         super("Slick Audio Test!");
         rnr.addPlugin(new SlickSoundPlugin());
         rnr.init(this, 300, 300);
         rnr.run();
     }
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new SlickAudioTest();
     }
     
     @Override
-    public void init(ResourceManager RM)
-    {
+    public void init(ResourceManager RM) {
         RM.loadResource(Audio.loadAudio(Loader.loadFromClasspath("com/radirius/merc/test/sound.ogg")), "ogg");
         RM.loadResource(Audio.loadAudio(Loader.loadFromClasspath("com/radirius/merc/test/sound.wav")), "wav");
         
@@ -48,8 +44,7 @@ public class SlickAudioTest extends Core
     }
     
     @Override
-    public void update(float delta)
-    {
+    public void update(float delta) {
         Input in = rnr.getInput();
         if (in.keyClicked(Input.KEY_W) || in.mouseClicked(Input.MOUSE_LEFT) || in.mouseClicked(Input.MOUSE_MID))
             ((Audio) rnr.getResourceManager().retrieveResource("wav")).toggle();
@@ -66,14 +61,12 @@ public class SlickAudioTest extends Core
     String msg = "";
     
     @Override
-    public void render(Graphics g)
-    {
+    public void render(Graphics g) {
         g.drawString(0, 0, "O = OGG\nW = WAV");
         g.drawString(0, 0, msg);
     }
     
     @Override
-    public void cleanup(ResourceManager RM)
-    {
+    public void cleanup(ResourceManager RM) {
     }
 }

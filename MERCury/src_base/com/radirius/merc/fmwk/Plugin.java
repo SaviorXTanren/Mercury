@@ -12,8 +12,7 @@ package com.radirius.merc.fmwk;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public interface Plugin
-{
+public interface Plugin {
     /** The method for initializing the plugin */
     public void init();
     

@@ -13,8 +13,7 @@ import com.radirius.merc.gfx.Graphics;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public interface Renderable
-{
+public interface Renderable {
     /**
      * The render method. In here there should be peripheral activity, such as
      * graphics, or sound, given g.

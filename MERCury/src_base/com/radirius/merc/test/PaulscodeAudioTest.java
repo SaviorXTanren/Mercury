@@ -25,12 +25,10 @@ import com.radirius.merc.spl.SplashScreen;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class PaulscodeAudioTest extends Core
-{
+public class PaulscodeAudioTest extends Core {
     Runner rnr = Runner.getInstance();
     
-    public PaulscodeAudioTest()
-    {
+    public PaulscodeAudioTest() {
         super("Paulscode Audio Test!");
         rnr.addPlugin(new PaulscodeSoundSystemPlugin());
         rnr.init(this, 800, 600);
@@ -38,14 +36,11 @@ public class PaulscodeAudioTest extends Core
     }
     
     @Override
-    public void init(ResourceManager RM)
-    {
-        try
-        {
+    public void init(ResourceManager RM) {
+        try {
             RM.loadResource(Audio.loadAudio(Loader.loadFromClasspath("com/radirius/merc/test/sound.ogg"), false), "ogg");
             RM.loadResource(Audio.loadAudio(Loader.loadFromClasspath("com/radirius/merc/test/sound.wav"), false), "wav");
-        } catch (MERCuryException e)
-        {
+        } catch (MERCuryException e) {
             e.printStackTrace();
         }
         
@@ -53,8 +48,7 @@ public class PaulscodeAudioTest extends Core
     }
     
     @Override
-    public void update(float delta)
-    {
+    public void update(float delta) {
         Input in = rnr.getInput();
         if (in.keyDown(Keyboard.KEY_W))
             ((Audio) rnr.getResourceManager().retrieveResource("wav")).play();
@@ -63,18 +57,15 @@ public class PaulscodeAudioTest extends Core
     }
     
     @Override
-    public void render(Graphics g)
-    {
+    public void render(Graphics g) {
         g.drawString(0, 0, "O = OGG\nW = WAV");
     }
     
     @Override
-    public void cleanup(ResourceManager RM)
-    {
+    public void cleanup(ResourceManager RM) {
     }
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new PaulscodeAudioTest();
     }
 }

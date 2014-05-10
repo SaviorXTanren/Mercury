@@ -11,8 +11,7 @@ package com.radirius.merc.cmd;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public abstract class Command
-{
+public abstract class Command {
     /** The name of the command. This will be case-insensitive. */
     public final String name;
     /**
@@ -28,8 +27,7 @@ public abstract class Command
      *            The manual that will be shown when requested by the console
      *            user. Used for general instruction of using the command.
      */
-    public Command(String name, String manual)
-    {
+    public Command(String name, String manual) {
         this.name = name.toLowerCase();
         this.manual = manual;
     }
@@ -38,8 +36,7 @@ public abstract class Command
      * @param name
      *            The name of the command. This will be case-insensitive.
      */
-    public Command(String name)
-    {
+    public Command(String name) {
         this(name, "Command List Developer did not provide a manual for Command.");
     }
     

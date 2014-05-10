@@ -17,23 +17,18 @@ import java.util.Calendar;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class StackTraceSaver
-{
+public class StackTraceSaver {
     
-    public static void save(Exception e)
-    {
+    public static void save(Exception e) {
         save(getDate() + ".stacktrace", e);
     }
     
-    public static void save(String location, Exception e)
-    {
+    public static void save(String location, Exception e) {
         PrintWriter pw = null;
         
-        try
-        {
+        try {
             pw = new PrintWriter(new File(location));
-        } catch (Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         
@@ -44,8 +39,7 @@ public class StackTraceSaver
         e.printStackTrace();
     }
     
-    private static String getDate()
-    {
+    private static String getDate() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm-ss");
         Calendar cal = Calendar.getInstance();
         

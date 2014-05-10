@@ -18,12 +18,10 @@ import com.radirius.merc.spl.SplashScreen;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class FullscreenTest extends Core
-{
+public class FullscreenTest extends Core {
     Runner rnr = Runner.getInstance();
     
-    public FullscreenTest()
-    {
+    public FullscreenTest() {
         super("ga");
         /**
          * Will choose lowest resolution, since near no monitor will view
@@ -33,20 +31,17 @@ public class FullscreenTest extends Core
         rnr.run();
     }
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new FullscreenTest();
     }
     
     @Override
-    public void init(ResourceManager RM)
-    {
+    public void init(ResourceManager RM) {
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
     
     @Override
-    public void update(float delta)
-    {
+    public void update(float delta) {
         if (rnr.getInput().keyDown(Keyboard.KEY_ESCAPE))
             rnr.end();
     }
@@ -54,15 +49,13 @@ public class FullscreenTest extends Core
     float x, y;
     
     @Override
-    public void render(Graphics g)
-    {
+    public void render(Graphics g) {
         /** Testing for vsync stuffs */
         g.drawRect(new Rectangle(x += 1, y += 3, 100, 100));
     }
     
     @Override
-    public void cleanup(ResourceManager RM)
-    {
+    public void cleanup(ResourceManager RM) {
     }
     
 }

@@ -24,8 +24,7 @@ import com.radirius.merc.res.ResourceManager;
  *          license itself at http://www.wtfpl.net/about/.
  */
 
-public class GUITest extends Core
-{
+public class GUITest extends Core {
     Runner rnr = Runner.getInstance();
     
     TextBar tbar0;
@@ -33,8 +32,7 @@ public class GUITest extends Core
     TextPanel tpan1;
     Button button0;
     
-    public GUITest()
-    {
+    public GUITest() {
         super("GUI Test!");
         
         rnr.init(this, 1280, 800);
@@ -42,8 +40,7 @@ public class GUITest extends Core
     }
     
     @Override
-    public void init(ResourceManager RM) throws IOException, MERCuryException
-    {
+    public void init(ResourceManager RM) throws IOException, MERCuryException {
         Texture left = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/side_tbar.png"));
         Texture right = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/side_tbar.png"), true, false);
         Texture body = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/body_tbar.png"));
@@ -67,27 +64,23 @@ public class GUITest extends Core
     }
     
     @Override
-    public void update(float delta) throws MERCuryException
-    {
+    public void update(float delta) throws MERCuryException {
         
     }
     
     @Override
-    public void render(Graphics g) throws MERCuryException
-    {
+    public void render(Graphics g) throws MERCuryException {
         g.setBackground(Color.gray);
         
         tpan1.render(g);
     }
     
     @Override
-    public void cleanup(ResourceManager RM) throws IOException, MERCuryException
-    {
+    public void cleanup(ResourceManager RM) throws IOException, MERCuryException {
         
     }
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new GUITest();
     }
 }
