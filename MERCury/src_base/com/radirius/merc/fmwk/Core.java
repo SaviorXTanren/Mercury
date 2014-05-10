@@ -23,6 +23,7 @@ import static org.lwjgl.opengl.GL11.glOrtho;
 import java.io.IOException;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
@@ -36,12 +37,7 @@ import com.radirius.merc.res.ResourceManager;
  * The {@code Core} that will host the game. It is ran above by the
  * {@code Runner} class.
  * 
- * @from merc in com.radirius.merc.fmwk
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 
 public abstract class Core {
@@ -96,12 +92,11 @@ public abstract class Core {
             if (fullscreen) {
                 DisplayMode[] modes = Display.getAvailableDisplayModes();
                 
-                for (int i = 0; i < modes.length; i++) {
+                for (int i = 0; i < modes.length; i++)
                     if (modes[i].getWidth() == WIDTH && modes[i].getHeight() == HEIGHT && modes[i].isFullscreenCapable()) {
                         dm = modes[i];
                         screendimmatched = true;
                     }
-                }
                 
                 if (!screendimmatched)
                     Logger.warn("Dimensions " + WIDTH + "x" + HEIGHT + " is not supported! Defaulting to non-fullscreen.");
@@ -140,5 +135,16 @@ public abstract class Core {
         glAlphaFunc(GL_GREATER, 0.01f);
         
         return new VAOGraphics();
+    }
+    
+    /**
+     * Initializes audio.
+     */
+    public void initAudio() {
+        try {
+            AL.create();
+        } catch (LWJGLException e) {
+            e.printStackTrace();
+        }
     }
 }

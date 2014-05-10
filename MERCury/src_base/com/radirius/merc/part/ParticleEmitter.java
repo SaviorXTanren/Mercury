@@ -12,12 +12,7 @@ import com.radirius.merc.util.WipingArrayList;
  * An object that will emit particle from a given point in a given direction, at
  * a given speed (run-on!).
  * 
- * @from merc in com.radirius.merc.part
- * @by wessles
- * @website www.wessles.com
- * @license (C) Jan 22, 2014 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 
 public class ParticleEmitter extends AdvancedMercEntity {

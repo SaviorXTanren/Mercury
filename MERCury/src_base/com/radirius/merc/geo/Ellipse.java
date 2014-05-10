@@ -5,12 +5,7 @@ import com.radirius.merc.math.MercMath;
 /**
  * An ellipse that can have a length and width.
  * 
- * @from merc in com.radirius.merc.geo
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 public class Ellipse extends Shape {
     /** The radius in the respective axis. */

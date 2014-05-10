@@ -9,12 +9,7 @@ import java.util.Calendar;
 /**
  * A utility for saving stack traces.
  * 
- * @from merc in com.radirius.merc.exc
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Jan 7, 2014 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 
 public class StackTraceSaver {

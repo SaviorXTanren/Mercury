@@ -9,12 +9,7 @@ import com.radirius.merc.gfx.Graphics;
 import com.radirius.merc.res.ResourceManager;
 
 /**
- * @from MERCury in package com.radirius.merc.tuts;
- * @authors wessles
- * @website www.wessles.com
- * @license (C) May 8, 2014 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 
 public class Blackbox extends Core {

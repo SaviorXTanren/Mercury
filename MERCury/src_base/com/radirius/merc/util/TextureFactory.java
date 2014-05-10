@@ -16,12 +16,7 @@ import com.radirius.merc.gfx.Texture;
  * efficient to store all textures on one image than having multiple resources
  * on different files
  * 
- * @from merc in com.radirius.merc.util
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 public class TextureFactory {
     /** Parses from in, dividing every divwidth. */

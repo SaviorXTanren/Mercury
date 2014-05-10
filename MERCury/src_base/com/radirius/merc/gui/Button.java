@@ -6,12 +6,7 @@ import com.radirius.merc.gfx.Graphics;
 import com.radirius.merc.gfx.Texture;
 
 /**
- * @from merc in package com.radirius.merc.gui;
- * @authors Jeviny
- * @website www.wessles.com
- * @license (C) Mar 2, 2014 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author Jeviny
  */
 public class Button extends Component {
     public Texture left, right, body;

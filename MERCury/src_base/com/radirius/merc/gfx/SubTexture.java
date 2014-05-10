@@ -1,12 +1,7 @@
 package com.radirius.merc.gfx;
 
 /**
- * @from MERCury_git in com.radirius.merc.gfx
- * @by opiop65
- * @website www.wessles.com
- * @license (C) Mar 27, 2014 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author opiop65
  */
 
 public class SubTexture {

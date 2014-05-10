@@ -14,12 +14,7 @@ import com.radirius.merc.log.Logger;
  * will not effect the console, and that the Scanner will not freaking hang when
  * I ask for a simple line.
  * 
- * @from MERCury in com.radirius.merc.cmd
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 
 public class CommandThread implements Runnable {

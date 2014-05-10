@@ -13,13 +13,7 @@ import com.radirius.merc.spl.SplashScreen;
  * According to this test, the following collision events are valid: [see method
  * render()].
  * 
- * 
- * @from merc in com.radirius.merc.test
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Dec 27, 2013 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 
 public class CollisionTest extends Core {
