@@ -25,12 +25,7 @@ import com.radirius.merc.log.Logger;
 /**
  * A very simple batcher.
  * 
- * @from merc in com.radirius.merc.gfx
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 public class VAOBatcher implements Batcher {
     private static final int VL = 2, CL = 4, TL = 2;

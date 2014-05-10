@@ -12,6 +12,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+
 import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -34,12 +35,7 @@ import com.radirius.merc.util.TaskTiming;
  * A class that will run your core, and give out the graphics object, current
  * core, resource manager, and input ly.
  * 
- * @from merc in com.radirius.merc.fmwk
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http//www.wtfpl.net/about/.
+ * @author wessles
  */
 
 public class Runner {
@@ -197,6 +193,10 @@ public class Runner {
         Logger.debug("Making Graphics...");
         
         graphicsobject = this.core.initGraphics();
+        
+        Logger.debug("Making Audio...");
+        
+        this.core.initAudio();
         
         Logger.debug("Initializing Camera...");
         
@@ -580,7 +580,7 @@ public class Runner {
         double width = image.getWidth() * ratio;
         double height = image.getHeight() * ratio;
         
-        g.drawImage(image, (int) ((scaledIcon.getWidth() - width) / 2), (int) ((scaledIcon.getHeight() - height) / 2), (int) (width), (int) (height), null);
+        g.drawImage(image, (int) ((scaledIcon.getWidth() - width) / 2), (int) ((scaledIcon.getHeight() - height) / 2), (int) width, (int) height, null);
         
         g.dispose();
         
@@ -592,23 +592,20 @@ public class Runner {
     private double getIconRatio(BufferedImage originalImage, BufferedImage icon) {
         double ratio = 1;
         
-        if (originalImage.getWidth() > icon.getWidth()) {
-            ratio = (double) (icon.getWidth()) / originalImage.getWidth();
-        } else {
+        if (originalImage.getWidth() > icon.getWidth())
+            ratio = (double) icon.getWidth() / originalImage.getWidth();
+        else
             ratio = icon.getWidth() / originalImage.getWidth();
-        }
         if (originalImage.getHeight() > icon.getHeight()) {
-            double r2 = (double) (icon.getHeight()) / originalImage.getHeight();
+            double r2 = (double) icon.getHeight() / originalImage.getHeight();
             
-            if (r2 < ratio) {
+            if (r2 < ratio)
                 ratio = r2;
-            }
         } else {
             double r2 = icon.getHeight() / originalImage.getHeight();
             
-            if (r2 < ratio) {
+            if (r2 < ratio)
                 ratio = r2;
-            }
         }
         
         return ratio;
@@ -620,18 +617,17 @@ public class Runner {
         byte[] imageBuffer = new byte[image.getWidth() * image.getHeight() * 4];
         
         int counter = 0;
-        for (int i = 0; i < image.getHeight(); i++) {
+        for (int i = 0; i < image.getHeight(); i++)
             for (int j = 0; j < image.getWidth(); j++) {
                 int colorSpace = image.getRGB(j, i);
                 
-                imageBuffer[counter] = (byte) ((colorSpace << 8) >> 24);
-                imageBuffer[counter + 1] = (byte) ((colorSpace << 16) >> 24);
-                imageBuffer[counter + 2] = (byte) ((colorSpace << 24) >> 24);
+                imageBuffer[counter] = (byte) (colorSpace << 8 >> 24);
+                imageBuffer[counter + 1] = (byte) (colorSpace << 16 >> 24);
+                imageBuffer[counter + 2] = (byte) (colorSpace << 24 >> 24);
                 imageBuffer[counter + 3] = (byte) (colorSpace >> 24);
                 
                 counter += 4;
             }
-        }
         
         return ByteBuffer.wrap(imageBuffer);
     }

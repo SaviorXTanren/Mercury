@@ -16,12 +16,7 @@ import com.radirius.merc.res.Loader;
 /**
  * A font type for .ttf's
  * 
- * @from merc in com.radirius.merc.fnt
- * @by wessles
- * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 
 public class TrueTypeFont implements com.radirius.merc.font.Font {

@@ -3,12 +3,7 @@ package com.radirius.merc.geo;
 /**
  * A point shape. No sides, just a point.
  * 
- * @from merc in com.radirius.merc.geo
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 
 public class Point extends Shape {

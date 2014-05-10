@@ -9,12 +9,7 @@ import java.util.Scanner;
  * A utility class for reading tile maps from Doppler Indie Games. Credit to
  * Doppler from {@link https://github.com/doppl3r}.
  * 
- * @from merc in com.radirius.merc.util
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 
 public class DopplerTileMapReader {

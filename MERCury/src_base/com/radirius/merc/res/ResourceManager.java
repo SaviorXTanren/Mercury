@@ -13,12 +13,7 @@ import java.util.HashMap;
  * You may also get an object; getting it means that you give the key and it
  * returns the resource associated with that key.
  * 
- * @from merc in com.radirius.merc.res
- * @authors wessles, opiop65
- * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles, opiop65
  */
 
 public class ResourceManager {

@@ -6,12 +6,7 @@ import com.radirius.merc.math.MercMath;
  * A Vector that contains 2 values: x and y. This class makes vector math easy,
  * and makes your life a whole lot easier.
  * 
- * @from merc in com.radirius.merc.geo
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 public class Vec2 extends Vec {
     public float x = 0, y = 0;

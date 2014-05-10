@@ -12,12 +12,7 @@ import com.radirius.merc.geo.Point;
 /**
  * An object form of input.
  * 
- * @from merc in com.radirius.merc.in
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 public class Input {
     // No, I did not type out all of these keys; I stole it from kevglass'

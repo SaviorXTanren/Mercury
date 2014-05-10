@@ -6,12 +6,7 @@ import com.radirius.merc.exc.SevereLogException;
  * A class that will log in different levels of impact, from NULL to SEVERE,
  * SEVERE being the program killer.
  * 
- * @from merc in com.radirius.merc.log
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Jan 9, 2014 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 
 public class Logger {

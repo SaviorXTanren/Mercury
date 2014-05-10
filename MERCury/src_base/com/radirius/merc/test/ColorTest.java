@@ -30,12 +30,7 @@ import com.radirius.merc.spl.SplashScreen;
  * Colors got screwed up... So this should be a good tool for the future and
  * now.
  * 
- * @from MERCury in com.radirius.merc.test
- * @by wessles
- * @website www.wessles.com
- * @license (C) Jan 23, 2014 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 
 public class ColorTest extends Core {

@@ -6,12 +6,7 @@ import com.radirius.merc.gfx.Textured;
 /**
  * A textured version of a rectangle.
  * 
- * @from merc in com.radirius.merc.geo
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 
 public class TexturedRectangle extends Rectangle implements Textured {

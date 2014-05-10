@@ -16,12 +16,7 @@ import com.radirius.merc.res.Loader;
 import com.radirius.merc.res.ResourceManager;
 
 /**
- * @from MERCury in package com.radirius.merc.test;
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Apr 30, 2014 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 
 public class FboTest extends Core {
@@ -29,7 +24,7 @@ public class FboTest extends Core {
     
     public FboTest() {
         super("FBO Test!");
-        rnr.init(this, 500,500);
+        rnr.init(this, 500, 500);
         rnr.run();
     }
     

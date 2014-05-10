@@ -4,12 +4,7 @@ package com.radirius.merc.gfx;
  * A class for Color, that will hold the three values; r, g, and b, and will
  * darken, brighten, multiply, etc.
  * 
- * @from merc in com.radirius.merc.gfx
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Dec 23, 2013 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 
 public class Color {

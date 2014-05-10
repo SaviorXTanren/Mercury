@@ -8,12 +8,7 @@ import com.radirius.merc.res.ResourceManager;
 import com.radirius.merc.spl.SplashScreen;
 
 /**
- * @from merc in com.radirius.merc.test
- * @authors wessles
- * @website www.wessles.com
- * @license (C) Jan 18, 2014 www.wessles.com This file, and all others of the
- *          project 'MERCury' are licensed under WTFPL license. You can find the
- *          license itself at http://www.wtfpl.net/about/.
+ * @author wessles
  */
 
 public class SplashTest extends Core {
