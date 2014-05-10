@@ -1,0 +1,23 @@
+<project name="MERCury" basedir=".">
+	
+	<mkdir dir="temp_target"/>
+	
+	<javadoc destdir="temp_target/javadoc" sourcepath="src_base"/>
+	<delete dir="target/current/javadoc" />
+	<mkdir dir="target/current/javadoc" />
+	<copy todir="target/current/javadoc" ><fileset dir="temp_target/javadoc"></fileset></copy>
+		
+	<loadproperties srcfile="version.properties" />
+	<buildnumber file="version.properties" />
+		
+	<jar destfile="temp_target/MERCury.jar" basedir="bin" includes="com/**" excludes="**/*.html **/class-use"/>
+	<jar destfile="target/current/${version}_${stage}_MERCury_b_current.jar" basedir="bin" includes="com/**" excludes="**/*.html **/*.css **/class-use"/>
+    <copy todir="temp_target/src"><fileset dir="src_base"/></copy>
+    <copy tofile="temp_target/README.md" file="../README.md"/>
+    <copy tofile="temp_target/LICENSE" file="../LICENSE"/>
+	
+	<zip destfile="target/${version}_${stage}_MERCury_b${build.number}.zip" basedir="temp_target"></zip>
+	
+	<delete dir="temp_target"></delete>
+	
+</project>
