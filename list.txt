@@ -70,6 +70,11 @@ Primary To-Do List:
 - [-] Actually do something during splash screen
 - [-] Resource lists
 - [-] JEV YOU ALSO SHUD COMMENT OUT THE GUI STUFFS
+      [-] Radio Checkbox/Checkbox
+      [-] Textboxes
+      [-] Textbars
+      [-] Panels
+      [-] etc.
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
 
