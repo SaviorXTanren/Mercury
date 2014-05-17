@@ -17,6 +17,8 @@ import com.radirius.merc.res.ResourceManager;
 
 /**
  * @author wessles
+ * 
+ * HOLY FUCK This shit is trippy.
  */
 
 public class FboTest extends Core {
