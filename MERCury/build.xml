@@ -1,6 +1,7 @@
 <project name="MERCury" basedir=".">
 	
 	<mkdir dir="temp_target"/>
+	<mkdir dir="temp_target/javadoc"/>
 	
 	<javadoc destdir="temp_target/javadoc" sourcepath="src_base"/>
 	<delete dir="target/current/javadoc" />

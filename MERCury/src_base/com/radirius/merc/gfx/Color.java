@@ -1,7 +1,7 @@
 package com.radirius.merc.gfx;
 
 /**
- * A class for Color, that will hold the three values; r, g, and b, and will
+ * A class for Color, that will hold the three values; r, g, b, and a, and will
  * darken, brighten, multiply, etc.
  * 
  * @author wessles
@@ -26,6 +26,8 @@ public class Color {
     public static final Color gray = new Color(125, 125, 125, 255);
     public static final Color coal = new Color(63, 63, 63, 255);
     public static final Color black = new Color(0, 0, 0, 255);
+    
+    public static final Color trans = new Color(0, 0, 0, 0);
     
     public static final Color DEFAULT_BACKGROUND = black;
     public static final Color DEFAULT_DRAWING = white;
