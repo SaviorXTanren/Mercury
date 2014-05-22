@@ -233,6 +233,7 @@ public class Texture implements Resource
      */
     public static Texture loadTexture(BufferedImage bi, boolean fliphor, boolean flipvert, int rot, int filter)
     {
+        // Rotate the bufferedimage
         if (rot != 0)
         {
             rot *= -1;
@@ -243,6 +244,7 @@ public class Texture implements Resource
             bi = op.filter(bi, null);
         }
 
+        // Flip the bufferedimage
         if (fliphor || flipvert)
         {
             AffineTransform tx = AffineTransform.getScaleInstance(fliphor ? -1 : 1, flipvert ? -1 : 1);
@@ -251,10 +253,11 @@ public class Texture implements Resource
             bi = op.filter(bi, null);
         }
 
+        // A buffer to store with bufferedimage data and throw into LWJGL
         ByteBuffer buffer = BufferUtils.createByteBuffer(bi.getWidth() * bi.getHeight() * BYTES_PER_PIXEL);
 
-        for (int y = 0; y < bi.getHeight(); y += 1)
-            for (int x = 0; x < bi.getWidth(); x += 1)
+        for (int y = bi.getHeight()-1; y > -1; y--)
+            for (int x = 0; x < bi.getWidth(); x++)
             {
                 int pixel = bi.getRGB(x, y);
 
@@ -269,19 +272,24 @@ public class Texture implements Resource
         int textureid = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, textureid);
 
-        // Power of two stuffs!
+        // Power of two stuffs! This is actually kind of a wierd problem with OpenGL, but it has to do with speedy-thingies.
         boolean PoT = false;
+        // This is a little bit-shift trick from the interwebs.
         PoT = ((bi.getWidth() & (bi.getWidth() - 1)) == 0);
         PoT = PoT && ((bi.getHeight() & (bi.getHeight() - 1)) == 0);
 
+        // Thou hast been warned!
         if (!PoT)
             Logger.warn("The provided Texture is NPoT (non power of two). It is highly reccomended that you only use PoT Textures for the full potential of Textures!");
 
+        // Set the parameters for filtering
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
 
+        // Push all buffer data into the now configured OGL.
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, bi.getWidth(), bi.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 
+        // Unbind, so that this texture is not being rendered when you want to draw a square!
         unbindTextures();
 
         return new Texture(textureid, bi.getWidth(), bi.getHeight(), bi);
