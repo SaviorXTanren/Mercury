@@ -179,7 +179,7 @@ public class WalkingSim extends Core {
     }
     
     public static void main(String[] args) {
-        new WalkingSim("Next Gen Input!!!");
+        new WalkingSim("Walking Sim");
     }
     
 }
