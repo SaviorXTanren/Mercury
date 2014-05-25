@@ -13,6 +13,7 @@
 	<delete dir="target/current"></delete>
 	<mkdir dir="target/current"/>
     <copy todir="target/current"><fileset dir="temp_target"/></copy>
+	<delete dir="target/current/src"></delete>
 	<zip destfile="target/${version}_${stage}_MERCury_b${build.number}.zip" basedir="temp_target"></zip>
 	
 	<delete dir="temp_target"></delete>
