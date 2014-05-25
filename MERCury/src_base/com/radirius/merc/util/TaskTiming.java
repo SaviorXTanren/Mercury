@@ -35,7 +35,11 @@ public class TaskTiming implements Runnable {
     
     @Override
     public void run() {
-        while (running)
+        while (running) {
+            // No need to do this if there is nothing to loop.
+            if(tasks.isEmpty())
+                continue;
+            
             for (Task task : tasks) {
                 long time = System.currentTimeMillis();
                 long past = time - task.birth;
@@ -53,6 +57,14 @@ public class TaskTiming implements Runnable {
                     }
                 }
             }
+            
+            // This should fix a LOT of laggy issues. Yes, accuracy will be off by 1% of a second, but I doubt that you will have too many issues.
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
     
     public abstract static class Task {
