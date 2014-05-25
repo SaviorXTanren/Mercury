@@ -44,7 +44,7 @@ public class ParticleTest extends Core {
         rnr.getGraphics().scale(4);
         
         emitter1 = new ParticleEmitter(new Rectangle(0, 0, 10, 10), new Vec2(265, 275), new Vec2(0, -0.01f), 1f, Color.red, 2, true, 0.2f, 1f, 100);
-        emitter2 = new ParticleEmitter(new Rectangle(0, 0, 10, 10), new Vec2(0, 360), new Vec2(0, -0.03f), 1f, Color.yellow, 4, true, 0.3f, 1f, 100);
+        emitter2 = new ParticleEmitter(new Rectangle(0, 0, 10, 10), new Vec2(255, 285), new Vec2(0, -0.03f), 1f, Color.yellow, 4, true, 0.3f, 1f, 100);
         
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }

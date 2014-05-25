@@ -58,6 +58,7 @@ public class GUITest extends Core
 		// tp.render(g);
 		
 		g.drawTexture(bg, 0, 0, bg.getTextureWidth(), bg.getTextureHeight(), 0, 0);
+		g.drawTexture(bg, 0, 0);
 	}
 	
 	@Override
