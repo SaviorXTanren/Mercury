@@ -16,13 +16,7 @@ import java.util.Scanner;
  * @author wessles, Jeviny
  */
 
-public class MercData {
-    /**
-     * In case we ever change the parser, we can tell early on that you have a
-     * faulty version.
-     */
-    public static final int PARSER_VERSION = 1;
-    
+public class MercData implements Data {
     /**
      * Location of the data file.
      */
@@ -34,19 +28,11 @@ public class MercData {
     public HashMap<String, String> vals = new HashMap<String, String>();
     
     /**
-     * @param A
+     * @param url
      *            URL indicating the location of the file.
      */
     public MercData(URL url) {
         location = url.getFile();
-        
-        if (location.contains("."))
-            location = location.substring(0, location.indexOf('.')) + ".MERC.dat";
-        else
-            location += ".MERC.dat";
-        
-        if (new File(location).exists())
-            load();
     }
     
     /**
@@ -60,37 +46,22 @@ public class MercData {
     }
     
     /**
-     * @param The
-     *            property you want to see the value of.
+     * @param prop
+     *            The property you want to see the value of.
      * @return The property's value. If it does not exist, you get null.
      */
     public String getProperty(String prop) {
         return vals.get(prop);
     }
     
-    /**
-     * Closes the file, and saves it.
-     */
-    public void close() {
-        save();
-        vals.clear();
-    }
-    
-    /**
-     * To be used to load all of our properties
-     */
-    private void load() {
+    @Override
+    public void open() {
         Scanner scan = null;
         try {
             scan = new Scanner(new FileInputStream(location));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        
-        String parser = scan.nextLine();
-        parser = parser.substring(parser.indexOf(" ") + 1, parser.lastIndexOf(" "));
-        if (Integer.parseInt(parser) != PARSER_VERSION)
-            System.out.println("RAR!");
         
         while (scan.hasNext()) {
             String prop = scan.next();
@@ -102,10 +73,7 @@ public class MercData {
         scan.close();
     }
     
-    /**
-     * To be used to SAVE your changes!
-     */
-    private void save() {
+    public void close() {
         PrintWriter write = null;
         
         try {
@@ -113,8 +81,6 @@ public class MercData {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        
-        write.println("<! " + PARSER_VERSION + " >");
         
         for (int i = 0; i < vals.size(); i++) {
             String prop = (String) vals.keySet().toArray()[i];
@@ -124,5 +90,7 @@ public class MercData {
         }
         
         write.close();
+        
+        vals.clear();
     }
 }
