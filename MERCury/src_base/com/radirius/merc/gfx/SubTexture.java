@@ -1,23 +1,24 @@
 package com.radirius.merc.gfx;
 
 /**
- * @author opiop65
+ * @author opiop65 (base code), wessles (modifications)
  */
 
 public class SubTexture {
     
-    private Spritesheet sheet;
-    private float x, y, size;
+    private Texture parent;
+    private float x, y, w, h;
     
-    public SubTexture(Spritesheet sheet, float x, float y, float size) {
-        this.sheet = sheet;
+    public SubTexture(Texture parent, float x, float y, float w, float h) {
+        this.parent = parent;
         this.x = x;
         this.y = y;
-        this.size = size;
+        this.w = w;
+        this.h = h;
     }
     
-    public Spritesheet getSheet() {
-        return sheet;
+    public Texture getParent() {
+        return parent;
     }
     
     public float getX() {
@@ -28,12 +29,11 @@ public class SubTexture {
         return y;
     }
     
-    public float getSize() {
-        return size;
+    public float getWidth() {
+        return w;
     }
     
-    @Override
-    public String toString() {
-        return "SIZE: " + size + " X: " + x + " Y: " + y;
+    public float getHeight() {
+        return h;
     }
 }

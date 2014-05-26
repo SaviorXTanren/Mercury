@@ -15,7 +15,6 @@ import com.radirius.merc.geo.Circle;
 import com.radirius.merc.geo.Ellipse;
 import com.radirius.merc.geo.Point;
 import com.radirius.merc.geo.Rectangle;
-import com.radirius.merc.geo.TexturedRectangle;
 import com.radirius.merc.geo.Triangle;
 import com.radirius.merc.geo.Vec2;
 
@@ -184,16 +183,40 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void drawTexture(Texture texture, float x, float y, float w, float h) {
-        drawTexture(texture, 0, 0, texture.getTextureWidth(), texture.getTextureHeight(), x, y, x + w, y + h);
+        drawTexture(texture, 0, 0, texture.getTextureWidth(), texture.getTextureHeight(), x, y, w, h);
     }
     
     @Override
     public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y) {
-        drawTexture(texture, sx1, sy1, sx2, sy2, x, y, x + texture.getTextureWidth(), y + texture.getTextureHeight());
+        drawTexture(texture, sx1, sy1, sx2, sy2, x, y, texture.getTextureWidth(), texture.getTextureHeight());
     }
     
     @Override
-    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x1, float y1, float x2, float y2) {
+    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, float w, float h) {
+        drawTexture(texture, sx1, sy1, sx2, sy2, x, y, x + w, y, x + w, y + h, x, y + h);
+    }
+    
+    @Override
+    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
+        drawTexture(texture, sx1, sy1, sx2, sy2, new Rectangle(x1, y1, x2, y2, x3, y3, x4, y4));
+    }
+    //
+    @Override
+    public void drawTexture(Texture texture, Rectangle rect) {
+        drawTexture(texture, 0, 0, texture.getTextureWidth(), texture.getTextureHeight(), rect);
+    }
+    //
+    @Override
+    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle rectangle) {
+        float x1 = rectangle.getVertices()[0].x;
+        float y1 = rectangle.getVertices()[0].y;
+        float x2 = rectangle.getVertices()[1].x;
+        float y2 = rectangle.getVertices()[1].y;
+        float x3 = rectangle.getVertices()[2].x;
+        float y3 = rectangle.getVertices()[2].y;
+        float x4 = rectangle.getVertices()[3].x;
+        float y4 = rectangle.getVertices()[3].y;
+        
         float w = texture.getTextureWidth();
         float h = texture.getTextureHeight();
         
@@ -208,39 +231,32 @@ public class VAOGraphics implements Graphics {
         batcher.setTexture(texture);
         
         batcher.vertex(x1, y1, sx1, sy1);
-        batcher.vertex(x2, y1, sx2, sy1);
-        batcher.vertex(x1, y2, sx1, sy2);
+        batcher.vertex(x2, y2, sx2, sy1);
+        batcher.vertex(x4, y4, sx1, sy2);
         
-        batcher.vertex(x2, y2, sx2, sy2);
-        batcher.vertex(x2, y1, sx2, sy1);
-        batcher.vertex(x1, y2, sx1, sy2);
+        batcher.vertex(x3, y3, sx2, sy2);
+        batcher.vertex(x4, y4, sx1, sy2);
+        batcher.vertex(x2, y2, sx2, sy1);
     }
     
     @Override
     public void drawTexture(SubTexture texture, float x, float y) {
-        float w = texture.getSheet().getSheetTexture().getTextureWidth() / texture.getSheet().getNumTextures();
-        float h = texture.getSheet().getSheetTexture().getTextureHeight() / texture.getSheet().getNumTextures();
-        drawTexture(texture, x, y, w, h);
-    }
-    
-    @Override
-    public void drawTexture(SubTexture texture, float x, float y, float size) {
-        drawTexture(texture, x, y, size, size);
+        drawTexture(texture, x, y, texture.getWidth(), texture.getHeight());
     }
     
     @Override
     public void drawTexture(SubTexture texture, float x, float y, float w, float h) {
-        batcher.setTexture(texture.getSheet().getSheetTexture());
-        
-        float sx1 = texture.getX(), sx2 = texture.getX() + texture.getSize(), sy1 = texture.getY(), sy2 = texture.getY() + texture.getSize();
-        
-        batcher.vertex(x, y, sx2, sy1);
-        batcher.vertex(x + w, y, sx1, sy1);
-        batcher.vertex(x, y + h, sx2, sy2);
-        
-        batcher.vertex(x + w, y + h, sx1, sy2);
-        batcher.vertex(x + w, y, sx1, sy1);
-        batcher.vertex(x, y + h, sx2, sy2);
+        drawTexture(texture, new Rectangle(x, y, w, h));
+    }
+    
+    @Override
+    public void drawTexture(SubTexture texture, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
+        drawTexture(texture, new Rectangle(x1, y1, x2, y2, x3, y3, x4, y4));
+    }
+    
+    @Override
+    public void drawTexture(SubTexture texture, Rectangle rect) {
+        drawTexture(texture.getParent(), texture.getX(), texture.getY(), texture.getX() + texture.getWidth(), texture.getY() + texture.getHeight(), rect);
     }
     
     @Override
@@ -254,20 +270,13 @@ public class VAOGraphics implements Graphics {
         float x4 = rectangle.getVertices()[3].x;
         float y4 = rectangle.getVertices()[3].y;
         
-        if (!(rectangle instanceof TexturedRectangle))
-            batcher.clearTextures();
-        else {
-            TexturedRectangle texrect = (TexturedRectangle) rectangle;
-            batcher.setTexture(texrect.getTexture());
-        }
+        batcher.vertex(x1, y1, 0, 0);
+        batcher.vertex(x2, y2, 1, 0);
+        batcher.vertex(x4, y4, 0, 1);
         
-        batcher.vertex(x1, y1, 0, 1);
-        batcher.vertex(x2, y2, 1, 1);
-        batcher.vertex(x4, y4, 0, 0);
-        
-        batcher.vertex(x3, y3, 1, 0);
-        batcher.vertex(x4, y4, 0, 0);
-        batcher.vertex(x2, y2, 1, 1);
+        batcher.vertex(x3, y3, 1, 1);
+        batcher.vertex(x4, y4, 1, 0);
+        batcher.vertex(x2, y2, 0, 1);
     }
     
     @Override

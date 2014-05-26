@@ -2,22 +2,28 @@ package com.radirius.merc.test;
 
 import java.io.IOException;
 
-import com.radirius.merc.data.TextFile;
 import com.radirius.merc.exc.MERCuryException;
 import com.radirius.merc.fmwk.Core;
 import com.radirius.merc.fmwk.Runner;
+import com.radirius.merc.gfx.Animation;
+import com.radirius.merc.gfx.Color;
 import com.radirius.merc.gfx.Graphics;
+import com.radirius.merc.gfx.SpriteSheet;
+import com.radirius.merc.gfx.Texture;
 import com.radirius.merc.res.Loader;
 import com.radirius.merc.res.ResourceManager;
 
 /**
- * @author opiop65
+ * @author opiop65 (base code), wessles (modification)
  */
 
-public class TextFileTest extends Core {
-    private Runner rnr = Runner.getInstance();
+public class SpriteSheetTest extends Core {
     
-    public TextFileTest(String name) {
+    private Runner rnr = Runner.getInstance();
+    private SpriteSheet sheet;
+    private Animation anm;
+    
+    public SpriteSheetTest(String name) {
         super(name);
         rnr.init(this, 800, 600);
         rnr.run();
@@ -25,10 +31,8 @@ public class TextFileTest extends Core {
     
     @Override
     public void init(ResourceManager RM) throws IOException, MERCuryException {
-        TextFile file = TextFile.loadFile(Loader.loadFromClasspath("com/radirius/merc/test/test.txt"));
-        System.out.println(file.getContent());
-        file.write("HAHAHAH");
-        System.out.println(file.getContent());
+        sheet = SpriteSheet.loadSpriteSheet(Texture.loadTexture(Loader.stream("com/radirius/merc/test/tiles.png")), 16, 16);
+        anm = new Animation(300, sheet, 0, 6);
     }
     
     @Override
@@ -37,6 +41,9 @@ public class TextFileTest extends Core {
     
     @Override
     public void render(Graphics g) throws MERCuryException {
+        g.setBackground(Color.marble);
+        g.drawTexture(sheet.getParentTexture(), 0, 0);
+        anm.render(10, 10, g);
     }
     
     @Override
@@ -44,6 +51,6 @@ public class TextFileTest extends Core {
     }
     
     public static void main(String[] args) {
-        new TextFileTest("Text File Test");
+        new SpriteSheetTest("SpriteSheet Test");
     }
 }

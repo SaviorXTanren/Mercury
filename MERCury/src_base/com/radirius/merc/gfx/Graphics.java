@@ -96,14 +96,26 @@ public interface Graphics {
     /** Draws a portion of the texture at x1 and y1, to x2 and y2. */
     public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x1, float y1, float x2, float y2);
     
+    /** Draws a portion of the texture to coordinates. */
+    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+    
+    /** Draws a texture to a rectangle. */
+    public void drawTexture(Texture texture, Rectangle rect);
+    
+    /** Draws a portion of a texture to a rectangle. */
+    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle rect);
+    
     /** Draws a subtexture at x and y. */
     public void drawTexture(SubTexture texture, float x, float y);
     
-    /** Draws a subtexture at x and y with a size. */
-    public void drawTexture(SubTexture texture, float x, float y, float size);
-    
     /** Draws a subtexture at x and y with a width and height. */
     public void drawTexture(SubTexture texture, float x, float y, float w, float h);
+    
+    /** Draws a subtexture to a set of coordinates. */
+    public void drawTexture(SubTexture texture, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+
+    /** Draws a subtexture to a rectangle. */
+    public void drawTexture(SubTexture texture, Rectangle rect);
     
     /** Draws a rectangle. */
     public void drawRect(Rectangle rectangle);
