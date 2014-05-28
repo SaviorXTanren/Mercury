@@ -37,12 +37,13 @@ Primary To-Do List:
 - [+] Open-Sans Typeface/Font
 - [+] Draw an image specifying X, Y, W, and H values.
 - [+] Remove try and catch from most places
+  // Done reluctantly by wessles
 - [+] Post-Processing support using VBOs
   // Done with love by wessles
-- [=] Seperate Thread for loading resources.
+- [+] Seperate Thread for loading resources.
+  // Done with neutrality by wessles
 - [=] Frackin' do the GUI FREAKING PIECE OF FRICK JEVINY
 - [-] Easing utilities
-- [-] Actually do something during splash screen
 - [-] Resource lists
 - [-] JEV YOU ALSO SHUD COMMENT OUT THE GUI STUFFS
       [-] Radio Checkbox/Checkbox
