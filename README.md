@@ -12,19 +12,13 @@ MERCury puts all of its resources into keeping things short and simple. The init
 MERCury is developed by a small team of programmers who just want to learn how to make something useful. We all have a lot of fun developing it, and it would be our pleasure to hear that someone actually found it useful, so please contact us with anything you have for us. MERCury's TODO list is driven purely by the will of the users so if you have any questions or concerns, please do not hesitate to ask!
 
 # FEATURES
-
-_Read all of this in an angry Arnold Schwarzenegger voice, for deeper immersion._
-
-## PARTICLES!
+## Particles!
 <img width=750 src="http://i.imgur.com/MJbAV9K.gif">
-
-## POST PROCESSING EFFECTS!
+## Post Processing!
 <img width=750 src="http://giant.gfycat.com/WhirlwindHorribleAardwolf.gif">
-
-## MAKING IT EASY TO CHEAT!
+## Cheating with debug tools!
 <img width=750 src="http://zippy.gfycat.com/NewThirstyChinchilla.gif">
-
-## GUI THINGIES
+## GUI things!
 <img width=750 src="http://i.imgur.com/MlaOKzk.gif">
 
 ### AND MUCH MUCH MORE THAT I COULD NOT FIT ON THIS PAGE ALONE!
