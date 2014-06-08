@@ -21,7 +21,7 @@ MERCury is developed by a small team of programmers who just want to learn how t
 ## GUI things!
 <img width=750 src="http://i.imgur.com/MlaOKzk.gif">
 
-### AND MUCH MUCH MORE THAT I COULD NOT FIT ON THIS PAGE ALONE!
+### As well as a lot of stuff I did not have time to mention.
 
 # Information and Links
 
