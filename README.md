@@ -34,7 +34,6 @@ Tell me what you think below! Improvements? Bugs? Etc!
 Have a great day,
 -Wessles
 
-# Development Team & Project Contributors:
 ## Development Team
 - Wessles, AKA Wesley: [Site Here](http://www.wessles.com/)
 - Jev, AKA Kris: [Site Here](http://www.jeviny.pw/)
