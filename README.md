@@ -32,7 +32,7 @@ MERCury is developed by a small team of programmers who just want to learn how t
 Tell me what you think below! Improvements? Bugs? Etc!
 
 Have a great day,
-[b][i]-Wessles[/i][/b]
+-Wessles
 
 # Development Team & Project Contributors:
 ## Development Team
