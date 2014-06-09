@@ -1,6 +1,4 @@
-So, I decided that it would give me a good sense of what to do with the coding parts of games if I attempted to make my own game library. This is my first try at one. It isn't libGDX, but so far looks like it will work for me, and maybe others(?).
-
-**Because this is my first try at a game library, I am open to all criticism.**
+# MERCury
 
 ![alt-text](http://i.imgur.com/beAAMyu.png)
 _Kudos to kpars (or as he prefers 'Jeviny') for the sweet logo!_
@@ -13,35 +11,38 @@ MERCury is developed by a small team of programmers who just want to learn how t
 
 # FEATURES
 ## Particles!
-<img width=750 src="http://i.imgur.com/MJbAV9K.gif">
+<img width=400 src="http://i.imgur.com/MJbAV9K.gif">
 ## Post Processing!
-<img width=750 src="http://giant.gfycat.com/WhirlwindHorribleAardwolf.gif">
+<img width=400 src="http://giant.gfycat.com/WhirlwindHorribleAardwolf.gif">
 ## Cheating with debug tools!
-<img width=750 src="http://zippy.gfycat.com/NewThirstyChinchilla.gif">
+<img width=400 src="http://zippy.gfycat.com/NewThirstyChinchilla.gif">
 ## GUI things!
-<img width=750 src="http://i.imgur.com/MlaOKzk.gif">
+<img width=400 src="http://i.imgur.com/MlaOKzk.gif">
 
-### As well as a lot of stuff I did not have time to mention.
-
-# Information and Links
+## Links
 
 **[Web Page](http://weslgames.github.io/MERCury)**
+
 **[Wiki](https://github.com/weslgames/MERCury/wiki/)**
+
 **[Subreddit For Sharing Games Made with MERCury, Bugs, Requests, Etc.](http://www.reddit.com/r/mercurylib/)**
 
-Tell me what you think below! Improvements? Bugs? Etc!
+## Report Bugs
+You can report any problems you find in the [Github Issue Tracker](https://github.com/Radirius/MERCury/issues).
 
-Have a great day,
--Wessles
+## Contribute
+Well, it wouldn't be open-source if you couldn't contribute.
 
-## Development Team
-- Wessles, AKA Wesley: [Site Here](http://www.wessles.com/)
-- Jev, AKA Kris: [Site Here](http://www.jeviny.pw/)
-- Opiop65, AKA Toby: [Site Here](http://www.nishustudios.com/)
+You can contribute by simply posting a [Github Pull Request](https://github.com/Radirius/MERCury/pulls) with your fork and its changes. We will then review the changes, and either accept it, or suggest a few modifications to it.
 
-## Contributors
-- GrammarBro, AKA Wesley's Grammar Nazi Brother: [No Site Given](http://thebest404pageever.com/)
-- HeroesGraveDev, AKA HeroesGrave: [Site Here](http://heroesgrave.github.io/)
-- SHC, AKA Sri Harsha: [Site Here](http://www.goharsha.com/)
+Please do not post your changes to our emails; just use [Github Pull Request](https://github.com/Radirius/MERCury/pulls).
 
-Last, but not least, a huge thanks goes to everybody on JGO, otherwise known as [Java-Gaming.org](http://www.java-gaming.org/).
+## Contact Radirius
+- wessles / Wes  | <http://www.wessles.com/> | wes@radiri.us
+- Jeviny / Kris  | <http://www.jeviny.pw/> | kris@radiri.us
+- opiop65 / Toby | <http://www.nishustudios.com/>
+
+## License
+MERCury is licensed under [MIT](http://opensource.org/licenses/MIT).
+
+#### Last, but not least, a huge thanks goes to everybody on JGO, otherwise known as [Java-Gaming.org](http://www.java-gaming.org/).
