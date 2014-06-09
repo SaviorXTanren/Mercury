@@ -20,10 +20,9 @@ MERCury is developed by a small team of programmers who just want to learn how t
 <img width=400 src="http://i.imgur.com/MlaOKzk.gif">
 
 ## Links
-
--**[Web Page](http://weslgames.github.io/MERCury)**
--**[Wiki](https://github.com/weslgames/MERCury/wiki/)**
--**[Subreddit For Sharing Games Made with MERCury, Bugs, Requests, Etc.](http://www.reddit.com/r/mercurylib/)**
+- **[Web Page](http://merclib.radiri.us/)**
+- **[Wiki](https://github.com/weslgames/MERCury/wiki/)**
+- **[Subreddit](http://www.reddit.com/r/mercurylib/)**
 
 ## Report Bugs
 You can report any problems you find in the [Github Issue Tracker](https://github.com/Radirius/MERCury/issues).
@@ -33,12 +32,12 @@ Well, it wouldn't be open-source if you couldn't contribute.
 You can contribute by simply posting a [Github Pull Request](https://github.com/Radirius/MERCury/pulls) with your fork and its changes. We will then review the changes, and either accept it, or suggest a few modifications to it. 
 Please do not post your changes to our emails; just use [Github Pull Request](https://github.com/Radirius/MERCury/pulls).
 
-## Contact Radirius
-
-| Support           | contact@radiri.us |             |
-|-------------------|-------------------|-------------|
-| Wesley LaFerriere | wes@radiri.us     | wessles.com |
-| Kris Parsons      | kris@radiri.us    |             |
+## Radirius Contact and Information
+| Name              | Contact           | Personal Website |
+|-------------------|-------------------|-------------     |
+| Support           | contact@radiri.us | radiri.us        |
+| Wesley LaFerriere | wes@radiri.us     | wessles.com      |
+| Kris Parsons      | kris@radiri.us    | jeviny.pw        |
 
 ## License
 MERCury is licensed under [MIT](http://opensource.org/licenses/MIT).
