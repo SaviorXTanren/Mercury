@@ -10,14 +10,13 @@ MERCury puts all of its resources into keeping things short and simple. The init
 MERCury is developed by a small team of programmers who just want to learn how to make something useful. We all have a lot of fun developing it, and it would be our pleasure to hear that someone actually found it useful, so please contact us with anything you have for us. MERCury's TODO list is driven purely by the will of the users so if you have any questions or concerns, please do not hesitate to ask!
 
 # FEATURES
-## Particles!
-<img width=400 src="http://i.imgur.com/MJbAV9K.gif">
-## Post Processing!
-<img width=400 src="http://giant.gfycat.com/WhirlwindHorribleAardwolf.gif">
-## Cheating with debug tools!
-<img width=400 src="http://zippy.gfycat.com/NewThirstyChinchilla.gif">
-## GUI things!
-<img width=400 src="http://i.imgur.com/MlaOKzk.gif">
+|                         |                                                                             |
+|-------------------------|-----------------------------------------------------------------------------|
+| Particles!              | <img width=400 src="http://i.imgur.com/MJbAV9K.gif">                        |
+| Post Processing!        | <img width=400 src="http://giant.gfycat.com/WhirlwindHorribleAardwolf.gif"> |
+| Command-Line Debugging! | <img width=400 src="http://zippy.gfycat.com/NewThirstyChinchilla.gif">      |
+| Easy GUI!               | <img width=400 src="http://i.imgur.com/MlaOKzk.gif">                        |
+|                         |                                                                             |
 
 ## Links
 - **[Web Page](http://merclib.radiri.us/)**
