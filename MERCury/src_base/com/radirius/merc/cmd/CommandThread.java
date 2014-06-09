@@ -267,12 +267,12 @@ public class CommandThread implements Runnable {
                 }
             
             // Find commandlists and commands
-            CommandList cmdl = CommandList.commandlists.get(commandlist);
+            CommandList cmdl = CommandList.commandlists.get(commandlist.toLowerCase());
             if (cmdl == null) {
                 Logger.consoleproblem("Could not find supposed CommandList '" + commandlist.toLowerCase() + ".' Please type '?' for syntax help.");
                 continue runloop;
             }
-            Command cmd = cmdl.commands.get(command);
+            Command cmd = cmdl.commands.get(command.toLowerCase());
             if (cmd == null && !list_manual) {
                 Variable var = cmdl.variables.get(command.toLowerCase());
                 if (var == null && !list_manual) {

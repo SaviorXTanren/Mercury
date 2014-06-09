@@ -1,7 +1,5 @@
 package com.radirius.merc.test;
 
-import java.io.IOException;
-
 import com.radirius.merc.fmwk.Core;
 import com.radirius.merc.fmwk.Runner;
 import com.radirius.merc.geo.Rectangle;
@@ -10,7 +8,6 @@ import com.radirius.merc.gfx.Graphics;
 import com.radirius.merc.gfx.Shader;
 import com.radirius.merc.gfx.Texture;
 import com.radirius.merc.res.Loader;
-import com.radirius.merc.res.ResourceManager;
 import com.radirius.merc.spl.SplashScreen;
 
 /**
@@ -34,8 +31,8 @@ public class ShaderTest extends Core {
     Texture tex;
     
     @Override
-    public void init(ResourceManager RM) throws IOException {
-        rnr.getGraphics().scale(4);
+    public void init() {
+        // rnr.getGraphics().scale(4);
         
         program = Shader.getShader(Loader.streamFromClasspath("com/radirius/merc/test/custom.vs"), Shader.VERTEX_SHADER);
         tex = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/merc/test/torch.png"));
@@ -49,15 +46,18 @@ public class ShaderTest extends Core {
     
     @Override
     public void render(Graphics g) {
-        g.setBackground(Color.cyan);
+        g.setBackground(Color.red);
+        
         g.useShader(program);
         g.drawTexture(tex, 0, 0);
         g.drawRect(new Rectangle(100, 100, 50, 50));
         g.releaseShaders();
+        
+        g.drawString(0, 0, "Do not worry\nDo not fear\nObey\nKNEEEL\n(but srsly m8s this is normla -m777777");
     }
     
     @Override
-    public void cleanup(ResourceManager RM) {
+    public void cleanup() {
     }
     
     public static void main(String[] args) {

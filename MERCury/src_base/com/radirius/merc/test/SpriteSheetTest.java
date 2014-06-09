@@ -1,8 +1,5 @@
 package com.radirius.merc.test;
 
-import java.io.IOException;
-
-import com.radirius.merc.exc.MERCuryException;
 import com.radirius.merc.fmwk.Core;
 import com.radirius.merc.fmwk.Runner;
 import com.radirius.merc.gfx.Animation;
@@ -11,7 +8,6 @@ import com.radirius.merc.gfx.Graphics;
 import com.radirius.merc.gfx.SpriteSheet;
 import com.radirius.merc.gfx.Texture;
 import com.radirius.merc.res.Loader;
-import com.radirius.merc.res.ResourceManager;
 
 /**
  * @author opiop65 (base code), wessles (modification)
@@ -30,24 +26,24 @@ public class SpriteSheetTest extends Core {
     }
     
     @Override
-    public void init(ResourceManager RM) throws IOException, MERCuryException {
+    public void init() {
         sheet = SpriteSheet.loadSpriteSheet(Texture.loadTexture(Loader.stream("com/radirius/merc/test/tiles.png")), 16, 16);
         anm = new Animation(300, sheet, 0, 6);
     }
     
     @Override
-    public void update(float delta) throws MERCuryException {
+    public void update(float delta) {
     }
     
     @Override
-    public void render(Graphics g) throws MERCuryException {
+    public void render(Graphics g) {
         g.setBackground(Color.marble);
         g.drawTexture(sheet.getParentTexture(), 0, 0);
         anm.render(10, 10, g);
     }
     
     @Override
-    public void cleanup(ResourceManager RM) throws IOException, MERCuryException {
+    public void cleanup() {
     }
     
     public static void main(String[] args) {

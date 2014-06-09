@@ -149,7 +149,7 @@ public class Shader implements Resource {
      *            The fragment shader's file.
      * @return A shader based off of the files in vin and fin.
      */
-    public static Shader getShader(InputStream vin, InputStream fin) throws Exception {
+    public static Shader getShader(InputStream vin, InputStream fin) {
         return getShader(readShader(vin), readShader(fin));
     }
     
@@ -261,11 +261,11 @@ public class Shader implements Resource {
         return new Shader(program);
     }
     
-    private static int createVertexShader(String src) throws Exception {
+    private static int createVertexShader(String src) {
         return createShader(src, ARBVertexShader.GL_VERTEX_SHADER_ARB);
     }
     
-    private static int createFragmentShader(String src) throws Exception {
+    private static int createFragmentShader(String src) {
         return createShader(src, ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
     }
     

@@ -20,7 +20,7 @@ public class Point extends Shape {
     
     @Override
     public String toString() {
-        return "Point at " + nx + ", " + ny;
+        return "Point at " + getX() + ", " + getY();
     }
     
     @Override
@@ -29,17 +29,17 @@ public class Point extends Shape {
     }
     
     /** @return The point in the form of a vector. */
-    public Vec2 toVector2f() {
-        return new Vec2(nx, ny);
+    public Vec2 toVec2() {
+        return new Vec2(getX(), getY());
     }
     
     @Override
     public boolean intersects(Shape s) {
-        return s.contains(new Vec2(getX1(), getY1()));
+        return s.contains(new Vec2(getX(), getY()));
     }
     
     @Override
     public boolean contains(Vec2 v) {
-        return v.x == getX1() && v.y == getY1();
+        return v.x == getX() && v.y == getY();
     }
 }

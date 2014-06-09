@@ -3,6 +3,8 @@ package com.radirius.merc.cmd;
 import java.util.HashMap;
 
 import com.radirius.merc.exc.ConsoleException;
+import com.radirius.merc.fmwk.Runner;
+import com.radirius.merc.log.Logger;
 
 /**
  * A collection of Commands and Variables to be accessed in the Dev Console.
@@ -40,7 +42,7 @@ public class CommandList {
      * The manual that will be shown when requested by the console user. Used
      * for general instruction of using the command list.
      */
-    public final String manual;
+    public String manual;
     
     public HashMap<String, Command> commands = new HashMap<String, Command>();
     public HashMap<String, Variable> variables = new HashMap<String, Variable>();
@@ -52,10 +54,10 @@ public class CommandList {
      *            The manual that will be shown when requested by the console
      *            user. Used for general instruction of using the command list.
      */
-    public CommandList(String name, final String manual) {
+    public CommandList(String name, String manual) {
         // CASE INSENSITIVE!!! HAW HAWH HAWW
         this.name = name.toLowerCase();
-        this.manual = manual;
+        this.manual = manual + "\nCommand Manuals:";
     }
     
     /**
@@ -80,6 +82,7 @@ public class CommandList {
                 e.printStackTrace();
             }
         commands.put(cmd.name, cmd);
+        manual += "\n" + cmd.name + ":\t" + cmd.manual + "\n";
     }
     
     /**
@@ -104,5 +107,86 @@ public class CommandList {
             }
         
         variables.put(v.name, v);
+    }
+    
+    static CommandList dcmdl;
+    
+    public static CommandList getDefaultCommandList() {
+        if (dcmdl == null) {
+            // Make default CommandList
+            CommandList cmdlmerc = new CommandList("merc", "This is the default Command List for MERCury Developer Console. In it, you will find core functions to MERCury Developer Console that will allow you to modify projects within the runtime.");
+            
+            // Add in all the commands.
+            cmdlmerc.addCommand(new Command("end", "Ends the program.") {
+                @Override
+                public void run(String... args) {
+                    Runner.getInstance().end();
+                }
+            });
+            cmdlmerc.addCommand(new Command("setFpsTarget", "merc setFpsTarget [Fps Target]\nTargets for, or caps the framerate at a given height.") {
+                @Override
+                public void run(String... args) {
+                    Runner.getInstance().setFpsTarget(Integer.parseInt(args[0]));
+                    Logger.console("Framerate targeted for " + Integer.parseInt(args[0]));
+                }
+            });
+            cmdlmerc.addCommand(new Command("setMouseGrab", "merc setMouseGrab [True/False]\nLocks or releases the mouse from the window.") {
+                @Override
+                public void run(String... args) {
+                    Runner.getInstance().setMouseGrab(Boolean.valueOf(args[0]));
+                    Logger.console("Mouse " + (Boolean.valueOf(args[0]) ? "grabbed" : "released") + ".");
+                }
+            });
+            cmdlmerc.addCommand(new Command("setVsync", "Sets whether or not there is Vertical Sync.") {
+                @Override
+                public void run(String... args) {
+                    Runner.getInstance().setVsync(Boolean.valueOf(args[0]));
+                    Logger.console("Vsync set to " + args[0]);
+                }
+            });
+            cmdlmerc.addCommand(new Command("setTitle", "Sets the title of the window.") {
+                @Override
+                public void run(String... args) {
+                    Runner.getInstance().setTitle(args[0]);
+                    Logger.console("Window title set to '" + args[0] + ".'");
+                }
+            });
+            cmdlmerc.addCommand(new Command("setDeltaFactor", "Sets the delta factor, or, the number by which delta is multiplied by, to a given number.") {
+                @Override
+                public void run(String... args) {
+                    Runner.getInstance().setDeltaFactor(Float.valueOf(args[0]));
+                    Logger.console("Delta factor set to " + args[0]);
+                }
+            });
+            cmdlmerc.addCommand(new Command("setUpdateFreeze", "Sets the freezing of the update.") {
+                @Override
+                public void run(String... args) {
+                    Runner.getInstance().setUpdateFreeze(Boolean.valueOf(args[0]));
+                    Logger.console("Set update freeze to " + Boolean.valueOf(args[0]));
+                }
+            });
+            cmdlmerc.addCommand(new Command("setRenderFreeze", "Sets the freezing of the render.") {
+                @Override
+                public void run(String... args) {
+                    Runner.getInstance().setRenderFreeze(Boolean.valueOf(args[0]));
+                    Logger.console("Set render freeze to " + Boolean.valueOf(args[0]));
+                }
+            });
+            cmdlmerc.addCommand(new Command("echo", "Echos your every word.") {
+                @Override
+                public void run(String... args) {
+                    for (String s : args)
+                        Logger.console(s);
+                }
+            });
+            cmdlmerc.addVariable(new Variable("fps") {
+                @Override
+                public String get(String... args) {
+                    return String.valueOf(Runner.getInstance().getFps());
+                }
+            });
+            dcmdl = cmdlmerc;
+        }
+        return dcmdl;
     }
 }

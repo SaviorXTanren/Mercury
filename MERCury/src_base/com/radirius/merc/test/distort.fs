@@ -1,7 +1,7 @@
 uniform sampler2D u_texture;
 varying vec4 v_texcoord;
 const float PI = 3.1415926535;
-uniform float BarrelPower=3;
+uniform float BarrelPower=2;
 
 vec2 Distort(vec2 p)
 {

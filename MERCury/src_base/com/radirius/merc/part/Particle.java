@@ -5,6 +5,7 @@ import com.radirius.merc.geo.Rectangle;
 import com.radirius.merc.geo.Vec2;
 import com.radirius.merc.gfx.Color;
 import com.radirius.merc.gfx.Graphics;
+import com.radirius.merc.math.MercMath;
 import com.radirius.merc.util.Wipeable;
 
 /**
@@ -14,33 +15,26 @@ import com.radirius.merc.util.Wipeable;
  */
 
 public class Particle implements MercEntity, Wipeable {
-    public Color color;
     public float size;
     private final float max_size;
-    public boolean shrink;
     
     public Vec2 pos;
     public Vec2 vel;
-    public float damp;
     
-    public final int lifeinframes;
     public int life;
     
     public ParticleEmitter emitter;
     
-    public Particle(Color color, float size, boolean shrink, float x, float y, float angle, float speed, float damp, int lifeinframes, ParticleEmitter emitter) {
-        this.color = color;
-        this.size = size;
+    public Particle(float angle, ParticleEmitter emitter) {
+        this.size = emitter.size;
         max_size = size;
-        this.shrink = shrink;
         
+        float x = (float) MercMath.random(emitter.getBounds().getX(), emitter.getBounds().getX2()), y = (float) MercMath.random(emitter.getBounds().getY(), emitter.getBounds().getY2());
         pos = new Vec2(x, y);
         vel = new Vec2(angle);
-        vel.scale(speed);
-        this.damp = damp;
+        vel.scale(emitter.speed);
         
-        this.lifeinframes = lifeinframes;
-        life = lifeinframes;
+        life = emitter.lifeinframes;
         
         this.emitter = emitter;
     }
@@ -51,21 +45,19 @@ public class Particle implements MercEntity, Wipeable {
             wipe();
         
         pos.add(vel);
-        vel.add(emitter.getGravity());
-        vel.scale(damp);
+        vel.add(emitter.grav);
+        vel.scale(emitter.damp);
         
-        if (shrink)
-            size = max_size * ((float) life / (float) lifeinframes);
+        if (emitter.shrink)
+            size = max_size * ((float) life / (float) emitter.lifeinframes);
         
         life -= 1;
     }
     
     @Override
     public void render(Graphics g) {
-        Color orig_col = g.getColor();
-        g.setColor(new Color(color.r, color.g, color.b, life));
+        g.pushSetColor(new Color(emitter.color.r, emitter.color.g, emitter.color.b, life));
         g.drawRect(new Rectangle(pos.x, pos.y, size, size));
-        g.setColor(orig_col);
     }
     
     boolean wiped = false;

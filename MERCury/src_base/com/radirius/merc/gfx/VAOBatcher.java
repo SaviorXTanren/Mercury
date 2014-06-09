@@ -41,6 +41,8 @@ public class VAOBatcher implements Batcher {
     private Color last_col = Color.DEFAULT_DRAWING;
     private Shader last_shader = Shader.getDefaultShader();
     
+    private int drawmode = GL_TRIANGLES;
+    
     public VAOBatcher() {
         vtxcount = 0;
         
@@ -104,7 +106,7 @@ public class VAOBatcher implements Batcher {
         pointBuffer(COLOR_ARRAY_POINTER, 4, cd);
         pointBuffer(TEXTURE_COORD_ARRAY_POINTER, 2, td);
         
-        drawBuffers(GL_TRIANGLES, vtxcount);
+        drawBuffers(drawmode, vtxcount);
         
         disableBuffer(GL_VERTEX_ARRAY);
         disableBuffer(GL_COLOR_ARRAY);
@@ -138,13 +140,23 @@ public class VAOBatcher implements Batcher {
         if (hasTexture)
             pointBuffer(TEXTURE_COORD_ARRAY_POINTER, 2, td);
         
-        drawBuffers(GL_TRIANGLES, vtxcount);
+        drawBuffers(drawmode, vtxcount);
         
         disableBuffer(GL_VERTEX_ARRAY);
         if (hasColor)
             disableBuffer(GL_COLOR_ARRAY);
         if (hasTexture)
             disableBuffer(GL_TEXTURE_COORD_ARRAY);
+    }
+    
+    @Override
+    public void setDrawMode(int mode) {
+        this.drawmode = mode;
+    }
+    
+    @Override
+    public int getDrawMode() {
+        return drawmode;
     }
     
     @Override

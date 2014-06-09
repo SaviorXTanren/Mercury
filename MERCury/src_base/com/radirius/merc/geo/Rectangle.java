@@ -1,5 +1,7 @@
 package com.radirius.merc.geo;
 
+import com.radirius.merc.log.Logger;
+
 /**
  * A rectangle shape.
  * 
@@ -46,11 +48,27 @@ public class Rectangle extends Shape {
     
     @Override
     public boolean intersects(Shape s) {
-        return !(nx > s.fx || fx < s.nx || ny > s.fy || fy < s.ny);
+        boolean intersects = false;
+        for (Vec2 v : s.vertices)
+            if (contains(v)) {
+                intersects = true;
+                break;
+            }
+        
+        if(!intersects)
+            for (Vec2 v : vertices)
+                if (s.contains(v)) {
+                    intersects = true;
+                    break;
+                }
+        
+        return intersects;
     }
     
     @Override
     public boolean contains(Vec2 v) {
-        return v.x >= getX1() && v.x <= getX2() && v.y >= getY1() && v.y <= getY2();
+        regen();
+        Logger.debug(this);
+        return v.x >= getX() && v.x <= getX2() && v.y >= getY() && v.y <= getY2();
     }
 }

@@ -1,11 +1,11 @@
 package com.radirius.merc.tuts;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.radirius.merc.exc.MERCuryException;
+import com.radirius.merc.cmd.Command;
+import com.radirius.merc.cmd.CommandList;
 import com.radirius.merc.fmwk.Core;
 import com.radirius.merc.fmwk.Runner;
 import com.radirius.merc.geo.Vec2;
@@ -13,7 +13,6 @@ import com.radirius.merc.gfx.Color;
 import com.radirius.merc.gfx.Graphics;
 import com.radirius.merc.in.Input;
 import com.radirius.merc.math.MercMath;
-import com.radirius.merc.res.ResourceManager;
 import com.radirius.merc.util.TaskTiming;
 
 /**
@@ -37,7 +36,7 @@ public class WalkingSim extends Core {
     CopyOnWriteArrayList<Vec2> steroids = new CopyOnWriteArrayList<Vec2>(), veggies = new CopyOnWriteArrayList<Vec2>();
     
     @Override
-    public void init(ResourceManager RM) throws IOException, MERCuryException {
+    public void init() {
         // Make a timer that reccurs every 5 seconds, infinitely (a negative
         // value will do this).
         TaskTiming.addTask(new TaskTiming.Task(5000, -1) {
@@ -58,7 +57,7 @@ public class WalkingSim extends Core {
                     // We will keep on generating a random location until the
                     // distance is not less than 100
                     float dx = position.x - veggie.x, dy = position.y - veggie.y;
-                    while (Math.sqrt((dx * dx) + (dy * dy)) < 100) {
+                    while (Math.sqrt(dx * dx + dy * dy) < 100) {
                         veggie = new Vec2((int) MercMath.random(0, rnr.getWidth()), (int) MercMath.random(0, rnr.getHeight()));
                         dx = position.x - veggie.x;
                         dy = position.y - veggie.y;
@@ -68,16 +67,41 @@ public class WalkingSim extends Core {
                 }
             }
         });
+        
+        // THIS IS NOT IN THE ORIGINAL TUTORIAL
+        // THIS IS FOR A DEMO OF THE COMMAND-LINE DEBUGGING FEATURE
+        // IGNORE THIS WHOLE SECTION, IF YOU LIKE.
+        // THE CODE WILL RUN FINE IF THIS IS GONE, TOO.
+        // _________________________________________________________________________________________________________________________
+        
+        CommandList cheats = new CommandList("cheats", "Some awesome cheats for your game.");
+        cheats.addCommand(new Command("setscore", "Sets the score to an Integer.") {
+            @Override
+            public void run(String... args) {
+                score = Integer.valueOf(args[0]);
+            }
+        });
+        cheats.addCommand(new Command("godmode", "Toggles godmode.") {
+            @Override
+            public void run(String... args) {
+                if (PUSHVELOCITY != 2)
+                    PUSHVELOCITY = 2;
+                else
+                    PUSHVELOCITY = 0.04f;
+            }
+        });
+        CommandList.addCommandList(cheats);
+        // _________________________________________________________________________________________________________________________
     }
     
     // The constant by which `velocity` will be multiplied by every frame. This
     // will just make the `velocity` 98% of what it is every frame, eventually
     // slowing it to a stop.
-    public static final float DAMPENING = 0.98f;
+    public static float DAMPENING = 0.98f;
     // The amount by which the `velocity` will be 'pushed' every frame, given a
     // certain input. For example, if we were to move to the right, we would do
     // `velocity.x += PUSHVELOCITY`.
-    public static final float PUSHVELOCITY = 0.04f;
+    public static float PUSHVELOCITY = 0.04f;
     // A `Vec2`, where `velocity.x` is the movement in the x axis every frame,
     // and `velocity.y` is the movement in the y axis every frame.
     public Vec2 velocity = new Vec2(0, 0);
@@ -88,7 +112,7 @@ public class WalkingSim extends Core {
     public int score = 0;
     
     @Override
-    public void update(float delta) throws MERCuryException {
+    public void update(float delta) {
         // Velocity adding based upon the input of the user.
         Input in = rnr.getInput();
         
@@ -159,7 +183,7 @@ public class WalkingSim extends Core {
     }
     
     @Override
-    public void render(Graphics g) throws MERCuryException {
+    public void render(Graphics g) {
         g.setColor(Color.white);
         g.drawCircle(position.x, position.y, 10);
         for (Vec2 pos : steroids) {
@@ -171,11 +195,11 @@ public class WalkingSim extends Core {
             g.drawCircle(pos.x, pos.y, 10);
         }
         g.setColor(Color.cyan);
-        g.drawString(10, 10, "SCORE:"+score);
+        g.drawString(10, 10, "SCORE:" + score);
     }
     
     @Override
-    public void cleanup(ResourceManager RM) throws IOException, MERCuryException {
+    public void cleanup() {
     }
     
     public static void main(String[] args) {

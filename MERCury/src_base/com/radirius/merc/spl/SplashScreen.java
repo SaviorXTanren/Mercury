@@ -33,6 +33,8 @@ public class SplashScreen {
     /**
      * Shows the splash screen on screen, whilst checking if it is time to stop
      * as well.
+     * 
+     * @return Whether or not the splash is done.
      */
     public boolean show(Graphics g) {
         if (!showing) {
@@ -52,15 +54,10 @@ public class SplashScreen {
         float width = tex.getTextureWidth(), height = tex.getTextureHeight();
         float aspect = width / height;
         
-        if (scrw > scrh) {
-            width = scrw;
-            height = width / aspect;
-        } else {
-            width = scrw;
-            height = width / aspect;
-        }
+        width = scrw;
+        height = width / aspect;
         
-        g.drawTexture(tex, 0, 0, tex.getTextureWidth(), tex.getTextureHeight(), 0, scrh / 2 - height / 2, width, scrh / 2 - height / 2 + height);
+        g.drawTexture(tex, 0, 0 + scrh / 2 - height / 2, width, height);
         return _return_;
     }
     

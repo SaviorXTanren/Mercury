@@ -23,8 +23,6 @@ import com.radirius.merc.fmwk.Runner;
 import com.radirius.merc.geo.Rectangle;
 import com.radirius.merc.gfx.Color;
 import com.radirius.merc.gfx.Graphics;
-import com.radirius.merc.res.ResourceManager;
-import com.radirius.merc.spl.SplashScreen;
 
 /**
  * Colors got screwed up... So this should be a good tool for the future and
@@ -47,11 +45,9 @@ public class ColorTest extends Core {
     }
     
     @Override
-    public void init(ResourceManager RM) {
+    public void init() {
         rnr.getGraphics().setBackground(Color.black);
         rnr.getGraphics().scale(8);
-        
-        rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
     
     @Override
@@ -86,13 +82,13 @@ public class ColorTest extends Core {
     int colidx;
     
     public void test(Color color, Graphics g) {
-        g.setColor(color);
+        g.pushSetColor(color);
         g.drawRect(new Rectangle(colidx * 4, 0, 4, 8));
         colidx++;
     }
     
     @Override
-    public void cleanup(ResourceManager RM) {
+    public void cleanup() {
     }
     
 }

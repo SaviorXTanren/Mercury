@@ -1,12 +1,8 @@
 package com.radirius.merc.tuts;
 
-import java.io.IOException;
-
-import com.radirius.merc.exc.MERCuryException;
 import com.radirius.merc.fmwk.Core;
 import com.radirius.merc.fmwk.Runner;
 import com.radirius.merc.gfx.Graphics;
-import com.radirius.merc.res.ResourceManager;
 
 /**
  * @author wessles
@@ -24,21 +20,21 @@ public class Blackbox extends Core {
     }
     
     @Override
-    public void init(ResourceManager RM) throws IOException, MERCuryException {
+    public void init() {
     }
     
     @Override
-    public void update(float delta) throws MERCuryException {
+    public void update(float delta) {
         rnr.sleep(5000);
         rnr.end();
     }
     
     @Override
-    public void render(Graphics g) throws MERCuryException {
+    public void render(Graphics g) {
     }
     
     @Override
-    public void cleanup(ResourceManager RM) throws IOException, MERCuryException {
+    public void cleanup() {
     }
     
     public static void main(String[] args) {

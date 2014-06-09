@@ -53,8 +53,9 @@ public class Ellipse extends Shape {
     
     @Override
     public boolean intersects(Shape s) {
-        float cx = getCenterX();
-        float cy = getCenterY();
+        // Center positions.
+        float cx = getX() + getWidth() / 2;
+        float cy = getY() + getHeight() / 2;
         
         float x1 = cx - radx / 2;
         float y1 = cy - rady / 2;
@@ -73,8 +74,9 @@ public class Ellipse extends Shape {
     
     @Override
     public boolean contains(Vec2 v) {
-        float cx = getCenterX();
-        float cy = getCenterY();
+        // Center positions.
+        float cx = getX() + getWidth() / 2;
+        float cy = getY() + getHeight() / 2;
         
         float x1 = cx - radx / 2;
         float y1 = cy - rady / 2;

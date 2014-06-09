@@ -1,14 +1,10 @@
 package com.radirius.merc.tuts;
 
-import java.io.IOException;
-
-import com.radirius.merc.exc.MERCuryException;
 import com.radirius.merc.fmwk.Core;
 import com.radirius.merc.fmwk.Runner;
 import com.radirius.merc.geo.Rectangle;
 import com.radirius.merc.gfx.Color;
 import com.radirius.merc.gfx.Graphics;
-import com.radirius.merc.res.ResourceManager;
 
 /**
  * @author wessles
@@ -26,23 +22,23 @@ public class TheGraphicsObject extends Core {
     }
     
     @Override
-    public void init(ResourceManager RM) throws IOException, MERCuryException {
+    public void init() {
         rnr.getGraphics().setBackground(Color.blue);
     }
     
     @Override
-    public void update(float delta) throws MERCuryException {
+    public void update(float delta) {
         
     }
     
     @Override
-    public void render(Graphics g) throws MERCuryException {
+    public void render(Graphics g) {
         g.setColor(Color.green);
         g.drawRect(new Rectangle(0, 0, 100, 100));
     }
     
     @Override
-    public void cleanup(ResourceManager RM) throws IOException, MERCuryException {
+    public void cleanup() {
     }
     
     public static void main(String[] args) {

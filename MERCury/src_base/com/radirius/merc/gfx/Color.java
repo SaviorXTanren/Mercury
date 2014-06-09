@@ -116,6 +116,10 @@ public class Color {
         return (int) a * 255;
     }
     
+    public Color duplicate() {
+        return new Color(r, g, b, a);
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Color) {

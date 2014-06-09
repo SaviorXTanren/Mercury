@@ -1,30 +1,23 @@
 package com.radirius.merc.gui;
 
 import com.radirius.merc.env.Renderable;
+import com.radirius.merc.geo.Rectangle;
 import com.radirius.merc.gfx.Graphics;
 
 /**
  * @author wessles, Jeviny
  */
 public class Component implements Renderable {
-    public String txt;
-    
-    public boolean cx, cy;
+    public String content;
     
     private ActionCheck acheck;
     
-    public float x, y, w, h;
+    public Rectangle bounds;
     
-    public Component(String txt, float x, float y, float w, float h, boolean centerx, boolean centery) {
-        this.txt = txt;
+    public Component(String txt, float x, float y, float w, float h) {
+        content = txt;
         
-        cx = centerx;
-        cy = centery;
-        
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.h = h;
+        this.bounds = new Rectangle(x, y, w, h);
     }
     
     public void update() {
@@ -41,19 +34,12 @@ public class Component implements Renderable {
     }
     
     public void renderContent(Graphics g) {
-        float tx = 0, ty = 0;
-        
-        if (cx)
-            tx = w / 2 - g.getFont().getWidth(txt.toCharArray()) / 2;
-        if (cy)
-            ty = h / 2 - g.getFont().getHeight() / 4;
-        
-        g.drawString(x + tx, y + ty, txt);
+        g.drawString(bounds.getX(), bounds.getY(), content);
     }
     
-    public Component setActionCheck(ActionCheck acheck) {
+    public Component addActionCheck(ActionCheck acheck) {
         this.acheck = acheck;
-        acheck.setParent(this);
+        this.acheck.setParent(this);
         return this;
     }
     

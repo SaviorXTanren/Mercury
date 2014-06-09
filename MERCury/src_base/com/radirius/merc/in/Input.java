@@ -150,6 +150,7 @@ public class Input {
     public static final int MOUSE_MID = 2;
     
     private ArrayList<Integer> eventkeystates = new ArrayList<Integer>();
+    private char nextchar = 0;
     
     private ArrayList<Integer> eventmousebuttonstates = new ArrayList<Integer>();
     private int mousedwheel = 0;
@@ -166,11 +167,14 @@ public class Input {
     
     /** Updates a list of things that happened every frame. */
     public void pollKeyboard() {
+        nextchar = 0;
         eventkeystates.clear();
         
         while (Keyboard.next())
-            if (Keyboard.getEventKeyState())
+            if (Keyboard.getEventKeyState()) {
                 eventkeystates.add(Keyboard.getEventKey());
+                nextchar = Keyboard.getEventCharacter();
+            }
     }
     
     /** Updates a list of things that happened every frame. */
@@ -276,5 +280,12 @@ public class Input {
      */
     public int getAbsoluteMouseY() {
         return Display.getHeight() - 1 - Mouse.getY();
+    }
+    
+    /**
+     * @return The last character pressed.
+     */
+    public char getNextCharacter() {
+        return nextchar;
     }
 }

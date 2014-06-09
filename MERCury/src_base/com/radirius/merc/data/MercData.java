@@ -41,7 +41,7 @@ public class MercData implements Data {
      * @param val
      *            The value that you are changing the property to.
      */
-    public void setProperty(String prop, String val) throws FileNotFoundException {
+    public void setProperty(String prop, String val) {
         vals.put(prop, val);
     }
     
@@ -63,16 +63,18 @@ public class MercData implements Data {
             e.printStackTrace();
         }
         
-        while (scan.hasNext()) {
-            String prop = scan.next();
-            String val = scan.next();
-            System.out.println(prop + " " + val);
+        while (scan.hasNextLine()) {
+            String ln = scan.nextLine();
+            String[] split = ln.split(" ", 2);
+            String prop = split[0];
+            String val = split[1];
             vals.put(prop, val);
         }
         
         scan.close();
     }
     
+    @Override
     public void close() {
         PrintWriter write = null;
         

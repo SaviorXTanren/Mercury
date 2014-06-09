@@ -1,75 +1,116 @@
 package com.radirius.merc.gui;
 
-import com.radirius.merc.fmwk.Runner;
+import java.util.ArrayList;
+
+import com.radirius.merc.font.Font;
+import com.radirius.merc.font.TrueTypeFont;
+import com.radirius.merc.geo.Rectangle;
 import com.radirius.merc.gfx.Color;
 import com.radirius.merc.gfx.Graphics;
 import com.radirius.merc.gfx.Texture;
 
 /**
- * @author Jeviny
+ * @author wessles, Jeviny
  */
 public class TextBox extends Component {
     public float margin;
     
-    public Texture border_hor, border_vert, background_img;
+    public Texture border_hor, border_vert;
     
+    public Texture background_img;
+    public Color background_col;
     public Color textCol;
     
-    private boolean hasBackground = false;
+    private ArrayList<Button> buttons = new ArrayList<Button>();
     
-    public TextBox(String txt, float x, float y, float w, float h, float margin, Color textCol) {
-        this(txt, Texture.getEmptyTexture(), Texture.getEmptyTexture(), x, y, w, h, margin, textCol);
-        
-        hasBackground = false;
+    private Font textfont = null;
+    
+    private int bg_mode = 0;
+    
+    private int BG_TEXTURE = 0;
+    private int BG_COLOUR = 1;
+    
+    public TextBox(String txt, Rectangle bounds) {
+        this(txt, bounds, 0);
     }
     
-    public TextBox(String txt, Texture border_hor, Texture border_vert, float x, float y, float w, float h, float margin, Color textCol) {
-        super(fitStringToBounds(txt, w, margin), x, y, w, h, false, false);
-        
-        this.margin = margin;
-        this.border_hor = border_hor;
-        this.border_vert = border_vert;
-        this.textCol = textCol;
-        
-        hasBackground = false;
+    public TextBox(String txt, Rectangle bounds, float margin) {
+        this(txt, bounds, margin, Color.white, Color.black);
     }
     
-    public TextBox(String txt, Texture background_img, float x, float y, float w, float h, float margin, Color textCol) {
-        super(fitStringToBounds(txt, w, margin), x, y, w, h, false, false);
+    public TextBox(String txt, Rectangle bounds, float margin, Color textcolor, Color backgroundcolor) {
+        this(txt, bounds, margin, null, TrueTypeFont.OPENSANS_REGULAR, Color.white, Color.black);
+    }
+    
+    public TextBox(String txt, Rectangle bounds, float margin, Texture backgroundtex, Font textfont, Color textcolor, Color backgroundcolor) {
+        super("", bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
         
         this.margin = margin;
-        this.background_img = background_img;
-        this.textCol = textCol;
+        background_img = backgroundtex;
+        background_col = backgroundcolor;
+        textCol = textcolor;
         
-        hasBackground = true;
+        content = fitToBounds();
+        
+        bg_mode = backgroundtex != null ? BG_TEXTURE : BG_COLOUR;
+        
+        this.textfont = textfont;
     }
     
     @Override
     public void render(Graphics g) {
-        if (!hasBackground) {
-            float borderwidth = Math.min(border_hor.getTextureHeight(), border_hor.getTextureWidth());
-            
-            g.drawTexture(border_vert, 0, 0, w, borderwidth, x, y + h - borderwidth + margin);
-            g.drawTexture(border_hor, 0, 0, borderwidth, h + margin * 2, x + w - borderwidth, y - margin);
-            
-            borderwidth = Math.min(border_vert.getTextureHeight(), border_vert.getTextureWidth());
-            
-            g.drawTexture(border_hor, 0, 0, borderwidth, h + margin * 2, x, y - margin);
-            g.drawTexture(border_vert, 0, 0, w, borderwidth, x, y - margin);
-        } else
-            g.drawTexture(background_img, x, y, w, h);
+        if (bg_mode == BG_TEXTURE)
+            g.drawTexture(background_img, bounds);
+        else if (bg_mode == BG_COLOUR) {
+            g.pushSetColor(background_col);
+            g.drawRect(bounds);
+        }
         
         renderContent(g);
+        
+        for (int i = 0; i < buttons.size(); i++) {
+            Button b = buttons.get(i);
+            
+            b.render(g);
+        }
     }
     
     @Override
     public void renderContent(Graphics g) {
-        g.setColor(textCol);
-        g.drawString(x + margin, y + margin, txt);
-        g.setColor(Color.white);
+        g.setFont(textfont);
+        g.pushSetColor(textCol);
+        g.drawString(bounds.getX() + margin, bounds.getY() + margin, content);
     }
     
-    private static String fitStringToBounds(String txt, float w, float margin) {
+    @Override
+    public void update() {
+        super.update();
+        
+        for (int i = 0; i < buttons.size(); i++) {
+            Button b = buttons.get(i);
+            
+            b.update();
+        }
+    }
+    
+    public void setContent(String content) {
+        this.content = content + " ";
+        this.content = fitToBounds();
+    }
+    
+    public String getContent() {
+        return content;
+    }
+    
+    public void setTextFont(Font fnt) {
+        textfont = fnt;
+    }
+    
+    public Font getTextFont() {
+        return textfont;
+    }
+    
+    private String fitToBounds() {
         // A line of text
         String linetxt = "";
         
@@ -81,16 +122,24 @@ public class TextBox extends Component {
         String finaltxt = "";
         
         // Begin fitting!
-        while (idx < txt.length()) {
+        while (idx < content.length()) {
             // Write character to line, and add to index
-            linetxt += txt.charAt(idx);
+            if (content.charAt(idx) == '\n') {
+                // Add line to text, and reset variables
+                finaltxt += linetxt;
+                if (!(idx > content.length()))
+                    finaltxt += "\n";
+                linetxt = "";
+                lidx = idx;
+            } else
+                linetxt += content.charAt(idx);
             idx++;
             
             // If we are pushing the width limit or we are at the end of the
             // text, new line (or not)!
-            if (Runner.getInstance().getGraphics().getFont().getWidth(txt.substring(lidx, idx).toCharArray()) >= w - margin * 2 || idx >= txt.length()) {
+            if (textfont.getWidth(content.substring(lidx, idx).toCharArray()) >= bounds.getWidth() - margin * 2 || idx >= content.length()) {
                 // Making sure no words get cut off, or split in half.
-                int lastspace = linetxt.lastIndexOf(' ');
+                int lastspace = linetxt.lastIndexOf(' ') + 1;
                 
                 if (lastspace > 0) {
                     idx -= linetxt.length() - lastspace;
@@ -102,12 +151,17 @@ public class TextBox extends Component {
                 
                 // Add line to text, and reset variables
                 finaltxt += linetxt;
-                finaltxt += "\n";
+                if (!(idx > content.length()))
+                    finaltxt += "\n";
                 linetxt = "";
                 lidx = idx;
             }
         }
         
         return finaltxt;
+    }
+    
+    public static enum GridLocation {
+        TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, MID_LEFT, MID_RIGHT;
     }
 }

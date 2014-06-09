@@ -25,6 +25,12 @@ public interface Batcher {
     /** Pushes all data with a few extra parameters. */
     public void flush(boolean hasColor, boolean hasTexture);
     
+    /** Sets the drawing mode. */
+    public void setDrawMode(int mode);
+    
+    /** Returns the currently used drawing mode. */
+    public int getDrawMode();
+    
     /**
      * @param color
      *            Color to set to.

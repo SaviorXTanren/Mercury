@@ -10,18 +10,19 @@ import com.radirius.merc.util.ArrayUtils;
  */
 
 public abstract class Shape {
-    /** The mean average of all vertices; the center. */
-    protected Vec2 center;
     /** All vertices that make up the shape. */
     protected Vec2[] vertices;
-    /** The near coordinates (lowest values of all vertices). */
-    protected float nx, ny;
-    /** The far coordinates (highest value of all vertices). */
-    protected float fx, fy;
-    /** The radius! */
-    protected float radius;
     
-    /** The rotation angle (in degrees, COS screw freaking radians) */
+    /** The x value of the vertex top-left-most vertex. */
+    private float x;
+    /** The y value of the vertex top-left-most vertex. */
+    private float y;
+    /** The x value of the vertex bottom-right-most vertex. */
+    private float x2;
+    /** The y value of the vertex bottom-right-most vertex. */
+    private float y2;
+    
+    /** The rotation angle (in degrees, COS screw radians) */
     private float rot = 0;
     
     /**
@@ -89,9 +90,10 @@ public abstract class Shape {
      */
     public void translateTo(float x, float y, float origx, float origy) {
         for (Vec2 vertex : vertices) {
-            vertex.x = Math.abs(vertex.x - nx + origx + y);
-            vertex.y = Math.abs(vertex.x - ny + origy + x);
+            vertex.x = Math.abs(vertex.x - x + origx + y);
+            vertex.y = Math.abs(vertex.x - y + origy + x);
         }
+        
         regen();
     }
     
@@ -121,6 +123,8 @@ public abstract class Shape {
             p.y = ynew + origy;
         }
         rot = angle;
+        
+        regen();
     }
     
     /**
@@ -130,7 +134,7 @@ public abstract class Shape {
      *            The angle of rotation.
      */
     public void rotate(float angle) {
-        rotate(nx + getWidth() / 2, ny + getHeight() / 2, angle);
+        rotate(x + getWidth() / 2, y + getHeight() / 2, angle);
     }
     
     /**
@@ -156,7 +160,7 @@ public abstract class Shape {
      *            The angle of rotation that the object will rotate to.
      */
     public void rotateTo(float angle) {
-        rotateTo(nx + getWidth() / 2, ny + getHeight() / 2, angle);
+        rotateTo(x + getWidth() / 2, y + getHeight() / 2, angle);
     }
     
     /** @return A VERY rough estimate of area. */
@@ -165,82 +169,53 @@ public abstract class Shape {
     }
     
     /** @return The x of the nearest vertex. */
-    public float getX1() {
+    public float getX() {
         regen();
-        return nx;
+        return x;
     }
     
     /** @return The y of the nearest vertex. */
-    public float getY1() {
+    public float getY() {
         regen();
-        return ny;
+        return y;
     }
     
     /** @return The x of the farthest vertex. */
     public float getX2() {
         regen();
-        return fx;
+        return x2;
     }
     
     /** @return The y of the farthest vertex. */
     public float getY2() {
         regen();
-        return fy;
-    }
-    
-    public Point getPoint1() {
-        regen();
-        return new Point(nx, ny);
-    }
-    
-    public Point getPoint2() {
-        regen();
-        return new Point(fx, fy);
+        return y2;
     }
     
     /** @return The difference between the nearest x and the farthest x. */
     public float getWidth() {
         regen();
-        return Math.abs(fx - nx);
+        return Math.abs(x2 - x);
     }
     
     /** @return The difference between the nearest y and the farthest y. */
     public float getHeight() {
         regen();
-        return Math.abs(fy - ny);
+        return Math.abs(y2 - y);
     }
     
-    /** @return The mean average of all vertices (the center). */
-    public Vec2 getCenterPoint() {
-        regen();
-        return center;
-    }
-    
-    /** @return The x of getCenterPoint() */
-    public float getCenterX() {
-        return getCenterPoint().x;
-    }
-    
-    /** @return The y of getCenterPoint() */
-    public float getCenterY() {
-        return getCenterPoint().y;
-    }
-    
-    private void regen() {
-        nx = vertices[0].x;
-        ny = vertices[0].y;
-        fx = nx;
-        fy = ny;
+    protected void regen() {
+        x = vertices[0].x;
+        y = vertices[0].y;
+        x2 = x;
+        y2 = y;
         
         for (Vec2 vertex : vertices) {
-            nx = Math.min(vertex.x, nx);
-            ny = Math.min(vertex.y, ny);
-            fx = Math.max(vertex.x, fx);
-            fy = Math.max(vertex.y, fy);
+            x = Math.min(vertex.x, x);
+            y = Math.min(vertex.y, y);
+            x2 = Math.max(vertex.x, x2);
+            y2 = Math.max(vertex.y, y2);
         }
-        
-        center = new Vec2((nx + fx) / 2, (ny + fy) / 2);
-        radius = Math.abs(fx - nx > fy - ny ? fx - nx : fy - ny);
     }
     
     /** @return All vertices of the object. */
@@ -250,6 +225,6 @@ public abstract class Shape {
     
     @Override
     public String toString() {
-        return "Shape with: x1:" + nx + ", y1:" + ny + ", x2:" + fx + ", y2:" + fy;
+        return "Shape with: x1:" + x + ", y1:" + y + ", x2:" + x2 + ", y2:" + y2;
     }
 }

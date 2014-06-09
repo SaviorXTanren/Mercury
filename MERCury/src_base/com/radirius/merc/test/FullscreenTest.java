@@ -6,7 +6,6 @@ import com.radirius.merc.fmwk.Core;
 import com.radirius.merc.fmwk.Runner;
 import com.radirius.merc.geo.Rectangle;
 import com.radirius.merc.gfx.Graphics;
-import com.radirius.merc.res.ResourceManager;
 import com.radirius.merc.spl.SplashScreen;
 
 /**
@@ -22,7 +21,7 @@ public class FullscreenTest extends Core {
          * Will choose lowest resolution, since near no monitor will view
          * fullscreen at these dimensions.
          */
-        rnr.init(this, 500, 500, true, true, true);
+        rnr.init(this, true, true);
         rnr.run();
     }
     
@@ -31,7 +30,7 @@ public class FullscreenTest extends Core {
     }
     
     @Override
-    public void init(ResourceManager RM) {
+    public void init() {
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
     
@@ -47,10 +46,12 @@ public class FullscreenTest extends Core {
     public void render(Graphics g) {
         /** Testing for vsync stuffs */
         g.drawRect(new Rectangle(x += 1, y += 3, 100, 100));
+        
+        g.drawString(0, 0, "You have made it to fullscreen.\nPress <ESCAPE> to leave.\nThat square is testing for vsync-y stuffs.\n\nGoodbye, and godspeed to you.\n\n\n-Radirius");
     }
     
     @Override
-    public void cleanup(ResourceManager RM) {
+    public void cleanup() {
     }
     
 }

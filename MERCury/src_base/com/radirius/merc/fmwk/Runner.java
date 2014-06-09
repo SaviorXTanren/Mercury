@@ -17,17 +17,13 @@ import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
-import com.radirius.merc.cmd.Command;
 import com.radirius.merc.cmd.CommandList;
 import com.radirius.merc.cmd.CommandThread;
-import com.radirius.merc.cmd.Variable;
-import com.radirius.merc.exc.MERCuryException;
 import com.radirius.merc.exc.PluginNotFoundException;
 import com.radirius.merc.gfx.Camera;
 import com.radirius.merc.gfx.Graphics;
 import com.radirius.merc.in.Input;
 import com.radirius.merc.log.Logger;
-import com.radirius.merc.res.ResourceManager;
 import com.radirius.merc.spl.SplashScreen;
 import com.radirius.merc.util.TaskTiming;
 
@@ -44,6 +40,11 @@ public class Runner {
     
     /** Whether or not the library is running */
     public boolean running = false;
+    /**
+     * Whether or not the library has finished initializing; this is useful for
+     * multi-thread loading of resources.
+     */
+    public boolean inited = false;
     
     /** A list of splash screens we have */
     private final ArrayList<SplashScreen> splashes = new ArrayList<SplashScreen>();
@@ -60,8 +61,6 @@ public class Runner {
     /** Whether or not we are rendering or not */
     private boolean renderfreeze = false;
     
-    /** Whether or not we have 'splashed' the splash screens */
-    private boolean splashed = false;
     /** Whether or not we are vsyncing */
     private boolean vsync;
     /** Whether or not we are logging the FPS */
@@ -72,8 +71,6 @@ public class Runner {
     private int FPS_TARGET = 60;
     /** The current fps */
     private int FPS;
-    /** The current splash screen */
-    private int splashidx = 0;
     /** The last frame; used for calculating fps */
     private long lastframe;
     /** The factor by which delta is multiplied */
@@ -84,9 +81,6 @@ public class Runner {
     
     /** The graphics object */
     private Graphics graphicsobject;
-    
-    /** The resource manager */
-    private ResourceManager RM;
     
     /** The camera */
     private Camera camera;
@@ -125,7 +119,7 @@ public class Runner {
      *            Whether or not the display is fullscreen
      */
     public void init(Core core, int WIDTH, int HEIGHT, boolean fullscreen) {
-        init(core, WIDTH, HEIGHT, fullscreen, false, true);
+        init(core, WIDTH, HEIGHT, fullscreen, false, true, true);
     }
     
     /**
@@ -139,8 +133,10 @@ public class Runner {
      *            Whether or not we are vsynced
      */
     public void init(Core core, boolean fullscreen, boolean vsync) {
-        init(core, Display.getDesktopDisplayMode().getWidth(), Display.getDesktopDisplayMode().getHeight(), fullscreen, vsync, true);
+        init(core, Display.getDesktopDisplayMode().getWidth(), Display.getDesktopDisplayMode().getHeight(), fullscreen, vsync, true, true);
     }
+    
+    private boolean debuglog;
     
     /**
      * Initializes the library
@@ -155,31 +151,17 @@ public class Runner {
      *            Whether or not the display is fullscreen
      * @param vsync
      *            Whether or not we are vsynced
+     * @param debuglog
+     *            Whether or not we want the Runner to spit out a bunch of
+     *            debugging when it starts.
      * @param devconsole
      *            Whether or not we are enabling the developers console
      */
-    public void init(Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean devconsole) {
-        // Initialize Some Stuff! IN ORDER
-        Logger.debug("MERCury Started!");
-        Logger.log("  __  __ ______ _____   _____                 ");
-        Logger.log(" |  \\/  |  ____|  __ \\ / ____|                ");
-        Logger.log(" | \\  / | |__  | |__) | |    _   _ _ __ _   _ ");
-        Logger.log(" | |\\/| |  __| |  _  /| |   | | | | '__| | | |");
-        Logger.log(" | |  | | |____| | \\ \\| |___| |_| | |  | |_| |");
-        Logger.log(" |_|  |_|______|_|  \\_\\_____\\__,|_| |   \\__, |");
-        Logger.log("                                        __/ |");
-        Logger.log("                                       |___/ ");
-        Logger.log("Maitenance Enhanced and Reliable Coding Library");
-        Logger.log("             Designed by Radirius");
-        Logger.log("                                             ");
-        Logger.log("             You may read the list of contributors");
-        Logger.log("             On the official MERCury website:");
-        Logger.log("             http://weslgames.github.io/MERCury/");
-        Logger.log("                                             ");
-        Logger.log("             Email wessles@wessles.com for support");
-        Logger.log("             Go to www.reddit.com/r/MERCuryGameLibrary for community");
-        Logger.log("                        Copyright www.wessles.com 2013-20XX");
-        Logger.log("                        All Rights Reserved");
+    public void init(final Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean debuglog, boolean devconsole) {
+        System.out.print("  _   _   _   _   _   _   _  \n" + " / \\ / \\ / \\ / \\ / \\ / \\ / \\\n" + "( M | E | R | C | U | R | Y ) Started\n" + " \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \n\n");
+        
+        this.debuglog = debuglog;
+        Logger.setLog(debuglog);
         
         Logger.debug("Making Core...");
         
@@ -202,10 +184,6 @@ public class Runner {
         
         camera = new Camera(0, 0);
         
-        Logger.debug("Initializing Resource Manager...");
-        
-        RM = new ResourceManager();
-        
         Logger.debug("Initializing Graphics...");
         
         graphicsobject.init();
@@ -225,99 +203,21 @@ public class Runner {
             plug.init();
         }
         
-        Logger.debug("Initializing Core...");
+        Logger.debug("Initializing Core on seperate Thread...");
         
-        try {
-            this.core.init(RM);
-        } catch (IOException | MERCuryException e) {
-            e.printStackTrace();
-        }
+        Runnable initthread_run = new Runnable() {
+            @Override
+            public void run() {
+                core.init();
+                inited = true;
+            }
+        };
+        Thread initthread = new Thread(initthread_run);
+        initthread.run();
         
         Logger.debug("Making and adding default CommandList 'merc...'");
-        // Make default CommandList
-        CommandList cmdlmerc = new CommandList("merc", "This is the default Command List for MERCury Developer Console. In it, you will find core functions to MERCury Developer Console that will allow you to modify projects within the runtime.");
         
-        // Add in all the commands.
-        cmdlmerc.addCommand(new Command("end", "Ends the program.") {
-            @Override
-            public void run(String... args) {
-                end();
-                Logger.console("Ending MERCury...");
-            }
-        });
-        cmdlmerc.addCommand(new Command("togglefreeze", "Toggles the freezing of the update and the freezing of the rendering.") {
-            @Override
-            public void run(String... args) {
-                setUpdateFreeze(!updatefreeze);
-                setRenderFreeze(!renderfreeze);
-                Logger.console("Update Freeze changed to " + updatefreeze + ", and Render Freeze changed to " + renderfreeze);
-            }
-        });
-        cmdlmerc.addCommand(new Command("setFpsTarget", "merc setFpsTarget [Fps Target]\nTargets for, or caps the framerate at a given height.") {
-            @Override
-            public void run(String... args) {
-                setFpsTarget(Integer.parseInt(args[0]));
-                Logger.console("Framerate targeted for " + FPS_TARGET);
-            }
-        });
-        cmdlmerc.addCommand(new Command("setMouseGrab", "merc setMouseGrab [True/False]\nLocks or releases the mouse from the window.") {
-            @Override
-            public void run(String... args) {
-                setMouseGrab(Boolean.valueOf(args[0]));
-                Logger.console("Mouse " + (Boolean.valueOf(args[0]) ? "grabbed" : "released") + ".");
-            }
-        });
-        cmdlmerc.addCommand(new Command("setVsync", "Sets whether or not there is Vertical Sync.") {
-            @Override
-            public void run(String... args) {
-                setVsync(Boolean.valueOf(args[0]));
-                Logger.console("Vsync set to " + args[0]);
-            }
-        });
-        cmdlmerc.addCommand(new Command("setTitle", "Sets the title of the window.") {
-            @Override
-            public void run(String... args) {
-                setTitle(args[0]);
-                Logger.console("Window title set to '" + args[0] + ".'");
-            }
-        });
-        cmdlmerc.addCommand(new Command("setDeltaFactor", "Sets the delta factor, or, the number by which delta is multiplied by, to a given number.") {
-            @Override
-            public void run(String... args) {
-                setDeltaFactor(Float.valueOf(args[0]));
-                Logger.console("Delta factor set to " + args[0]);
-            }
-        });
-        cmdlmerc.addCommand(new Command("setUpdateFreeze", "Sets the freezing of the update.") {
-            @Override
-            public void run(String... args) {
-                setUpdateFreeze(Boolean.valueOf(args[0]));
-                Logger.console("Set update freeze to " + renderfreeze);
-            }
-        });
-        cmdlmerc.addCommand(new Command("setRenderFreeze", "Sets the freezing of the render.") {
-            @Override
-            public void run(String... args) {
-                setRenderFreeze(Boolean.valueOf(args[0]));
-                Logger.console("Set render freeze to " + renderfreeze);
-            }
-        });
-        cmdlmerc.addCommand(new Command("echo", "Echos your every word.") {
-            @Override
-            public void run(String... args) {
-                for (String s : args)
-                    Logger.console(s);
-            }
-        });
-        cmdlmerc.addVariable(new Variable("fps") {
-            @Override
-            public String get(String... args) {
-                return String.valueOf(getFps());
-            }
-        });
-        
-        // Add in the finished CommandList
-        CommandList.addCommandList(cmdlmerc);
+        CommandList.addCommandList(CommandList.getDefaultCommandList());
         
         Logger.debug("Booting Developers Console Thread...");
         consolethread.setName("merc_devconsole");
@@ -328,27 +228,20 @@ public class Runner {
         TaskTiming.init();
         
         Logger.debug("Ready to begin game loop. Awaiting permission from Core...");
+        
+        Logger.setLog(true);
     }
     
     /**
      * The main game loop of the library.
      */
     public void run() {
-        Logger.debug("Run permission granted by Core...");
+        Logger.setLog(true);
+        
         Logger.debug("Starting Game Loop...");
+        Logger.line();
         
         running = true;
-        
-        Logger.line();
-        Logger.log("-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-");
-        Logger.line();
-        Logger.line();
-        
-        if (splashes.size() == 0) {
-            splashed = true;
-            
-            Logger.debug("No splashes loaded by Core.");
-        }
         
         // To the main loop!
         
@@ -391,30 +284,12 @@ public class Runner {
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             
             if (!updatefreeze)
-                if (splashed) {
-                    try {
-                        core.update(getDelta());
-                    } catch (MERCuryException e) {
-                        e.printStackTrace();
-                    }
-                    input.poll();
-                }
+                core.update(getDelta());
+            input.poll();
             
             if (!renderfreeze) {
                 camera.pre(graphicsobject);
-                {
-                    if (splashed)
-                        try {
-                            core.render(graphicsobject);
-                        } catch (MERCuryException e) {
-                            e.printStackTrace();
-                        }
-                    else if (!splashes.get(splashidx).show(graphicsobject))
-                        if (splashidx < splashes.size() - 1)
-                            splashidx++;
-                        else
-                            splashed = true;
-                }
+                core.render(graphicsobject);
                 camera.post(graphicsobject);
             }
             
@@ -426,10 +301,9 @@ public class Runner {
         }
         
         Logger.line();
-        Logger.line();
-        Logger.log("-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-");
-        Logger.line();
         Logger.debug("Game Loop ended.");
+        
+        Logger.setLog(debuglog);
         
         Logger.debug("Starting Cleanup...");
         
@@ -441,13 +315,7 @@ public class Runner {
         TaskTiming.cleanup();
         
         Logger.debug("Cleaning up Core...");
-        try {
-            core.cleanup(RM);
-        } catch (IOException | MERCuryException e) {
-            e.printStackTrace();
-        }
-        Logger.debug("Cleaning up ResourceManager...");
-        RM.cleanup();
+        core.cleanup();
         Logger.debug("Cleaning up plugins...");
         for (Plugin plug : plugs) {
             Logger.debug("     Cleaning up " + plug.getClass().getSimpleName() + "...");
@@ -695,11 +563,6 @@ public class Runner {
         renderfreeze = freeze;
     }
     
-    /** @return The resource manager */
-    public ResourceManager getResourceManager() {
-        return RM;
-    }
-    
     /** @return The input node */
     public Input getInput() {
         return input;
@@ -708,6 +571,19 @@ public class Runner {
     /** @return The camera */
     public Camera getCamera() {
         return camera;
+    }
+    
+    // The current splash screen.
+    private int splidx = 0;
+    
+    public boolean showSplashScreens(Graphics g) {
+        if (splidx > splashes.size() - 1)
+            return true;
+        
+        if (!splashes.get(splidx).show(g))
+            splidx++;
+        
+        return false;
     }
     
     /**

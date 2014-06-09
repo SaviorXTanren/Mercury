@@ -10,6 +10,7 @@ import com.radirius.merc.exc.SevereLogException;
  */
 
 public class Logger {
+    public static boolean log = true;
     
     /** Cases describing the nature of the log. */
     public static enum Case {
@@ -23,7 +24,13 @@ public class Logger {
     }
     
     /** Logs a message in a case, with an optional severe message sevmsg. */
-    public static void log(String msg, Case cse, String sevmsg) throws SevereLogException {
+    public static void log(Case cse, String sevmsg, Object... obj) throws SevereLogException {
+        if (!log)
+            return;
+        
+        String msg = "";
+        for (Object o : obj)
+            msg += o + " ";
         if (cse != Case.SEVERE && cse != Case.WARNING && cse != Case.CONSOLEPROBLEM)
             System.out.println(cse.casemsg + msg);
         else {
@@ -34,51 +41,54 @@ public class Logger {
     }
     
     /** Logs a message in a case. */
-    public static void log(String msg, Case cse) {
+    public static void log(Case cse, Object... obj) {
         try {
-            log(msg, cse, "No information given.");
+            log(cse, "No information given.", obj);
         } catch (SevereLogException e) {
             e.printStackTrace();
         }
     }
     
     /** Logs a message in case NULL. */
-    public static void log(String msg) {
-        log(msg, Case.NULL);
+    public static void log(Object... obj) {
+        log(Case.NULL, obj);
     }
     
     /** Logs a message in case INFO. */
-    public static void info(String msg) {
-        log(msg, Case.INFO);
+    public static void info(Object... obj) {
+        log(Case.INFO, obj);
     }
     
     /** Logs a message in case DEBUG. */
-    public static void debug(String msg) {
-        log(msg, Case.DEBUG);
+    public static void debug(Object... obj) {
+        log(Case.DEBUG, obj);
     }
     
     /** Logs a message in case WARNING. */
-    public static void warn(String msg) {
-        log(msg, Case.WARNING);
+    public static void warn(Object... obj) {
+        log(Case.WARNING, obj);
     }
     
     /** Logs a message in case SEVERE. */
-    public static void severe(String msg) throws SevereLogException {
-        log(msg, Case.SEVERE, msg);
+    public static void severe(Object... obj) throws SevereLogException {
+        log(Case.SEVERE, obj);
     }
     
     /** Logs a message in case CONSOLE. */
-    public static void console(String msg) {
-        log(msg, Case.CONSOLE);
+    public static void console(Object... obj) {
+        log(Case.CONSOLE, obj);
     }
     
     /** Logs a message in case CONSOLE. */
-    public static void consoleproblem(String msg) {
-        log(msg, Case.CONSOLEPROBLEM);
+    public static void consoleproblem(Object... obj) {
+        log(Case.CONSOLEPROBLEM, obj);
     }
     
-    /** Logs a message in case NULL. */
     public static void line() {
         System.out.println();
+    }
+    
+    public static void setLog(boolean log) {
+        Logger.log = log;
     }
 }

@@ -4,7 +4,6 @@ import com.radirius.merc.fmwk.Core;
 import com.radirius.merc.fmwk.Runner;
 import com.radirius.merc.gfx.Graphics;
 import com.radirius.merc.math.MercMath;
-import com.radirius.merc.res.ResourceManager;
 import com.radirius.merc.spl.SplashScreen;
 
 /**
@@ -25,7 +24,7 @@ public class SplashTest extends Core {
     }
     
     @Override
-    public void init(ResourceManager RM) {
+    public void init() {
         rnr.addSplashScreen(SplashScreen.getMERCuryDefault());
     }
     
@@ -36,12 +35,18 @@ public class SplashTest extends Core {
     
     @Override
     public void render(Graphics g) {
-        for (int trolol = 0; trolol < 10; trolol++)
-            g.drawString((float) MercMath.random(0, rnr.getWidth()), (float) MercMath.random(0, rnr.getHeight()), "LEL,                      This is a GAME!                deal with it!");
+        if (!rnr.inited)
+            return;
+        
+        if (!rnr.showSplashScreens(g))
+            return;
+        
+        for (int trolol = 0; trolol < 100; trolol++)
+            g.drawString((float) MercMath.random(-50, rnr.getWidth()), (float) MercMath.random(0, rnr.getHeight()), "LEL,                      This is a GAME!                dilll with it!");
     }
     
     @Override
-    public void cleanup(ResourceManager RM) {
+    public void cleanup() {
         
     }
     

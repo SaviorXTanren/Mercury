@@ -44,11 +44,11 @@ public class Triangle extends Shape {
     
     @Override
     public boolean intersects(Shape s) {
-        return new Rectangle(getX1(), getY1(), getX2() / 2, getY1(), getX2() / 2, getY2() / 2, getX1(), getY2() / 2).intersects(s);
+        return new Rectangle(getX(), getY(), getX2() / 2, getY(), getX2() / 2, getY2() / 2, getX(), getY2() / 2).intersects(s);
     }
     
     @Override
     public boolean contains(Vec2 v) {
-        return new Rectangle(getX1(), getY1(), getX2() / 2, getY1(), getX2() / 2, getY2() / 2, getX1(), getY2() / 2).contains(v);
+        return new Rectangle(getX(), getY(), getX2() / 2, getY(), getX2() / 2, getY2() / 2, getX(), getY2() / 2).contains(v);
     }
 }

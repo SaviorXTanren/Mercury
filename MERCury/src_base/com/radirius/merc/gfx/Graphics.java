@@ -1,5 +1,7 @@
 package com.radirius.merc.gfx;
 
+import org.lwjgl.opengl.GL11;
+
 import com.radirius.merc.font.Font;
 import com.radirius.merc.geo.Circle;
 import com.radirius.merc.geo.Ellipse;
@@ -15,7 +17,12 @@ import com.radirius.merc.geo.Vec2;
  */
 
 public interface Graphics {
-    public static final int LINE = 0, FILLED = 1;
+    // Do you get the pun? 0 looks a bit more like a closed figure, symbolizing
+    // that it 'fills,' while 1 is more of a line!
+    //
+    // The more you know.
+    // Da DAA da DAAAAAAAAA!
+    public final int MODE_FILL = GL11.GL_TRIANGLES, MODE_LINE = GL11.GL_LINES;
     
     /** Initializes the graphics object. */
     public void init();
@@ -26,8 +33,14 @@ public interface Graphics {
     /** Cleans up the graphics object at the end of rendering. */
     public void post();
     
-    /** Sets the drawing mode. */
+    /** Sets the draw mode */
     public void setDrawMode(int mode);
+    
+    /** Returns the drawing mode that is currently in use. */
+    public int getDrawMode();
+    
+    /** Sets the line width in case of MODE_LINE being the drawmode */
+    public void setLineWidth(float width);
     
     /** Scales the matrix. */
     public void scale(float factor);
@@ -59,6 +72,9 @@ public interface Graphics {
     
     /** Sets the color. */
     public void setColor(Color color);
+    
+    /** Sets the color for one drawing, and then sets it to the previous color. */
+    public void pushSetColor(Color color);
     
     /** @return The last set color. */
     public Color getColor();
@@ -113,7 +129,7 @@ public interface Graphics {
     
     /** Draws a subtexture to a set of coordinates. */
     public void drawTexture(SubTexture texture, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
-
+    
     /** Draws a subtexture to a rectangle. */
     public void drawTexture(SubTexture texture, Rectangle rect);
     
@@ -152,6 +168,15 @@ public interface Graphics {
     
     /** Draws multiple circles. */
     public void drawCircles(Circle[] circles);
+    
+    // Geometry nerds beware! I know it is actually a line SEGMENT, but for
+    // simplicity's sake, I will just call it a line, like a normal human being.
+    
+    /** Draws a line from x1, y1 to x2, y2 */
+    public void drawLine(float x1, float y1, float x2, float y2);
+    
+    /** Draws a line from p1 to p2 */
+    public void drawLine(Vec2 p1, Vec2 p2);
     
     /** Draws a point. */
     public void drawPoint(Point point);

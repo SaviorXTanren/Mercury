@@ -20,18 +20,14 @@ import static org.lwjgl.opengl.GL11.glLoadIdentity;
 import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.opengl.GL11.glOrtho;
 
-import java.io.IOException;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-import com.radirius.merc.exc.MERCuryException;
 import com.radirius.merc.gfx.Graphics;
 import com.radirius.merc.gfx.VAOGraphics;
 import com.radirius.merc.log.Logger;
-import com.radirius.merc.res.ResourceManager;
 
 /**
  * The {@code Core} that will host the game. It is ran above by the
@@ -50,25 +46,28 @@ public abstract class Core {
     /**
      * Called first (after {@code initDisplay}, {@code initGraphics}, and
      * {@code initAudio}), used to initialize all resources, and for whatever
-     * you wish to do for initialization.
+     * you wish to do for initialization. Runs on a seperate thread, while the
+     * main Thread continues to the game loop.
      */
-    public abstract void init(ResourceManager RM) throws IOException, MERCuryException;
+    public abstract void init();
     
     /**
-     * Called once every frame, and used to handle all logic.
+     * Called once every frame, and used to handle all logic. It is suggested
+     * that you check that initialization has passed before you use resources.
      */
-    public abstract void update(float delta) throws MERCuryException;
+    public abstract void update(float delta);
     
     /**
      * Called once every frame, and used to render everything, via
-     * {@code Graphics g}.
+     * {@code Graphics g}. It is suggested that you check that initialization
+     * has passed before you use resources.
      */
-    public abstract void render(Graphics g) throws MERCuryException;
+    public abstract void render(Graphics g);
     
     /**
      * Called when the Runner is done
      */
-    public abstract void cleanup(ResourceManager RM) throws IOException, MERCuryException;
+    public abstract void cleanup();
     
     /**
      * Initializes the display.

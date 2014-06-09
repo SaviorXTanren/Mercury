@@ -24,7 +24,7 @@ public class Animation implements Resource {
      *            The textures, or frames.
      */
     public Animation(int frameratemillis, SpriteSheet texs) {
-        this(frameratemillis, texs, 0, texs.getNumberOfSubTextures()-1);
+        this(frameratemillis, texs, 0, texs.getNumberOfSubTextures() - 1);
     }
     
     /**
@@ -41,15 +41,15 @@ public class Animation implements Resource {
         this.frameratemillis = frameratemillis;
         this.texs = texs;
         
-        this.frame = 0;
+        frame = 0;
         
         if (startframe < 0 || startframe > texs.getNumberOfSubTextures())
             throw new ArithmeticException("Invalid starting frame.");
         if (endframe < 0 || endframe > texs.getNumberOfSubTextures())
             throw new ArithmeticException("Invalid ending frame.");
         
-        this.first = startframe;
-        this.last = endframe;
+        first = startframe;
+        last = endframe;
     }
     
     /**
