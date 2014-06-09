@@ -21,11 +21,9 @@ MERCury is developed by a small team of programmers who just want to learn how t
 
 ## Links
 
-**[Web Page](http://weslgames.github.io/MERCury)**
-
-**[Wiki](https://github.com/weslgames/MERCury/wiki/)**
-
-**[Subreddit For Sharing Games Made with MERCury, Bugs, Requests, Etc.](http://www.reddit.com/r/mercurylib/)**
+-**[Web Page](http://weslgames.github.io/MERCury)**
+-**[Wiki](https://github.com/weslgames/MERCury/wiki/)**
+-**[Subreddit For Sharing Games Made with MERCury, Bugs, Requests, Etc.](http://www.reddit.com/r/mercurylib/)**
 
 ## Report Bugs
 You can report any problems you find in the [Github Issue Tracker](https://github.com/Radirius/MERCury/issues).
@@ -44,5 +42,3 @@ Please do not post your changes to our emails; just use [Github Pull Request](ht
 
 ## License
 MERCury is licensed under [MIT](http://opensource.org/licenses/MIT).
-
-#### Last, but not least, a huge thanks goes to everybody on JGO, otherwise known as [Java-Gaming.org](http://www.java-gaming.org/).
