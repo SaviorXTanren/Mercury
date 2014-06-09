@@ -31,16 +31,16 @@ MERCury is developed by a small team of programmers who just want to learn how t
 You can report any problems you find in the [Github Issue Tracker](https://github.com/Radirius/MERCury/issues).
 
 ## Contribute
-Well, it wouldn't be open-source if you couldn't contribute.
-
-You can contribute by simply posting a [Github Pull Request](https://github.com/Radirius/MERCury/pulls) with your fork and its changes. We will then review the changes, and either accept it, or suggest a few modifications to it.
-
+Well, it wouldn't be open-source if you couldn't contribute. 
+You can contribute by simply posting a [Github Pull Request](https://github.com/Radirius/MERCury/pulls) with your fork and its changes. We will then review the changes, and either accept it, or suggest a few modifications to it. 
 Please do not post your changes to our emails; just use [Github Pull Request](https://github.com/Radirius/MERCury/pulls).
 
 ## Contact Radirius
-- wessles / Wes  | <http://www.wessles.com/> | wes@radiri.us
-- Jeviny / Kris  | <http://www.jeviny.pw/> | kris@radiri.us
-- opiop65 / Toby | <http://www.nishustudios.com/>
+
+| Support           | contact@radiri.us |             |
+|-------------------|-------------------|-------------|
+| Wesley LaFerriere | wes@radiri.us     | wessles.com |
+| Kris Parsons      | kris@radiri.us    |             |
 
 ## License
 MERCury is licensed under [MIT](http://opensource.org/licenses/MIT).
