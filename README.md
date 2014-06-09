@@ -3,10 +3,8 @@
 ![alt-text](http://i.imgur.com/beAAMyu.png)  
 _Kudos to kpars (or as he prefers 'Jeviny') for the sweet logo!_
 
-MERCury is a small game library designed to simplify the complex, and shorten the tedious for beginners and veterans alike. With it, you can use the best aspects of OpenGL in an easy and organized way optimized for game programming. It is built around the concept that beginners should be able to start with the basics, and move up into a more complex plane of development with the veterans, all on the same platform.
-
-MERCury puts all of its resources into keeping things short and simple. The initial setup of a game consists only of making a single class; then you are done. The interface is entirely documented for easy and fast learning, so once you are started, there is nothing between you and the end result but coding and creativity.
-
+MERCury is a small game library designed to simplify the complex, and shorten the tedious for beginners and veterans alike. With it, you can use the best aspects of OpenGL in an easy and organized way optimized for game programming. It is built around the concept that beginners should be able to start with the basics, and move up into a more complex plane of development with the veterans, all on the same platform.  
+MERCury puts all of its resources into keeping things short and simple. The initial setup of a game consists only of making a single class; then you are done. The interface is entirely documented for easy and fast learning, so once you are started, there is nothing between you and the end result but coding and creativity.  
 MERCury is developed by a small team of programmers who just want to learn how to make something useful. We all have a lot of fun developing it, and it would be our pleasure to hear that someone actually found it useful, so please contact us with anything you have for us. MERCury's TODO list is driven purely by the will of the users so if you have any questions or concerns, please do not hesitate to ask!
 
 # FEATURES
@@ -28,7 +26,7 @@ You can report any problems you find in the [Github Issue Tracker](https://githu
 
 ## Contribute
 Well, it wouldn't be open-source if you couldn't contribute. 
-You can contribute by simply posting a [Github Pull Request](https://github.com/Radirius/MERCury/pulls) with your fork and its changes. We will then review the changes, and either accept it, or suggest a few modifications to it. 
+You can contribute by simply posting a [Github Pull Request](https://github.com/Radirius/MERCury/pulls) with your fork and its changes. We will then review the changes, and either accept it, or suggest a few modifications to it.  
 Please do not post your changes to our emails; just use [Github Pull Request](https://github.com/Radirius/MERCury/pulls).
 
 ## Radirius Contact and Information
