@@ -40,11 +40,6 @@ public class Runner {
     
     /** Whether or not the library is running */
     public boolean running = false;
-    /**
-     * Whether or not the library has finished initializing; this is useful for
-     * multi-thread loading of resources.
-     */
-    public boolean inited = false;
     
     /** A list of splash screens we have */
     private final ArrayList<SplashScreen> splashes = new ArrayList<SplashScreen>();
@@ -93,6 +88,34 @@ public class Runner {
     }
     
     /**
+     * An object that will be used for initializing the Runner with default
+     * values that can be modified.
+     */
+    @SuppressWarnings("unused")
+    private static class InitSetup {
+        public InitSetup(Core core, int WIDTH, int HEIGHT) {
+            this.core = core;
+            this.WIDTH = WIDTH;
+            this.HEIGHT = HEIGHT;
+        }
+        
+        /** The core we shall run */
+        public Core core;
+        /** The width of the display */
+        public int WIDTH;
+        /** The height of the display */
+        public int HEIGHT;
+        /** Whether or not the display is fullscreen */
+        public boolean fullscreen;
+        /** Whether or not we are vsynced */
+        public boolean vsync;
+        /** Whether or not to initialize the Core on a seperate thread */
+        public boolean initonseperatethread;
+        /** Whether or not we are enabling the developers console */
+        public boolean devconsole;
+    }
+    
+    /**
      * Initializes the library
      * 
      * @param core
@@ -119,7 +142,7 @@ public class Runner {
      *            Whether or not the display is fullscreen
      */
     public void init(Core core, int WIDTH, int HEIGHT, boolean fullscreen) {
-        init(core, WIDTH, HEIGHT, fullscreen, false, true, true);
+        init(core, WIDTH, HEIGHT, fullscreen, false, false, true);
     }
     
     /**
@@ -133,10 +156,21 @@ public class Runner {
      *            Whether or not we are vsynced
      */
     public void init(Core core, boolean fullscreen, boolean vsync) {
-        init(core, Display.getDesktopDisplayMode().getWidth(), Display.getDesktopDisplayMode().getHeight(), fullscreen, vsync, true, true);
+        init(core, Display.getDesktopDisplayMode().getWidth(), Display.getDesktopDisplayMode().getHeight(), fullscreen, vsync, false, true);
     }
     
-    private boolean debuglog;
+    /**
+     * Initializes the library
+     * 
+     * @param iniset
+     *            The initialization setup filled with information to initialize
+     *            with.
+     */
+    public void init(InitSetup iniset) {
+        init(iniset.core, iniset.WIDTH, iniset.HEIGHT, iniset.fullscreen, iniset.vsync, iniset.initonseperatethread, iniset.devconsole);
+    }
+    
+    public boolean inited = false;
     
     /**
      * Initializes the library
@@ -151,17 +185,13 @@ public class Runner {
      *            Whether or not the display is fullscreen
      * @param vsync
      *            Whether or not we are vsynced
-     * @param debuglog
-     *            Whether or not we want the Runner to spit out a bunch of
-     *            debugging when it starts.
+     * @param initonseperatethread
+     *            Whether or not to initialize the Core on a seperate thread
      * @param devconsole
      *            Whether or not we are enabling the developers console
      */
-    public void init(final Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean debuglog, boolean devconsole) {
+    public void init(final Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean initonseperatethread, boolean devconsole) {
         System.out.print("  _   _   _   _   _   _   _  \n" + " / \\ / \\ / \\ / \\ / \\ / \\ / \\\n" + "( M | E | R | C | U | R | Y ) Started\n" + " \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \n\n");
-        
-        this.debuglog = debuglog;
-        Logger.setLog(debuglog);
         
         Logger.debug("Making Core...");
         
@@ -203,17 +233,22 @@ public class Runner {
             plug.init();
         }
         
-        Logger.debug("Initializing Core on seperate Thread...");
+        Logger.debug("Initializing Core " + (initonseperatethread ? "on seperate Thread" : "") + "...");
         
-        Runnable initthread_run = new Runnable() {
-            @Override
-            public void run() {
-                core.init();
-                inited = true;
-            }
-        };
-        Thread initthread = new Thread(initthread_run);
-        initthread.run();
+        if (initonseperatethread) {
+            Runnable initthread_run = new Runnable() {
+                @Override
+                public void run() {
+                    core.init();
+                    inited = true;
+                }
+            };
+            Thread initthread = new Thread(initthread_run);
+            initthread.run();
+        } else {
+            core.init();
+            inited = true;
+        }
         
         Logger.debug("Making and adding default CommandList 'merc...'");
         
@@ -228,16 +263,12 @@ public class Runner {
         TaskTiming.init();
         
         Logger.debug("Ready to begin game loop. Awaiting permission from Core...");
-        
-        Logger.setLog(true);
     }
     
     /**
      * The main game loop of the library.
      */
     public void run() {
-        Logger.setLog(true);
-        
         Logger.debug("Starting Game Loop...");
         Logger.line();
         
@@ -302,8 +333,6 @@ public class Runner {
         
         Logger.line();
         Logger.debug("Game Loop ended.");
-        
-        Logger.setLog(debuglog);
         
         Logger.debug("Starting Cleanup...");
         

@@ -35,10 +35,10 @@ public class SplashTest extends Core {
     
     @Override
     public void render(Graphics g) {
-        if (!rnr.inited)
+        if (!rnr.showSplashScreens(g))
             return;
         
-        if (!rnr.showSplashScreens(g))
+        if(!rnr.inited)
             return;
         
         for (int trolol = 0; trolol < 100; trolol++)

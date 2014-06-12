@@ -7,7 +7,7 @@
 '/home/wessles/wessles/coding/MERCury/MERCury/MERCury/src'
 -author
 -bottom
-'Copyright &#169; 2014 <a href="http://www.radiri.us/">Radirius</a>. All Rights Reserved.'
+'Copyright &#169; 2014 <a href="http://www.radiri.us/">Radirius</a>. All rights reserved.'
 -charset
 'UTF-8'
 -d
@@ -16,8 +16,8 @@
 'UTF-8'
 -doctitle
 'MERCury 1.0.0-experimental API'
--link
-'http://java.sun.com/javase/6/docs/api'
+-linkoffline
+'http://docs.oracle.com/javase/7/docs/api' '/home/wessles/wessles/coding/MERCury/MERCury/MERCury/target/javadoc-bundle-options'
 -use
 -version
 -windowtitle
