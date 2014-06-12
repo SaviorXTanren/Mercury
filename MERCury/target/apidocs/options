@@ -1,0 +1,24 @@
+-classpath
+'/home/wessles/wessles/coding/MERCury/MERCury/MERCury/target/classes'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/home/wessles/wessles/coding/MERCury/MERCury/MERCury/src'
+-author
+-bottom
+'Copyright &#169; 2014 <a href="http://www.radiri.us/">Radirius</a>. All Rights Reserved.'
+-charset
+'UTF-8'
+-d
+'/home/wessles/wessles/coding/MERCury/MERCury/MERCury/target/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'MERCury 1.0.0-experimental API'
+-link
+'http://java.sun.com/javase/6/docs/api'
+-use
+-version
+-windowtitle
+'MERCury 1.0.0-experimental API'

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>MERCury</groupId>
+   <artifactId>MERCury</artifactId>
+   <version>1.0.0-experimental</version>
+   <name>MERCury</name>
+   <description>The simplistic game library for all of us.</description>
+   <build>
+      <sourceDirectory>src</sourceDirectory>
+      <resources>
+         <resource>
+            <directory>src</directory>
+            <excludes>
+               <exclude>**/*.java</exclude>
+            </excludes>
+         </resource>
+      </resources>
+      <plugins>
+         <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <configuration>
+               <source />
+               <target />
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+               <source>1.7</source>
+               <target>1.7</target>
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>attach-sources</id>
+                  <goals>
+                     <goal>jar</goal>
+                  </goals>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>attach-javadocs</id>
+                  <goals>
+                     <goal>jar</goal>
+                  </goals>
+               </execution>
+            </executions>
+         </plugin>
+      </plugins>
+   </build>
+   <organization>
+      <name>Radirius</name>
+      <url>http://www.radiri.us/</url>
+   </organization>
+   <url>http://merc.radiri.us/</url>
+   <issueManagement>
+      <system>Github Issue Tracker</system>
+      <url>https://github.com/Radirius/MERCury/issues</url>
+   </issueManagement>
+</project>
