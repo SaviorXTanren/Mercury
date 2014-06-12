@@ -1,12 +1,12 @@
 <project name="MERCury" basedir=".">
 	
-	<javadoc destdir="temp_target/javadoc" sourcepath="src_base"/>
+	<javadoc destdir="temp_target/javadoc" sourcepath="src"/>
 		
 	<loadproperties srcfile="version.properties" />
 	<buildnumber file="version.properties" />
 		
 	<jar destfile="temp_target/${version}_${stage}_MERCury_b_${build.number}.jar" basedir="bin" includes="com/**" excludes="**/*.html **/class-use"/>
-    <copy todir="temp_target/src"><fileset dir="src_base"/></copy>
+    <copy todir="temp_target/src"><fileset dir="src"/></copy>
     <copy tofile="temp_target/README.md" file="../README.md"/>
     <copy tofile="temp_target/LICENSE" file="../LICENSE"/>
 	
