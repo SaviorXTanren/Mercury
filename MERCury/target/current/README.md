@@ -1,38 +1,41 @@
-![alt text](http://i.imgur.com/beAAMyu.png)
+# MERCury
 
-MERCury is a project that I started a while back for my own education on OpenGL. I got started by coding the batcher and adding features like vertex stacking and sound capabilities to the library. I was off to a fun start. When I posted it, people liked it, so I expanded and even got some new friends to help me out! We have been working together on networking, GUI, and other fun stuffs.
+![alt-text](http://i.imgur.com/beAAMyu.png)  
 
-Our goal is simple: to create an ultra-flexible but easy-to-use 2D Java game library that includes support for plugins.
+MERCury is a small game library designed to simplify the complex, and shorten the tedious for beginners and veterans alike. With it, you can use the best aspects of OpenGL in an easy and organized way optimized for game programming. It is built around the concept that beginners should be able to start with the basics, and move up into a more complex plane of development with the veterans, all on the same platform.  
 
-Sincerely,  
-Wessles, Founder of Team Radirius
+MERCury puts all of its resources into keeping things short and simple. The initial setup of a game consists only of making a single class; then you are done. The interface is entirely documented for easy and fast learning, so once you are started, there is nothing between you and the end result but coding and creativity. 
 
-## The Present
+MERCury is developed by a small team of programmers who just want to learn how to make something useful. We all have a lot of fun developing it, and it would be our pleasure to hear that someone actually found it useful, so please contact us with anything you have for us. MERCury's TODO list is driven purely by the will of the users so if you have any questions or concerns, please do not hesitate to ask!  
 
-Currently, we have a simplistic 2D Java game library that is capable of handling basic plugins, minimal GUIs, and includes decent support for networking. We have a well-built rendering engine that is currently capable of doing all of the processes you would need to do to draw out a 2D game in real time, all using the power of OpenGL. We plan on adding more engine-like features and we hope to completely rewrite our plugin system. All of what we are doing is experimental, so we love getting new ideas and support from the community!
+# FEATURES
+|                         |                                                                             |
+|-------------------------|-----------------------------------------------------------------------------|
+| Particles!              | <img width=400 src="http://i.imgur.com/MJbAV9K.gif">                        |
+| Post Processing!        | <img width=400 src="http://giant.gfycat.com/WhirlwindHorribleAardwolf.gif"> |
+| Command-Line Debugging! | <img width=400 src="http://zippy.gfycat.com/NewThirstyChinchilla.gif">      |
+| Easy GUI!               | <img width=400 src="http://i.imgur.com/MlaOKzk.gif">                        |
+|                         |                                                                             |
 
-## The Future
+## Links
+- **[Web Page](http://merclib.radiri.us/)**
+- **[Wiki](https://github.com/weslgames/MERCury/wiki/)**
+- **[Subreddit](http://www.reddit.com/r/mercurylib/)**
 
-We hope to expand upon this library over time and hopefully create something that everybody can use with ease. One day there will come a point where we start support for 3D graphics, one day there will come a point where we can make a full game engine out of what we have put into this library, and one day people might not even use this for general game development. We have a bright future ahead of us.
+## Report Bugs
+You can report any problems you find in the [Github Issue Tracker](https://github.com/Radirius/MERCury/issues).
 
-## Development Team & Project Contributors:
+## Contribute
+Well, it wouldn't be open-source if you couldn't contribute. 
+You can contribute by simply posting a [Github Pull Request](https://github.com/Radirius/MERCury/pulls) with your fork and its changes. We will then review the changes, and either accept it, or suggest a few modifications to it.  
+Please do not post your changes to our emails; just use [Github Pull Request](https://github.com/Radirius/MERCury/pulls).
 
-- Wessles, AKA Wesley: [Site Here](http://www.wessles.com/)
-- Jev, AKA Kris: [Site Here](http://www.jeviny.pw/)
-- Opiop65, AKA Toby: [Site Here](http://www.nishustudios.com/)
-- GrammarBro, AKA Wesley's Grammar Nazi Brother: [No Site Given](http://thebest404pageever.com/)
-- HeroesGraveDev, AKA HeroesGrave: [Site Here](http://heroesgrave.github.io/)
-- SHC, AKA Sri Harsha: [Site Here](http://www.goharsha.com/)
+## Radirius Contact and Information
+| Name                   | Contact           | Website          |
+|------------------------|-------------------|------------------|
+| Support                | contact@radiri.us | radiri.us        |
+| Wesley LaFerriere      | wes@radiri.us     | wessles.com      |
+| Kristoffer Parsons     | kris@radiri.us    | jeviny.pw        |
 
-Last, but not least, a huge thanks goes to everybody on JGO, otherwise known as [Java-Gaming.org](http://www.java-gaming.org/).
-
-#### Meta-File Info
-
-This file is changing every day with new information about the library. Please feel free to suggest any changes. Thanks a lot for your support!
-
-People who have contributed to this file specifically: 
-
-- Wessles, AKA Wesley: [Site Here](http://www.wessles.com/)
-- Jev, AKA Kris: [Site Here](http://www.jeviny.pw/)
-- Opiop65, AKA Toby: [Site Here](http://www.nishustudios.com/)
-- GrammarBro, AKA Wesley's Grammar Nazi Brother: [No Site Given](http://thebest404pageever.com/)
+## License
+MERCury is licensed under the [MIT Public License](http://opensource.org/licenses/MIT).
