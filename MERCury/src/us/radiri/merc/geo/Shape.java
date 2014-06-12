@@ -64,19 +64,14 @@ public abstract class Shape {
         // smaller shape does not contain the center point of the larger shape.
         
         // Loop through all of the vertices!
-        for (int v_ = 0; v_ < vertices.length; v_++) {
-            // The amount we have to step to get to the second vertex on a line.
-            // The reason this can't be just '1' is since the last vertex needs
-            // to connect to the bottom! In that case, v_+1 will not cut it.
-            int step1 = v_ != vertices.length - 1 ? 1 : -(vertices.length - 1);
+        for (int v_ = 0; v_ < vertices.length;) {
             // The 'line1vertex1' and 'line1vertex2'
-            Vec2 l1v1 = vertices[v_], l1v2 = vertices[v_ + step1];
+            Vec2 l1v1 = vertices[v_], l1v2 = vertices[++v_ % vertices.length];
             
             // Now, for each line in this shape, we need to test all lines in
             // the other shape.
-            for (int v2_ = 0; v2_ < s.vertices.length; v2_++) {
-                int step2 = v2_ != s.vertices.length - 1 ? 1 : -(s.vertices.length - 1);
-                Vec2 l2v1 = s.vertices[v2_], l2v2 = s.vertices[v2_ + step2];
+            for (int v2_ = 0; v2_ < s.vertices.length;) {
+                Vec2 l2v1 = s.vertices[v2_], l2v2 = s.vertices[++v2_ % vertices.length];
                 
                 // Now we test!
                 if (linesIntersect(l1v1, l1v2, l2v1, l2v2))
@@ -316,8 +311,8 @@ public abstract class Shape {
             y2 = Math.max(vertex.y, y2);
         }
         
-        w = Math.abs(x2-x);
-        h = Math.abs(y2-y);
+        w = Math.abs(x2 - x);
+        h = Math.abs(y2 - y);
     }
     
     /** @return All vertices of the object. */
