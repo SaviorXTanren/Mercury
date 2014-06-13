@@ -1,6 +1,7 @@
 target/classes/
-test-classes/
 target/test-classes/
+target/failsafe-reports/
+test-classes/
 
 .settings/
 .project
