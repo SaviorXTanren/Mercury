@@ -89,14 +89,14 @@ public class Camera {
      * @return The real world width of the camera.
      */
     public float getWidth() {
-        return Runner.getInstance().getWidth() / Runner.getInstance().getGraphics().getScale().x;
+        return Runner.getInstance().getWidth() / Runner.getInstance().getGraphics().getScaleDimensions().x;
     }
     
     /**
      * @return The real world height of the camera.
      */
     public float getHeight() {
-        return Runner.getInstance().getHeight() / Runner.getInstance().getGraphics().getScale().y;
+        return Runner.getInstance().getHeight() / Runner.getInstance().getGraphics().getScaleDimensions().y;
     }
     
     /**

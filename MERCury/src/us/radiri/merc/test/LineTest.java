@@ -35,9 +35,9 @@ public class LineTest extends Core {
         toggle_btn = new Button("Toggle It!", tbl, tbr, tbm, 70, 500, Color.white.duplicate(), Color.black.duplicate()) {
             @Override
             public void noAct() {
-                toggle_btn.backgroundcolor.r+=0.1f;
-                toggle_btn.backgroundcolor.g+=0.1f;
-                toggle_btn.backgroundcolor.b+=0.1f;
+                toggle_btn.backgroundcolor.r += 0.1f;
+                toggle_btn.backgroundcolor.g += 0.1f;
+                toggle_btn.backgroundcolor.b += 0.1f;
             }
             
             @Override
@@ -46,6 +46,9 @@ public class LineTest extends Core {
                 modeline = !modeline;
             }
         };
+        
+        rnr.setShowFPS(true);
+        rnr.setShowVerticesLastRendered(true);
     }
     
     @Override
@@ -60,18 +63,26 @@ public class LineTest extends Core {
     public void render(Graphics g) {
         g.setLineWidth(linewidth);
         
-        g.setDrawMode(modeline ? Graphics.MODE_LINE : Graphics.MODE_FILL);
-        g.setColor(new Color((int) MercMath.random(0, 255), (int) MercMath.random(0, 255), (int) MercMath.random(0, 255)));
-        g.drawRect(new Rectangle(100, 100, 100));
-        g.drawCircle(100, 100, 50);
+        if (modeline) {
+            g.setColor(new Color((int) MercMath.random(0, 255), (int) MercMath.random(0, 255), (int) MercMath.random(0, 255)));
+            g.drawRect(new Rectangle(100, 100, 100));
+            g.drawCircle(100, 100, 50);
+            
+            g.setColor(new Color((int) MercMath.random(0, 255), (int) MercMath.random(0, 255), (int) MercMath.random(0, 255)));
+            g.traceRect(new Rectangle(650, 100, 50));
+            g.traceCircle(600, 200, 50);
+            g.traceTriangle(new Triangle(600, 200, 610, 200, 600, 190));
+        } else {
+            g.setColor(new Color((int) MercMath.random(0, 255), (int) MercMath.random(0, 255), (int) MercMath.random(0, 255)));
+            g.traceRect(new Rectangle(100, 100, 100));
+            g.traceCircle(100, 100, 50);
+            
+            g.setColor(new Color((int) MercMath.random(0, 255), (int) MercMath.random(0, 255), (int) MercMath.random(0, 255)));
+            g.drawRect(new Rectangle(650, 100, 50));
+            g.drawCircle(600, 200, 50);
+            g.drawTriangle(new Triangle(600, 200, 610, 200, 600, 190));
+        }
         
-        g.setDrawMode(modeline ? Graphics.MODE_FILL : Graphics.MODE_LINE);
-        g.setColor(new Color((int) MercMath.random(0, 255), (int) MercMath.random(0, 255), (int) MercMath.random(0, 255)));
-        g.drawRect(new Rectangle(650, 100, 50));
-        g.drawCircle(600, 200, 50);
-        g.drawTriangle(new Triangle(600,200,610,200,600,190));
-        
-        g.setDrawMode(Graphics.MODE_FILL);
         g.setColor(Color.white);
         
         toggle_btn.render(g);

@@ -49,7 +49,7 @@ public class SplashScreen {
             showing = true;
         }
         
-        Vec2 scale = Runner.getInstance().getGraphics().getScale();
+        Vec2 scale = Runner.getInstance().getGraphics().getScaleDimensions();
         int scrw = (int) (Runner.getInstance().getWidth() / scale.x), scrh = (int) (Runner.getInstance().getHeight() / scale.y);
         float width = tex.getTextureWidth(), height = tex.getTextureHeight();
         float aspect = width / height;

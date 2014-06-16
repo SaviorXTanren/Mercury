@@ -21,13 +21,15 @@ public class CollisionTest extends Core {
     public CollisionTest() {
         super("CollisionTest");
         rnr.init(this, 800, 600, false, false, true, true);
-        rnr.setLogFPS(true);
         rnr.run();
     }
     
     @Override
     public void init() {
         rnr.getGraphics().scale(8);
+        
+        rnr.setShowFPS(true);
+        rnr.setShowVerticesLastRendered(true);
     }
     
     @Override
@@ -45,26 +47,35 @@ public class CollisionTest extends Core {
     
     @Override
     public void render(Graphics g) {
-        g.setDrawMode(r1.intersects(r2) || r1.contains(testcol) ? Graphics.MODE_LINE : Graphics.MODE_FILL);
-        
-        g.drawRect(r1);
-        g.drawRect(r2);
+        if (r1.intersects(r2) || r1.contains(testcol)) {
+            g.traceRect(r1);
+            g.traceRect(r2);
+        } else {
+            g.drawRect(r1);
+            g.drawRect(r2);
+        }
         
         r2.translate(0, -0.1f);
         r2.rotate(0.1f);
         
-        g.setDrawMode(c1.intersects(c2) || c1.contains(testcol) ? Graphics.MODE_LINE : Graphics.MODE_FILL);
-        
-        g.drawCircle(c1);
-        g.drawCircle(c2);
+        if (c1.intersects(c2) || c1.contains(testcol)) {
+            g.traceCircle(c1);
+            g.traceCircle(c2);
+        } else {
+            g.drawCircle(c1);
+            g.drawCircle(c2);
+        }
         
         c2.translate(0, -0.2f);
         c2.rotate(0.1f);
         
-        g.setDrawMode(t1.intersects(t2) || t1.contains(testcol) ? Graphics.MODE_LINE : Graphics.MODE_FILL);
-        
-        g.drawTriangle(t1);
-        g.drawTriangle(t2);
+        if (t1.intersects(t2) || t1.contains(testcol)) {
+            g.traceTriangle(t1);
+            g.traceTriangle(t2);
+        } else {
+            g.drawTriangle(t1);
+            g.drawTriangle(t2);
+        }
         
         t2.translate(0, -0.2f);
         t2.rotate(0.1f);

@@ -80,7 +80,7 @@ public abstract class Button extends TextBar {
         Graphics g = Runner.getInstance().getGraphics();
         Input in = Runner.getInstance().getInput();
         Vec2 mousepos = in.getAbsoluteMousePosition().toVec2();
-        mousepos.div(g.getScale());
+        mousepos.div(g.getScaleDimensions());
         if (bounds.contains(mousepos))
             if (in.mouseClicked(0))
                 return true;

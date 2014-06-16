@@ -1,10 +1,9 @@
 package us.radiri.merc.gfx;
 
-import org.lwjgl.opengl.GL11;
-
 import us.radiri.merc.font.Font;
 import us.radiri.merc.geo.Circle;
 import us.radiri.merc.geo.Ellipse;
+import us.radiri.merc.geo.Line;
 import us.radiri.merc.geo.Point;
 import us.radiri.merc.geo.Rectangle;
 import us.radiri.merc.geo.Triangle;
@@ -17,13 +16,6 @@ import us.radiri.merc.geo.Vec2;
  */
 
 public interface Graphics {
-    // Do you get the pun? 0 looks a bit more like a closed figure, symbolizing
-    // that it 'fills,' while 1 is more of a line!
-    //
-    // The more you know.
-    // Da DAA da DAAAAAAAAA!
-    public final int MODE_FILL = GL11.GL_TRIANGLES, MODE_LINE = GL11.GL_LINES;
-    
     /** Initializes the graphics object. */
     public void init();
     
@@ -33,13 +25,7 @@ public interface Graphics {
     /** Cleans up the graphics object at the end of rendering. */
     public void post();
     
-    /** Sets the draw mode */
-    public void setDrawMode(int mode);
-    
-    /** Returns the drawing mode that is currently in use. */
-    public int getDrawMode();
-    
-    /** Sets the line width in case of MODE_LINE being the drawmode */
+    /** Sets the line width. */
     public void setLineWidth(float width);
     
     /** Scales the matrix. */
@@ -55,8 +41,14 @@ public interface Graphics {
      */
     public void scale(float x, float y);
     
-    /** @return The last scale that was set in the graphics object. */
-    public Vec2 getScale();
+    /** The last scale that was set in the graphics object's x and y. */
+    public Vec2 getScaleDimensions();
+    
+    /**
+     * @return The average last scale that was set in the graphics object's x and
+     *         y.
+     */
+    public float getScale();
     
     /** Sets the font. */
     public void setFont(Font font);
@@ -99,6 +91,12 @@ public interface Graphics {
     
     /** Draws msg at x and y with font. */
     public void drawString(Font font, float x, float y, String msg);
+    
+    /** Draws msg at x and y. */
+    public void drawString(float scale, float x, float y, String msg);
+    
+    /** Draws msg at x and y with font. */
+    public void drawString(float scale, Font font, float x, float y, String msg);
     
     /** Draws texture at x and y. */
     public void drawTexture(Texture texture, float x, float y);
@@ -169,14 +167,53 @@ public interface Graphics {
     /** Draws multiple circles. */
     public void drawCircles(Circle[] circles);
     
+    /** Traces a rectangle. */
+    public void traceRect(Rectangle rectangle);
+    
+    /** Makes and traces a rectangle. */
+    public void traceRect(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+    
+    /** Traces multiple rectangles. */
+    public void traceRects(Rectangle[] rects);
+    
+    /** Traces a triangle. */
+    public void traceTriangle(Triangle triangle);
+    
+    /** Makes and traces a triangle. */
+    public void traceTriangle(float x1, float y1, float x2, float y2, float x3, float y3);
+    
+    /** Traces multiple triangles. */
+    public void traceTriangles(Triangle[] triangles);
+    
+    /** Traces an ellipse. */
+    public void traceEllipse(Ellipse ellipse);
+    
+    /** Makes and traces an ellipse. */
+    public void traceEllipse(float x, float y, float radx, float rady);
+    
+    /** Traces multiple ellipses. */
+    public void traceEllipses(Ellipse[] ellipses);
+    
+    /** Traces a circle. */
+    public void traceCircle(Circle circle);
+    
+    /** Makes and traces a circle. */
+    public void traceCircle(float x, float y, float radius);
+    
+    /** Traces multiple circles. */
+    public void traceCircles(Circle[] circles);
+    
     // Geometry nerds beware! I know it is actually a line SEGMENT, but for
     // simplicity's sake, I will just call it a line, like a normal human being.
     
-    /** Draws a line from x1, y1 to x2, y2 */
+    /** Draws a line from x1, y1 to x2, y2. */
     public void drawLine(float x1, float y1, float x2, float y2);
     
-    /** Draws a line from p1 to p2 */
+    /** Draws a line from p1 to p2. */
     public void drawLine(Vec2 p1, Vec2 p2);
+    
+    /** Draws a line. */
+    public void drawLine(Line l);
     
     /** Draws a point. */
     public void drawPoint(Point point);

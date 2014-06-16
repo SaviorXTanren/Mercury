@@ -1,8 +1,8 @@
-target/classes/
-target/test-classes/
-target/failsafe-reports/
-test-classes/
+/
 
-.settings/
-.project
-.classpath
+!libs/
+!src/
+!target/
+!pom.xml
+
+target/classes/

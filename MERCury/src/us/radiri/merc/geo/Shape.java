@@ -51,7 +51,9 @@ public abstract class Shape {
     public boolean intersects(Shape s) {
         // This method is VERY inefficient! You are supposed to use this as a
         // base, and then make specific-cases that save processing time where
-        // you can.
+        // you can. This is not to say that this is not to EVER be used, but
+        // just to say that it is not the magical solution for ALL collision
+        // problems.
         //
         // Let's go over the key points of what this method does: it will loop
         // through all vertices of this object, make lines between them, and
@@ -66,15 +68,20 @@ public abstract class Shape {
         // Loop through all of the vertices!
         for (int v_ = 0; v_ < vertices.length;) {
             // The 'line1vertex1' and 'line1vertex2'
-            Vec2 l1v1 = vertices[v_], l1v2 = vertices[++v_ % vertices.length];
+            //
+            // For the second point, we want to make sure that we are not doing
+            // twice the work for a line, which is not a closed shape.
+            Vec2 l1v1 = vertices[v_], l1v2 = vertices.length > 2 ? vertices[++v_ % vertices.length] : vertices[++v_];
+            Line l1 = new Line(l1v1, l1v2);
             
             // Now, for each line in this shape, we need to test all lines in
             // the other shape.
             for (int v2_ = 0; v2_ < s.vertices.length;) {
-                Vec2 l2v1 = s.vertices[v2_], l2v2 = s.vertices[++v2_ % vertices.length];
+                Vec2 l2v1 = s.vertices[v2_], l2v2 = s.vertices.length > 2 ? s.vertices[++v2_ % vertices.length] : vertices[++v2_];
+                Line l2 = new Line(l2v1, l2v2);
                 
                 // Now we test!
-                if (linesIntersect(l1v1, l1v2, l2v1, l2v2))
+                if (l1.intersects(l2))
                     return true;
             }
         }
@@ -85,27 +92,6 @@ public abstract class Shape {
             return contains(new Vec2(s.getX() + s.getWidth() / 2, s.getY() + s.getHeight() / 2));
         else
             return s.contains(new Vec2(getX() + getWidth() / 2, getY() + getHeight() / 2));
-    }
-    
-    /**
-     * @param l1_1
-     *            Point 1 of line 1.
-     * @param l1_2
-     *            Point 2 of line 1.
-     * @param l2_1
-     *            Point 1 of line 2.
-     * @param l2_2
-     *            Point 2 of line 2.
-     * @return If the given lines intersect.
-     */
-    private boolean linesIntersect(Vec2 l1_1, Vec2 l1_2, Vec2 l2_1, Vec2 l2_2) {
-        float UA = ((l2_2.x - l2_1.x) * (l1_1.y - l2_1.y) - (l2_2.y - l2_1.y) * (l1_1.x - l2_1.x)) / ((l2_2.y - l2_1.y) * (l1_2.x - l1_1.x) - (l2_2.x - l2_1.x) * (l1_2.y - l1_1.y));
-        float UB = ((l1_2.x - l1_1.x) * (l1_1.y - l2_1.y) - (l1_2.y - l1_1.y) * (l1_1.x - l2_1.x)) / ((l2_2.y - l2_1.y) * (l1_2.x - l1_1.x) - (l2_2.x - l2_1.x) * (l1_2.y - l1_1.y));
-        
-        if (UA >= 0 && UA <= 1 && UB >= 0 && UB <= 1)
-            return true;
-        
-        return false;
     }
     
     /** @return Whether all vertices of s is inside of this shape. */

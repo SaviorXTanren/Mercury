@@ -16,20 +16,8 @@ public interface Batcher {
     /** Make inactive, and push data to OGL. */
     public void end();
     
-    /** Calls end() then begin(). */
-    public void cycle();
-    
     /** Pushes data to OGL. */
     public void flush();
-    
-    /** Pushes all data with a few extra parameters. */
-    public void flush(boolean hasColor, boolean hasTexture);
-    
-    /** Sets the drawing mode. */
-    public void setDrawMode(int mode);
-    
-    /** Returns the currently used drawing mode. */
-    public int getDrawMode();
     
     /**
      * @param color
@@ -129,4 +117,10 @@ public interface Batcher {
      *            The y texture coordinate.
      */
     public void vertex(float x, float y, float r, float g, float b, float a, float u, float v);
+    
+    /** Will flush the data to OGL if the vertex count is higher than the limit. */
+    public void flushIfOverflow();
+    
+    /** @return The amount of vertices rendered last render frame. */
+    public int getVerticesLastRendered();
 }

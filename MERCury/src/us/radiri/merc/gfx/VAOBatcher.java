@@ -29,11 +29,12 @@ import us.radiri.merc.log.Logger;
  */
 public class VAOBatcher implements Batcher {
     private static final int VL = 2, CL = 4, TL = 2;
-    public static final int MAX_VERTICES_PER_RENDER_STACK = 50000;
+    public static final int MAX_VERTICES_PER_RENDER_STACK = 1000, EXTRA_VERTICES_FOR_RENDER_STACK = 1000;
     
     private FloatBuffer vd, cd, td;
     
     private int vtxcount;
+    private int vertexlastrender = 0;
     
     private boolean active;
     
@@ -41,14 +42,12 @@ public class VAOBatcher implements Batcher {
     private Color last_col = Color.DEFAULT_DRAWING;
     private Shader last_shader = Shader.getDefaultShader();
     
-    private int drawmode = GL_TRIANGLES;
-    
     public VAOBatcher() {
         vtxcount = 0;
         
-        vd = BufferUtils.createFloatBuffer(MAX_VERTICES_PER_RENDER_STACK * VL);
-        cd = BufferUtils.createFloatBuffer(MAX_VERTICES_PER_RENDER_STACK * CL);
-        td = BufferUtils.createFloatBuffer(MAX_VERTICES_PER_RENDER_STACK * TL);
+        vd = BufferUtils.createFloatBuffer((MAX_VERTICES_PER_RENDER_STACK + EXTRA_VERTICES_FOR_RENDER_STACK) * VL);
+        cd = BufferUtils.createFloatBuffer((MAX_VERTICES_PER_RENDER_STACK + EXTRA_VERTICES_FOR_RENDER_STACK) * CL);
+        td = BufferUtils.createFloatBuffer((MAX_VERTICES_PER_RENDER_STACK + EXTRA_VERTICES_FOR_RENDER_STACK) * TL);
         
         active = false;
     }
@@ -60,6 +59,7 @@ public class VAOBatcher implements Batcher {
             return;
         }
         
+        vertexlastrender = 0;
         active = true;
     }
     
@@ -81,14 +81,6 @@ public class VAOBatcher implements Batcher {
     }
     
     @Override
-    public void cycle() {
-        if (active)
-            end();
-        else
-            begin();
-    }
-    
-    @Override
     public void flush() {
         vd.flip();
         cd.flip();
@@ -106,7 +98,7 @@ public class VAOBatcher implements Batcher {
         pointBuffer(COLOR_ARRAY_POINTER, 4, cd);
         pointBuffer(TEXTURE_COORD_ARRAY_POINTER, 2, td);
         
-        drawBuffers(drawmode, vtxcount);
+        drawBuffers(GL_TRIANGLES, vtxcount);
         
         disableBuffer(GL_VERTEX_ARRAY);
         disableBuffer(GL_COLOR_ARRAY);
@@ -116,67 +108,26 @@ public class VAOBatcher implements Batcher {
         cd.clear();
         td.clear();
         
+        vertexlastrender += vtxcount;
         vtxcount = 0;
-    }
-    
-    @Override
-    public void flush(boolean hasColor, boolean hasTexture) {
-        if (hasTexture) {
-            glEnable(GL_TEXTURE);
-            glEnable(GL_TEXTURE_2D);
-        }
-        if (hasColor)
-            glEnable(GL_COLOR);
-        
-        enableBuffer(GL_VERTEX_ARRAY);
-        if (hasColor)
-            enableBuffer(GL_COLOR_ARRAY);
-        if (hasTexture)
-            enableBuffer(GL_TEXTURE_COORD_ARRAY);
-        
-        pointBuffer(VERTEX_ARRAY_POINTER, 2, vd);
-        if (hasColor)
-            pointBuffer(COLOR_ARRAY_POINTER, 4, cd);
-        if (hasTexture)
-            pointBuffer(TEXTURE_COORD_ARRAY_POINTER, 2, td);
-        
-        drawBuffers(drawmode, vtxcount);
-        
-        disableBuffer(GL_VERTEX_ARRAY);
-        if (hasColor)
-            disableBuffer(GL_COLOR_ARRAY);
-        if (hasTexture)
-            disableBuffer(GL_TEXTURE_COORD_ARRAY);
-    }
-    
-    @Override
-    public void setDrawMode(int mode) {
-        this.drawmode = mode;
-    }
-    
-    @Override
-    public int getDrawMode() {
-        return drawmode;
     }
     
     @Override
     public void setTexture(Texture texture) {
         if (texture.equals(last_tex))
             return;
-        end();
+        flush();
         last_tex = texture;
         Texture.bindTexture(texture);
-        begin();
     }
     
     @Override
     public void clearTextures() {
         if (last_tex.equals(Texture.getEmptyTexture()))
             return;
-        end();
+        flush();
         last_tex = Texture.getEmptyTexture();
         last_tex.bind();
-        begin();
     }
     
     @Override
@@ -198,20 +149,18 @@ public class VAOBatcher implements Batcher {
     public void setShader(Shader shader) {
         if (last_shader.equals(shader))
             return;
-        end();
+        flush();
         last_shader = shader;
         Shader.useShader(shader);
-        begin();
     }
     
     @Override
     public void clearShaders() {
         if (last_shader.equals(Shader.getDefaultShader()))
             return;
-        end();
+        flush();
         last_shader = Shader.getDefaultShader();
         Shader.useShader(last_shader);
-        begin();
     }
     
     @Override
@@ -235,19 +184,11 @@ public class VAOBatcher implements Batcher {
     }
     
     public void vertex(VertexData vdo) {
-        if (vtxcount >= MAX_VERTICES_PER_RENDER_STACK - 1)
-            restart();
-        
         vd.put(vdo.x).put(vdo.y);
         cd.put(vdo.r).put(vdo.g).put(vdo.b).put(vdo.a);
         td.put(vdo.u).put(vdo.v);
         
         vtxcount++;
-    }
-    
-    private void restart() {
-        end();
-        begin();
     }
     
     public static class VertexData {
@@ -263,5 +204,16 @@ public class VAOBatcher implements Batcher {
             this.u = u;
             this.v = v;
         }
+    }
+    
+    @Override
+    public void flushIfOverflow() {
+        if (vtxcount > MAX_VERTICES_PER_RENDER_STACK)
+            flush();
+    }
+    
+    @Override
+    public int getVerticesLastRendered() {
+        return vertexlastrender;
     }
 }

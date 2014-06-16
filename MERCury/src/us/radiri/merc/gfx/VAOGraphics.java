@@ -9,10 +9,12 @@ import us.radiri.merc.font.Font;
 import us.radiri.merc.font.TrueTypeFont;
 import us.radiri.merc.geo.Circle;
 import us.radiri.merc.geo.Ellipse;
+import us.radiri.merc.geo.Line;
 import us.radiri.merc.geo.Point;
 import us.radiri.merc.geo.Rectangle;
 import us.radiri.merc.geo.Triangle;
 import us.radiri.merc.geo.Vec2;
+import us.radiri.merc.math.MercMath;
 
 /**
  * An object used for graphics. It will draw just about anything for you.
@@ -51,23 +53,13 @@ public class VAOGraphics implements Graphics {
         batcher.end();
     }
     
-    @Override
-    public void setDrawMode(int mode) {
-        if (getDrawMode() == mode)
-            return;
-        
-        batcher.flush();
-        batcher.setDrawMode(mode);
-    }
-    
-    @Override
-    public int getDrawMode() {
-        return batcher.getDrawMode();
-    }
+    float linewidth = 1;
+    boolean linewidthchanged = false;
     
     @Override
     public void setLineWidth(float width) {
-        GL11.glLineWidth(width);
+        linewidth = width;
+        linewidthchanged = true;
     }
     
     @Override
@@ -86,14 +78,18 @@ public class VAOGraphics implements Graphics {
         scale.x = x;
         scale.y = y;
         
-        // Would you believe me if I told you this almost got into beta?
-        // Hawhawhaw... The competancy.
-        // Logger.debug(x + ", " + y + " | " + scale.toString());
+        if (!linewidthchanged)
+            linewidth = 1 / getScale();
     }
     
     @Override
-    public Vec2 getScale() {
+    public Vec2 getScaleDimensions() {
         return scale;
+    }
+    
+    @Override
+    public float getScale() {
+        return (scale.x + scale.y) / 2;
     }
     
     @Override
@@ -185,23 +181,33 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void drawString(Font font, float x, float y, String msg) {
+        drawString(1, font, x, y, msg);
+    }
+    
+    @Override
+    public void drawString(float scale, float x, float y, String msg) {
+        drawString(scale, current_font, x, y, msg);
+    }
+    
+    @Override
+    public void drawString(float scale, Font font, float x, float y, String msg) {
         if (font instanceof TrueTypeFont) {
             TrueTypeFont jf = (TrueTypeFont) font;
             
-            int current_x = 0;
+            float current_x = 0;
             
             pull = false;
             
             for (int ci = 0; ci < msg.toCharArray().length; ci++) {
                 if (msg.toCharArray()[ci] == '\n') {
-                    y += jf.getLineHeight();
+                    y += jf.getLineHeight() * scale;
                     current_x = 0;
                 }
                 
                 TrueTypeFont.IntObject intobj = jf.chars[msg.toCharArray()[ci]];
                 
-                drawTexture(jf.font_tex, intobj.x, intobj.y, intobj.x + intobj.w, intobj.y + intobj.h, x + current_x, y, intobj.w, intobj.h);
-                current_x += intobj.w;
+                drawTexture(jf.font_tex, intobj.x, intobj.y, intobj.x + intobj.w, intobj.y + intobj.h, x + current_x, y, intobj.w * scale, intobj.h * scale);
+                current_x += intobj.w * scale;
             }
             
             pull = true;
@@ -241,6 +247,7 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle rectangle) {
+        
         float x1 = rectangle.getVertices()[0].x;
         float y1 = rectangle.getVertices()[0].y;
         float x2 = rectangle.getVertices()[1].x;
@@ -261,12 +268,8 @@ public class VAOGraphics implements Graphics {
         sx2 /= w;
         sy2 /= h;
         
-        boolean linemode = getDrawMode() == MODE_LINE;
-        if (linemode)
-            setDrawMode(MODE_FILL);
-        
         batcher.setTexture(texture);
-        
+                
         batcher.vertex(x1, y1, sx1, sy1);
         batcher.vertex(x2, y2, sx2, sy1);
         batcher.vertex(x4, y4, sx1, sy2);
@@ -275,8 +278,7 @@ public class VAOGraphics implements Graphics {
         batcher.vertex(x4, y4, sx1, sy2);
         batcher.vertex(x2, y2, sx2, sy1);
         
-        if (linemode)
-            setDrawMode(MODE_LINE);
+        batcher.flushIfOverflow();
         
         pullSetColor();
     }
@@ -303,6 +305,14 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void drawRect(Rectangle rectangle) {
+        drawSubRect(rectangle);
+        
+        batcher.flushIfOverflow();
+        
+        pullSetColor();
+    }
+    
+    private void drawSubRect(Rectangle rectangle) {
         batcher.clearTextures();
         
         float x1 = rectangle.getVertices()[0].x;
@@ -314,29 +324,13 @@ public class VAOGraphics implements Graphics {
         float x4 = rectangle.getVertices()[3].x;
         float y4 = rectangle.getVertices()[3].y;
         
-        if (getDrawMode() == MODE_FILL) {
-            batcher.vertex(x1, y1, 0, 0);
-            batcher.vertex(x2, y2, 0, 0);
-            batcher.vertex(x4, y4, 0, 0);
-            
-            batcher.vertex(x3, y3, 0, 0);
-            batcher.vertex(x4, y4, 0, 0);
-            batcher.vertex(x2, y2, 0, 0);
-        } else {
-            batcher.vertex(x1, y1, 0, 0);
-            batcher.vertex(x2, y2, 0, 0);
-            
-            batcher.vertex(x2, y2, 0, 0);
-            batcher.vertex(x3, y3, 0, 0);
-            
-            batcher.vertex(x3, y3, 0, 0);
-            batcher.vertex(x4, y4, 0, 0);
-            
-            batcher.vertex(x4, y4, 0, 0);
-            batcher.vertex(x1, y1, 0, 0);
-        }
+        batcher.vertex(x1, y1, 0, 0);
+        batcher.vertex(x2, y2, 0, 0);
+        batcher.vertex(x4, y4, 0, 0);
         
-        pullSetColor();
+        batcher.vertex(x3, y3, 0, 0);
+        batcher.vertex(x4, y4, 0, 0);
+        batcher.vertex(x2, y2, 0, 0);
     }
     
     @Override
@@ -360,21 +354,12 @@ public class VAOGraphics implements Graphics {
         float y2 = triangle.getVertices()[1].y;
         float x3 = triangle.getVertices()[2].x;
         float y3 = triangle.getVertices()[2].y;
+                
+        batcher.vertex(x1, y1, 0, 1);
+        batcher.vertex(x3, y3, 1, 1);
+        batcher.vertex(x2, y2, 0, 0);
         
-        if (getDrawMode() == MODE_FILL) {
-            batcher.vertex(x1, y1, 0, 1);
-            batcher.vertex(x3, y3, 1, 1);
-            batcher.vertex(x2, y2, 0, 0);
-        } else {
-            batcher.vertex(x1, y1, 0, 1);
-            batcher.vertex(x3, y3, 1, 1);
-            
-            batcher.vertex(x3, y3, 1, 1);
-            batcher.vertex(x2, y2, 0, 0);
-            
-            batcher.vertex(x2, y2, 0, 0);
-            batcher.vertex(x1, y1, 0, 1);
-        }
+        batcher.flushIfOverflow();
         
         pullSetColor();
     }
@@ -395,10 +380,9 @@ public class VAOGraphics implements Graphics {
         batcher.clearTextures();
         
         Vec2[] vs = ellipse.getVertices();
-        
+                
         for (int c = 0; c < vs.length; c++) {
-            if (getDrawMode() == MODE_FILL)
-                batcher.vertex(ellipse.getX() + ellipse.getWidth() / 2, ellipse.getY() + ellipse.getHeight() / 2, 0, 0);
+            batcher.vertex(ellipse.getX() + ellipse.getWidth() / 2, ellipse.getY() + ellipse.getHeight() / 2, 0, 0);
             
             if (c >= vs.length - 1)
                 batcher.vertex(vs[0].x, vs[0].y, 0, 0);
@@ -410,6 +394,8 @@ public class VAOGraphics implements Graphics {
             else
                 batcher.vertex(vs[c + 1].x, vs[c + 1].y, 0, 0);
         }
+        
+        batcher.flushIfOverflow();
         
         pullSetColor();
     }
@@ -442,24 +428,136 @@ public class VAOGraphics implements Graphics {
     }
     
     @Override
+    public void traceRect(Rectangle rectangle) {
+        Vec2 p1 = rectangle.getVertices()[0];
+        Vec2 p2 = rectangle.getVertices()[1];
+        Vec2 p3 = rectangle.getVertices()[2];
+        Vec2 p4 = rectangle.getVertices()[3];
+                
+        drawSubLine(new Line(p1, p2));
+        drawSubLine(new Line(p2, p3));
+        drawSubLine(new Line(p3, p4));
+        drawSubLine(new Line(p4, p1));
+        
+        batcher.flushIfOverflow();
+    }
+    
+    @Override
+    public void traceRect(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
+        traceRect(new Rectangle(x1, y1, x2, y2, x3, y3, x4, y4));
+    }
+    
+    @Override
+    public void traceRects(Rectangle[] rects) {
+        for (Rectangle rect : rects)
+            traceRect(rect);
+    }
+    
+    @Override
+    public void traceTriangle(Triangle triangle) {
+        Vec2 p1 = triangle.getVertices()[0];
+        Vec2 p2 = triangle.getVertices()[1];
+        Vec2 p3 = triangle.getVertices()[2];
+                
+        drawSubLine(new Line(p1, p2));
+        drawSubLine(new Line(p2, p3));
+        drawSubLine(new Line(p3, p1));
+        
+        batcher.flushIfOverflow();
+    }
+    
+    @Override
+    public void traceTriangle(float x1, float y1, float x2, float y2, float x3, float y3) {
+        traceTriangle(new Triangle(x1, y1, x2, y2, x3, y3));
+    }
+    
+    @Override
+    public void traceTriangles(Triangle[] triangles) {
+        for (Triangle triangle : triangles)
+            traceTriangle(triangle);
+    }
+    
+    @Override
+    public void traceEllipse(Ellipse ellipse) {
+        batcher.clearTextures();
+        
+        Vec2[] vs = ellipse.getVertices();
+                
+        for (int c = 0; c < vs.length; c++) {
+            Vec2 p1, p2;
+            
+            if (c >= vs.length - 1)
+                p1 = vs[0];
+            else
+                p1 = vs[c];
+            
+            if (c >= vs.length - 1)
+                p2 = vs[vs.length - 1];
+            else
+                p2 = vs[c + 1];
+            
+            drawSubLine(new Line(p1, p2));
+        }
+        
+        batcher.flushIfOverflow();
+    }
+    
+    @Override
+    public void traceEllipse(float x, float y, float radx, float rady) {
+        traceEllipse(new Ellipse(x, y, radx, rady));
+    }
+    
+    @Override
+    public void traceEllipses(Ellipse[] ellipses) {
+        for (Ellipse ellipse : ellipses)
+            traceEllipse(ellipse);
+    }
+    
+    @Override
+    public void traceCircle(Circle circle) {
+        traceEllipse(circle);
+    }
+    
+    @Override
+    public void traceCircle(float x, float y, float radius) {
+        traceCircle(new Circle(x, y, radius));
+    }
+    
+    @Override
+    public void traceCircles(Circle[] circs) {
+        for (Circle circ : circs)
+            traceCircle(circ);
+    }
+    
+    @Override
     public void drawLine(float x1, float y1, float x2, float y2) {
         drawLine(new Vec2(x1, y1), new Vec2(x2, y2));
     }
     
     @Override
     public void drawLine(Vec2 p1, Vec2 p2) {
-        boolean modefill = getDrawMode() == MODE_FILL;
-        if (modefill)
-            setDrawMode(MODE_LINE);
-        
+        drawLine(new Line(p1, p2));
+        batcher.flushIfOverflow();
+    }
+    
+    private void drawSubLine(Line l) {
         batcher.clearTextures();
         
-        batcher.vertex(p1.x, p1.y, 0, 0);
-        batcher.vertex(p2.x, p2.y, 1, 1);
+        float dx = l.getVertices()[0].x - l.getVertices()[1].x;
+        float dy = l.getVertices()[0].y - l.getVertices()[1].y;
+        float angle = MercMath.atan2(dx, dy) - 90;
         
-        if (modefill)
-            setDrawMode(MODE_FILL);
+        Vec2 p1 = new Vec2(l.getVertices()[0].x - MercMath.cos(angle) * linewidth / 2, l.getVertices()[0].y - MercMath.sin(angle) * linewidth / 2);
+        Vec2 p2 = new Vec2(l.getVertices()[0].x + MercMath.cos(angle) * linewidth / 2, l.getVertices()[0].y + MercMath.sin(angle) * linewidth / 2);
+        Vec2 p3 = new Vec2(l.getVertices()[1].x + MercMath.cos(angle) * linewidth / 2, l.getVertices()[1].y + MercMath.sin(angle) * linewidth / 2);
+        Vec2 p4 = new Vec2(l.getVertices()[1].x - MercMath.cos(angle) * linewidth / 2, l.getVertices()[1].y - MercMath.sin(angle) * linewidth / 2);
         
+        drawSubRect(new Rectangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y));
+    }
+    
+    @Override
+    public void drawLine(Line l) {
+        drawSubLine(l);
         pullSetColor();
     }
     

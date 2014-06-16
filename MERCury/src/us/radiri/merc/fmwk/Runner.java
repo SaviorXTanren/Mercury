@@ -58,8 +58,13 @@ public class Runner {
     
     /** Whether or not we are vsyncing */
     private boolean vsync;
-    /** Whether or not we are logging the FPS */
-    private boolean logfps = false;
+    /** Whether or not we are displaying the FPS. */
+    private boolean displayfps = false;
+    /**
+     * Whether or not we are displaying the amount of vertices rendered on
+     * screen.
+     */
+    private boolean displayvr = false;
     /** The delta variable */
     private int delta = 1;
     /** The target fps */
@@ -70,6 +75,8 @@ public class Runner {
     private long lastframe;
     /** The factor by which delta is multiplied */
     private float deltafactor = 1;
+    
+    private String debugdata = "";
     
     /** The core being ran */
     private Core core;
@@ -307,9 +314,12 @@ public class Runner {
             // End all time calculations.
             lastframe = time;
             
-            // Log FPS
-            if (logfps)
-                Logger.debug("FPS" + FPS);
+            // Show FPS
+            if (displayfps)
+                debugdata += "FPS: " + getFps() + "\n";
+            // Show vertices last rendered
+            if (displayvr)
+                debugdata += "Vertices: " + getVerticesLastRendered() + "\n";
             
             if (!renderfreeze)
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -321,6 +331,10 @@ public class Runner {
             if (!renderfreeze) {
                 camera.pre(graphicsobject);
                 core.render(graphicsobject);
+                
+                graphicsobject.drawString(1 / graphicsobject.getScale(), 0, 0, debugdata);
+                debugdata = "";
+                
                 camera.post(graphicsobject);
             }
             
@@ -359,6 +373,11 @@ public class Runner {
         return FPS;
     }
     
+    /** @return The vertices rendered in the last rendering frame. */
+    public int getVerticesLastRendered() {
+        return getGraphics().getBatcher().getVerticesLastRendered();
+    }
+    
     /**
      * @param target
      *            The new FPS target
@@ -368,11 +387,20 @@ public class Runner {
     }
     
     /**
-     * @param logfps
+     * @param displayfps
      *            Whether or not to log the FPS in the log
      */
-    public void setLogFPS(boolean logfps) {
-        this.logfps = logfps;
+    public void setShowFPS(boolean displayfps) {
+        this.displayfps = displayfps;
+    }
+    
+    /**
+     * @param displayvr
+     *            Whether or not the display the vertices rendered in the last
+     *            rendering frame on screen.
+     */
+    public void setShowVerticesLastRendered(boolean displayvr) {
+        this.displayvr = displayvr;
     }
     
     /** @return The Width of the display */
