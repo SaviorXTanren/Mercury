@@ -118,8 +118,15 @@ public interface Batcher {
      */
     public void vertex(float x, float y, float r, float g, float b, float a, float u, float v);
     
-    /** Will flush the data to OGL if the vertex count is higher than the limit. */
-    public void flushIfOverflow();
+    /**
+     * Will flush the data to OGL if the sum of the vertex count and the
+     * allocation is higher than the limit.
+     * 
+     * @param allocate
+     *            The amount of vertices that will be rendered in the next
+     *            vertex-group.
+     */
+    public void flushIfOverflow(int allocate);
     
     /** @return The amount of vertices rendered last render frame. */
     public int getVerticesLastRendered();

@@ -6,5 +6,5 @@ package us.radiri.merc.env;
  * @author wessles
  */
 
-public interface MercEntity extends Updatable, Renderable {
+public interface Entity extends Updatable, Renderable {
 }

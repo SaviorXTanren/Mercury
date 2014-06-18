@@ -29,7 +29,7 @@ import us.radiri.merc.log.Logger;
  */
 public class VAOBatcher implements Batcher {
     private static final int VL = 2, CL = 4, TL = 2;
-    public static final int MAX_VERTICES_PER_RENDER_STACK = 1000, EXTRA_VERTICES_FOR_RENDER_STACK = 1000;
+    public static final int MAX_VERTICES_PER_RENDER_STACK = 4096;
     
     private FloatBuffer vd, cd, td;
     
@@ -45,9 +45,9 @@ public class VAOBatcher implements Batcher {
     public VAOBatcher() {
         vtxcount = 0;
         
-        vd = BufferUtils.createFloatBuffer((MAX_VERTICES_PER_RENDER_STACK + EXTRA_VERTICES_FOR_RENDER_STACK) * VL);
-        cd = BufferUtils.createFloatBuffer((MAX_VERTICES_PER_RENDER_STACK + EXTRA_VERTICES_FOR_RENDER_STACK) * CL);
-        td = BufferUtils.createFloatBuffer((MAX_VERTICES_PER_RENDER_STACK + EXTRA_VERTICES_FOR_RENDER_STACK) * TL);
+        vd = BufferUtils.createFloatBuffer(MAX_VERTICES_PER_RENDER_STACK * VL);
+        cd = BufferUtils.createFloatBuffer(MAX_VERTICES_PER_RENDER_STACK * CL);
+        td = BufferUtils.createFloatBuffer(MAX_VERTICES_PER_RENDER_STACK * TL);
         
         active = false;
     }
@@ -207,8 +207,8 @@ public class VAOBatcher implements Batcher {
     }
     
     @Override
-    public void flushIfOverflow() {
-        if (vtxcount > MAX_VERTICES_PER_RENDER_STACK)
+    public void flushIfOverflow(int allocate) {
+        if (vtxcount + allocate > MAX_VERTICES_PER_RENDER_STACK)
             flush();
     }
     

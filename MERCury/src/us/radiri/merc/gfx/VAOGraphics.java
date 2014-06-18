@@ -53,8 +53,8 @@ public class VAOGraphics implements Graphics {
         batcher.end();
     }
     
-    float linewidth = 1;
-    boolean linewidthchanged = false;
+    private float linewidth = 1;
+    private boolean linewidthchanged = false;
     
     @Override
     public void setLineWidth(float width) {
@@ -119,8 +119,8 @@ public class VAOGraphics implements Graphics {
         batcher.setColor(current_color);
     }
     
-    Color push_color = null;
-    boolean pull = true;
+    private Color push_color = null;
+    private boolean pull = true;
     
     @Override
     public void pushSetColor(Color color) {
@@ -247,7 +247,6 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle rectangle) {
-        
         float x1 = rectangle.getVertices()[0].x;
         float y1 = rectangle.getVertices()[0].y;
         float x2 = rectangle.getVertices()[1].x;
@@ -269,7 +268,8 @@ public class VAOGraphics implements Graphics {
         sy2 /= h;
         
         batcher.setTexture(texture);
-                
+        batcher.flushIfOverflow(6);
+        
         batcher.vertex(x1, y1, sx1, sy1);
         batcher.vertex(x2, y2, sx2, sy1);
         batcher.vertex(x4, y4, sx1, sy2);
@@ -277,8 +277,6 @@ public class VAOGraphics implements Graphics {
         batcher.vertex(x3, y3, sx2, sy2);
         batcher.vertex(x4, y4, sx1, sy2);
         batcher.vertex(x2, y2, sx2, sy1);
-        
-        batcher.flushIfOverflow();
         
         pullSetColor();
     }
@@ -305,16 +303,15 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void drawRect(Rectangle rectangle) {
-        drawSubRect(rectangle);
+        batcher.clearTextures();
+        batcher.flushIfOverflow(6);
         
-        batcher.flushIfOverflow();
+        drawSubRect(rectangle);
         
         pullSetColor();
     }
     
     private void drawSubRect(Rectangle rectangle) {
-        batcher.clearTextures();
-        
         float x1 = rectangle.getVertices()[0].x;
         float y1 = rectangle.getVertices()[0].y;
         float x2 = rectangle.getVertices()[1].x;
@@ -323,6 +320,9 @@ public class VAOGraphics implements Graphics {
         float y3 = rectangle.getVertices()[2].y;
         float x4 = rectangle.getVertices()[3].x;
         float y4 = rectangle.getVertices()[3].y;
+        
+        batcher.clearTextures();
+        batcher.flushIfOverflow(6);
         
         batcher.vertex(x1, y1, 0, 0);
         batcher.vertex(x2, y2, 0, 0);
@@ -346,20 +346,19 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void drawTriangle(Triangle triangle) {
-        batcher.clearTextures();
-        
         float x1 = triangle.getVertices()[0].x;
         float y1 = triangle.getVertices()[0].y;
         float x2 = triangle.getVertices()[1].x;
         float y2 = triangle.getVertices()[1].y;
         float x3 = triangle.getVertices()[2].x;
         float y3 = triangle.getVertices()[2].y;
-                
+        
+        batcher.clearTextures();
+        batcher.flushIfOverflow(3);
+        
         batcher.vertex(x1, y1, 0, 1);
         batcher.vertex(x3, y3, 1, 1);
         batcher.vertex(x2, y2, 0, 0);
-        
-        batcher.flushIfOverflow();
         
         pullSetColor();
     }
@@ -378,9 +377,10 @@ public class VAOGraphics implements Graphics {
     @Override
     public void drawEllipse(Ellipse ellipse) {
         batcher.clearTextures();
+        batcher.flushIfOverflow(ellipse.getVertices().length * 2);
         
         Vec2[] vs = ellipse.getVertices();
-                
+        
         for (int c = 0; c < vs.length; c++) {
             batcher.vertex(ellipse.getX() + ellipse.getWidth() / 2, ellipse.getY() + ellipse.getHeight() / 2, 0, 0);
             
@@ -394,8 +394,6 @@ public class VAOGraphics implements Graphics {
             else
                 batcher.vertex(vs[c + 1].x, vs[c + 1].y, 0, 0);
         }
-        
-        batcher.flushIfOverflow();
         
         pullSetColor();
     }
@@ -433,13 +431,16 @@ public class VAOGraphics implements Graphics {
         Vec2 p2 = rectangle.getVertices()[1];
         Vec2 p3 = rectangle.getVertices()[2];
         Vec2 p4 = rectangle.getVertices()[3];
-                
+        
+        batcher.clearTextures();
+        batcher.flushIfOverflow(24);
+        
         drawSubLine(new Line(p1, p2));
         drawSubLine(new Line(p2, p3));
         drawSubLine(new Line(p3, p4));
         drawSubLine(new Line(p4, p1));
         
-        batcher.flushIfOverflow();
+        pullSetColor();
     }
     
     @Override
@@ -458,12 +459,15 @@ public class VAOGraphics implements Graphics {
         Vec2 p1 = triangle.getVertices()[0];
         Vec2 p2 = triangle.getVertices()[1];
         Vec2 p3 = triangle.getVertices()[2];
-                
+        
+        batcher.clearTextures();
+        batcher.flushIfOverflow(18);
+        
         drawSubLine(new Line(p1, p2));
         drawSubLine(new Line(p2, p3));
         drawSubLine(new Line(p3, p1));
         
-        batcher.flushIfOverflow();
+        pullSetColor();
     }
     
     @Override
@@ -480,9 +484,10 @@ public class VAOGraphics implements Graphics {
     @Override
     public void traceEllipse(Ellipse ellipse) {
         batcher.clearTextures();
+        batcher.flushIfOverflow(ellipse.getVertices().length * 6);
         
         Vec2[] vs = ellipse.getVertices();
-                
+        
         for (int c = 0; c < vs.length; c++) {
             Vec2 p1, p2;
             
@@ -499,7 +504,7 @@ public class VAOGraphics implements Graphics {
             drawSubLine(new Line(p1, p2));
         }
         
-        batcher.flushIfOverflow();
+        pullSetColor();
     }
     
     @Override
@@ -537,12 +542,9 @@ public class VAOGraphics implements Graphics {
     @Override
     public void drawLine(Vec2 p1, Vec2 p2) {
         drawLine(new Line(p1, p2));
-        batcher.flushIfOverflow();
     }
     
     private void drawSubLine(Line l) {
-        batcher.clearTextures();
-        
         float dx = l.getVertices()[0].x - l.getVertices()[1].x;
         float dy = l.getVertices()[0].y - l.getVertices()[1].y;
         float angle = MercMath.atan2(dx, dy) - 90;
@@ -557,7 +559,11 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void drawLine(Line l) {
+        batcher.clearColors();
+        batcher.flushIfOverflow(6);
+        
         drawSubLine(l);
+        
         pullSetColor();
     }
     

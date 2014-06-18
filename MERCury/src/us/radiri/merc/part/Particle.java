@@ -1,6 +1,6 @@
 package us.radiri.merc.part;
 
-import us.radiri.merc.env.MercEntity;
+import us.radiri.merc.env.Entity;
 import us.radiri.merc.geo.Rectangle;
 import us.radiri.merc.geo.Vec2;
 import us.radiri.merc.gfx.Color;
@@ -14,9 +14,8 @@ import us.radiri.merc.util.Wipeable;
  * @author wessles
  */
 
-public class Particle implements MercEntity, Wipeable {
+public class Particle implements Entity, Wipeable {
     public float size;
-    private final float max_size;
     
     public Vec2 pos;
     public Vec2 vel;
@@ -26,15 +25,14 @@ public class Particle implements MercEntity, Wipeable {
     public ParticleEmitter emitter;
     
     public Particle(float angle, ParticleEmitter emitter) {
-        this.size = emitter.size;
-        max_size = size;
+        this.size = emitter.getOptions().size;
         
-        float x = (float) MercMath.random(emitter.getBounds().getX(), emitter.getBounds().getX2()), y = (float) MercMath.random(emitter.getBounds().getY(), emitter.getBounds().getY2());
+        float x = (float) MercMath.random(emitter.getEmitterBounds().getX(), emitter.getEmitterBounds().getX2()), y = (float) MercMath.random(emitter.getEmitterBounds().getY(), emitter.getEmitterBounds().getY2());
         pos = new Vec2(x, y);
         vel = new Vec2(angle);
-        vel.scale(emitter.speed);
+        vel.scale(emitter.getOptions().speed);
         
-        life = emitter.lifeinframes;
+        life = emitter.getOptions().lifeinframes;
         
         this.emitter = emitter;
     }
@@ -44,20 +42,22 @@ public class Particle implements MercEntity, Wipeable {
         if (life < 0)
             wipe();
         
-        pos.add(vel);
-        vel.add(emitter.grav);
-        vel.scale(emitter.damp);
+        pos.add(new Vec2(vel.x * delta, vel.y * delta));
+        vel.add(emitter.getOptions().gravity);
+        vel.scale(emitter.getOptions().growth);
         
-        if (emitter.shrink)
-            size = max_size * ((float) life / (float) emitter.lifeinframes);
+        size *= emitter.getOptions().growth;
         
         life -= 1;
     }
     
     @Override
     public void render(Graphics g) {
-        g.pushSetColor(new Color(emitter.color.r, emitter.color.g, emitter.color.b, life));
-        g.drawRect(new Rectangle(pos.x, pos.y, size, size));
+        g.pushSetColor(new Color(emitter.getOptions().color.r, emitter.getOptions().color.g, emitter.getOptions().color.b, life));
+        if (emitter.getOptions().texture == null)
+            g.drawRect(new Rectangle(pos.x-size/2, pos.y-size/2, size, size));
+        else
+            g.drawTexture(emitter.getOptions().texture, new Rectangle(pos.x-size/2, pos.y-size/2, size));
     }
     
     boolean wiped = false;

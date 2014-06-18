@@ -1,10 +1,11 @@
 package us.radiri.merc.part;
 
-import us.radiri.merc.env.AdvancedMercEntity;
+import us.radiri.merc.env.Entity;
 import us.radiri.merc.geo.Rectangle;
 import us.radiri.merc.geo.Vec2;
 import us.radiri.merc.gfx.Color;
 import us.radiri.merc.gfx.Graphics;
+import us.radiri.merc.gfx.Texture;
 import us.radiri.merc.math.MercMath;
 import us.radiri.merc.util.WipingArrayList;
 
@@ -15,72 +16,78 @@ import us.radiri.merc.util.WipingArrayList;
  * @author wessles
  */
 
-public class ParticleEmitter extends AdvancedMercEntity {
-    public WipingArrayList<Particle> parts;
+public class ParticleEmitter implements Entity {
+    public static class ParticleSetup {
+        /**
+         * The 2 valid angles in between which any particle can thrust itself
+         * out of spawnarea with.
+         */
+        public Vec2 validangle = new Vec2(0, 360);
+        /** The percent chance that a particle will spawn. */
+        public float percentchance = 0.3f;
+        
+        /** The color of the particles. */
+        public Color color = Color.DEFAULT_TEXTURE_COLOR;
+        /** The texture of each particle. */
+        public Texture texture;
+        /** The size of the particles. */
+        public float size = 1;
+        /**
+         * The value by which the size of the particles will be multiplied each
+         * frame.
+         */
+        public float growth = 1;
+        
+        /** The speed by which the particle will be launched out of the emitter. */
+        public float speed = 0.01f;
+        /**
+         * The value by which the velocity of a particle will be multiplied each
+         * frame.
+         */
+        public float acceleration = 0.98f;
+        /** The value that adds to the x and y of each particle each frame. */
+        public Vec2 gravity;
+        /**
+         * The amount of frames that will pass a single particle before
+         * death/removal.
+         */
+        public int lifeinframes = 1000;
+    }
     
-    public Vec2 validangle;
-    public float percentchance;
+    private WipingArrayList<Particle> parts;
     
-    public Color color;
-    public float size;
-    public boolean shrink;
-    public float speed;
-    public float damp;
-    public Vec2 grav;
-    public int lifeinframes;
+    private Rectangle emitter;
+    private ParticleSetup pesetup;
     
     /**
-     * @param spawnarea
+     * @param emitter
      *            The area in which a particle may spawn.
-     * @param validangle
-     *            The 2 valid angles in between which any particle can thrust
-     *            itself out of spawnarea with.
-     * @param grav
-     *            The value that adds to the x and y of each particle each
-     *            frame.
-     * @param percentchance
-     *            The percent chance that a particle will spawn.
-     * @param color
-     *            The color of the particles.
-     * @param size
-     *            The size of the particles.
-     * @param shrink
-     *            The value by which the size of the particles will be
-     *            multiplied each frame.
-     * @param speed
-     *            The speed of the particles.
-     * @param damp
-     *            The value by which the velocity of a particle will be
-     *            multiplied each frame.
-     * @param lifeinframes
-     *            The amount of frames that will pass a single particle before
-     *            death/removal.
+     * @param pesetup
+     *            The particle's setup.
      */
-    public ParticleEmitter(Rectangle spawnarea, Vec2 validangle, Vec2 grav, float percentchance, Color color, float size, boolean shrink, float speed, float damp, int lifeinframes) {
-        super(spawnarea.getX(), spawnarea.getY(), spawnarea.getWidth(), spawnarea.getHeight());
+    public ParticleEmitter(Rectangle emitter, ParticleSetup pesetup) {
+        this.parts = new WipingArrayList<Particle>();
         
-        parts = new WipingArrayList<Particle>();
-        
-        this.validangle = validangle;
-        this.percentchance = percentchance;
-        
-        this.color = color;
-        this.size = size;
-        this.shrink = shrink;
-        
-        this.speed = speed;
-        this.damp = damp;
-        this.grav = grav;
-        this.lifeinframes = lifeinframes;
+        this.emitter = emitter;
+        this.pesetup = pesetup;
+    }
+    
+    /**
+     * Adds in new particles to the emitter.
+     * 
+     * @param amount
+     *            The amount of particles you wish to generate.
+     */
+    public void generateParticle(int amount) {
+        for (int p = 0; p < amount; p++)
+            if (MercMath.chance(pesetup.percentchance)) {
+                float angle = (float) MercMath.random(pesetup.validangle.x, pesetup.validangle.y);
+                parts.add(new Particle(angle, this));
+            }
     }
     
     @Override
     public void update(float delta) {
-        if (MercMath.chance(percentchance)) {
-            float angle = (float) MercMath.random(validangle.x, validangle.y);
-            parts.add(new Particle(angle, this));
-        }
-        
         for (Particle part : parts)
             part.update(delta);
         
@@ -93,8 +100,11 @@ public class ParticleEmitter extends AdvancedMercEntity {
             ((Particle) part).render(g);
     }
     
-    @Override
-    public boolean isValidPosition(float x, float y) {
-        return true;
+    public ParticleSetup getOptions() {
+        return pesetup;
+    }
+    
+    public Rectangle getEmitterBounds() {
+        return emitter;
     }
 }
