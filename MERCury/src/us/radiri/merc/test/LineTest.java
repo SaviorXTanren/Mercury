@@ -46,9 +46,6 @@ public class LineTest extends Core {
                 modeline = !modeline;
             }
         };
-        
-        rnr.setShowFPS(true);
-        rnr.setShowVerticesLastRendered(true);
     }
     
     @Override

@@ -15,14 +15,16 @@ import us.radiri.merc.util.Wipeable;
  */
 
 public class Particle implements Entity, Wipeable {
-    public float size;
+    private float size;
     
-    public Vec2 pos;
-    public Vec2 vel;
+    private Vec2 pos;
+    private Rectangle bounds;
+    private float rot;
+    private Vec2 vel;
     
-    public int life;
+    private int life;
     
-    public ParticleEmitter emitter;
+    private ParticleEmitter emitter;
     
     public Particle(float angle, ParticleEmitter emitter) {
         this.size = emitter.getOptions().size;
@@ -31,6 +33,8 @@ public class Particle implements Entity, Wipeable {
         pos = new Vec2(x, y);
         vel = new Vec2(angle);
         vel.scale(emitter.getOptions().speed);
+        
+        bounds = new Rectangle(pos.x, pos.y, size);
         
         life = emitter.getOptions().lifeinframes;
         
@@ -48,6 +52,9 @@ public class Particle implements Entity, Wipeable {
         
         size *= emitter.getOptions().growth;
         
+        bounds = new Rectangle(pos.x-size/2, pos.y-size/2, size);
+        bounds.rotateTo(rot+=emitter.getOptions().rotation);
+        
         life -= 1;
     }
     
@@ -55,9 +62,9 @@ public class Particle implements Entity, Wipeable {
     public void render(Graphics g) {
         g.pushSetColor(new Color(emitter.getOptions().color.r, emitter.getOptions().color.g, emitter.getOptions().color.b, life));
         if (emitter.getOptions().texture == null)
-            g.drawRect(new Rectangle(pos.x-size/2, pos.y-size/2, size, size));
+            g.drawRect(bounds);
         else
-            g.drawTexture(emitter.getOptions().texture, new Rectangle(pos.x-size/2, pos.y-size/2, size));
+            g.drawTexture(emitter.getOptions().texture, bounds);
     }
     
     boolean wiped = false;

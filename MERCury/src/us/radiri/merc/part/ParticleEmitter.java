@@ -37,6 +37,8 @@ public class ParticleEmitter implements Entity {
          * frame.
          */
         public float growth = 1;
+        /** The amount that each particle will rotate each frame. */
+        public float rotation = 0;
         
         /** The speed by which the particle will be launched out of the emitter. */
         public float speed = 0.01f;

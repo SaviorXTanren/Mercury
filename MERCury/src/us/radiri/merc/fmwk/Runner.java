@@ -58,13 +58,6 @@ public class Runner {
     
     /** Whether or not we are vsyncing */
     private boolean vsync;
-    /** Whether or not we are displaying the FPS. */
-    private boolean displayfps = false;
-    /**
-     * Whether or not we are displaying the amount of vertices rendered on
-     * screen.
-     */
-    private boolean displayvr = false;
     /** The delta variable */
     private int delta = 1;
     /** The target fps */
@@ -76,7 +69,13 @@ public class Runner {
     /** The factor by which delta is multiplied */
     private float deltafactor = 1;
     
+    /**
+     * The string to be rendered every frame to the screen, assuming that
+     * `showdebug` is true.
+     */
     private String debugdata = "";
+    /** Whether or not the debugdata will be drawn to the screen. */
+    private boolean showdebug = true;
     
     /** The core being ran */
     private Core core;
@@ -314,30 +313,33 @@ public class Runner {
             // End all time calculations.
             lastframe = time;
             
-            // Show FPS
-            if (displayfps)
-                debugdata += "FPS: " + getFps() + "\n";
-            // Show vertices last rendered
-            if (displayvr)
-                debugdata += "Vertices: " + getVerticesLastRendered() + "\n";
+            // Take in information from input.
+            input.poll();
             
             if (!renderfreeze)
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             
             if (!updatefreeze)
                 core.update(getDelta());
-            input.poll();
+            
+            int verticeslastrendered = getVerticesLastRendered();
             
             if (!renderfreeze) {
                 camera.pre(graphicsobject);
                 core.render(graphicsobject);
                 
-                graphicsobject.drawString(1 / graphicsobject.getScale(), 0, 0, debugdata);
-                debugdata = "";
+                if (showdebug) {
+                    addDebugData("FPS", getFps()+"");
+                    addDebugData("Vertices", verticeslastrendered+"");
+                    
+                    graphicsobject.drawString(1 / graphicsobject.getScale(), 0, 0, debugdata);
+                    debugdata = "";
+                }
                 
                 camera.post(graphicsobject);
             }
             
+            // Close the window if the window is x'd out.
             if (Display.isCloseRequested())
                 end();
             
@@ -386,21 +388,19 @@ public class Runner {
         FPS_TARGET = target;
     }
     
-    /**
-     * @param displayfps
-     *            Whether or not to log the FPS in the log
-     */
-    public void setShowFPS(boolean displayfps) {
-        this.displayfps = displayfps;
+    /** Sets whether or not debug data should be displayed. */
+    public void showDebug(boolean showdebug) {
+        this.showdebug = showdebug;
     }
     
     /**
-     * @param displayvr
-     *            Whether or not the display the vertices rendered in the last
-     *            rendering frame on screen.
+     * Adds information to the debugdata. Debug data is wiped every single
+     * update frame, so this is to be called every frame.
      */
-    public void setShowVerticesLastRendered(boolean displayvr) {
-        this.displayvr = displayvr;
+    public void addDebugData(String name, String value) {
+        name.trim();
+        value.trim();
+        debugdata += name + " " + value + "\n";
     }
     
     /** @return The Width of the display */

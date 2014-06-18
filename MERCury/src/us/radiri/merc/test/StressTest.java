@@ -25,8 +25,6 @@ public class StressTest extends Core {
     @Override
     public void init() {
         rnr.getGraphics().scale(2);
-        rnr.setShowFPS(true);
-        rnr.setShowVerticesLastRendered(true);
         
         dAWWWW = Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/test/dAWWWW.png"));
     }

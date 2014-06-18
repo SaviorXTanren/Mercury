@@ -27,9 +27,6 @@ public class CollisionTest extends Core {
     @Override
     public void init() {
         rnr.getGraphics().scale(8);
-        
-        rnr.setShowFPS(true);
-        rnr.setShowVerticesLastRendered(true);
     }
     
     @Override
