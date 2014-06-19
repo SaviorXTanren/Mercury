@@ -3,7 +3,6 @@ package us.radiri.merc.part;
 import us.radiri.merc.env.Entity;
 import us.radiri.merc.geo.Rectangle;
 import us.radiri.merc.geo.Vec2;
-import us.radiri.merc.gfx.Color;
 import us.radiri.merc.gfx.Graphics;
 import us.radiri.merc.math.MercMath;
 import us.radiri.merc.util.Wipeable;
@@ -60,7 +59,7 @@ public class Particle implements Entity, Wipeable {
     
     @Override
     public void render(Graphics g) {
-        g.pushSetColor(new Color(emitter.getOptions().color.r, emitter.getOptions().color.g, emitter.getOptions().color.b, life));
+        g.pushSetColor(emitter.getOptions().color.duplicate());
         if (emitter.getOptions().texture == null)
             g.drawRect(bounds);
         else

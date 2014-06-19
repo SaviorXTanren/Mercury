@@ -22,8 +22,6 @@ import us.radiri.merc.res.Resource;
  */
 
 public class Shader implements Resource {
-    /** The default shader for OGL. */
-    public static final int DEFAULT_SHADER = 0;
     /** The vertex shader type. */
     public static final int VERTEX_SHADER = 0;
     /** The fragment shader type. */
@@ -112,7 +110,7 @@ public class Shader implements Resource {
      * Set the shader to default.
      */
     public static void releaseShaders() {
-        ARBShaderObjects.glUseProgramObjectARB(DEFAULT_SHADER);
+        ARBShaderObjects.glUseProgramObjectARB(getDefaultShader().programobject);
     }
     
     /**
@@ -342,14 +340,13 @@ public class Shader implements Resource {
         return source.toString();
     }
     
+    private static Shader default_shad;
+    
     /** The default shader for MERCury (not to be confused with shader 0). */
     public static Shader getDefaultShader() {
-        try {
-            return Shader.getShader(Loader.streamFromClasspath("us/radiri/merc/gfx/default.vs"), Loader.streamFromClasspath("us/radiri/merc/gfx/default.fs"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        if (default_shad == null)
+            default_shad = Shader.getShader(Loader.streamFromClasspath("us/radiri/merc/gfx/default.vs"), Loader.streamFromClasspath("us/radiri/merc/gfx/default.fs"));
         
-        return null;
+        return default_shad;
     }
 }

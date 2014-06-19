@@ -6,6 +6,7 @@ import us.radiri.merc.fmwk.Core;
 import us.radiri.merc.fmwk.Runner;
 import us.radiri.merc.geo.Rectangle;
 import us.radiri.merc.geo.Vec2;
+import us.radiri.merc.gfx.Color;
 import us.radiri.merc.gfx.Graphics;
 import us.radiri.merc.gfx.Texture;
 import us.radiri.merc.in.Input;
@@ -24,7 +25,7 @@ public class ParticleTest extends Core {
     
     public ParticleTest() {
         super("Particle Test");
-        rnr.init(this, 1500, 800);
+        rnr.init(this, 1500, 800, true);
         rnr.setMouseGrab(true);
         rnr.run();
     }
@@ -43,13 +44,16 @@ public class ParticleTest extends Core {
         rnr.getGraphics().scale(4);
         
         ParticleSetup emitter1setup = new ParticleSetup();
-        emitter1setup.validangle = new Vec2(180, 360);
-        emitter1setup.gravity = new Vec2(0, 0.01f);
+        emitter1setup.validangle = new Vec2(0, 360);
+        emitter1setup.gravity = new Vec2(0, 0.02f);
         emitter1setup.speed = 0.1f;
-        emitter1setup.size = 8;
+        emitter1setup.size = 16;
         emitter1setup.rotation = 10;
-        emitter1setup.growth = 0.97f;
-        emitter1setup.lifeinframes = 160;
+        emitter1setup.growth = 0.98f;
+        emitter1setup.lifeinframes = 300;
+        Color col = Color.blue.duplicate();
+        col.a = 0.5f;
+        emitter1setup.color = col;
         emitter1setup.texture = parent;
         
         emitter1 = new ParticleEmitter(new Rectangle(0, 0, parent.getTextureWidth(), parent.getTextureHeight()), emitter1setup);
@@ -61,8 +65,10 @@ public class ParticleTest extends Core {
     public void update(float delta) {
         Input in = rnr.getInput();
         
-        if (in.keyDown(Keyboard.KEY_ESCAPE))
+        if (in.keyDown(Keyboard.KEY_ESCAPE)) {
             rnr.setMouseGrab(false);
+            rnr.end();
+        }
         
         emitter1.getEmitterBounds().translate(in.getAbsoluteMouseX() / 4 - emitter1.getEmitterBounds().getX(), in.getAbsoluteMouseY() / 4 - emitter1.getEmitterBounds().getY());
         torchpos.set(emitter1.getEmitterBounds().getCenter().x - parent.getTextureWidth() / 2, emitter1.getEmitterBounds().getY());

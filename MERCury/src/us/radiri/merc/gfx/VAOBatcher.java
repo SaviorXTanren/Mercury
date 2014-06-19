@@ -1,13 +1,6 @@
 package us.radiri.merc.gfx;
 
-import static org.lwjgl.opengl.GL11.GL_COLOR;
-import static org.lwjgl.opengl.GL11.GL_COLOR_ARRAY;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_COORD_ARRAY;
-import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
-import static org.lwjgl.opengl.GL11.GL_VERTEX_ARRAY;
-import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.*;
 import static us.radiri.merc.gfx.VAOUtils.COLOR_ARRAY_POINTER;
 import static us.radiri.merc.gfx.VAOUtils.TEXTURE_COORD_ARRAY_POINTER;
 import static us.radiri.merc.gfx.VAOUtils.VERTEX_ARRAY_POINTER;
@@ -127,7 +120,7 @@ public class VAOBatcher implements Batcher {
             return;
         flush();
         last_tex = Texture.getEmptyTexture();
-        last_tex.bind();
+        Texture.bindTexture(last_tex);
     }
     
     @Override

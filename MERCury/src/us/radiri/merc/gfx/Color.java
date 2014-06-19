@@ -31,7 +31,7 @@ public class Color {
     
     public static final Color DEFAULT_BACKGROUND = black;
     public static final Color DEFAULT_DRAWING = white;
-    public static final Color DEFAULT_TEXTURE_COLOR = white;
+    public static final Color DEFAULT_TEXTURE_COLOR = trans;
     
     public float r = 0, g = 0, b = 0, a = 0;
     

@@ -23,6 +23,7 @@ import java.nio.ByteBuffer;
 import javax.imageio.ImageIO;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
 
 import us.radiri.merc.exc.MERCuryException;
 import us.radiri.merc.log.Logger;
@@ -127,6 +128,7 @@ public class Texture implements Resource {
     
     /** Staticly 'bind().' */
     public static void bindTexture(Texture tex) {
+        GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
         tex.bind();
     }
     

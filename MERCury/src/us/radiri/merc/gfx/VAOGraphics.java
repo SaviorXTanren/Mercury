@@ -267,8 +267,13 @@ public class VAOGraphics implements Graphics {
         sx2 /= w;
         sy2 /= h;
         
+        boolean default_color = current_color == Color.DEFAULT_DRAWING;
+        
         batcher.setTexture(texture);
         batcher.flushIfOverflow(6);
+        
+        if (default_color)
+            setColor(Color.DEFAULT_TEXTURE_COLOR);
         
         batcher.vertex(x1, y1, sx1, sy1);
         batcher.vertex(x2, y2, sx2, sy1);
@@ -277,6 +282,9 @@ public class VAOGraphics implements Graphics {
         batcher.vertex(x3, y3, sx2, sy2);
         batcher.vertex(x4, y4, sx1, sy2);
         batcher.vertex(x2, y2, sx2, sy1);
+        
+        if(default_color)
+            setColor(Color.DEFAULT_DRAWING);
         
         pullSetColor();
     }
