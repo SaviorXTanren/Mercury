@@ -2,7 +2,6 @@
 
 !libs/
 !src/
-!target/
+!target/*.jar
+!target/site/
 !pom.xml
-
-target/classes/
