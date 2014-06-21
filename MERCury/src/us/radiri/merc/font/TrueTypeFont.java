@@ -29,9 +29,9 @@ public class TrueTypeFont implements us.radiri.merc.font.Font {
     
     static {
         try {
-            OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("us/radiri/merc/gfx/OpenSans-Semibold.ttf"), 20, 1, true);
-            OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("us/radiri/merc/gfx/OpenSans-Semibold.ttf"), 20, 1, true);
-            OPENSANS_SEMIBOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("us/radiri/merc/gfx/OpenSans-Semibold.ttf"), 20, 1, true);
+            OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("us/radiri/merc/gfx/OpenSans-Semibold.ttf"), 20f, 1, true);
+            OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("us/radiri/merc/gfx/OpenSans-Semibold.ttf"), 20f, 1, true);
+            OPENSANS_SEMIBOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("us/radiri/merc/gfx/OpenSans-Semibold.ttf"), 20f, 1, true);
         } catch (IOException e) {
             Logger.warn("Problems loading default opensans fonts.");
         } catch (FontFormatException e) {
@@ -46,15 +46,15 @@ public class TrueTypeFont implements us.radiri.merc.font.Font {
     private boolean antialias;
     
     /** The size of the font */
-    private int font_size = 0;
+    private float font_size = 0;
     /** The height of the font */
-    private int font_height = 0;
+    private float font_height = 0;
     
     /** The overall texture used for rendering the font. */
-    public Texture font_tex;
+    private Texture font_tex;
     
-    private int texw = 512;
-    private int texh = 512;
+    private int texw = 0;
+    private int texh = 0;
     
     /** Some awt jargon for fonts. */
     private java.awt.Font font;
@@ -70,6 +70,16 @@ public class TrueTypeFont implements us.radiri.merc.font.Font {
     }
     
     private void createSet() {
+        for(int i = 0; i < 256; i++) {
+            char ch = (char)i;
+            BufferedImage fontimg = getFontImage(ch);
+            texw += fontimg.getWidth();
+            texh = Math.max(fontimg.getHeight(), texh);
+        }
+        
+        texw/=4;
+        texh*=4;
+        
         // Make a graphics object for the buffered image.
         BufferedImage imgTemp = new BufferedImage(texw, texh, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) imgTemp.getGraphics();
@@ -79,9 +89,9 @@ public class TrueTypeFont implements us.radiri.merc.font.Font {
         g.fillRect(0, 0, texw, texh);
         
         // Initialize temporary vars
-        int rowHeight = 0;
-        int positionX = 0;
-        int positionY = 0;
+        float rowHeight = 0;
+        float positionX = 0;
+        float positionY = 0;
         
         // Loop through all standard characters (256 of em')
         for (int i = 0; i < 256; i++) {
@@ -115,7 +125,7 @@ public class TrueTypeFont implements us.radiri.merc.font.Font {
                 rowHeight = newIntObject.h;
             
             // Draw the character onto the font image.
-            g.drawImage(fontImage, positionX, positionY, null);
+            g.drawImage(fontImage, (int) positionX, (int) positionY, null);
             
             // Next position on x axis.
             positionX += newIntObject.w;
@@ -142,18 +152,17 @@ public class TrueTypeFont implements us.radiri.merc.font.Font {
         // Font preperation
         
         fmetrics = g.getFontMetrics();
-        int charwidth = fmetrics.charWidth(ch);
+        float charwidth = fmetrics.charWidth(ch);
         
         // Safety guards just in case.
         if (charwidth <= 0)
             charwidth = 1;
-        int charheight = fmetrics.getHeight();
+        float charheight = fmetrics.getHeight();
         if (charheight <= 0)
             charheight = font_size;
         
         // Now to the actual image!
-        BufferedImage fontImage;
-        fontImage = new BufferedImage(charwidth, charheight, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage fontImage = new BufferedImage((int) charwidth, (int) charheight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D gt = (Graphics2D) fontImage.getGraphics();
         if (antialias == true)
             gt.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -162,16 +171,14 @@ public class TrueTypeFont implements us.radiri.merc.font.Font {
         // Set the text color to white, set x and y, and return to font
         // image!
         gt.setColor(java.awt.Color.WHITE);
-        int charx = 0;
-        int chary = 0;
-        gt.drawString(String.valueOf(ch), charx, chary + fmetrics.getAscent());
+        gt.drawString(String.valueOf(ch), 0, fmetrics.getAscent());
         
         return fontImage;
     }
     
     @Override
-    public int getWidth(char[] what) {
-        int totalwidth = 0;
+    public float getWidth(char[] what) {
+        float totalwidth = 0;
         IntObject intObject = null;
         int currentChar = 0;
         for (char element : what) {
@@ -196,12 +203,12 @@ public class TrueTypeFont implements us.radiri.merc.font.Font {
     }
     
     @Override
-    public int getHeight() {
+    public float getHeight() {
         return font_height;
     }
     
     @Override
-    public int getLineHeight() {
+    public float getLineHeight() {
         return font_height;
     }
     
@@ -212,10 +219,10 @@ public class TrueTypeFont implements us.radiri.merc.font.Font {
     
     /** An object type for storing data for each character. */
     public static class IntObject {
-        public int w;
-        public int h;
-        public int x;
-        public int y;
+        public float w;
+        public float h;
+        public float x;
+        public float y;
     }
     
     @Override

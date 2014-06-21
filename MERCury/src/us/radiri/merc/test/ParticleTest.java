@@ -44,9 +44,9 @@ public class ParticleTest extends Core {
         rnr.getGraphics().scale(4);
         
         ParticleSetup emitter1setup = new ParticleSetup();
-        emitter1setup.validangle = new Vec2(0, 360);
+        emitter1setup.validangle = new Vec2(225, 335);
         emitter1setup.gravity = new Vec2(0, 0.02f);
-        emitter1setup.speed = 0.1f;
+        emitter1setup.speed = 0.3f;
         emitter1setup.size = 16;
         emitter1setup.rotation = 10;
         emitter1setup.growth = 0.98f;

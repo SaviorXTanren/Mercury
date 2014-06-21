@@ -206,7 +206,7 @@ public class VAOGraphics implements Graphics {
                 
                 TrueTypeFont.IntObject intobj = jf.chars[msg.toCharArray()[ci]];
                 
-                drawTexture(jf.font_tex, intobj.x, intobj.y, intobj.x + intobj.w, intobj.y + intobj.h, x + current_x, y, intobj.w * scale, intobj.h * scale);
+                drawTexture(jf.getFontTexture(), intobj.x, intobj.y, intobj.x + intobj.w, intobj.y + intobj.h, x + current_x, y, intobj.w * scale, intobj.h * scale);
                 current_x += intobj.w * scale;
             }
             

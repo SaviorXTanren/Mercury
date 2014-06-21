@@ -28,17 +28,17 @@ public interface Font extends Resource {
     /**
      * @return The height of the font.
      */
-    public int getHeight();
+    public float getHeight();
     
     /**
      * @return The height of the font.
      */
-    public int getLineHeight();
+    public float getLineHeight();
     
     /**
      * @return The width of a given character array.
      */
-    public int getWidth(char[] what);
+    public float getWidth(char[] what);
     
     /**
      * @return The overall texture used for rendering the font.

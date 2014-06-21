@@ -3,7 +3,6 @@ package us.radiri.merc.test;
 import static org.lwjgl.opengl.GL11.GL_NEAREST;
 import us.radiri.merc.fmwk.Core;
 import us.radiri.merc.fmwk.Runner;
-import us.radiri.merc.font.TrueTypeFont;
 import us.radiri.merc.gfx.FrameBuffer;
 import us.radiri.merc.gfx.Graphics;
 import us.radiri.merc.gfx.Shader;
@@ -46,8 +45,7 @@ public class FboTest extends Core {
     public void render(Graphics g) {
         fbo.use();
         {
-            TrueTypeFont f = (TrueTypeFont) g.getFont();
-            g.drawTexture(f.font_tex, 0, x++);
+            g.drawTexture(cuteface, x++, x++);
             
             g.getBatcher().flush();
         }

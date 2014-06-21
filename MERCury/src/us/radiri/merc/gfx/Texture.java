@@ -26,7 +26,6 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
 import us.radiri.merc.exc.MERCuryException;
-import us.radiri.merc.log.Logger;
 import us.radiri.merc.math.MercMath;
 import us.radiri.merc.res.Loader;
 import us.radiri.merc.res.Resource;
@@ -267,10 +266,6 @@ public class Texture implements Resource {
         // This is a little bit-shift trick from the interwebs.
         PoT = (bi.getWidth() & bi.getWidth() - 1) == 0;
         PoT = PoT && (bi.getHeight() & bi.getHeight() - 1) == 0;
-        
-        // Thou hast been warned!
-        if (!PoT)
-            Logger.warn("The provided Texture is NPoT (non power of two). Non-pot Textures cannot use GL_REPEAT.");
         
         // Set the parameters for filtering
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
