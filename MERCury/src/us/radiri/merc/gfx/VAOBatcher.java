@@ -124,6 +124,11 @@ public class VAOBatcher implements Batcher {
     }
     
     @Override
+    public Texture getTexture() {
+        return last_tex;
+    }
+    
+    @Override
     public void setColor(Color color) {
         if (color.equals(last_col))
             return;
@@ -136,6 +141,11 @@ public class VAOBatcher implements Batcher {
         if (last_col.equals(Color.DEFAULT_DRAWING))
             return;
         last_col = Color.DEFAULT_DRAWING;
+    }
+    
+    @Override
+    public Color getColor() {
+        return last_col;
     }
     
     @Override
@@ -154,6 +164,11 @@ public class VAOBatcher implements Batcher {
         flush();
         last_shader = Shader.getDefaultShader();
         Shader.useShader(last_shader);
+    }
+    
+    @Override
+    public Shader getShader() {
+        return last_shader;
     }
     
     @Override

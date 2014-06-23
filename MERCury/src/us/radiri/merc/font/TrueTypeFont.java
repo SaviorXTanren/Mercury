@@ -70,15 +70,15 @@ public class TrueTypeFont implements us.radiri.merc.font.Font {
     }
     
     private void createSet() {
-        for(int i = 0; i < 256; i++) {
-            char ch = (char)i;
+        for (int i = 0; i < 256; i++) {
+            char ch = (char) i;
             BufferedImage fontimg = getFontImage(ch);
             texw += fontimg.getWidth();
             texh = Math.max(fontimg.getHeight(), texh);
         }
         
-        texw/=4;
-        texh*=4;
+        texw /= 4;
+        texh *= 4;
         
         // Make a graphics object for the buffered image.
         BufferedImage imgTemp = new BufferedImage(texw, texh, BufferedImage.TYPE_INT_ARGB);

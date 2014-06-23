@@ -49,14 +49,14 @@ public class GUITest extends Core {
     public void init() {
         dAWWWW = Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/test/dAWWWW.png"));
         panel = Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/test/panel_main.png"));
-        tp = new TextBox("", new Rectangle(10, 50, 450, 330), 30, panel, TrueTypeFont.OPENSANS_REGULAR, Color.blue, Color.trans);
+        tp = new TextBox("", new Rectangle(10, 50, 450, 330), 30, panel, TrueTypeFont.OPENSANS_REGULAR, Color.blue, Color.black);
         
         tbl = Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/test/button_left.png"));
         tbr = Texture.loadTexture(tbl.getSourceImage(), true, false);
         tbm = Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/test/button_body.png"));
         
         tbartest = new TextBar("Sir, you are in danger! Please confirm you are alive:       ", tbl, tbr, tbm, 100, 600);
-        btn_screamforhelp = new Button("Scream For Help (C) (TM) (R) Button", tbl, tbr, tbm, 100, 605+tbartest.bounds.getHeight(), Color.white, Color.blue) {
+        btn_screamforhelp = new Button("Scream For Help (C) (TM) (R) Button", tbl, tbr, tbm, 100, 605 + tbartest.bounds.getHeight(), Color.white, Color.blue) {
             @Override
             public void act() {
                 backgroundcolor = Color.cyan;
@@ -84,7 +84,7 @@ public class GUITest extends Core {
             }
         });
         CommandList.addCommandList(cmdl);
-
+        
         heart.getGraphics().setBackground(Color.gray);
     }
     
@@ -99,7 +99,7 @@ public class GUITest extends Core {
     
     @Override
     public void render(Graphics g) {
-        for(Vec2 v : screamsforhelp)
+        for (Vec2 v : screamsforhelp)
             g.drawString(v.x, v.y, "HELP!");
         
         try {

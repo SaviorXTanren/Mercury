@@ -51,8 +51,7 @@ public class ParticleTest extends Core {
         emitter1setup.rotation = 10;
         emitter1setup.growth = 0.98f;
         emitter1setup.lifeinframes = 300;
-        Color col = Color.blue.duplicate();
-        col.a = 0.5f;
+        Color col = Color.magenta;
         emitter1setup.color = col;
         emitter1setup.texture = parent;
         

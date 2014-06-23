@@ -198,6 +198,9 @@ public class VAOGraphics implements Graphics {
             
             pull = false;
             
+            batcher.flush();
+            batcher.getShader().setUniformi("u_is_text", 1);
+            
             for (int ci = 0; ci < msg.toCharArray().length; ci++) {
                 if (msg.toCharArray()[ci] == '\n') {
                     y += jf.getLineHeight() * scale;
@@ -205,10 +208,13 @@ public class VAOGraphics implements Graphics {
                 }
                 
                 TrueTypeFont.IntObject intobj = jf.chars[msg.toCharArray()[ci]];
-                
-                drawTexture(jf.getFontTexture(), intobj.x, intobj.y, intobj.x + intobj.w, intobj.y + intobj.h, x + current_x, y, intobj.w * scale, intobj.h * scale);
+                SubTexture texchar = new SubTexture(jf.getFontTexture(), intobj.x, intobj.y, intobj.w, intobj.h);
+                drawTexture(texchar, x + current_x, y, intobj.w * scale, intobj.h * scale);
                 current_x += intobj.w * scale;
             }
+            
+            batcher.flush();
+            batcher.getShader().setUniformi("u_is_text", 0);
             
             pull = true;
             pullSetColor();

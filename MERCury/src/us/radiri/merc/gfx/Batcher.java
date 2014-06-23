@@ -28,6 +28,9 @@ public interface Batcher {
     /** Clears current color. */
     public void clearColors();
     
+    /** @return The current color. */
+    public Color getColor();
+    
     /**
      * @param shader
      *            Shader to set to.
@@ -37,6 +40,9 @@ public interface Batcher {
     /** Clears current shader. */
     public void clearShaders();
     
+    /** @return The current shader. */
+    public Shader getShader();
+    
     /**
      * @param texture
      *            Texture to set to.
@@ -45,6 +51,9 @@ public interface Batcher {
     
     /** Clears the current texture. */
     public void clearTextures();
+    
+    /** @return The current texture. */
+    public Texture getTexture();
     
     /**
      * Adds a vertex to the stack.

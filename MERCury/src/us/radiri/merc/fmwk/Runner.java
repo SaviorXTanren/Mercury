@@ -75,7 +75,7 @@ public class Runner {
      */
     private String debugdata = "";
     /** Whether or not the debugdata will be drawn to the screen. */
-    private boolean showdebug = true;
+    private boolean showdebug = false;
     
     /** The core being ran */
     private Core core;
