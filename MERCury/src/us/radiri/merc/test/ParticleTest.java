@@ -2,17 +2,17 @@ package us.radiri.merc.test;
 
 import org.lwjgl.input.Keyboard;
 
-import us.radiri.merc.fmwk.Core;
-import us.radiri.merc.fmwk.Runner;
-import us.radiri.merc.geo.Rectangle;
-import us.radiri.merc.geo.Vec2;
-import us.radiri.merc.gfx.Color;
-import us.radiri.merc.gfx.Graphics;
-import us.radiri.merc.gfx.Texture;
-import us.radiri.merc.in.Input;
-import us.radiri.merc.part.ParticleEmitter;
-import us.radiri.merc.part.ParticleEmitter.ParticleSetup;
-import us.radiri.merc.res.Loader;
+import us.radiri.merc.framework.Core;
+import us.radiri.merc.framework.Runner;
+import us.radiri.merc.geom.Rectangle;
+import us.radiri.merc.geom.Vec2;
+import us.radiri.merc.graphics.Color;
+import us.radiri.merc.graphics.Graphics;
+import us.radiri.merc.graphics.Texture;
+import us.radiri.merc.input.Input;
+import us.radiri.merc.particles.ParticleEmitter;
+import us.radiri.merc.particles.ParticleEmitter.ParticleSetup;
+import us.radiri.merc.resource.Loader;
 
 /**
  * @author wessles
@@ -55,7 +55,7 @@ public class ParticleTest extends Core {
         emitter1setup.color = col;
         emitter1setup.texture = parent;
         
-        emitter1 = new ParticleEmitter(new Rectangle(0, 0, parent.getTextureWidth(), parent.getTextureHeight()), emitter1setup);
+        emitter1 = new ParticleEmitter(new Rectangle(0, 0, parent.getWidth(), parent.getHeight()), emitter1setup);
     }
     
     int rate = 1;
@@ -70,7 +70,7 @@ public class ParticleTest extends Core {
         }
         
         emitter1.getEmitterBounds().translate(in.getAbsoluteMouseX() / 4 - emitter1.getEmitterBounds().getX(), in.getAbsoluteMouseY() / 4 - emitter1.getEmitterBounds().getY());
-        torchpos.set(emitter1.getEmitterBounds().getCenter().x - parent.getTextureWidth() / 2, emitter1.getEmitterBounds().getY());
+        torchpos.set(emitter1.getEmitterBounds().getCenter().x - parent.getWidth() / 2, emitter1.getEmitterBounds().getY());
         
         emitter1.update(delta);
         

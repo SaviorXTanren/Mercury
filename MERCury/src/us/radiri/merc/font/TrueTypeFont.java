@@ -9,9 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import us.radiri.merc.gfx.Texture;
-import us.radiri.merc.log.Logger;
-import us.radiri.merc.res.Loader;
+import us.radiri.merc.graphics.Texture;
+import us.radiri.merc.logging.Logger;
+import us.radiri.merc.resource.Loader;
 
 /**
  * A font type for .ttf's
@@ -29,9 +29,9 @@ public class TrueTypeFont implements us.radiri.merc.font.Font {
     
     static {
         try {
-            OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("us/radiri/merc/gfx/OpenSans-Semibold.ttf"), 20f, 1, true);
-            OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("us/radiri/merc/gfx/OpenSans-Semibold.ttf"), 20f, 1, true);
-            OPENSANS_SEMIBOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("us/radiri/merc/gfx/OpenSans-Semibold.ttf"), 20f, 1, true);
+            OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("us/radiri/merc/graphics/OpenSans-Semibold.ttf"), 20f, 1, true);
+            OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("us/radiri/merc/graphics/OpenSans-Semibold.ttf"), 20f, 1, true);
+            OPENSANS_SEMIBOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("us/radiri/merc/graphics/OpenSans-Semibold.ttf"), 20f, 1, true);
         } catch (IOException e) {
             Logger.warn("Problems loading default opensans fonts.");
         } catch (FontFormatException e) {

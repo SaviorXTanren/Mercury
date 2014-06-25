@@ -1,7 +1,7 @@
 package us.radiri.merc.font;
 
-import us.radiri.merc.gfx.Texture;
-import us.radiri.merc.res.Resource;
+import us.radiri.merc.graphics.Texture;
+import us.radiri.merc.resource.Resource;
 
 /**
  * An abstraction for fonts.

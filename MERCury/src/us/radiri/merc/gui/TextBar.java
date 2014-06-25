@@ -2,11 +2,11 @@ package us.radiri.merc.gui;
 
 import us.radiri.merc.font.Font;
 import us.radiri.merc.font.TrueTypeFont;
-import us.radiri.merc.geo.Rectangle;
-import us.radiri.merc.gfx.Color;
-import us.radiri.merc.gfx.Graphics;
-import us.radiri.merc.gfx.Texture;
-import us.radiri.merc.log.Logger;
+import us.radiri.merc.geom.Rectangle;
+import us.radiri.merc.graphics.Color;
+import us.radiri.merc.graphics.Graphics;
+import us.radiri.merc.graphics.Texture;
+import us.radiri.merc.logging.Logger;
 
 /**
  * @author wessles, Jeviny(quite postponed, to be honest)
@@ -17,7 +17,7 @@ public class TextBar extends Component {
     public Font textfont;
     
     public TextBar(String txt, Texture left, Texture right, Texture body, float x, float y, Color textcolor, Color backgroundcolor, Font textfont) {
-        super(txt, x, y, textfont.getWidth(txt.toCharArray()) + (left != null ? left.getTextureWidth() : 0) + (right != null ? right.getTextureWidth() : 0), body != null ? body.getTextureHeight() : textfont.getHeight());
+        super(txt, x, y, textfont.getWidth(txt.toCharArray()) + (left != null ? left.getWidth() : 0) + (right != null ? right.getWidth() : 0), body != null ? body.getHeight() : textfont.getHeight());
         
         if (txt.contains("\n"))
             Logger.warn("Text Bars will not display new lines correctly, so beware!");
@@ -60,21 +60,21 @@ public class TextBar extends Component {
         }
         
         if (body != null) {
-            for (float i = 0; i < contentWidth(); i += body.getTextureWidth()) {
-                i = i > contentWidth() - body.getTextureWidth() ? contentWidth() : i;
-                float fit = i / body.getTextureWidth();
-                float overflow = body.getTextureWidth() * (fit % 1);
+            for (float i = 0; i < contentWidth(); i += body.getWidth()) {
+                i = i > contentWidth() - body.getWidth() ? contentWidth() : i;
+                float fit = i / body.getWidth();
+                float overflow = body.getWidth() * (fit % 1);
                 boolean last = overflow != 0;
-                Rectangle bounds = new Rectangle(this.bounds.getX() + i - overflow + left.getTextureWidth(), this.bounds.getY(), last ? overflow : body.getTextureWidth(), body.getTextureHeight());
+                Rectangle bounds = new Rectangle(this.bounds.getX() + i - overflow + left.getWidth(), this.bounds.getY(), last ? overflow : body.getWidth(), body.getHeight());
                 
                 g.pushSetColor(backgroundcolor);
-                g.drawTexture(body, 0, 0, last ? overflow : body.getTextureWidth(), body.getTextureHeight(), bounds);
+                g.drawTexture(body, 0, 0, last ? overflow : body.getWidth(), body.getHeight(), bounds);
             }
         }
         
         if (right != null) {
             g.pushSetColor(backgroundcolor);
-            g.drawTexture(right, bounds.getX() + left.getTextureWidth() + contentWidth(), bounds.getY());
+            g.drawTexture(right, bounds.getX() + left.getWidth() + contentWidth(), bounds.getY());
         }
         
         renderContent(g);
@@ -85,7 +85,7 @@ public class TextBar extends Component {
         g.pushSetColor(textcolor);
         
         if (left != null)
-            g.drawString(bounds.getX() + left.getTextureWidth(), bounds.getY() + bounds.getHeight() / 2 - textfont.getHeight() / 2, content);
+            g.drawString(bounds.getX() + left.getWidth(), bounds.getY() + bounds.getHeight() / 2 - textfont.getHeight() / 2, content);
         else
             g.drawString(bounds.getX(), bounds.getY(), content);
     }

@@ -1,12 +1,12 @@
 package us.radiri.merc.test;
 
-import us.radiri.merc.fmwk.Core;
-import us.radiri.merc.fmwk.Runner;
-import us.radiri.merc.geo.Circle;
-import us.radiri.merc.geo.Rectangle;
-import us.radiri.merc.geo.Triangle;
-import us.radiri.merc.geo.Vec2;
-import us.radiri.merc.gfx.Graphics;
+import us.radiri.merc.framework.Core;
+import us.radiri.merc.framework.Runner;
+import us.radiri.merc.geom.Circle;
+import us.radiri.merc.geom.Rectangle;
+import us.radiri.merc.geom.Triangle;
+import us.radiri.merc.geom.Vec2;
+import us.radiri.merc.graphics.Graphics;
 
 /**
  * According to this test, the following collision events are valid: [see method
@@ -74,7 +74,7 @@ public class CollisionTest extends Core {
             g.drawTriangle(t2);
         }
         
-        t2.translate(0, -0.2f);
+        t2.translate(0f, -0.2f);
         t2.rotate(0.1f);
     }
     

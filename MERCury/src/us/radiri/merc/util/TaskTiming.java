@@ -2,7 +2,7 @@ package us.radiri.merc.util;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import us.radiri.merc.exc.TaskException;
+import us.radiri.merc.exceptions.TaskException;
 
 /**
  * An easy to use utility for one-shot, and reccuring timertasks. Operates on

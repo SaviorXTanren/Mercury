@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import us.radiri.merc.font.Font;
 import us.radiri.merc.font.TrueTypeFont;
-import us.radiri.merc.geo.Rectangle;
-import us.radiri.merc.gfx.Color;
-import us.radiri.merc.gfx.Graphics;
-import us.radiri.merc.gfx.Texture;
+import us.radiri.merc.geom.Rectangle;
+import us.radiri.merc.graphics.Color;
+import us.radiri.merc.graphics.Graphics;
+import us.radiri.merc.graphics.Texture;
 
 /**
  * @author wessles, Jeviny

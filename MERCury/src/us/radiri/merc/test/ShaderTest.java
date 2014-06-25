@@ -1,14 +1,14 @@
 package us.radiri.merc.test;
 
-import us.radiri.merc.fmwk.Core;
-import us.radiri.merc.fmwk.Runner;
-import us.radiri.merc.geo.Rectangle;
-import us.radiri.merc.gfx.Color;
-import us.radiri.merc.gfx.Graphics;
-import us.radiri.merc.gfx.Shader;
-import us.radiri.merc.gfx.Texture;
-import us.radiri.merc.res.Loader;
-import us.radiri.merc.spl.SplashScreen;
+import us.radiri.merc.framework.Core;
+import us.radiri.merc.framework.Runner;
+import us.radiri.merc.geom.Rectangle;
+import us.radiri.merc.graphics.Color;
+import us.radiri.merc.graphics.Graphics;
+import us.radiri.merc.graphics.Shader;
+import us.radiri.merc.graphics.Texture;
+import us.radiri.merc.resource.Loader;
+import us.radiri.merc.splash.SplashScreen;
 
 /**
  * An object version of shaders. Does all of the tedius stuff for you and lets

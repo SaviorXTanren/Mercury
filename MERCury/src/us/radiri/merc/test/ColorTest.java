@@ -1,27 +1,27 @@
 package us.radiri.merc.test;
 
-import static us.radiri.merc.gfx.Color.black;
-import static us.radiri.merc.gfx.Color.blue;
-import static us.radiri.merc.gfx.Color.coal;
-import static us.radiri.merc.gfx.Color.cyan;
-import static us.radiri.merc.gfx.Color.gray;
-import static us.radiri.merc.gfx.Color.green;
-import static us.radiri.merc.gfx.Color.magenta;
-import static us.radiri.merc.gfx.Color.marble;
-import static us.radiri.merc.gfx.Color.ocean;
-import static us.radiri.merc.gfx.Color.orange;
-import static us.radiri.merc.gfx.Color.rasberry;
-import static us.radiri.merc.gfx.Color.red;
-import static us.radiri.merc.gfx.Color.springgreen;
-import static us.radiri.merc.gfx.Color.turquoise;
-import static us.radiri.merc.gfx.Color.violet;
-import static us.radiri.merc.gfx.Color.white;
-import static us.radiri.merc.gfx.Color.yellow;
-import us.radiri.merc.fmwk.Core;
-import us.radiri.merc.fmwk.Runner;
-import us.radiri.merc.geo.Rectangle;
-import us.radiri.merc.gfx.Color;
-import us.radiri.merc.gfx.Graphics;
+import static us.radiri.merc.graphics.Color.black;
+import static us.radiri.merc.graphics.Color.blue;
+import static us.radiri.merc.graphics.Color.coal;
+import static us.radiri.merc.graphics.Color.cyan;
+import static us.radiri.merc.graphics.Color.gray;
+import static us.radiri.merc.graphics.Color.green;
+import static us.radiri.merc.graphics.Color.magenta;
+import static us.radiri.merc.graphics.Color.marble;
+import static us.radiri.merc.graphics.Color.ocean;
+import static us.radiri.merc.graphics.Color.orange;
+import static us.radiri.merc.graphics.Color.rasberry;
+import static us.radiri.merc.graphics.Color.red;
+import static us.radiri.merc.graphics.Color.springgreen;
+import static us.radiri.merc.graphics.Color.turquoise;
+import static us.radiri.merc.graphics.Color.violet;
+import static us.radiri.merc.graphics.Color.white;
+import static us.radiri.merc.graphics.Color.yellow;
+import us.radiri.merc.framework.Core;
+import us.radiri.merc.framework.Runner;
+import us.radiri.merc.geom.Rectangle;
+import us.radiri.merc.graphics.Color;
+import us.radiri.merc.graphics.Graphics;
 
 /**
  * Colors got screwed up... So this should be a good tool for the future and

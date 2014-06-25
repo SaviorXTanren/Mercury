@@ -1,8 +1,8 @@
 package us.radiri.merc.gui;
 
-import us.radiri.merc.env.Renderable;
-import us.radiri.merc.geo.Rectangle;
-import us.radiri.merc.gfx.Graphics;
+import us.radiri.merc.environment.Renderable;
+import us.radiri.merc.geom.Rectangle;
+import us.radiri.merc.graphics.Graphics;
 
 /**
  * @author wessles, Jeviny

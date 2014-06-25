@@ -1,13 +1,13 @@
 package us.radiri.merc.test;
 
 import static org.lwjgl.opengl.GL11.GL_NEAREST;
-import us.radiri.merc.fmwk.Core;
-import us.radiri.merc.fmwk.Runner;
-import us.radiri.merc.gfx.FrameBuffer;
-import us.radiri.merc.gfx.Graphics;
-import us.radiri.merc.gfx.Shader;
-import us.radiri.merc.gfx.Texture;
-import us.radiri.merc.res.Loader;
+import us.radiri.merc.framework.Core;
+import us.radiri.merc.framework.Runner;
+import us.radiri.merc.graphics.FrameBuffer;
+import us.radiri.merc.graphics.Graphics;
+import us.radiri.merc.graphics.Shader;
+import us.radiri.merc.graphics.Texture;
+import us.radiri.merc.resource.Loader;
 
 /**
  * @author wessles

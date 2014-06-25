@@ -2,7 +2,7 @@ package us.radiri.merc.util;
 
 import java.util.ArrayList;
 
-import us.radiri.merc.geo.Vec2;
+import us.radiri.merc.geom.Vec2;
 
 /**
  * A utilities class for arrays.
