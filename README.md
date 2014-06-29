@@ -6,7 +6,7 @@ MERCury puts all of its resources into keeping things short and simple. The init
 
 MERCury is developed by a small team of programmers who just want to learn how to make something useful. We all have a lot of fun developing it, and it would be our pleasure to hear that someone actually found it useful, so please contact us with anything you have for us. MERCury's TODO list is driven purely by the will of the users so if you have any questions or concerns, please do not hesitate to ask!  
 
-## FEATURES
+## Features
 MERCury comes packed with a ton of brilliant features designed to ensure that the games you create with MERCury are amazing. These many features include a particle engine, command-line debugging, advanced hardware-accelerated OpenGL graphics, image post-processing, geometry, various audio capabilities, and a *stunning* GUI toolkit that allows for easy creation of beautiful graphical user interfaces.
 
 ## Links
