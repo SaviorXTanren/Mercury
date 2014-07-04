@@ -79,7 +79,7 @@ public class Animation implements Resource {
             throw new ArithmeticException("Invalid ending frame.");
         
         first = startframe;
-        last = endframe;
+        last = endframe+1;
         
         this.bounce = bounce;
     }
@@ -122,13 +122,13 @@ public class Animation implements Resource {
         
         if (framemillis - lastframemillis >= frameratemillis) {
             
+            frame += framestep;
+            
             if (!(frame + framestep <= last && frame + framestep >= 0))
                 if (bounce)
                     framestep *= -1;
                 else
                     frame = first;
-            
-            frame += framestep;
             
             lastframemillis = System.currentTimeMillis();
             return frame == first;

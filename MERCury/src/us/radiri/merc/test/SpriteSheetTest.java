@@ -27,7 +27,7 @@ public class SpriteSheetTest extends Core {
     
     @Override
     public void init() {
-        sheet = SpriteSheet.loadSpriteSheet(Texture.loadTexture(Loader.stream("us/radiri/merc/test/tiles.png")), 16, 16);
+        sheet = SpriteSheet.loadSpriteSheet(Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/test/tiles.png")), 16, 16);
         anm = new Animation(300, sheet, 0, 6);
     }
     

@@ -10,7 +10,6 @@ import org.lwjgl.opengl.Display;
 import us.radiri.merc.framework.Runner;
 import us.radiri.merc.geom.Point;
 import us.radiri.merc.geom.Vec2;
-import us.radiri.merc.logging.Logger;
 
 /**
  * An object form of input.
@@ -294,11 +293,9 @@ public class Input {
      */
     public Vec2 getGlobalMousePosition() {
         Vec2 globalmousepos = getAbsoluteMousePosition();
-        
-        Vec2 scaledcampos = new Vec2(Runner.getInstance().getCamera().getPosition().x, Runner.getInstance().getCamera().getPosition().y);
-        
-        Logger.debug(scaledcampos);
-        
+
+        // Scale!
+        globalmousepos.div(Runner.getInstance().getGraphics().getScaleDimensions());
         // Move to camera position
         globalmousepos.add(Runner.getInstance().getCamera().getPosition());
         return globalmousepos;

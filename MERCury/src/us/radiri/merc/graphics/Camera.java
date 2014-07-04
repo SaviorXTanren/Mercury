@@ -4,6 +4,7 @@ import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import us.radiri.merc.framework.Runner;
+import us.radiri.merc.geom.Rectangle;
 import us.radiri.merc.geom.Vec2;
 
 /**
@@ -118,5 +119,10 @@ public class Camera {
      */
     public Vec2 getPosition() {
         return new Vec2(-x, -y);
+    }
+    
+    /** Returns an in-game rectangle that represents where the camera lies. */
+    public Rectangle getBounds() {
+        return new Rectangle(getPositionX(), getPositionY(), getWidth(), getHeight());
     }
 }

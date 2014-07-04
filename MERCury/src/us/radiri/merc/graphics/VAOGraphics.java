@@ -313,13 +313,10 @@ public class VAOGraphics implements Graphics {
             sy1 = subtexture.getSubY();
             sx2 = subtexture.getSubX() + subtexture.getSubWidth();
             sy2 = subtexture.getSubY() + subtexture.getSubHeight();
-            
-            sy1 = subtexture.getSubWidth() - sy1;
-            sy2 = subtexture.getSubHeight() - sy2;
-        } else {
-            sy1 = h - sy1;
-            sy2 = h - sy2;
         }
+
+        sy1 = h - sy1;
+        sy2 = h - sy2;
         
         sx1 /= w;
         sy1 /= h;

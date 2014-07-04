@@ -2,8 +2,11 @@ package us.radiri.merc.gui;
 
 import us.radiri.merc.environment.Renderable;
 import us.radiri.merc.environment.Updatable;
+import us.radiri.merc.framework.Runner;
 import us.radiri.merc.geom.Rectangle;
+import us.radiri.merc.geom.Vec2;
 import us.radiri.merc.graphics.Graphics;
+import us.radiri.merc.input.Input;
 
 /**
  * @author wessles, Jeviny
@@ -57,5 +60,16 @@ public class Component implements Updatable, Renderable {
         public void setParent(Component parent) {
             this.parent = parent;
         }
+    }
+    
+    public static boolean isClicked(Rectangle bounds) {
+        Input in = Runner.getInstance().getInput();
+        Vec2 globalmousepos = in.getGlobalMousePosition();
+        
+        if (bounds.contains(globalmousepos))
+            if (in.mouseClicked(0))
+                return true;
+        
+        return false;
     }
 }

@@ -2,12 +2,9 @@ package us.radiri.merc.gui;
 
 import us.radiri.merc.font.Font;
 import us.radiri.merc.font.TrueTypeFont;
-import us.radiri.merc.framework.Runner;
-import us.radiri.merc.geom.Vec2;
 import us.radiri.merc.graphics.Graphics;
 import us.radiri.merc.graphics.SpriteSheet;
 import us.radiri.merc.graphics.Texture;
-import us.radiri.merc.input.Input;
 import us.radiri.merc.resource.Loader;
 
 /**
@@ -41,7 +38,7 @@ public class CheckBox extends Component {
     }
     
     public CheckBox(String txt, float x, float y, Texture unchecked, Texture checked, float boxsize, boolean boxtoleftoftext, Font font) {
-        super(txt, x, y, font.getWidth(txt.toCharArray()) + Math.max(unchecked.getWidth(), checked.getWidth()), Math.max(font.getHeight(), Math.max(unchecked.getHeight(), checked.getHeight())));
+        super(txt, x, y, font.getWidth(txt.toCharArray()) + Math.max(unchecked.getWidth(), checked.getWidth()), Math.max(font.getHeight(), boxsize));
         this.font = font;
         this.unchecked = unchecked;
         this.checked = checked;
@@ -53,15 +50,7 @@ public class CheckBox extends Component {
         this.addActionCheck(new ActionCheck() {
             @Override
             public boolean isActed() {
-                Input in = Runner.getInstance().getInput();
-                
-                Vec2 globalmousepos = in.getGlobalMousePosition();
-                
-                if (bounds.contains(globalmousepos))
-                    if (in.mouseClicked(0))
-                        return true;
-                
-                return false;
+                return isClicked(bounds);
             }
             
             @Override
@@ -71,6 +60,7 @@ public class CheckBox extends Component {
             
             @Override
             public void noAct() {
+                
             }
         });
     }
