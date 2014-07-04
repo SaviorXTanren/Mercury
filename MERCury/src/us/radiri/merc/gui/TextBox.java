@@ -77,19 +77,18 @@ public class TextBox extends Component {
     
     @Override
     public void renderContent(Graphics g) {
-        g.setFont(textfont);
         g.pushSetColor(textCol);
-        g.drawString(bounds.getX() + margin, bounds.getY() + margin, content);
+        g.drawString(textfont, bounds.getX() + margin, bounds.getY() + margin, content);
     }
     
     @Override
-    public void update() {
-        super.update();
+    public void update(float delta) {
+        super.update(delta);
         
         for (int i = 0; i < buttons.size(); i++) {
             Button b = buttons.get(i);
             
-            b.update();
+            b.update(delta);
         }
     }
     

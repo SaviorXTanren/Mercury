@@ -92,7 +92,7 @@ public class GUITest extends Core {
     public void update(float delta) {
         char nextchar = Runner.getInstance().getInput().getNextCharacter();
         tbartest.content += nextchar != 0 ? nextchar : "";
-        btn_screamforhelp.update();
+        btn_screamforhelp.update(delta);
     }
     
     Rectangle bounds = new Rectangle(600, 100, 256);

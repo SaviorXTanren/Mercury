@@ -1,13 +1,14 @@
 package us.radiri.merc.gui;
 
 import us.radiri.merc.environment.Renderable;
+import us.radiri.merc.environment.Updatable;
 import us.radiri.merc.geom.Rectangle;
 import us.radiri.merc.graphics.Graphics;
 
 /**
  * @author wessles, Jeviny
  */
-public class Component implements Renderable {
+public class Component implements Updatable, Renderable {
     public String content;
     
     private ActionCheck acheck;
@@ -20,7 +21,8 @@ public class Component implements Renderable {
         this.bounds = new Rectangle(x, y, w, h);
     }
     
-    public void update() {
+    @Override
+    public void update(float delta) {
         if (acheck != null)
             if (acheck.isActed())
                 acheck.act();

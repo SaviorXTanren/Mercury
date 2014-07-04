@@ -117,6 +117,6 @@ public class Camera {
      * @return The real world position of the camera.
      */
     public Vec2 getPosition() {
-        return new Vec2(Runner.getInstance().getWidth() - x, Runner.getInstance().getHeight() - y);
+        return new Vec2(-x, -y);
     }
 }

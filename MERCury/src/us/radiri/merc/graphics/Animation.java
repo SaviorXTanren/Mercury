@@ -88,7 +88,7 @@ public class Animation implements Resource {
      * Renders the current frame at x and y.
      */
     public void render(float x, float y, Graphics g) {
-        render(x, y, texs.getTexture(frame).getWidth(), texs.getTexture(0).getHeight(), g);
+        render(x, y, texs.getTexture(frame).getSubWidth(), texs.getTexture(0).getSubHeight(), g);
     }
     
     /**

@@ -85,9 +85,9 @@ public class TextBar extends Component {
         g.pushSetColor(textcolor);
         
         if (left != null)
-            g.drawString(bounds.getX() + left.getWidth(), bounds.getY() + bounds.getHeight() / 2 - textfont.getHeight() / 2, content);
+            g.drawString(textfont, bounds.getX() + left.getWidth(), bounds.getY() + bounds.getHeight() / 2 - textfont.getHeight() / 2, content);
         else
-            g.drawString(bounds.getX(), bounds.getY(), content);
+            g.drawString(textfont, bounds.getX(), bounds.getY(), content);
     }
     
     public float contentWidth() {

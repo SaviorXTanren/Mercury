@@ -22,22 +22,18 @@ public abstract class Button extends TextBar {
     
     public Button(String txt, float x, float y, Color textcolor, Color backgroundcolor) {
         this(txt, null, null, null, x, y, textcolor, backgroundcolor, TrueTypeFont.OPENSANS_REGULAR);
-        addDefaultActionCheck();
     }
     
     public Button(String txt, Texture left, Texture right, Texture body, float x, float y, Color textcolor, Color backgroundcolor) {
         this(txt, left, right, body, x, y, textcolor, backgroundcolor, TrueTypeFont.OPENSANS_REGULAR);
-        addDefaultActionCheck();
     }
     
     public Button(String txt, Texture left, Texture right, Texture body, float x, float y) {
         this(txt, left, right, body, x, y, Color.black, Color.white);
-        addDefaultActionCheck();
     }
     
     public Button(String txt, float x, float y) {
         this(txt, x, y, Color.black, Color.white);
-        addDefaultActionCheck();
     }
     
     private void addDefaultActionCheck() {
@@ -79,7 +75,7 @@ public abstract class Button extends TextBar {
     public static boolean isClicked(Rectangle bounds) {
         Graphics g = Runner.getInstance().getGraphics();
         Input in = Runner.getInstance().getInput();
-        Vec2 mousepos = in.getAbsoluteMousePosition().toVec2();
+        Vec2 mousepos = in.getAbsoluteMousePosition();
         mousepos.div(g.getScaleDimensions());
         if (bounds.contains(mousepos))
             if (in.mouseClicked(0))

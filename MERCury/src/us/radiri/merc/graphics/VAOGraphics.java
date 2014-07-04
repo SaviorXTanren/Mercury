@@ -227,8 +227,12 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void drawTexture(Texture texture, float x, float y) {
-        drawTexture(texture, x, y, texture.getWidth(), texture.getHeight());
-    }
+        if (!(texture instanceof SubTexture))
+            drawTexture(texture, x, y, texture.getWidth(), texture.getHeight());
+        else {
+            SubTexture subtexture = (SubTexture) texture;
+            drawTexture(texture, x, y, subtexture.getSubWidth(), subtexture.getSubHeight());
+        }    }
     
     @Override
     public void drawTexture(Texture texture, float x, float y, float w, float h) {
@@ -237,7 +241,12 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y) {
-        drawTexture(texture, sx1, sy1, sx2, sy2, x, y, texture.getWidth(), texture.getHeight());
+        if (!(texture instanceof SubTexture))
+            drawTexture(texture, sx1, sy1, sx2, sy2, x, y, texture.getWidth(), texture.getHeight());
+        else {
+            SubTexture subtexture = (SubTexture) texture;
+            drawTexture(texture, sx1, sy1, sx2, sy2, x, y, subtexture.getSubWidth(), subtexture.getSubHeight());
+        }
     }
     
     @Override
@@ -252,7 +261,12 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void drawTexture(Texture texture, Rectangle rect) {
-        drawTexture(texture, 0, 0, texture.getWidth(), texture.getHeight(), rect);
+        if (!(texture instanceof SubTexture))
+            drawTexture(texture, 0, 0, texture.getWidth(), texture.getHeight(), rect);
+        else {
+            SubTexture subtexture = (SubTexture) texture;
+            drawTexture(texture, 0, 0, subtexture.getSubWidth(), subtexture.getSubHeight(), rect);
+        }
     }
     
     @Override
@@ -284,11 +298,28 @@ public class VAOGraphics implements Graphics {
         float x4 = rectangle.getVertices()[3].x;
         float y4 = rectangle.getVertices()[3].y;
         
-        float w = texture.getWidth();
-        float h = texture.getHeight();
+        // Make a hypothetical subtexture of the texture
+        SubTexture subtexture = null;
+        if (texture instanceof SubTexture)
+            subtexture = (SubTexture) texture;
         
-        sy1 = h - sy1;
-        sy2 = h - sy2;
+        float w, h;
+        
+        w = texture.getWidth();
+        h = texture.getHeight();
+        
+        if (texture instanceof SubTexture) {
+            sx1 = subtexture.getSubX();
+            sy1 = subtexture.getSubY();
+            sx2 = subtexture.getSubX() + subtexture.getSubWidth();
+            sy2 = subtexture.getSubY() + subtexture.getSubHeight();
+            
+            sy1 = subtexture.getSubWidth() - sy1;
+            sy2 = subtexture.getSubHeight() - sy2;
+        } else {
+            sy1 = h - sy1;
+            sy2 = h - sy2;
+        }
         
         sx1 /= w;
         sy1 /= h;
@@ -305,26 +336,6 @@ public class VAOGraphics implements Graphics {
         batcher.vertex(x3, y3, sx2, sy2);
         batcher.vertex(x4, y4, sx1, sy2);
         batcher.vertex(x2, y2, sx2, sy1);
-    }
-    
-    @Override
-    public void drawTexture(SubTexture texture, float x, float y) {
-        drawTexture(texture, x, y, texture.getWidth(), texture.getHeight());
-    }
-    
-    @Override
-    public void drawTexture(SubTexture texture, float x, float y, float w, float h) {
-        drawTexture(texture, new Rectangle(x, y, w, h));
-    }
-    
-    @Override
-    public void drawTexture(SubTexture texture, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
-        drawTexture(texture, new Rectangle(x1, y1, x2, y2, x3, y3, x4, y4));
-    }
-    
-    @Override
-    public void drawTexture(SubTexture texture, Rectangle rect) {
-        drawTexture(texture.getParent(), texture.getX(), texture.getY(), texture.getX() + texture.getWidth(), texture.getY() + texture.getHeight(), rect);
     }
     
     @Override

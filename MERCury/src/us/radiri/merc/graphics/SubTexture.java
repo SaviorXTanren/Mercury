@@ -4,12 +4,13 @@ package us.radiri.merc.graphics;
  * @author opiop65 (base code), wessles (modifications)
  */
 
-public class SubTexture {
+public class SubTexture extends Texture {
     
     private Texture parent;
     private float x, y, w, h;
     
     public SubTexture(Texture parent, float x, float y, float w, float h) {
+        super(parent.getTextureId(), parent.getWidth(), parent.getHeight(), parent.isPoT(), parent.getSourceImage());
         this.parent = parent;
         this.x = x;
         this.y = y;
@@ -21,19 +22,19 @@ public class SubTexture {
         return parent;
     }
     
-    public float getX() {
+    public float getSubX() {
         return x;
     }
     
-    public float getY() {
+    public float getSubY() {
         return y;
     }
     
-    public float getWidth() {
+    public float getSubWidth() {
         return w;
     }
     
-    public float getHeight() {
+    public float getSubHeight() {
         return h;
     }
 }

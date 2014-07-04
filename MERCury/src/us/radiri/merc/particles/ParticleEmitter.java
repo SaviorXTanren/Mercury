@@ -48,7 +48,7 @@ public class ParticleEmitter implements Entity {
          */
         public float acceleration = 0.98f;
         /** The value that adds to the x and y of each particle each frame. */
-        public Vec2 gravity;
+        public Vec2 gravity = new Vec2(0, 0);
         /**
          * The amount of frames that will pass a single particle before
          * death/removal.

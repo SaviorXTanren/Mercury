@@ -7,7 +7,10 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
+import us.radiri.merc.framework.Runner;
 import us.radiri.merc.geom.Point;
+import us.radiri.merc.geom.Vec2;
+import us.radiri.merc.logging.Logger;
 
 /**
  * An object form of input.
@@ -62,6 +65,7 @@ public class Input {
     public static final int KEY_GRAVE = 0x29;
     public static final int KEY_LSHIFT = 0x2A;
     public static final int KEY_BACKSLASH = 0x2B;
+    // Wow, this is a lot.
     public static final int KEY_Z = 0x2C;
     public static final int KEY_X = 0x2D;
     public static final int KEY_C = 0x2E;
@@ -96,6 +100,7 @@ public class Input {
     public static final int KEY_NUMPAD4 = 0x4B;
     public static final int KEY_NUMPAD5 = 0x4C;
     public static final int KEY_NUMPAD6 = 0x4D;
+    // Oh my..
     public static final int KEY_ADD = 0x4E;
     public static final int KEY_NUMPAD1 = 0x4F;
     public static final int KEY_NUMPAD2 = 0x50;
@@ -128,6 +133,7 @@ public class Input {
     public static final int KEY_RMENU = 0xB8;
     public static final int KEY_PAUSE = 0xC5;
     public static final int KEY_HOME = 0xC7;
+    // So many!
     public static final int KEY_UP = 0xC8;
     public static final int KEY_PRIOR = 0xC9;
     public static final int KEY_LEFT = 0xCB;
@@ -262,8 +268,8 @@ public class Input {
      * @return The mouse 'correct' position (Has to do with the opengl origin
      *         being bottom left, and ours being top left).
      */
-    public Point getAbsoluteMousePosition() {
-        return new Point(Mouse.getX(), Display.getHeight() - 1 - Mouse.getY());
+    public Vec2 getAbsoluteMousePosition() {
+        return new Vec2(getMouseX(), Display.getHeight() - 1 - getMouseY());
     }
     
     /**
@@ -271,7 +277,7 @@ public class Input {
      *         origin being bottom left, and ours being top left).
      */
     public int getAbsoluteMouseX() {
-        return Mouse.getX();
+        return (int) getAbsoluteMousePosition().x;
     }
     
     /**
@@ -279,7 +285,39 @@ public class Input {
      *         origin being bottom left, and ours being top left).
      */
     public int getAbsoluteMouseY() {
-        return Display.getHeight() - 1 - Mouse.getY();
+        return (int) getAbsoluteMousePosition().y;
+    }
+    
+    /**
+     * @return The global mouse position based on the displacement of the
+     *         Runner's Camera and the scaling of the graphics.
+     */
+    public Vec2 getGlobalMousePosition() {
+        Vec2 globalmousepos = getAbsoluteMousePosition();
+        
+        Vec2 scaledcampos = new Vec2(Runner.getInstance().getCamera().getPosition().x, Runner.getInstance().getCamera().getPosition().y);
+        
+        Logger.debug(scaledcampos);
+        
+        // Move to camera position
+        globalmousepos.add(Runner.getInstance().getCamera().getPosition());
+        return globalmousepos;
+    }
+    
+    /**
+     * @return The global mouse x position based on the displacement of the
+     *         Runner's Camera and the scaling of the graphics.
+     */
+    public float getGlobalMouseX() {
+        return getGlobalMousePosition().x;
+    }
+    
+    /**
+     * @return The global mouse y position based on the displacement of the
+     *         Runner's Camera and the scaling of the graphics.
+     */
+    public float getGlobalMouseY() {
+        return getGlobalMousePosition().y;
     }
     
     /**

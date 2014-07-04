@@ -18,6 +18,7 @@ public class Triangle extends Shape {
         return getWidth() * getHeight() / 2;
     }
     
+    @Override
     public boolean contains(Vec2 v) {
         // Source:
         // http://stackoverflow.com/questions/2049582/how-to-determine-a-point-in-a-triangle

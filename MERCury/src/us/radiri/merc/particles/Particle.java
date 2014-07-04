@@ -30,7 +30,6 @@ public class Particle implements Entity, Wipeable {
         this.size = emitter.getOptions().size;
         
         Rectangle emitterbounds = new Rectangle(emitter.getEmitterBounds().getX(), emitter.getEmitterBounds().getY(), emitter.getEmitterBounds().getWidth(), emitter.getEmitterBounds().getHeight());
-        emitterbounds.translate(-emitterbounds.getWidth()/2, -emitterbounds.getHeight()/2);
         float x = (float) MercMath.random(emitterbounds.getX(),emitterbounds.getX2()), y = (float) MercMath.random(emitterbounds.getY(), emitterbounds.getY2());
         pos = new Vec2(x, y);
         vel = new Vec2(angle);
