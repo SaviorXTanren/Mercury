@@ -4,7 +4,7 @@ MERCury is a small game library designed to simplify the complex and shorten the
 
 MERCury puts all of its resources into keeping things short and simple. The initial setup of a game consists only of making a single class; then you are done. The interface is entirely documented for easy and fast learning, so once you are started, there is nothing between you and the end result but coding and creativity. 
 
-MERCury is developed by a small but dedicated team of programmers. We all have a lot of fun developing it, and it would be our pleasure to hear that someone found it useful, so please contact us with anything you have for us. MERCury's TODO list is driven purely by the will of the users so if you have any questions or concerns, please do not hesitate to ask!  
+MERCury's TODO list is driven purely by the will of the users so if you have any questions or concerns, please do not hesitate to ask!  
 
 ## Features
 MERCury comes packed with a ton of brilliant features designed to ensure that the games you create with MERCury are amazing. These many features include a particle engine, command-line debugging, advanced hardware-accelerated OpenGL graphics, image post-processing, geometry, various audio capabilities, and a *stunning* GUI toolkit that allows for the easy creation of beautiful graphical user interfaces.
