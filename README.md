@@ -10,7 +10,6 @@ MERCury's TODO list is driven purely by the will of the users so if you have any
 MERCury comes packed with a ton of brilliant features designed to ensure that the games you create with MERCury are amazing. These many features include a particle engine, command-line debugging, advanced hardware-accelerated OpenGL graphics, image post-processing, geometry, various audio capabilities, and a *stunning* GUI toolkit that allows for the easy creation of beautiful graphical user interfaces.
 
 ## Links
-**[Our Website](http://merc.radiri.us/)**  
 **[Our Wiki](https://github.com/weslgames/MERCury/wiki/)**  
 **[Our Subreddit](http://www.reddit.com/r/mercurylib/)**  
 
