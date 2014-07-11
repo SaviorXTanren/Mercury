@@ -32,7 +32,7 @@ public class Window extends Panel {
     
     public Window(String name, Rectangle bounds, float padding) {
         this(name, TrueTypeFont.OPENSANS_REGULAR, Color.DEFAULT_TEXT_COLOR, bounds, padding, getDefaultTextures()
-                .getTexture(0).convertToCapableTexture(), getDefaultTexture(), getDefaultTextures().getTexture(
+                .getTexture(0).convertToTexture(), getDefaultTexture(), getDefaultTextures().getTexture(
                 2), new ImageButton(new Rectangle(0, 0, 16, 16)));
     }
     
@@ -48,7 +48,7 @@ public class Window extends Panel {
     
     public Window(String name, Color namecol, Rectangle bounds, float padding) {
         this(name, TrueTypeFont.OPENSANS_REGULAR, namecol, bounds, padding, getDefaultTextures().getTexture(0)
-                .convertToCapableTexture(), getDefaultTexture(), getDefaultTextures().getTexture(2),
+                .convertToTexture(), getDefaultTexture(), getDefaultTextures().getTexture(2),
                 new ImageButton(new Rectangle(0, 0, 16, 16)));
     }
     
@@ -62,7 +62,7 @@ public class Window extends Panel {
     }
     
     public Window(String name, Font namefont, Color namecol, Rectangle bounds, float padding) {
-        this(name, namefont, namecol, bounds, padding, getDefaultTextures().getTexture(0).convertToCapableTexture(),
+        this(name, namefont, namecol, bounds, padding, getDefaultTextures().getTexture(0).convertToTexture(),
                 getDefaultTexture(), getDefaultTextures().getTexture(2), new ImageButton(new Rectangle(
                         0, 0, 16, 16)));
     }

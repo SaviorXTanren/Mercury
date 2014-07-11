@@ -28,7 +28,7 @@ public class Panel extends Component implements Container {
     }
     
     public Panel(Rectangle bounds, float padding) {
-        this(bounds, padding, getDefaultTextures().getTexture(0).convertToCapableTexture(), getDefaultTextures()
+        this(bounds, padding, getDefaultTextures().getTexture(0).convertToTexture(), getDefaultTextures()
                 .getTexture(1));
     }
     

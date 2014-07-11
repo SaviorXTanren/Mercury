@@ -61,28 +61,6 @@
           <destDir>${project.name}-${project.version}-apidocs</destDir>
         </configuration>
       </plugin>
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>install</phase>
-            <configuration>
-              <tasks>
-
-                  <copy todir="target/site/apidocs/${project.name}-current-apidocs">
-                    <fileset dir="target/site/apidocs/${project.name}-${project.version}-apidocs">
-                        <include name="*/**"></include>
-                    </fileset>
-                  </copy>
-
-              </tasks>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
   <organization>

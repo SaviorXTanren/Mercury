@@ -35,7 +35,7 @@ public class SubTexture extends Texture {
      * 
      * @return A Texture version of the SubTexture.
      */
-    public Texture convertToCapableTexture() {
+    public Texture convertToTexture() {
         return Texture.loadTexture(getParent().getSourceImage().getSubimage(x, y, getWidth(), getHeight()));
     }
     
