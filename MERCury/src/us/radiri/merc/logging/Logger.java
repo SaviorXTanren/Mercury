@@ -14,7 +14,8 @@ public class Logger {
     
     /** Cases describing the nature of the log. */
     public static enum Case {
-        NULL(""), INFO("INFO: "), DEBUG("DEBUG: "), WARNING("WARNING: "), SEVERE("SEVERE: "), CONSOLE("CONSOLE: "), CONSOLEPROBLEM("CONSOLE PROBLEM: ");
+        NULL(""), INFO("INFO: "), DEBUG("DEBUG: "), WARNING("WARNING: "), SEVERE("SEVERE: "), CONSOLE("CONSOLE: "), CONSOLEPROBLEM(
+                "CONSOLE PROBLEM: ");
         
         public String casemsg;
         

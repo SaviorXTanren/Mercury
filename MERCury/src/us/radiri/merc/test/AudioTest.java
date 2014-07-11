@@ -24,7 +24,8 @@ public class AudioTest extends Core {
     
     @Override
     public void init() {
-        aud0 = Audio.getAudio(Audio.getOGGBuffer(Loader.streamFromClasspath("us/radiri/merc/test/sound.ogg"))).setLooping(true);
+        aud0 = Audio.getAudio(Audio.getOGGBuffer(Loader.streamFromClasspath("us/radiri/merc/test/sound.ogg")))
+                .setLooping(true);
         aud0.play();
     }
     

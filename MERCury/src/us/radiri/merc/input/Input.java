@@ -293,9 +293,7 @@ public class Input {
      */
     public Vec2 getGlobalMousePosition() {
         Vec2 globalmousepos = getAbsoluteMousePosition();
-
-        // Scale!
-        globalmousepos.div(Runner.getInstance().getGraphics().getScaleDimensions());
+        
         // Move to camera position
         globalmousepos.add(Runner.getInstance().getCamera().getPosition());
         return globalmousepos;

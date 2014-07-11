@@ -1,5 +1,6 @@
 package us.radiri.merc.graphics;
 
+import static org.lwjgl.opengl.GL11.GL_LINEAR;
 import static org.lwjgl.opengl.GL11.GL_NEAREST;
 import static org.lwjgl.opengl.GL11.GL_RGBA;
 import static org.lwjgl.opengl.GL11.GL_RGBA8;
@@ -23,11 +24,9 @@ import java.nio.ByteBuffer;
 import javax.imageio.ImageIO;
 
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL11;
 
 import us.radiri.merc.exceptions.MERCuryException;
 import us.radiri.merc.maths.MercMath;
-import us.radiri.merc.resource.Loader;
 import us.radiri.merc.resource.Resource;
 
 /**
@@ -38,12 +37,16 @@ import us.radiri.merc.resource.Resource;
  */
 
 public class Texture implements Resource {
-    private static final int BYTES_PER_PIXEL = 4;
-    private static Texture BLANK_TEXTURE;
+    public static final int FILTER_NEAREST = GL_NEAREST, FILTER_LINEAR = GL_LINEAR, FILTER_PIXELART = FILTER_NEAREST;
     
-    private final int textureid, width, height;
-    private final BufferedImage buf;
-    private final boolean PoT;
+    protected static final int BYTES_PER_PIXEL = 4;
+    protected static Texture BLANK_TEXTURE;
+    
+    public int textureid;
+    public int width;
+    public int height;
+    public BufferedImage bufimage;
+    public ByteBuffer buf;
     
     /**
      * Make a texture of the textureid, with a width and height, based off of
@@ -55,15 +58,17 @@ public class Texture implements Resource {
      *            The width of the texture.
      * @param height
      *            The height of the texture.
-     * @param buf
+     * @param bufimage
      *            The source of the image, the bufferedimage.
+     * @param buf
+     *            The original buffer.
      */
-    public Texture(int textureid, int width, int height, boolean PoT, BufferedImage buf) {
+    public Texture(int textureid, int width, int height, BufferedImage bufimage, ByteBuffer buf) {
         this.textureid = textureid;
         this.width = width;
         this.height = height;
-        this.PoT = PoT;
         
+        this.bufimage = bufimage;
         this.buf = buf;
     }
     
@@ -87,6 +92,11 @@ public class Texture implements Resource {
         return height;
     }
     
+    /** @return Whether or not the texture is PoT. */
+    public boolean isPoT() {
+        return isPoT((int) getWidth(), (int) getHeight());
+    }
+    
     /** @return The texture's id. */
     public int getTextureId() {
         return textureid;
@@ -94,18 +104,23 @@ public class Texture implements Resource {
     
     /** @return The source image. */
     public BufferedImage getSourceImage() {
-        if (buf == null)
+        if (bufimage == null)
             try {
                 throw new MERCuryException("No source image given.");
             } catch (MERCuryException e) {
                 e.printStackTrace();
             }
+        return bufimage;
+    }
+    
+    /** @return The original buffer. */
+    public ByteBuffer getBuffer() {
         return buf;
     }
     
-    /** @return Whether or not the texture is PoT. */
-    public boolean isPoT() {
-        return PoT;
+    /** @return If the Texture is PoT and not a SubTexture. */
+    public boolean fullCapabilities() {
+        return !(this instanceof SubTexture) && isPoT();
     }
     
     @Override
@@ -118,7 +133,8 @@ public class Texture implements Resource {
         if (obj instanceof Texture) {
             Texture other = (Texture) obj;
             
-            if (other.getHeight() == getHeight() && other.getWidth() == getWidth() && other.getTextureId() == getTextureId())
+            if (other.getHeight() == getHeight() && other.getWidth() == getWidth()
+                    && other.getTextureId() == getTextureId())
                 return true;
         }
         
@@ -127,7 +143,6 @@ public class Texture implements Resource {
     
     /** Staticly 'bind().' */
     public static void bindTexture(Texture tex) {
-        GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
         tex.bind();
     }
     
@@ -224,6 +239,34 @@ public class Texture implements Resource {
      * and flipvert vertically, rotated by rot, filtered through filter.
      */
     public static Texture loadTexture(BufferedImage bi, boolean fliphor, boolean flipvert, int rot, int filter) {
+        BufferedImage _bi = processBufferedImage(bi, fliphor, flipvert, rot);
+        
+        ByteBuffer buffer = convertBufferedImageToBuffer(_bi);
+        
+        boolean PoT = isPoT(_bi.getWidth(), _bi.getHeight());
+        
+        int textureid = glGenTextures();
+        glBindTexture(GL_TEXTURE_2D, textureid);
+        
+        // Set the parameters for filtering
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
+        
+        // Push all buffer data into the now configured OGL.
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, _bi.getWidth(), _bi.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+        
+        // Unbind, so that this texture is not being rendered when you want to
+        // draw a square!
+        unbindTextures();
+        
+        if (PoT)
+            return new Texture(textureid, _bi.getWidth(), _bi.getHeight(), _bi, buffer);
+        else
+            return new SubTexture(new Texture(textureid, _bi.getWidth(), _bi.getHeight(), bi, buffer), 0, 0,
+                    bi.getWidth(), bi.getHeight());
+    }
+    
+    public static BufferedImage processBufferedImage(BufferedImage bi, boolean fliphor, boolean flipvert, int rot) {
         // Rotate the bufferedimage
         if (rot != 0) {
             rot *= -1;
@@ -242,12 +285,51 @@ public class Texture implements Resource {
             bi = op.filter(bi, null);
         }
         
-        // A buffer to store with bufferedimage data and throw into LWJGL
-        ByteBuffer buffer = BufferUtils.createByteBuffer(bi.getWidth() * bi.getHeight() * BYTES_PER_PIXEL);
+        // Power of two stuffs! This is actually kind of a wierd problem with
+        // OpenGL, but it has to do with speedy-thingies.
+        boolean PoT = isPoT(bi.getWidth(), bi.getHeight());
         
-        for (int y = bi.getHeight() - 1; y > -1; y--)
-            for (int x = 0; x < bi.getWidth(); x++) {
-                int pixel = bi.getRGB(x, y);
+        BufferedImage _bi = bi;
+        
+        // Power of two expansion; we will set the width and height to their
+        // nearest larger PoT, since PoT is way faster :
+        if (!PoT && expand2PoT) {
+            int newwidth = 0, newheight = 0;
+            boolean done = false;
+            for (int power = 1; !done; power += 1) {
+                int pot = (int) Math.pow(2, power);
+                
+                if (newwidth == 0)
+                    if (pot >= bi.getWidth())
+                        newwidth = pot;
+                
+                if (newheight == 0)
+                    if (pot >= bi.getHeight())
+                        newheight = pot;
+                
+                done = newwidth != 0 && newheight != 0;
+            }
+            
+            BufferedImage newbi = new BufferedImage(newwidth, newheight, bi.getType());
+            
+            for (int x = 0; x < newbi.getWidth(); x++)
+                for (int y = 0; y < newbi.getHeight(); y++)
+                    newbi.setRGB(x, y, 0x00000000);
+            
+            newbi.getGraphics().drawImage(bi, 0, 0, null);
+            _bi = newbi;
+        }
+        
+        return _bi;
+    }
+    
+    public static ByteBuffer convertBufferedImageToBuffer(BufferedImage _bi) {
+        // A buffer to store with bufferedimage data and throw into LWJGL
+        ByteBuffer buffer = BufferUtils.createByteBuffer(_bi.getWidth() * _bi.getHeight() * BYTES_PER_PIXEL);
+        
+        for (int y = _bi.getHeight() - 1; y > -1; y--)
+            for (int x = 0; x < _bi.getWidth(); x++) {
+                int pixel = _bi.getRGB(x, y);
                 
                 buffer.put((byte) (pixel >> 16 & 0xFF));
                 buffer.put((byte) (pixel >> 8 & 0xFF));
@@ -257,40 +339,38 @@ public class Texture implements Resource {
         
         buffer.flip();
         
-        int textureid = glGenTextures();
-        glBindTexture(GL_TEXTURE_2D, textureid);
-        
-        // Power of two stuffs! This is actually kind of a wierd problem with
-        // OpenGL, but it has to do with speedy-thingies.
-        boolean PoT = false;
-        // This is a little bit-shift trick from the interwebs.
-        PoT = (bi.getWidth() & bi.getWidth() - 1) == 0;
-        PoT = PoT && (bi.getHeight() & bi.getHeight() - 1) == 0;
-        
-        // Set the parameters for filtering
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
-        
-        // Push all buffer data into the now configured OGL.
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, bi.getWidth(), bi.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-        
-        // Unbind, so that this texture is not being rendered when you want to
-        // draw a square!
-        unbindTextures();
-        
-        return new Texture(textureid, bi.getWidth(), bi.getHeight(), PoT, bi);
+        return buffer;
+    }
+    
+    public static boolean isPoT(int width, int height) {
+        return (width & width - 1) == 0 && (height & height - 1) == 0;
     }
     
     /** @return A texture object with no data or source image. */
     public static Texture createTextureObject(int textureid, int width, int height) {
-        return new Texture(textureid, width, height, ((((width & width) - 1) == 0) && ((height & height - 1) == 0)), null);
+        return new Texture(textureid, width, height, null, null);
     }
     
-    /** @return A blank, 4x4 white texture. */
+    /** @return The default no-texture of OGL. */
     public static Texture getEmptyTexture() {
         if (BLANK_TEXTURE == null)
-            BLANK_TEXTURE = Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/graphics/empty.png"));
+            BLANK_TEXTURE = new Texture(0, 0, 0, null, null);
         
         return BLANK_TEXTURE;
+    }
+    
+    private static boolean expand2PoT = true;
+    
+    /**
+     * Sets whether or not all Textures will be expanded to the nearest power of
+     * two. Keep in mind before you change this: PoT Textures allow for great
+     * things like GL_REPEAT, and faster rendering time. Certain aspect of the
+     * library may break, should you choose to mess with this value. Seriously,
+     * you can use the non-PoT SubTextures in much the same for the most part.
+     * 
+     * Mess with at your own risk.
+     */
+    public static void setExpandToPowerOfTwo(boolean expand2PoT) {
+        Texture.expand2PoT = expand2PoT;
     }
 }

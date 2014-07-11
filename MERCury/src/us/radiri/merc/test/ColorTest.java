@@ -46,7 +46,7 @@ public class ColorTest extends Core {
     @Override
     public void init() {
         rnr.getGraphics().setBackground(Color.black);
-        rnr.getGraphics().scale(8);
+        rnr.getGraphics().setScale(8);
     }
     
     @Override

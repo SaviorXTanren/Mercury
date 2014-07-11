@@ -55,7 +55,8 @@ public class FrameBuffer {
         // Texture stuffs!
         glBindTexture(GL_TEXTURE_2D, texid);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        int width = (int) Runner.getInstance().getCamera().getWidth(), height = (int) Runner.getInstance().getCamera().getHeight();
+        int width = (int) Runner.getInstance().getCamera().getWidth(), height = (int) Runner.getInstance().getCamera()
+                .getHeight();
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_INT, (java.nio.ByteBuffer) null);
         glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, texid, 0);
         
@@ -71,7 +72,8 @@ public class FrameBuffer {
         Texture.unbindTextures();
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fboid);
         glPushAttrib(GL_VIEWPORT_BIT);
-        glViewport(0, 0, (int) Runner.getInstance().getCamera().getWidth(), (int) Runner.getInstance().getCamera().getHeight());
+        glViewport(0, 0, (int) Runner.getInstance().getCamera().getWidth(), (int) Runner.getInstance().getCamera()
+                .getHeight());
         glClear(GL_COLOR_BUFFER_BIT);
     }
     

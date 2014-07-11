@@ -29,7 +29,7 @@ public interface Graphics {
     public void setLineWidth(float width);
     
     /** Scales the matrix. */
-    public void scale(float factor);
+    public void setScale(float factor);
     
     /**
      * Scales the matrix.
@@ -39,7 +39,7 @@ public interface Graphics {
      * @param y
      *            The scale factor of y
      */
-    public void scale(float x, float y);
+    public void setScale(float x, float y);
     
     /** The last scale that was set in the graphics object's x and y. */
     public Vec2 getScaleDimensions();
@@ -108,10 +108,12 @@ public interface Graphics {
     public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y);
     
     /** Draws a portion of the texture at x1 and y1, to x2 and y2. */
-    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x1, float y1, float x2, float y2);
+    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x1, float y1, float x2,
+            float y2);
     
     /** Draws a portion of the texture to coordinates. */
-    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x1, float y1, float x2,
+            float y2, float x3, float y3, float x4, float y4);
     
     /** Draws a texture to a rectangle. */
     public void drawTexture(Texture texture, Rectangle rect);

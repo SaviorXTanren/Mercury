@@ -51,14 +51,14 @@ public class Ellipse extends Shape {
         return verts;
     }
     
-    // They are round, with a lot of vertices. This isn't pixel-perfect, but at least it is more efficient than this: 
+    // They are round, with a lot of vertices. This isn't pixel-perfect, but at
+    // least it is more efficient than this:
     @Override
     public boolean intersects(Shape s) {
-        if (s instanceof Ellipse) {
+        if (s instanceof Ellipse)
             for (Vec2 v : s.vertices)
                 if (contains(v))
                     return true;
-        } 
         return false;
     }
     
@@ -66,7 +66,8 @@ public class Ellipse extends Shape {
     public boolean contains(Vec2 v) {
         // Source
         // http://math.stackexchange.com/questions/76457/check-if-a-point-is-within-an-ellipse
-        float test = ((v.x - getCenter().x) * (v.x - getCenter().x)) / (radx * radx) + ((v.y - getCenter().y) * (v.y - getCenter().y)) / (rady * rady);
+        float test = (v.x - getCenter().x) * (v.x - getCenter().x) / (radx * radx) + (v.y - getCenter().y)
+                * (v.y - getCenter().y) / (rady * rady);
         return test <= 1;
     }
     

@@ -48,17 +48,20 @@ public class WalkingSim extends Core {
                 
                 for (int e = 0; e < MAX_ENTITIES; e++) {
                     // Place the new thingies at random locations.
-                    steroids.add(new Vec2((int) MercMath.random(0, rnr.getWidth()), (int) MercMath.random(0, rnr.getHeight())));
+                    steroids.add(new Vec2((int) MercMath.random(0, rnr.getWidth()), (int) MercMath.random(0,
+                            rnr.getHeight())));
                     
                     // If the veggie is too close (< 100 pixels), the game is no
                     // fair; let's check that it is at an okay distance.
-                    Vec2 veggie = new Vec2((int) MercMath.random(0, rnr.getWidth()), (int) MercMath.random(0, rnr.getHeight()));
+                    Vec2 veggie = new Vec2((int) MercMath.random(0, rnr.getWidth()), (int) MercMath.random(0,
+                            rnr.getHeight()));
                     // Check difference to `position` using pythagorean theroem.
                     // We will keep on generating a random location until the
                     // distance is not less than 100
                     float dx = position.x - veggie.x, dy = position.y - veggie.y;
                     while (Math.sqrt(dx * dx + dy * dy) < 100) {
-                        veggie = new Vec2((int) MercMath.random(0, rnr.getWidth()), (int) MercMath.random(0, rnr.getHeight()));
+                        veggie = new Vec2((int) MercMath.random(0, rnr.getWidth()), (int) MercMath.random(0,
+                                rnr.getHeight()));
                         dx = position.x - veggie.x;
                         dy = position.y - veggie.y;
                     }

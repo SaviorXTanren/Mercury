@@ -29,9 +29,12 @@ public class TrueTypeFont implements us.radiri.merc.font.Font {
     
     static {
         try {
-            OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("us/radiri/merc/graphics/OpenSans-Semibold.ttf"), 20f, 1, true);
-            OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("us/radiri/merc/graphics/OpenSans-Semibold.ttf"), 20f, 1, true);
-            OPENSANS_SEMIBOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("us/radiri/merc/graphics/OpenSans-Semibold.ttf"), 20f, 1, true);
+            OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont(
+                    Loader.streamFromClasspath("us/radiri/merc/graphics/OpenSans-Semibold.ttf"), 20f, 1, true);
+            OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont(
+                    Loader.streamFromClasspath("us/radiri/merc/graphics/OpenSans-Semibold.ttf"), 20f, 1, true);
+            OPENSANS_SEMIBOLD = TrueTypeFont.loadTrueTypeFont(
+                    Loader.streamFromClasspath("us/radiri/merc/graphics/OpenSans-Semibold.ttf"), 20f, 1, true);
         } catch (IOException e) {
             Logger.warn("Problems loading default opensans fonts.");
         } catch (FontFormatException e) {
@@ -242,7 +245,8 @@ public class TrueTypeFont implements us.radiri.merc.font.Font {
      * @param antialias
      *            Shall we antialias?
      */
-    public static TrueTypeFont loadTrueTypeFont(InputStream is, float size, int style, boolean antialias) throws FileNotFoundException, FontFormatException, IOException {
+    public static TrueTypeFont loadTrueTypeFont(InputStream is, float size, int style, boolean antialias)
+            throws FileNotFoundException, FontFormatException, IOException {
         java.awt.Font font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, is);
         
         font = font.deriveFont(size);

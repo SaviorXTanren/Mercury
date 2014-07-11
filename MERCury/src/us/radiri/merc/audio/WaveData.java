@@ -213,12 +213,14 @@ public class WaveData {
         try {
             int available = ais.available();
             if (available <= 0)
-                available = ais.getFormat().getChannels() * (int) ais.getFrameLength() * ais.getFormat().getSampleSizeInBits() / 8;
+                available = ais.getFormat().getChannels() * (int) ais.getFrameLength()
+                        * ais.getFormat().getSampleSizeInBits() / 8;
             byte[] buf = new byte[ais.available()];
             int read = 0, total = 0;
             while ((read = ais.read(buf, total, buf.length - total)) != -1 && total < buf.length)
                 total += read;
-            buffer = convertAudioBytes(buf, audioformat.getSampleSizeInBits() == 16, audioformat.isBigEndian() ? ByteOrder.BIG_ENDIAN : ByteOrder.LITTLE_ENDIAN);
+            buffer = convertAudioBytes(buf, audioformat.getSampleSizeInBits() == 16,
+                    audioformat.isBigEndian() ? ByteOrder.BIG_ENDIAN : ByteOrder.LITTLE_ENDIAN);
         } catch (IOException ioe) {
             return null;
         }

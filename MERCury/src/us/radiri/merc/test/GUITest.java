@@ -2,8 +2,6 @@ package us.radiri.merc.test;
 
 import java.util.ArrayList;
 
-import us.radiri.merc.command.Command;
-import us.radiri.merc.command.CommandList;
 import us.radiri.merc.font.TrueTypeFont;
 import us.radiri.merc.framework.Core;
 import us.radiri.merc.framework.Runner;
@@ -12,114 +10,167 @@ import us.radiri.merc.geom.Vec2;
 import us.radiri.merc.graphics.Color;
 import us.radiri.merc.graphics.Graphics;
 import us.radiri.merc.graphics.Texture;
-import us.radiri.merc.gui.Button;
-import us.radiri.merc.gui.TextBar;
+import us.radiri.merc.gui.CheckBox;
+import us.radiri.merc.gui.Component;
+import us.radiri.merc.gui.RadioCheckBox;
 import us.radiri.merc.gui.TextBox;
-import us.radiri.merc.maths.MercMath;
+import us.radiri.merc.gui.Window;
+import us.radiri.merc.input.Input;
+import us.radiri.merc.particles.ParticleEmitter;
+import us.radiri.merc.particles.ParticleEmitter.ParticleSetup;
 import us.radiri.merc.resource.Loader;
 
 /**
- * @author Jeviny
+ * @author wessles
  */
 
 public class GUITest extends Core {
-    Runner heart = Runner.getInstance();
+    Runner rnr = Runner.getInstance();
     
-    public GUITest() {
-        super("MERCury GUI Test (NSFL, u mite kry)");
-        
-        heart.init(this, 1024, 768);
-        heart.run();
+    public GUITest(String name) {
+        super(name);
+        rnr.init(this, 1500, 800);
+        rnr.run();
     }
     
-    public static void main(String[] a) {
-        new GUITest();
-    }
+    CheckBox texture_check, particle_check, particle_texture_check, particle_rotation_check, rotate_left_check,
+            no_rotate_check, rotate_right_check;
+    Window window;
     
-    TextBox tp;
-    Texture dAWWWW, panel, tbl, tbr, tbm;
-    String msg = "", finalmsg = "A WILD dAWWWW HAS APPEARED! \n\n 'I LOVE YOU AND YOU WILL BE MY BEST FRIEND! WE SHALL TAKE LONG STROLLS IN THE PARK, AND THEN I WILL CONSUME YOU. IT WILL NOT BE PLEASANT, BUT I CAN ASSURE YOU IT WILL BE FOR ME.' \n\n :D :D :D :D :D :D :D :D";
+    Texture tex;
     
-    TextBar tbartest;
-    Button btn_screamforhelp;
+    Rectangle bounds;
     
-    ArrayList<Vec2> screamsforhelp = new ArrayList<Vec2>();
+    ParticleEmitter emitter;
     
     @Override
     public void init() {
-        dAWWWW = Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/test/dAWWWW.png"));
-        panel = Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/test/panel_main.png"));
-        tp = new TextBox("", new Rectangle(10, 50, 450, 330), 30, panel, TrueTypeFont.OPENSANS_REGULAR, Color.blue, Color.black);
+        texture_check = new CheckBox(" dAWWWW Texturing", 0, 0, 16, Color.black);
         
-        tbl = Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/test/button_left.png"));
-        tbr = Texture.loadTexture(tbl.getSourceImage(), true, false);
-        tbm = Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/test/button_body.png"));
+        particle_check = new CheckBox(" dAWWWW Particles (Must drag for effect)", 0, 0, 16, Color.black);
+        particle_texture_check = new CheckBox("        Particle Texturing ", 0, 0, 16, false, Color.black,
+                TrueTypeFont.OPENSANS_REGULAR);
+        particle_rotation_check = new CheckBox("        Particle Rotation ", 0, 0, 16, false, Color.black,
+                TrueTypeFont.OPENSANS_REGULAR);
         
-        tbartest = new TextBar("Sir, you are in danger! Please confirm you are alive:       ", tbl, tbr, tbm, 100, 600);
-        btn_screamforhelp = new Button("Scream For Help (C) (TM) (R) Button", tbl, tbr, tbm, 100, 605 + tbartest.bounds.getHeight(), Color.white, Color.blue) {
-            @Override
-            public void act() {
-                backgroundcolor = Color.cyan;
-                screamsforhelp.add(new Vec2((float) MercMath.random(0, Runner.getInstance().getWidth()), (float) MercMath.random(0, Runner.getInstance().getHeight())));
-            }
-            
-            @Override
-            public void noAct() {
-                backgroundcolor = Color.blue;
-            }
-        };
+        ArrayList<RadioCheckBox> group = new ArrayList<RadioCheckBox>();
+        rotate_left_check = new RadioCheckBox(group, " Leftwards Rotation", 0, 0, 16, Color.black);
+        rotate_left_check.FLOAT = Component.FLOAT_CENTER;
+        no_rotate_check = new RadioCheckBox(group, " No Rotation", 0, 0, 16, Color.black);
+        no_rotate_check.setTicked(true);
+        no_rotate_check.FLOAT = Component.FLOAT_CENTER;
+        rotate_right_check = new RadioCheckBox(group, " Rightwards Rotation", 0, 0, 16, Color.black);
+        rotate_right_check.FLOAT = Component.FLOAT_CENTER;
         
-        CommandList cmdl = new CommandList("guitest", "A command list for tinkering with the GUI test.");
-        cmdl.addCommand(new Command("set_textures", "This will set the text bar and box to have textures or not with an argument boolean.") {
-            @Override
-            public void run(String... args) {
-                if (Boolean.valueOf(args[0])) {
-                    tp = new TextBox("", new Rectangle(10, 50, 450, 330), 30, panel, TrueTypeFont.OPENSANS_REGULAR, Color.blue, Color.trans);
-                    tbartest = new TextBar("Sir, you are in danger! Please confirm you are alive:       ", tbl, tbr, tbm, 100, 600);
-                } else {
-                    tp = new TextBox("", new Rectangle(10, 50, 450, 330));
-                    tbartest = new TextBar("Sir, you are in danger! Please confirm you are alive:       ", 100, 600);
-                }
-                msg = "";
-            }
-        });
-        CommandList.addCommandList(cmdl);
+        window = new Window("dAWWWW Settings!", Color.black, new Rectangle(30, 60, 500, 400));
+        // Add things to the panel!
+        window.addChildWithNewLine(new TextBox("Welcome to.. almost MERC-UI! Mess with dAWWWW here!", new Rectangle(0,
+                0, 500, 100), 10, Color.black));
+        window.addChild(texture_check, particle_check);
+        window.addChild(particle_texture_check, particle_rotation_check);
+        window.addNewLine();
+        window.addChild(rotate_left_check, no_rotate_check, rotate_right_check);
+        window.sortChildren();
         
-        heart.getGraphics().setBackground(Color.gray);
+        tex = Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/test/dAWWWW.png"));
+        
+        Vec2 screen_center = Runner.getInstance().getCamera().getBounds().getCenter();
+        
+        bounds = new Rectangle(screen_center.x - 50, screen_center.y, 100);
+        
+        ParticleSetup setp = new ParticleSetup();
+        setp.acceleration = 1.002f;
+        setp.speed = 0.2f;
+        setp.size = 16;
+        setp.lifeinframes = 500;
+        setp.growth = 0.98f;
+        emitter = new ParticleEmitter(new Rectangle(screen_center.x - 50, screen_center.y, 100), setp);
     }
+    
+    boolean dragging = false;
+    Vec2 mouseanchor;
     
     @Override
     public void update(float delta) {
-        char nextchar = Runner.getInstance().getInput().getNextCharacter();
-        tbartest.content += nextchar != 0 ? nextchar : "";
-        btn_screamforhelp.update(delta);
+        Runner.getInstance().getGraphics().setScale(1);
+        window.update(delta);
+        
+        Input in = Runner.getInstance().getInput();
+        
+        Runner.getInstance().getGraphics().setScale(zoom);
+        
+        float dx = 0, dy=0;
+        
+        if (in.mouseDown(0)) {
+            if (Component.isHovered(bounds))
+                if (!dragging) {
+                    dragging = true;
+                    mouseanchor = in.getGlobalMousePosition();
+                }
+            
+            if (dragging) {
+                dx = in.getGlobalMouseX() - mouseanchor.x;
+                dy = in.getGlobalMouseY() - mouseanchor.y;
+                
+                bounds.translate(dx / zoom, dy / zoom);
+                emitter.getEmitterBounds().translate(dx / zoom, dy / zoom);
+                
+                mouseanchor.add(new Vec2(dx, dy));
+            }
+            
+        } else
+            dragging = false;
+        
+        if (rotate_left_check.isTicked())
+            bounds.rotate(-1);
+        else if (rotate_right_check.isTicked())
+            bounds.rotate(1);
+        
+        emitter.update(delta);
+        
+        if (particle_check.isTicked()) {
+            if (dragging)
+                emitter.generateParticle(5*Math.abs((int) ((dx + dy) / 2)));
+        } else {
+            particle_texture_check.setTicked(false);
+            particle_rotation_check.setTicked(false);
+        }
+        
+        emitter.getOptions().texture = particle_texture_check.isTicked() ? tex : null;
+        emitter.getOptions().rotation = particle_rotation_check.isTicked() ? 2 : 0;
+        
+        if (Runner.getInstance().getInput().mouseWheelDown())
+            zoom -= 0.01f;
+        else if (Runner.getInstance().getInput().mouseWheelUp())
+            zoom += 0.01f;
     }
     
-    Rectangle bounds = new Rectangle(600, 100, 256);
+    float zoom = 1;
     
     @Override
     public void render(Graphics g) {
-        for (Vec2 v : screamsforhelp)
-            g.drawString(v.x, v.y, "HELP!");
+        g.setBackground(Color.green);
         
-        try {
-            msg += finalmsg.charAt(msg.length());
-            tp.setContent(msg);
-        } catch (Exception e) {
-            
-        }
+        g.setScale(zoom);
+        emitter.render(g);
         
-        bounds.rotate(1);
-        g.drawTexture(dAWWWW, bounds);
+        if (texture_check.isTicked())
+            g.drawTexture(tex, bounds);
+        else
+            g.drawRect(bounds);
         
-        tbartest.render(g);
+        g.flush();
         
-        tp.render(g);
-        btn_screamforhelp.render(g);
+        g.setScale(1);
+        window.render(g);
     }
     
     @Override
     public void cleanup() {
         
+    }
+    
+    public static void main(String[] args) {
+        new GUITest("MERCury GUI Thingies!");
     }
 }

@@ -1,6 +1,15 @@
 package us.radiri.merc.framework;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_PROJECTION;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glMatrixMode;
+import static org.lwjgl.opengl.GL11.glOrtho;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
@@ -75,13 +84,15 @@ public abstract class Core {
                 DisplayMode[] modes = Display.getAvailableDisplayModes();
                 
                 for (int i = 0; i < modes.length; i++)
-                    if (modes[i].getWidth() == WIDTH && modes[i].getHeight() == HEIGHT && modes[i].isFullscreenCapable()) {
+                    if (modes[i].getWidth() == WIDTH && modes[i].getHeight() == HEIGHT
+                            && modes[i].isFullscreenCapable()) {
                         dm = modes[i];
                         screendimmatched = true;
                     }
                 
                 if (!screendimmatched)
-                    Logger.warn("Dimensions " + WIDTH + "x" + HEIGHT + " is not supported! Defaulting to non-fullscreen.");
+                    Logger.warn("Dimensions " + WIDTH + "x" + HEIGHT
+                            + " is not supported! Defaulting to non-fullscreen.");
                 else
                     Display.setFullscreen(true);
             }
@@ -107,6 +118,7 @@ public abstract class Core {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         
         VAOGraphics graphicsobject = new VAOGraphics();
+        Shader.loadDefaultShaders();
         Shader.releaseShaders();
         
         return graphicsobject;

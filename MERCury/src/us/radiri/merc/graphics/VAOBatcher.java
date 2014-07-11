@@ -1,6 +1,13 @@
 package us.radiri.merc.graphics;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_COLOR;
+import static org.lwjgl.opengl.GL11.GL_COLOR_ARRAY;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_COORD_ARRAY;
+import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
+import static org.lwjgl.opengl.GL11.GL_VERTEX_ARRAY;
+import static org.lwjgl.opengl.GL11.glEnable;
 import static us.radiri.merc.graphics.VAOUtils.COLOR_ARRAY_POINTER;
 import static us.radiri.merc.graphics.VAOUtils.TEXTURE_COORD_ARRAY_POINTER;
 import static us.radiri.merc.graphics.VAOUtils.VERTEX_ARRAY_POINTER;
@@ -33,7 +40,7 @@ public class VAOBatcher implements Batcher {
     
     private Texture last_tex = Texture.getEmptyTexture();
     private Color last_col = Color.DEFAULT_DRAWING;
-    private Shader last_shader = Shader.getDefaultShader();
+    private Shader last_shader = Shader.DEFAULT_SHADER;
     
     public VAOBatcher() {
         vtxcount = 0;
@@ -159,10 +166,10 @@ public class VAOBatcher implements Batcher {
     
     @Override
     public void clearShaders() {
-        if (last_shader.equals(Shader.getDefaultShader()))
+        if (last_shader.equals(Shader.DEFAULT_SHADER))
             return;
         flush();
-        last_shader = Shader.getDefaultShader();
+        last_shader = Shader.DEFAULT_SHADER;
         Shader.useShader(last_shader);
     }
     

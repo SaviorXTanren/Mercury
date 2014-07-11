@@ -28,7 +28,7 @@ public class FboTest extends Core {
     
     @Override
     public void init() {
-        Runner.getInstance().getGraphics().scale(1.1f);
+        Runner.getInstance().getGraphics().setScale(1.1f);
         
         cuteface = Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/test/dAWWWW.png"), 45, GL_NEAREST);
         shad = Shader.getShader(Loader.streamFromClasspath("us/radiri/merc/test/distort.fs"), Shader.FRAGMENT_SHADER);

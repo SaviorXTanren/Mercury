@@ -38,11 +38,12 @@ public class SplashTest extends Core {
         if (!rnr.showSplashScreens(g))
             return;
         
-        if(!rnr.inited)
+        if (!rnr.inited)
             return;
         
         for (int trolol = 0; trolol < 100; trolol++)
-            g.drawString((float) MercMath.random(-50, rnr.getWidth()), (float) MercMath.random(0, rnr.getHeight()), "LEL,                      This is a GAME!                dilll with it!");
+            g.drawString((float) MercMath.random(-50, rnr.getWidth()), (float) MercMath.random(0, rnr.getHeight()),
+                    "LEL,                      This is a GAME!                dilll with it!");
     }
     
     @Override

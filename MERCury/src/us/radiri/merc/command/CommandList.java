@@ -29,7 +29,8 @@ public class CommandList {
     public static void addCommandList(CommandList cmdl) {
         if (commandlists.containsKey(cmdl.name))
             try {
-                throw new ConsoleException("A Command List already exists with the name '" + cmdl.name + "!' Command List adding failed.");
+                throw new ConsoleException("A Command List already exists with the name '" + cmdl.name
+                        + "!' Command List adding failed.");
             } catch (ConsoleException e) {
                 e.printStackTrace();
             }
@@ -77,7 +78,8 @@ public class CommandList {
     public void addCommand(Command cmd) {
         if (commands.containsKey(cmd.name))
             try {
-                throw new ConsoleException("A duplicate Command '" + cmd.name + "' has been attempted. Duplicate rejected.");
+                throw new ConsoleException("A duplicate Command '" + cmd.name
+                        + "' has been attempted. Duplicate rejected.");
             } catch (ConsoleException e) {
                 e.printStackTrace();
             }
@@ -94,14 +96,16 @@ public class CommandList {
     public void addVariable(Variable v) {
         if (variables.containsKey(v.name))
             try {
-                throw new ConsoleException("A duplicate Variable '" + v.name + "' has been attempted. Duplicate rejected.");
+                throw new ConsoleException("A duplicate Variable '" + v.name
+                        + "' has been attempted. Duplicate rejected.");
             } catch (ConsoleException e) {
                 e.printStackTrace();
             }
         
         if (commands.containsKey(v.name))
             try {
-                throw new ConsoleException("A Variable '" + v.name + "' cannot share the same name as the Command! Duplicate rejected.");
+                throw new ConsoleException("A Variable '" + v.name
+                        + "' cannot share the same name as the Command! Duplicate rejected.");
             } catch (ConsoleException e) {
                 e.printStackTrace();
             }
@@ -114,7 +118,9 @@ public class CommandList {
     public static CommandList getDefaultCommandList() {
         if (dcmdl == null) {
             // Make default CommandList
-            CommandList cmdlmerc = new CommandList("merc", "This is the default Command List for MERCury Developer Console. In it, you will find core functions to MERCury Developer Console that will allow you to modify projects within the runtime.");
+            CommandList cmdlmerc = new CommandList(
+                    "merc",
+                    "This is the default Command List for MERCury Developer Console. In it, you will find core functions to MERCury Developer Console that will allow you to modify projects within the runtime.");
             
             // Add in all the commands.
             cmdlmerc.addCommand(new Command("end", "Ends the program.") {
@@ -123,14 +129,16 @@ public class CommandList {
                     Runner.getInstance().end();
                 }
             });
-            cmdlmerc.addCommand(new Command("setFpsTarget", "merc setFpsTarget [Fps Target]\nTargets for, or caps the framerate at a given height.") {
+            cmdlmerc.addCommand(new Command("setFpsTarget",
+                    "merc setFpsTarget [Fps Target]\nTargets for, or caps the framerate at a given height.") {
                 @Override
                 public void run(String... args) {
                     Runner.getInstance().setFpsTarget(Integer.parseInt(args[0]));
                     Logger.console("Framerate targeted for " + Integer.parseInt(args[0]));
                 }
             });
-            cmdlmerc.addCommand(new Command("setMouseGrab", "merc setMouseGrab [True/False]\nLocks or releases the mouse from the window.") {
+            cmdlmerc.addCommand(new Command("setMouseGrab",
+                    "merc setMouseGrab [True/False]\nLocks or releases the mouse from the window.") {
                 @Override
                 public void run(String... args) {
                     Runner.getInstance().setMouseGrab(Boolean.valueOf(args[0]));
@@ -151,7 +159,8 @@ public class CommandList {
                     Logger.console("Window title set to '" + args[0] + ".'");
                 }
             });
-            cmdlmerc.addCommand(new Command("setDeltaFactor", "Sets the delta factor, or, the number by which delta is multiplied by, to a given number.") {
+            cmdlmerc.addCommand(new Command("setDeltaFactor",
+                    "Sets the delta factor, or, the number by which delta is multiplied by, to a given number.") {
                 @Override
                 public void run(String... args) {
                     Runner.getInstance().setDeltaFactor(Float.valueOf(args[0]));

@@ -27,10 +27,12 @@ public class Particle implements Entity, Wipeable {
     private ParticleEmitter emitter;
     
     public Particle(float angle, ParticleEmitter emitter) {
-        this.size = emitter.getOptions().size;
+        size = emitter.getOptions().size;
         
-        Rectangle emitterbounds = new Rectangle(emitter.getEmitterBounds().getX(), emitter.getEmitterBounds().getY(), emitter.getEmitterBounds().getWidth(), emitter.getEmitterBounds().getHeight());
-        float x = (float) MercMath.random(emitterbounds.getX(),emitterbounds.getX2()), y = (float) MercMath.random(emitterbounds.getY(), emitterbounds.getY2());
+        Rectangle emitterbounds = new Rectangle(emitter.getEmitterBounds().getX(), emitter.getEmitterBounds().getY(),
+                emitter.getEmitterBounds().getWidth(), emitter.getEmitterBounds().getHeight());
+        float x = (float) MercMath.random(emitterbounds.getX(), emitterbounds.getX2()), y = (float) MercMath.random(
+                emitterbounds.getY(), emitterbounds.getY2());
         pos = new Vec2(x, y);
         vel = new Vec2(angle);
         rotdirection = MercMath.nextBoolean() ? 1 : -1;
@@ -54,8 +56,8 @@ public class Particle implements Entity, Wipeable {
         
         size *= emitter.getOptions().growth;
         
-        bounds = new Rectangle(pos.x-size/2, pos.y-size/2, size);
-        bounds.rotateTo(rot+=emitter.getOptions().rotation*rotdirection);
+        bounds = new Rectangle(pos.x - size / 2, pos.y - size / 2, size);
+        bounds.rotateTo(rot += emitter.getOptions().rotation * rotdirection);
         
         life -= 1;
     }

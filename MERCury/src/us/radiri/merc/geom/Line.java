@@ -35,8 +35,10 @@ public class Line extends Shape {
             Vec2 l2_1 = s.vertices[0];
             Vec2 l2_2 = s.vertices[1];
             
-            float UA = ((l2_2.x - l2_1.x) * (l1_1.y - l2_1.y) - (l2_2.y - l2_1.y) * (l1_1.x - l2_1.x)) / ((l2_2.y - l2_1.y) * (l1_2.x - l1_1.x) - (l2_2.x - l2_1.x) * (l1_2.y - l1_1.y));
-            float UB = ((l1_2.x - l1_1.x) * (l1_1.y - l2_1.y) - (l1_2.y - l1_1.y) * (l1_1.x - l2_1.x)) / ((l2_2.y - l2_1.y) * (l1_2.x - l1_1.x) - (l2_2.x - l2_1.x) * (l1_2.y - l1_1.y));
+            float UA = ((l2_2.x - l2_1.x) * (l1_1.y - l2_1.y) - (l2_2.y - l2_1.y) * (l1_1.x - l2_1.x))
+                    / ((l2_2.y - l2_1.y) * (l1_2.x - l1_1.x) - (l2_2.x - l2_1.x) * (l1_2.y - l1_1.y));
+            float UB = ((l1_2.x - l1_1.x) * (l1_1.y - l2_1.y) - (l1_2.y - l1_1.y) * (l1_1.x - l2_1.x))
+                    / ((l2_2.y - l2_1.y) * (l1_2.x - l1_1.x) - (l2_2.x - l2_1.x) * (l1_2.y - l1_1.y));
             
             if (UA >= 0 && UA <= 1 && UB >= 0 && UB <= 1)
                 return true;

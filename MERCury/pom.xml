@@ -1,55 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-   <modelVersion>4.0.0</modelVersion>
-   <groupId>MERCury</groupId>
-   <artifactId>MERCury</artifactId>
-   <version>1.0.0-experimental</version>
-   <name>MERCury</name>
-   <description>The simplistic game library for all of us.</description>
-   <build>
-      <sourceDirectory>src</sourceDirectory>
-      <resources>
-         <resource>
-            <directory>src</directory>
-            <excludes>
-               <exclude>**/*.java</exclude>
-            </excludes>
-         </resource>
-      </resources>
-      <plugins>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-               <source>1.7</source>
-               <target>1.7</target>
-            </configuration>
-         </plugin>
-         
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <configuration>
-                <finalName>${project.name}-${project.version}</finalName>
-            </configuration>
-         </plugin>
-         
-         <plugin>
-             <groupId>org.apache.maven.plugins</groupId>
-             <artifactId>maven-surefire-plugin</artifactId>
-             <version>2.12.2</version>
-             <configuration>
-                <skipTests>true</skipTests>
-             </configuration>
-         </plugin>
-      
-        <plugin>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>MERCury</groupId>
+  <artifactId>MERCury</artifactId>
+  <version>1.0.0-experimental</version>
+  <name>MERCury</name>
+  <description>The simplistic game library for all of us.</description>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <configuration>
+          <finalName>${project.name}-${project.version}</finalName>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.12.2</version>
+        <configuration>
+          <skipTests>true</skipTests>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>2.15</version>
         <executions>
           <execution>
-      <goals>
+            <goals>
               <goal>integration-test</goal>
               <goal>verify</goal>
             </goals>
@@ -57,22 +54,51 @@
         </executions>
       </plugin>
       <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-javadoc-plugin</artifactId>
-    <version>2.6.1</version>
-    <configuration>
-        <destDir>${project.name}-${project.version}-apidocs</destDir>
-    </configuration>
-</plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.6.1</version>
+        <configuration>
+          <destDir>${project.name}-${project.version}-apidocs</destDir>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>install</phase>
+            <configuration>
+              <tasks>
+
+                  <copy todir="target/site/apidocs/${project.name}-current-apidocs">
+                    <fileset dir="target/site/apidocs/${project.name}-${project.version}-apidocs">
+                        <include name="*/**"></include>
+                    </fileset>
+                  </copy>
+
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
-   </build>
-   <organization>
-      <name>Radirius</name>
-      <url>http://www.radiri.us/</url>
-   </organization>
-   <url>http://merc.radiri.us/</url>
-   <issueManagement>
-      <system>Github Issue Tracker</system>
-      <url>https://github.com/Radirius/MERCury/issues</url>
-   </issueManagement>
+  </build>
+  <organization>
+    <name>Radirius</name>
+    <url>http://www.radiri.us/</url>
+  </organization>
+  <url>http://merc.radiri.us/</url>
+  <issueManagement>
+    <system>Github Issue Tracker</system>
+    <url>https://github.com/Radirius/MERCury/issues</url>
+  </issueManagement>
+      <dependencies>
+        <dependency>
+            <groupId>org.lwjgl.lwjgl</groupId>
+            <artifactId>lwjgl</artifactId>
+            <version>2.9.1</version>
+        </dependency>
+      </dependencies>
 </project>

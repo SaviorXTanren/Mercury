@@ -38,22 +38,26 @@ public class LineTest extends Core {
     @Override
     public void render(Graphics g) {
         if (!toggle_left.isTicked()) {
-            g.setColor(new Color((int) MercMath.random(0, 255), (int) MercMath.random(0, 255), (int) MercMath.random(0, 255)));
+            g.setColor(new Color((int) MercMath.random(0, 255), (int) MercMath.random(0, 255), (int) MercMath.random(0,
+                    255)));
             g.drawRect(new Rectangle(100, 100, 100));
             g.drawCircle(100, 100, 50);
         } else {
-            g.setColor(new Color((int) MercMath.random(0, 255), (int) MercMath.random(0, 255), (int) MercMath.random(0, 255)));
+            g.setColor(new Color((int) MercMath.random(0, 255), (int) MercMath.random(0, 255), (int) MercMath.random(0,
+                    255)));
             g.traceRect(new Rectangle(100, 100, 100));
             g.traceCircle(100, 100, 50);
         }
         if (!toggle_right.isTicked()) {
-            g.setColor(new Color((int) MercMath.random(0, 255), (int) MercMath.random(0, 255), (int) MercMath.random(0, 255)));
+            g.setColor(new Color((int) MercMath.random(0, 255), (int) MercMath.random(0, 255), (int) MercMath.random(0,
+                    255)));
             g.drawRect(new Rectangle(650, 100, 50));
             g.drawCircle(600, 200, 50);
             g.drawTriangle(new Triangle(600, 200, 610, 200, 600, 190));
         }
         {
-            g.setColor(new Color((int) MercMath.random(0, 255), (int) MercMath.random(0, 255), (int) MercMath.random(0, 255)));
+            g.setColor(new Color((int) MercMath.random(0, 255), (int) MercMath.random(0, 255), (int) MercMath.random(0,
+                    255)));
             g.traceRect(new Rectangle(650, 100, 50));
             g.traceCircle(600, 200, 50);
             g.traceTriangle(new Triangle(600, 200, 610, 200, 600, 190));

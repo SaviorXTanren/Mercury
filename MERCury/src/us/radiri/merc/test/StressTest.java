@@ -24,7 +24,7 @@ public class StressTest extends Core {
     
     @Override
     public void init() {
-        rnr.getGraphics().scale(2);
+        rnr.getGraphics().setScale(2);
         
         dAWWWW = Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/test/dAWWWW.png"));
     }
@@ -35,7 +35,7 @@ public class StressTest extends Core {
     
     @Override
     public void render(Graphics g) {
-        g.drawTexture(dAWWWW, new Rectangle(0, 0, rnr.getWidth()/2, rnr.getHeight()/2));
+        g.drawTexture(dAWWWW, new Rectangle(0, 0, rnr.getWidth() / 2, rnr.getHeight() / 2));
         // Renders 427,890 vertices to OGL. That is a lot.
         for (float x = 0; x < rnr.getWidth(); x += 1.5)
             for (float y = 0; y < rnr.getHeight(); y += 1.5)

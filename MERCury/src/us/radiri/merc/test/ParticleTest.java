@@ -41,7 +41,7 @@ public class ParticleTest extends Core {
     public void init() {
         parent = Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/test/dAWWWW.png"));
         
-        rnr.getGraphics().scale(4);
+        rnr.getGraphics().setScale(4);
         
         ParticleSetup emitter1setup = new ParticleSetup();
         emitter1setup.validangle = new Vec2(225, 335);
@@ -69,20 +69,22 @@ public class ParticleTest extends Core {
             rnr.end();
         }
         
-        emitter1.getEmitterBounds().translate(in.getAbsoluteMouseX() / 4 - emitter1.getEmitterBounds().getX(), in.getAbsoluteMouseY() / 4 - emitter1.getEmitterBounds().getY());
-        torchpos.set(emitter1.getEmitterBounds().getCenter().x - parent.getWidth() / 2, emitter1.getEmitterBounds().getY());
+        emitter1.getEmitterBounds().translate(in.getAbsoluteMouseX() / 4 - emitter1.getEmitterBounds().getX(),
+                in.getAbsoluteMouseY() / 4 - emitter1.getEmitterBounds().getY());
+        torchpos.set(emitter1.getEmitterBounds().getCenter().x - parent.getWidth() / 2, emitter1.getEmitterBounds()
+                .getY());
         
         emitter1.update(delta);
         
         emitter1.generateParticle(rate);
-        rate += (in.mouseWheelUp() ? 1 : (in.mouseWheelDown() ? -1 : 0));
+        rate += in.mouseWheelUp() ? 1 : in.mouseWheelDown() ? -1 : 0;
     }
     
     @Override
     public void render(Graphics g) {
         emitter1.render(g);
         g.drawTexture(parent, torchpos.x, torchpos.y);
-        rnr.addDebugData("Particles Per Tick: ", rate+"");
+        rnr.addDebugData("Particles Per Tick: ", rate + "");
     }
     
     @Override

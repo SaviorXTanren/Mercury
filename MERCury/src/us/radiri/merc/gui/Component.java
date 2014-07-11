@@ -12,25 +12,31 @@ import us.radiri.merc.input.Input;
  * @author wessles, Jeviny
  */
 public class Component implements Updatable, Renderable {
-    public String content;
+    /** A type that will take up a new line. */
+    public static final int TYPE_NONSPAN = 0;
+    /** A type that will not take up a new line. */
+    public static final int TYPE_SPAN = 1;
+    /** A type that is not really a normal component. */
+    public static final int TYPE_NONE = 2;
+    /** The type of component. */
+    public int TYPE = TYPE_NONSPAN;
     
-    private ActionCheck acheck;
+    public static final int FLOAT_LEFT = -1, FLOAT_CENTER = 0, FLOAT_RIGHT = 1;
+    public int FLOAT = FLOAT_LEFT;
+    
+    public String content;
     
     public Rectangle bounds;
     
     public Component(String txt, float x, float y, float w, float h) {
         content = txt;
         
-        this.bounds = new Rectangle(x, y, w, h);
+        bounds = new Rectangle(x, y, w, h);
     }
     
     @Override
     public void update(float delta) {
-        if (acheck != null)
-            if (acheck.isActed())
-                acheck.act();
-            else
-                acheck.noAct();
+        
     }
     
     @Override
@@ -42,31 +48,18 @@ public class Component implements Updatable, Renderable {
         g.drawString(bounds.getX(), bounds.getY(), content);
     }
     
-    public Component addActionCheck(ActionCheck acheck) {
-        this.acheck = acheck;
-        this.acheck.setParent(this);
-        return this;
-    }
-    
-    public static abstract class ActionCheck {
-        public Component parent;
+    public static boolean isHovered(Rectangle bounds) {
+        Input in = Runner.getInstance().getInput();
+        Vec2 globalmousepos = in.getGlobalMousePosition();
+        globalmousepos.div(Runner.getInstance().getGraphics().getScaleDimensions());
         
-        public abstract boolean isActed();
-        
-        public abstract void act();
-        
-        public abstract void noAct();
-        
-        public void setParent(Component parent) {
-            this.parent = parent;
-        }
+        return bounds.contains(globalmousepos);
     }
     
     public static boolean isClicked(Rectangle bounds) {
         Input in = Runner.getInstance().getInput();
-        Vec2 globalmousepos = in.getGlobalMousePosition();
         
-        if (bounds.contains(globalmousepos))
+        if (isHovered(bounds))
             if (in.mouseClicked(0))
                 return true;
         

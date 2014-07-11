@@ -162,7 +162,8 @@ public class Runner {
      *            Whether or not we are vsynced
      */
     public void init(Core core, boolean fullscreen, boolean vsync) {
-        init(core, Display.getDesktopDisplayMode().getWidth(), Display.getDesktopDisplayMode().getHeight(), fullscreen, vsync, false, true);
+        init(core, Display.getDesktopDisplayMode().getWidth(), Display.getDesktopDisplayMode().getHeight(), fullscreen,
+                vsync, false, true);
     }
     
     /**
@@ -173,7 +174,8 @@ public class Runner {
      *            with.
      */
     public void init(InitSetup iniset) {
-        init(iniset.core, iniset.WIDTH, iniset.HEIGHT, iniset.fullscreen, iniset.vsync, iniset.initonseperatethread, iniset.devconsole);
+        init(iniset.core, iniset.WIDTH, iniset.HEIGHT, iniset.fullscreen, iniset.vsync, iniset.initonseperatethread,
+                iniset.devconsole);
     }
     
     public boolean inited = false;
@@ -196,8 +198,10 @@ public class Runner {
      * @param devconsole
      *            Whether or not we are enabling the developers console
      */
-    public void init(final Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean initonseperatethread, boolean devconsole) {
-        System.out.print("  _   _   _   _   _   _   _  \n" + " / \\ / \\ / \\ / \\ / \\ / \\ / \\\n" + "( M | E | R | C | U | R | Y ) Started\n" + " \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \n\n");
+    public void init(final Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync,
+            boolean initonseperatethread, boolean devconsole) {
+        System.out.print("  _   _   _   _   _   _   _  \n" + " / \\ / \\ / \\ / \\ / \\ / \\ / \\\n"
+                + "( M | E | R | C | U | R | Y ) Started\n" + " \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \n\n");
         
         Logger.debug("Making Core...");
         
@@ -329,8 +333,8 @@ public class Runner {
                 core.render(graphicsobject);
                 
                 if (showdebug) {
-                    addDebugData("FPS", getFps()+"");
-                    addDebugData("Vertices", verticeslastrendered+"");
+                    addDebugData("FPS", getFps() + "");
+                    addDebugData("Vertices", verticeslastrendered + "");
                     
                     graphicsobject.drawString(1 / graphicsobject.getScale(), 0, 0, debugdata);
                     debugdata = "";
@@ -505,7 +509,8 @@ public class Runner {
         double width = image.getWidth() * ratio;
         double height = image.getHeight() * ratio;
         
-        g.drawImage(image, (int) ((scaledIcon.getWidth() - width) / 2), (int) ((scaledIcon.getHeight() - height) / 2), (int) width, (int) height, null);
+        g.drawImage(image, (int) ((scaledIcon.getWidth() - width) / 2), (int) ((scaledIcon.getHeight() - height) / 2),
+                (int) width, (int) height, null);
         
         g.dispose();
         

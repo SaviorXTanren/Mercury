@@ -7,24 +7,17 @@ import us.radiri.merc.resource.Resource;
  */
 
 public class SpriteSheet implements Resource {
-    
-    private Texture tex;
+    private Texture basetex;
     private SubTexture[] subtexs;
     
-    private SpriteSheet(Texture tex, SubTexture[] subtexs) {
-        this.tex = tex;
+    private SpriteSheet(Texture basetex, SubTexture... subtexs) {
+        this.basetex = basetex;
         this.subtexs = subtexs;
     }
     
+    /** @return The number of subtextures. */
     public int getNumberOfSubTextures() {
         return subtexs.length;
-    }
-    
-    /**
-     * @return The parent texture of all subtextures in the SpriteSheet.
-     */
-    public Texture getParentTexture() {
-        return tex;
     }
     
     /**
@@ -34,10 +27,15 @@ public class SpriteSheet implements Resource {
         return subtexs[texnum];
     }
     
+    /** @return The base texture for all SubTextures. */
+    public Texture getBaseTexture() {
+        return basetex;
+    }
+    
     /**
      * Slices the Texture tex up, cutting vertically every divwidth length.
      */
-    public static SpriteSheet loadSpriteSheet(Texture tex, float divwidth) {
+    public static SpriteSheet loadSpriteSheet(Texture tex, int divwidth) {
         return loadSpriteSheet(tex, divwidth, tex.getHeight());
     }
     
@@ -46,7 +44,7 @@ public class SpriteSheet implements Resource {
      * cutting horizontally every divheight length. The subtextures are counted
      * reading left to right.
      */
-    public static SpriteSheet loadSpriteSheet(Texture tex, float divwidth, float divheight) {
+    public static SpriteSheet loadSpriteSheet(Texture tex, int divwidth, int divheight) {
         if (tex.getWidth() % divwidth != 0)
             throw new ArithmeticException("The width of the Texture must be divisible by the division width!");
         
@@ -58,21 +56,19 @@ public class SpriteSheet implements Resource {
         
         for (int y = 0; y < numy; y++)
             for (int x = 0; x < numx; x++)
-                subtexs[x + y * numx] = new SubTexture(tex, x * divwidth, y * divheight, divwidth, divheight);
+                subtexs[x + y * numx] = new SubTexture(tex, x * divwidth, y * divheight, (x + 1) * divwidth, (y + 1)
+                        * divheight);
         
-        return loadSpriteSheet(tex, subtexs);
+        return new SpriteSheet(tex, subtexs);
     }
     
-    /**
-     * Creates a spritesheet based off of a Texture tex, and a bunch of
-     * SubTextures.
-     */
-    public static SpriteSheet loadSpriteSheet(Texture tex, SubTexture[] subtexs) {
+    /** @return A spritesheet based off of Texture tex, with SubTextures subtexs. */
+    public static SpriteSheet loadSpriteSheet(Texture tex, SubTexture... subtexs) {
         return new SpriteSheet(tex, subtexs);
     }
     
     @Override
     public void clean() {
-        tex.clean();
+        
     }
 }

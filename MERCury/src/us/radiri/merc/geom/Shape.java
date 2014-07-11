@@ -1,5 +1,7 @@
 package us.radiri.merc.geom;
 
+import java.util.ArrayList;
+
 import us.radiri.merc.maths.MercMath;
 import us.radiri.merc.util.ArrayUtils;
 
@@ -10,6 +12,8 @@ import us.radiri.merc.util.ArrayUtils;
  */
 
 public class Shape {
+    protected ArrayList<Shape> children = new ArrayList<Shape>();
+    
     /** All vertices that make up the shape. */
     protected Vec2[] vertices;
     
@@ -52,6 +56,10 @@ public class Shape {
     
     /** @return Whether s intersects with this shape. */
     public boolean intersects(Shape s) {
+        for (Shape child : children)
+            if (child.intersects(s))
+                return true;
+        
         // This method is VERY inefficient! You are supposed to use this as a
         // base, and then make specific-cases that save processing time where
         // you can. This is not to say that this is not to EVER be used, but
@@ -80,7 +88,8 @@ public class Shape {
             // Now, for each line in this shape, we need to test all lines in
             // the other shape.
             for (int v2_ = 0; v2_ < s.vertices.length;) {
-                Vec2 l2v1 = s.vertices[v2_], l2v2 = s.vertices.length > 2 ? s.vertices[++v2_ % vertices.length] : vertices[++v2_];
+                Vec2 l2v1 = s.vertices[v2_], l2v2 = s.vertices.length > 2 ? s.vertices[++v2_ % vertices.length]
+                        : vertices[++v2_];
                 Line l2 = new Line(l2v1, l2v2);
                 
                 // Now we test!
@@ -109,6 +118,10 @@ public class Shape {
     
     /** @return Whether v is inside of this shape. */
     public boolean contains(Vec2 v) {
+        for (Shape child : children)
+            if (child.contains(v))
+                return true;
+        
         // This is based off of the fact that any point inside of a convex
         // shape's angles add up to 360. Thus, we will find the sum of all
         // angles of all vertices in the shape to the one point we are testing.
@@ -145,6 +158,9 @@ public class Shape {
         }
         
         regen();
+        
+        for (Shape s : children)
+            s.translate(x, y);
     }
     
     /**
@@ -156,28 +172,7 @@ public class Shape {
      *            Where every vertex should move relative to 0 on y.
      */
     public void translateTo(float x, float y) {
-        translateTo(x, y, 0, 0);
-    }
-    
-    /**
-     * Moves all vertices to x and y relative to a origin.
-     * 
-     * @param x
-     *            Where every vertex should move relative to the origin on x.
-     * @param y
-     *            Where every vertex should move relative to the origin on y.
-     * @param origx
-     *            The origin's x.
-     * @param origy
-     *            The origin's y.
-     */
-    public void translateTo(float x, float y, float origx, float origy) {
-        for (Vec2 vertex : vertices) {
-            vertex.x = Math.abs(vertex.x - x + origx + y);
-            vertex.y = Math.abs(vertex.x - y + origy + x);
-        }
-        
-        regen();
+        translate(x - this.x, y - this.y);
     }
     
     /**
@@ -209,6 +204,9 @@ public class Shape {
         rot += angle;
         
         regen();
+        
+        for (Shape s : children)
+            s.rotate(origx, origy, angle);
     }
     
     /**
@@ -245,6 +243,22 @@ public class Shape {
      */
     public void rotateTo(float angle) {
         rotateTo(center.x, center.y, angle);
+    }
+    
+    /** Flips the object over the y axis, relative to the mean center. */
+    public void flipX() {
+        for (Vec2 v : vertices)
+            v.add(new Vec2(0, (getCenter().y - v.y) * 2));
+        
+        regen();
+    }
+    
+    /** Flips the object over the y axis, relative to the mean center. */
+    public void flipY() {
+        for (Vec2 v : vertices)
+            v.add(new Vec2((getCenter().x - v.x) * 2, 0));
+        
+        regen();
     }
     
     /** @return A VERY rough estimate of area. */
@@ -314,7 +328,7 @@ public class Shape {
         
         cx /= vertices.length;
         cy /= vertices.length;
-        this.center = new Vec2(cx, cy);
+        center = new Vec2(cx, cy);
         
         w = Math.abs(x2 - x);
         h = Math.abs(y2 - y);
@@ -323,5 +337,16 @@ public class Shape {
     /** @return All vertices of the object. */
     public Vec2[] getVertices() {
         return vertices;
+    }
+    
+    /** Adds a child shape. */
+    public void addChild(Shape... child) {
+        for (Shape s : child)
+            children.add(s);
+    }
+    
+    /** @return All child shapes. */
+    public ArrayList<Shape> getChildren() {
+        return children;
     }
 }

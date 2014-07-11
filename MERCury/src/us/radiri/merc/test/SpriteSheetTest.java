@@ -27,7 +27,8 @@ public class SpriteSheetTest extends Core {
     
     @Override
     public void init() {
-        sheet = SpriteSheet.loadSpriteSheet(Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/test/tiles.png")), 16, 16);
+        sheet = SpriteSheet.loadSpriteSheet(
+                Texture.loadTexture(Loader.streamFromClasspath("us/radiri/merc/test/tiles.png")), 16, 16);
         anm = new Animation(300, sheet, 0, 6);
     }
     
@@ -38,7 +39,7 @@ public class SpriteSheetTest extends Core {
     @Override
     public void render(Graphics g) {
         g.setBackground(Color.marble);
-        g.drawTexture(sheet.getParentTexture(), 0, 0);
+        g.drawTexture(sheet.getBaseTexture(), 0, 0);
         anm.render(10, 10, g);
         anm.nextFrame();
     }

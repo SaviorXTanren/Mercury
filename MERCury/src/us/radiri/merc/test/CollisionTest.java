@@ -26,7 +26,7 @@ public class CollisionTest extends Core {
     
     @Override
     public void init() {
-        rnr.getGraphics().scale(8);
+        rnr.getGraphics().setScale(8);
     }
     
     @Override

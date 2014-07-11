@@ -63,13 +63,15 @@ public class VAOGraphics implements Graphics {
     }
     
     @Override
-    public void scale(float factor) {
-        scale(factor, factor);
+    public void setScale(float factor) {
+        setScale(factor, factor);
     }
     
     @Override
-    public void scale(float x, float y) {
+    public void setScale(float x, float y) {
         Camera cam = Runner.getInstance().getCamera();
+        
+        GL11.glLoadIdentity();
         
         GL11.glTranslatef(cam.getOrigin().x, cam.getOrigin().y, 0);
         glScalef(x, y, 1);
@@ -199,7 +201,7 @@ public class VAOGraphics implements Graphics {
             boolean default_color = current_color == Color.DEFAULT_DRAWING;
             
             batcher.flush();
-            batcher.getShader().setUniformi("u_is_text", 1);
+            batcher.setShader(Shader.TEXT_SHADER);
             
             if (default_color)
                 setColor(Color.DEFAULT_TEXT_COLOR);
@@ -211,12 +213,13 @@ public class VAOGraphics implements Graphics {
                 }
                 
                 TrueTypeFont.IntObject intobj = jf.chars[msg.toCharArray()[ci]];
-                drawFunctionlessTexture(font.getFontTexture(), intobj.x, intobj.y, intobj.x + intobj.w, intobj.y + intobj.h, new Rectangle(x + current_x, y, intobj.w * scale, intobj.h * scale));
+                drawFunctionlessTexture(font.getFontTexture(), intobj.x, intobj.y, intobj.x + intobj.w, intobj.y
+                        + intobj.h, new Rectangle(x + current_x, y, intobj.w * scale, intobj.h * scale));
                 current_x += intobj.w * scale;
             }
             
             batcher.flush();
-            batcher.getShader().setUniformi("u_is_text", 0);
+            batcher.setShader(Shader.DEFAULT_SHADER);
             
             if (default_color)
                 setColor(Color.DEFAULT_DRAWING);
@@ -227,12 +230,8 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void drawTexture(Texture texture, float x, float y) {
-        if (!(texture instanceof SubTexture))
-            drawTexture(texture, x, y, texture.getWidth(), texture.getHeight());
-        else {
-            SubTexture subtexture = (SubTexture) texture;
-            drawTexture(texture, x, y, subtexture.getSubWidth(), subtexture.getSubHeight());
-        }    }
+        drawTexture(texture, x, y, texture.getWidth(), texture.getHeight());
+    }
     
     @Override
     public void drawTexture(Texture texture, float x, float y, float w, float h) {
@@ -241,32 +240,24 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y) {
-        if (!(texture instanceof SubTexture))
-            drawTexture(texture, sx1, sy1, sx2, sy2, x, y, texture.getWidth(), texture.getHeight());
-        else {
-            SubTexture subtexture = (SubTexture) texture;
-            drawTexture(texture, sx1, sy1, sx2, sy2, x, y, subtexture.getSubWidth(), subtexture.getSubHeight());
-        }
+        drawTexture(texture, sx1, sy1, sx2, sy2, x, y, texture.getWidth(), texture.getHeight());
     }
     
     @Override
-    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, float w, float h) {
+    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, float w,
+            float h) {
         drawTexture(texture, sx1, sy1, sx2, sy2, x, y, x + w, y, x + w, y + h, x, y + h);
     }
     
     @Override
-    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
+    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x1, float y1, float x2,
+            float y2, float x3, float y3, float x4, float y4) {
         drawTexture(texture, sx1, sy1, sx2, sy2, new Rectangle(x1, y1, x2, y2, x3, y3, x4, y4));
     }
     
     @Override
     public void drawTexture(Texture texture, Rectangle rect) {
-        if (!(texture instanceof SubTexture))
-            drawTexture(texture, 0, 0, texture.getWidth(), texture.getHeight(), rect);
-        else {
-            SubTexture subtexture = (SubTexture) texture;
-            drawTexture(texture, 0, 0, subtexture.getSubWidth(), subtexture.getSubHeight(), rect);
-        }
+        drawTexture(texture, 0, 0, texture.getWidth(), texture.getHeight(), rect);
     }
     
     @Override
@@ -288,7 +279,8 @@ public class VAOGraphics implements Graphics {
      * A method that can be called without pulling a color, setting a color,
      * binding, etc.
      */
-    private void drawFunctionlessTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle rectangle) {
+    private void drawFunctionlessTexture(Texture texture, float sx1, float sy1, float sx2, float sy2,
+            Rectangle rectangle) {
         float x1 = rectangle.getVertices()[0].x;
         float y1 = rectangle.getVertices()[0].y;
         float x2 = rectangle.getVertices()[1].x;
@@ -305,16 +297,19 @@ public class VAOGraphics implements Graphics {
         
         float w, h;
         
-        w = texture.getWidth();
-        h = texture.getHeight();
-        
         if (texture instanceof SubTexture) {
-            sx1 = subtexture.getSubX();
-            sy1 = subtexture.getSubY();
-            sx2 = subtexture.getSubX() + subtexture.getSubWidth();
-            sy2 = subtexture.getSubY() + subtexture.getSubHeight();
+            w = subtexture.getParentWidth();
+            h = subtexture.getParentHeight();
+            
+            sx1 += subtexture.getSubX();
+            sy1 += subtexture.getSubY();
+            sx2 += subtexture.getSubX();
+            sy2 += subtexture.getSubY();
+        } else {
+            w = texture.getWidth();
+            h = texture.getHeight();
         }
-
+        
         sy1 = h - sy1;
         sy2 = h - sy2;
         
@@ -333,12 +328,16 @@ public class VAOGraphics implements Graphics {
         batcher.vertex(x3, y3, sx2, sy2);
         batcher.vertex(x4, y4, sx1, sy2);
         batcher.vertex(x2, y2, sx2, sy1);
+        
+        if (texture instanceof SubTexture) {
+            batcher.flush();
+            batcher.setShader(Shader.DEFAULT_SHADER);
+        }
     }
     
     @Override
     public void drawRect(Rectangle rectangle) {
         batcher.clearTextures();
-        batcher.flushIfOverflow(6);
         
         drawFunctionlessRect(rectangle);
         
@@ -359,7 +358,6 @@ public class VAOGraphics implements Graphics {
         float x4 = rectangle.getVertices()[3].x;
         float y4 = rectangle.getVertices()[3].y;
         
-        batcher.clearTextures();
         batcher.flushIfOverflow(6);
         
         batcher.vertex(x1, y1, 0, 0);
@@ -590,10 +588,14 @@ public class VAOGraphics implements Graphics {
         float dy = l.getVertices()[0].y - l.getVertices()[1].y;
         float angle = MercMath.atan2(dx, dy) - 90;
         
-        Vec2 p1 = new Vec2(l.getVertices()[0].x - MercMath.cos(angle) * linewidth / 2, l.getVertices()[0].y - MercMath.sin(angle) * linewidth / 2);
-        Vec2 p2 = new Vec2(l.getVertices()[0].x + MercMath.cos(angle) * linewidth / 2, l.getVertices()[0].y + MercMath.sin(angle) * linewidth / 2);
-        Vec2 p3 = new Vec2(l.getVertices()[1].x + MercMath.cos(angle) * linewidth / 2, l.getVertices()[1].y + MercMath.sin(angle) * linewidth / 2);
-        Vec2 p4 = new Vec2(l.getVertices()[1].x - MercMath.cos(angle) * linewidth / 2, l.getVertices()[1].y - MercMath.sin(angle) * linewidth / 2);
+        Vec2 p1 = new Vec2(l.getVertices()[0].x - MercMath.cos(angle) * linewidth / 2, l.getVertices()[0].y
+                - MercMath.sin(angle) * linewidth / 2);
+        Vec2 p2 = new Vec2(l.getVertices()[0].x + MercMath.cos(angle) * linewidth / 2, l.getVertices()[0].y
+                + MercMath.sin(angle) * linewidth / 2);
+        Vec2 p3 = new Vec2(l.getVertices()[1].x + MercMath.cos(angle) * linewidth / 2, l.getVertices()[1].y
+                + MercMath.sin(angle) * linewidth / 2);
+        Vec2 p4 = new Vec2(l.getVertices()[1].x - MercMath.cos(angle) * linewidth / 2, l.getVertices()[1].y
+                - MercMath.sin(angle) * linewidth / 2);
         
         drawFunctionlessRect(new Rectangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y));
     }

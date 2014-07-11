@@ -54,17 +54,20 @@ public class ModdedWalkingSim extends Core {
                 
                 for (int e = 0; e < MAX_ENTITIES; e++) {
                     // Place the new thingies at random locations.
-                    steroids.add(new Vec2((int) MercMath.random(0, rnr.getWidth()), (int) MercMath.random(0, rnr.getHeight())));
+                    steroids.add(new Vec2((int) MercMath.random(0, rnr.getWidth()), (int) MercMath.random(0,
+                            rnr.getHeight())));
                     
                     // If the veggie is too close (< 100 pixels), the game is no
                     // fair; let's check that it is at an okay distance.
-                    Vec2 veggie = new Vec2((int) MercMath.random(0, rnr.getWidth()), (int) MercMath.random(0, rnr.getHeight()));
+                    Vec2 veggie = new Vec2((int) MercMath.random(0, rnr.getWidth()), (int) MercMath.random(0,
+                            rnr.getHeight()));
                     // Check difference to `position` using pythagorean theroem.
                     // We will keep on generating a random location until the
                     // distance is not less than 100
                     float dx = position.x - veggie.x, dy = position.y - veggie.y;
                     while (Math.sqrt(dx * dx + dy * dy) < 100) {
-                        veggie = new Vec2((int) MercMath.random(0, rnr.getWidth()), (int) MercMath.random(0, rnr.getHeight()));
+                        veggie = new Vec2((int) MercMath.random(0, rnr.getWidth()), (int) MercMath.random(0,
+                                rnr.getHeight()));
                         dx = position.x - veggie.x;
                         dy = position.y - veggie.y;
                     }
@@ -192,15 +195,15 @@ public class ModdedWalkingSim extends Core {
     public void render(Graphics g) {
         g.setColor(Color.white);
         // No circle for the player!
-//        g.drawCircle(position.x, position.y, 10);
+        // g.drawCircle(position.x, position.y, 10);
         // And draw a Texture, by a center position.
-        g.drawTexture(texture, position.x-texture.getWidth()/2, position.y-texture.getHeight()/2);
+        g.drawTexture(texture, position.x - texture.getWidth() / 2, position.y - texture.getHeight() / 2);
         for (Vec2 pos : steroids) {
             g.setColor(Color.green);
             // Still draw a circle!
             g.drawCircle(pos.x, pos.y, 10);
             // Draw the texture!
-            g.drawTexture(texture, pos.x-texture.getWidth()/2, pos.y-texture.getHeight()/2);
+            g.drawTexture(texture, pos.x - texture.getWidth() / 2, pos.y - texture.getHeight() / 2);
         }
         for (Vec2 pos : veggies) {
             g.setColor(Color.red);

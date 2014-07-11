@@ -82,9 +82,8 @@ public class TaskTest extends Core {
     public void render(Graphics g) {
         if (jumpscare) {
             g.drawTexture(lard, 0, 0);
-            g.scale(zoom += 0.4f);
-        }
-        else
+            g.setScale(zoom += 0.4f);
+        } else
             g.drawString(0, 0, "See the console.");
     }
     

@@ -70,7 +70,7 @@ public class Camera {
      *            The graphics object.
      */
     public void zoom(float zoom, Graphics g) {
-        g.scale(zoom);
+        g.setScale(zoom);
     }
     
     /**

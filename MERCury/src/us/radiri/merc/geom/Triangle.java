@@ -29,7 +29,7 @@ public class Triangle extends Shape {
         b2 = sign(v, vertices[1], vertices[2]) < 0.0f;
         b3 = sign(v, vertices[2], vertices[0]) < 0.0f;
         
-        return ((b1 == b2) && (b2 == b3));
+        return b1 == b2 && b2 == b3;
     }
     
     private float sign(Vec2 p1, Vec2 p2, Vec2 p3) {

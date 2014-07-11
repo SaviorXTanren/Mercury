@@ -68,7 +68,7 @@ public class ParticleEmitter implements Entity {
      *            The particle's setup.
      */
     public ParticleEmitter(Rectangle emitter, ParticleSetup pesetup) {
-        this.parts = new WipingArrayList<Particle>();
+        parts = new WipingArrayList<Particle>();
         
         this.emitter = emitter;
         this.pesetup = pesetup;

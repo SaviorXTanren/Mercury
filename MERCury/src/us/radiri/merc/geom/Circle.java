@@ -29,7 +29,7 @@ public class Circle extends Ellipse {
     public boolean intersects(Shape s) {
         if (s instanceof Circle) {
             float dist = s.getCenter().distance(getCenter());
-            if(dist <= ((Circle) s).radx+radx)
+            if (dist <= ((Circle) s).radx + radx)
                 return true;
         } else
             return super.intersects(s);
