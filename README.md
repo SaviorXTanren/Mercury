@@ -20,8 +20,7 @@ You can report any problems you find in the [Github Issue Tracker](https://githu
 
 ## Contribute
 Well, it wouldn't be open-source if you couldn't contribute. 
-You can contribute by simply posting a [Github Pull Request](https://github.com/Radirius/MERCury/pulls) with your fork and its changes. We will then review the changes, and either accept it, or suggest a few modifications to it.  
-Please do not post your changes to our emails; just use [Github Pull Request](https://github.com/Radirius/MERCury/pulls).
+[Contribution Guide](https://github.com/Radirius/MERCury/wiki/Contribution-Guide) on the wiki.
 
 ## Radirius Contact and Information
 | Name                   | E-Mail            | Website                               |
