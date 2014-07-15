@@ -1,7 +1,7 @@
 *
 
-!libs/
-!src/
+!libraries/
+!source/
 !target/*.jar
 !target/site/
 !pom.xml
