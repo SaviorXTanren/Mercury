@@ -94,7 +94,7 @@ public class Texture implements Resource {
     
     /** @return Whether or not the texture is PoT. */
     public boolean isPoT() {
-        return isPoT((int) getWidth(), (int) getHeight());
+        return isPoT(getWidth(), getHeight());
     }
     
     /** @return The texture's id. */

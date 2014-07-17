@@ -24,7 +24,7 @@ public class TextField extends TextBar {
             Font textfont, int INPUT_TYPE, int limit) {
         super(txt, left, right, body, x, y, textcolor, textfont);
         this.INPUT_TYPE = INPUT_TYPE;
-        this.startidx = txt.length();
+        startidx = txt.length();
         this.limit = limit + startidx;
     }
     
@@ -95,13 +95,13 @@ public class TextField extends TextBar {
                     valid = Character.isDigit(nextchar);
                     break;
                 case INPUT_SIGNED_INTEGER_NUM:
-                    valid = Character.isDigit(nextchar) || (nextchar == '-' && isatstart);
+                    valid = Character.isDigit(nextchar) || nextchar == '-' && isatstart;
                     break;
                 case INPUT_UNSIGNED_FLOATING_POINT_NUM:
                     valid = Character.isDigit(nextchar) || nextchar == '.';
                     break;
                 case INPUT_SIGNED_FLOATING_POINT_NUM:
-                    valid = Character.isDigit(nextchar) || nextchar == '.' || (nextchar == '-' && isatstart);
+                    valid = Character.isDigit(nextchar) || nextchar == '.' || nextchar == '-' && isatstart;
                     break;
             }
         

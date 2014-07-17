@@ -11,9 +11,13 @@ import radirius.merc.geometry.Circle;
 import radirius.merc.geometry.Ellipse;
 import radirius.merc.geometry.Line;
 import radirius.merc.geometry.Point;
+import radirius.merc.geometry.Polygon;
 import radirius.merc.geometry.Rectangle;
+import radirius.merc.geometry.Shape;
+import radirius.merc.geometry.Star;
 import radirius.merc.geometry.Triangle;
 import radirius.merc.geometry.Vec2;
+import radirius.merc.logging.Logger;
 import radirius.merc.maths.MercMath;
 
 /**
@@ -286,7 +290,30 @@ public class VAOGraphics implements Graphics {
     }
     
     @Override
-    public void drawRect(Rectangle rectangle) {
+    public void drawShape(Shape... shapes) {
+        Shape shape = shapes[0];
+        if (shape instanceof Circle)
+            drawCircle((Circle) shape);
+        else if (shape instanceof Ellipse)
+            drawEllipse((Ellipse) shape);
+        else if (shape instanceof Line)
+            drawLine((Line) shape);
+        else if (shape instanceof Point)
+            drawPoint((Point) shape);
+        else if (shape instanceof Polygon)
+            drawPolygon((Polygon) shape);
+        else if (shape instanceof Rectangle)
+            drawRect((Rectangle) shape);
+        else if (shape instanceof Star)
+            drawStar((Star) shape);
+        else if (shape instanceof Triangle)
+            drawTriangle((Triangle) shape);
+        else
+            Logger.warn("Shape type not found; nothing rendered.");
+    }
+    
+    @Override
+    public void drawRect(Rectangle... rectangle) {
         batcher.clearTextures();
         
         drawFunctionlessRect(rectangle);
@@ -298,89 +325,94 @@ public class VAOGraphics implements Graphics {
      * A method that can be called without pulling a color, setting a color,
      * binding, etc.
      */
-    private void drawFunctionlessRect(Rectangle rectangle) {
-        float x1 = rectangle.getVertices()[0].x;
-        float y1 = rectangle.getVertices()[0].y;
-        float x2 = rectangle.getVertices()[1].x;
-        float y2 = rectangle.getVertices()[1].y;
-        float x3 = rectangle.getVertices()[2].x;
-        float y3 = rectangle.getVertices()[2].y;
-        float x4 = rectangle.getVertices()[3].x;
-        float y4 = rectangle.getVertices()[3].y;
-        
-        batcher.flushIfOverflow(6);
-        
-        batcher.vertex(x1, y1, 0, 0);
-        batcher.vertex(x2, y2, 0, 0);
-        batcher.vertex(x4, y4, 0, 0);
-        
-        batcher.vertex(x3, y3, 0, 0);
-        batcher.vertex(x4, y4, 0, 0);
-        batcher.vertex(x2, y2, 0, 0);
+    private void drawFunctionlessRect(Rectangle... rectangle) {
+        for (Rectangle _rectangle : rectangle) {
+            float x1 = _rectangle.getVertices()[0].x;
+            float y1 = _rectangle.getVertices()[0].y;
+            float x2 = _rectangle.getVertices()[1].x;
+            float y2 = _rectangle.getVertices()[1].y;
+            float x3 = _rectangle.getVertices()[2].x;
+            float y3 = _rectangle.getVertices()[2].y;
+            float x4 = _rectangle.getVertices()[3].x;
+            float y4 = _rectangle.getVertices()[3].y;
+            
+            batcher.flushIfOverflow(6);
+            
+            batcher.vertex(x1, y1, 0, 0);
+            batcher.vertex(x2, y2, 0, 0);
+            batcher.vertex(x4, y4, 0, 0);
+            
+            batcher.vertex(x3, y3, 0, 0);
+            batcher.vertex(x4, y4, 0, 0);
+            batcher.vertex(x2, y2, 0, 0);
+        }
     }
     
     @Override
-    public void drawRect(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
-        drawRect(new Rectangle(x1, y1, x2, y2, x3, y3, x4, y4));
+    public void drawRect(float x, float y, float w, float h) {
+        drawRect(new Rectangle(x, y, w, h));
     }
     
     @Override
-    public void drawRects(Rectangle[] rects) {
-        for (Rectangle rect : rects)
-            drawRect(rect);
-    }
-    
-    @Override
-    public void drawTriangle(Triangle triangle) {
-        float x1 = triangle.getVertices()[0].x;
-        float y1 = triangle.getVertices()[0].y;
-        float x2 = triangle.getVertices()[1].x;
-        float y2 = triangle.getVertices()[1].y;
-        float x3 = triangle.getVertices()[2].x;
-        float y3 = triangle.getVertices()[2].y;
-        
-        batcher.clearTextures();
-        batcher.flushIfOverflow(3);
-        
-        batcher.vertex(x1, y1, 0, 1);
-        batcher.vertex(x3, y3, 1, 1);
-        batcher.vertex(x2, y2, 0, 0);
-        
-        pullSetColor();
-    }
-    
-    @Override
-    public void drawTriangle(float x1, float y1, float x2, float y2, float x3, float y3) {
-        drawTriangle(new Triangle(x1, y1, x2, y2, x3, y3));
-    }
-    
-    @Override
-    public void drawTriangles(Triangle[] triangles) {
-        for (Triangle triangle : triangles)
-            drawTriangle(triangle);
-    }
-    
-    @Override
-    public void drawEllipse(Ellipse ellipse) {
+    public void drawTriangle(Triangle... triangle) {
         batcher.clearTextures();
         
-        Vec2[] vs = ellipse.getVertices();
-        
-        for (int c = 0; c < vs.length; c++) {
-            batcher.vertex(ellipse.getX() + ellipse.getWidth() / 2, ellipse.getY() + ellipse.getHeight() / 2, 0, 0);
+        for (Triangle _triangle : triangle) {
+            float x1 = _triangle.getVertices()[0].x;
+            float y1 = _triangle.getVertices()[0].y;
+            float x2 = _triangle.getVertices()[1].x;
+            float y2 = _triangle.getVertices()[1].y;
+            float x3 = _triangle.getVertices()[2].x;
+            float y3 = _triangle.getVertices()[2].y;
             
-            if (c >= vs.length - 1)
-                batcher.vertex(vs[0].x, vs[0].y, 0, 0);
-            else
-                batcher.vertex(vs[c].x, vs[c].y, 0, 0);
+            batcher.flushIfOverflow(3);
             
-            if (c >= vs.length - 1)
-                batcher.vertex(vs[vs.length - 1].x, vs[vs.length - 1].y, 0, 0);
-            else
-                batcher.vertex(vs[c + 1].x, vs[c + 1].y, 0, 0);
+            batcher.vertex(x1, y1, 0, 1);
+            batcher.vertex(x3, y3, 1, 1);
+            batcher.vertex(x2, y2, 0, 0);
         }
         
         pullSetColor();
+    }
+    
+    @Override
+    public void drawTriangle(float x, float y, float w, float h) {
+        drawTriangle(new Triangle(x, y, w, h));
+    }
+    
+    @Override
+    public void drawPolygon(Polygon... polygon) {
+        batcher.clearTextures();
+        
+        for (Polygon _polygon : polygon) {
+            Vec2[] vs = _polygon.getVertices();
+            
+            for (int c = 0; c < vs.length; c++) {
+                batcher.vertex(_polygon.getCenter().x, _polygon.getCenter().y, 0, 0);
+                
+                if (c >= vs.length - 1)
+                    batcher.vertex(vs[0].x, vs[0].y, 0, 0);
+                else
+                    batcher.vertex(vs[c].x, vs[c].y, 0, 0);
+                
+                if (c >= vs.length - 1)
+                    batcher.vertex(vs[vs.length - 1].x, vs[vs.length - 1].y, 0, 0);
+                else
+                    batcher.vertex(vs[c + 1].x, vs[c + 1].y, 0, 0);
+            }
+        }
+        
+        pullSetColor();
+    }
+    
+    @Override
+    public void drawStar(Star... star) {
+        drawPolygon(star);
+    }
+    
+    @Override
+    public void drawEllipse(Ellipse... ellipse) {
+        drawPolygon(ellipse);
     }
     
     @Override
@@ -389,13 +421,7 @@ public class VAOGraphics implements Graphics {
     }
     
     @Override
-    public void drawEllipses(Ellipse[] ellipses) {
-        for (Ellipse ellipse : ellipses)
-            drawEllipse(ellipse);
-    }
-    
-    @Override
-    public void drawCircle(Circle circle) {
+    public void drawCircle(Circle... circle) {
         drawEllipse(circle);
     }
     
@@ -405,91 +431,113 @@ public class VAOGraphics implements Graphics {
     }
     
     @Override
-    public void drawCircles(Circle[] circs) {
-        for (Circle circ : circs)
-            drawCircle(circ);
+    public void traceShape(Shape... shape) {
+        if (shape instanceof Circle[])
+            traceCircle((Circle[]) shape);
+        else if (shape instanceof Ellipse[])
+            traceEllipse((Ellipse[]) shape);
+        else if (shape instanceof Line[])
+            drawLine((Line[]) shape);
+        else if (shape instanceof Point[])
+            drawPoint((Point[]) shape);
+        else if (shape instanceof Polygon[])
+            tracePolygon((Polygon[]) shape);
+        else if (shape instanceof Rectangle[])
+            traceRect((Rectangle[]) shape);
+        else if (shape instanceof Star[])
+            traceStar((Star[]) shape);
+        else if (shape instanceof Triangle[])
+            traceTriangle((Triangle[]) shape);
+        else
+            Logger.warn("Shape type not found; nothing rendered.");
     }
     
     @Override
-    public void traceRect(Rectangle rectangle) {
-        Vec2 p1 = rectangle.getVertices()[0];
-        Vec2 p2 = rectangle.getVertices()[1];
-        Vec2 p3 = rectangle.getVertices()[2];
-        Vec2 p4 = rectangle.getVertices()[3];
-        
+    public void traceRect(Rectangle... rectangle) {
         batcher.clearTextures();
-        batcher.flushIfOverflow(24);
         
-        drawFunctionlessLine(new Line(p1, p2));
-        drawFunctionlessLine(new Line(p2, p3));
-        drawFunctionlessLine(new Line(p3, p4));
-        drawFunctionlessLine(new Line(p4, p1));
-        
-        pullSetColor();
-    }
-    
-    @Override
-    public void traceRect(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
-        traceRect(new Rectangle(x1, y1, x2, y2, x3, y3, x4, y4));
-    }
-    
-    @Override
-    public void traceRects(Rectangle[] rects) {
-        for (Rectangle rect : rects)
-            traceRect(rect);
-    }
-    
-    @Override
-    public void traceTriangle(Triangle triangle) {
-        Vec2 p1 = triangle.getVertices()[0];
-        Vec2 p2 = triangle.getVertices()[1];
-        Vec2 p3 = triangle.getVertices()[2];
-        
-        batcher.clearTextures();
-        batcher.flushIfOverflow(18);
-        
-        drawFunctionlessLine(new Line(p1, p2));
-        drawFunctionlessLine(new Line(p2, p3));
-        drawFunctionlessLine(new Line(p3, p1));
-        
-        pullSetColor();
-    }
-    
-    @Override
-    public void traceTriangle(float x1, float y1, float x2, float y2, float x3, float y3) {
-        traceTriangle(new Triangle(x1, y1, x2, y2, x3, y3));
-    }
-    
-    @Override
-    public void traceTriangles(Triangle[] triangles) {
-        for (Triangle triangle : triangles)
-            traceTriangle(triangle);
-    }
-    
-    @Override
-    public void traceEllipse(Ellipse ellipse) {
-        batcher.clearTextures();
-        batcher.flushIfOverflow(ellipse.getVertices().length * 6);
-        
-        Vec2[] vs = ellipse.getVertices();
-        
-        for (int c = 0; c < vs.length; c++) {
-            Vec2 p1, p2;
+        for (Rectangle _rectangle : rectangle) {
+            Vec2 p1 = _rectangle.getVertices()[0];
+            Vec2 p2 = _rectangle.getVertices()[1];
+            Vec2 p3 = _rectangle.getVertices()[2];
+            Vec2 p4 = _rectangle.getVertices()[3];
             
-            if (c >= vs.length - 1)
-                p1 = vs[0];
-            else
-                p1 = vs[c];
-            
-            if (c >= vs.length - 1)
-                p2 = vs[vs.length - 1];
-            else
-                p2 = vs[c + 1];
+            batcher.flushIfOverflow(24);
             
             drawFunctionlessLine(new Line(p1, p2));
+            drawFunctionlessLine(new Line(p2, p3));
+            drawFunctionlessLine(new Line(p3, p4));
+            drawFunctionlessLine(new Line(p4, p1));
         }
         
         pullSetColor();
+    }
+    
+    @Override
+    public void traceRect(float x, float y, float w, float h) {
+        traceRect(new Rectangle(x, y, w, h));
+    }
+    
+    @Override
+    public void traceTriangle(Triangle... triangle) {
+        batcher.clearTextures();
+        
+        for (Triangle _triangle : triangle) {
+            Vec2 p1 = _triangle.getVertices()[0];
+            Vec2 p2 = _triangle.getVertices()[1];
+            Vec2 p3 = _triangle.getVertices()[2];
+            
+            batcher.flushIfOverflow(18);
+            
+            drawFunctionlessLine(new Line(p1, p2));
+            drawFunctionlessLine(new Line(p2, p3));
+            drawFunctionlessLine(new Line(p3, p1));
+        }
+        
+        pullSetColor();
+    }
+    
+    @Override
+    public void traceTriangle(float x, float y, float w, float h) {
+        traceTriangle(new Triangle(x, y, w, h));
+    }
+    
+    @Override
+    public void tracePolygon(Polygon... polygon) {
+        batcher.clearTextures();
+        for (Polygon _polygon : polygon) {
+            batcher.flushIfOverflow(_polygon.getVertices().length * 6);
+            
+            Vec2[] vs = _polygon.getVertices();
+            
+            for (int c = 0; c < vs.length; c++) {
+                Vec2 p1, p2;
+                
+                if (c >= vs.length - 1)
+                    p1 = vs[0];
+                else
+                    p1 = vs[c];
+                
+                if (c >= vs.length - 1)
+                    p2 = vs[vs.length - 1];
+                else
+                    p2 = vs[c + 1];
+                
+                drawFunctionlessLine(new Line(p1, p2));
+            }
+        }
+        
+        pullSetColor();
+    }
+    
+    @Override
+    public void traceStar(Star... star) {
+        tracePolygon(star);
+    }
+    
+    @Override
+    public void traceEllipse(Ellipse... ellipse) {
+        tracePolygon(ellipse);
     }
     
     @Override
@@ -498,25 +546,13 @@ public class VAOGraphics implements Graphics {
     }
     
     @Override
-    public void traceEllipses(Ellipse[] ellipses) {
-        for (Ellipse ellipse : ellipses)
-            traceEllipse(ellipse);
-    }
-    
-    @Override
-    public void traceCircle(Circle circle) {
+    public void traceCircle(Circle... circle) {
         traceEllipse(circle);
     }
     
     @Override
     public void traceCircle(float x, float y, float radius) {
         traceCircle(new Circle(x, y, radius));
-    }
-    
-    @Override
-    public void traceCircles(Circle[] circs) {
-        for (Circle circ : circs)
-            traceCircle(circ);
     }
     
     @Override
@@ -551,30 +587,29 @@ public class VAOGraphics implements Graphics {
     }
     
     @Override
-    public void drawLine(Line l) {
+    public void drawLine(Line... l) {
         batcher.clearColors();
-        batcher.flushIfOverflow(6);
         
-        drawFunctionlessLine(l);
+        for (Line _l : l) {
+            batcher.flushIfOverflow(6);
+            
+            drawFunctionlessLine(_l);
+        }
         
         pullSetColor();
     }
     
     @Override
-    public void drawPoint(Point point) {
-        float x = point.getX();
-        float y = point.getY();
-        drawRect(new Rectangle(x, y, x + 1, y, x + 1, y + 1, x, y + 1));
+    public void drawPoint(Point... point) {
+        for (Point _point : point) {
+            float x = _point.getX();
+            float y = _point.getY();
+            drawRect(new Rectangle(x, y, x + 1, y, x + 1, y + 1, x, y + 1));
+        }
     }
     
     @Override
     public void drawPoint(float x, float y) {
         drawPoint(new Point(x, y));
-    }
-    
-    @Override
-    public void drawPoints(Point[] points) {
-        for (Point point : points)
-            drawPoint(point);
     }
 }

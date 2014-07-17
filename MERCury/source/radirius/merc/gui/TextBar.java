@@ -57,7 +57,7 @@ public class TextBar extends Component {
         // Fit to a new size!
         Shape parent = new Shape(bounds.getParent());
         bounds.clearParent();
-        bounds = (Rectangle) new Rectangle(bounds.getX(), bounds.getY(), textfont.getWidth(content)
+        bounds = new Rectangle(bounds.getX(), bounds.getY(), textfont.getWidth(content)
                 + (left != null ? left.getWidth() : 0) + (right != null ? right.getWidth() : 0), bounds.getHeight());
         bounds.setParent(parent);
     }

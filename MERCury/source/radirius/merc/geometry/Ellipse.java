@@ -1,19 +1,17 @@
 package radirius.merc.geometry;
 
-import radirius.merc.maths.MercMath;
-
 /**
  * An ellipse that can have a length and width.
  * 
  * @author wessles
  */
-public class Ellipse extends Shape {
+public class Ellipse extends Polygon {
     /** The radius in the respective axis. */
     public float radx, rady;
     /**
-     * Maximum amount of vertices that can be rendered when rendering an ellipse
+     * Maximum amount of sides that can be rendered when rendering an ellipse
      */
-    public static int MAX_VERTS = 40;
+    public static int MAX_SIDES = 40;
     
     /**
      * @param x
@@ -26,33 +24,13 @@ public class Ellipse extends Shape {
      *            The radius of the circle in the y axis.
      */
     public Ellipse(float x, float y, float radx, float rady) {
-        super(getTrigVerts(x, y, radx, rady));
+        super(x, y, radx, rady, MAX_SIDES);
         this.radx = radx;
         this.rady = rady;
     }
     
-    /**
-     * @return Basically the vertices for a whole bunch of triangles 'slices'
-     *         that make up a circle, or 'pie.'
-     */
-    public static Vec2[] getTrigVerts(float x, float y, float radx, float rady) {
-        radx = Math.abs(radx);
-        rady = Math.abs(rady);
-        
-        Vec2[] verts = new Vec2[MAX_VERTS];
-        
-        float angle = 0, step = 360 / MAX_VERTS;
-        
-        for (int a = 0; a < MAX_VERTS; a++) {
-            verts[a] = new Vec2(x + MercMath.cos(angle) * radx, y + MercMath.sin(angle) * rady);
-            angle += step;
-        }
-        
-        return verts;
-    }
-    
-    // They are round, with a lot of vertices. This isn't pixel-perfect, but at
-    // least it is more efficient than this:
+    // They are round, with a lot of vertices. This isn't pixel-perfect, but it
+    // is good enough.
     @Override
     public boolean intersects(Shape s) {
         if (s instanceof Ellipse)

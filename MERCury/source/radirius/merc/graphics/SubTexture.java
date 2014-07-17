@@ -10,8 +10,7 @@ public class SubTexture extends Texture {
     private int x, y, x2, y2;
     
     public SubTexture(Texture parent, int x, int y, int x2, int y2) {
-        super(parent.getTextureId(), (int) parent.getWidth(), (int) parent.getHeight(), parent.getSourceImage(), parent
-                .getBuffer());
+        super(parent.getTextureId(), parent.getWidth(), parent.getHeight(), parent.getSourceImage(), parent.getBuffer());
         this.parent = parent;
         this.x = x;
         this.y = y;
@@ -36,7 +35,8 @@ public class SubTexture extends Texture {
      * @return A Texture version of the SubTexture.
      */
     public Texture convertToTexture(boolean fliphor, boolean flipvert) {
-        return Texture.loadTexture(getParent().getSourceImage().getSubimage(x, y, getWidth(), getHeight()), fliphor, flipvert);
+        return Texture.loadTexture(getParent().getSourceImage().getSubimage(x, y, getWidth(), getHeight()), fliphor,
+                flipvert);
     }
     
     /**
@@ -56,7 +56,8 @@ public class SubTexture extends Texture {
      * @return A Texture version of the SubTexture.
      */
     public Texture convertToTexture(boolean fliphor, boolean flipvert, int filter) {
-        return Texture.loadTexture(getParent().getSourceImage().getSubimage(x, y, getWidth(), getHeight()), fliphor, flipvert, filter);
+        return Texture.loadTexture(getParent().getSourceImage().getSubimage(x, y, getWidth(), getHeight()), fliphor,
+                flipvert, filter);
     }
     
     /**
@@ -66,7 +67,8 @@ public class SubTexture extends Texture {
      * @return A Texture version of the SubTexture.
      */
     public Texture convertToTexture(int rot, int filter) {
-        return Texture.loadTexture(getParent().getSourceImage().getSubimage(x, y, getWidth(), getHeight()), rot, filter);
+        return Texture
+                .loadTexture(getParent().getSourceImage().getSubimage(x, y, getWidth(), getHeight()), rot, filter);
     }
     
     /**
@@ -76,7 +78,8 @@ public class SubTexture extends Texture {
      * @return A Texture version of the SubTexture.
      */
     public Texture convertToTexture(boolean fliphor, boolean flipvert, int rot, int filter) {
-        return Texture.loadTexture(getParent().getSourceImage().getSubimage(x, y, getWidth(), getHeight()), fliphor, flipvert, rot, filter);
+        return Texture.loadTexture(getParent().getSourceImage().getSubimage(x, y, getWidth(), getHeight()), fliphor,
+                flipvert, rot, filter);
     }
     
     /** @return Returns the parent Texture. */

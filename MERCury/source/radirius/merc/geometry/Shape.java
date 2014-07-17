@@ -39,17 +39,17 @@ public class Shape {
     
     /** Duplicate constructor. */
     public Shape(Shape s) {
-        this.parent = s.parent;
-        this.children = s.children;
-        this.vertices = s.vertices;
-        this.x = s.x;
-        this.y = s.y;
-        this.x2 = s.x2;
-        this.y2 = s.y2;
-        this.w = s.w;
-        this.h = s.h;
-        this.center = s.center;
-        this.rot = s.rot;
+        parent = s.parent;
+        children = s.children;
+        vertices = s.vertices;
+        x = s.x;
+        y = s.y;
+        x2 = s.x2;
+        y2 = s.y2;
+        w = s.w;
+        h = s.h;
+        center = s.center;
+        rot = s.rot;
         
         // Just to be safe :).
         regen();
@@ -423,7 +423,7 @@ public class Shape {
      */
     public Shape clearParent() {
         parent.children.remove(this);
-        this.parent = null;
+        parent = null;
         
         return this;
     }

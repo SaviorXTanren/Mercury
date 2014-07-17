@@ -64,14 +64,14 @@ public interface Batcher {
     public void drawTexture(Texture texture, float x, float y, float w, float h);
     
     /**
-     * Draws a Texture texture at x and y at w and h size, rotated rot degrees by
-     * the local origin (0, 0).
+     * Draws a Texture texture at x and y at w and h size, rotated rot degrees
+     * by the local origin (0, 0).
      */
     public void drawTexture(Texture texture, float x, float y, float w, float h, float rot);
     
     /**
-     * Draws a Texture texture at x and y at w and h size, rotated rot degrees by
-     * the local origin (local_origin_x, local_origin_y).
+     * Draws a Texture texture at x and y at w and h size, rotated rot degrees
+     * by the local origin (local_origin_x, local_origin_y).
      */
     public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, float local_origin_x,
             float local_origin_y);

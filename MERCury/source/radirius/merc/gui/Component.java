@@ -43,12 +43,11 @@ public class Component implements Updatable, Renderable {
     
     @Override
     public void update(float delta) {
-        if (Runner.getInstance().getInput().mouseClicked(Input.MOUSE_LEFT)) {
+        if (Runner.getInstance().getInput().mouseClicked(Input.MOUSE_LEFT))
             if (isHovered(bounds))
                 focus();
             else if (this == focusedcomponent)
                 unfocus();
-        }
     }
     
     @Override

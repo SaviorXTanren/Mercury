@@ -119,9 +119,8 @@ public class GUITest extends Core {
         if (particle_check.isTicked()) {
             if (dragging)
                 emitter.generateParticle(5 * Math.abs((int) ((dx + dy) / 2)));
-        } else {
+        } else
             particle_texture_check.setTicked(false);
-        }
         
         emitter.getOptions().texture = particle_texture_check.isTicked() ? tex : null;
         if (particle_rotation_field.wasEntered())

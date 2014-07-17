@@ -424,8 +424,8 @@ public class Runner {
     /**
      * @return Time in milliseconds
      */
-    public float getTime() {
-        return Sys.getTime() * 1000 / Sys.getTimerResolution();
+    public long getTime() {
+        return System.currentTimeMillis();
     }
     
     /**

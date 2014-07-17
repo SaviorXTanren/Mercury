@@ -49,8 +49,8 @@ public class SpriteSheet implements Resource {
             throw new ArithmeticException("The width of the Texture must be divisible by the division width!");
         
         // Number of subtextures that can fit on the x and y axis
-        int numx = (int) (tex.getWidth() / divwidth);
-        int numy = (int) (tex.getHeight() / divheight);
+        int numx = tex.getWidth() / divwidth;
+        int numy = tex.getHeight() / divheight;
         // The subtextures!
         SubTexture[] subtexs = new SubTexture[numx * numy];
         
