@@ -180,11 +180,11 @@ public class TrueTypeFont implements radirius.merc.font.Font {
     }
     
     @Override
-    public float getWidth(char[] what) {
+    public float getWidth(String what) {
         float totalwidth = 0;
         IntObject intObject = null;
         int currentChar = 0;
-        for (char element : what) {
+        for (char element : what.toCharArray()) {
             currentChar = element;
             if (currentChar < 256)
                 intObject = chars[currentChar];

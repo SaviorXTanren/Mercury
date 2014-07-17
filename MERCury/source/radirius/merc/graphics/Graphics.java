@@ -98,28 +98,40 @@ public interface Graphics {
     /** Draws msg at x and y with font. */
     public void drawString(float scale, Font font, float x, float y, String msg);
     
-    /** Draws texture at x and y. */
+    /** Draws a Texture texture at x and y. */
     public void drawTexture(Texture texture, float x, float y);
     
-    /** Draws texture at x and y, at a width and height. */
+    /** Draws a Texture texture at x and y at w and h size. */
     public void drawTexture(Texture texture, float x, float y, float w, float h);
+    
+    /**
+     * Draws a Texture texture at x and y at w and h size, rotated rot degrees by
+     * the local origin (0, 0).
+     */
+    public void drawTexture(Texture texture, float x, float y, float w, float h, float rot);
+    
+    /**
+     * Draws a Texture texture at x and y at w and h size, rotated rot degrees by
+     * the local origin (local_origin_x, local_origin_y).
+     */
+    public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, float local_origin_x,
+            float local_origin_y);
     
     /** Draws a portion of the texture at x and y. */
     public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y);
     
     /** Draws a portion of the texture at x1 and y1, to x2 and y2. */
-    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x1, float y1, float x2,
-            float y2);
+    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, float w,
+            float h);
     
-    /** Draws a portion of the texture to coordinates. */
-    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x1, float y1, float x2,
-            float y2, float x3, float y3, float x4, float y4);
+    /** Draws a Texture texture to the Rectangle region. */
+    public void drawTexture(Texture texture, Rectangle region);
     
-    /** Draws a texture to a rectangle. */
-    public void drawTexture(Texture texture, Rectangle rect);
+    /** Draws a portion of a texture to the Rectangle region. */
+    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region);
     
-    /** Draws a portion of a texture to a rectangle. */
-    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle rect);
+    /** Draws the portion sourceregion of a texture to the Rectangle region */
+    public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region);
     
     /** Draws a rectangle. */
     public void drawRect(Rectangle rectangle);

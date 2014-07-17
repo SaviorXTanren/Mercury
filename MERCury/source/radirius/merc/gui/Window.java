@@ -138,7 +138,7 @@ public class Window extends Panel {
                 barbounds.getCenter().y - exit.bounds.getHeight() / 2);
         exit.render(g);
         // and finally a title!
-        float width = namefont.getWidth(name.toCharArray());
+        float width = namefont.getWidth(name);
         float height = namefont.getHeight();
         float centerbarx = (barbounds.getX2() + exit.bounds.getX2() + barbounds.getWidth() * 0.01f) / 2;
         float centerbary = barbounds.getY() + barbounds.getHeight() / 2;

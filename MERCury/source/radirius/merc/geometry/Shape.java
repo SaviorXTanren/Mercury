@@ -213,6 +213,9 @@ public class Shape {
      * @return Me
      */
     public Shape rotate(float origx, float origy, float angle) {
+        if (angle == 0)
+            return this;
+        
         for (Vec2 p : vertices) {
             float s = MercMath.sin(angle);
             float c = MercMath.cos(angle);

@@ -19,7 +19,7 @@ public class TextBar extends Component {
     
     public TextBar(String txt, Texture left, Texture right, Texture body, float x, float y, Color textcolor,
             Font textfont) {
-        super(txt, x, y, textfont.getWidth(txt.toCharArray()) + (left != null ? left.getWidth() : 0)
+        super(txt, x, y, textfont.getWidth(txt) + (left != null ? left.getWidth() : 0)
                 + (right != null ? right.getWidth() : 0), body != null ? body.getHeight() : textfont.getHeight());
         
         if (txt.contains("\n"))
@@ -57,7 +57,7 @@ public class TextBar extends Component {
         // Fit to a new size!
         Shape parent = new Shape(bounds.getParent());
         bounds.clearParent();
-        bounds = (Rectangle) new Rectangle(bounds.getX(), bounds.getY(), textfont.getWidth(content.toCharArray())
+        bounds = (Rectangle) new Rectangle(bounds.getX(), bounds.getY(), textfont.getWidth(content)
                 + (left != null ? left.getWidth() : 0) + (right != null ? right.getWidth() : 0), bounds.getHeight());
         bounds.setParent(parent);
     }
@@ -96,6 +96,6 @@ public class TextBar extends Component {
     }
     
     public float contentWidth() {
-        return textfont.getWidth(content.toCharArray());
+        return textfont.getWidth(content);
     }
 }

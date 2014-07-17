@@ -36,9 +36,9 @@ public interface Font extends Resource {
     public float getLineHeight();
     
     /**
-     * @return The width of a given character array.
+     * @return The width of a given string in I, the font.
      */
-    public float getWidth(char[] what);
+    public float getWidth(String what);
     
     /**
      * @return The overall texture used for rendering the font.

@@ -123,7 +123,7 @@ public class TextBox extends Component {
             
             // If we are pushing the width limit or we are at the end of the
             // text, new line (or not)!
-            if (textfont.getWidth(content.substring(lidx, idx).toCharArray()) > bounds.getWidth() - margin * 2
+            if (textfont.getWidth(content.substring(lidx, idx)) > bounds.getWidth() - margin * 2
                     || idx >= content.length()) {
                 // Making sure no words get cut off, or split in half.
                 int lastspace = linetxt.lastIndexOf(' ') + 1;

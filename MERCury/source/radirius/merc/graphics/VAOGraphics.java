@@ -213,8 +213,8 @@ public class VAOGraphics implements Graphics {
                 }
                 
                 TrueTypeFont.IntObject intobj = jf.chars[msg.toCharArray()[ci]];
-                drawFunctionlessTexture(font.getFontTexture(), intobj.x, intobj.y, intobj.x + intobj.w, intobj.y
-                        + intobj.h, new Rectangle(x + current_x, y, intobj.w * scale, intobj.h * scale));
+                batcher.drawTexture(font.getFontTexture(), intobj.x, intobj.y, intobj.x + intobj.w,
+                        intobj.y + intobj.h, new Rectangle(x + current_x, y, intobj.w * scale, intobj.h * scale));
                 current_x += intobj.w * scale;
             }
             
@@ -235,7 +235,18 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void drawTexture(Texture texture, float x, float y, float w, float h) {
-        drawTexture(texture, 0, 0, texture.getWidth(), texture.getHeight(), x, y, w, h);
+        drawTexture(texture, x, y, w, h, 0);
+    }
+    
+    @Override
+    public void drawTexture(Texture texture, float x, float y, float w, float h, float rot) {
+        drawTexture(texture, x, y, w, h, rot, 0, 0);
+    }
+    
+    @Override
+    public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, float local_origin_x,
+            float local_origin_y) {
+        drawTexture(texture, (Rectangle) new Rectangle(x, y, w, h).rotate(rot, local_origin_x, local_origin_y));
     }
     
     @Override
@@ -246,93 +257,32 @@ public class VAOGraphics implements Graphics {
     @Override
     public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, float w,
             float h) {
-        drawTexture(texture, sx1, sy1, sx2, sy2, x, y, x + w, y, x + w, y + h, x, y + h);
+        drawTexture(texture, sx1, sy1, sx2, sy2, new Rectangle(x, y, w, h));
     }
     
     @Override
-    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x1, float y1, float x2,
-            float y2, float x3, float y3, float x4, float y4) {
-        drawTexture(texture, sx1, sy1, sx2, sy2, new Rectangle(x1, y1, x2, y2, x3, y3, x4, y4));
+    public void drawTexture(Texture texture, Rectangle region) {
+        drawTexture(texture, 0, 0, texture.getWidth(), texture.getHeight(), region);
     }
     
     @Override
-    public void drawTexture(Texture texture, Rectangle rect) {
-        drawTexture(texture, 0, 0, texture.getWidth(), texture.getHeight(), rect);
+    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region) {
+        drawTexture(texture, new Rectangle(sx1, sy1, sx2 - sx1, sy2 - sy1), region);
     }
     
     @Override
-    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle rectangle) {
+    public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region) {
         boolean default_color = current_color == Color.DEFAULT_DRAWING;
         
         if (default_color)
             setColor(Color.DEFAULT_TEXTURE_COLOR);
         
-        drawFunctionlessTexture(texture, sx1, sy1, sx2, sy2, rectangle);
+        batcher.drawTexture(texture, sourceregion, region);
         
         if (default_color)
             setColor(Color.DEFAULT_DRAWING);
         
         pullSetColor();
-    }
-    
-    /**
-     * A method that can be called without pulling a color, setting a color,
-     * binding, etc.
-     */
-    private void drawFunctionlessTexture(Texture texture, float sx1, float sy1, float sx2, float sy2,
-            Rectangle rectangle) {
-        float x1 = rectangle.getVertices()[0].x;
-        float y1 = rectangle.getVertices()[0].y;
-        float x2 = rectangle.getVertices()[1].x;
-        float y2 = rectangle.getVertices()[1].y;
-        float x3 = rectangle.getVertices()[2].x;
-        float y3 = rectangle.getVertices()[2].y;
-        float x4 = rectangle.getVertices()[3].x;
-        float y4 = rectangle.getVertices()[3].y;
-        
-        // Make a hypothetical subtexture of the texture
-        SubTexture subtexture = null;
-        if (texture instanceof SubTexture)
-            subtexture = (SubTexture) texture;
-        
-        float w, h;
-        
-        if (texture instanceof SubTexture) {
-            w = subtexture.getParentWidth();
-            h = subtexture.getParentHeight();
-            
-            sx1 += subtexture.getSubX();
-            sy1 += subtexture.getSubY();
-            sx2 += subtexture.getSubX();
-            sy2 += subtexture.getSubY();
-        } else {
-            w = texture.getWidth();
-            h = texture.getHeight();
-        }
-        
-        sy1 = h - sy1;
-        sy2 = h - sy2;
-        
-        sx1 /= w;
-        sy1 /= h;
-        sx2 /= w;
-        sy2 /= h;
-        
-        batcher.setTexture(texture);
-        batcher.flushIfOverflow(6);
-        
-        batcher.vertex(x1, y1, sx1, sy1);
-        batcher.vertex(x2, y2, sx2, sy1);
-        batcher.vertex(x4, y4, sx1, sy2);
-        
-        batcher.vertex(x3, y3, sx2, sy2);
-        batcher.vertex(x4, y4, sx1, sy2);
-        batcher.vertex(x2, y2, sx2, sy1);
-        
-        if (texture instanceof SubTexture) {
-            batcher.flush();
-            batcher.setShader(Shader.DEFAULT_SHADER);
-        }
     }
     
     @Override

@@ -7,10 +7,10 @@
   <name>MERCury</name>
   <description>The simplistic game library for all of us.</description>
   <build>
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>source</sourceDirectory>
     <resources>
       <resource>
-        <directory>src</directory>
+        <directory>source</directory>
         <excludes>
           <exclude>**/*.java</exclude>
         </excludes>

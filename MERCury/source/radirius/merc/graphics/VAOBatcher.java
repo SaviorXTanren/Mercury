@@ -20,6 +20,7 @@ import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
 
+import radirius.merc.geometry.Rectangle;
 import radirius.merc.logging.Logger;
 
 /**
@@ -176,6 +177,111 @@ public class VAOBatcher implements Batcher {
     @Override
     public Shader getShader() {
         return last_shader;
+    }
+    
+    @Override
+    public void drawTexture(Texture texture, float x, float y) {
+        drawTexture(texture, x, y, texture.getWidth(), texture.getHeight());
+    }
+    
+    @Override
+    public void drawTexture(Texture texture, float x, float y, float w, float h) {
+        drawTexture(texture, x, y, w, h, 0);
+    }
+    
+    @Override
+    public void drawTexture(Texture texture, float x, float y, float w, float h, float rot) {
+        drawTexture(texture, x, y, w, h, rot, 0, 0);
+    }
+    
+    @Override
+    public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, float local_origin_x,
+            float local_origin_y) {
+        drawTexture(texture, (Rectangle) new Rectangle(x, y, w, h).rotate(rot, local_origin_x, local_origin_y));
+    }
+    
+    @Override
+    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y) {
+        drawTexture(texture, sx1, sy1, sx2, sy2, x, y, texture.getWidth(), texture.getHeight());
+    }
+    
+    @Override
+    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, float w,
+            float h) {
+        drawTexture(texture, sx1, sy1, sx2, sy2, new Rectangle(x, y, w, h));
+    }
+    
+    @Override
+    public void drawTexture(Texture texture, Rectangle region) {
+        drawTexture(texture, 0, 0, texture.getWidth(), texture.getHeight(), region);
+    }
+    
+    @Override
+    public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region) {
+        drawTexture(texture, new Rectangle(sx1, sy1, sx2 - sx1, sy2 - sy1), region);
+    }
+    
+    @Override
+    public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region) {
+        float x1 = region.getVertices()[0].x;
+        float y1 = region.getVertices()[0].y;
+        float x2 = region.getVertices()[1].x;
+        float y2 = region.getVertices()[1].y;
+        float x3 = region.getVertices()[2].x;
+        float y3 = region.getVertices()[2].y;
+        float x4 = region.getVertices()[3].x;
+        float y4 = region.getVertices()[3].y;
+        
+        // Make a hypothetical subtexture of the texture
+        SubTexture subtexture = null;
+        if (texture instanceof SubTexture)
+            subtexture = (SubTexture) texture;
+        
+        float w, h;
+        
+        if (texture instanceof SubTexture) {
+            w = subtexture.getParentWidth();
+            h = subtexture.getParentHeight();
+            
+            sourceregion.translate(subtexture.getSubX(), subtexture.getSubY());
+        } else {
+            w = texture.getWidth();
+            h = texture.getHeight();
+        }
+        
+        float sx1 = sourceregion.getVertices()[0].x, sy1 = sourceregion.getVertices()[0].y, sx2 = sourceregion
+                .getVertices()[1].x, sy2 = sourceregion.getVertices()[1].y, sx3 = sourceregion.getVertices()[2].x, sy3 = sourceregion
+                .getVertices()[2].y, sx4 = sourceregion.getVertices()[3].x, sy4 = sourceregion.getVertices()[3].y;
+        
+        sy1 = h - sy1;
+        sy2 = h - sy2;
+        sy3 = h - sy3;
+        sy4 = h - sy4;
+        
+        sx1 /= w;
+        sy1 /= h;
+        sx2 /= w;
+        sy2 /= h;
+        sx3 /= w;
+        sy3 /= h;
+        sx4 /= w;
+        sy4 /= h;
+        
+        setTexture(texture);
+        flushIfOverflow(6);
+        
+        vertex(x1, y1, sx1, sy1);
+        vertex(x2, y2, sx2, sy2);
+        vertex(x4, y4, sx4, sy4);
+        
+        vertex(x3, y3, sx3, sy3);
+        vertex(x4, y4, sx4, sy4);
+        vertex(x2, y2, sx2, sy2);
+        
+        if (texture instanceof SubTexture) {
+            flush();
+            setShader(Shader.DEFAULT_SHADER);
+        }
     }
     
     @Override

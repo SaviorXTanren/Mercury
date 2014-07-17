@@ -60,7 +60,7 @@ public class CheckBox extends Component {
     
     public CheckBox(String txt, float x, float y, Texture unchecked, Texture checked, float boxsize,
             boolean boxtoleftoftext, Color textcolor, Font font) {
-        super(txt, x, y, font.getWidth(txt.toCharArray()) + boxsize, Math.max(font.getHeight(), boxsize));
+        super(txt, x, y, font.getWidth(txt) + boxsize, Math.max(font.getHeight(), boxsize));
         this.unchecked = unchecked;
         this.checked = checked;
         
@@ -97,11 +97,11 @@ public class CheckBox extends Component {
             g.drawString(font, bounds.getX(), bounds.getY(), content);
             
             if (!ticked)
-                g.drawTexture(unchecked, bounds.getX() + font.getWidth(content.toCharArray()),
-                        bounds.getY() + font.getHeight() / 2 - boxsize / 2, boxsize, boxsize);
+                g.drawTexture(unchecked, bounds.getX() + font.getWidth(content), bounds.getY() + font.getHeight() / 2
+                        - boxsize / 2, boxsize, boxsize);
             else
-                g.drawTexture(checked, bounds.getX() + font.getWidth(content.toCharArray()),
-                        bounds.getY() + font.getHeight() / 2 - boxsize / 2, boxsize, boxsize);
+                g.drawTexture(checked, bounds.getX() + font.getWidth(content), bounds.getY() + font.getHeight() / 2
+                        - boxsize / 2, boxsize, boxsize);
         }
     }
     
