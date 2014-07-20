@@ -291,25 +291,25 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void drawShape(Shape... shapes) {
-        Shape shape = shapes[0];
-        if (shape instanceof Circle)
-            drawCircle((Circle) shape);
-        else if (shape instanceof Ellipse)
-            drawEllipse((Ellipse) shape);
-        else if (shape instanceof Line)
-            drawLine((Line) shape);
-        else if (shape instanceof Point)
-            drawPoint((Point) shape);
-        else if (shape instanceof Polygon)
-            drawPolygon((Polygon) shape);
-        else if (shape instanceof Rectangle)
-            drawRect((Rectangle) shape);
-        else if (shape instanceof Star)
-            drawStar((Star) shape);
-        else if (shape instanceof Triangle)
-            drawTriangle((Triangle) shape);
-        else
-            Logger.warn("Shape type not found; nothing rendered.");
+        for (Shape shape : shapes)
+            if (shape instanceof Circle)
+                drawCircle((Circle) shape);
+            else if (shape instanceof Ellipse)
+                drawEllipse((Ellipse) shape);
+            else if (shape instanceof Line)
+                drawLine((Line) shape);
+            else if (shape instanceof Point)
+                drawPoint((Point) shape);
+            else if (shape instanceof Polygon)
+                drawPolygon((Polygon) shape);
+            else if (shape instanceof Rectangle)
+                drawRect((Rectangle) shape);
+            else if (shape instanceof Star)
+                drawStar((Star) shape);
+            else if (shape instanceof Triangle)
+                drawTriangle((Triangle) shape);
+            else
+                Logger.warn("Shape type not found; nothing rendered.");
     }
     
     @Override
@@ -326,6 +326,8 @@ public class VAOGraphics implements Graphics {
      * binding, etc.
      */
     private void drawFunctionlessRect(Rectangle... rectangle) {
+        float w = batcher.getTexture().getWidth(), h = batcher.getTexture().getHeight();
+        
         for (Rectangle _rectangle : rectangle) {
             float x1 = _rectangle.getVertices()[0].x;
             float y1 = _rectangle.getVertices()[0].y;
@@ -338,13 +340,13 @@ public class VAOGraphics implements Graphics {
             
             batcher.flushIfOverflow(6);
             
-            batcher.vertex(x1, y1, 0, 0);
-            batcher.vertex(x2, y2, 0, 0);
-            batcher.vertex(x4, y4, 0, 0);
+            batcher.vertex(x1, y1, x1 / w, y1 / h);
+            batcher.vertex(x2, y2, x2 / w, y2 / h);
+            batcher.vertex(x4, y4, x4 / w, y4 / h);
             
-            batcher.vertex(x3, y3, 0, 0);
-            batcher.vertex(x4, y4, 0, 0);
-            batcher.vertex(x2, y2, 0, 0);
+            batcher.vertex(x3, y3, x3 / w, y3 / h);
+            batcher.vertex(x4, y4, x4 / w, y4 / h);
+            batcher.vertex(x2, y2, x2 / w, y2 / h);
         }
     }
     
@@ -357,6 +359,8 @@ public class VAOGraphics implements Graphics {
     public void drawTriangle(Triangle... triangle) {
         batcher.clearTextures();
         
+        float w = batcher.getTexture().getWidth(), h = batcher.getTexture().getHeight();
+        
         for (Triangle _triangle : triangle) {
             float x1 = _triangle.getVertices()[0].x;
             float y1 = _triangle.getVertices()[0].y;
@@ -367,9 +371,9 @@ public class VAOGraphics implements Graphics {
             
             batcher.flushIfOverflow(3);
             
-            batcher.vertex(x1, y1, 0, 1);
-            batcher.vertex(x3, y3, 1, 1);
-            batcher.vertex(x2, y2, 0, 0);
+            batcher.vertex(x1, y1, x1 / w, y1 / h);
+            batcher.vertex(x3, y3, x3 / w, y3 / h);
+            batcher.vertex(x2, y2, x2 / w, y2 / h);
         }
         
         pullSetColor();
@@ -384,21 +388,25 @@ public class VAOGraphics implements Graphics {
     public void drawPolygon(Polygon... polygon) {
         batcher.clearTextures();
         
+        float w = batcher.getTexture().getWidth(), h = batcher.getTexture().getHeight();
+        
         for (Polygon _polygon : polygon) {
             Vec2[] vs = _polygon.getVertices();
             
             for (int c = 0; c < vs.length; c++) {
-                batcher.vertex(_polygon.getCenter().x, _polygon.getCenter().y, 0, 0);
+                batcher.vertex(_polygon.getCenter().x, _polygon.getCenter().y, _polygon.getCenter().x / w,
+                        _polygon.getCenter().y / h);
                 
                 if (c >= vs.length - 1)
-                    batcher.vertex(vs[0].x, vs[0].y, 0, 0);
+                    batcher.vertex(vs[0].x, vs[0].y, vs[0].x / w, vs[0].y / h);
                 else
-                    batcher.vertex(vs[c].x, vs[c].y, 0, 0);
+                    batcher.vertex(vs[c].x, vs[c].y, vs[c].x / w, vs[c].y / h);
                 
                 if (c >= vs.length - 1)
-                    batcher.vertex(vs[vs.length - 1].x, vs[vs.length - 1].y, 0, 0);
+                    batcher.vertex(vs[vs.length - 1].x, vs[vs.length - 1].y, vs[vs.length - 1].x / w,
+                            vs[vs.length - 1].y / h);
                 else
-                    batcher.vertex(vs[c + 1].x, vs[c + 1].y, 0, 0);
+                    batcher.vertex(vs[c + 1].x, vs[c + 1].y, vs[c + 1].x / w, vs[c + 1].y / h);
             }
         }
         
@@ -431,25 +439,26 @@ public class VAOGraphics implements Graphics {
     }
     
     @Override
-    public void traceShape(Shape... shape) {
-        if (shape instanceof Circle[])
-            traceCircle((Circle[]) shape);
-        else if (shape instanceof Ellipse[])
-            traceEllipse((Ellipse[]) shape);
-        else if (shape instanceof Line[])
-            drawLine((Line[]) shape);
-        else if (shape instanceof Point[])
-            drawPoint((Point[]) shape);
-        else if (shape instanceof Polygon[])
-            tracePolygon((Polygon[]) shape);
-        else if (shape instanceof Rectangle[])
-            traceRect((Rectangle[]) shape);
-        else if (shape instanceof Star[])
-            traceStar((Star[]) shape);
-        else if (shape instanceof Triangle[])
-            traceTriangle((Triangle[]) shape);
-        else
-            Logger.warn("Shape type not found; nothing rendered.");
+    public void traceShape(Shape... shapes) {
+        for (Shape shape : shapes)
+            if (shape instanceof Circle)
+                traceCircle((Circle) shape);
+            else if (shape instanceof Ellipse)
+                traceEllipse((Ellipse) shape);
+            else if (shape instanceof Line)
+                drawLine((Line) shape);
+            else if (shape instanceof Point)
+                drawPoint((Point) shape);
+            else if (shape instanceof Polygon)
+                tracePolygon((Polygon) shape);
+            else if (shape instanceof Rectangle)
+                traceRect((Rectangle) shape);
+            else if (shape instanceof Star)
+                traceStar((Star) shape);
+            else if (shape instanceof Triangle)
+                traceTriangle((Triangle) shape);
+            else
+                Logger.warn("Shape type not found; nothing rendered.");
     }
     
     @Override

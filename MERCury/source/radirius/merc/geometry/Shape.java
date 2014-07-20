@@ -107,8 +107,8 @@ public class Shape {
             // Now, for each line in this shape, we need to test all lines in
             // the other shape.
             for (int v2_ = 0; v2_ < s.vertices.length;) {
-                Vec2 l2v1 = s.vertices[v2_], l2v2 = s.vertices.length > 2 ? s.vertices[++v2_ % vertices.length]
-                        : vertices[++v2_];
+                Vec2 l2v1 = s.vertices[v2_], l2v2 = s.vertices.length > 2 ? s.vertices[++v2_ % s.vertices.length]
+                        : s.vertices[++v2_];
                 Line l2 = new Line(l2v1, l2v2);
                 
                 // Now we test!

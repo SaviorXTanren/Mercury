@@ -7,12 +7,21 @@ import radirius.merc.maths.MercMath;
  */
 
 public class Polygon extends Shape {
+    private float radius;
+    
     public Polygon(float centerx, float centery, float radius, int numberofsides) {
         this(centerx, centery, radius, radius, numberofsides);
     }
     
     public Polygon(float centerx, float centery, float radiusx, float radiusy, int numberofsides) {
         super(getTrigVerts(centerx, centery, radiusx, radiusy, numberofsides));
+        // Average radius!
+        this.radius = 0.5f * (radiusx + radiusy);
+    }
+    
+    @Override
+    public boolean contains(Vec2 v) {
+        return v.distance(getCenter()) < radius;
     }
     
     /**
