@@ -52,7 +52,7 @@ public class Particle implements Entity, Wipeable {
         
         pos.add(new Vec2(vel.x * delta, vel.y * delta));
         vel.add(emitter.getOptions().gravity);
-        vel.scale(emitter.getOptions().growth);
+        vel.scale(emitter.getOptions().acceleration);
         
         size *= emitter.getOptions().growth;
         
