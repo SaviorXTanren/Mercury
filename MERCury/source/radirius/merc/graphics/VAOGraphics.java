@@ -169,7 +169,7 @@ public class VAOGraphics implements Graphics {
     @Override
     public void drawRawVertices(VAOBatcher.VertexData... verts) {
         if (verts.length % 3 != 0)
-            throw new IllegalArgumentException("Vertices must be in multiples of 3!");
+            throw new IllegalArgumentException("Vertices must be in multiples of 3 for triangle rendering!");
         
         for (VAOBatcher.VertexData vdo : verts)
             batcher.vertex(vdo);
@@ -394,6 +394,8 @@ public class VAOGraphics implements Graphics {
             Vec2[] vs = _polygon.getVertices();
             
             for (int c = 0; c < vs.length; c++) {
+                batcher.flushIfOverflow(3);
+                
                 batcher.vertex(_polygon.getCenter().x, _polygon.getCenter().y, _polygon.getCenter().x / w,
                         _polygon.getCenter().y / h);
                 

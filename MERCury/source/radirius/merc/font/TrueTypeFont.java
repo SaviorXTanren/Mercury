@@ -106,7 +106,7 @@ public class TrueTypeFont implements radirius.merc.font.Font {
             // New IntObject with width and height of fontImage.
             IntObject newIntObject = new IntObject();
             newIntObject.w = fontImage.getWidth();
-            newIntObject.h = fontImage.getHeight();
+            newIntObject.h = fontImage.getHeight() * 2;
             
             // Go to next row if there is no room on x axis.
             if (positionX + newIntObject.w >= texw) {
@@ -120,12 +120,10 @@ public class TrueTypeFont implements radirius.merc.font.Font {
             newIntObject.y = positionY;
             
             // Set the highest height of the font.
-            if (newIntObject.h > font_height)
-                font_height = newIntObject.h;
+            font_height = Math.max(font_height, newIntObject.h);
             
             // Set the row_height to the highest one in the row.
-            if (newIntObject.h > rowHeight)
-                rowHeight = newIntObject.h;
+            rowHeight = Math.max(rowHeight, newIntObject.h);
             
             // Draw the character onto the font image.
             g.drawImage(fontImage, (int) positionX, (int) positionY, null);
@@ -140,7 +138,7 @@ public class TrueTypeFont implements radirius.merc.font.Font {
         }
         
         // Load texture!
-        font_tex = Texture.loadTexture(imgTemp, false, false);
+        font_tex = Texture.loadTexture(imgTemp);
     }
     
     private BufferedImage getFontImage(char ch) {

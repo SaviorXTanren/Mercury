@@ -20,6 +20,7 @@ import radirius.merc.graphics.Graphics;
 import radirius.merc.graphics.Shader;
 import radirius.merc.graphics.VAOGraphics;
 import radirius.merc.logging.Logger;
+import radirius.merc.resource.Loader;
 
 /**
  * The {@code Core} that will host the game. It is ran above by the
@@ -103,6 +104,8 @@ public abstract class Core {
         } catch (LWJGLException e) {
             e.printStackTrace();
         }
+        
+        Runner.getInstance().setIcon(Loader.streamFromClasspath("radirius/merc/framework/merc_mascot.png"));
     }
     
     /**

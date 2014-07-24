@@ -87,7 +87,7 @@ public class CollisionTest extends Core {
         g.drawShape(s1);
         double current_time = (double) rnr.getTime() / 100;
         s1 = (Star) new Star(s1.getCenter().x, s1.getCenter().y, 10 + 3 * (float) Math.sin(current_time),
-                10 + 3 * (float) Math.cos(current_time), 10).rotate(starrot+=3);
+                10 + 3 * (float) Math.cos(current_time), 10).rotate(starrot += 3);
         g.setColor(Color.green);
         g.traceShape(s1);
     }

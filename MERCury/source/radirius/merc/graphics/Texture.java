@@ -277,10 +277,12 @@ public class Texture implements Resource {
             bi = op.filter(bi, null);
         }
         
+        flipvert = !flipvert;
+        
         // Flip the bufferedimage
         if (fliphor || flipvert) {
             AffineTransform tx = AffineTransform.getScaleInstance(fliphor ? -1 : 1, flipvert ? -1 : 1);
-            tx.translate(-bi.getWidth(null), 0);
+            tx.translate(fliphor ? -bi.getWidth() : 0, flipvert ? -bi.getHeight() : 0);
             AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
             bi = op.filter(bi, null);
         }
@@ -327,7 +329,7 @@ public class Texture implements Resource {
         // A buffer to store with bufferedimage data and throw into LWJGL
         ByteBuffer buffer = BufferUtils.createByteBuffer(_bi.getWidth() * _bi.getHeight() * BYTES_PER_PIXEL);
         
-        for (int y = _bi.getHeight() - 1; y > -1; y--)
+        for (int y = 0; y < _bi.getHeight(); y++)
             for (int x = 0; x < _bi.getWidth(); x++) {
                 int pixel = _bi.getRGB(x, y);
                 

@@ -55,6 +55,8 @@ public class Particle implements Entity, Wipeable {
         vel.scale(emitter.getOptions().acceleration);
         
         size *= emitter.getOptions().growth;
+        if (size <= 0)
+            wipe();
         
         bounds = new Rectangle(pos.x - size / 2, pos.y - size / 2, size);
         bounds.rotateTo(rot += emitter.getOptions().rotation * rotdirection);

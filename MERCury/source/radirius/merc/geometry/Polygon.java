@@ -16,7 +16,7 @@ public class Polygon extends Shape {
     public Polygon(float centerx, float centery, float radiusx, float radiusy, int numberofsides) {
         super(getTrigVerts(centerx, centery, radiusx, radiusy, numberofsides));
         // Average radius!
-        this.radius = 0.5f * (radiusx + radiusy);
+        radius = 0.5f * (radiusx + radiusy);
     }
     
     @Override
