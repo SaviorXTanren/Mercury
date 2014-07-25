@@ -1,4 +1,4 @@
-![alt-text](http://merc.radiri.us/sitetemp/assets/logos/MERCury_Black.png)  
+![alt-text](http://puu.sh/aqDeA/56eed3744e.png)  
 
 MERCury is a small game library designed to simplify the complex and shorten the tedious for beginners and veterans alike. With it, you can use the best aspects of OpenGL in an easy and organized way optimized for game programming. It is built around the concept that beginners should be able to start with the basics and then move up into a more complex plane of development with the veterans, all on the same platform.  
 
@@ -22,7 +22,7 @@ You can report any problems you find in the [Github Issue Tracker](https://githu
 Well, it wouldn't be open-source if you couldn't contribute. 
 [Contribution Guide](https://github.com/Radirius/MERCury/wiki/Contribution-Guide) on the wiki.
 
-## Radirius Contact and Information
+## Radirius Contact Information
 | Name                   | E-Mail            | Website                               |
 |------------------------|-------------------|---------------------------------------|
 | Support                | contact@radiri.us | [radiri.us](http://radiri.us/)        |
