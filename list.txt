@@ -7,7 +7,7 @@
                                               __/ |  \ o /
                                              |___/     |
                                    2D Game Library    / \
-                                       Designed by Team Radirius
+                                       Designed by Radirius
                                        
 ----------------------------------------------------------------
                                    
@@ -18,12 +18,11 @@ Key:
 [=] - In Progress
 [-] - Incomplete/Not Done
 
-
-Please use proper grammar when adding items to the list, and to make a comment to the list do as you would do in the
-Java programming language: Make a new line, indent it by 3 spaces, add two forward-slashes ('//') with one extra 
+Please use proper grammar when adding items to the list. To make a comment to the list do as you would do in the
+Java programming language. Make a new line, indent it by 3 spaces, add two forward-slashes ('//') with one extra 
 space at the end, and then add the text to your comment.
 
-Please do not forget to keep this updated! While 'list.txt' still a document it has feelings!
+Please do not forget to keep this updated.
 
 - Jev
 
@@ -32,9 +31,9 @@ Please do not forget to keep this updated! While 'list.txt' still a document it 
 Beginning of list.
 
 ---------------------------------------------------------------------------------------------
-Primary To-Do List:
+Primary Code To-Do List:
 
-- [+] Open-Sans Typeface/Font
+- [+] Open-Sans TypeFace
 - [+] Draw an image specifying X, Y, W, and H values.
 - [+] Remove try and catch from most places
   // Done reluctantly by wessles
@@ -42,19 +41,40 @@ Primary To-Do List:
   // Done with love by wessles
 - [+] Seperate Thread for loading resources.
   // Done with neutrality by wessles
-- [=] Frackin' do the GUI FREAKING PIECE OF FRICK JEVINY
 - [-] Easing utilities
 - [-] Resource lists
-- [-] JEV YOU ALSO SHUD COMMENT OUT THE GUI STUFFS
-      [-] Radio Checkbox/Checkbox
-      [-] Textboxes
-      [-] Textbars
-      [-] Panels
-      [-] etc.
+- [=] Graphical User Interface Capabilities
+      [+] Radio Checkbox/Checkbox
+      [+] Textboxes
+      [+] Textbars
+      [+] Panels
+      [+] Windows
+      [+] Buttons
+      // More GUI stuff to come ^^
+- [-] Include selection of freeware TypeFaces in library.
+- [-] Make MERCury App Launcher
+- [-] Enhance Splash Screen Support
+- [-] Write Demonstration Apps
+      [-] Graphical User Interface Capabilities
+      [-] Particle Engine
+      [-] Geometry
+      [-] 2D Tiled Map Loading  ]
+      [-] Sprite-Sheets ^       ]
+      // Probably More To come
+      
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
 
 - [+] Buy official Radirius domain name (radiri.us)
-- [+] Make Website.
-- [-] Get hosted.
+  // Done with passion by Jeviny
+- [+] Get hosted.
+  // Done with negotiation by Jeviny
+- [=] Make MERCury Website.
+  // Done with zen by Jeviny
+- [=] Make Demonstration Video.
+  
+---------------------------------------------------------------------------------------------
+
+End Of List
+
 ---------------------------------------------------------------------------------------------
