@@ -5,13 +5,13 @@ package radirius.merc.gui;
  */
 
 public class NewLine extends Component {
-    
-    public NewLine() {
-        this(32);
-    }
-    
-    public NewLine(int height) {
-        super("", 0, 0, 0, height);
-        TYPE = TYPE_NONSPAN;
-    }
+  
+  public NewLine() {
+    this(32);
+  }
+  
+  public NewLine(int height) {
+    super("", 0, 0, 0, height);
+    TYPE = TYPE_NONSPAN;
+  }
 }

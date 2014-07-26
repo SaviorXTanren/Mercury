@@ -8,12 +8,12 @@ package radirius.merc.framework;
  */
 
 public interface Plugin {
-    /** The method for initializing the plugin */
-    public void init();
-    
-    /** The method for updating */
-    public void update();
-    
-    /** The method for cleaning up the plugin */
-    public void cleanup();
+  /** The method for initializing the plugin */
+  public void init();
+  
+  /** The method for updating */
+  public void update();
+  
+  /** The method for cleaning up the plugin */
+  public void cleanup();
 }

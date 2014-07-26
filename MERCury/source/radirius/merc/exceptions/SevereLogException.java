@@ -8,7 +8,7 @@ package radirius.merc.exceptions;
 
 @SuppressWarnings("serial")
 public class SevereLogException extends MERCuryException {
-    public SevereLogException(String sevmsg) {
-        super("The log has reported SEVERE, and closed the program:\n" + sevmsg);
-    }
+  public SevereLogException(String sevmsg) {
+    super("The log has reported SEVERE, and closed the program:\n" + sevmsg);
+  }
 }

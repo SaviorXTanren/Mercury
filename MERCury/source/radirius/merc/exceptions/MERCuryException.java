@@ -9,8 +9,8 @@ package radirius.merc.exceptions;
 
 @SuppressWarnings("serial")
 public class MERCuryException extends Exception {
-    
-    public MERCuryException(String reason) {
-        super(reason);
-    }
+  
+  public MERCuryException(String reason) {
+    super(reason);
+  }
 }

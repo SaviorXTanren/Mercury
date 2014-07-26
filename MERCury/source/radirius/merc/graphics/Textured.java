@@ -7,5 +7,5 @@ package radirius.merc.graphics;
  */
 
 public interface Textured {
-    public Texture getTexture();
+  public Texture getTexture();
 }
