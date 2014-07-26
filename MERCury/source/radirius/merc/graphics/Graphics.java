@@ -68,9 +68,6 @@ public interface Graphics {
     /** Sets the color. */
     public void setColor(Color color);
     
-    /** Sets the color for one drawing, and then sets it to the previous color. */
-    public void pushSetColor(Color color);
-    
     /** @return The last set color. */
     public Color getColor();
     

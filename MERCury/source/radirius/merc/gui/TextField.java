@@ -25,6 +25,7 @@ public class TextField extends TextBar {
         super(txt, left, right, body, x, y, textcolor, textfont);
         this.INPUT_TYPE = INPUT_TYPE;
         startidx = txt.length();
+        // +1 for the cursor!
         this.limit = limit + startidx;
     }
     
@@ -159,5 +160,9 @@ public class TextField extends TextBar {
         
         // Get rid of the last character!
         content = content.substring(0, Math.max(startidx, content.length() - cursor.length()));
+    }
+    
+    public float contentWidth() {
+        return textfont.getAverageWidth(limit+cursor.length());
     }
 }

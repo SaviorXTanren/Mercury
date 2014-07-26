@@ -1,7 +1,7 @@
 package radirius.merc.splash;
 
 import radirius.merc.framework.Runner;
-import radirius.merc.geometry.Vec2;
+import radirius.merc.geometry.Rectangle;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.graphics.Texture;
 import radirius.merc.resource.Loader;
@@ -49,15 +49,16 @@ public class SplashScreen {
             showing = true;
         }
         
-        Vec2 scale = Runner.getInstance().getGraphics().getScaleDimensions();
-        int scrw = (int) (Runner.getInstance().getWidth() / scale.x), scrh = (int) (Runner.getInstance().getHeight() / scale.y);
-        float width = tex.getWidth(), height = tex.getHeight();
-        float aspect = width / height;
+        // Fit to the camera
+        Rectangle cam = Runner.getInstance().getCamera().getBounds();
+        float scale = cam.getWidth() / tex.width;
+        float width = cam.getWidth();
+        float height = tex.height * scale;
+        scale = cam.getHeight() / height;
+        height = cam.getHeight();
+        width *= scale;
         
-        width = scrw;
-        height = width / aspect;
-        
-        g.drawTexture(tex, 0, 0 + scrh / 2 - height / 2, width, height);
+        g.drawTexture(tex, cam.getX() + cam.getWidth() / 2 - width/ 2, cam.getY() + cam.getHeight() / 2 - height / 2, width, height);
         return _return_;
     }
     
@@ -69,7 +70,7 @@ public class SplashScreen {
      */
     public static SplashScreen getMERCuryDefault() {
         Texture tex = null;
-        tex = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/splash/splash.png"));
+        tex = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/splash/splash.png"), Texture.FILTER_LINEAR);
         
         return new SplashScreen(tex, 3000);
     }

@@ -1,5 +1,6 @@
 package radirius.merc.font;
 
+import java.awt.Color;
 import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
@@ -20,6 +21,8 @@ import radirius.merc.resource.Loader;
  */
 
 public class TrueTypeFont implements radirius.merc.font.Font {
+    public static int STANDARD_CHARACTERS = 256;
+    
     /** A default opensans bold font! */
     public static TrueTypeFont OPENSANS_BOLD;
     /** A default opensans regular font! */
@@ -30,11 +33,11 @@ public class TrueTypeFont implements radirius.merc.font.Font {
     static {
         try {
             OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont(
-                    Loader.streamFromClasspath("radirius/merc/graphics/OpenSans-Semibold.ttf"), 20f, 1, true);
+                    Loader.streamFromClasspath("radirius/merc/graphics/OpenSans-Semibold.ttf"), 22f, 1, true);
             OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont(
-                    Loader.streamFromClasspath("radirius/merc/graphics/OpenSans-Semibold.ttf"), 20f, 1, true);
+                    Loader.streamFromClasspath("radirius/merc/graphics/OpenSans-Semibold.ttf"), 22f, 1, true);
             OPENSANS_SEMIBOLD = TrueTypeFont.loadTrueTypeFont(
-                    Loader.streamFromClasspath("radirius/merc/graphics/OpenSans-Semibold.ttf"), 20f, 1, true);
+                    Loader.streamFromClasspath("radirius/merc/graphics/OpenSans-Semibold.ttf"), 22f, 1, true);
         } catch (IOException e) {
             Logger.warn("Problems loading default opensans fonts.");
         } catch (FontFormatException e) {
@@ -43,7 +46,7 @@ public class TrueTypeFont implements radirius.merc.font.Font {
     }
     
     /** All data for all characters. */
-    public final IntObject[] chars = new IntObject[256];
+    public final IntObject[] chars = new IntObject[STANDARD_CHARACTERS];
     
     /** Shall we antialias? */
     private boolean antialias;
@@ -52,6 +55,10 @@ public class TrueTypeFont implements radirius.merc.font.Font {
     private float font_size = 0;
     /** The height of the font */
     private float font_height = 0;
+    /** The maximum number/letter character width */
+    private float font_max_width = 0;
+    /** The average number/letter character width */
+    private float font_average_width = 0;
     
     /** The overall texture used for rendering the font. */
     private Texture font_tex;
@@ -73,15 +80,15 @@ public class TrueTypeFont implements radirius.merc.font.Font {
     }
     
     private void createSet() {
-        for (int i = 0; i < 256; i++) {
+        for (int i = 0; i < STANDARD_CHARACTERS; i++) {
             char ch = (char) i;
             BufferedImage fontimg = getFontImage(ch);
             texw += fontimg.getWidth();
             texh = Math.max(fontimg.getHeight(), texh);
         }
         
-        texw /= 4;
-        texh *= 4;
+        texw /= 8;
+        texh *= 8;
         
         // Make a graphics object for the buffered image.
         BufferedImage imgTemp = new BufferedImage(texw, texh, BufferedImage.TYPE_INT_ARGB);
@@ -92,12 +99,11 @@ public class TrueTypeFont implements radirius.merc.font.Font {
         g.fillRect(0, 0, texw, texh);
         
         // Initialize temporary vars
-        float rowHeight = 0;
         float positionX = 0;
         float positionY = 0;
         
         // Loop through all standard characters (256 of em')
-        for (int i = 0; i < 256; i++) {
+        for (int i = 0; i < STANDARD_CHARACTERS; i++) {
             char ch = (char) i;
             
             // BufferedImage for the character
@@ -106,24 +112,17 @@ public class TrueTypeFont implements radirius.merc.font.Font {
             // New IntObject with width and height of fontImage.
             IntObject newIntObject = new IntObject();
             newIntObject.w = fontImage.getWidth();
-            newIntObject.h = fontImage.getHeight() * 2;
+            newIntObject.h = fontImage.getHeight();
             
             // Go to next row if there is no room on x axis.
             if (positionX + newIntObject.w >= texw) {
                 positionX = 0;
-                positionY += rowHeight;
-                rowHeight = 0;
+                positionY += getHeight();
             }
             
             // Set the positions
             newIntObject.x = positionX;
             newIntObject.y = positionY;
-            
-            // Set the highest height of the font.
-            font_height = Math.max(font_height, newIntObject.h);
-            
-            // Set the row_height to the highest one in the row.
-            rowHeight = Math.max(rowHeight, newIntObject.h);
             
             // Draw the character onto the font image.
             g.drawImage(fontImage, (int) positionX, (int) positionY, null);
@@ -137,8 +136,18 @@ public class TrueTypeFont implements radirius.merc.font.Font {
             fontImage = null;
         }
         
+        // Turn black, for coloring reasons.
+        for (int x = 0; x < imgTemp.getWidth(); x++) {
+            for (int y = 0; y < imgTemp.getHeight(); y++) {
+                int rgba = imgTemp.getRGB(x, y);
+                Color col = new Color(rgba, true);
+                col = new Color(255 - col.getRed(), 255 - col.getGreen(), 255 - col.getBlue(), col.getAlpha());
+                imgTemp.setRGB(x, y, col.getRGB());
+            }
+        }
+        
         // Load texture!
-        font_tex = Texture.loadTexture(imgTemp);
+        font_tex = Texture.loadTexture(imgTemp, false, false);
     }
     
     private BufferedImage getFontImage(char ch) {
@@ -150,20 +159,25 @@ public class TrueTypeFont implements radirius.merc.font.Font {
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         g.setFont(font);
+        
         // Font preperation
-        
         fmetrics = g.getFontMetrics();
-        float charwidth = fmetrics.charWidth(ch);
         
+        float charwidth = fmetrics.charWidth(ch);
         // Safety guards just in case.
         if (charwidth <= 0)
             charwidth = 1;
-        float charheight = fmetrics.getHeight();
-        if (charheight <= 0)
-            charheight = font_size;
+        
+        if (Character.isLetterOrDigit(ch)) {
+            font_max_width = Math.max(font_max_width, charwidth);
+            font_average_width += charwidth / STANDARD_CHARACTERS;
+        }
+        
+        // Height!
+        font_height = fmetrics.getHeight();
         
         // Now to the actual image!
-        BufferedImage fontImage = new BufferedImage((int) charwidth, (int) charheight, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage fontImage = new BufferedImage((int) charwidth, (int) getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D gt = (Graphics2D) fontImage.getGraphics();
         if (antialias == true)
             gt.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -184,13 +198,23 @@ public class TrueTypeFont implements radirius.merc.font.Font {
         int currentChar = 0;
         for (char element : what.toCharArray()) {
             currentChar = element;
-            if (currentChar < 256)
+            if (currentChar < STANDARD_CHARACTERS)
                 intObject = chars[currentChar];
             
             if (intObject != null)
                 totalwidth += intObject.w;
         }
         return totalwidth;
+    }
+    
+    @Override
+    public float getMaxWidth(int len) {
+        return len * font_max_width;
+    }
+    
+    @Override
+    public float getAverageWidth(int len) {
+        return len * font_average_width;
     }
     
     @Override
@@ -204,12 +228,12 @@ public class TrueTypeFont implements radirius.merc.font.Font {
     }
     
     @Override
-    public float getHeight() {
-        return font_height;
+    public float getSize() {
+        return font_size;
     }
     
     @Override
-    public float getLineHeight() {
+    public float getHeight() {
         return font_height;
     }
     

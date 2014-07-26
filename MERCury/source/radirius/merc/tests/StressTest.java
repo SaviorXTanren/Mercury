@@ -37,8 +37,8 @@ public class StressTest extends Core {
     public void render(Graphics g) {
         g.drawTexture(dAWWWW, new Rectangle(0, 0, rnr.getWidth() / 2, rnr.getHeight() / 2));
         // Renders 427,890 vertices to OGL. That is a lot.
-        for (float x = 0; x < rnr.getWidth(); x += 1.5)
-            for (float y = 0; y < rnr.getHeight(); y += 1.5)
+        for (float x = 5*(float)Math.cos(System.nanoTime()/100000000f); x < rnr.getWidth(); x += 1.5)
+            for (float y = 5*(float)Math.cos(System.nanoTime()/100000000f); y < rnr.getHeight(); y += 1.5)
                 g.drawRect(new Rectangle(x, y, 0.5f));
     }
     

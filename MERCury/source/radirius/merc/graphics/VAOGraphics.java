@@ -125,27 +125,6 @@ public class VAOGraphics implements Graphics {
         batcher.setColor(current_color);
     }
     
-    private Color push_color = null;
-    private boolean pull = true;
-    
-    @Override
-    public void pushSetColor(Color color) {
-        push_color = current_color;
-        current_color = color;
-        
-        batcher.setColor(current_color);
-    }
-    
-    private void pullSetColor() {
-        if (push_color == null || !pull)
-            return;
-        
-        current_color = push_color;
-        push_color = null;
-        
-        batcher.setColor(current_color);
-    }
-    
     @Override
     public Color getColor() {
         return current_color;
@@ -204,31 +183,24 @@ public class VAOGraphics implements Graphics {
             
             boolean default_color = current_color == Color.DEFAULT_DRAWING;
             
-            batcher.flush();
-            batcher.setShader(Shader.TEXT_SHADER);
-            
             if (default_color)
                 setColor(Color.DEFAULT_TEXT_COLOR);
             
             for (int ci = 0; ci < msg.toCharArray().length; ci++) {
                 if (msg.toCharArray()[ci] == '\n') {
-                    y += jf.getLineHeight() * scale;
+                    y += jf.getHeight() * scale;
                     current_x = 0;
                 }
                 
                 TrueTypeFont.IntObject intobj = jf.chars[msg.toCharArray()[ci]];
-                batcher.drawTexture(font.getFontTexture(), intobj.x, intobj.y, intobj.x + intobj.w,
-                        intobj.y + intobj.h, new Rectangle(x + current_x, y, intobj.w * scale, intobj.h * scale));
+                batcher.drawTexture(font.getFontTexture(), new Rectangle(intobj.x, intobj.y, intobj.w,
+                        intobj.h), new Rectangle(x + current_x, y, intobj.w * scale,
+                        intobj.h * scale));
                 current_x += intobj.w * scale;
             }
             
-            batcher.flush();
-            batcher.setShader(Shader.DEFAULT_SHADER);
-            
             if (default_color)
                 setColor(Color.DEFAULT_DRAWING);
-            
-            pullSetColor();
         }
     }
     
@@ -285,8 +257,6 @@ public class VAOGraphics implements Graphics {
         
         if (default_color)
             setColor(Color.DEFAULT_DRAWING);
-        
-        pullSetColor();
     }
     
     @Override
@@ -317,8 +287,6 @@ public class VAOGraphics implements Graphics {
         batcher.clearTextures();
         
         drawFunctionlessRect(rectangle);
-        
-        pullSetColor();
     }
     
     /**
@@ -375,8 +343,6 @@ public class VAOGraphics implements Graphics {
             batcher.vertex(x3, y3, x3 / w, y3 / h);
             batcher.vertex(x2, y2, x2 / w, y2 / h);
         }
-        
-        pullSetColor();
     }
     
     @Override
@@ -411,8 +377,6 @@ public class VAOGraphics implements Graphics {
                     batcher.vertex(vs[c + 1].x, vs[c + 1].y, vs[c + 1].x / w, vs[c + 1].y / h);
             }
         }
-        
-        pullSetColor();
     }
     
     @Override
@@ -480,8 +444,6 @@ public class VAOGraphics implements Graphics {
             drawFunctionlessLine(new Line(p3, p4));
             drawFunctionlessLine(new Line(p4, p1));
         }
-        
-        pullSetColor();
     }
     
     @Override
@@ -504,8 +466,6 @@ public class VAOGraphics implements Graphics {
             drawFunctionlessLine(new Line(p2, p3));
             drawFunctionlessLine(new Line(p3, p1));
         }
-        
-        pullSetColor();
     }
     
     @Override
@@ -537,8 +497,6 @@ public class VAOGraphics implements Graphics {
                 drawFunctionlessLine(new Line(p1, p2));
             }
         }
-        
-        pullSetColor();
     }
     
     @Override
@@ -606,8 +564,6 @@ public class VAOGraphics implements Graphics {
             
             drawFunctionlessLine(_l);
         }
-        
-        pullSetColor();
     }
     
     @Override

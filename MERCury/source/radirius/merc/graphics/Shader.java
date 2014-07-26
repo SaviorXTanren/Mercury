@@ -356,7 +356,7 @@ public class Shader implements Resource {
         return source.toString();
     }
     
-    public static Shader DEFAULT_SHADER, TEXT_SHADER;
+    public static Shader DEFAULT_SHADER;
     
     /** The default shader for MERCury (not to be confused with shader 0). */
     public static void loadDefaultShaders() {
@@ -364,10 +364,5 @@ public class Shader implements Resource {
             DEFAULT_SHADER = Shader.getShader(
                     Loader.streamFromClasspath("radirius/merc/graphics/shaders/default_shader.vs"),
                     Loader.streamFromClasspath("radirius/merc/graphics/shaders/default_shader.fs"));
-        
-        if (TEXT_SHADER == null)
-            TEXT_SHADER = Shader.getShader(
-                    Loader.streamFromClasspath("radirius/merc/graphics/shaders/default_shader.vs"),
-                    Loader.streamFromClasspath("radirius/merc/graphics/shaders/text_shader.fs"));
     }
 }

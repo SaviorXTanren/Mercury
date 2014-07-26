@@ -83,7 +83,7 @@ public class CheckBox extends Component {
     @Override
     public void render(Graphics g) {
         if (boxtoleftoftext) {
-            g.pushSetColor(textcolor);
+            g.setColor(textcolor);
             g.drawString(font, bounds.getX() + boxsize, bounds.getY(), content);
             
             if (!ticked)
@@ -93,7 +93,7 @@ public class CheckBox extends Component {
                 g.drawTexture(checked, bounds.getX(), bounds.getY() + font.getHeight() / 2 - boxsize / 2, boxsize,
                         boxsize);
         } else {
-            g.pushSetColor(textcolor);
+            g.setColor(textcolor);
             g.drawString(font, bounds.getX(), bounds.getY(), content);
             
             if (!ticked)

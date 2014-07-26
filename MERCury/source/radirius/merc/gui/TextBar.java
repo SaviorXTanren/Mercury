@@ -13,9 +13,9 @@ import radirius.merc.logging.Logger;
  * @author wessles, Jeviny(quite postponed, to be honest)
  */
 public class TextBar extends Component {
-    private Texture left, right, body;
-    private Color textcolor;
-    private Font textfont;
+    protected Texture left, right, body;
+    protected Color textcolor;
+    protected Font textfont;
     
     public TextBar(String txt, Texture left, Texture right, Texture body, float x, float y, Color textcolor,
             Font textfont) {
@@ -57,7 +57,7 @@ public class TextBar extends Component {
         // Fit to a new size!
         Shape parent = new Shape(bounds.getParent());
         bounds.clearParent();
-        bounds = new Rectangle(bounds.getX(), bounds.getY(), textfont.getWidth(content)
+        bounds = new Rectangle(bounds.getX(), bounds.getY(), contentWidth()
                 + (left != null ? left.getWidth() : 0) + (right != null ? right.getWidth() : 0), bounds.getHeight());
         bounds.setParent(parent);
     }
@@ -80,17 +80,18 @@ public class TextBar extends Component {
             }
         
         if (right != null)
-            g.drawTexture(right, bounds.getX() + left.getWidth() + contentWidth(), bounds.getY());
+            g.drawTexture(right, bounds.getX() + left.getWidth() + contentWidth() - 1, bounds.getY());
         
         renderContent(g);
     }
     
     @Override
     public void renderContent(Graphics g) {
-        g.pushSetColor(textcolor);
+        g.setColor(textcolor);
         
         if (left != null)
-            g.drawString(textfont, bounds.getX() + left.getWidth(), bounds.getY(), content);
+            g.drawString(textfont, bounds.getX() + left.getWidth(), bounds.getY() + bounds.getHeight() / 2
+                    - g.getFont().getHeight() / 2, content);
         else
             g.drawString(textfont, bounds.getX(), bounds.getY(), content);
     }

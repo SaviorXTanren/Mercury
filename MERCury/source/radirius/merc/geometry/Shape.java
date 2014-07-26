@@ -37,6 +37,9 @@ public class Shape {
     /** The rotation angle (in degrees, COS screw radians) */
     protected float rot = 0;
     
+    /** The scale! */
+    protected float scale = 1;
+    
     /** Duplicate constructor. */
     public Shape(Shape s) {
         parent = s.parent;
@@ -280,6 +283,56 @@ public class Shape {
     }
     
     /**
+     * Scales a shape from a point.
+     * 
+     * @return Me
+     */
+    public Shape scale(Vec2 point, float scale) {
+        translate(-point.x, -point.y);
+        
+        for (Vec2 v : vertices) {
+            v.x *= scale;
+            v.y *= scale;
+        }
+        
+        translate(point.x, point.y);
+        
+        this.scale *= scale;
+        
+        for (Shape c : children)
+            c.scale(point, scale);
+        
+        return this;
+    }
+    
+    /**
+     * Scales a shape from the center of the shape.
+     * 
+     * @return Me
+     */
+    public Shape scale(float scale) {
+        return scale(getCenter(), scale);
+    }
+    
+    /**
+     * Scales a shape from a point.
+     * 
+     * @return Me
+     */
+    public Shape setScale(Vec2 point, float scale) {
+        return scale(point, scale / this.scale);
+    }
+    
+    /**
+     * Scales a shape from the center of the shape.
+     * 
+     * @return Me
+     */
+    public Shape setScale(float scale) {
+        return setScale(getCenter(), scale);
+    }
+    
+    /**
      * Flips the object over the y axis, relative to the mean center.
      * 
      * @return Me
@@ -345,6 +398,11 @@ public class Shape {
     /** @return The rotation of the object. */
     public float getRotation() {
         return rot;
+    }
+    
+    /** @return The scale of the object. */
+    public float getScale() {
+        return scale;
     }
     
     /** @return The center of the object. */

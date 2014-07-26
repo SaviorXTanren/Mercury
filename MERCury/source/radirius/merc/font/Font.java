@@ -25,20 +25,29 @@ public interface Font extends Resource {
      */
     public Font deriveFont(int style);
     
+    /** The size of the font. */
+    public float getSize();
+    
     /**
      * @return The height of the font.
      */
     public float getHeight();
     
     /**
-     * @return The height of the font.
-     */
-    public float getLineHeight();
-    
-    /**
      * @return The width of a given string in I, the font.
      */
     public float getWidth(String what);
+    
+    /**
+     * @return The maximum width that a given string of length len could be.
+     */
+    public float getMaxWidth(int len);
+    
+    /**
+     * @return The average width of all number/letter characters, multiplied by
+     *         len.
+     */
+    public float getAverageWidth(int len);
     
     /**
      * @return The overall texture used for rendering the font.

@@ -90,6 +90,9 @@ public class CollisionTest extends Core {
                 10 + 3 * (float) Math.cos(current_time), 10).rotate(starrot += 3);
         g.setColor(Color.green);
         g.traceShape(s1);
+        
+        g.setColor(Color.green);
+        g.drawString(1 / g.getScale(), 0, 0, "ye");
     }
     
     @Override

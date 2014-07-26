@@ -6,6 +6,7 @@ import radirius.merc.geometry.Rectangle;
 import radirius.merc.geometry.Shape;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.graphics.Texture;
+import radirius.merc.logging.Logger;
 
 /**
  * A component to contain and render sorted components.
@@ -57,17 +58,18 @@ public class Panel extends Component implements Container {
         float bw = border.getWidth();
         
         // Draw Body!
-        if (body != null)
-            g.drawTexture(body, bounds.getX(), bounds.getY(), bounds.getX2(), bounds.getY2(), bounds);
+        if (body != null) {
+            g.drawTexture(body, new Rectangle(0, 0, bounds.getWidth(), bounds.getHeight()), bounds);
+        Logger.debug("ye");
+        }
         
         // Draw borders!
         if (border != null) {
             // _______Vertical borders
-            
             g.drawTexture(border, bounds.getX(), bounds.getY(), bw, bounds.getHeight() + bw); // Left
             g.drawTexture(border, bounds.getX2(), bounds.getY2(), -bw, -bounds.getHeight() - bw); // Right
-            // _______Horizontal borders
             
+            // _______Horizontal borders
             Rectangle bottomborderbounds = new Rectangle(0, 0, bw, bounds.getWidth());
             bottomborderbounds.rotate(0, 0, -90);
             bottomborderbounds.translateTo(bounds.getX(), bounds.getY2());

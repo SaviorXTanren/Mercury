@@ -241,7 +241,7 @@ public class Texture implements Resource {
     public static Texture loadTexture(BufferedImage bi, boolean fliphor, boolean flipvert, int rot, int filter) {
         BufferedImage _bi = processBufferedImage(bi, fliphor, flipvert, rot);
         
-        ByteBuffer buffer = convertBufferedImageToBuffer(_bi);
+        ByteBuffer buffer = convertBufferedImageToBuffer(_bi, false, true);
         
         boolean PoT = isPoT(_bi.getWidth(), _bi.getHeight());
         
@@ -277,11 +277,10 @@ public class Texture implements Resource {
             bi = op.filter(bi, null);
         }
         
-        flipvert = !flipvert;
-        
         // Flip the bufferedimage
         if (fliphor || flipvert) {
-            AffineTransform tx = AffineTransform.getScaleInstance(fliphor ? -1 : 1, flipvert ? -1 : 1);
+            AffineTransform tx = new AffineTransform();
+            tx.scale(fliphor ? -1 : 1, flipvert ? -1 : 1);
             tx.translate(fliphor ? -bi.getWidth() : 0, flipvert ? -bi.getHeight() : 0);
             AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
             bi = op.filter(bi, null);
@@ -314,23 +313,22 @@ public class Texture implements Resource {
             
             BufferedImage newbi = new BufferedImage(newwidth, newheight, bi.getType());
             
-            for (int x = 0; x < newbi.getWidth(); x++)
-                for (int y = 0; y < newbi.getHeight(); y++)
-                    newbi.setRGB(x, y, 0x00000000);
-            
-            newbi.getGraphics().drawImage(bi, 0, 0, null);
+            newbi.getGraphics().drawImage(bi, fliphor ? newbi.getWidth() - bi.getWidth() : 0,
+                    flipvert ? newbi.getHeight() - bi.getHeight() : 0, null);
             _bi = newbi;
         }
         
         return _bi;
     }
     
-    public static ByteBuffer convertBufferedImageToBuffer(BufferedImage _bi) {
+    public static ByteBuffer convertBufferedImageToBuffer(BufferedImage _bi, boolean fliphor, boolean flipvert) {
         // A buffer to store with bufferedimage data and throw into LWJGL
         ByteBuffer buffer = BufferUtils.createByteBuffer(_bi.getWidth() * _bi.getHeight() * BYTES_PER_PIXEL);
         
-        for (int y = 0; y < _bi.getHeight(); y++)
-            for (int x = 0; x < _bi.getWidth(); x++) {
+        for (int y = flipvert ? _bi.getHeight() - 1 : 0; flipvert ? (y > -1) : (y < _bi.getHeight()); y += flipvert ? -1
+                : 1)
+            for (int x = fliphor ? _bi.getWidth() - 1 : 0; fliphor ? (x > -1) : (x < _bi.getWidth()); x += fliphor ? -1
+                    : 1) {
                 int pixel = _bi.getRGB(x, y);
                 
                 buffer.put((byte) (pixel >> 16 & 0xFF));
@@ -342,6 +340,10 @@ public class Texture implements Resource {
         buffer.flip();
         
         return buffer;
+    }
+    
+    public static ByteBuffer convertBufferedImageToBuffer(BufferedImage _bi) {
+        return convertBufferedImageToBuffer(_bi, false, false);
     }
     
     public static boolean isPoT(int width, int height) {

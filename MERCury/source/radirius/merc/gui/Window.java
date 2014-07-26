@@ -142,7 +142,7 @@ public class Window extends Panel {
         float height = namefont.getHeight();
         float centerbarx = (barbounds.getX2() + exit.bounds.getX2() + barbounds.getWidth() * 0.01f) / 2;
         float centerbary = barbounds.getY() + barbounds.getHeight() / 2;
-        g.pushSetColor(namecol);
+        g.setColor(namecol);
         g.drawString(namefont, centerbarx - width / 2, centerbary - height / 2, name);
     }
     

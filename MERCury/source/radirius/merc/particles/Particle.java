@@ -66,7 +66,7 @@ public class Particle implements Entity, Wipeable {
     
     @Override
     public void render(Graphics g) {
-        g.pushSetColor(emitter.getOptions().color.duplicate());
+        g.setColor(emitter.getOptions().color.duplicate());
         if (emitter.getOptions().texture == null)
             g.drawRect(bounds);
         else
