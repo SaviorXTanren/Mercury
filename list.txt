@@ -61,6 +61,7 @@ Primary Code To-Do List:
       [-] 2D Tiled Map Loading  ]
       [-] Sprite-Sheets ^       ]
       // Probably More To come
+- [-] Completely Re-Write Wiki
       
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
