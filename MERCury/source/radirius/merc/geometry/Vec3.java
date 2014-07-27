@@ -1,6 +1,8 @@
 package radirius.merc.geometry;
 
 /**
+ * A class for 3 dimensional vectors.
+ * 
  * @author wessles
  */
 

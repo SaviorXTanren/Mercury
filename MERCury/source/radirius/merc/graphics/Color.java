@@ -10,6 +10,7 @@ package radirius.merc.graphics;
 public class Color {
     public static final Color red = new Color(255, 0, 0, 255);
     public static final Color orange = new Color(255, 125, 0, 255);
+    public static final Color brown = new Color(127, 69, 30, 255);
     public static final Color yellow = new Color(255, 255, 0, 255);
     public static final Color springgreen = new Color(125, 255, 0, 255);
     public static final Color green = new Color(0, 255, 0, 255);

@@ -13,14 +13,14 @@ import radirius.merc.graphics.Texture;
  * @author wessles, Jeviny
  */
 public class TextBox extends Component {
-    public float margin;
+    protected float margin;
     
-    public Texture background_img;
-    public Color textCol;
+    protected Texture background_img;
+    protected Color textCol;
     
-    private ArrayList<TextButton> buttons = new ArrayList<TextButton>();
+    protected ArrayList<TextButton> buttons = new ArrayList<TextButton>();
     
-    private Font textfont = null;
+    protected Font textfont = null;
     
     public TextBox(String txt, Rectangle bounds) {
         this(txt, bounds, 0);

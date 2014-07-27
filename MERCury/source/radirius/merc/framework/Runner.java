@@ -1,8 +1,6 @@
 package radirius.merc.framework;
 
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +15,7 @@ import org.lwjgl.opengl.Display;
 
 import radirius.merc.command.CommandList;
 import radirius.merc.command.CommandThread;
-import radirius.merc.exceptions.PluginNotFoundException;
+import radirius.merc.exceptions.MERCuryException;
 import radirius.merc.graphics.Camera;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.graphics.Texture;
@@ -417,11 +415,14 @@ public class Runner {
         return getWidth() / getHeight();
     }
     
-    /**
-     * @return Time in milliseconds
-     */
-    public long getTime() {
+    /** @return Time in milliseconds */
+    public float getMillis() {
         return System.currentTimeMillis();
+    }
+    
+    /** @return Time in seconds */
+    public float getSeconds() {
+        return (float) (System.currentTimeMillis()) / 1000f;
     }
     
     /**
@@ -595,11 +596,11 @@ public class Runner {
      *            The name of the plugin you want
      * @return The plugin corresponding to name
      */
-    public Plugin getPlugin(String name) throws PluginNotFoundException {
+    public Plugin getPlugin(String name) throws MERCuryException {
         for (Plugin plug : plugs)
             if (plug.getClass().getSimpleName().equalsIgnoreCase(name))
                 return plug;
-        throw new PluginNotFoundException("Plugin '" + name + "' not found!");
+        throw new MERCuryException("Plugin '" + name + "' not found!");
     }
     
     /** @return The singleton instance of Runner */

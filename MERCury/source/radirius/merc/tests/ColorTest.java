@@ -1,22 +1,6 @@
 package radirius.merc.tests;
 
-import static radirius.merc.graphics.Color.black;
-import static radirius.merc.graphics.Color.blue;
-import static radirius.merc.graphics.Color.coal;
-import static radirius.merc.graphics.Color.cyan;
-import static radirius.merc.graphics.Color.gray;
-import static radirius.merc.graphics.Color.green;
-import static radirius.merc.graphics.Color.magenta;
-import static radirius.merc.graphics.Color.marble;
-import static radirius.merc.graphics.Color.ocean;
-import static radirius.merc.graphics.Color.orange;
-import static radirius.merc.graphics.Color.rasberry;
-import static radirius.merc.graphics.Color.red;
-import static radirius.merc.graphics.Color.springgreen;
-import static radirius.merc.graphics.Color.turquoise;
-import static radirius.merc.graphics.Color.violet;
-import static radirius.merc.graphics.Color.white;
-import static radirius.merc.graphics.Color.yellow;
+import static radirius.merc.graphics.Color.*;
 import radirius.merc.framework.Core;
 import radirius.merc.framework.Runner;
 import radirius.merc.geometry.Rectangle;
@@ -57,6 +41,7 @@ public class ColorTest extends Core {
     public void render(Graphics g) {
         test(red, g);
         test(orange, g);
+        test(brown,g);
         test(yellow, g);
         test(springgreen, g);
         test(green, g);

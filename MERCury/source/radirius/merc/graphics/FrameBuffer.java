@@ -26,6 +26,8 @@ import radirius.merc.framework.Runner;
 import radirius.merc.logging.Logger;
 
 /**
+ * An object that allows you to 'draw to a texture.' Good for post-processing effects.
+ * 
  * @author wessles
  */
 

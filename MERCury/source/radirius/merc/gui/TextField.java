@@ -15,8 +15,8 @@ import radirius.merc.input.Input;
 public class TextField extends TextBar {
     public static final int INPUT_STRING = 0, INPUT_SIGNED_INTEGER_NUM = 1, INPUT_UNSIGNED_INTEGER_NUM = 2, INPUT_INTEGER = INPUT_SIGNED_INTEGER_NUM, INPUT_SIGNED_FLOATING_POINT_NUM = 3, INPUT_UNSIGNED_FLOATING_POINT_NUM = 4, INPUT_FLOATING_POINT_NUM = INPUT_SIGNED_INTEGER_NUM;
     
-    private int INPUT_TYPE = INPUT_STRING;
-    private int startidx, limit;
+    protected int INPUT_TYPE = INPUT_STRING;
+    protected int startidx, limit;
     
     public TextField(String txt, Texture left, Texture right, Texture body, float x, float y, Color textcolor, Font textfont, int INPUT_TYPE, int limit) {
         super(txt, left, right, body, x, y, textcolor, textfont);

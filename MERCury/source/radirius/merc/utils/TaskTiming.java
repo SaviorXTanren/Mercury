@@ -2,7 +2,7 @@ package radirius.merc.utils;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import radirius.merc.exceptions.TaskException;
+import radirius.merc.exceptions.MERCuryException;
 
 /**
  * An easy to use utility for one-shot, and reccuring timertasks. Operates on
@@ -84,8 +84,8 @@ public class TaskTiming implements Runnable {
             
             if (timeout <= 0)
                 try {
-                    throw new TaskException("Timeout must be at least one millisecond!");
-                } catch (TaskException e) {
+                    throw new MERCuryException("Timeout must be at least one millisecond!");
+                } catch (MERCuryException e) {
                     e.printStackTrace();
                 }
             this.timeout = timeout;

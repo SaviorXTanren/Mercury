@@ -9,7 +9,7 @@ import radirius.merc.graphics.Texture;
  * @author Jeviny
  */
 public class TextButton extends TextBar implements Button {
-    private boolean wasactive;
+    protected boolean wasactive;
     
     public TextButton(String txt, Texture left, Texture right, Texture body, float x, float y, Color textcolor, Font textfont) {
         super(txt, left, right, body, x, y, textcolor, textfont);

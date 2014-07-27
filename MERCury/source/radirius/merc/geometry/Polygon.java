@@ -3,6 +3,8 @@ package radirius.merc.geometry;
 import radirius.merc.maths.MercMath;
 
 /**
+ * A shape with any amount of sides.
+ * 
  * @author wessles
  */
 

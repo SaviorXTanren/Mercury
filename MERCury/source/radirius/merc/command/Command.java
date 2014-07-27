@@ -1,7 +1,8 @@
 package radirius.merc.command;
 
 /**
- * A Command that will do a specific task when asked in the Dev Console.
+ * A Command that will do a specific task when asked in the given inputstream
+ * (by default, the console).
  * 
  * @author wessles
  */

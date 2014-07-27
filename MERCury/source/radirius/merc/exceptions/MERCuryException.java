@@ -1,8 +1,7 @@
 package radirius.merc.exceptions;
 
 /**
- * A general exception for MERCury, which will print its stacktrace to a file
- * using StackTraceSaver.
+ * A general exception for MERCury.
  * 
  * @author wessles
  */

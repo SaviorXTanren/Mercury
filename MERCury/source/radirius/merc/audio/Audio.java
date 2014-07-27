@@ -37,6 +37,8 @@ import org.lwjgl.BufferUtils;
 import radirius.merc.resource.Resource;
 
 /**
+ * An object for using Audio files and things.
+ * 
  * @author wessles
  */
 

@@ -108,7 +108,12 @@ public class Texture implements Resource {
     
     /** @return If the Texture is PoT and not a SubTexture. */
     public boolean fullCapabilities() {
-        return !(this instanceof SubTexture) && isPoT();
+        boolean capable = isPoT();
+        if (this instanceof SubTexture) {
+            SubTexture subthis = (SubTexture) this;
+            capable = capable && subthis.getWidth() == subthis.getParentWidth() && subthis.getHeight() == subthis.getParentHeight();
+        }
+        return capable;
     }
     
     @Override

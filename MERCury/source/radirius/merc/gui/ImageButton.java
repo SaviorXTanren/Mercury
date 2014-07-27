@@ -9,9 +9,9 @@ import radirius.merc.graphics.Texture;
  */
 
 public class ImageButton extends Component implements Button {
-    private Texture idle, hover, clicked;
+    protected Texture idle, hover, clicked;
     
-    private boolean wasactive;
+    protected boolean wasactive;
     
     public ImageButton(Rectangle bounds) {
         this(bounds, getDefaultTextures().getTexture(7), getDefaultTextures().getTexture(8), getDefaultTextures().getTexture(9));

@@ -1,6 +1,8 @@
 package radirius.merc.geometry;
 
 /**
+ * A line class.
+ * 
  * @author wessles
  */
 

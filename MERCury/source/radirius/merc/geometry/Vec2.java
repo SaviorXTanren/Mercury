@@ -3,8 +3,7 @@ package radirius.merc.geometry;
 import radirius.merc.maths.MercMath;
 
 /**
- * A Vector that contains 2 values: x and y. This class makes vector math easy,
- * and makes your life a whole lot easier.
+ * A class for 2 dimensional vectors.
  * 
  * @author wessles
  */

@@ -2,12 +2,13 @@ package radirius.merc.command;
 
 import java.util.HashMap;
 
-import radirius.merc.exceptions.ConsoleException;
+import radirius.merc.exceptions.MERCuryException;
 import radirius.merc.framework.Runner;
 import radirius.merc.logging.Logger;
 
 /**
- * A collection of Commands and Variables to be accessed in the Dev Console.
+ * A collection of Commands and Variables to be accessed in the given
+ * inputstream (the console by default).
  * 
  * @author wessles
  */
@@ -29,8 +30,8 @@ public class CommandList {
     public static void addCommandList(CommandList cmdl) {
         if (commandlists.containsKey(cmdl.name))
             try {
-                throw new ConsoleException("A Command List already exists with the name '" + cmdl.name + "!' Command List adding failed.");
-            } catch (ConsoleException e) {
+                throw new MERCuryException("A Command List already exists with the name '" + cmdl.name + "!' Command List adding failed.");
+            } catch (MERCuryException e) {
                 e.printStackTrace();
             }
         commandlists.put(cmdl.name, cmdl);
@@ -55,7 +56,6 @@ public class CommandList {
      *            user. Used for general instruction of using the command list.
      */
     public CommandList(String name, String manual) {
-        // CASE INSENSITIVE!!! HAW HAWH HAWW
         this.name = name.toLowerCase();
         this.manual = manual + "\nCommand Manuals:";
     }
@@ -77,8 +77,8 @@ public class CommandList {
     public void addCommand(Command cmd) {
         if (commands.containsKey(cmd.name))
             try {
-                throw new ConsoleException("A duplicate Command '" + cmd.name + "' has been attempted. Duplicate rejected.");
-            } catch (ConsoleException e) {
+                throw new MERCuryException("A duplicate Command '" + cmd.name + "' has been attempted. Duplicate rejected.");
+            } catch (MERCuryException e) {
                 e.printStackTrace();
             }
         commands.put(cmd.name, cmd);
@@ -94,15 +94,15 @@ public class CommandList {
     public void addVariable(Variable v) {
         if (variables.containsKey(v.name))
             try {
-                throw new ConsoleException("A duplicate Variable '" + v.name + "' has been attempted. Duplicate rejected.");
-            } catch (ConsoleException e) {
+                throw new MERCuryException("A duplicate Variable '" + v.name + "' has been attempted. Duplicate rejected.");
+            } catch (MERCuryException e) {
                 e.printStackTrace();
             }
         
         if (commands.containsKey(v.name))
             try {
-                throw new ConsoleException("A Variable '" + v.name + "' cannot share the same name as the Command! Duplicate rejected.");
-            } catch (ConsoleException e) {
+                throw new MERCuryException("A Variable '" + v.name + "' cannot share the same name as the Command! Duplicate rejected.");
+            } catch (MERCuryException e) {
                 e.printStackTrace();
             }
         

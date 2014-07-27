@@ -11,15 +11,15 @@ import radirius.merc.graphics.Texture;
  */
 
 public class CheckBox extends Component {
-    private Texture unchecked, checked;
-    private boolean ticked = false;
+    protected Texture unchecked, checked;
+    protected boolean ticked = false;
     
-    private float boxsize;
+    protected float boxsize;
     
-    private boolean boxtoleftoftext = false;
+    protected boolean boxtoleftoftext = false;
     
-    private Color textcolor;
-    private Font font;
+    protected Color textcolor;
+    protected Font font;
     
     public CheckBox(String txt, float x, float y) {
         this(txt, x, y, Color.DEFAULT_TEXT_COLOR);

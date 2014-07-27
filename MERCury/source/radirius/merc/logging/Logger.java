@@ -1,6 +1,6 @@
 package radirius.merc.logging;
 
-import radirius.merc.exceptions.SevereLogException;
+import radirius.merc.exceptions.MERCuryException;
 
 /**
  * A class that will log in different levels of impact, from NULL to SEVERE,
@@ -24,7 +24,7 @@ public class Logger {
     }
     
     /** Logs a message in a case, with an optional severe message sevmsg. */
-    public static void log(Case cse, String sevmsg, Object... obj) throws SevereLogException {
+    public static void log(Case cse, String sevmsg, Object... obj) throws MERCuryException {
         if (!log)
             return;
         
@@ -36,7 +36,7 @@ public class Logger {
         else {
             System.err.println(cse.casemsg + msg);
             if (cse == Case.SEVERE)
-                throw new SevereLogException(sevmsg);
+                throw new MERCuryException(sevmsg);
         }
     }
     
@@ -44,7 +44,7 @@ public class Logger {
     public static void log(Case cse, Object... obj) {
         try {
             log(cse, "No information given.", obj);
-        } catch (SevereLogException e) {
+        } catch (MERCuryException e) {
             e.printStackTrace();
         }
     }
@@ -70,7 +70,7 @@ public class Logger {
     }
     
     /** Logs a message in case SEVERE. */
-    public static void severe(Object... obj) throws SevereLogException {
+    public static void severe(Object... obj) throws MERCuryException {
         log(Case.SEVERE, obj);
     }
     

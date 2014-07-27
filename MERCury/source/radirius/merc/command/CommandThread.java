@@ -11,8 +11,7 @@ import radirius.merc.logging.Logger;
 
 /**
  * A thread to be ran seperate from the library itself so that in-game freezes
- * will not effect the console, and that the Scanner will not freaking hang when
- * I ask for a simple line.
+ * will not effect the console, and that the Scanner will not hang.
  * 
  * @author wessles
  */
@@ -296,6 +295,7 @@ public class CommandThread implements Runnable {
         Logger.debug("Developer's console shutting down...");
     }
     
+    /** Sets where the input is put into. */
     public static void setInputStream(InputStream in) {
         readstream = in;
         readstreamchanged = true;

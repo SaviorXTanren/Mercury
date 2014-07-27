@@ -13,11 +13,9 @@ import radirius.merc.geometry.Line;
 import radirius.merc.geometry.Point;
 import radirius.merc.geometry.Polygon;
 import radirius.merc.geometry.Rectangle;
-import radirius.merc.geometry.Shape;
 import radirius.merc.geometry.Star;
 import radirius.merc.geometry.Triangle;
 import radirius.merc.geometry.Vec2;
-import radirius.merc.logging.Logger;
 import radirius.merc.maths.MercMath;
 
 /**
@@ -256,29 +254,6 @@ public class VAOGraphics implements Graphics {
     }
     
     @Override
-    public void drawShape(Shape... shapes) {
-        for (Shape shape : shapes)
-            if (shape instanceof Circle)
-                drawCircle((Circle) shape);
-            else if (shape instanceof Ellipse)
-                drawEllipse((Ellipse) shape);
-            else if (shape instanceof Line)
-                drawLine((Line) shape);
-            else if (shape instanceof Point)
-                drawPoint((Point) shape);
-            else if (shape instanceof Polygon)
-                drawPolygon((Polygon) shape);
-            else if (shape instanceof Rectangle)
-                drawRect((Rectangle) shape);
-            else if (shape instanceof Star)
-                drawStar((Star) shape);
-            else if (shape instanceof Triangle)
-                drawTriangle((Triangle) shape);
-            else
-                Logger.warn("Shape type not found; nothing rendered.");
-    }
-    
-    @Override
     public void drawRect(Rectangle... rectangle) {
         batcher.clearTextures();
         
@@ -396,29 +371,6 @@ public class VAOGraphics implements Graphics {
     @Override
     public void drawCircle(float x, float y, float radius) {
         drawCircle(new Circle(x, y, radius));
-    }
-    
-    @Override
-    public void traceShape(Shape... shapes) {
-        for (Shape shape : shapes)
-            if (shape instanceof Circle)
-                traceCircle((Circle) shape);
-            else if (shape instanceof Ellipse)
-                traceEllipse((Ellipse) shape);
-            else if (shape instanceof Line)
-                drawLine((Line) shape);
-            else if (shape instanceof Point)
-                drawPoint((Point) shape);
-            else if (shape instanceof Polygon)
-                tracePolygon((Polygon) shape);
-            else if (shape instanceof Rectangle)
-                traceRect((Rectangle) shape);
-            else if (shape instanceof Star)
-                traceStar((Star) shape);
-            else if (shape instanceof Triangle)
-                traceTriangle((Triangle) shape);
-            else
-                Logger.warn("Shape type not found; nothing rendered.");
     }
     
     @Override

@@ -18,8 +18,8 @@ public class Panel extends Component implements Container {
     public static final int LEFTWARDS = -1, RIGHTWARDS = 1, CENTERED = 0;
     
     protected ArrayList<Component> children = new ArrayList<Component>();
-    private Rectangle textbounds;
-    private Texture body, border;
+    protected Rectangle textbounds;
+    protected Texture body, border;
     
     public Panel(Rectangle bounds) {
         this(bounds, 0);

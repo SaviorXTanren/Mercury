@@ -7,7 +7,6 @@ import radirius.merc.geometry.Line;
 import radirius.merc.geometry.Point;
 import radirius.merc.geometry.Polygon;
 import radirius.merc.geometry.Rectangle;
-import radirius.merc.geometry.Shape;
 import radirius.merc.geometry.Star;
 import radirius.merc.geometry.Triangle;
 import radirius.merc.geometry.Vec2;
@@ -131,9 +130,6 @@ public interface Graphics {
     /** Draws the portion sourceregion of a texture to the Rectangle region */
     public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region);
     
-    /** Draws a shape. */
-    public void drawShape(Shape... shape);
-    
     /** Draws a rectangle. */
     public void drawRect(Rectangle... rectangle);
     
@@ -164,9 +160,6 @@ public interface Graphics {
     /** Makes and draws a circle. */
     public void drawCircle(float x, float y, float radius);
     
-    /** Traces a shape. */
-    public void traceShape(Shape... shape);
-    
     /** Traces a rectangle. */
     public void traceRect(Rectangle... rectangle);
     
@@ -196,9 +189,6 @@ public interface Graphics {
     
     /** Makes and traces a circle. */
     public void traceCircle(float x, float y, float radius);
-    
-    // Geometry nerds beware! I know it is actually a line SEGMENT, but for
-    // simplicity's sake, I will just call it a line, like a normal human being.
     
     /** Draws a line from x1, y1 to x2, y2. */
     public void drawLine(float x1, float y1, float x2, float y2);

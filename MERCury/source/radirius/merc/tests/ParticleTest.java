@@ -48,7 +48,7 @@ public class ParticleTest extends Core {
     
     @Override
     public void update(float delta) {
-        bullet.translate(Math.abs(vel) < 10 ? vel *= 1.01f : vel, 0).rotate(vel / 2).setScale(1f + (float) (0.2f * Math.sin(rnr.getTime() / 50)));
+        bullet.translate(Math.abs(vel) < 20 ? vel *= 1.01f : vel, 0).rotate(vel / 2).setScale(1f + (float) (0.2f * Math.sin(rnr.getMillis() / 50)));
         emitter.getOptions().speed = -vel * 0.02f;
         emitter.getOptions().size = Math.min(Math.abs(vel), 16);
         
@@ -64,9 +64,9 @@ public class ParticleTest extends Core {
         emitter.render(g);
         
         g.setColor(Color.red);
-        g.drawShape(bullet);
+        g.drawPolygon(bullet);
         g.setColor(Color.turquoise);
-        g.traceShape(bullet);
+        g.tracePolygon(bullet);
     }
     
     @Override

@@ -1,7 +1,7 @@
 package radirius.merc.utils;
 
 /**
- * Mostly nabbed from here http://gizma.com/easing/. Bouncing by me :).
+ * Mostly nabbed from here http://gizma.com/easing/. Bouncing by wessles.
  * 
  * @author wessles
  */

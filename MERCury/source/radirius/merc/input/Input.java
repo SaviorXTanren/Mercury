@@ -64,7 +64,6 @@ public class Input {
     public static final int KEY_GRAVE = 0x29;
     public static final int KEY_LSHIFT = 0x2A;
     public static final int KEY_BACKSLASH = 0x2B;
-    // Wow, this is a lot.
     public static final int KEY_Z = 0x2C;
     public static final int KEY_X = 0x2D;
     public static final int KEY_C = 0x2E;
@@ -95,11 +94,11 @@ public class Input {
     public static final int KEY_NUMPAD7 = 0x47;
     public static final int KEY_NUMPAD8 = 0x48;
     public static final int KEY_NUMPAD9 = 0x49;
+    // Wow, this is a lot.
     public static final int KEY_SUBTRACT = 0x4A;
     public static final int KEY_NUMPAD4 = 0x4B;
     public static final int KEY_NUMPAD5 = 0x4C;
     public static final int KEY_NUMPAD6 = 0x4D;
-    // Oh my..
     public static final int KEY_ADD = 0x4E;
     public static final int KEY_NUMPAD1 = 0x4F;
     public static final int KEY_NUMPAD2 = 0x50;
@@ -132,7 +131,6 @@ public class Input {
     public static final int KEY_RMENU = 0xB8;
     public static final int KEY_PAUSE = 0xC5;
     public static final int KEY_HOME = 0xC7;
-    // So many!
     public static final int KEY_UP = 0xC8;
     public static final int KEY_PRIOR = 0xC9;
     public static final int KEY_LEFT = 0xCB;

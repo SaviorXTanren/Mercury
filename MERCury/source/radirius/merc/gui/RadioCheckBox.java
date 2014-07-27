@@ -12,7 +12,7 @@ import radirius.merc.graphics.Texture;
  */
 
 public class RadioCheckBox extends CheckBox {
-    private ArrayList<RadioCheckBox> group;
+    protected ArrayList<RadioCheckBox> group;
     
     public RadioCheckBox(ArrayList<RadioCheckBox> group, String txt, float x, float y) {
         this(group, txt, x, y, Color.DEFAULT_TEXT_COLOR);
