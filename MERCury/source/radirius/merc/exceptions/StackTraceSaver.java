@@ -13,32 +13,32 @@ import java.util.Calendar;
  */
 
 public class StackTraceSaver {
-  
-  public static void save(Exception e) {
-    save(getDate() + ".stacktrace", e);
-  }
-  
-  public static void save(String location, Exception e) {
-    PrintWriter pw = null;
     
-    try {
-      pw = new PrintWriter(new File(location));
-    } catch (Exception ex) {
-      ex.printStackTrace();
+    public static void save(Exception e) {
+        save(getDate() + ".stacktrace", e);
     }
     
-    e.printStackTrace(pw);
+    public static void save(String location, Exception e) {
+        PrintWriter pw = null;
+        
+        try {
+            pw = new PrintWriter(new File(location));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
+        e.printStackTrace(pw);
+        
+        pw.close();
+        
+        e.printStackTrace();
+    }
     
-    pw.close();
+    private static String getDate() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm-ss");
+        Calendar cal = Calendar.getInstance();
+        
+        return dateFormat.format(cal.getTime());
+    }
     
-    e.printStackTrace();
-  }
-  
-  private static String getDate() {
-    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm-ss");
-    Calendar cal = Calendar.getInstance();
-    
-    return dateFormat.format(cal.getTime());
-  }
-  
 }

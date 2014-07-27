@@ -5,9 +5,9 @@ package radirius.merc.data;
  */
 
 public interface Data {
-  /** Open, and load data. */
-  public void open();
-  
-  /** Close, and save data. */
-  public void close();
+    /** Open, and load data. */
+    public void open();
+    
+    /** Close, and save data. */
+    public void close();
 }
