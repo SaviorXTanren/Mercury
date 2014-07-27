@@ -22,10 +22,10 @@ import java.nio.ByteBuffer;
  * @author Kevin Glass
  */
 public class OggData {
-  /** The data that has been read from the OGG file */
-  public ByteBuffer data;
-  /** The sampling rate */
-  public int rate;
-  /** The number of channels in the sound file */
-  public int channels;
+    /** The data that has been read from the OGG file */
+    public ByteBuffer data;
+    /** The sampling rate */
+    public int rate;
+    /** The number of channels in the sound file */
+    public int channels;
 }
