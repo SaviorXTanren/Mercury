@@ -41,7 +41,7 @@ Primary Code To-Do List:
   // Done with love by wessles
 - [+] Seperate Thread for loading resources.
   // Done with neutrality by wessles
-- [-] Easing utilities
+- [=] Easing utilities
 - [-] Resource lists
 - [=] Graphical User Interface Capabilities
       [+] Radio Checkbox/Checkbox
@@ -60,8 +60,15 @@ Primary Code To-Do List:
       [-] Geometry
       [-] 2D Tiled Map Loading  ]
       [-] Sprite-Sheets ^       ]
+      [-] Splash Screens   ]
+      [-] Easing Utility ^ ]
       // Probably More To come
-- [-] Completely Re-Write Wiki
+- [=] Completely Re-Write Wiki
+- [-] Destroy /environment/
+- [-] Fix Annoying Case Issue
+      [-] MercData should be MERCData
+      [-] runner.getFps() should be getFPS()
+      [-] OggDecoder/OggData should be OGGDecoder/OGGData
       
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
@@ -70,7 +77,7 @@ Misc To-Do List:
   // Done with passion by Jeviny
 - [+] Get hosted.
   // Done with negotiation by Jeviny
-- [=] Make MERCury Website.
+- [+] Make MERCury Website.
   // Done with zen by Jeviny
 - [=] Make Demonstration Video.
   
