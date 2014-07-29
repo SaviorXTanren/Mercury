@@ -12,7 +12,6 @@ MERCury comes packed with a ton of brilliant features designed to ensure that th
 ## Links
 **[Our Website](http://merc.radiri.us/)**  
 **[Our Wiki](https://github.com/weslgames/MERCury/wiki/)**  
-**[Our Subreddit](http://www.reddit.com/r/mercurylib/)**  
 
 We also have an [IRC Channel](http://webchat.freenode.net/?channels=#mercurylib) that you can visit to ask questions, talk about the future of MERCury, or just chat! (#mercurylib on irc.freenode.net)
 
