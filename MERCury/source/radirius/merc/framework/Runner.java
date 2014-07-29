@@ -1,6 +1,8 @@
 package radirius.merc.framework;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -326,7 +328,7 @@ public class Runner {
                 core.render(graphicsobject);
                 
                 if (showdebug) {
-                    addDebugData("FPS", getFps() + "");
+                    addDebugData("FPS", getFPS() + "");
                     addDebugData("Vertices", verticeslastrendered + "");
                     
                     graphicsobject.drawString(1 / graphicsobject.getScale(), 0, 0, debugdata);
@@ -368,7 +370,7 @@ public class Runner {
     }
     
     /** @return The fps */
-    public int getFps() {
+    public int getFPS() {
         return FPS;
     }
     
@@ -422,7 +424,7 @@ public class Runner {
     
     /** @return Time in seconds */
     public float getSeconds() {
-        return (float) (System.currentTimeMillis()) / 1000f;
+        return System.currentTimeMillis() / 1000f;
     }
     
     /**

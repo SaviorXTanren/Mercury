@@ -16,7 +16,7 @@ import java.util.Scanner;
  * @author wessles, Jeviny
  */
 
-public class MercData implements Data {
+public class MERCData implements Data {
     /**
      * Location of the data file.
      */
@@ -31,7 +31,7 @@ public class MercData implements Data {
      * @param url
      *            URL indicating the location of the file.
      */
-    public MercData(URL url) {
+    public MERCData(URL url) {
         location = url.getFile();
     }
     

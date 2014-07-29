@@ -36,7 +36,7 @@ public class EasingUtils {
             return easeCubic(time, startval, endval, duration / 2);
         else
             return easeCubic(time - duration / 2, endval, startval, duration / 2);
-  }
+    }
     
     public static float easeQuint(float time, float startval, float endval, float duration) {
         float change = endval - startval;
