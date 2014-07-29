@@ -10,7 +10,7 @@ MERCury's To-Do List is driven purely by the will of the users, so if you have a
 MERCury comes packed with a ton of brilliant features designed to ensure that the games you create with MERCury are amazing. These many features include a particle engine, command-line debugging, advanced hardware-accelerated OpenGL graphics, image post-processing, geometry, various audio capabilities, and a *stunning* GUI toolkit that allows for the easy creation of beautiful graphical user interfaces.
 
 ## Links
-**[Our Website](http://merc.radiri.us/)**
+**[Our Website](http://merc.radiri.us/)**  
 **[Our Wiki](https://github.com/weslgames/MERCury/wiki/)**  
 **[Our Subreddit](http://www.reddit.com/r/mercurylib/)**  
 
@@ -27,9 +27,9 @@ Well, it wouldn't be open-source if you couldn't contribute.
 | Name                   | E-Mail                          | Website                                 |
 |------------------------|---------------------------------|-----------------------------------------|
 | Suport                 | contact@radiri.us               | [radiri.us](http://radiri.us/)          |
-| Steven Smith           | blahblahblahblha303@gmail.com   | [blha303.com.au](http://blha303.com.au/)|
 | Wesley LaFerriere      | wesley.laferriere@gmail.com     | [wessles.com](http://wessles.com/)      |
 | Kristoffer Parsons     | kristoffer@jeviny.pw            | [jeviny.pw](http://jeviny.pw/)          |
+| Steven Smith           | blahblahblahblha303@gmail.com   | [blha303.com.au](http://blha303.com.au/)|
 
 ## License
 MERCury is licensed under the [MIT Public License](http://opensource.org/licenses/MIT).
