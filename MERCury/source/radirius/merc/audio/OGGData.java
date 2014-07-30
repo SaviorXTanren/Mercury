@@ -21,7 +21,7 @@ import java.nio.ByteBuffer;
  * 
  * @author Kevin Glass
  */
-public class OggData {
+public class OGGData {
     /** The data that has been read from the OGG file */
     public ByteBuffer data;
     /** The sampling rate */

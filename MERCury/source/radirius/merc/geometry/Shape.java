@@ -82,21 +82,7 @@ public class Shape {
             if (child.intersects(s))
                 return true;
         
-        // This method is VERY inefficient! You are supposed to use this as a
-        // base, and then make specific-cases that save processing time where
-        // you can. This is not to say that this is not to EVER be used, but
-        // just to say that it is not the magical solution for ALL collision
-        // problems.
-        //
-        // Let's go over the key points of what this method does: it will loop
-        // through all vertices of this object, make lines between them, and
-        // test that line against the lines of the other shape. This is a great
-        // idea, included even in Slick2D's code. There is one flaw to it
-        // though: if a smaller object is inside of a bigger object, and none of
-        // the lines are touching, then it is not colliding by this algorithm.
-        //
-        // To (roughly) fix this, we will test to see that the center of the
-        // smaller shape does not contain the center point of the larger shape.
+        // More vertices will cause more lag. Beware.
         
         // Loop through all of the vertices!
         for (int v_ = 0; v_ < vertices.length;) {
