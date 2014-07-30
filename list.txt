@@ -47,7 +47,6 @@ Primary Code To-Do List:
       [+] MercData should be MERCData
       [+] runner.getFps() should be getFPS()
       [+] OggDecoder/OggData should be OGGDecoder/OGGData
-      
 - [=] Graphical User Interface Capabilities
       [+] Radio Checkbox/Checkbox
       [+] Textboxes
@@ -57,7 +56,6 @@ Primary Code To-Do List:
       [+] Buttons
       // More GUI stuff to come ^^
 - [=] Completely Re-Write Wiki
-
 - [-] Include selection of freeware TypeFaces in library.
 - [-] Make MERCury App Launcher
 - [-] Write Demonstration Apps
@@ -69,6 +67,7 @@ Primary Code To-Do List:
       [-] Splash Screens   ]
       [-] Easing Utility ^ ]
       // Probably More To come
+- [-] Change "drawString(x, y, msg)" to "drawString(msg, x, y)"
       
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
