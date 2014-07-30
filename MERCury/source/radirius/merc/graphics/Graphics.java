@@ -86,16 +86,16 @@ public interface Graphics {
     public void flush();
     
     /** Draws msg at x and y. */
-    public void drawString(float x, float y, String msg);
+    public void drawString(String msg, float x, float y);
     
     /** Draws msg at x and y with font. */
-    public void drawString(Font font, float x, float y, String msg);
+    public void drawString(String msg, Font font, float x, float y);
     
     /** Draws msg at x and y. */
-    public void drawString(float scale, float x, float y, String msg);
+    public void drawString(String msg, float scale, float x, float y);
     
     /** Draws msg at x and y with font. */
-    public void drawString(float scale, Font font, float x, float y, String msg);
+    public void drawString(String msg, float scale, Font font, float x, float y);
     
     /** Draws a Texture texture at x and y. */
     public void drawTexture(Texture texture, float x, float y);

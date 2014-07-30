@@ -56,7 +56,7 @@ public class Component implements Updatable, Renderable {
     }
     
     public void renderContent(Graphics g) {
-        g.drawString(bounds.getX(), bounds.getY(), content);
+        g.drawString(content, bounds.getX(), bounds.getY());
     }
     
     public boolean isFocused() {

@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
 
 import radirius.merc.command.CommandList;
 import radirius.merc.command.CommandThread;
@@ -208,6 +209,7 @@ public class Runner {
         Logger.debug("Making Graphics...");
         
         graphicsobject = this.core.initGraphics();
+        Logger.debug("OpenGL Version: " + GL11.glGetString(GL11.GL_VERSION));
         
         Logger.debug("Making Audio...");
         
@@ -329,7 +331,7 @@ public class Runner {
                     addDebugData("FPS", getFps() + "");
                     addDebugData("Vertices", verticeslastrendered + "");
                     
-                    graphicsobject.drawString(1 / graphicsobject.getScale(), 0, 0, debugdata);
+                    graphicsobject.drawString(debugdata, 1 / graphicsobject.getScale(), 0, 0);
                     debugdata = "";
                 }
                 

@@ -75,7 +75,7 @@ public class TextBox extends Component {
     @Override
     public void renderContent(Graphics g) {
         g.setColor(textCol);
-        g.drawString(textfont, bounds.getX() + margin, bounds.getY() + margin, content);
+        g.drawString(content, textfont, bounds.getX() + margin, bounds.getY() + margin);
     }
     
     public void setContent(String content) {

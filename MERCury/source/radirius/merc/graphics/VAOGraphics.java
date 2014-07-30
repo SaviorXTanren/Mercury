@@ -158,22 +158,22 @@ public class VAOGraphics implements Graphics {
     }
     
     @Override
-    public void drawString(float x, float y, String msg) {
-        drawString(current_font, x, y, msg);
+    public void drawString(String msg, float x, float y) {
+        drawString(msg, current_font, x, y);
     }
     
     @Override
-    public void drawString(Font font, float x, float y, String msg) {
-        drawString(1, font, x, y, msg);
+    public void drawString(String msg, Font font, float x, float y) {
+        drawString(msg, 1, font, x, y);
     }
     
     @Override
-    public void drawString(float scale, float x, float y, String msg) {
-        drawString(scale, current_font, x, y, msg);
+    public void drawString(String msg, float scale, float x, float y) {
+        drawString(msg, scale, current_font, x, y);
     }
     
     @Override
-    public void drawString(float scale, Font font, float x, float y, String msg) {
+    public void drawString(String msg, float scale, Font font, float x, float y) {
         if (font instanceof TrueTypeFont) {
             TrueTypeFont jf = (TrueTypeFont) font;
             

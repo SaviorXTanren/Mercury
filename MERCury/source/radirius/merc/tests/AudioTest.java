@@ -44,7 +44,7 @@ public class AudioTest extends Core {
     
     @Override
     public void render(Graphics g) {
-        g.drawString(10, 100, "I dare you to press <SPACE> then <SHIFT>");
+        g.drawString("I dare you to press <SPACE> then <SHIFT>", 10, 100);
     }
     
     @Override

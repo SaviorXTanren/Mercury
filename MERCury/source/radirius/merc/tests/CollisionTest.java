@@ -91,7 +91,7 @@ public class CollisionTest extends Core {
         g.tracePolygon(s1);
         
         g.setColor(Color.green);
-        g.drawString(1 / g.getScale(), 0, 0, "ye");
+        g.drawString("ye", 1 / g.getScale(), 0, 0);
     }
     
     @Override

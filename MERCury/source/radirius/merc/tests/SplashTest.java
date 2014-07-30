@@ -42,7 +42,7 @@ public class SplashTest extends Core {
             return;
         
         g.setColor(Color.white);
-        g.drawString(0, 0, "Let's exit now.");
+        g.drawString("Let's exit now.", 0, 0);
     }
     
     @Override
