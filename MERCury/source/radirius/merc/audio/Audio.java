@@ -202,8 +202,8 @@ public class Audio implements Resource {
     public static IntBuffer getOGGBuffer(InputStream is) {
         IntBuffer buf = BufferUtils.createIntBuffer(1);
         
-        OggDecoder decoder = new OggDecoder();
-        OggData ogg = null;
+        OGGDecoder decoder = new OGGDecoder();
+        OGGData ogg = null;
         try {
             ogg = decoder.getData(is);
         } catch (IOException e) {

@@ -39,7 +39,7 @@ import com.jcraft.jorbis.Info;
  * 
  * @author kevin
  */
-public class OggInputStream extends InputStream implements AudioInputStream {
+public class OGGInputStream extends InputStream implements AudioInputStream {
     /** The conversion buffer size */
     private int convsize = 4096 * 4;
     /** The buffer used to read OGG file */
@@ -102,7 +102,7 @@ public class OggInputStream extends InputStream implements AudioInputStream {
      * @throws IOException
      *             Indicates a failure to read from the supplied stream
      */
-    public OggInputStream(InputStream input) throws IOException {
+    public OGGInputStream(InputStream input) throws IOException {
         this.input = input;
         total = input.available();
         
@@ -342,7 +342,7 @@ public class OggInputStream extends InputStream implements AudioInputStream {
                     
                     if (result == 0)
                         break; // need more data
-                    
+                        
                     if (result == -1)
                         // position
                         Logger.warn("Corrupt or missing data in bitstream; continuing...");

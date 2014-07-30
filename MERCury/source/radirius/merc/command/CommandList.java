@@ -182,7 +182,7 @@ public class CommandList {
             cmdlmerc.addVariable(new Variable("fps") {
                 @Override
                 public String get(String... args) {
-                    return String.valueOf(Runner.getInstance().getFps());
+                    return String.valueOf(Runner.getInstance().getFPS());
                 }
             });
             dcmdl = cmdlmerc;

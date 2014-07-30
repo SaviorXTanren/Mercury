@@ -1,7 +1,6 @@
 package radirius.merc.gui;
 
-import radirius.merc.environment.Renderable;
-import radirius.merc.environment.Updatable;
+import radirius.merc.environment.Entity;
 import radirius.merc.framework.Runner;
 import radirius.merc.geometry.Rectangle;
 import radirius.merc.geometry.Vec2;
@@ -15,7 +14,7 @@ import radirius.merc.resource.Loader;
 /**
  * @author wessles, Jeviny
  */
-public class Component implements Updatable, Renderable {
+public class Component implements Entity {
     /** The current focused component. */
     public static Component focusedcomponent;
     
