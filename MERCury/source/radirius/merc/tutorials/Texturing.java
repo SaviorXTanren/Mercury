@@ -1,0 +1,52 @@
+package radirius.merc.tutorials;
+
+import java.io.InputStream;
+
+import radirius.merc.framework.Core;
+import radirius.merc.framework.Runner;
+import radirius.merc.geometry.Rectangle;
+import radirius.merc.graphics.Graphics;
+import radirius.merc.graphics.Texture;
+import radirius.merc.resource.Loader;
+
+/**
+ * @author wessles
+ */
+
+public class Texturing extends Core {
+    Runner runner = Runner.getInstance();
+    
+    public Texturing() {
+        super("Vermeer");
+        runner.init(this, 500, 500);
+        runner.run();
+    }
+    
+    public static void main(String[] args) {
+        new Texturing();
+    }
+    
+    Texture vermeer;
+    Rectangle rectangle;
+    
+    public void init() {
+        InputStream stream = Loader.streamFromClasspath("radirius/merc/tutorials/vermeer.png");
+        vermeer = Texture.loadTexture(stream);
+        rectangle = new Rectangle(10, 10, vermeer.getWidth(), vermeer.getHeight());
+    }
+    
+    public void update(float delta) {
+        
+    }
+    
+    public void render(Graphics g) {
+        g.drawTexture(vermeer, rectangle);
+        rectangle.rotate(2);
+        rectangle.translate(1, 1);
+        rectangle.scale(0.99f);
+    }
+    
+    public void cleanup() {
+        
+    }
+}
