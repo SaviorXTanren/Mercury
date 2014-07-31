@@ -6,8 +6,8 @@
 |_|  |_||______||_|  \_\ \_____|\__,_||_|    \__, |    
                                               __/ |  \ o /
                                              |___/     |
-                                   2D Game Library    / \
-                                       Designed by Radirius
+                                                      / \
+                               Carefully Crafted and Designed by Radirius
                                        
 ----------------------------------------------------------------
                                    
