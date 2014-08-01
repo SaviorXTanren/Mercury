@@ -13,13 +13,13 @@ import radirius.merc.resource.Loader;
  * @author opiop65 (base code), wessles (modification)
  */
 
-public class SpriteSheetTest extends Core {
+public class TestSpriteSheet extends Core {
     
     private Runner rnr = Runner.getInstance();
     private SpriteSheet sheet;
     private Animation anm;
     
-    public SpriteSheetTest(String name) {
+    public TestSpriteSheet(String name) {
         super(name);
         rnr.init(this, 800, 600);
         rnr.run();
@@ -48,6 +48,6 @@ public class SpriteSheetTest extends Core {
     }
     
     public static void main(String[] args) {
-        new SpriteSheetTest("SpriteSheet Test");
+        new TestSpriteSheet("SpriteSheet Test");
     }
 }

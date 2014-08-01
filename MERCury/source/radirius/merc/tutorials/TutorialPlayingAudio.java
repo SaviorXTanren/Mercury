@@ -10,21 +10,22 @@ import radirius.merc.resource.Loader;
  * @author wessles
  */
 
-public class PlayingAudio extends Core {
+public class TutorialPlayingAudio extends Core {
     Runner runner = Runner.getInstance();
     
-    public PlayingAudio() {
+    public TutorialPlayingAudio() {
         super("Audible Thingies");
         runner.init(this, 500, 500);
         runner.run();
     }
     
     public static void main(String[] args) {
-        new PlayingAudio();
+        new TutorialPlayingAudio();
     }
     
     Audio whack;
     
+    @Override
     public void init() {
         whack = Audio.getAudio(Audio.getWAVBuffer(Loader.streamFromClasspath("radirius/merc/tutorials/whack.wav")));
         // Twice as high pitched
@@ -36,13 +37,16 @@ public class PlayingAudio extends Core {
         whack.play();
     }
     
+    @Override
     public void update(float delta) {
     }
     
+    @Override
     public void render(Graphics g) {
         
     }
     
+    @Override
     public void cleanup() {
     }
     

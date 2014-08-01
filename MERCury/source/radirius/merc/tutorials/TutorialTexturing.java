@@ -13,32 +13,35 @@ import radirius.merc.resource.Loader;
  * @author wessles
  */
 
-public class Texturing extends Core {
+public class TutorialTexturing extends Core {
     Runner runner = Runner.getInstance();
     
-    public Texturing() {
+    public TutorialTexturing() {
         super("Vermeer");
         runner.init(this, 500, 500);
         runner.run();
     }
     
     public static void main(String[] args) {
-        new Texturing();
+        new TutorialTexturing();
     }
     
     Texture vermeer;
     Rectangle rectangle;
     
+    @Override
     public void init() {
         InputStream stream = Loader.streamFromClasspath("radirius/merc/tutorials/vermeer.png");
         vermeer = Texture.loadTexture(stream);
         rectangle = new Rectangle(10, 10, vermeer.getWidth(), vermeer.getHeight());
     }
     
+    @Override
     public void update(float delta) {
         
     }
     
+    @Override
     public void render(Graphics g) {
         g.drawTexture(vermeer, rectangle);
         rectangle.rotate(2);
@@ -46,6 +49,7 @@ public class Texturing extends Core {
         rectangle.scale(0.99f);
     }
     
+    @Override
     public void cleanup() {
         
     }

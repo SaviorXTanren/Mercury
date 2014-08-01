@@ -10,17 +10,17 @@ import radirius.merc.splash.SplashScreen;
  * @author wessles
  */
 
-public class SplashTest extends Core {
+public class TestSplash extends Core {
     Runner rnr = Runner.getInstance();
     
-    public SplashTest() {
+    public TestSplash() {
         super("Splash Screen Test!");
         rnr.init(this, 800, 600);
         rnr.run();
     }
     
     public static void main(String[] args) {
-        new SplashTest();
+        new TestSplash();
     }
     
     @Override

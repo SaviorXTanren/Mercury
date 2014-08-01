@@ -17,10 +17,10 @@ import radirius.merc.graphics.Graphics;
  * @author wessles
  */
 
-public class CollisionTest extends Core {
+public class TestCollision extends Core {
     Runner rnr = Runner.getInstance();
     
-    public CollisionTest() {
+    public TestCollision() {
         super("CollisionTest");
         rnr.init(this, 800, 600, false, false, true, true);
         rnr.run();
@@ -100,6 +100,6 @@ public class CollisionTest extends Core {
     }
     
     public static void main(String[] args) {
-        new CollisionTest();
+        new TestCollision();
     }
 }

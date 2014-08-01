@@ -12,10 +12,10 @@ import radirius.merc.splash.SplashScreen;
  * @author wessles
  */
 
-public class FullscreenTest extends Core {
+public class TestFullscreen extends Core {
     Runner rnr = Runner.getInstance();
     
-    public FullscreenTest() {
+    public TestFullscreen() {
         super("ga");
         /**
          * Will choose lowest resolution, since near no monitor will view
@@ -27,7 +27,7 @@ public class FullscreenTest extends Core {
     }
     
     public static void main(String[] args) {
-        new FullscreenTest();
+        new TestFullscreen();
     }
     
     @Override

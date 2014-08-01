@@ -10,17 +10,17 @@ import radirius.merc.graphics.Graphics;
  * @author wessles
  */
 
-public class BasicGraphics extends Core {
+public class TutorialBasicGraphics extends Core {
     Runner runner = Runner.getInstance();
     
-    public BasicGraphics() {
+    public TutorialBasicGraphics() {
         super("Basic Graphics in MERCury");
         runner.init(this, 500, 500);
         runner.run();
     }
     
     public static void main(String[] args) {
-        new BasicGraphics();
+        new TutorialBasicGraphics();
     }
     
     @Override
@@ -38,8 +38,8 @@ public class BasicGraphics extends Core {
         Rectangle rectangle = new Rectangle(0, 0, 100, 100);
         // Draws the rectangle
         g.drawRect(rectangle);
-
-        // Trace a blue rectangle 
+        
+        // Trace a blue rectangle
         g.setColor(Color.blue);
         // Makes a rectangle at (100,100) with a 100x100 size.
         Rectangle traced_rectangle = new Rectangle(100, 100, 100, 100);

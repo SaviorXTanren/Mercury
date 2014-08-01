@@ -13,10 +13,10 @@ import radirius.merc.resource.Loader;
  * @author wessles
  */
 
-public class FboTest extends Core {
+public class TestFbo extends Core {
     Runner rnr = Runner.getInstance();
     
-    public FboTest() {
+    public TestFbo() {
         super("FBO Test!");
         rnr.init(this, 500, 500);
         rnr.run();
@@ -63,6 +63,6 @@ public class FboTest extends Core {
     }
     
     public static void main(String[] args) {
-        new FboTest();
+        new TestFbo();
     }
 }

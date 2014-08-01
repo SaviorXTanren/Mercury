@@ -31,17 +31,17 @@ import radirius.merc.graphics.Graphics;
  * @author wessles
  */
 
-public class ColorTest extends Core {
+public class TestColor extends Core {
     Runner rnr = Runner.getInstance();
     
-    public ColorTest() {
+    public TestColor() {
         super("Color Test");
         rnr.init(this, 640, 480);
         rnr.run();
     }
     
     public static void main(String[] args) {
-        new ColorTest();
+        new TestColor();
     }
     
     @Override

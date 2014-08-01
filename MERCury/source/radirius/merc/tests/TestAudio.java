@@ -11,10 +11,10 @@ import radirius.merc.resource.Loader;
  * @author wessles
  */
 
-public class AudioTest extends Core {
+public class TestAudio extends Core {
     Runner rnr = Runner.getInstance();
     
-    public AudioTest() {
+    public TestAudio() {
         super("Hai!");
         rnr.init(this, 500, 500);
         rnr.run();
@@ -53,6 +53,6 @@ public class AudioTest extends Core {
     }
     
     public static void main(String[] args) {
-        new AudioTest();
+        new TestAudio();
     }
 }

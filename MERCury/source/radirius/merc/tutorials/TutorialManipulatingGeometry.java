@@ -9,25 +9,27 @@ import radirius.merc.graphics.Graphics;
  * @author wessles
  */
 
-public class ManipulatingGeometry extends Core {
+public class TutorialManipulatingGeometry extends Core {
     Runner runner = Runner.getInstance();
     
-    public ManipulatingGeometry() {
+    public TutorialManipulatingGeometry() {
         super("Manipulative Shapes");
         runner.init(this, 500, 500);
         runner.run();
     }
     
     public static void main(String[] args) {
-        new ManipulatingGeometry();
+        new TutorialManipulatingGeometry();
     }
     
     Rectangle rectangle;
     
+    @Override
     public void init() {
         rectangle = new Rectangle(0, 0, 100, 100);
     }
     
+    @Override
     public void update(float delta) {
         // Move the rectangle 1 over and 1 down every frame
         rectangle.translate(1, 1);
@@ -37,10 +39,12 @@ public class ManipulatingGeometry extends Core {
         rectangle.scale(0.996f);
     }
     
+    @Override
     public void render(Graphics g) {
         g.drawRect(rectangle);
     }
     
+    @Override
     public void cleanup() {
         
     }

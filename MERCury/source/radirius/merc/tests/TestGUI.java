@@ -22,10 +22,10 @@ import radirius.merc.resource.Loader;
  * @author wessles
  */
 
-public class GUITest extends Core {
+public class TestGUI extends Core {
     Runner rnr = Runner.getInstance();
     
-    public GUITest(String name) {
+    public TestGUI(String name) {
         super(name);
         rnr.init(this, 1500, 800);
         rnr.run();
@@ -157,6 +157,6 @@ public class GUITest extends Core {
     }
     
     public static void main(String[] args) {
-        new GUITest("MERCury GUI Thingies!");
+        new TestGUI("MERCury GUI Thingies!");
     }
 }

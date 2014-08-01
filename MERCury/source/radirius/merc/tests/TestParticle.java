@@ -14,17 +14,17 @@ import radirius.merc.particles.ParticleEmitter.ParticleSetup;
  * @author wessles
  */
 
-public class ParticleTest extends Core {
+public class TestParticle extends Core {
     Runner rnr = Runner.getInstance();
     
-    public ParticleTest() {
+    public TestParticle() {
         super("Particle Test");
         rnr.init(this, 1600, 600, false);
         rnr.run();
     }
     
     public static void main(String[] args) {
-        new ParticleTest();
+        new TestParticle();
     }
     
     public Polygon bullet;

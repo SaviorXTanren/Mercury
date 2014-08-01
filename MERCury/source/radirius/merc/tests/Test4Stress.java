@@ -11,10 +11,10 @@ import radirius.merc.resource.Loader;
  * @author wessles
  */
 
-public class StressTest extends Core {
+public class Test4Stress extends Core {
     Runner rnr = Runner.getInstance();
     
-    public StressTest() {
+    public Test4Stress() {
         super("MERCury Stress Test");
         rnr.init(this, 400, 400);
         rnr.run();
@@ -47,6 +47,6 @@ public class StressTest extends Core {
     }
     
     public static void main(String[] args) {
-        new StressTest();
+        new Test4Stress();
     }
 }
