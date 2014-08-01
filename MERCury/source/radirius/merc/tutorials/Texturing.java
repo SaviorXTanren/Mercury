@@ -29,16 +29,19 @@ public class Texturing extends Core {
     Texture vermeer;
     Rectangle rectangle;
     
+    @Override
     public void init() {
         InputStream stream = Loader.streamFromClasspath("radirius/merc/tutorials/vermeer.png");
         vermeer = Texture.loadTexture(stream);
         rectangle = new Rectangle(10, 10, vermeer.getWidth(), vermeer.getHeight());
     }
     
+    @Override
     public void update(float delta) {
         
     }
     
+    @Override
     public void render(Graphics g) {
         g.drawTexture(vermeer, rectangle);
         rectangle.rotate(2);
@@ -46,6 +49,7 @@ public class Texturing extends Core {
         rectangle.scale(0.99f);
     }
     
+    @Override
     public void cleanup() {
         
     }

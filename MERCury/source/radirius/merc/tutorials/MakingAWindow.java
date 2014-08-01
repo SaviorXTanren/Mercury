@@ -11,7 +11,7 @@ import radirius.merc.graphics.Graphics;
 public class MakingAWindow extends Core {
     // Grab the instance of Runner
     Runner rnr = Runner.getInstance();
-
+    
     public MakingAWindow() {
         // The title of the window
         super("My First MERCury Game");
@@ -20,23 +20,27 @@ public class MakingAWindow extends Core {
         // Runs the game loop
         rnr.run();
     }
-
+    
     public static void main(String[] args) {
         // Runs code in the MakingAWindow constructor
         new MakingAWindow();
     }
-
+    
+    @Override
     public void init() {
     }
-
+    
+    @Override
     public void update(float delta) {
     }
-
+    
+    @Override
     public void render(Graphics g) {
         // Draws a string of text at (10,10)
         g.drawString("Lorem ipsum dolor sit amet.", 10, 10);
     }
-
+    
+    @Override
     public void cleanup() {
     }
 }

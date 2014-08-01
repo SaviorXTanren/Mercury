@@ -25,6 +25,7 @@ public class PlayingAudio extends Core {
     
     Audio whack;
     
+    @Override
     public void init() {
         whack = Audio.getAudio(Audio.getWAVBuffer(Loader.streamFromClasspath("radirius/merc/tutorials/whack.wav")));
         // Twice as high pitched
@@ -36,13 +37,16 @@ public class PlayingAudio extends Core {
         whack.play();
     }
     
+    @Override
     public void update(float delta) {
     }
     
+    @Override
     public void render(Graphics g) {
         
     }
     
+    @Override
     public void cleanup() {
     }
     

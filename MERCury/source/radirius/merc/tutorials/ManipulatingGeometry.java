@@ -24,10 +24,12 @@ public class ManipulatingGeometry extends Core {
     
     Rectangle rectangle;
     
+    @Override
     public void init() {
         rectangle = new Rectangle(0, 0, 100, 100);
     }
     
+    @Override
     public void update(float delta) {
         // Move the rectangle 1 over and 1 down every frame
         rectangle.translate(1, 1);
@@ -37,10 +39,12 @@ public class ManipulatingGeometry extends Core {
         rectangle.scale(0.996f);
     }
     
+    @Override
     public void render(Graphics g) {
         g.drawRect(rectangle);
     }
     
+    @Override
     public void cleanup() {
         
     }
