@@ -6,9 +6,10 @@ import radirius.merc.graphics.Color;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.graphics.Texture;
 import radirius.merc.resource.Loader;
-import radirius.merc.utils.EasingUtils;
 import radirius.merc.utils.TaskTiming;
 import radirius.merc.utils.TaskTiming.Task;
+import radirius.merc.utils.easing.EasingUtils;
+import radirius.merc.utils.easing.EasingValue;
 
 /**
  * @author wessles
@@ -47,8 +48,7 @@ public class SplashScreen {
         this(tex, showtimemillis, false);
     }
     
-    // When the splash started.
-    private long millisstarted;
+    EasingValue easeval;
     
     /**
      * Shows the splash screen on screen, whilst checking if it is time to stop
@@ -65,7 +65,8 @@ public class SplashScreen {
                 }
             });
             
-            millisstarted = System.currentTimeMillis();
+            easeval = new EasingValue(EasingUtils.BOUNCING_EASE_QUINT, 0, 1, showtimemillis);
+            
             showing = true;
         }
         
@@ -83,7 +84,7 @@ public class SplashScreen {
             width *= scale;
         }
         
-        g.setColor(new Color(0, 0, 0, EasingUtils.bouncingEaseQuint(System.currentTimeMillis() - millisstarted, 0f, 1f, showtimemillis)));
+        g.setColor(new Color(0, 0, 0, easeval.get()));
         g.drawTexture(tex, cam.getX() + cam.getWidth() / 2 - width / 2, cam.getY() + cam.getHeight() / 2 - height / 2, width, height);
         return _return_;
     }

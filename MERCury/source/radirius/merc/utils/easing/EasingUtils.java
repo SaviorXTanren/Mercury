@@ -1,4 +1,4 @@
-package radirius.merc.utils;
+package radirius.merc.utils.easing;
 
 /**
  * Mostly nabbed from here http://gizma.com/easing/. Bouncing by wessles.
@@ -7,9 +7,18 @@ package radirius.merc.utils;
  */
 
 public class EasingUtils {
+    public static final int LINEAR_TWEEN = -1, BOUNCING_LINEAR_TWEEN = 0, EASE_QUAD = 1, BOUNCING_EASE_QUAD = 2, EASE_CUBIC = 3, BOUNCING_EASE_CUBIC = 4, EASE_QUINT = 5, BOUNCING_EASE_QUINT = 6, EASE_SINE = 7, BOUNCING_EASE_SINE = 8, EASE_EXPO = 9, BOUNCING_EASE_EXPO = 10, EASE_CIRC = 11, BOUNCING_EASE_CIRC = 12;
+    
     public static float linearTween(float time, float startval, float endval, float duration) {
         float change = endval - startval;
         return change * time / duration + startval;
+    }
+    
+    public static float bouncingLinearTween(float time, float startval, float endval, float duration) {
+        if (time < duration / 2)
+            return linearTween(time, startval, endval, duration / 2);
+        else
+            return linearTween(time - duration / 2, endval, startval, duration / 2);
     }
     
     public static float easeQuad(float time, float startval, float endval, float duration) {
