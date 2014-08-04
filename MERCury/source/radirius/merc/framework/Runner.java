@@ -97,8 +97,7 @@ public class Runner {
      * An object that will be used for initializing the Runner with default
      * values that can be modified.
      */
-    @SuppressWarnings("unused")
-    private static class InitSetup {
+    public static class InitSetup {
         public InitSetup(Core core, int WIDTH, int HEIGHT) {
             this.core = core;
             this.WIDTH = WIDTH;
