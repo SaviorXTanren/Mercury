@@ -75,9 +75,9 @@ public class VAOGraphics implements Graphics {
         
         GL11.glLoadIdentity();
         
-        GL11.glTranslatef(cam.getOrigin().x, cam.getOrigin().y, 0);
         glScalef(x, y, 1);
-        GL11.glTranslatef(-cam.getOrigin().x, -cam.getOrigin().y, 0);
+        Vec2 scaledorigin = new Vec2(cam.getOrigin().x / x, cam.getOrigin().y / y);
+        GL11.glTranslatef(cam.x + scaledorigin.x, cam.y + scaledorigin.y, 0);
         
         scale.x = x;
         scale.y = y;

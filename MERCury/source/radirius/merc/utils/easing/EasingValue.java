@@ -1,6 +1,33 @@
 package radirius.merc.utils.easing;
 
-import static radirius.merc.utils.easing.EasingUtils.*;
+import static radirius.merc.utils.easing.EasingUtils.BOUNCING_EASE_CIRC;
+import static radirius.merc.utils.easing.EasingUtils.BOUNCING_EASE_CUBIC;
+import static radirius.merc.utils.easing.EasingUtils.BOUNCING_EASE_EXPO;
+import static radirius.merc.utils.easing.EasingUtils.BOUNCING_EASE_QUAD;
+import static radirius.merc.utils.easing.EasingUtils.BOUNCING_EASE_QUINT;
+import static radirius.merc.utils.easing.EasingUtils.BOUNCING_EASE_SINE;
+import static radirius.merc.utils.easing.EasingUtils.BOUNCING_LINEAR_TWEEN;
+import static radirius.merc.utils.easing.EasingUtils.EASE_CIRC;
+import static radirius.merc.utils.easing.EasingUtils.EASE_CUBIC;
+import static radirius.merc.utils.easing.EasingUtils.EASE_EXPO;
+import static radirius.merc.utils.easing.EasingUtils.EASE_QUAD;
+import static radirius.merc.utils.easing.EasingUtils.EASE_QUINT;
+import static radirius.merc.utils.easing.EasingUtils.EASE_SINE;
+import static radirius.merc.utils.easing.EasingUtils.LINEAR_TWEEN;
+import static radirius.merc.utils.easing.EasingUtils.bouncingEaseCirc;
+import static radirius.merc.utils.easing.EasingUtils.bouncingEaseCubic;
+import static radirius.merc.utils.easing.EasingUtils.bouncingEaseExpo;
+import static radirius.merc.utils.easing.EasingUtils.bouncingEaseQuad;
+import static radirius.merc.utils.easing.EasingUtils.bouncingEaseQuint;
+import static radirius.merc.utils.easing.EasingUtils.bouncingEaseSine;
+import static radirius.merc.utils.easing.EasingUtils.bouncingLinearTween;
+import static radirius.merc.utils.easing.EasingUtils.easeCirc;
+import static radirius.merc.utils.easing.EasingUtils.easeCubic;
+import static radirius.merc.utils.easing.EasingUtils.easeExpo;
+import static radirius.merc.utils.easing.EasingUtils.easeQuad;
+import static radirius.merc.utils.easing.EasingUtils.easeQuint;
+import static radirius.merc.utils.easing.EasingUtils.easeSine;
+import static radirius.merc.utils.easing.EasingUtils.linearTween;
 
 /**
  * An object that makes easing easier.
@@ -23,7 +50,7 @@ public class EasingValue {
         this.start_millis = start_millis;
         this.start = start;
         this.end = end;
-        this.value = start;
+        value = start;
         this.duration_millis = duration_millis;
     }
     

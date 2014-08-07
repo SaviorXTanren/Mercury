@@ -14,7 +14,8 @@ import radirius.merc.geometry.Vec2;
  */
 public class Camera {
     /** The position on its respective axis */
-    private float x, y;
+    float x;
+    float y;
     /** The point on the screen that anchors the camera to the world. */
     private Vec2 origin = new Vec2(0, 0);
     
@@ -34,7 +35,7 @@ public class Camera {
      */
     public void pre(Graphics g) {
         glPushMatrix();
-        glTranslatef(x - origin.x, y - origin.y, 0);
+        glTranslatef(x + origin.x / g.getScaleDimensions().x, y + origin.y / g.getScaleDimensions().y, 0);
         
         g.pre();
     }
@@ -84,6 +85,19 @@ public class Camera {
     public void translate(float x, float y) {
         this.x -= x;
         this.y -= y;
+    }
+    
+    /**
+     * Translates the camera to x and y.
+     * 
+     * @param x
+     *            The x position.
+     * @param y
+     *            The y position.
+     */
+    public void translateTo(float x, float y) {
+        this.x = x;
+        this.y = y;
     }
     
     /**
