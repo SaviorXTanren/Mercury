@@ -221,10 +221,10 @@ public class Shader implements Resource {
         
         try {
             if (type == Shader.FRAGMENT_SHADER) {
-                vertShader = createVertexShader(readShader(Loader.streamFromClasspath("radirius/merc/graphics/shaders/default_shader.vs")));
+                vertShader = createVertexShader(readShader(Loader.streamFromClasspath("radirius/merc/gfx/shaders/default_shader.vs")));
                 fragShader = createFragmentShader(src);
             } else if (type == Shader.VERTEX_SHADER) {
-                fragShader = createFragmentShader(readShader(Loader.streamFromClasspath("radirius/merc/graphics/shaders/default_shader.fs")));
+                fragShader = createFragmentShader(readShader(Loader.streamFromClasspath("radirius/merc/gfx/shaders/default_shader.fs")));
                 vertShader = createVertexShader(src);
             }
         } catch (Exception exc) {
@@ -344,6 +344,6 @@ public class Shader implements Resource {
     /** The default shader for MERCury (not to be confused with shader 0). */
     public static void loadDefaultShaders() {
         if (DEFAULT_SHADER == null)
-            DEFAULT_SHADER = Shader.getShader(Loader.streamFromClasspath("radirius/merc/graphics/shaders/default_shader.vs"), Loader.streamFromClasspath("radirius/merc/graphics/shaders/default_shader.fs"));
+            DEFAULT_SHADER = Shader.getShader(Loader.streamFromClasspath("radirius/merc/gfx/shaders/default_shader.vs"), Loader.streamFromClasspath("radirius/merc/gfx/shaders/default_shader.fs"));
     }
 }
