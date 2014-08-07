@@ -32,9 +32,9 @@ public class TrueTypeFont implements org.radirius.merc.font.Font {
     
     static {
         try {
-            OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("radirius/merc/graphics/OpenSans-Semibold.ttf"), 22f, 1, true);
-            OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("radirius/merc/graphics/OpenSans-Semibold.ttf"), 22f, 1, true);
-            OPENSANS_SEMIBOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("radirius/merc/graphics/OpenSans-Semibold.ttf"), 22f, 1, true);
+            OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("org/radirius/merc/font/OpenSans-Semibold.ttf"), 22f, 1, true);
+            OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("org/radirius/merc/font/OpenSans-Semibold.ttf"), 22f, 1, true);
+            OPENSANS_SEMIBOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("org/radirius/merc/font/OpenSans-Semibold.ttf"), 22f, 1, true);
         } catch (IOException e) {
             Logger.warn("Problems loading default opensans fonts.");
         } catch (FontFormatException e) {

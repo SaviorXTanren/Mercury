@@ -102,7 +102,7 @@ public abstract class Core {
             e.printStackTrace();
         }
         
-        Runner.getInstance().setIcon(Loader.streamFromClasspath("radirius/merc/main/merc_mascot_x64.png"), Loader.streamFromClasspath("radirius/merc/main/merc_mascot_x32.png"), Loader.streamFromClasspath("radirius/merc/main/merc_mascot_x16.png"));
+        Runner.getInstance().setIcon(Loader.streamFromClasspath("org/radirius/merc/main/merc_mascot_x64.png"), Loader.streamFromClasspath("org/radirius/merc/main/merc_mascot_x32.png"), Loader.streamFromClasspath("org/radirius/merc/main/merc_mascot_x16.png"));
     }
     
     /**

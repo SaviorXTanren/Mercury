@@ -31,8 +31,8 @@ public class TestFbo extends Core {
     public void init() {
         Runner.getInstance().getGraphics().setScale(1.1f);
         
-        cuteface = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/framework/merc_mascot_x64.png"), 45, GL_NEAREST);
-        shad = Shader.getShader(Loader.streamFromClasspath("radirius/merc/test/distort.fs"), Shader.FRAGMENT_SHADER);
+        cuteface = Texture.loadTexture(Loader.streamFromClasspath("org/radirius/merc/main/merc_mascot_x64.png"), 45, GL_NEAREST);
+        shad = Shader.getShader(Loader.streamFromClasspath("org/radirius/merc/test/distort.fs"), Shader.FRAGMENT_SHADER);
         fbo = FrameBuffer.getFrameBuffer();
     }
     

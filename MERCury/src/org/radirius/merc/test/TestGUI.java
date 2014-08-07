@@ -58,7 +58,7 @@ public class TestGUI extends Core {
         window.addChild(new TextBar("Particles", 0, 0), particle_check, particle_texture_check, particle_rotation_field);
         window.sortChildren();
         
-        tex = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/framework/merc_mascot_x64.png"));
+        tex = Texture.loadTexture(Loader.streamFromClasspath("org/radirius/merc/main/merc_mascot_x64.png"));
         
         Vec2 screen_center = Runner.getInstance().getCamera().getBounds().getCenter();
         

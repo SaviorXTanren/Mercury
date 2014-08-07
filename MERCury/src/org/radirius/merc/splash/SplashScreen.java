@@ -97,7 +97,7 @@ public class SplashScreen {
      */
     public static SplashScreen getMERCuryDefault() {
         Texture tex = null;
-        tex = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/splash/splash.png"), Texture.FILTER_LINEAR);
+        tex = Texture.loadTexture(Loader.streamFromClasspath("org/radirius/merc/splash/splash.png"), Texture.FILTER_LINEAR);
         
         return new SplashScreen(tex, 3000);
     }

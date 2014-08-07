@@ -341,7 +341,7 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
                     
                     if (result == 0)
                         break; // need more data
-                    
+                        
                     if (result == -1)
                         // position
                         Logger.warn("Corrupt or missing data in bitstream; continuing...");

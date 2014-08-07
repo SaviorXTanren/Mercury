@@ -26,7 +26,7 @@ public class Test4Stress extends Core {
     public void init() {
         rnr.getGraphics().setScale(2);
         
-        dAWWWW = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/framework/merc_mascot_x64.png"));
+        dAWWWW = Texture.loadTexture(Loader.streamFromClasspath("org/radirius/merc/main/merc_mascot_x64.png"));
     }
     
     @Override

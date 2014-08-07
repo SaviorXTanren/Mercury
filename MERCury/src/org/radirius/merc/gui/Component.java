@@ -93,7 +93,7 @@ public class Component implements Entity {
     public static SpriteSheet getDefaultTextures() {
         if (defaulttextures == null) {
             // The base texture!
-            Texture spritesheet_texture = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/gui/gui_spritesheet.png"));
+            Texture spritesheet_texture = Texture.loadTexture(Loader.streamFromClasspath("org/radirius/merc/gui/gui_spritesheet.png"));
             
             // And all the little textures..
             SubTexture window_bar = new SubTexture(spritesheet_texture, 0, 0, 512, 42); // 0
