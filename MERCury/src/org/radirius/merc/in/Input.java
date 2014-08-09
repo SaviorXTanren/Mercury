@@ -8,6 +8,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.radirius.merc.geom.Point;
 import org.radirius.merc.geom.Vec2;
+import org.radirius.merc.gfx.Camera;
 import org.radirius.merc.main.Runner;
 
 /**
@@ -16,8 +17,8 @@ import org.radirius.merc.main.Runner;
  * @author wessles
  */
 public class Input {
-    // No, I did not type out all of these keys; I stole it from kevglass'
-    // slick2d source code! Shout out to him for crafting this much stuff!
+    // No, I did not type out all of these keys; I got it from slick2d, by
+    // kevglass. Shout out to him for crafting this much stuff!
     // https://bitbucket.org/kevglass/slick/src/9d7443ec33af/trunk/Slick/src/org/newdawn/slick/Input.java?at=default
     public static final int KEY_ESCAPE = 0x01;
     public static final int KEY_1 = 0x02;
@@ -93,7 +94,6 @@ public class Input {
     public static final int KEY_NUMPAD7 = 0x47;
     public static final int KEY_NUMPAD8 = 0x48;
     public static final int KEY_NUMPAD9 = 0x49;
-    // Wow, this is a lot.
     public static final int KEY_SUBTRACT = 0x4A;
     public static final int KEY_NUMPAD4 = 0x4B;
     public static final int KEY_NUMPAD5 = 0x4C;
@@ -292,9 +292,15 @@ public class Input {
      */
     public Vec2 getGlobalMousePosition() {
         Vec2 globalmousepos = getAbsoluteMousePosition();
+        Camera cam = Runner.getInstance().getCamera();
         
-        // Move to camera position
-        globalmousepos.add(Runner.getInstance().getCamera().getPosition());
+        // Scale the mouse position
+        globalmousepos.div(Runner.getInstance().getGraphics().getScaleDimensions());
+        // Move the mouse position to the camera's near-position.
+        globalmousepos.add(new Vec2(cam.getBounds().getX(), cam.getBounds().getY()));
+        // Subtract the origin
+        globalmousepos.sub(cam.getOrigin().copy().div(Runner.getInstance().getGraphics().getScaleDimensions()));
+        
         return globalmousepos;
     }
     

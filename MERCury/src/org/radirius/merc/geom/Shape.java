@@ -334,7 +334,7 @@ public class Shape {
     /**
      * Flips the object over the y axis, relative to the mean center.
      * 
-     * @returns Me
+     * @return Me
      */
     public Shape flipY() {
         for (Vec2 v : vertices)
@@ -431,7 +431,7 @@ public class Shape {
     /**
      * Adds a child shape.
      * 
-     * @returns Me
+     * @return Me
      */
     public Shape addChild(Shape... child) {
         for (Shape s : child) {
@@ -450,7 +450,7 @@ public class Shape {
     /**
      * Sets the parent of the shape.
      * 
-     * @returns Me
+     * @return Me
      */
     public Shape setParent(Shape parent) {
         parent.addChild(this);
@@ -462,7 +462,7 @@ public class Shape {
      * Makes me an orphan. Parent will lose me from it's arraylist of children,
      * so there is no trace of my previous life ;(.
      * 
-     * @returns Me
+     * @return Me
      */
     public Shape clearParent() {
         parent.children.remove(this);
@@ -471,7 +471,7 @@ public class Shape {
         return this;
     }
     
-    /** @returns The parent shape of me. */
+    /** @return The parent shape of me. */
     public Shape getParent() {
         return parent;
     }

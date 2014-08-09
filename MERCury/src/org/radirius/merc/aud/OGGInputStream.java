@@ -117,17 +117,11 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
         return total;
     }
     
-    /**
-     * @see org.newdawn.slick.openal.AudioInputStream#getChannels()
-     */
     @Override
     public int getChannels() {
         return oggInfo.channels;
     }
     
-    /**
-     * @see org.newdawn.slick.openal.AudioInputStream#getRate()
-     */
     @Override
     public int getRate() {
         return oggInfo.rate;
@@ -144,9 +138,6 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
         readPCM();
     }
     
-    /**
-     * @see java.io.InputStream#available()
-     */
     @Override
     public int available() {
         return endOfStream ? 0 : 1;
@@ -341,7 +332,7 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
                     
                     if (result == 0)
                         break; // need more data
-                        
+                    
                     if (result == -1)
                         // position
                         Logger.warn("Corrupt or missing data in bitstream; continuing...");
@@ -469,9 +460,6 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
         endOfStream = true;
     }
     
-    /**
-     * @see java.io.InputStream#read()
-     */
     @Override
     public int read() throws IOException {
         if (readIndex >= pcmBuffer.position()) {

@@ -111,7 +111,7 @@ public interface Batcher {
      *            The x position.
      * @param y
      *            The y position.
-     * @param Color
+     * @param color
      *            The color of the vertex.
      * @param u
      *            The x texture coordinate.

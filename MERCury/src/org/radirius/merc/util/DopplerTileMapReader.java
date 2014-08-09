@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 /**
  * A utility class for reading tile maps from Doppler Indie Games. Credit to
- * Doppler from {@link https://github.com/doppl3r}.
+ * Doppler from https://github.com/doppl3r.
  * 
  * @author wessles
  */

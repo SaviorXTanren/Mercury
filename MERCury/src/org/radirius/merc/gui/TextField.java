@@ -123,7 +123,7 @@ public class TextField extends TextBar {
         return result;
     }
     
-    /** @returns Whether or not ENTER was pressed. */
+    /** @return Whether or not ENTER was pressed. */
     public boolean wasEntered() {
         return Runner.getInstance().getInput().keyClicked(Input.KEY_ENTER) || !isFocused();
     }
