@@ -4,27 +4,23 @@ import radirius.merc.environment.Entity;
 import radirius.merc.graphics.Color;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.graphics.Texture;
-import radirius.merc.math.MercMath;
-import radirius.merc.math.geometry.Rectangle;
+import radirius.merc.math.MERCMath;
 import radirius.merc.math.geometry.Vec2;
 import radirius.merc.utilities.WipingArrayList;
 
 /**
- * An object that will emit particle from a given point in a given direction, at
- * a given speed (run-on!).
+ * An object that simulates a mass of particles.
  * 
  * @author wessles
  */
 
-public class ParticleEmitter implements Entity {
+public class ParticleSystem implements Entity {
+    /**
+     * A setup for particle systems.
+     */
     public static class ParticleSetup {
-        /**
-         * The 2 valid angles in between which any particle can thrust itself
-         * out of spawnarea with.
-         */
+        /** The 2 valid angles in between which any particle can go through. */
         public Vec2 validangle = new Vec2(0, 360);
-        /** The percent chance that a particle will spawn. */
-        public float percentchance = 0.3f;
         
         /** The color of the particles. */
         public Color color = Color.DEFAULT_TEXTURE_COLOR;
@@ -57,35 +53,44 @@ public class ParticleEmitter implements Entity {
     }
     
     private WipingArrayList<Particle> parts;
-    
-    private Rectangle emitter;
     private ParticleSetup pesetup;
     
     /**
-     * @param emitter
-     *            The area in which a particle may spawn.
      * @param pesetup
      *            The particle's setup.
      */
-    public ParticleEmitter(Rectangle emitter, ParticleSetup pesetup) {
+    public ParticleSystem(ParticleSetup pesetup) {
         parts = new WipingArrayList<Particle>();
-        
-        this.emitter = emitter;
         this.pesetup = pesetup;
     }
     
     /**
-     * Adds in new particles to the emitter.
+     * Generates new particles launching at an angle.
      * 
      * @param amount
-     *            The amount of particles you wish to generate.
+     *            The amount of particles to generate.
+     * @param point
+     *            The point from which the particles emmit.
+     * @param angle
+     *            The angle at which the particles emmmit.
      */
-    public void generateParticle(int amount) {
-        for (int p = 0; p < amount; p++)
-            if (MercMath.chance(pesetup.percentchance)) {
-                float angle = (float) MercMath.random(pesetup.validangle.x, pesetup.validangle.y);
-                parts.add(new Particle(angle, this));
-            }
+    public void generateParticle(int amount, Vec2 point, float angle) {
+        parts.add(new Particle(point.x, point.y, angle, this));
+    }
+    
+    /**
+     * Generates new particles launching at random angles.
+     * 
+     * @param amount
+     *            The amount of particles to generate.
+     * @param point
+     *            The point from which the particles emmit.
+     */
+    public void generateParticle(int amount, Vec2 point) {
+        for (int p = 0; p < amount; p++) {
+            float angle = (float) MERCMath.random(pesetup.validangle.x, pesetup.validangle.y);
+            generateParticle(1, point, angle);
+        }
     }
     
     @Override
@@ -102,11 +107,10 @@ public class ParticleEmitter implements Entity {
             ((Particle) part).render(g);
     }
     
+    /**
+     * @return The ParticleSetup options.
+     */
     public ParticleSetup getOptions() {
         return pesetup;
-    }
-    
-    public Rectangle getEmitterBounds() {
-        return emitter;
     }
 }

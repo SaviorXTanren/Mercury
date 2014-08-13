@@ -1,4 +1,4 @@
-package radirius.merc.main;
+package radirius.merc.framework;
 
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
@@ -17,11 +17,11 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
 import radirius.merc.exceptions.MERCuryException;
+import radirius.merc.framework.splash.SplashScreen;
 import radirius.merc.graphics.Camera;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.graphics.Texture;
 import radirius.merc.input.Input;
-import radirius.merc.main.splash.SplashScreen;
 import radirius.merc.utilities.TaskTiming;
 import radirius.merc.utilities.command.CommandList;
 import radirius.merc.utilities.command.CommandThread;
@@ -29,7 +29,7 @@ import radirius.merc.utilities.logging.Logger;
 
 /**
  * A class that will run your core, and give out the graphics object, current
- * core, resource manager, and input ly.
+ * core, resource manager, input, etc.
  * 
  * @author wessles
  */
@@ -61,7 +61,7 @@ public class Runner {
     /** The delta variable */
     private int delta = 1;
     /** The target fps */
-    private int FPS_TARGET = 60;
+    private int FPS_TARGET = 120;
     /** The current fps */
     private int FPS;
     /** The last frame; used for calculating fps */
@@ -111,13 +111,13 @@ public class Runner {
         /** The height of the display */
         public int HEIGHT;
         /** Whether or not the display is fullscreen */
-        public boolean fullscreen;
+        public boolean fullscreen = false;
         /** Whether or not we are vsynced */
-        public boolean vsync;
+        public boolean vsync = true;
         /** Whether or not to initialize the Core on a seperate thread */
-        public boolean initonseperatethread;
+        public boolean initonseperatethread = false;
         /** Whether or not we are enabling the developers console */
-        public boolean devconsole;
+        public boolean devconsole = true;
     }
     
     /**
@@ -147,7 +147,7 @@ public class Runner {
      *            Whether or not the display is fullscreen
      */
     public void init(Core core, int WIDTH, int HEIGHT, boolean fullscreen) {
-        init(core, WIDTH, HEIGHT, fullscreen, false, false, true);
+        init(core, WIDTH, HEIGHT, fullscreen, true, false, true);
     }
     
     /**
@@ -196,51 +196,44 @@ public class Runner {
      *            Whether or not we are enabling the developers console
      */
     public void init(final Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean initonseperatethread, boolean devconsole) {
+        // Little in-code splash.
         System.out.print("  _   _   _   _   _   _   _  \n" + " / \\ / \\ / \\ / \\ / \\ / \\ / \\\n" + "( M | E | R | C | U | R | Y ) Started\n" + " \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \n\n");
         
+        // Lots of initialization that is self explanatory.
         Logger.debug("Making Core...");
-        
         this.core = core;
         this.vsync = vsync;
         
         Logger.debug("Initializing Display...");
-        
         this.core.initDisplay(WIDTH, HEIGHT, fullscreen, vsync);
         
         Logger.debug("Making Graphics...");
-        
         graphicsobject = this.core.initGraphics();
         Logger.debug("OpenGL Version: " + GL11.glGetString(GL11.GL_VERSION));
+        Logger.debug("Display Mode:" + Display.getDisplayMode());
         
         Logger.debug("Making Audio...");
-        
         this.core.initAudio();
         
         Logger.debug("Initializing Camera...");
-        
         camera = new Camera(0, 0);
         
         Logger.debug("Initializing Graphics...");
-        
         graphicsobject.init();
         
         Logger.debug("Creating Input...");
-        
         input = new Input();
         
         Logger.debug("Initializing Input...");
-        
         input.create();
         
         Logger.debug("Starting plugins...");
-        
         for (Plugin plug : plugs) {
             Logger.debug("\tInitializing " + plug.getClass().getSimpleName() + "...");
             plug.init();
         }
         
         Logger.debug("Initializing Core " + (initonseperatethread ? "on seperate Thread" : "") + "...");
-        
         if (initonseperatethread) {
             Runnable initthread_run = new Runnable() {
                 @Override
@@ -257,15 +250,13 @@ public class Runner {
         }
         
         Logger.debug("Making and adding default CommandList 'merc...'");
-        
         CommandList.addCommandList(CommandList.getDefaultCommandList());
         
-        Logger.debug("Booting Developers Console Thread...");
+        Logger.debug("Booting Developer Console Thread...");
         consolethread.setName("merc_devconsole");
         consolethread.start();
         
         Logger.debug("Starting Task Timing Thread...");
-        
         TaskTiming.init();
         
         Logger.debug("Ready to begin game loop. Awaiting permission from Core...");
@@ -316,18 +307,24 @@ public class Runner {
             // Take in information from input.
             input.poll();
             
+            // Clear OpenGL buffers
             if (!renderfreeze)
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             
+            // If not frozen, update.
             if (!updatefreeze)
                 core.update(getDelta());
             
+            // Update vertices last rendered variable.
             int verticeslastrendered = getVerticesLastRendered();
             
             if (!renderfreeze) {
+                // Pre-render
                 camera.pre(graphicsobject);
+                // Render
                 core.render(graphicsobject);
                 
+                // Debug
                 if (showdebug) {
                     addDebugData("FPS", getFPS() + "");
                     addDebugData("Vertices", verticeslastrendered + "");
@@ -336,6 +333,7 @@ public class Runner {
                     debugdata = "";
                 }
                 
+                // Post-render
                 camera.post(graphicsobject);
             }
             
@@ -343,9 +341,12 @@ public class Runner {
             if (Display.isCloseRequested())
                 end();
             
+            // Update and sync the FPS.
             Display.update();
             Display.sync(FPS_TARGET);
         }
+        
+        // End the loop, cleanup things.
         
         Logger.line();
         Logger.debug("Game Loop ended.");
@@ -356,7 +357,6 @@ public class Runner {
         consolethread.interrupt();
         
         Logger.debug("Cleaning up Task Timing Thread...");
-        
         TaskTiming.cleanup();
         
         Logger.debug("Cleaning up Core...");
@@ -366,6 +366,7 @@ public class Runner {
             Logger.debug("     Cleaning up " + plug.getClass().getSimpleName() + "...");
             plug.cleanup();
         }
+        
         Logger.debug("Cleanup complete.");
         Logger.debug("MERCury Game Library shutting down...");
     }
@@ -388,7 +389,12 @@ public class Runner {
         FPS_TARGET = target;
     }
     
-    /** Sets whether or not debug data should be displayed. */
+    /**
+     * Sets whether or not debug data should be displayed.
+     * 
+     * @param showdebug
+     *            Whether or not debug is to be shown onscreen.
+     */
     public void showDebug(boolean showdebug) {
         this.showdebug = showdebug;
     }
@@ -396,6 +402,11 @@ public class Runner {
     /**
      * Adds information to the debugdata. Debug data is wiped every single
      * update frame, so this is to be called every frame.
+     * 
+     * @param name
+     *            The name of the debug information.
+     * @param value
+     *            The value of the debug information.
      */
     public void addDebugData(String name, String value) {
         name.trim();
@@ -425,7 +436,7 @@ public class Runner {
     
     /** @return Time in seconds */
     public float getSeconds() {
-        return System.currentTimeMillis() / 1000f;
+        return getMillis() / 1000f;
     }
     
     /**
@@ -443,6 +454,8 @@ public class Runner {
     }
     
     /**
+     * Enables or disables mouse grabbing.
+     * 
      * @param grab
      *            Whether or not to grab the mouse
      */
@@ -451,6 +464,8 @@ public class Runner {
     }
     
     /**
+     * Sets whether or not vsync is enabled.
+     * 
      * @param vsync
      *            Whether or not to vsync
      */
@@ -465,6 +480,8 @@ public class Runner {
     }
     
     /**
+     * Sets the title of the window.
+     * 
      * @param title
      *            The title of the window
      */
@@ -475,6 +492,9 @@ public class Runner {
     /**
      * Sets the icon for given size(s). Reccomended sizes that you should put in
      * are x16, x32, and x64.
+     * 
+     * @param icons
+     *            Icon(s) for the game.
      */
     public void setIcon(InputStream... icons) {
         ArrayList<ByteBuffer> bufs = new ArrayList<ByteBuffer>();
@@ -493,6 +513,8 @@ public class Runner {
     }
     
     /**
+     * Sets the resizability of the window.
+     * 
      * @param resizable
      *            The resizability of the window
      */
@@ -522,8 +544,10 @@ public class Runner {
     }
     
     /**
+     * Sets the factor by which the delta time will be multiplied.
+     * 
      * @param factor
-     *            The new delta factor
+     *            The new delta factor.
      */
     public void setDeltaFactor(float factor) {
         deltafactor = factor;
@@ -535,6 +559,8 @@ public class Runner {
     }
     
     /**
+     * Sets the update freeze.
+     * 
      * @param freeze
      *            Whether or not to freeze the updating
      */
@@ -548,6 +574,8 @@ public class Runner {
     }
     
     /**
+     * Sets the graphic freeze.
+     * 
      * @param freeze
      *            Whether or not to freeze the rendering
      */
@@ -568,6 +596,11 @@ public class Runner {
     // The current splash screen.
     private int splidx = 0;
     
+    /**
+     * Shows the current splash screen.
+     * 
+     * @return Whether there aren't any more splash screens to be shown.
+     */
     public boolean showSplashScreens(Graphics g) {
         if (splidx > splashes.size() - 1)
             return true;
@@ -579,6 +612,8 @@ public class Runner {
     }
     
     /**
+     * Adds a splash screen to the queue.
+     * 
      * @param splash
      *            The splash screen to add
      */
@@ -587,6 +622,8 @@ public class Runner {
     }
     
     /**
+     * Adds a plugin.
+     * 
      * @param plugin
      *            The plugin to add
      */

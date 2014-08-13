@@ -1,12 +1,12 @@
 package radirius.merc.test;
 
+import radirius.merc.framework.Core;
+import radirius.merc.framework.Runner;
 import radirius.merc.graphics.Animation;
 import radirius.merc.graphics.Color;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.graphics.SpriteSheet;
 import radirius.merc.graphics.Texture;
-import radirius.merc.main.Core;
-import radirius.merc.main.Runner;
 import radirius.merc.resource.Loader;
 
 /**

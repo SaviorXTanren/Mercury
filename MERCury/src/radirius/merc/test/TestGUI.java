@@ -1,5 +1,7 @@
 package radirius.merc.test;
 
+import radirius.merc.framework.Core;
+import radirius.merc.framework.Runner;
 import radirius.merc.graphics.Color;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.graphics.Texture;
@@ -9,11 +11,9 @@ import radirius.merc.graphics.gui.TextBar;
 import radirius.merc.graphics.gui.TextBox;
 import radirius.merc.graphics.gui.TextField;
 import radirius.merc.graphics.gui.Window;
-import radirius.merc.graphics.particles.ParticleEmitter;
-import radirius.merc.graphics.particles.ParticleEmitter.ParticleSetup;
+import radirius.merc.graphics.particles.ParticleSystem;
+import radirius.merc.graphics.particles.ParticleSystem.ParticleSetup;
 import radirius.merc.input.Input;
-import radirius.merc.main.Core;
-import radirius.merc.main.Runner;
 import radirius.merc.math.geometry.Rectangle;
 import radirius.merc.math.geometry.Vec2;
 import radirius.merc.resource.Loader;
@@ -39,7 +39,7 @@ public class TestGUI extends Core {
     
     Rectangle bounds;
     
-    ParticleEmitter emitter;
+    ParticleSystem emitter;
     
     @Override
     public void init() {
@@ -58,7 +58,7 @@ public class TestGUI extends Core {
         window.addChild(new TextBar("Particles", 0, 0), particle_check, particle_texture_check, particle_rotation_field);
         window.sortChildren();
         
-        tex = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/main/merc_mascot_x64.png"));
+        tex = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/framework/merc_mascot_x64.png"));
         
         Vec2 screen_center = Runner.getInstance().getCamera().getBounds().getCenter();
         
@@ -70,7 +70,7 @@ public class TestGUI extends Core {
         setp.size = 32;
         setp.lifeinframes = 200;
         setp.growth = 0.94f;
-        emitter = new ParticleEmitter(new Rectangle(screen_center.x - 50, screen_center.y, 100), setp);
+        emitter = new ParticleSystem(setp);
     }
     
     boolean dragging = false;
@@ -101,7 +101,6 @@ public class TestGUI extends Core {
                 dy = in.getGlobalMouseY() - mouseanchor.y;
                 
                 bounds.translate(dx / zoom, dy / zoom);
-                emitter.getEmitterBounds().translate(dx / zoom, dy / zoom);
                 
                 mouseanchor.add(new Vec2(dx, dy));
             }
@@ -117,7 +116,7 @@ public class TestGUI extends Core {
         
         if (particle_check.isTicked()) {
             if (dragging)
-                emitter.generateParticle(5 * Math.abs((int) ((dx + dy) / 2)));
+                emitter.generateParticle(5 * Math.abs((int) ((dx + dy) / 2)), bounds.getCenter());
         } else
             particle_texture_check.setTicked(false);
         

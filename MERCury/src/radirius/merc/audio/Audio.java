@@ -37,7 +37,7 @@ import org.lwjgl.BufferUtils;
 import radirius.merc.resource.Resource;
 
 /**
- * An object for using Audio files and things.
+ * An object for loading and using sounds.
  * 
  * @author wessles
  */
@@ -45,6 +45,12 @@ import radirius.merc.resource.Resource;
 public class Audio implements Resource {
     private final int src, buf;
     
+    /**
+     * @param src
+     *            The source index for OpenAL.
+     * @param buf
+     *            The buffer for OpenAL to process.
+     */
     private Audio(int src, int buf) {
         this.src = src;
         this.buf = buf;
@@ -60,6 +66,8 @@ public class Audio implements Resource {
     /**
      * Plays the clip. If it is already playing, it will restart. If the clip is
      * paused, it will continue.
+     * 
+     * @return Me
      */
     public Audio play() {
         alSourcePlay(src);
@@ -68,6 +76,8 @@ public class Audio implements Resource {
     
     /**
      * Plays the clip if it is paused, pauses it if it is not paused.
+     * 
+     * @return Me
      */
     public Audio togglePause() {
         if (isPaused())
@@ -79,6 +89,8 @@ public class Audio implements Resource {
     
     /**
      * Plays the clip if it is stopped, stops it if it is not stopped.
+     * 
+     * @return Me
      */
     public Audio toggleStop() {
         if (isStopped())
@@ -97,6 +109,8 @@ public class Audio implements Resource {
     
     /**
      * Pauses the clip. Reversible by play().
+     * 
+     * @return Me
      */
     public Audio pause() {
         alSourcePause(src);
@@ -112,6 +126,8 @@ public class Audio implements Resource {
     
     /**
      * Stops the clip.
+     * 
+     * @return Me
      */
     public Audio stop() {
         alSourceStop(src);
@@ -129,7 +145,10 @@ public class Audio implements Resource {
      * Sets the volume of the clip.
      * 
      * @param vol
-     *            A volume between 0 and 1.
+     *            A floating point volume value, 0.8 being 80%, 1.5 being 150%,
+     *            etc.
+     * 
+     * @return Me
      */
     public Audio setVolume(float vol) {
         alSourcef(src, AL_GAIN, vol);
@@ -147,7 +166,10 @@ public class Audio implements Resource {
      * Sets the pitch of the clip.
      * 
      * @param pit
-     *            A pitch.
+     *            A floating point pitch value, 0.8 being 80%, 1.5 being 150%,
+     *            etc.
+     * 
+     * @return Me
      */
     public Audio setPitch(float pit) {
         alSourcef(src, AL_PITCH, pit);
@@ -166,6 +188,8 @@ public class Audio implements Resource {
      * 
      * @param loop
      *            Whether or not the clip should loop.
+     * 
+     * @return Me
      */
     public Audio setLooping(boolean loop) {
         alSourcei(src, AL_LOOPING, loop ? AL_TRUE : AL_FALSE);
@@ -177,7 +201,9 @@ public class Audio implements Resource {
      * source.
      * 
      * @param buf
-     *            The buffer of the sound.
+     *            The integer buffer of the sound for OpenAL to process.
+     * 
+     * @return Me
      */
     public static Audio getAudio(IntBuffer buf) {
         IntBuffer src = BufferUtils.createIntBuffer(1);
@@ -198,21 +224,34 @@ public class Audio implements Resource {
      * 
      * @param is
      *            The stream to the sound file.
+     * 
+     * @return The integer buffer for OpenAL based off of the .ogg file at the
+     *         InputStream is.
      */
     public static IntBuffer getOGGBuffer(InputStream is) {
+        // The buffer for OpenAL
         IntBuffer buf = BufferUtils.createIntBuffer(1);
         
+        // Make the decoder and the data.
         OGGDecoder decoder = new OGGDecoder();
         OGGData ogg = null;
         try {
+            // Decode data
             ogg = decoder.getData(is);
         } catch (IOException e) {
             e.printStackTrace();
         }
         
+        // Generate an index for putting said buffer data
         alGenBuffers(buf);
+        // Check for errors.
+        if (alGetError() != AL_NO_ERROR)
+            throw new RuntimeException("An error occurred while making buffers.");
+        
+        // Putting said buffer data to said index
         alBufferData(buf.get(0), ogg.channels > 1 ? AL_FORMAT_STEREO16 : AL_FORMAT_MONO16, ogg.data, ogg.rate);
         
+        // And returning.
         return buf;
     }
     
@@ -221,23 +260,34 @@ public class Audio implements Resource {
      * 
      * @param is
      *            The stream to the sound file.
+     * 
+     * @return The integer buffer for OpenAL based off of the .wav file at the
+     *         InputStream is.
      */
     public static IntBuffer getWAVBuffer(InputStream is) {
+        // The buffer for OpenAL
         IntBuffer buf = BufferUtils.createIntBuffer(1);
+        // Generate an index for putting said buffer data
         alGenBuffers(buf);
         
+        // Check for errors.
         if (alGetError() != AL_NO_ERROR)
             throw new RuntimeException("An error occurred while making buffers.");
         
+        // Create wave file based off of the InputStream is
         WaveData waveFile = WaveData.create(is);
+        // Write data to index
         alBufferData(buf.get(0), waveFile.format, waveFile.data, waveFile.samplerate);
+        // And dispose.
         waveFile.dispose();
         
+        // Also returning...
         return buf;
     }
     
     @Override
     public void clean() {
+        // Frees up space in OpenAL by clearing the buffer and source.
         alDeleteBuffers(buf);
         alDeleteSources(src);
     }

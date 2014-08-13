@@ -22,7 +22,7 @@ import static org.lwjgl.opengl.GL11.glTexImage2D;
 import static org.lwjgl.opengl.GL11.glTexParameteri;
 import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.opengl.GLContext.getCapabilities;
-import radirius.merc.main.Runner;
+import radirius.merc.framework.Runner;
 import radirius.merc.utilities.logging.Logger;
 
 /**

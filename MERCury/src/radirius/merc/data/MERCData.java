@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.HashMap;
@@ -56,6 +57,7 @@ public class MERCData implements Data {
     
     @Override
     public void open() {
+        // Create and open a scan of the file
         Scanner scan = null;
         try {
             scan = new Scanner(new FileInputStream(location));
@@ -63,36 +65,51 @@ public class MERCData implements Data {
             e.printStackTrace();
         }
         
+        // While there is still a line to be processed
         while (scan.hasNextLine()) {
             String ln = scan.nextLine();
+            // Split the line into a key/value set (by space)
             String[] split = ln.split(" ", 2);
+            // Throw IOException if there is no value for the key
+            if (split.length <= 1)
+                try {
+                    throw new IOException("Corrupted data file.");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             String prop = split[0];
             String val = split[1];
+            // Put the value to its key on the hashmap
             vals.put(prop, val);
         }
         
+        // Close the scan
         scan.close();
     }
     
     @Override
     public void close() {
+        // Create and open a writer for writing data to the file
         PrintWriter write = null;
-        
         try {
             write = new PrintWriter(new FileOutputStream(new File(location)));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         
+        // Go through the set
         for (int i = 0; i < vals.size(); i++) {
             String prop = (String) vals.keySet().toArray()[i];
             String val = (String) vals.values().toArray()[i];
             
+            // Write key/value to the file
             write.println(prop + " " + val);
         }
         
+        // Close the writer
         write.close();
         
+        // Clear temporary storage
         vals.clear();
     }
 }

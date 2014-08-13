@@ -1,12 +1,12 @@
 package radirius.merc.graphics.gui;
 
 import radirius.merc.environment.Entity;
+import radirius.merc.framework.Runner;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.graphics.SpriteSheet;
 import radirius.merc.graphics.SubTexture;
 import radirius.merc.graphics.Texture;
 import radirius.merc.input.Input;
-import radirius.merc.main.Runner;
 import radirius.merc.math.geometry.Rectangle;
 import radirius.merc.math.geometry.Vec2;
 import radirius.merc.resource.Loader;

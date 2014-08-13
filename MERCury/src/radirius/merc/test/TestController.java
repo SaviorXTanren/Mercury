@@ -1,10 +1,10 @@
 package radirius.merc.test;
 
+import radirius.merc.framework.Core;
+import radirius.merc.framework.Runner;
+import radirius.merc.framework.splash.SplashScreen;
 import radirius.merc.graphics.Color;
 import radirius.merc.graphics.Graphics;
-import radirius.merc.main.Core;
-import radirius.merc.main.Runner;
-import radirius.merc.main.splash.SplashScreen;
 import radirius.merc.math.geometry.Rectangle;
 import radirius.merc.math.geometry.Vec2;
 
@@ -47,9 +47,11 @@ public class TestController extends Core {
         
         if (!rnr.inited)
             return;
-        
+
         if (rnr.getInput().controllerButtonDown(2, 0))
             vel.scale(1.1f);
+        if(rnr.getInput().controllerButtonDown(9, 0))
+            rnr.end();
         
         vel.add(rnr.getInput().getLeftAnalogStick(0));
         

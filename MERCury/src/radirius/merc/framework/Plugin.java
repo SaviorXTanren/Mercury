@@ -1,8 +1,7 @@
-package radirius.merc.main;
+package radirius.merc.framework;
 
 /**
- * Plugins are to be used for both official and 3rd party extensions of MERCury
- * game library.
+ * Plugins are to be used for both official and 3rd party extensions of MERCury.
  * 
  * @author wessles
  */

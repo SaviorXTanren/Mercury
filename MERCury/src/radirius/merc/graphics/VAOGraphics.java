@@ -4,10 +4,10 @@ import static org.lwjgl.opengl.GL11.glScalef;
 
 import org.lwjgl.opengl.GL11;
 
+import radirius.merc.framework.Runner;
 import radirius.merc.graphics.font.Font;
 import radirius.merc.graphics.font.TrueTypeFont;
-import radirius.merc.main.Runner;
-import radirius.merc.math.MercMath;
+import radirius.merc.math.MERCMath;
 import radirius.merc.math.geometry.Circle;
 import radirius.merc.math.geometry.Ellipse;
 import radirius.merc.math.geometry.Line;
@@ -487,12 +487,12 @@ public class VAOGraphics implements Graphics {
     private void drawFunctionlessLine(Line l) {
         float dx = l.getVertices()[0].x - l.getVertices()[1].x;
         float dy = l.getVertices()[0].y - l.getVertices()[1].y;
-        float angle = MercMath.atan2(dx, dy) - 90;
+        float angle = MERCMath.atan2(dx, dy) - 90;
         
-        Vec2 p1 = new Vec2(l.getVertices()[0].x - MercMath.cos(angle) * linewidth / 2, l.getVertices()[0].y - MercMath.sin(angle) * linewidth / 2);
-        Vec2 p2 = new Vec2(l.getVertices()[0].x + MercMath.cos(angle) * linewidth / 2, l.getVertices()[0].y + MercMath.sin(angle) * linewidth / 2);
-        Vec2 p3 = new Vec2(l.getVertices()[1].x + MercMath.cos(angle) * linewidth / 2, l.getVertices()[1].y + MercMath.sin(angle) * linewidth / 2);
-        Vec2 p4 = new Vec2(l.getVertices()[1].x - MercMath.cos(angle) * linewidth / 2, l.getVertices()[1].y - MercMath.sin(angle) * linewidth / 2);
+        Vec2 p1 = new Vec2(l.getVertices()[0].x - MERCMath.cos(angle) * linewidth / 2, l.getVertices()[0].y - MERCMath.sin(angle) * linewidth / 2);
+        Vec2 p2 = new Vec2(l.getVertices()[0].x + MERCMath.cos(angle) * linewidth / 2, l.getVertices()[0].y + MERCMath.sin(angle) * linewidth / 2);
+        Vec2 p3 = new Vec2(l.getVertices()[1].x + MERCMath.cos(angle) * linewidth / 2, l.getVertices()[1].y + MERCMath.sin(angle) * linewidth / 2);
+        Vec2 p4 = new Vec2(l.getVertices()[1].x - MERCMath.cos(angle) * linewidth / 2, l.getVertices()[1].y - MERCMath.sin(angle) * linewidth / 2);
         
         drawFunctionlessRect(new Rectangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y));
     }

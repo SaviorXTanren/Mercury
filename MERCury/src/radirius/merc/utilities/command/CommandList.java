@@ -3,7 +3,7 @@ package radirius.merc.utilities.command;
 import java.util.HashMap;
 
 import radirius.merc.exceptions.MERCuryException;
-import radirius.merc.main.Runner;
+import radirius.merc.framework.Runner;
 import radirius.merc.utilities.logging.Logger;
 
 /**

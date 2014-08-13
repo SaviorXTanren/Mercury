@@ -2,10 +2,10 @@ package radirius.merc.test;
 
 import org.lwjgl.input.Keyboard;
 
+import radirius.merc.framework.Core;
+import radirius.merc.framework.Runner;
+import radirius.merc.framework.splash.SplashScreen;
 import radirius.merc.graphics.Graphics;
-import radirius.merc.main.Core;
-import radirius.merc.main.Runner;
-import radirius.merc.main.splash.SplashScreen;
 import radirius.merc.math.geometry.Rectangle;
 
 /**

@@ -1,6 +1,6 @@
 package radirius.merc.math.geometry;
 
-import radirius.merc.math.MercMath;
+import radirius.merc.math.MERCMath;
 
 /**
  * A shape with any amount of sides.
@@ -43,7 +43,7 @@ public class Polygon extends Shape {
         for (int a = 0; a < numberofsides; a++) {
             if (angle > 360)
                 angle %= 360;
-            verts[a] = new Vec2(x + MercMath.cos(angle) * radiusx, y + MercMath.sin(angle) * radiusy);
+            verts[a] = new Vec2(x + MERCMath.cos(angle) * radiusx, y + MERCMath.sin(angle) * radiusy);
             angle += step;
         }
         

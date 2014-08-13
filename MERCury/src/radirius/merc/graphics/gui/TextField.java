@@ -1,12 +1,12 @@
 package radirius.merc.graphics.gui;
 
+import radirius.merc.framework.Runner;
 import radirius.merc.graphics.Color;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.graphics.Texture;
 import radirius.merc.graphics.font.Font;
 import radirius.merc.graphics.font.TrueTypeFont;
 import radirius.merc.input.Input;
-import radirius.merc.main.Runner;
 
 /**
  * @author wessles

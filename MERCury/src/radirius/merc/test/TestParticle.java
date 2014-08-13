@@ -1,13 +1,12 @@
 package radirius.merc.test;
 
+import radirius.merc.framework.Core;
+import radirius.merc.framework.Runner;
 import radirius.merc.graphics.Color;
 import radirius.merc.graphics.Graphics;
-import radirius.merc.graphics.particles.ParticleEmitter;
-import radirius.merc.graphics.particles.ParticleEmitter.ParticleSetup;
-import radirius.merc.main.Core;
-import radirius.merc.main.Runner;
+import radirius.merc.graphics.particles.ParticleSystem;
+import radirius.merc.graphics.particles.ParticleSystem.ParticleSetup;
 import radirius.merc.math.geometry.Polygon;
-import radirius.merc.math.geometry.Rectangle;
 import radirius.merc.math.geometry.Vec2;
 
 /**
@@ -29,7 +28,7 @@ public class TestParticle extends Core {
     
     public Polygon bullet;
     public float vel = 1;
-    public ParticleEmitter emitter;
+    public ParticleSystem emitter;
     
     @Override
     public void init() {
@@ -39,11 +38,11 @@ public class TestParticle extends Core {
         pes.color = Color.gray;
         pes.speed = 1;
         pes.acceleration = 0.5f;
-        pes.size = 4;
+        pes.size = 32;
         pes.growth = 0.9f;
         pes.validangle = new Vec2(170, 190);
-        emitter = new ParticleEmitter((Rectangle) new Rectangle(bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight()).scale(0.4f), pes);
-        bullet.addChild(emitter.getEmitterBounds());
+        pes.rotation = 2;
+        emitter = new ParticleSystem(pes);
     }
     
     @Override
@@ -53,7 +52,7 @@ public class TestParticle extends Core {
         emitter.getOptions().size = Math.min(Math.abs(vel), 16);
         
         emitter.update(delta);
-        emitter.generateParticle(20);
+        emitter.generateParticle(20, bullet.getCenter());
         
         if (bullet.getX2() > rnr.getWidth() || bullet.getX() < 0)
             vel *= -1;

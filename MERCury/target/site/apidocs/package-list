@@ -2,13 +2,13 @@ radirius.merc.audio
 radirius.merc.data
 radirius.merc.environment
 radirius.merc.exceptions
+radirius.merc.framework
+radirius.merc.framework.splash
 radirius.merc.graphics
 radirius.merc.graphics.font
 radirius.merc.graphics.gui
 radirius.merc.graphics.particles
 radirius.merc.input
-radirius.merc.main
-radirius.merc.main.splash
 radirius.merc.math
 radirius.merc.math.geometry
 radirius.merc.resource

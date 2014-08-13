@@ -1,9 +1,9 @@
 package radirius.merc.test;
 
+import radirius.merc.framework.Core;
+import radirius.merc.framework.Runner;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.graphics.Texture;
-import radirius.merc.main.Core;
-import radirius.merc.main.Runner;
 import radirius.merc.math.geometry.Rectangle;
 import radirius.merc.resource.Loader;
 
@@ -26,7 +26,7 @@ public class Test4Stress extends Core {
     public void init() {
         rnr.getGraphics().setScale(2);
         
-        dAWWWW = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/main/merc_mascot_x64.png"));
+        dAWWWW = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/framework/merc_mascot_x64.png"));
     }
     
     @Override

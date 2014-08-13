@@ -1,9 +1,9 @@
-package radirius.merc.main.splash;
+package radirius.merc.framework.splash;
 
+import radirius.merc.framework.Runner;
 import radirius.merc.graphics.Color;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.graphics.Texture;
-import radirius.merc.main.Runner;
 import radirius.merc.math.geometry.Rectangle;
 import radirius.merc.resource.Loader;
 import radirius.merc.utilities.TaskTiming;
@@ -97,7 +97,7 @@ public class SplashScreen {
      */
     public static SplashScreen getMERCuryDefault() {
         Texture tex = null;
-        tex = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/main/splash/splash.png"), Texture.FILTER_LINEAR);
+        tex = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/framework/splash/splash.png"), Texture.FILTER_LINEAR);
         
         return new SplashScreen(tex, 3000);
     }

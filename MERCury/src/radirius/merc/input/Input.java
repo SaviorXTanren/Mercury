@@ -10,8 +10,8 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import radirius.merc.exceptions.MERCuryException;
+import radirius.merc.framework.Runner;
 import radirius.merc.graphics.Camera;
-import radirius.merc.main.Runner;
 import radirius.merc.math.geometry.Point;
 import radirius.merc.math.geometry.Vec2;
 

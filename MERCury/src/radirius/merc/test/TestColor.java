@@ -18,10 +18,10 @@ import static radirius.merc.graphics.Color.turquoise;
 import static radirius.merc.graphics.Color.violet;
 import static radirius.merc.graphics.Color.white;
 import static radirius.merc.graphics.Color.yellow;
+import radirius.merc.framework.Core;
+import radirius.merc.framework.Runner;
 import radirius.merc.graphics.Color;
 import radirius.merc.graphics.Graphics;
-import radirius.merc.main.Core;
-import radirius.merc.main.Runner;
 import radirius.merc.math.geometry.Rectangle;
 
 /**

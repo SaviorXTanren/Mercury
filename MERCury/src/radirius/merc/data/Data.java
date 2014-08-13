@@ -1,8 +1,8 @@
 package radirius.merc.data;
 
 /**
- * An interface for an object that can open and close. This should be used for
- * file reading and such.
+ * An interface for data-manipulation. This should be used for file reading and
+ * writing.
  * 
  * @author wessles
  */

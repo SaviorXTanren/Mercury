@@ -3,7 +3,7 @@ package radirius.merc.graphics;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glTranslatef;
-import radirius.merc.main.Runner;
+import radirius.merc.framework.Runner;
 import radirius.merc.math.geometry.Rectangle;
 import radirius.merc.math.geometry.Vec2;
 

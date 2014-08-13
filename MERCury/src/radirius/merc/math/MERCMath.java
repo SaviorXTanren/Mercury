@@ -5,7 +5,7 @@ package radirius.merc.math;
  * 
  * @author wessles
  */
-public class MercMath {
+public class MERCMath {
     public static final float PI = 3.141592653589793f;
     
     /**

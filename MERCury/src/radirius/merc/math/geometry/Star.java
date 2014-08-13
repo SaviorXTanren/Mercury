@@ -1,6 +1,6 @@
 package radirius.merc.math.geometry;
 
-import radirius.merc.math.MercMath;
+import radirius.merc.math.MERCMath;
 
 /**
  * @author wessles
@@ -25,8 +25,8 @@ public class Star extends Polygon {
     protected void extendPoints(float push_radiusx, float push_radiusy) {
         for (int _v = 0; _v < vertices.length; _v += 2) {
             Vec2 v = vertices[_v];
-            float angletocenter = MercMath.atan2(center.x - v.x, center.y - v.y);
-            v.add(new Vec2(-MercMath.cos(angletocenter) * push_radiusx, -MercMath.sin(angletocenter) * push_radiusy));
+            float angletocenter = MERCMath.atan2(center.x - v.x, center.y - v.y);
+            v.add(new Vec2(-MERCMath.cos(angletocenter) * push_radiusx, -MERCMath.sin(angletocenter) * push_radiusy));
         }
     }
 }

@@ -26,7 +26,7 @@ import javax.imageio.ImageIO;
 import org.lwjgl.BufferUtils;
 
 import radirius.merc.exceptions.MERCuryException;
-import radirius.merc.math.MercMath;
+import radirius.merc.math.MERCMath;
 import radirius.merc.resource.Resource;
 
 /**
@@ -258,7 +258,7 @@ public class Texture implements Resource {
             rot *= -1;
             rot -= 90;
             AffineTransform transform = new AffineTransform();
-            transform.rotate(MercMath.toRadians(rot), bi.getWidth() / 2, bi.getHeight() / 2);
+            transform.rotate(MERCMath.toRadians(rot), bi.getWidth() / 2, bi.getHeight() / 2);
             AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
             bi = op.filter(bi, null);
         }

@@ -2,38 +2,44 @@ package radirius.merc.graphics.particles;
 
 import radirius.merc.environment.Entity;
 import radirius.merc.graphics.Graphics;
-import radirius.merc.math.MercMath;
+import radirius.merc.math.MERCMath;
 import radirius.merc.math.geometry.Rectangle;
 import radirius.merc.math.geometry.Vec2;
 import radirius.merc.utilities.Wipeable;
 
 /**
- * A class that will represent a single particle, with a parent emitter.
+ * A class that will represent a single particle, with a parent particle system.
  * 
  * @author wessles
  */
 
 public class Particle implements Entity, Wipeable {
+    // Size of the particle
     private float size;
     
+    // Position of the particle
     private Vec2 pos;
+    // Bounds of the particle
     private Rectangle bounds;
+    // The rotation of the particle
     private float rot;
+    // The rotational velocity of the particle
     private float rotdirection;
+    // The velocity of the particle
     private Vec2 vel;
     
+    // The amount of frames that the particle has experienced
     private int life;
     
-    private ParticleEmitter emitter;
+    // The parent particle system
+    private ParticleSystem emitter;
     
-    public Particle(float angle, ParticleEmitter emitter) {
+    public Particle(float x, float y, float angle, ParticleSystem emitter) {
         size = emitter.getOptions().size;
         
-        Rectangle emitterbounds = new Rectangle(emitter.getEmitterBounds().getX(), emitter.getEmitterBounds().getY(), emitter.getEmitterBounds().getWidth(), emitter.getEmitterBounds().getHeight());
-        float x = (float) MercMath.random(emitterbounds.getX(), emitterbounds.getX2()), y = (float) MercMath.random(emitterbounds.getY(), emitterbounds.getY2());
         pos = new Vec2(x, y);
         vel = new Vec2(angle);
-        rotdirection = MercMath.nextBoolean() ? 1 : -1;
+        rotdirection = MERCMath.nextBoolean() ? 1 : -1;
         vel.scale(emitter.getOptions().speed);
         
         bounds = new Rectangle(pos.x, pos.y, size);

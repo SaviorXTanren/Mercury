@@ -1,6 +1,6 @@
 package radirius.merc.math.geometry;
 
-import radirius.merc.math.MercMath;
+import radirius.merc.math.MERCMath;
 
 /**
  * A class for 2 dimensional vectors.
@@ -19,8 +19,8 @@ public class Vec2 extends Vec {
     }
     
     public Vec2(float theta) {
-        x = MercMath.cos(theta);
-        y = MercMath.sin(theta);
+        x = MERCMath.cos(theta);
+        y = MERCMath.sin(theta);
     }
     
     @Override
@@ -49,8 +49,8 @@ public class Vec2 extends Vec {
     }
     
     public Vec sub(float theta) {
-        x -= MercMath.cos(theta);
-        y -= MercMath.sin(theta);
+        x -= MERCMath.cos(theta);
+        y -= MERCMath.sin(theta);
         
         return this;
     }
@@ -141,9 +141,9 @@ public class Vec2 extends Vec {
     }
     
     public Vec rotate(float angle) {
-        double rad = MercMath.toRadians(angle);
-        double cos = MercMath.cos((float) rad);
-        double sin = MercMath.sin((float) rad);
+        double rad = MERCMath.toRadians(angle);
+        double cos = MERCMath.cos((float) rad);
+        double sin = MERCMath.sin((float) rad);
         
         x = (float) (x * cos - y * sin);
         y = (float) (x * sin + y * cos);

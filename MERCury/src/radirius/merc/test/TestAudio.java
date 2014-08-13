@@ -1,10 +1,10 @@
 package radirius.merc.test;
 
 import radirius.merc.audio.Audio;
+import radirius.merc.framework.Core;
+import radirius.merc.framework.Runner;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.input.Input;
-import radirius.merc.main.Core;
-import radirius.merc.main.Runner;
 import radirius.merc.resource.Loader;
 
 /**
