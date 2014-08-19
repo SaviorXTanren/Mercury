@@ -20,7 +20,7 @@ import java.io.IOException;
  * The description of an input stream that supplied audio data suitable for use
  * in OpenAL buffers
  * 
- * @author kevin
+ * @author Kevin Glass
  */
 interface AudioInputStream {
     /**

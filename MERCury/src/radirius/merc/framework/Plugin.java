@@ -1,7 +1,7 @@
 package radirius.merc.framework;
 
 /**
- * Plugins are to be used for both official and 3rd party extensions of MERCury.
+ * An abstraction for plugins.
  * 
  * @author wessles
  */

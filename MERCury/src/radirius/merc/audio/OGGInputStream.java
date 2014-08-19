@@ -37,7 +37,7 @@ import com.jcraft.jorbis.Info;
  * experiment with continuations so uses thread where possibly not required.
  * It's just a test to see if continuations make sense in some cases.
  * 
- * @author kevin
+ * @author Kevin Glass
  */
 public class OGGInputStream extends InputStream implements AudioInputStream {
     /** The conversion buffer size */

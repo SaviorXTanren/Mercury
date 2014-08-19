@@ -28,68 +28,64 @@ import radirius.merc.utilities.command.CommandThread;
 import radirius.merc.utilities.logging.Logger;
 
 /**
- * A class that will run your core, and give out the graphics object, current
- * core, resource manager, input, etc.
+ * The heart of MERCury. Runs the Core and provides the various materials required for your game.
  * 
  * @author wessles
  */
 
 public class Runner {
-    /** The singleton instance of the Runner. This should be the ONLY Runner. */
+    /** The singleton instance of the Runner. This should be the only Runner used. */
     private final static Runner singleton = new Runner();
     
-    /** Whether or not the library is running */
+    /** Whether or not the Runner is running. */
     public boolean running = false;
     
-    /** A list of splash screens we have */
+    /** A list of splash screens. */
     private final ArrayList<SplashScreen> splashes = new ArrayList<SplashScreen>();
-    /** A list of plugins we have */
+    /** A list of plugins. */
     private final ArrayList<Plugin> plugs = new ArrayList<Plugin>();
     
-    /** A Runnable for the console thread */
+    /** A Runnable for the console thread. */
     private final CommandThread consolerunnable = new CommandThread();
-    /** A Thread for the console */
+    /** A Thread for the console. */
     private final Thread consolethread = new Thread(consolerunnable);
     
-    /** Whether or not we are updating or not */
+    /** Whether or not the game is being updated. */
     private boolean updatefreeze = false;
-    /** Whether or not we are rendering or not */
+    /** Whether or not the game is being rendered. */
     private boolean renderfreeze = false;
     
-    /** Whether or not we are vsyncing */
+    /** Whether or not v-sync is enabled. */
     private boolean vsync;
-    /** The delta variable */
+    /** The delta variable. */
     private int delta = 1;
-    /** The target fps */
+    /** The target framerate. */
     private int FPS_TARGET = 120;
-    /** The current fps */
+    /** The current framerate. */
     private int FPS;
-    /** The last frame; used for calculating fps */
+    /** The last frame. Used for calculating the framerate. */
     private long lastframe;
-    /** The factor by which delta is multiplied */
+    /** The factor by which the delta time is multiplied. */
     private float deltafactor = 1;
     
-    /**
-     * The string to be rendered every frame to the screen, assuming that
-     * `showdebug` is true.
-     */
+    /** A string that holds debugging data to be rendered to the screen, should `showdebug` be true. */
     private String debugdata = "";
     /** Whether or not the debugdata will be drawn to the screen. */
     private boolean showdebug = false;
     
-    /** The core being ran */
+    /** The core being ran. */
     private Core core;
     
-    /** The graphics object */
+    /** The graphics object. */
     private Graphics graphicsobject;
     
-    /** The camera */
+    /** The camera object. */
     private Camera camera;
-    /** The input node */
+    /** The input node. */
     private Input input;
     
-    // We don't want ANYONE attempting to create another. There is a singleton,
-    // and you must use it.
+    // We don't want anybody attempting to create another Runner.
+    // There's a singleton and it should be put to use.
     private Runner() {
     }
     
@@ -104,75 +100,75 @@ public class Runner {
             this.HEIGHT = HEIGHT;
         }
         
-        /** The core we shall run */
+        /** The Core to be ran. */
         public Core core;
-        /** The width of the display */
+        /** The width of the display. */
         public int WIDTH;
-        /** The height of the display */
+        /** The height of the display. */
         public int HEIGHT;
-        /** Whether or not the display is fullscreen */
+        /** Whether or not fullscreen is enabled. */
         public boolean fullscreen = false;
-        /** Whether or not we are vsynced */
+        /** Whether or not v-sync is enabled. */
         public boolean vsync = true;
-        /** Whether or not to initialize the Core on a seperate thread */
-        public boolean initonseperatethread = false;
-        /** Whether or not we are enabling the developers console */
+        /** Whether or not the Core is initialized on a separate thread. */
+        public boolean initonseparatethread = false;
+        /** Whether or not the developers console is enabled. */
         public boolean devconsole = true;
     }
     
     /**
-     * Initializes the library
+     * Initializes MERCury.
      * 
      * @param core
-     *            The core we shall run
+     *            The Core to be ran.
      * @param WIDTH
-     *            The width of the display
+     *            The width of the display.
      * @param HEIGHT
-     *            The height of the display
+     *            The height of the display.
      */
     public void init(Core core, int WIDTH, int HEIGHT) {
         init(core, WIDTH, HEIGHT, false);
     }
     
     /**
-     * Initializes the library
+     * Initializes MERCury.
      * 
      * @param core
-     *            The core we shall run
+     *            The Core to be ran.
      * @param WIDTH
-     *            The width of the display
+     *            The width of the display.
      * @param HEIGHT
-     *            The height of the display
+     *            The height of the display.
      * @param fullscreen
-     *            Whether or not the display is fullscreen
+     *            Whether or not fullscreen is enabled.
      */
     public void init(Core core, int WIDTH, int HEIGHT, boolean fullscreen) {
         init(core, WIDTH, HEIGHT, fullscreen, true, false, true);
     }
     
     /**
-     * Initializes the library
+     * Initializes MERCury.
      * 
      * @param core
-     *            The core we shall run
+     *            The Core to be ran.
      * @param fullscreen
-     *            Whether or not the display is fullscreen
+     *            Whether or not fullscreen is enabled.
      * @param vsync
-     *            Whether or not we are vsynced
+     *            Whether or not v-sync is enabled.
      */
     public void init(Core core, boolean fullscreen, boolean vsync) {
         init(core, Display.getDesktopDisplayMode().getWidth(), Display.getDesktopDisplayMode().getHeight(), fullscreen, vsync, false, true);
     }
     
     /**
-     * Initializes the library
+     * Initializes MERCury.
      * 
      * @param iniset
      *            The initialization setup filled with information to initialize
      *            with.
      */
     public void init(InitSetup iniset) {
-        init(iniset.core, iniset.WIDTH, iniset.HEIGHT, iniset.fullscreen, iniset.vsync, iniset.initonseperatethread, iniset.devconsole);
+        init(iniset.core, iniset.WIDTH, iniset.HEIGHT, iniset.fullscreen, iniset.vsync, iniset.initonseparatethread, iniset.devconsole);
     }
     
     public boolean inited = false;
@@ -181,21 +177,21 @@ public class Runner {
      * Initializes the library
      * 
      * @param core
-     *            The core we shall run
+     *            The Core to be ran.
      * @param WIDTH
-     *            The width of the display
+     *            The width of the display.
      * @param HEIGHT
-     *            The height of the display
+     *            The height of the display.
      * @param fullscreen
-     *            Whether or not the display is fullscreen
+     *            Whether or not fullscreen is enabled.
      * @param vsync
-     *            Whether or not we are vsynced
-     * @param initonseperatethread
-     *            Whether or not to initialize the Core on a seperate thread
+     *            Whether or not v-sync is enabled.
+     * @param initonseparatethread
+     *            Whether or not the Core is initialized on a separate thread.
      * @param devconsole
-     *            Whether or not we are enabling the developers console
+     *            Whether or not the developers console is enabled.
      */
-    public void init(final Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean initonseperatethread, boolean devconsole) {
+    public void init(final Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean initonseparatethread, boolean devconsole) {
         // Little in-code splash.
         System.out.print("  _   _   _   _   _   _   _  \n" + " / \\ / \\ / \\ / \\ / \\ / \\ / \\\n" + "( M | E | R | C | U | R | Y ) Started\n" + " \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \n\n");
         
@@ -233,8 +229,8 @@ public class Runner {
             plug.init();
         }
         
-        Logger.debug("Initializing Core " + (initonseperatethread ? "on seperate Thread" : "") + "...");
-        if (initonseperatethread) {
+        Logger.debug("Initializing Core " + (initonseparatethread ? "on separate Thread" : "") + "...");
+        if (initonseparatethread) {
             Runnable initthread_run = new Runnable() {
                 @Override
                 public void run() {
@@ -263,7 +259,7 @@ public class Runner {
     }
     
     /**
-     * The main game loop of the library.
+     * The main game loop.
      */
     public void run() {
         Logger.debug("Starting Game Loop...");
@@ -271,7 +267,7 @@ public class Runner {
         
         running = true;
         
-        // To the main loop!
+        //
         
         int _FPS = 0;
         long lastfps;
@@ -371,7 +367,7 @@ public class Runner {
         Logger.debug("MERCury Game Library shutting down...");
     }
     
-    /** @return The fps */
+    /** @return The Framerate. */
     public int getFPS() {
         return FPS;
     }
@@ -411,39 +407,40 @@ public class Runner {
     public void addDebugData(String name, String value) {
         name.trim();
         value.trim();
+        
         debugdata += name + " " + value + "\n";
     }
     
-    /** @return The Width of the display */
+    /** @return The width of the display. */
     public int getWidth() {
         return Display.getWidth();
     }
     
-    /** @return The Height of the display */
+    /** @return The height of the display. */
     public int getHeight() {
         return Display.getHeight();
     }
     
-    /** @return The aspect ratio of the display WIDTH/HEIGHT */
+    /** @return The aspect ratio of the display. */
     public float getAspectRatio() {
         return getWidth() / getHeight();
     }
     
-    /** @return Time in milliseconds */
+    /** @return Time in milliseconds. */
     public float getMillis() {
         return System.currentTimeMillis();
     }
     
-    /** @return Time in seconds */
+    /** @return Time in seconds. */
     public float getSeconds() {
         return getMillis() / 1000f;
     }
     
     /**
-     * Sleeps the thread for a few milliseconds
+     * Sleeps the thread for a few milliseconds.
      * 
      * @param milliseconds
-     *            The milliseconds to wait
+     *            The milliseconds to wait.
      */
     public void sleep(long milliseconds) {
         try {
@@ -457,24 +454,24 @@ public class Runner {
      * Enables or disables mouse grabbing.
      * 
      * @param grab
-     *            Whether or not to grab the mouse
+     *            Whether or not to grab the mouse.
      */
     public void setMouseGrab(boolean grab) {
         Mouse.setGrabbed(grab);
     }
     
     /**
-     * Sets whether or not vsync is enabled.
+     * Sets whether or not v-sync is enabled.
      * 
      * @param vsync
-     *            Whether or not to vsync
+     *            Whether or not to v-sync.
      */
     public void setVsync(boolean vsync) {
         this.vsync = vsync;
         Display.setVSyncEnabled(vsync);
     }
     
-    /** @return Whether or not the window has the focus */
+    /** @return Whether or not the window has the focus. */
     public boolean isFocused() {
         return Display.isActive();
     }
@@ -483,7 +480,7 @@ public class Runner {
      * Sets the title of the window.
      * 
      * @param title
-     *            The title of the window
+     *            The title of the window.
      */
     public void setTitle(String title) {
         Display.setTitle(title);
@@ -508,6 +505,7 @@ public class Runner {
                 }
         
         ByteBuffer[] bufarray = new ByteBuffer[bufs.size()];
+        
         bufs.toArray(bufarray);
         Display.setIcon(bufarray);
     }
@@ -524,7 +522,7 @@ public class Runner {
         remakeDisplay();
     }
     
-    /** Remakes the display */
+    /** Remakes the display. */
     private void remakeDisplay() {
         Display.destroy();
         
@@ -533,12 +531,12 @@ public class Runner {
         graphicsobject = getCore().initGraphics();
     }
     
-    /** Ends the loop */
+    /** Ends the loop. */
     public void end() {
         running = false;
     }
     
-    /** @return The delta time variable */
+    /** @return The delta time variable. */
     public float getDelta() {
         return delta * deltafactor;
     }
@@ -553,7 +551,7 @@ public class Runner {
         deltafactor = factor;
     }
     
-    /** @return The core being ran */
+    /** @return The core being ran. */
     public Core getCore() {
         return core;
     }
@@ -562,13 +560,13 @@ public class Runner {
      * Sets the update freeze.
      * 
      * @param freeze
-     *            Whether or not to freeze the updating
+     *            Whether or not to freeze the updating.
      */
     public void setUpdateFreeze(boolean freeze) {
         updatefreeze = freeze;
     }
     
-    /** @return The graphics object */
+    /** @return The graphics object. */
     public Graphics getGraphics() {
         return graphicsobject;
     }
@@ -577,18 +575,18 @@ public class Runner {
      * Sets the graphic freeze.
      * 
      * @param freeze
-     *            Whether or not to freeze the rendering
+     *            Whether or not to freeze the rendering.
      */
     public void setRenderFreeze(boolean freeze) {
         renderfreeze = freeze;
     }
     
-    /** @return The input node */
+    /** @return The input node. */
     public Input getInput() {
         return input;
     }
     
-    /** @return The camera */
+    /** @return The camera object. */
     public Camera getCamera() {
         return camera;
     }
@@ -615,7 +613,7 @@ public class Runner {
      * Adds a splash screen to the queue.
      * 
      * @param splash
-     *            The splash screen to add
+     *            The splash screen to add.
      */
     public void addSplashScreen(SplashScreen splash) {
         splashes.add(splash);
@@ -625,7 +623,7 @@ public class Runner {
      * Adds a plugin.
      * 
      * @param plugin
-     *            The plugin to add
+     *            The plugin to add.
      */
     public void addPlugin(Plugin plugin) {
         plugs.add(plugin);
@@ -633,8 +631,8 @@ public class Runner {
     
     /**
      * @param name
-     *            The name of the plugin you want
-     * @return The plugin corresponding to name
+     *            The name of the plugin you want.
+     * @return The plugin corresponding to name.
      */
     public Plugin getPlugin(String name) throws MERCuryException {
         for (Plugin plug : plugs)
@@ -643,7 +641,7 @@ public class Runner {
         throw new MERCuryException("Plugin '" + name + "' not found!");
     }
     
-    /** @return The singleton instance of Runner */
+    /** @return The singleton instance of Runner. */
     public static Runner getInstance() {
         return singleton;
     }

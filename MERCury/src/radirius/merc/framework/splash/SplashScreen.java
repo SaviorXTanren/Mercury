@@ -12,6 +12,8 @@ import radirius.merc.utilities.easing.EasingUtils;
 import radirius.merc.utilities.easing.EasingValue;
 
 /**
+ * A base for all splash screens.
+ * 
  * @author wessles
  */
 

@@ -26,7 +26,7 @@ public class CheckBox extends Component {
     }
     
     public CheckBox(String txt, float x, float y, Color textcolor) {
-        this(txt, x, y, textcolor, TrueTypeFont.OPENSANS_REGULAR);
+        this(txt, x, y, textcolor, TrueTypeFont.OPENSANS_LIGHT);
     }
     
     public CheckBox(String txt, float x, float y, Color textcolor, Font font) {
@@ -34,15 +34,15 @@ public class CheckBox extends Component {
     }
     
     public CheckBox(String txt, float x, float y, float boxsize) {
-        this(txt, x, y, getDefaultTextures().getTexture(5), getDefaultTextures().getTexture(6), boxsize, true, Color.DEFAULT_TEXT_COLOR, TrueTypeFont.OPENSANS_REGULAR);
+        this(txt, x, y, getDefaultTextures().getTexture(5), getDefaultTextures().getTexture(6), boxsize, true, Color.DEFAULT_TEXT_COLOR, TrueTypeFont.OPENSANS_LIGHT);
     }
     
     public CheckBox(String txt, float x, float y, float boxsize, Color textcolor) {
-        this(txt, x, y, getDefaultTextures().getTexture(5), getDefaultTextures().getTexture(6), boxsize, true, textcolor, TrueTypeFont.OPENSANS_REGULAR);
+        this(txt, x, y, getDefaultTextures().getTexture(5), getDefaultTextures().getTexture(6), boxsize, true, textcolor, TrueTypeFont.OPENSANS_LIGHT);
     }
     
     public CheckBox(String txt, float x, float y, float boxsize, boolean boxtoleftoftext) {
-        this(txt, x, y, boxsize, boxtoleftoftext, TrueTypeFont.OPENSANS_REGULAR);
+        this(txt, x, y, boxsize, boxtoleftoftext, TrueTypeFont.OPENSANS_LIGHT);
     }
     
     public CheckBox(String txt, float x, float y, float boxsize, boolean boxtoleftoftext, Font font) {

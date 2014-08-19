@@ -132,6 +132,8 @@ public class Window extends Panel {
         float centerbary = barbounds.getY() + barbounds.getHeight() / 2;
         g.setColor(namecol);
         g.drawString(name, namefont, centerbarx - width / 2, centerbary - height / 2);
+        
+        g.setColor(Color.DEFAULT_TEXTURE_COLOR);
     }
     
     /** Sets the window name. */

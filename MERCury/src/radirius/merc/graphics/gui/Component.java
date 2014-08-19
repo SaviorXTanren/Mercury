@@ -96,18 +96,18 @@ public class Component implements Entity {
             Texture spritesheet_texture = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/graphics/gui/gui_spritesheet.png"));
             
             // And all the little textures..
-            SubTexture window_bar = new SubTexture(spritesheet_texture, 0, 0, 512, 42); // 0
-            SubTexture panel_body = new SubTexture(spritesheet_texture, 1, 43, 17, 59); // 1
-            SubTexture panel_border = new SubTexture(spritesheet_texture, 0, 43, 1, 512); // 2
-            SubTexture button_left = new SubTexture(spritesheet_texture, 17, 43, 33, 74); // 3
-            SubTexture button_body = new SubTexture(spritesheet_texture, 34, 43, 48, 74); // 4
-            SubTexture checkbox_unchecked = new SubTexture(spritesheet_texture, 49, 43, 72, 66); // 5
-            SubTexture checkbox_checked = new SubTexture(spritesheet_texture, 73, 43, 96, 66); // 6
-            SubTexture imagebutton_idle = new SubTexture(spritesheet_texture, 145, 43, 176, 74); // 7
-            SubTexture imagebutton_hover = new SubTexture(spritesheet_texture, 177, 43, 208, 74); // 8
-            SubTexture imagebutton_active = new SubTexture(spritesheet_texture, 209, 43, 240, 74); // 9
-            SubTexture text_field_left = new SubTexture(spritesheet_texture, 218, 43, 233, 74); // 10
-            SubTexture text_field_body = new SubTexture(spritesheet_texture, 234, 43, 250, 74); // 11
+            SubTexture window_bar = new SubTexture(spritesheet_texture, 0, 0, 512, 40); // 0
+            SubTexture panel_body = new SubTexture(spritesheet_texture, 1, 41, 17, 57); // 1
+            SubTexture panel_border = new SubTexture(spritesheet_texture, 0, 41, 1, 512); // 2
+            SubTexture button_left = new SubTexture(spritesheet_texture, 17, 41, 33, 72); // 3
+            SubTexture button_body = new SubTexture(spritesheet_texture, 34, 41, 48, 72); // 4
+            SubTexture checkbox_unchecked = new SubTexture(spritesheet_texture, 49, 41, 72, 64); // 5
+            SubTexture checkbox_checked = new SubTexture(spritesheet_texture, 73, 41, 96, 64); // 6
+            SubTexture imagebutton_idle = new SubTexture(spritesheet_texture, 145, 41, 176, 72); // 7
+            SubTexture imagebutton_hover = new SubTexture(spritesheet_texture, 177, 41, 208, 72); // 8
+            SubTexture imagebutton_active = new SubTexture(spritesheet_texture, 209, 41, 240, 72); // 9
+            SubTexture text_field_left = new SubTexture(spritesheet_texture, 218, 40, 233, 72); // 10
+            SubTexture text_field_body = new SubTexture(spritesheet_texture, 234, 40, 250, 72); // 11
             
             defaulttextures = SpriteSheet.loadSpriteSheet(spritesheet_texture, window_bar, panel_body, panel_border, button_left, button_body, checkbox_unchecked, checkbox_checked, imagebutton_idle, imagebutton_hover, imagebutton_active, text_field_left, text_field_body);
         }

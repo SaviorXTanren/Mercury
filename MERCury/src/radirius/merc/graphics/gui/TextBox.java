@@ -31,7 +31,7 @@ public class TextBox extends Component {
     }
     
     public TextBox(String txt, Rectangle bounds, float margin, Color textcolor) {
-        this(txt, bounds, margin, null, TrueTypeFont.OPENSANS_REGULAR, textcolor);
+        this(txt, bounds, margin, null, TrueTypeFont.OPENSANS_LIGHT, textcolor);
     }
     
     public TextBox(String txt, Rectangle bounds, float margin, Texture backgroundtex, Font textfont, Color textcolor) {

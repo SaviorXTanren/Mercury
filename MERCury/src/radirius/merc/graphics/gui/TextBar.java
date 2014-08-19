@@ -10,7 +10,7 @@ import radirius.merc.math.geometry.Shape;
 import radirius.merc.utilities.logging.Logger;
 
 /**
- * @author wessles, Jeviny(quite postponed, to be honest)
+ * @author wessles, Jeviny
  */
 public class TextBar extends Component {
     protected Texture left, right, body;

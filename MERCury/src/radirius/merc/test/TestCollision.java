@@ -2,6 +2,7 @@ package radirius.merc.test;
 
 import radirius.merc.framework.Core;
 import radirius.merc.framework.Runner;
+import radirius.merc.framework.splash.SplashScreen;
 import radirius.merc.graphics.Color;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.math.geometry.Circle;
@@ -89,9 +90,6 @@ public class TestCollision extends Core {
         s1 = (Star) new Star(s1.getCenter().x, s1.getCenter().y, 10 + 3 * (float) Math.sin(current_time), 10 + 3 * (float) Math.cos(current_time), 10).rotate(starrot += 1);
         g.setColor(Color.green);
         g.tracePolygon(s1);
-        
-        g.setColor(Color.green);
-        g.drawString("ye", 1 / g.getScale(), 0, 0);
     }
     
     @Override

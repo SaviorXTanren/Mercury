@@ -1,15 +1,6 @@
 package radirius.merc.framework;
 
-import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
-import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.GL_PROJECTION;
-import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.glBlendFunc;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glMatrixMode;
-import static org.lwjgl.opengl.GL11.glOrtho;
+import static org.lwjgl.opengl.GL11.*;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
@@ -23,7 +14,7 @@ import radirius.merc.resource.Loader;
 import radirius.merc.utilities.logging.Logger;
 
 /**
- * The Core that will host the game. It is ran above by the Runner class.
+ * The Core that will host the game with help from the Runner class.
  * 
  * @author wessles
  */
@@ -43,7 +34,7 @@ public abstract class Core {
     public abstract void init();
     
     /**
-     * Called once every frame, and used to handle all logic.
+     * Called once every frame and used to handle all game logic.
      * 
      * @param delta
      *            The delta time.
@@ -51,7 +42,7 @@ public abstract class Core {
     public abstract void update(float delta);
     
     /**
-     * Called once every frame, and used to render.
+     * Called once every frame and used to render graphics.
      * 
      * @param g
      *            The Graphics object for rendering.
@@ -67,13 +58,13 @@ public abstract class Core {
      * Initializes the display.
      * 
      * @param WIDTH
-     *            The width of the display
+     *            The width of the display.
      * @param HEIGHT
-     *            The height of the display
+     *            The height of the display.
      * @param fullscreen
-     *            Whether or not this is fullscreen
+     *            Whether or not fullscreen is enabled.
      * @param vsync
-     *            Whether or not we should vsync
+     *            Whether or not v-sync is used.
      */
     public void initDisplay(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
         try {
@@ -92,7 +83,7 @@ public abstract class Core {
                     }
                 
                 if (!screendimmatched)
-                    Logger.warn("Dimensions " + WIDTH + "x" + HEIGHT + " is not supported! Defaulting to non-fullscreen.");
+                    Logger.warn("Dimensions " + WIDTH + "x" + HEIGHT + " is not supported! Disabling Fullscreen.");
                 else
                     Display.setFullscreen(true);
             }
@@ -120,6 +111,7 @@ public abstract class Core {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         
         VAOGraphics graphicsobject = new VAOGraphics();
+        
         Shader.loadDefaultShaders();
         Shader.releaseShaders();
         
