@@ -24,7 +24,7 @@ import radirius.merc.math.geometry.Vec2;
 import radirius.merc.resource.Loader;
 
 /**
- * @author wessles
+ * @author wessles, Jeviny
  */
 
 public class TestGUI extends Core

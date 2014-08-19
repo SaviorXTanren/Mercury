@@ -11,7 +11,7 @@ import radirius.merc.math.geometry.Rectangle;
 import radirius.merc.math.geometry.Vec2;
 
 /**
- * @author wessles
+ * @author wessles, Jeviny
  */
 
 public class Window extends Panel {

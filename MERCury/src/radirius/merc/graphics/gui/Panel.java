@@ -11,7 +11,7 @@ import radirius.merc.utilities.logging.Logger;
 /**
  * A component to contain and render sorted components.
  * 
- * @author wessles
+ * @author wessles, Jeviny
  */
 
 public class Panel extends Component implements Container {
