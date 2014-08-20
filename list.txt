@@ -45,6 +45,7 @@ Primary Code To-Do List:
 - [+] Enhance Splash Screen Support
 - [+] Fix Annoying Case Issue
       [+] MercData should be MERCData
+      [+] MercMath should be MERCMath
       [+] runner.getFps() should be getFPS()
       [+] OggDecoder/OggData should be OGGDecoder/OGGData
 - [=] Graphical User Interface Capabilities
@@ -55,9 +56,10 @@ Primary Code To-Do List:
       [+] Windows
       [+] Buttons
       // More GUI stuff to come ^^
-- [=] Completely Re-Write Wiki
+      [=] Complete Re-Write
+- [+] Completely Re-Write Wiki
 - [-] Include selection of freeware TypeFaces in library.
-- [-] Make MERCury App Launcher
+- [-] Make MERCury 'App Launcher'
 - [-] Write Demonstration Apps
       [-] Graphical User Interface Capabilities
       [-] Particle Engine
@@ -67,7 +69,11 @@ Primary Code To-Do List:
       [-] Splash Screens   ]
       [-] Easing Utility ^ ]
       // Probably More To come
-- [-] Change "drawString(x, y, msg)" to "drawString(msg, x, y)"
+- [+] Change "drawString(x, y, msg)" to "drawString(msg, x, y)"
+- [=] Re-Write GUI System Entirely
+- [=] Re-Document Everything
+- [-] Check for repetition in code.
+- [-] Anti-Aliasing
       
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
