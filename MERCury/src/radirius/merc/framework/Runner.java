@@ -28,13 +28,17 @@ import radirius.merc.utilities.command.CommandThread;
 import radirius.merc.utilities.logging.Logger;
 
 /**
- * The heart of MERCury. Runs the Core and provides the various materials required for your game.
+ * The heart of MERCury. Runs the Core and provides the various materials
+ * required for your game.
  * 
  * @author wessles
  */
 
 public class Runner {
-    /** The singleton instance of the Runner. This should be the only Runner used. */
+    /**
+     * The singleton instance of the Runner. This should be the only Runner
+     * used.
+     */
     private final static Runner singleton = new Runner();
     
     /** Whether or not the Runner is running. */
@@ -68,7 +72,10 @@ public class Runner {
     /** The factor by which the delta time is multiplied. */
     private float deltafactor = 1;
     
-    /** A string that holds debugging data to be rendered to the screen, should `showdebug` be true. */
+    /**
+     * A string that holds debugging data to be rendered to the screen, should
+     * `showdebug` be true.
+     */
     private String debugdata = "";
     /** Whether or not the debugdata will be drawn to the screen. */
     private boolean showdebug = false;
