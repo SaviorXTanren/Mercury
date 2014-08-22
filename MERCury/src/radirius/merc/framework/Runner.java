@@ -28,13 +28,17 @@ import radirius.merc.utilities.command.CommandThread;
 import radirius.merc.utilities.logging.Logger;
 
 /**
- * The heart of MERCury. Runs the Core and provides the various materials required for your game.
+ * The heart of MERCury. Runs the Core and provides the various materials
+ * required for your game.
  * 
  * @author wessles
  */
 
 public class Runner {
-    /** The singleton instance of the Runner. This should be the only Runner used. */
+    /**
+     * The singleton instance of the Runner. This should be the only Runner
+     * used.
+     */
     private final static Runner singleton = new Runner();
     
     /** Whether or not the Runner is running. */
@@ -68,7 +72,10 @@ public class Runner {
     /** The factor by which the delta time is multiplied. */
     private float deltafactor = 1;
     
-    /** A string that holds debugging data to be rendered to the screen, should `showdebug` be true. */
+    /**
+     * A string that holds debugging data to be rendered to the screen, should
+     * `showdebug` be true.
+     */
     private String debugdata = "";
     /** Whether or not the debugdata will be drawn to the screen. */
     private boolean showdebug = false;
@@ -193,13 +200,16 @@ public class Runner {
      */
     public void init(final Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean initonseparatethread, boolean devconsole) {
         // Little in-code splash.
-        // System.out.print("  _   _   _   _   _   _   _  \n" + " / \\ / \\ / \\ / \\ / \\ / \\ / \\\n" + "( M | E | R | C | U | R | Y ) Started\n" + " \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \n\n");
+        // System.out.print("  _   _   _   _   _   _   _  \n" +
+        // " / \\ / \\ / \\ / \\ / \\ / \\ / \\\n" +
+        // "( M | E | R | C | U | R | Y ) Started\n" +
+        // " \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \n\n");
         
-    	System.out.println("MERCury 2D Game Library:\n" + "Crafted & Designed by Radirius\n\n" + "Website: http://merc.radiri.us/");
-    	System.out.println("-------------------------------\n");
-    	
+        System.out.println("MERCury 2D Game Library:\n" + "Crafted & Designed by Radirius\n\n" + "Website: http://merc.radiri.us/");
+        System.out.println("-------------------------------\n");
+        
         // Lots of initialization that is self explanatory.
-    	Logger.info("MERCury Starting:");
+        Logger.info("MERCury Starting:");
         Logger.info("Making Core...");
         this.core = core;
         this.vsync = vsync;
@@ -210,7 +220,7 @@ public class Runner {
         graphicsobject = this.core.initGraphics();
         Logger.info("OpenGL Version: " + GL11.glGetString(GL11.GL_VERSION) + ".");
         Logger.info("Display Mode: " + Display.getDisplayMode() + ".");
-
+        
         Logger.info("Starting Graphics...");
         graphicsobject.init();
         

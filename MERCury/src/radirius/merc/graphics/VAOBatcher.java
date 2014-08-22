@@ -240,7 +240,6 @@ public class VAOBatcher implements Batcher {
         if (texture instanceof SubTexture) {
             w = subtexture.getParentWidth();
             h = subtexture.getParentHeight();
-            
             sourceregion.translate(subtexture.getSubX(), subtexture.getSubY());
         } else {
             w = texture.getWidth();
@@ -273,11 +272,6 @@ public class VAOBatcher implements Batcher {
         vertex(x3, y3, sx3, sy3);
         vertex(x4, y4, sx4, sy4);
         vertex(x2, y2, sx2, sy2);
-        
-        if (texture instanceof SubTexture) {
-            flush();
-            setShader(Shader.DEFAULT_SHADER);
-        }
     }
     
     @Override

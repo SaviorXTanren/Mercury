@@ -44,7 +44,9 @@ public class SpriteSheet implements Resource {
      * cutting horizontally every divheight length. The subtextures are counted
      * reading left to right.
      */
-    public static SpriteSheet loadSpriteSheet(Texture tex, int divwidth, int divheight) {
+    public static SpriteSheet loadSpriteSheet(Texture texture, int divwidth, int divheight) {
+        SubTexture tex = (SubTexture) texture;
+        
         if (tex.getWidth() % divwidth != 0)
             throw new ArithmeticException("The width of the Texture must be divisible by the division width!");
         
@@ -56,7 +58,7 @@ public class SpriteSheet implements Resource {
         
         for (int y = 0; y < numy; y++)
             for (int x = 0; x < numx; x++)
-                subtexs[x + y * numx] = new SubTexture(tex, x * divwidth, y * divheight, (x + 1) * divwidth, (y + 1) * divheight);
+                subtexs[x + y * numx] = new SubTexture(texture, x * divwidth, y * divheight, (x + 1) * divwidth, (y + 1) * divheight);
         
         return new SpriteSheet(tex, subtexs);
     }

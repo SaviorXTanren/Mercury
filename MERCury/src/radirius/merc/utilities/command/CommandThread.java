@@ -283,7 +283,7 @@ public class CommandThread implements Runnable {
                 
                 if (var == null && !list_manual) {
                     Logger.consoleproblem("Could not find supposed Command '" + command.toLowerCase() + "' in Command List '" + commandlist.toLowerCase() + "' Please type '?' for syntax help.");
-                   
+                    
                     continue runloop;
                 }
                 
