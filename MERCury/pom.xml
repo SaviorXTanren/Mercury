@@ -5,7 +5,7 @@
     <artifactId>MERCury</artifactId>
     <version>1.0.0-experimental</version>
     <name>MERCury</name>
-    <description>The simplistic game library for all of us.</description>
+    <description>A Simple Java Game Library.</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

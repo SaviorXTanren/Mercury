@@ -3,23 +3,20 @@ package radirius.merc.graphics.gui;
 import java.util.ArrayList;
 
 /**
- * @author wessles
+ * @authors wessles, Kristoffer
  */
-
-public interface Container {
-    /** Adds a/multiple child(ren) to the container. */
+public interface Container
+{
+    /** Adds a child Component to the Container. */
     public void addChild(Component... child);
     
     /** Adds a new line. */
     public void addNewLine();
     
-    /** Adds a/multiple child(ren), with a new line, to the container. */
-    public void addChildWithNewLine(Component... child);
-    
     /**
-     * Get the children!
+     * Get the child components.
      * 
-     * @return A list of all children in the container.
+     * @return A list of all child components belonging to the parent container.
      */
     public ArrayList<Component> getChildren();
 }

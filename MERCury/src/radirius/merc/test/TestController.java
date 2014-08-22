@@ -47,10 +47,10 @@ public class TestController extends Core {
         
         if (!rnr.inited)
             return;
-        
+
         if (rnr.getInput().controllerButtonDown(2, 0))
             vel.scale(1.1f);
-        if (rnr.getInput().controllerButtonDown(9, 0))
+        if(rnr.getInput().controllerButtonDown(9, 0))
             rnr.end();
         
         vel.add(rnr.getInput().getLeftAnalogStick(0));

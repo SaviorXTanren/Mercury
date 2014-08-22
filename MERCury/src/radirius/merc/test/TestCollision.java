@@ -2,6 +2,7 @@ package radirius.merc.test;
 
 import radirius.merc.framework.Core;
 import radirius.merc.framework.Runner;
+import radirius.merc.framework.splash.SplashScreen;
 import radirius.merc.graphics.Color;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.math.geometry.Circle;

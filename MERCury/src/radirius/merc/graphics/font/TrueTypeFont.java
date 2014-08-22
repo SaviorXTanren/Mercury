@@ -15,9 +15,9 @@ import radirius.merc.resource.Loader;
 import radirius.merc.utilities.logging.Logger;
 
 /**
- * A font type for .ttf's
+ * A font type for .TTF's
  * 
- * @author wessles
+ * @author wessles, Kristoffer
  */
 
 public class TrueTypeFont implements radirius.merc.graphics.font.Font {
@@ -48,7 +48,7 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
     /** All data for all characters. */
     public final IntObject[] chars = new IntObject[STANDARD_CHARACTERS];
     
-    /** Shall we antialias? */
+    /** Defines whether or not the text is anti-aliased. */
     private boolean antialias;
     
     /** The size of the font */
@@ -66,9 +66,9 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
     private int texw = 0;
     private int texh = 0;
     
-    /** Some awt jargon for fonts. */
+    /** Some AWT jargon for fonts. */
     private java.awt.Font font;
-    /** Some awt jargon for fonts. */
+    /** Some AWT jargon for fonts. */
     private FontMetrics fmetrics;
     
     private TrueTypeFont(java.awt.Font font, boolean antialias) {
@@ -98,11 +98,11 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
         g.setColor(new java.awt.Color(255, 255, 255, 1));
         g.fillRect(0, 0, texw, texh);
         
-        // Initialize temporary vars
+        // Initialize temporary variables.
         float positionX = 0;
         float positionY = 0;
         
-        // Loop through all standard characters (256 of em')
+        // Loop through all standard characters (256 of them)
         for (int i = 0; i < STANDARD_CHARACTERS; i++) {
             char ch = (char) i;
             
@@ -159,7 +159,7 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
         
         g.setFont(font);
         
-        // Font preperation
+        // Font preperation.
         fmetrics = g.getFontMetrics();
         
         float charwidth = fmetrics.charWidth(ch);
@@ -178,8 +178,10 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
         // Now to the actual image!
         BufferedImage fontImage = new BufferedImage((int) charwidth, (int) getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D gt = (Graphics2D) fontImage.getGraphics();
+        
         if (antialias == true)
             gt.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
         gt.setFont(font);
         
         // Set the text color to white, set x and y, and return to font

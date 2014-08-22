@@ -37,7 +37,7 @@ import radirius.merc.resource.Resource;
  */
 
 public class Texture implements Resource {
-    public static final int FILTER_NEAREST = GL_NEAREST, FILTER_LINEAR = GL_LINEAR, FILTER_PIXELART = FILTER_NEAREST;
+    public static final int FILTER_NEAREST = GL_NEAREST, FILTER_LINEAR = GL_LINEAR;
     
     protected static final int BYTES_PER_PIXEL = 4;
     protected static Texture BLANK_TEXTURE;

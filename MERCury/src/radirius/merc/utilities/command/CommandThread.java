@@ -241,13 +241,15 @@ public class CommandThread implements Runnable {
                 arguments = args.toArray(arguments);
             }
             
-            // We already have the answer, so lets just display it.
             if (commandlist.equals("?")) {
                 if (line.length > 1) {
                     Logger.consoleproblem("Stray '?' in command. Please type '?' for syntax help.");
+                    
                     continue runloop;
                 }
+                
                 Logger.console(CommandList.general_usage_manual);
+                
                 continue runloop;
             }
             
@@ -257,11 +259,13 @@ public class CommandThread implements Runnable {
             if (line.length == 1) {
                 if (commandlist.endsWith(".?")) {
                     commandlist = commandlist.replace(".?", "");
+                    
                     list_manual = true;
                 }
             } else if (line.length == 2)
                 if (command.endsWith(".?")) {
                     command = command.replace(".?", "");
+                    
                     command_manual = true;
                 }
             
@@ -269,17 +273,22 @@ public class CommandThread implements Runnable {
             CommandList cmdl = CommandList.commandlists.get(commandlist.toLowerCase());
             if (cmdl == null) {
                 Logger.consoleproblem("Could not find supposed CommandList '" + commandlist.toLowerCase() + ".' Please type '?' for syntax help.");
+                
                 continue runloop;
             }
+            
             Command cmd = cmdl.commands.get(command.toLowerCase());
             if (cmd == null && !list_manual) {
                 Variable var = cmdl.variables.get(command.toLowerCase());
+                
                 if (var == null && !list_manual) {
                     Logger.consoleproblem("Could not find supposed Command '" + command.toLowerCase() + "' in Command List '" + commandlist.toLowerCase() + "' Please type '?' for syntax help.");
+                   
                     continue runloop;
                 }
                 
                 Logger.console(var.manual);
+                
                 continue runloop;
             }
             
@@ -291,8 +300,6 @@ public class CommandThread implements Runnable {
             else
                 cmd.run(arguments);
         }
-        
-        Logger.debug("Developer's console shutting down...");
     }
     
     /** Sets where the input is put into. */

@@ -28,17 +28,13 @@ import radirius.merc.utilities.command.CommandThread;
 import radirius.merc.utilities.logging.Logger;
 
 /**
- * The heart of MERCury. Runs the Core and provides the various materials
- * required for your game.
+ * The heart of MERCury. Runs the Core and provides the various materials required for your game.
  * 
  * @author wessles
  */
 
 public class Runner {
-    /**
-     * The singleton instance of the Runner. This should be the only Runner
-     * used.
-     */
+    /** The singleton instance of the Runner. This should be the only Runner used. */
     private final static Runner singleton = new Runner();
     
     /** Whether or not the Runner is running. */
@@ -72,10 +68,7 @@ public class Runner {
     /** The factor by which the delta time is multiplied. */
     private float deltafactor = 1;
     
-    /**
-     * A string that holds debugging data to be rendered to the screen, should
-     * `showdebug` be true.
-     */
+    /** A string that holds debugging data to be rendered to the screen, should `showdebug` be true. */
     private String debugdata = "";
     /** Whether or not the debugdata will be drawn to the screen. */
     private boolean showdebug = false;
@@ -200,43 +193,44 @@ public class Runner {
      */
     public void init(final Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean initonseparatethread, boolean devconsole) {
         // Little in-code splash.
-        System.out.print("  _   _   _   _   _   _   _  \n" + " / \\ / \\ / \\ / \\ / \\ / \\ / \\\n" + "( M | E | R | C | U | R | Y ) Started\n" + " \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \n\n");
+        // System.out.print("  _   _   _   _   _   _   _  \n" + " / \\ / \\ / \\ / \\ / \\ / \\ / \\\n" + "( M | E | R | C | U | R | Y ) Started\n" + " \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \n\n");
         
+    	System.out.println("MERCury 2D Game Library:\n" + "Crafted & Designed by Radirius\n\n" + "Website: http://merc.radiri.us/");
+    	System.out.println("-------------------------------\n");
+    	
         // Lots of initialization that is self explanatory.
-        Logger.debug("Making Core...");
+    	Logger.info("MERCury Starting:");
+        Logger.info("Making Core...");
         this.core = core;
         this.vsync = vsync;
         
-        Logger.debug("Initializing Display...");
+        Logger.info("Making Display & Graphics...");
         this.core.initDisplay(WIDTH, HEIGHT, fullscreen, vsync);
         
-        Logger.debug("Making Graphics...");
         graphicsobject = this.core.initGraphics();
-        Logger.debug("OpenGL Version: " + GL11.glGetString(GL11.GL_VERSION));
-        Logger.debug("Display Mode:" + Display.getDisplayMode());
-        
-        Logger.debug("Making Audio...");
-        this.core.initAudio();
-        
-        Logger.debug("Initializing Camera...");
-        camera = new Camera(0, 0);
-        
-        Logger.debug("Initializing Graphics...");
+        Logger.info("OpenGL Version: " + GL11.glGetString(GL11.GL_VERSION) + ".");
+        Logger.info("Display Mode: " + Display.getDisplayMode() + ".");
+
+        Logger.info("Starting Graphics...");
         graphicsobject.init();
         
-        Logger.debug("Creating Input...");
-        input = new Input();
+        Logger.info("Making Audio...");
+        this.core.initAudio();
         
-        Logger.debug("Initializing Input...");
+        Logger.info("Making Camera...");
+        camera = new Camera(0, 0);
+        
+        Logger.info("Making Input...");
+        input = new Input();
         input.create();
         
-        Logger.debug("Starting plugins...");
+        Logger.info("Making Plugins...");
         for (Plugin plug : plugs) {
-            Logger.debug("\tInitializing " + plug.getClass().getSimpleName() + "...");
+            Logger.info("\tInitializing " + plug.getClass().getSimpleName() + "...");
             plug.init();
         }
         
-        Logger.debug("Initializing Core " + (initonseparatethread ? "on separate Thread" : "") + "...");
+        Logger.info("Starting Core" + (initonseparatethread ? " (On Separate Thread)" : "") + "...");
         if (initonseparatethread) {
             Runnable initthread_run = new Runnable() {
                 @Override
@@ -252,24 +246,24 @@ public class Runner {
             inited = true;
         }
         
-        Logger.debug("Making and adding default CommandList 'merc...'");
+        Logger.info("Making Default CommandList 'merc...'");
         CommandList.addCommandList(CommandList.getDefaultCommandList());
         
-        Logger.debug("Booting Developer Console Thread...");
+        Logger.info("Starting Developer Console Thread...");
         consolethread.setName("merc_devconsole");
         consolethread.start();
         
-        Logger.debug("Starting Task Timing Thread...");
+        Logger.info("Starting Task Timing Thread...");
         TaskTiming.init();
         
-        Logger.debug("Ready to begin game loop. Awaiting permission from Core...");
+        Logger.info("Ready to begin game loop. Awaiting permission from Core...");
     }
     
     /**
      * The main game loop.
      */
     public void run() {
-        Logger.debug("Starting Game Loop...");
+        Logger.info("Starting Game Loop...");
         Logger.line();
         
         running = true;
@@ -318,9 +312,6 @@ public class Runner {
             if (!updatefreeze)
                 core.update(getDelta());
             
-            // Update vertices last rendered variable.
-            int verticeslastrendered = getVerticesLastRendered();
-            
             if (!renderfreeze) {
                 // Pre-render
                 camera.pre(graphicsobject);
@@ -330,7 +321,6 @@ public class Runner {
                 // Debug
                 if (showdebug) {
                     addDebugData("FPS", getFPS() + "");
-                    addDebugData("Vertices", verticeslastrendered + "");
                     
                     graphicsobject.drawString(debugdata, 1 / graphicsobject.getScale(), 0, 0);
                     debugdata = "";
@@ -352,26 +342,25 @@ public class Runner {
         // End the loop, cleanup things.
         
         Logger.line();
-        Logger.debug("Game Loop ended.");
+        Logger.info("Ending Game Loop...");
         
-        Logger.debug("Starting Cleanup...");
+        Logger.info("Beginning Clean Up:");
         
-        Logger.debug("Cleaning up Developers Console");
+        Logger.info("Cleaning Up Developers Console...");
         consolethread.interrupt();
         
-        Logger.debug("Cleaning up Task Timing Thread...");
+        Logger.info("Cleaning Up Task Timing Thread...");
         TaskTiming.cleanup();
         
-        Logger.debug("Cleaning up Core...");
+        Logger.info("Cleaning Up Core & Plugins...");
         core.cleanup();
-        Logger.debug("Cleaning up plugins...");
         for (Plugin plug : plugs) {
-            Logger.debug("     Cleaning up " + plug.getClass().getSimpleName() + "...");
+            Logger.info("     Cleaning Up " + plug.getClass().getSimpleName() + "...");
             plug.cleanup();
         }
         
-        Logger.debug("Cleanup complete.");
-        Logger.debug("MERCury Game Library shutting down...");
+        Logger.info("Clean Up Complete.");
+        Logger.info("MERCury Shutting Down...");
     }
     
     /** @return The Framerate. */
@@ -494,7 +483,7 @@ public class Runner {
     }
     
     /**
-     * Sets the icon for given size(s). Reccomended sizes that you should put in
+     * Sets the icon for given size(s). Recommended sizes that you should put in
      * are x16, x32, and x64.
      * 
      * @param icons
