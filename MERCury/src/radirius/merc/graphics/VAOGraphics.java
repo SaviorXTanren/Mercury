@@ -499,7 +499,7 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void drawLine(Line... l) {
-        batcher.clearColors();
+        batcher.clearTextures();
         
         for (Line _l : l) {
             batcher.flushIfOverflow(6);
