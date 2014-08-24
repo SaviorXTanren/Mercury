@@ -172,8 +172,6 @@ public class TestGUI extends Core {
         else
             g.drawRect(bounds);
         
-        g.flush();
-        
         g.setScale(1);
         window.render(g);
         

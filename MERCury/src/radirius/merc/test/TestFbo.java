@@ -47,7 +47,7 @@ public class TestFbo extends Core {
         {
             g.drawTexture(cuteface, x++, x++);
             
-            g.getBatcher().flush();
+            g.flush();
         }
         fbo.release();
         

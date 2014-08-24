@@ -71,6 +71,8 @@ public class VAOGraphics implements Graphics {
     
     @Override
     public void setScale(float x, float y) {
+        flush();
+        
         Camera cam = Runner.getInstance().getCamera();
         
         GL11.glLoadIdentity();
