@@ -57,7 +57,8 @@ public class TestCollision extends Core {
             g.drawRect(r2);
         }
         
-        r2.translate(0, -0.1f);
+        r2.translate(0, -0.05f);
+        r1.rotate(0.2f);
         r2.rotate(0.1f);
         
         if (c1.intersects(c2) || c1.contains(testcol)) {

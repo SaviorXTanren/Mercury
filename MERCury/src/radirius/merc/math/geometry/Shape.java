@@ -54,7 +54,7 @@ public class Shape {
         center = s.center;
         rot = s.rot;
         
-        // Just to be safe :).
+        // Just to be safe
         regen();
     }
     
@@ -105,12 +105,7 @@ public class Shape {
             }
         }
         
-        // Now to do the center test!
-        
-        if (getArea() > s.getArea())
-            return contains(new Vec2(s.getX() + s.getWidth() / 2, s.getY() + s.getHeight() / 2));
-        else
-            return s.contains(new Vec2(getX() + getWidth() / 2, getY() + getHeight() / 2));
+        return false;
     }
     
     /** @return Whether all vertices of s is inside of this shape. */
@@ -283,6 +278,8 @@ public class Shape {
         translate(point.x, point.y);
         
         this.scale *= scale;
+        
+        regen();
         
         for (Shape c : children)
             c.scale(point, scale);
