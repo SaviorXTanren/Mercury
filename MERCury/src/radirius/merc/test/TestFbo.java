@@ -14,55 +14,55 @@ import radirius.merc.resource.Loader;
  */
 
 public class TestFbo extends Core {
-    Runner rnr = Runner.getInstance();
-    
-    public TestFbo() {
-        super("FBO Test!");
-        rnr.init(this, 500, 500);
-        rnr.run();
-    }
-    
-    Texture cuteface;
-    Shader shad;
-    FrameBuffer fbo;
-    
-    @Override
-    public void init() {
-        Runner.getInstance().getGraphics().setScale(1.1f);
-        
-        cuteface = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/framework/merc_mascot_x64.png"), 45, GL_NEAREST);
-        shad = Shader.getShader(Loader.streamFromClasspath("radirius/merc/test/distort.fs"), Shader.FRAGMENT_SHADER);
-        fbo = FrameBuffer.getFrameBuffer();
-    }
-    
-    @Override
-    public void update(float delta) {
-    }
-    
-    float x = 0;
-    
-    @Override
-    public void render(Graphics g) {
-        fbo.use();
-        {
-            g.drawTexture(cuteface, x++, x++);
-            
-            g.flush();
-        }
-        fbo.release();
-        
-        g.useShader(shad);
-        {
-            g.drawTexture(fbo.getTextureObject(), 0, 0);
-        }
-        g.releaseShaders();
-    }
-    
-    @Override
-    public void cleanup() {
-    }
-    
-    public static void main(String[] args) {
-        new TestFbo();
-    }
+	Runner rnr = Runner.getInstance();
+
+	public TestFbo() {
+		super("FBO Test!");
+		rnr.init(this, 500, 500);
+		rnr.run();
+	}
+
+	Texture cuteface;
+	Shader shad;
+	FrameBuffer fbo;
+
+	@Override
+	public void init() {
+		Runner.getInstance().getGraphics().setScale(1.1f);
+
+		cuteface = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/framework/merc_mascot_x64.png"), 45, GL_NEAREST);
+		shad = Shader.getShader(Loader.streamFromClasspath("radirius/merc/test/distort.fs"), Shader.FRAGMENT_SHADER);
+		fbo = FrameBuffer.getFrameBuffer();
+	}
+
+	@Override
+	public void update(float delta) {
+	}
+
+	float x = 0;
+
+	@Override
+	public void render(Graphics g) {
+		fbo.use();
+		{
+			g.drawTexture(cuteface, x++, x++);
+
+			g.flush();
+		}
+		fbo.release();
+
+		g.useShader(shad);
+		{
+			g.drawTexture(fbo.getTextureObject(), 0, 0);
+		}
+		g.releaseShaders();
+	}
+
+	@Override
+	public void cleanup() {
+	}
+
+	public static void main(String[] args) {
+		new TestFbo();
+	}
 }

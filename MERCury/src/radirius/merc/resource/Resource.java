@@ -7,9 +7,9 @@ package radirius.merc.resource;
  * @author wessles
  */
 public interface Resource extends Cloneable {
-    /**
-     * A method for releasing anything that needs to be released, for it is the
-     * end!
-     */
-    public void clean();
+	/**
+	 * A method for releasing anything that needs to be released, for it is the
+	 * end!
+	 */
+	public void clean();
 }
