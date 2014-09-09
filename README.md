@@ -1,4 +1,4 @@
-![alt-text](http://i.imgur.com/lDWE2I1.png)  
+![alt-text](http://i.imgur.com/HOqTp39.png)  
 
 MERCury is a small game library designed to simplify the complex and shorten the tedious for beginners and veterans alike. With it, you can use the best aspects of OpenGL in an easy and organized way optimized for game programming. It is built around the concept that beginners should be able to start with the basics and then move up into a more complex plane of development with the veterans, all on the same platform.  
 
