@@ -16,9 +16,17 @@ public class Polygon extends Shape {
 	}
 
 	public Polygon(float centerx, float centery, float radiusx, float radiusy, int numberofsides) {
-		super(getTrigVerts(centerx, centery, radiusx, radiusy, numberofsides));
+		this(getTrigVerts(centerx, centery, radiusx, radiusy, numberofsides));
 		// Average radius!
 		radius = 0.5f * (radiusx + radiusy);
+	}
+
+	public Polygon(Vec2... verts) {
+		super(verts);
+	}
+
+	public Polygon(float... fs) {
+		super(fs);
 	}
 
 	@Override

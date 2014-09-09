@@ -170,13 +170,13 @@ public class TestGUI extends Core {
 		if (texture_check.isTicked())
 			g.drawTexture(tex0, bounds);
 		else
-			g.drawRect(bounds);
+			g.drawPolygon(bounds);
 
 		g.setScale(1);
 		window.render(g);
 
 		g.setColor(new Color(0, 0, 0, 100));
-		g.drawRect(new Rectangle(0, runner.getHeight() - 80, runner.getWidth(), 80));
+		g.drawPolygon(new Rectangle(0, runner.getHeight() - 80, runner.getWidth(), 80));
 
 		g.setColor(Color.white);
 		g.drawString("Get MERCury at merc.radiri.us!", 8, runner.getHeight() - 80 - 32);

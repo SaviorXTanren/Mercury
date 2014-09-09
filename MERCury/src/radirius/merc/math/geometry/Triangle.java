@@ -6,7 +6,7 @@ package radirius.merc.math.geometry;
  * @author wessles
  */
 
-public class Triangle extends Shape {
+public class Triangle extends Polygon {
 
 	public Triangle(float x, float y, float w, float h) {
 		this(x, y, x + w, y, x, y + h);

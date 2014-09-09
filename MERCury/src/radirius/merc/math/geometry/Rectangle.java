@@ -6,7 +6,7 @@ package radirius.merc.math.geometry;
  * @author wessles
  */
 
-public class Rectangle extends Shape {
+public class Rectangle extends Polygon {
 
 	/**
 	 * @param x
@@ -19,7 +19,7 @@ public class Rectangle extends Shape {
 	 *            The height of the rectangle.
 	 */
 	public Rectangle(float x, float y, float w, float h) {
-		super(new float[] { x, y, x + w, y, x + w, y + h, x, y + h });
+		this(x, y, x + w, y, x + w, y + h, x, y + h);
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class Rectangle extends Shape {
 	 *            The size of the rectangle.
 	 */
 	public Rectangle(float x, float y, float s) {
-		super(new float[] { x, y, x + s, y, x + s, y + s, x, y + s });
+		this(x, y, s, s);
 	}
 
 	/** All parameters are the coordinates of each vertex in the rectangle. */

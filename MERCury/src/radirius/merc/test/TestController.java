@@ -65,7 +65,7 @@ public class TestController extends Core {
 		bounds.rotateTo(-rnr.getInput().getRightAnalogStick(0).theta());
 
 		g.setColor(Color.white);
-		g.drawRect(bounds);
+		g.drawPolygon(bounds);
 	}
 
 	@Override

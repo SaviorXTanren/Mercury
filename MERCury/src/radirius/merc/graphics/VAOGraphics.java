@@ -8,13 +8,10 @@ import radirius.merc.framework.Runner;
 import radirius.merc.graphics.font.Font;
 import radirius.merc.graphics.font.TrueTypeFont;
 import radirius.merc.math.MERCMath;
-import radirius.merc.math.geometry.Circle;
-import radirius.merc.math.geometry.Ellipse;
 import radirius.merc.math.geometry.Line;
 import radirius.merc.math.geometry.Point;
 import radirius.merc.math.geometry.Polygon;
 import radirius.merc.math.geometry.Rectangle;
-import radirius.merc.math.geometry.Star;
 import radirius.merc.math.geometry.Triangle;
 import radirius.merc.math.geometry.Vec2;
 
@@ -255,20 +252,11 @@ public class VAOGraphics implements Graphics {
 			setColor(Color.DEFAULT_DRAWING);
 	}
 
-	@Override
-	public void drawRect(Rectangle... rectangle) {
-		batcher.clearTextures();
-
-		drawFunctionlessRect(rectangle);
-	}
-
 	/**
 	 * A method that can be called without pulling a color, setting a color,
 	 * binding, etc.
 	 */
 	private void drawFunctionlessRect(Rectangle... rectangle) {
-		float w = batcher.getTexture().getWidth(), h = batcher.getTexture().getHeight();
-
 		for (Rectangle _rectangle : rectangle) {
 			float x1 = _rectangle.getVertices()[0].x;
 			float y1 = _rectangle.getVertices()[0].y;
@@ -281,46 +269,14 @@ public class VAOGraphics implements Graphics {
 
 			batcher.flushIfOverflow(6);
 
-			batcher.vertex(x1, y1, x1 / w, y1 / h);
-			batcher.vertex(x2, y2, x2 / w, y2 / h);
-			batcher.vertex(x4, y4, x4 / w, y4 / h);
+			batcher.vertex(x1, y1, 0, 0);
+			batcher.vertex(x2, y2, 0, 0);
+			batcher.vertex(x4, y4, 0, 0);
 
-			batcher.vertex(x3, y3, x3 / w, y3 / h);
-			batcher.vertex(x4, y4, x4 / w, y4 / h);
-			batcher.vertex(x2, y2, x2 / w, y2 / h);
+			batcher.vertex(x3, y3, 0, 0);
+			batcher.vertex(x4, y4, 0, 0);
+			batcher.vertex(x2, y2, 0, 0);
 		}
-	}
-
-	@Override
-	public void drawRect(float x, float y, float w, float h) {
-		drawRect(new Rectangle(x, y, w, h));
-	}
-
-	@Override
-	public void drawTriangle(Triangle... triangle) {
-		batcher.clearTextures();
-
-		float w = batcher.getTexture().getWidth(), h = batcher.getTexture().getHeight();
-
-		for (Triangle _triangle : triangle) {
-			float x1 = _triangle.getVertices()[0].x;
-			float y1 = _triangle.getVertices()[0].y;
-			float x2 = _triangle.getVertices()[1].x;
-			float y2 = _triangle.getVertices()[1].y;
-			float x3 = _triangle.getVertices()[2].x;
-			float y3 = _triangle.getVertices()[2].y;
-
-			batcher.flushIfOverflow(3);
-
-			batcher.vertex(x1, y1, x1 / w, y1 / h);
-			batcher.vertex(x3, y3, x3 / w, y3 / h);
-			batcher.vertex(x2, y2, x2 / w, y2 / h);
-		}
-	}
-
-	@Override
-	public void drawTriangle(float x, float y, float w, float h) {
-		drawTriangle(new Triangle(x, y, w, h));
 	}
 
 	@Override
@@ -332,9 +288,26 @@ public class VAOGraphics implements Graphics {
 		for (Polygon _polygon : polygon) {
 			Vec2[] vs = _polygon.getVertices();
 
-			for (int c = 0; c < vs.length; c++) {
+			if (_polygon instanceof Triangle) {
 				batcher.flushIfOverflow(3);
 
+				batcher.vertex(vs[0].x, vs[0].y, 0, 0);
+				batcher.vertex(vs[1].x, vs[1].y, 0, 0);
+				batcher.vertex(vs[2].x, vs[2].y, 0, 0);
+
+				continue;
+			} else if (_polygon instanceof Rectangle) {
+				drawFunctionlessRect((Rectangle) _polygon);
+
+				continue;
+			}
+
+			// # of sides == # of vertices
+			// 3 == number of vertices in triangle
+			// 3 * # of vertices = number of vertices we need.
+			batcher.flushIfOverflow(3 * vs.length);
+
+			for (int c = 0; c < vs.length; c++) {
 				batcher.vertex(_polygon.getCenter().x, _polygon.getCenter().y, _polygon.getCenter().x / w, _polygon.getCenter().y / h);
 
 				if (c >= vs.length - 1)
@@ -348,77 +321,6 @@ public class VAOGraphics implements Graphics {
 					batcher.vertex(vs[c + 1].x, vs[c + 1].y, vs[c + 1].x / w, vs[c + 1].y / h);
 			}
 		}
-	}
-
-	@Override
-	public void drawStar(Star... star) {
-		drawPolygon(star);
-	}
-
-	@Override
-	public void drawEllipse(Ellipse... ellipse) {
-		drawPolygon(ellipse);
-	}
-
-	@Override
-	public void drawEllipse(float x, float y, float radx, float rady) {
-		drawEllipse(new Ellipse(x, y, radx, rady));
-	}
-
-	@Override
-	public void drawCircle(Circle... circle) {
-		drawEllipse(circle);
-	}
-
-	@Override
-	public void drawCircle(float x, float y, float radius) {
-		drawCircle(new Circle(x, y, radius));
-	}
-
-	@Override
-	public void traceRect(Rectangle... rectangle) {
-		batcher.clearTextures();
-
-		for (Rectangle _rectangle : rectangle) {
-			Vec2 p1 = _rectangle.getVertices()[0];
-			Vec2 p2 = _rectangle.getVertices()[1];
-			Vec2 p3 = _rectangle.getVertices()[2];
-			Vec2 p4 = _rectangle.getVertices()[3];
-
-			batcher.flushIfOverflow(24);
-
-			drawFunctionlessLine(new Line(p1, p2));
-			drawFunctionlessLine(new Line(p2, p3));
-			drawFunctionlessLine(new Line(p3, p4));
-			drawFunctionlessLine(new Line(p4, p1));
-		}
-	}
-
-	@Override
-	public void traceRect(float x, float y, float w, float h) {
-		traceRect(new Rectangle(x, y, w, h));
-	}
-
-	@Override
-	public void traceTriangle(Triangle... triangle) {
-		batcher.clearTextures();
-
-		for (Triangle _triangle : triangle) {
-			Vec2 p1 = _triangle.getVertices()[0];
-			Vec2 p2 = _triangle.getVertices()[1];
-			Vec2 p3 = _triangle.getVertices()[2];
-
-			batcher.flushIfOverflow(18);
-
-			drawFunctionlessLine(new Line(p1, p2));
-			drawFunctionlessLine(new Line(p2, p3));
-			drawFunctionlessLine(new Line(p3, p1));
-		}
-	}
-
-	@Override
-	public void traceTriangle(float x, float y, float w, float h) {
-		traceTriangle(new Triangle(x, y, w, h));
 	}
 
 	@Override
@@ -445,31 +347,6 @@ public class VAOGraphics implements Graphics {
 				drawFunctionlessLine(new Line(p1, p2));
 			}
 		}
-	}
-
-	@Override
-	public void traceStar(Star... star) {
-		tracePolygon(star);
-	}
-
-	@Override
-	public void traceEllipse(Ellipse... ellipse) {
-		tracePolygon(ellipse);
-	}
-
-	@Override
-	public void traceEllipse(float x, float y, float radx, float rady) {
-		traceEllipse(new Ellipse(x, y, radx, rady));
-	}
-
-	@Override
-	public void traceCircle(Circle... circle) {
-		traceEllipse(circle);
-	}
-
-	@Override
-	public void traceCircle(float x, float y, float radius) {
-		traceCircle(new Circle(x, y, radius));
 	}
 
 	@Override
@@ -515,7 +392,7 @@ public class VAOGraphics implements Graphics {
 		for (Point _point : point) {
 			float x = _point.getX();
 			float y = _point.getY();
-			drawRect(new Rectangle(x, y, x + 1, y, x + 1, y + 1, x, y + 1));
+			drawFunctionlessRect(new Rectangle(x, y, x + 1, y, x + 1, y + 1, x, y + 1));
 		}
 	}
 

@@ -84,7 +84,7 @@ public class TestColor extends Core {
 
 	public void test(Color color, Graphics g) {
 		g.setColor(color);
-		g.drawRect(new Rectangle(colidx * 4, 0, 4, 8));
+		g.drawPolygon(new Rectangle(colidx * 4, 0, 4, 8));
 		colidx++;
 	}
 

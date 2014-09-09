@@ -46,7 +46,7 @@ public class TestFullscreen extends Core {
 	@Override
 	public void render(Graphics g) {
 		/** Testing for vsync stuffs */
-		g.drawRect(new Rectangle(x += 1, y += 3, 100, 100));
+		g.drawPolygon(new Rectangle(x += 1, y += 3, 100, 100));
 		g.drawString("We is success! click <ESC>, for leave.", 0, 0);
 	}
 

@@ -257,9 +257,6 @@ public class Runner {
 		consolethread.setName("merc_devconsole");
 		consolethread.start();
 
-		Logger.info("Starting Task Timing Thread...");
-		TaskTiming.init();
-
 		Logger.info("Ready to begin game loop. Awaiting permission from Core...");
 	}
 
@@ -314,6 +311,9 @@ public class Runner {
 			if (!updatefreeze)
 				core.update(getDelta());
 
+			// Update timing
+			TaskTiming.update();
+
 			if (!renderfreeze) {
 				// Pre-render
 				camera.pre(graphicsobject);
@@ -353,9 +353,6 @@ public class Runner {
 
 		Logger.info("Cleaning Up Developers Console...");
 		consolethread.interrupt();
-
-		Logger.info("Cleaning Up Task Timing Thread...");
-		TaskTiming.cleanup();
 
 		Logger.info("Cleaning Up Core & Plugins...");
 		core.cleanup();

@@ -50,11 +50,11 @@ public class TestCollision extends Core {
 	@Override
 	public void render(Graphics g) {
 		if (r1.intersects(r2) || r1.contains(testcol) || s1.intersects(r2)) {
-			g.traceRect(r1);
-			g.traceRect(r2);
+			g.tracePolygon(r1);
+			g.tracePolygon(r2);
 		} else {
-			g.drawRect(r1);
-			g.drawRect(r2);
+			g.drawPolygon(r1);
+			g.drawPolygon(r2);
 		}
 
 		r2.translate(0, -0.05f);
@@ -62,22 +62,22 @@ public class TestCollision extends Core {
 		r2.rotate(0.1f);
 
 		if (c1.intersects(c2) || c1.contains(testcol)) {
-			g.traceCircle(c1);
-			g.traceCircle(c2);
+			g.tracePolygon(c1);
+			g.tracePolygon(c2);
 		} else {
-			g.drawCircle(c1);
-			g.drawCircle(c2);
+			g.drawPolygon(c1);
+			g.drawPolygon(c2);
 		}
 
 		c2.translate(0, -0.2f);
 		c2.rotate(0.1f);
 
 		if (t1.intersects(t2) || t1.contains(testcol)) {
-			g.traceTriangle(t1);
-			g.traceTriangle(t2);
+			g.tracePolygon(t1);
+			g.tracePolygon(t2);
 		} else {
-			g.drawTriangle(t1);
-			g.drawTriangle(t2);
+			g.drawPolygon(t1);
+			g.drawPolygon(t2);
 		}
 
 		t2.translate(0f, -0.2f);

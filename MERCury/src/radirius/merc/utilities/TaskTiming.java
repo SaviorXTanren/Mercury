@@ -11,73 +11,85 @@ import radirius.merc.exceptions.MERCuryException;
  * @author wessles
  */
 
-public class TaskTiming implements Runnable {
-	private static boolean running = true;
-
+public class TaskTiming {
 	private static CopyOnWriteArrayList<Task> tasks = new CopyOnWriteArrayList<Task>();
 
-	/** Initializes the timing thread. */
-	public static void init() {
-		Thread t = new Thread(new TaskTiming());
-		t.setName("merc_timertask");
-		t.start();
-	}
-
-	/** Adds a task. */
+	/**
+	 * Adds a task.
+	 * 
+	 * @param task
+	 *            The task to add.
+	 */
 	public static void addTask(Task task) {
 		tasks.add(task);
 	}
 
-	/** Cleans up the timing thread. */
-	public static void cleanup() {
-		running = false;
-	}
+	/** Updates the tasks. */
+	public static void update() {
+		for (Task task : tasks) {
+			long time = System.currentTimeMillis();
+			long past = time - task.birth;
 
-	@Override
-	public void run() {
-		while (running) {
-			// No need to do this if there is nothing to loop.
-			if (tasks.isEmpty())
-				continue;
-
-			for (Task task : tasks) {
-				long time = System.currentTimeMillis();
-				long past = time - task.birth;
-
-				if (past > task.timeout) {
-					task.run();
-
-					if (task.recur == 0)
-						tasks.remove(task);
-					else {
-						if (task.recur > 0)
-							task.recur--;
-
-						task.birth = time;
-					}
+			if (past > task.timeout) {
+				if (task.recur == 0 || task.cancelled) {
+					tasks.remove(task);
+					continue;
 				}
-			}
 
-			// This should fix a LOT of laggy issues. Yes, accuracy will be off
-			// by 1% of a second, but I doubt that you will have too many
-			// issues.
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+				task.run();
+
+				if (task.recur > 0)
+					task.recur--;
+
+				task.birth = time;
 			}
 		}
+
 	}
 
-	public abstract static class Task {
+	public static abstract class Task {
 		public int recur;
 		public long birth, timeout;
 
+		/**
+		 * @param timeout
+		 *            The time to pass before the task is started.
+		 */
 		public Task(long timeout) {
-			this(timeout, 0);
+			this(timeout, 1);
 		}
 
+		/**
+		 * @param timeout
+		 *            The time to pass before the task is started.
+		 * @param reccurances
+		 *            The number of times the task repeats (infinite if less
+		 *            than 1).
+		 */
 		public Task(long timeout, int reccurances) {
+			this(timeout, reccurances, false);
+		}
+
+		/**
+		 * @param timeout
+		 *            The time to pass before the task is started.
+		 * @param loop
+		 *            Whether the task is to recur infinitely.
+		 */
+		public Task(long timeout, boolean loop) {
+			this(timeout, loop ? -1 : 1);
+		}
+
+		/**
+		 * @param timeout
+		 *            The time to pass before the task is started.
+		 * @param reccurances
+		 *            The number of times the task repeats (infinite if less
+		 *            than 1).
+		 * @param loop
+		 *            Whether the task is to recur infinitely.
+		 */
+		public Task(long timeout, int reccurances, boolean loop) {
 			recur = reccurances;
 
 			birth = System.currentTimeMillis();
@@ -89,6 +101,12 @@ public class TaskTiming implements Runnable {
 					e.printStackTrace();
 				}
 			this.timeout = timeout;
+		}
+
+		public boolean cancelled = false;
+
+		public void cancel() {
+			cancelled = true;
 		}
 
 		public abstract void run();

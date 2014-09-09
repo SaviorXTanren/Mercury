@@ -1,14 +1,10 @@
 package radirius.merc.graphics;
 
 import radirius.merc.graphics.font.Font;
-import radirius.merc.math.geometry.Circle;
-import radirius.merc.math.geometry.Ellipse;
 import radirius.merc.math.geometry.Line;
 import radirius.merc.math.geometry.Point;
 import radirius.merc.math.geometry.Polygon;
 import radirius.merc.math.geometry.Rectangle;
-import radirius.merc.math.geometry.Star;
-import radirius.merc.math.geometry.Triangle;
 import radirius.merc.math.geometry.Vec2;
 
 /**
@@ -130,65 +126,11 @@ public interface Graphics {
 	/** Draws the portion sourceregion of a texture to the Rectangle region */
 	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region);
 
-	/** Draws a rectangle. */
-	public void drawRect(Rectangle... rectangle);
-
-	/** Draws a rectangle. */
-	public void drawRect(float x, float y, float w, float h);
-
-	/** Draws a triangle. */
-	public void drawTriangle(Triangle... triangle);
-
-	/** Draws a triangle. */
-	public void drawTriangle(float x, float y, float w, float h);
-
 	/** Draws a polygon. */
 	public void drawPolygon(Polygon... polygon);
 
-	/** Traces a star. */
-	public void drawStar(Star... star);
-
-	/** Draws an ellipse. */
-	public void drawEllipse(Ellipse... ellipse);
-
-	/** Makes and draws an ellipse. */
-	public void drawEllipse(float x, float y, float radx, float rady);
-
-	/** Draws a circle. */
-	public void drawCircle(Circle... circle);
-
-	/** Makes and draws a circle. */
-	public void drawCircle(float x, float y, float radius);
-
-	/** Traces a rectangle. */
-	public void traceRect(Rectangle... rectangle);
-
-	/** Traces a rectangle. */
-	public void traceRect(float x, float y, float w, float h);
-
-	/** Traces a triangle. */
-	public void traceTriangle(Triangle... triangle);
-
-	/** Traces a triangle. */
-	public void traceTriangle(float x, float y, float w, float h);
-
 	/** Traces a polygon. */
 	public void tracePolygon(Polygon... polygon);
-
-	/** Traces a star. */
-	public void traceStar(Star... star);
-
-	/** Traces an ellipse. */
-	public void traceEllipse(Ellipse... ellipse);
-
-	/** Makes and traces an ellipse. */
-	public void traceEllipse(float x, float y, float radx, float rady);
-
-	/** Traces a circle. */
-	public void traceCircle(Circle... circle);
-
-	/** Makes and traces a circle. */
-	public void traceCircle(float x, float y, float radius);
 
 	/** Draws a line from x1, y1 to x2, y2. */
 	public void drawLine(float x1, float y1, float x2, float y2);
