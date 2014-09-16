@@ -15,7 +15,7 @@ public class SetupTest extends Core {
 	
 	public void update(float delta) {}
 	public void render(Graphics g)  {}
-	public void cleanup() 			{}
+	public void cleanup() 		{}
 	
 	public static void main(String[] args) {
 		new SetupTest().run();
