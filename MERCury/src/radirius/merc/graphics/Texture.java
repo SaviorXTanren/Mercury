@@ -25,8 +25,8 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.BufferUtils;
 
-import radirius.merc.exceptions.MERCuryException;
-import radirius.merc.math.MERCMath;
+import radirius.merc.exceptions.MercuryException;
+import radirius.merc.math.MathUtil;
 import radirius.merc.resource.Resource;
 
 /**
@@ -106,8 +106,8 @@ public class Texture implements Resource {
 	public BufferedImage getSourceImage() {
 		if (bufimage == null)
 			try {
-				throw new MERCuryException("No source image given.");
-			} catch (MERCuryException e) {
+				throw new MercuryException("No source image given.");
+			} catch (MercuryException e) {
 				e.printStackTrace();
 			}
 		return bufimage;
@@ -258,7 +258,7 @@ public class Texture implements Resource {
 			rot *= -1;
 			rot -= 90;
 			AffineTransform transform = new AffineTransform();
-			transform.rotate(MERCMath.toRadians(rot), bi.getWidth() / 2, bi.getHeight() / 2);
+			transform.rotate(MathUtil.toRadians(rot), bi.getWidth() / 2, bi.getHeight() / 2);
 			AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
 			bi = op.filter(bi, null);
 		}

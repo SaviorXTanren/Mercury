@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.radirius.merc</groupId>
-    <artifactId>MERCury</artifactId>
-    <version>1.0.0-experimental</version>
-    <name>MERCury</name>
-    <description>A Simple Java Game Library.</description>
+    <groupId>radirius.merc</groupId>
+    <artifactId>Mercury</artifactId>
+    <version>1.0.1</version>
+    <name>Mercury</name>
+    <description>A Simple Java Game Library</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -86,7 +86,7 @@
     <url>http://merc.radiri.us/</url>
     <issueManagement>
         <system>Github Issue Tracker</system>
-        <url>https://github.com/Radirius/MERCury/issues</url>
+        <url>https://github.com/Radirius/Mercury/issues</url>
     </issueManagement>
 
     <repositories>

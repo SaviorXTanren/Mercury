@@ -33,46 +33,49 @@ import radirius.merc.utilities.logging.Logger;
  */
 
 public class FrameBuffer {
-	private final int fboid;
-	private final Texture fbotex;
+	private final int fboId;
+	private final Texture fboTexture;
 
-	private FrameBuffer(int fboid, int texid, int width, int height) {
-		this.fboid = fboid;
+	private FrameBuffer(int fboId, int texId, int width, int height) {
+		this.fboId = fboId;
 
-		fbotex = Texture.createTextureObject(texid, width, height);
+		fboTexture = Texture.createTextureObject(texId, width, height);
 	}
 
 	/** Creates a new frame buffer object. */
 	public static FrameBuffer getFrameBuffer() {
 		if (!isSupported()) {
 			Logger.warn("Framebuffers not supported!");
+			
 			return null;
 		}
 
-		int fboid = glGenFramebuffersEXT();
-		int texid = glGenTextures();
+		int fboId = glGenFramebuffersEXT();
+		int texId = glGenTextures();
 
 		// Bind
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fboid);
+		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fboId);
 
-		// Texture stuffs!
-		glBindTexture(GL_TEXTURE_2D, texid);
+		// Texture Stuff!
+		glBindTexture(GL_TEXTURE_2D, texId);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		
 		int width = (int) Runner.getInstance().getCamera().getWidth(), height = (int) Runner.getInstance().getCamera().getHeight();
+		
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_INT, (java.nio.ByteBuffer) null);
-		glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, texid, 0);
+		glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, texId, 0);
 
 		// Unbind
 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 		Texture.unbindTextures();
 
-		return new FrameBuffer(fboid, texid, width, height);
+		return new FrameBuffer(fboId, texId, width, height);
 	}
 
 	/** Begins recording of the FBO to the texture object. */
 	public void use() {
 		Texture.unbindTextures();
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fboid);
+		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fboId);
 		glPushAttrib(GL_VIEWPORT_BIT);
 		glViewport(0, 0, (int) Runner.getInstance().getCamera().getWidth(), (int) Runner.getInstance().getCamera().getHeight());
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -86,7 +89,7 @@ public class FrameBuffer {
 
 	/** @return The last recorded texture. */
 	public Texture getTextureObject() {
-		return fbotex;
+		return fboTexture;
 	}
 
 	/** Staticly 'use().' */

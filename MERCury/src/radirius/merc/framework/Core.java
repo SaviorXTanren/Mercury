@@ -30,9 +30,35 @@ import radirius.merc.utilities.logging.Logger;
 
 public abstract class Core {
 	public final String name;
-
-	public Core(String name) {
+	private final Runner runner = Runner.getInstance();
+	
+	public Core(String name, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean initonseparatethread, boolean devconsole) {
 		this.name = name;
+		
+		runner.init(this, WIDTH, HEIGHT, fullscreen, vsync, initonseparatethread, devconsole);
+	}
+	
+	public Core(String name, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
+		this(name, WIDTH, HEIGHT, fullscreen, vsync, false, true);
+	}
+	
+	public Core(String name, int WIDTH, int HEIGHT, boolean fullscreen) {
+		this(name, WIDTH, HEIGHT, fullscreen, true, false, true);
+	}
+	
+	public Core(String name, int WIDTH, int HEIGHT) {
+		this(name, WIDTH, HEIGHT, false, true);
+	}
+	
+	/**
+	 * Runs the runner.
+	 */
+	public void run() {
+		runner.run();
+	}
+	
+	public Runner getRunner() {
+		return runner;
 	}
 
 	/**
@@ -80,16 +106,18 @@ public abstract class Core {
 			Display.setVSyncEnabled(vsync);
 
 			DisplayMode dm = new DisplayMode(WIDTH, HEIGHT);
+			
 			boolean screendimmatched = false;
 
 			if (fullscreen) {
 				DisplayMode[] modes = Display.getAvailableDisplayModes();
 
-				for (DisplayMode mode : modes)
+				for (DisplayMode mode : modes) {
 					if (mode.getWidth() == WIDTH && mode.getHeight() == HEIGHT && mode.isFullscreenCapable()) {
 						dm = mode;
 						screendimmatched = true;
 					}
+				}
 
 				if (!screendimmatched)
 					Logger.warn("Dimensions " + WIDTH + "x" + HEIGHT + " is not supported! Disabling Fullscreen.");
@@ -104,7 +132,7 @@ public abstract class Core {
 			e.printStackTrace();
 		}
 
-		Runner.getInstance().setIcon(Loader.streamFromClasspath("radirius/merc/framework/merc_mascot_x64.png"), Loader.streamFromClasspath("radirius/merc/framework/merc_mascot_x32.png"), Loader.streamFromClasspath("radirius/merc/framework/merc_mascot_x16.png"));
+		Runner.getInstance().setIcon(Loader.streamFromClasspath("radirius/merc/framework/merc_mascot_x16.png"), Loader.streamFromClasspath("radirius/merc/framework/merc_mascot_x32.png"), Loader.streamFromClasspath("radirius/merc/framework/merc_mascot_x64.png"));
 	}
 
 	/**

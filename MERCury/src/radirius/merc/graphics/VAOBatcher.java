@@ -24,9 +24,9 @@ import radirius.merc.math.geometry.Rectangle;
 import radirius.merc.utilities.logging.Logger;
 
 /**
- * A very simple batcher.
+ * A very simple OpenGL batcher.
  * 
- * @author wessles
+ * @author wessles, Jeviny
  */
 public class VAOBatcher implements Batcher {
 	private static final int VL = 2, CL = 4, TL = 2;
@@ -34,17 +34,17 @@ public class VAOBatcher implements Batcher {
 
 	private FloatBuffer vd, cd, td;
 
-	private int vtxcount;
-	private int vertexlastrender = 0;
+	private int vertexCount;
+	private int vertexLastRender = 0;
 
 	private boolean active;
 
-	private Texture last_tex = Texture.getEmptyTexture();
-	private Color last_col = Color.DEFAULT_DRAWING;
-	private Shader last_shader = Shader.DEFAULT_SHADER;
+	private Texture lastTexture = Texture.getEmptyTexture();
+	private Shader lastShader = Shader.DEFAULT_SHADER;
+	private Color lastColor = Color.DEFAULT_DRAWING;
 
 	public VAOBatcher() {
-		vtxcount = 0;
+		vertexCount = 0;
 
 		vd = BufferUtils.createFloatBuffer(MAX_VERTICES_PER_RENDER_STACK * VL);
 		cd = BufferUtils.createFloatBuffer(MAX_VERTICES_PER_RENDER_STACK * CL);
@@ -57,10 +57,11 @@ public class VAOBatcher implements Batcher {
 	public void begin() {
 		if (active) {
 			Logger.warn("Must be inactive before calling begin(); ignoring request.");
+			
 			return;
 		}
 
-		vertexlastrender = 0;
+		vertexLastRender = 0;
 		active = true;
 	}
 
@@ -73,6 +74,7 @@ public class VAOBatcher implements Batcher {
 	public void end() {
 		if (!active) {
 			Logger.warn("Must be active before calling end(); ignoring request.");
+			
 			return;
 		}
 
@@ -99,7 +101,7 @@ public class VAOBatcher implements Batcher {
 		pointBuffer(COLOR_ARRAY_POINTER, 4, cd);
 		pointBuffer(TEXTURE_COORD_ARRAY_POINTER, 2, td);
 
-		drawBuffers(GL_TRIANGLES, vtxcount);
+		drawBuffers(GL_TRIANGLES, vertexCount);
 
 		disableBuffer(GL_VERTEX_ARRAY);
 		disableBuffer(GL_COLOR_ARRAY);
@@ -109,74 +111,83 @@ public class VAOBatcher implements Batcher {
 		cd.clear();
 		td.clear();
 
-		vertexlastrender += vtxcount;
-		vtxcount = 0;
+		vertexLastRender += vertexCount;
+		vertexCount = 0;
 	}
 
 	@Override
 	public void setTexture(Texture texture) {
-		if (texture.equals(last_tex))
+		if (texture.equals(lastTexture))
 			return;
+		
 		flush();
-		last_tex = texture;
+		
+		lastTexture = texture;
 		Texture.bindTexture(texture);
 	}
 
 	@Override
 	public void clearTextures() {
-		if (last_tex.equals(Texture.getEmptyTexture()))
+		if (lastTexture.equals(Texture.getEmptyTexture()))
 			return;
+		
 		flush();
-		last_tex = Texture.getEmptyTexture();
-		Texture.bindTexture(last_tex);
+		
+		lastTexture = Texture.getEmptyTexture();
+		Texture.bindTexture(lastTexture);
 	}
 
 	@Override
 	public Texture getTexture() {
-		return last_tex;
+		return lastTexture;
 	}
 
 	@Override
 	public void setColor(Color color) {
-		if (color.equals(last_col))
+		if (color.equals(lastColor))
 			return;
 
-		last_col = color;
+		lastColor = color;
 	}
 
 	@Override
 	public void clearColors() {
-		if (last_col.equals(Color.DEFAULT_DRAWING))
+		if (lastColor.equals(Color.DEFAULT_DRAWING))
 			return;
-		last_col = Color.DEFAULT_DRAWING;
+		
+		lastColor = Color.DEFAULT_DRAWING;
 	}
 
 	@Override
 	public Color getColor() {
-		return last_col;
+		return lastColor;
 	}
 
 	@Override
 	public void setShader(Shader shader) {
-		if (last_shader.equals(shader))
+		if (lastShader.equals(shader))
 			return;
+		
 		flush();
-		last_shader = shader;
+		
+		lastShader = shader;
 		Shader.useShader(shader);
 	}
 
 	@Override
 	public void clearShaders() {
-		if (last_shader.equals(Shader.DEFAULT_SHADER))
+		if (lastShader.equals(Shader.DEFAULT_SHADER))
 			return;
+		
 		flush();
-		last_shader = Shader.DEFAULT_SHADER;
-		Shader.useShader(last_shader);
+		
+		lastShader = Shader.DEFAULT_SHADER;
+		Shader.useShader(lastShader);
 	}
 
 	@Override
 	public Shader getShader() {
-		return last_shader;
+		return lastShader;
 	}
 
 	@Override
@@ -232,6 +243,7 @@ public class VAOBatcher implements Batcher {
 
 		// Make a hypothetical subtexture of the texture
 		SubTexture subtexture = null;
+		
 		if (texture instanceof SubTexture)
 			subtexture = (SubTexture) texture;
 
@@ -276,7 +288,7 @@ public class VAOBatcher implements Batcher {
 
 	@Override
 	public void vertex(float x, float y, float u, float v) {
-		vertex(x, y, last_col, u, v);
+		vertex(x, y, lastColor, u, v);
 	}
 
 	@Override
@@ -299,7 +311,7 @@ public class VAOBatcher implements Batcher {
 		cd.put(vdo.r).put(vdo.g).put(vdo.b).put(vdo.a);
 		td.put(vdo.u).put(vdo.v);
 
-		vtxcount++;
+		vertexCount++;
 	}
 
 	public static class VertexData {
@@ -319,12 +331,12 @@ public class VAOBatcher implements Batcher {
 
 	@Override
 	public void flushIfOverflow(int allocate) {
-		if (vtxcount + allocate > MAX_VERTICES_PER_RENDER_STACK)
+		if (vertexCount + allocate > MAX_VERTICES_PER_RENDER_STACK)
 			flush();
 	}
 
 	@Override
 	public int getVerticesLastRendered() {
-		return vertexlastrender;
+		return vertexLastRender;
 	}
 }

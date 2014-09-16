@@ -2,7 +2,7 @@ package radirius.merc.math.geometry;
 
 import java.util.ArrayList;
 
-import radirius.merc.math.MERCMath;
+import radirius.merc.math.MathUtil;
 import radirius.merc.utilities.ArrayUtils;
 
 /**
@@ -133,7 +133,7 @@ public class Shape {
 		for (Vec2 v2 : vertices) {
 			// Find angle between vertex of shape and point.
 			float dx = v.x - v2.x, dy = v.y - v2.x;
-			float angle = MERCMath.atan2(dy, dx);
+			float angle = MathUtil.atan2(dy, dx);
 			sumangle += angle;
 		}
 
@@ -198,8 +198,8 @@ public class Shape {
 			return this;
 
 		for (Vec2 p : vertices) {
-			float s = MERCMath.sin(angle);
-			float c = MERCMath.cos(angle);
+			float s = MathUtil.sin(angle);
+			float c = MathUtil.cos(angle);
 
 			p.x -= origx;
 			p.y -= origy;

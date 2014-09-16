@@ -3,16 +3,21 @@ package radirius.merc.framework;
 /**
  * An abstraction for plugins.
  * 
- * @author wessles
+ * @author wessles, Jeviny
  */
 
-public interface Plugin {
-	/** The method for initializing the plugin */
-	public void init();
+public abstract class Plugin {
+	/** The method for initializing the plugin. */
+	public abstract void init();
 
-	/** The method for updating */
-	public void update();
+	/** The method for updating. */
+	public abstract void update();
 
-	/** The method for cleaning up the plugin */
-	public void cleanup();
+	/** The method for cleaning up the plugin. */
+	public abstract void cleanup();
+	
+	/** @return The name of the plugin. */
+	public String getName() {
+		return getClass().getSimpleName();
+	}
 }

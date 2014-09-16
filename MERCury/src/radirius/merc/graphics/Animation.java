@@ -10,24 +10,25 @@ import radirius.merc.resource.Resource;
  */
 public class Animation implements Resource {
 
-	private SpriteSheet texs;
+	private SpriteSheet baseTextures;
 
 	private int frame = 0;
 	private int first = 0, last = 0;
-	private boolean bounce;
 	private int framestep = 1;
+	
+	private boolean bounce;
 
-	private int frameratemillis;
+	private int framerateMillis;
 	private long framemillis = 0, lastframemillis;
 
 	/**
-	 * @param frameratemillis
+	 * @param framerateMillis
 	 *            The frame rate in milliseconds
-	 * @param texs
+	 * @param baseTextures
 	 *            The textures, or frames.
 	 */
-	public Animation(int frameratemillis, SpriteSheet texs) {
-		this(frameratemillis, texs, 0, texs.getNumberOfSubTextures() - 1);
+	public Animation(int framerateMillis, SpriteSheet baseTextures) {
+		this(framerateMillis, baseTextures, 0, baseTextures.getNumberOfSubTextures() - 1);
 	}
 
 	/**
@@ -68,8 +69,8 @@ public class Animation implements Resource {
 	 *            the end.
 	 */
 	public Animation(int frameratemillis, SpriteSheet texs, int startframe, int endframe, boolean bounce) {
-		this.frameratemillis = frameratemillis;
-		this.texs = texs;
+		this.framerateMillis = frameratemillis;
+		this.baseTextures = texs;
 
 		frame = 0;
 
@@ -88,7 +89,7 @@ public class Animation implements Resource {
 	 * Renders the current frame at x and y.
 	 */
 	public void render(float x, float y, Graphics g) {
-		render(x, y, texs.getTexture(frame).getWidth(), texs.getTexture(0).getHeight(), g);
+		render(x, y, baseTextures.getTexture(frame).getWidth(), baseTextures.getTexture(0).getHeight(), g);
 	}
 
 	/**
@@ -99,7 +100,7 @@ public class Animation implements Resource {
 	}
 
 	public void render(Rectangle bounds, Graphics g) {
-		g.drawTexture(texs.getTexture(frame), bounds);
+		g.drawTexture(baseTextures.getTexture(frame), bounds);
 	}
 
 	/**
@@ -108,7 +109,7 @@ public class Animation implements Resource {
 	 * @return The current frame.
 	 */
 	public SubTexture getCurrentFrame() {
-		return texs.getTexture(frame);
+		return baseTextures.getTexture(frame);
 	}
 
 	/**
@@ -120,7 +121,7 @@ public class Animation implements Resource {
 	public boolean nextFrame() {
 		framemillis = System.currentTimeMillis();
 
-		if (framemillis - lastframemillis >= frameratemillis) {
+		if (framemillis - lastframemillis >= framerateMillis) {
 
 			frame += framestep;
 
@@ -159,11 +160,11 @@ public class Animation implements Resource {
 
 	/** @return The textures for all the frames. */
 	public SpriteSheet getTextures() {
-		return texs;
+		return baseTextures;
 	}
 
 	@Override
 	public void clean() {
-		texs.clean();
+		baseTextures.clean();
 	}
 }

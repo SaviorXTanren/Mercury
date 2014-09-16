@@ -1,92 +1,66 @@
 package radirius.merc.utilities.easing;
 
-import static radirius.merc.utilities.easing.EasingUtils.BOUNCING_EASE_CIRC;
-import static radirius.merc.utilities.easing.EasingUtils.BOUNCING_EASE_CUBIC;
-import static radirius.merc.utilities.easing.EasingUtils.BOUNCING_EASE_EXPO;
-import static radirius.merc.utilities.easing.EasingUtils.BOUNCING_EASE_QUAD;
-import static radirius.merc.utilities.easing.EasingUtils.BOUNCING_EASE_QUINT;
-import static radirius.merc.utilities.easing.EasingUtils.BOUNCING_EASE_SINE;
-import static radirius.merc.utilities.easing.EasingUtils.BOUNCING_LINEAR_TWEEN;
-import static radirius.merc.utilities.easing.EasingUtils.EASE_CIRC;
-import static radirius.merc.utilities.easing.EasingUtils.EASE_CUBIC;
-import static radirius.merc.utilities.easing.EasingUtils.EASE_EXPO;
-import static radirius.merc.utilities.easing.EasingUtils.EASE_QUAD;
-import static radirius.merc.utilities.easing.EasingUtils.EASE_QUINT;
-import static radirius.merc.utilities.easing.EasingUtils.EASE_SINE;
-import static radirius.merc.utilities.easing.EasingUtils.LINEAR_TWEEN;
-import static radirius.merc.utilities.easing.EasingUtils.bouncingEaseCirc;
-import static radirius.merc.utilities.easing.EasingUtils.bouncingEaseCubic;
-import static radirius.merc.utilities.easing.EasingUtils.bouncingEaseExpo;
-import static radirius.merc.utilities.easing.EasingUtils.bouncingEaseQuad;
-import static radirius.merc.utilities.easing.EasingUtils.bouncingEaseQuint;
-import static radirius.merc.utilities.easing.EasingUtils.bouncingEaseSine;
-import static radirius.merc.utilities.easing.EasingUtils.bouncingLinearTween;
-import static radirius.merc.utilities.easing.EasingUtils.easeCirc;
-import static radirius.merc.utilities.easing.EasingUtils.easeCubic;
-import static radirius.merc.utilities.easing.EasingUtils.easeExpo;
-import static radirius.merc.utilities.easing.EasingUtils.easeQuad;
-import static radirius.merc.utilities.easing.EasingUtils.easeQuint;
-import static radirius.merc.utilities.easing.EasingUtils.easeSine;
-import static radirius.merc.utilities.easing.EasingUtils.linearTween;
+import static radirius.merc.utilities.easing.EasingUtils.*;
 
 /**
- * An object that makes easing easier.
+ * An object that makes easing easier. (No Pun Intended).
  * 
- * @author wessles
+ * @author wessles, Jeviny
  */
 
 public class EasingValue {
-	public int type;
+	public int easeType;
+	public float startVal, endVal, easeValue;
+	public long startMillis, durationMillis;
 
-	public float start, end, value;
-	public long start_millis, duration_millis;
-
-	public EasingValue(int type, float start, float end, long duration_millis) {
-		this(type, System.currentTimeMillis(), start, end, duration_millis);
+	public EasingValue(int easeType, float startVal, float endVal, long durationMillis) {
+		this(easeType, System.currentTimeMillis(), startVal, endVal, durationMillis);
 	}
 
-	public EasingValue(int type, long start_millis, float start, float end, long duration_millis) {
-		this.type = type;
-		this.start_millis = start_millis;
-		this.start = start;
-		this.end = end;
-		value = start;
-		this.duration_millis = duration_millis;
+	public EasingValue(int easeType, long startMillis, float startVal, float endVal, long durationMillis) {
+		this.easeType = easeType;
+		this.startMillis = startMillis;
+		this.startVal = startVal;
+		this.endVal	= endVal;
+		this.easeValue = startVal;
+		this.durationMillis = durationMillis;
 	}
 
 	public float get() {
-		float value = 0;
-		switch (type) {
+		float easeValue = 0;
+		
+		switch (easeType) {
 			case LINEAR_TWEEN:
-				value = linearTween(System.currentTimeMillis() - start_millis, start, end, duration_millis);
+				easeValue = linearTween(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
 			case BOUNCING_LINEAR_TWEEN:
-				value = bouncingLinearTween(System.currentTimeMillis() - start_millis, start, end, duration_millis);
+				easeValue = bouncingLinearTween(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
 			case EASE_QUAD:
-				value = easeQuad(System.currentTimeMillis() - start_millis, start, end, duration_millis);
+				easeValue = easeQuad(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
 			case BOUNCING_EASE_QUAD:
-				value = bouncingEaseQuad(System.currentTimeMillis() - start_millis, start, end, duration_millis);
+				easeValue = bouncingEaseQuad(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
 			case EASE_CUBIC:
-				value = easeCubic(System.currentTimeMillis() - start_millis, start, end, duration_millis);
+				easeValue = easeCubic(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
 			case BOUNCING_EASE_CUBIC:
-				value = bouncingEaseCubic(System.currentTimeMillis() - start_millis, start, end, duration_millis);
+				easeValue = bouncingEaseCubic(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
 			case EASE_QUINT:
-				value = easeQuint(System.currentTimeMillis() - start_millis, start, end, duration_millis);
+				easeValue = easeQuint(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
 			case BOUNCING_EASE_QUINT:
-				value = bouncingEaseQuint(System.currentTimeMillis() - start_millis, start, end, duration_millis);
+				easeValue = bouncingEaseQuint(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
 			case EASE_SINE:
-				value = easeSine(System.currentTimeMillis() - start_millis, start, end, duration_millis);
+				easeValue = easeSine(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
 			case BOUNCING_EASE_SINE:
-				value = bouncingEaseSine(System.currentTimeMillis() - start_millis, start, end, duration_millis);
+				easeValue = bouncingEaseSine(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
 			case EASE_EXPO:
-				value = easeExpo(System.currentTimeMillis() - start_millis, start, end, duration_millis);
+				easeValue = easeExpo(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
 			case BOUNCING_EASE_EXPO:
-				value = bouncingEaseExpo(System.currentTimeMillis() - start_millis, start, end, duration_millis);
-			case EASE_CIRC:
-				value = easeCirc(System.currentTimeMillis() - start_millis, start, end, duration_millis);
-			case BOUNCING_EASE_CIRC:
-				value = bouncingEaseCirc(System.currentTimeMillis() - start_millis, start, end, duration_millis);
+				easeValue = bouncingEaseExpo(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
+			case EASE_CIRCLE:
+				easeValue = easeCircle(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
+			case BOUNCING_EASE_CIRCLE:
+				easeValue = bouncingEaseCircle(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
 		}
-		return value;
+		
+		return easeValue;
 	}
 
 	public void reset() {
@@ -94,6 +68,6 @@ public class EasingValue {
 	}
 
 	public void reset(int point) {
-		start_millis = System.currentTimeMillis() - point;
+		startMillis = System.currentTimeMillis() - point;
 	}
 }

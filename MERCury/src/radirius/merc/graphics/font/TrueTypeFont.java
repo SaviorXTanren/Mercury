@@ -15,27 +15,27 @@ import radirius.merc.resource.Loader;
 import radirius.merc.utilities.logging.Logger;
 
 /**
- * A font type for .TTF's
+ * A font type for .TTF's and .OTF's.
  * 
- * @author wessles, Kristoffer
+ * @author wessles, Jeviny
  */
 
 public class TrueTypeFont implements radirius.merc.graphics.font.Font {
 	public static int STANDARD_CHARACTERS = 256;
 
-	/** A default opensans bold font! */
+	/** The default Open Sans Bold font. */
 	public static TrueTypeFont OPENSANS_BOLD;
-	/** A default opensans regular font! */
+	/** The default Open Sans Regular font. */
 	public static TrueTypeFont OPENSANS_REGULAR;
-	/** A default opensans light font! */
+	/** The default Open Sans Light font. */
 	public static TrueTypeFont OPENSANS_LIGHT;
-	/** A default opensans almost-bold font! */
+	/** The default Open Sans Semi-bold font. */
 	public static TrueTypeFont OPENSANS_SEMIBOLD;
 
 	static {
 		try {
-			OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("radirius/merc/graphics/font/OpenSans-Semibold.ttf"), 22f, 1, true);
-			OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("radirius/merc/graphics/font/OpenSans-Semibold.ttf"), 22f, 1, true);
+			OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("radirius/merc/graphics/font/OpenSans-Bold.ttf"), 22f, 1, true);
+			OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("radirius/merc/graphics/font/OpenSans-Regular.ttf"), 22f, 1, true);
 			OPENSANS_SEMIBOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("radirius/merc/graphics/font/OpenSans-Semibold.ttf"), 22f, 1, true);
 			OPENSANS_LIGHT = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("radirius/merc/graphics/font/OpenSans-Light.ttf"), 22f, 1, true);
 		} catch (IOException e) {
@@ -73,7 +73,9 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
 
 	private TrueTypeFont(java.awt.Font font, boolean antialias) {
 		this.font = font;
+		
 		font_size = font.getSize();
+		
 		this.antialias = antialias;
 
 		createSet();
@@ -82,7 +84,9 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
 	private void createSet() {
 		for (int i = 0; i < STANDARD_CHARACTERS; i++) {
 			char ch = (char) i;
+			
 			BufferedImage fontimg = getFontImage(ch);
+			
 			texw += fontimg.getWidth();
 			texh = Math.max(fontimg.getHeight(), texh);
 		}
@@ -95,7 +99,7 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
 		Graphics2D g = (Graphics2D) imgTemp.getGraphics();
 
 		// Set the color to transparent
-		g.setColor(new java.awt.Color(255, 255, 255, 1));
+		g.setColor(new java.awt.Color(255, 255, 255, 0));
 		g.fillRect(0, 0, texw, texh);
 
 		// Initialize temporary variables.
@@ -140,8 +144,10 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
 		for (int x = 0; x < imgTemp.getWidth(); x++)
 			for (int y = 0; y < imgTemp.getHeight(); y++) {
 				int rgba = imgTemp.getRGB(x, y);
+				
 				Color col = new Color(rgba, true);
 				col = new Color(255 - col.getRed(), 255 - col.getGreen(), 255 - col.getBlue(), col.getAlpha());
+				
 				imgTemp.setRGB(x, y, col.getRGB());
 			}
 
@@ -184,27 +190,31 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
 
 		gt.setFont(font);
 
-		// Set the text color to white, set x and y, and return to font
-		// image!
-		gt.setColor(java.awt.Color.WHITE);
+		// Set the text color to white, set x and y, and return to font image.
+		g.setColor(Color.WHITE);
 		gt.drawString(String.valueOf(ch), 0, fmetrics.getAscent());
 
 		return fontImage;
 	}
 
 	@Override
-	public float getWidth(String what) {
+	public float getWidth(String message) {
 		float totalwidth = 0;
+		
 		IntObject intObject = null;
+		
 		int currentChar = 0;
-		for (char element : what.toCharArray()) {
+		
+		for (char element : message.toCharArray()) {
 			currentChar = element;
+			
 			if (currentChar < STANDARD_CHARACTERS)
 				intObject = chars[currentChar];
 
 			if (intObject != null)
 				totalwidth += intObject.w;
 		}
+		
 		return totalwidth;
 	}
 
@@ -266,7 +276,7 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
 	 * @param style
 	 *            The style of the font.
 	 * @param antialias
-	 *            Shall we antialias?
+	 *            Whether or not the text is anti-aliased.
 	 */
 	public static TrueTypeFont loadTrueTypeFont(InputStream is, float size, int style, boolean antialias) throws FileNotFoundException, FontFormatException, IOException {
 		java.awt.Font font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, is);
@@ -282,7 +292,7 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
 	 * @param font
 	 *            The base awt font.
 	 * @param antialias
-	 *            Shall we antialias?
+	 *            Whether or not the text is anti-aliased.
 	 */
 
 	public static TrueTypeFont loadTrueTypeFont(java.awt.Font font, boolean antialias) {

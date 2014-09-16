@@ -1,8 +1,9 @@
 package radirius.merc.graphics.particles;
 
-import radirius.merc.environment.Entity;
+import radirius.merc.environment.Renderable;
+import radirius.merc.environment.Updatable;
 import radirius.merc.graphics.Graphics;
-import radirius.merc.math.MERCMath;
+import radirius.merc.math.MathUtil;
 import radirius.merc.math.geometry.Rectangle;
 import radirius.merc.math.geometry.Vec2;
 import radirius.merc.utilities.Wipeable;
@@ -13,22 +14,22 @@ import radirius.merc.utilities.Wipeable;
  * @author wessles
  */
 
-public class Particle implements Entity, Wipeable {
-	// Size of the particle
+public class Particle implements Updatable, Renderable, Wipeable {
+	/** Size of the particle. */
 	private float size;
-
-	// Position of the particle
+	
+	/** Position of the particle. */
 	private Vec2 pos;
-	// Bounds of the particle
+	/** Bounds of the particle. */
 	private Rectangle bounds;
-	// The rotation of the particle
+	/** The rotation of the particle. */
 	private float rot;
-	// The rotational velocity of the particle
+	/** The rotational velocity of the particle. */
 	private float rotdirection;
-	// The velocity of the particle
+	/** The velocity of the particle. */
 	private Vec2 vel;
 
-	// The amount of frames that the particle has experienced
+	/** The amount of frames that the particle has experienced. */
 	private int life;
 
 	// The parent particle system
@@ -39,7 +40,7 @@ public class Particle implements Entity, Wipeable {
 
 		pos = new Vec2(x, y);
 		vel = new Vec2(angle);
-		rotdirection = MERCMath.nextBoolean() ? 1 : -1;
+		rotdirection = MathUtil.nextBoolean() ? 1 : -1;
 		vel.scale(emitter.getOptions().speed);
 
 		bounds = new Rectangle(pos.x, pos.y, size);

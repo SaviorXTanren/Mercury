@@ -35,6 +35,7 @@ Primary Code To-Do List:
 
 - [+] Open-Sans TypeFace
 - [+] Draw an image specifying X, Y, W, and H values.
+  // Done with perfection by Jeviny
 - [+] Remove try and catch from most places
   // Done reluctantly by wessles
 - [+] Post-Processing support using VBOs
@@ -67,8 +68,8 @@ Primary Code To-Do List:
       [-] Splash Screens   ]
       [-] Easing Utility ^ ]
       // Probably More To come
-- [-] Change "drawString(x, y, msg)" to "drawString(msg, x, y)"
-      
+- [+] Change "drawString(x, y, msg)" to "drawString(msg, x, y)"
+- [-] Updated Default Splash Screen. Due to name changes. 
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
 

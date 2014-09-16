@@ -3,64 +3,63 @@ package radirius.merc.graphics;
 import radirius.merc.resource.Resource;
 
 /**
- * @author opiop65 (base code), wessles (modifications)
+ * @author wessles, opiop65, Jeviny
  */
 
 public class SpriteSheet implements Resource {
-	private Texture basetex;
-	private SubTexture[] subtexs;
+	private Texture baseTexture;
+	private SubTexture[] subTextures;
 
-	private SpriteSheet(Texture basetex, SubTexture... subtexs) {
-		this.basetex = basetex;
-		this.subtexs = subtexs;
+	private SpriteSheet(Texture baseTexture, SubTexture... subTextures) {
+		this.baseTexture = baseTexture;
+		this.subTextures = subTextures;
 	}
 
 	/** @return The number of subtextures. */
 	public int getNumberOfSubTextures() {
-		return subtexs.length;
+		return subTextures.length;
 	}
 
 	/**
 	 * @return The texture corresponding to the texnum.
 	 */
-	public SubTexture getTexture(int texnum) {
-		return subtexs[texnum];
+	public SubTexture getTexture(int numTextures) {
+		return subTextures[numTextures];
 	}
 
 	/** @return The base texture for all SubTextures. */
 	public Texture getBaseTexture() {
-		return basetex;
+		return baseTexture;
 	}
 
 	/**
-	 * Slices the Texture tex up, cutting vertically every divwidth length.
+	 * Slices the Texture tex up, cutting vertically every divWidth length.
 	 */
-	public static SpriteSheet loadSpriteSheet(Texture tex, int divwidth) {
-		return loadSpriteSheet(tex, divwidth, tex.getHeight());
+	public static SpriteSheet loadSpriteSheet(Texture tex, int divWidth) {
+		return loadSpriteSheet(tex, divWidth, tex.getHeight());
 	}
 
 	/**
 	 * Slices the Texture tex up, cutting vertically every divwidth length, and
-	 * cutting horizontally every divheight length. The subtextures are counted
+	 * cutting horizontally every divHeight length. The subtextures are counted
 	 * reading left to right.
 	 */
-	public static SpriteSheet loadSpriteSheet(Texture texture, int divwidth, int divheight) {
-		SubTexture tex = (SubTexture) texture;
+	public static SpriteSheet loadSpriteSheet(Texture texture, int divWidth, int divHeight) {
+		SubTexture texture0 = (SubTexture) texture;
 
-		if (tex.getWidth() % divwidth != 0)
+		if (texture0.getWidth() % divWidth != 0)
 			throw new ArithmeticException("The width of the Texture must be divisible by the division width!");
 
-		// Number of subtextures that can fit on the x and y axis
-		int numx = tex.getWidth() / divwidth;
-		int numy = tex.getHeight() / divheight;
-		// The subtextures!
+		int numx = texture0.getWidth() / divWidth;
+		int numy = texture0.getHeight() / divHeight;
+		
 		SubTexture[] subtexs = new SubTexture[numx * numy];
 
 		for (int y = 0; y < numy; y++)
 			for (int x = 0; x < numx; x++)
-				subtexs[x + y * numx] = new SubTexture(texture, x * divwidth, y * divheight, (x + 1) * divwidth, (y + 1) * divheight);
+				subtexs[x + y * numx] = new SubTexture(texture, x * divWidth, y * divHeight, (x + 1) * divWidth, (y + 1) * divHeight);
 
-		return new SpriteSheet(tex, subtexs);
+		return new SpriteSheet(texture0, subtexs);
 	}
 
 	/** @return A spritesheet based off of Texture tex, with SubTextures subtexs. */
@@ -69,7 +68,5 @@ public class SpriteSheet implements Resource {
 	}
 
 	@Override
-	public void clean() {
-
-	}
+	public void clean() {}
 }

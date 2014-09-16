@@ -56,7 +56,7 @@ public class CommandThread implements Runnable {
 
 			// We know we can only have 1 '.?' in the commands
 			if (_line.lastIndexOf(".?") != _line.indexOf(".?")) {
-				Logger.consoleproblem("Can only reference 1 manual! Please type '?' for syntax help.");
+				Logger.consoleProblem("Can only reference 1 manual! Please type '?' for syntax help.");
 				continue runloop;
 			}
 
@@ -149,7 +149,7 @@ public class CommandThread implements Runnable {
 								var = "";
 
 								if (vars.size() < 2)
-									Logger.consoleproblem("Must have at least 2 parameters for a Variable argument. Please type '?' for help.");
+									Logger.consoleProblem("Must have at least 2 parameters for a Variable argument. Please type '?' for help.");
 
 								// We have reached the end! Time to inject!
 								// *cracks knuckles*
@@ -165,14 +165,14 @@ public class CommandThread implements Runnable {
 
 								CommandList cmdl = CommandList.commandlists.get(varcommandlist);
 								if (cmdl == null) {
-									Logger.consoleproblem("Could not find Command List '" + varcommandlist + "' supposed by Variable search. Please type '?' for syntax help.");
+									Logger.consoleProblem("Could not find Command List '" + varcommandlist + "' supposed by Variable search. Please type '?' for syntax help.");
 									invar = false;
 									continue;
 								}
 
 								Variable varval = cmdl.variables.get(varname);
 								if (varval == null) {
-									Logger.consoleproblem("Could not find Variable '" + varname + "' in Command List '" + varcommandlist + ".' Please type '?' for syntax help.");
+									Logger.consoleProblem("Could not find Variable '" + varname + "' in Command List '" + varcommandlist + ".' Please type '?' for syntax help.");
 									invar = false;
 									continue;
 								}
@@ -243,7 +243,7 @@ public class CommandThread implements Runnable {
 
 			if (commandlist.equals("?")) {
 				if (line.length > 1) {
-					Logger.consoleproblem("Stray '?' in command. Please type '?' for syntax help.");
+					Logger.consoleProblem("Stray '?' in command. Please type '?' for syntax help.");
 
 					continue runloop;
 				}
@@ -272,7 +272,7 @@ public class CommandThread implements Runnable {
 			// Find commandlists and commands
 			CommandList cmdl = CommandList.commandlists.get(commandlist.toLowerCase());
 			if (cmdl == null) {
-				Logger.consoleproblem("Could not find supposed CommandList '" + commandlist.toLowerCase() + ".' Please type '?' for syntax help.");
+				Logger.consoleProblem("Could not find supposed CommandList '" + commandlist.toLowerCase() + ".' Please type '?' for syntax help.");
 
 				continue runloop;
 			}
@@ -282,7 +282,7 @@ public class CommandThread implements Runnable {
 				Variable var = cmdl.variables.get(command.toLowerCase());
 
 				if (var == null && !list_manual) {
-					Logger.consoleproblem("Could not find supposed Command '" + command.toLowerCase() + "' in Command List '" + commandlist.toLowerCase() + "' Please type '?' for syntax help.");
+					Logger.consoleProblem("Could not find supposed Command '" + command.toLowerCase() + "' in Command List '" + commandlist.toLowerCase() + "' Please type '?' for syntax help.");
 
 					continue runloop;
 				}

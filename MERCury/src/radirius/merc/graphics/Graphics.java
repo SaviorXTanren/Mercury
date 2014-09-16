@@ -63,6 +63,12 @@ public interface Graphics {
 	/** Sets the color. */
 	public void setColor(Color color);
 
+	/** Sets the color based on RGBA values. */
+	public void setColor(float r, float g, float b, float a);
+	
+	/** Sets the color based on RGB values. */
+	public void setColor(float r, float g, float b);
+	
 	/** @return The last set color. */
 	public Color getColor();
 
@@ -131,7 +137,19 @@ public interface Graphics {
 
 	/** Traces a polygon. */
 	public void tracePolygon(Polygon... polygon);
+	
+	/** Draws a rectangle from given rectangle boundaries. */
+	public void drawRectangle(Rectangle... rectangle);
 
+	/** Draws a rectangle from given coordinates. */
+	public void drawRectangle(float x, float y, float w, float h);
+	
+	/** Traces a rectangle from given rectangle boundaries. */
+	public void traceRectangle(Rectangle... rectangle);
+	
+	/** Traces a rectangle from given coordinates. */
+	public void traceRectangle(float x, float y, float w, float h);
+	
 	/** Draws a line from x1, y1 to x2, y2. */
 	public void drawLine(float x1, float y1, float x2, float y2);
 

@@ -2,7 +2,7 @@ package radirius.merc.utilities.command;
 
 import java.util.HashMap;
 
-import radirius.merc.exceptions.MERCuryException;
+import radirius.merc.exceptions.MercuryException;
 import radirius.merc.framework.Runner;
 import radirius.merc.utilities.logging.Logger;
 
@@ -30,8 +30,8 @@ public class CommandList {
 	public static void addCommandList(CommandList cmdl) {
 		if (commandlists.containsKey(cmdl.name))
 			try {
-				throw new MERCuryException("A Command List already exists with the name '" + cmdl.name + "!' Command List adding failed.");
-			} catch (MERCuryException e) {
+				throw new MercuryException("A Command List already exists with the name '" + cmdl.name + "!' Command List adding failed.");
+			} catch (MercuryException e) {
 				e.printStackTrace();
 			}
 		commandlists.put(cmdl.name, cmdl);
@@ -77,8 +77,8 @@ public class CommandList {
 	public void addCommand(Command cmd) {
 		if (commands.containsKey(cmd.name))
 			try {
-				throw new MERCuryException("A duplicate Command '" + cmd.name + "' has been attempted. Duplicate rejected.");
-			} catch (MERCuryException e) {
+				throw new MercuryException("A duplicate Command '" + cmd.name + "' has been attempted. Duplicate rejected.");
+			} catch (MercuryException e) {
 				e.printStackTrace();
 			}
 		commands.put(cmd.name, cmd);
@@ -94,15 +94,15 @@ public class CommandList {
 	public void addVariable(Variable v) {
 		if (variables.containsKey(v.name))
 			try {
-				throw new MERCuryException("A duplicate Variable '" + v.name + "' has been attempted. Duplicate rejected.");
-			} catch (MERCuryException e) {
+				throw new MercuryException("A duplicate Variable '" + v.name + "' has been attempted. Duplicate rejected.");
+			} catch (MercuryException e) {
 				e.printStackTrace();
 			}
 
 		if (commands.containsKey(v.name))
 			try {
-				throw new MERCuryException("A Variable '" + v.name + "' cannot share the same name as the Command! Duplicate rejected.");
-			} catch (MERCuryException e) {
+				throw new MercuryException("A Variable '" + v.name + "' cannot share the same name as the Command! Duplicate rejected.");
+			} catch (MercuryException e) {
 				e.printStackTrace();
 			}
 
@@ -126,21 +126,21 @@ public class CommandList {
 			cmdlmerc.addCommand(new Command("setFpsTarget", "merc setFpsTarget [Fps Target]\nTargets for, or caps the framerate at a given height.") {
 				@Override
 				public void run(String... args) {
-					Runner.getInstance().setFpsTarget(Integer.parseInt(args[0]));
+					Runner.getInstance().setFPSTarget(Integer.parseInt(args[0]));
 					Logger.console("Framerate targeted for " + Integer.parseInt(args[0]));
 				}
 			});
 			cmdlmerc.addCommand(new Command("setMouseGrab", "merc setMouseGrab [True/False]\nLocks or releases the mouse from the window.") {
 				@Override
 				public void run(String... args) {
-					Runner.getInstance().setMouseGrab(Boolean.valueOf(args[0]));
+					Runner.getInstance().enableMouseGrab(Boolean.valueOf(args[0]));
 					Logger.console("Mouse " + (Boolean.valueOf(args[0]) ? "grabbed" : "released") + ".");
 				}
 			});
 			cmdlmerc.addCommand(new Command("setVsync", "Sets whether or not there is Vertical Sync.") {
 				@Override
 				public void run(String... args) {
-					Runner.getInstance().setVsync(Boolean.valueOf(args[0]));
+					Runner.getInstance().enableVsync(Boolean.valueOf(args[0]));
 					Logger.console("Vsync set to " + args[0]);
 				}
 			});
@@ -161,14 +161,14 @@ public class CommandList {
 			cmdlmerc.addCommand(new Command("setUpdateFreeze", "Sets the freezing of the update.") {
 				@Override
 				public void run(String... args) {
-					Runner.getInstance().setUpdateFreeze(Boolean.valueOf(args[0]));
+					Runner.getInstance().enableUpdating(Boolean.valueOf(args[0]));
 					Logger.console("Set update freeze to " + Boolean.valueOf(args[0]));
 				}
 			});
 			cmdlmerc.addCommand(new Command("setRenderFreeze", "Sets the freezing of the render.") {
 				@Override
 				public void run(String... args) {
-					Runner.getInstance().setRenderFreeze(Boolean.valueOf(args[0]));
+					Runner.getInstance().enableRendering(Boolean.valueOf(args[0]));
 					Logger.console("Set render freeze to " + Boolean.valueOf(args[0]));
 				}
 			});

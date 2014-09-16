@@ -14,8 +14,8 @@ import radirius.merc.math.geometry.Vec2;
  */
 public class Camera {
 	/** The position on its respective axis */
-	float x;
-	float y;
+	float x, y;
+	
 	/** The point on the screen that anchors the camera to the world. */
 	private Vec2 origin = new Vec2(0, 0);
 
@@ -137,6 +137,6 @@ public class Camera {
 
 	/** Returns an in-game rectangle that represents where the camera lies. */
 	public Rectangle getBounds() {
-		return new Rectangle(getPositionX(), getPositionY(), getWidth(), getHeight());
+		return new Rectangle(getPositionX() - origin.x / Runner.getInstance().getGraphics().getScaleDimensions().x, getPositionY() - origin.y / Runner.getInstance().getGraphics().getScaleDimensions().y, getWidth(), getHeight());
 	}
 }

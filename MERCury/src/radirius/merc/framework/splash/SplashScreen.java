@@ -18,39 +18,41 @@ import radirius.merc.utilities.easing.EasingValue;
  */
 
 public class SplashScreen {
+	static Runner runner = Runner.getInstance();
+	
 	public boolean showing = false;
-	private boolean _return_ = true;
+	private boolean returned = true;
 
-	public long showtimemillis;
-	public Texture tex;
-	private boolean fittoscreen;
+	public long showTimeMillis;
+	public Texture splashTexture;
+	private boolean fitToScreen;
 
 	/**
-	 * @param tex
+	 * @param splashTexture
 	 *            The texture of the splash screen.
-	 * @param showtimemillis
+	 * @param showTimeMillis
 	 *            The time that the splash screen is shown.
-	 * @param fittoscreen
+	 * @param fitToScreen
 	 *            Whether or not to fit the image to the screen while still
 	 *            maintaining the aspect ratio.
 	 */
-	public SplashScreen(Texture tex, long showtimemillis, boolean fittoscreen) {
-		this.showtimemillis = showtimemillis;
-		this.tex = tex;
-		this.fittoscreen = fittoscreen;
+	public SplashScreen(Texture splashTexture, long showTimeMillis, boolean fitToScreen) {
+		this.showTimeMillis = showTimeMillis;
+		this.splashTexture = splashTexture;
+		this.fitToScreen = fitToScreen;
 	}
 
 	/**
-	 * @param tex
+	 * @param splashTexture
 	 *            The texture of the splash screen.
-	 * @param showtimemillis
+	 * @param showTimeMillis
 	 *            The time that the splash screen is shown.
 	 */
-	public SplashScreen(Texture tex, long showtimemillis) {
-		this(tex, showtimemillis, false);
+	public SplashScreen(Texture splashTexture, long showTimeMillis) {
+		this(splashTexture, showTimeMillis, (splashTexture.width <= runner.getWidth() && splashTexture.height <= runner.getHeight()) ? false : true);
 	}
 
-	EasingValue easeval;
+	EasingValue easingValue;
 
 	/**
 	 * Shows the splash screen on screen, whilst checking if it is time to stop
@@ -60,47 +62,48 @@ public class SplashScreen {
 	 */
 	public boolean show(Graphics g) {
 		if (!showing) {
-			TaskTiming.addTask(new Task(showtimemillis) {
+			TaskTiming.addTask(new Task(showTimeMillis) {
 				@Override
 				public void run() {
-					_return_ = false;
+					returned = false;
 				}
 			});
 
-			easeval = new EasingValue(EasingUtils.BOUNCING_EASE_QUINT, 0, 1, showtimemillis);
+			easingValue = new EasingValue(EasingUtils.BOUNCING_EASE_QUINT, 0, 1, showTimeMillis);
 
 			showing = true;
 		}
 
 		Rectangle cam = Runner.getInstance().getCamera().getBounds();
-		float width = tex.getWidth();
-		float height = tex.getHeight();
+		
+		float width = splashTexture.getWidth();
+		float height = splashTexture.getHeight();
 
-		if (fittoscreen) {
-			// Fit to the camera
-			float scale = cam.getWidth() / tex.getWidth();
+		if (fitToScreen) {
+			float scale = cam.getWidth() / splashTexture.getWidth();
+			
 			width = cam.getWidth();
-			height = tex.getHeight() * scale;
+			height = splashTexture.getHeight() * scale;
 			scale = cam.getHeight() / height;
 			height = cam.getHeight();
+
 			width *= scale;
 		}
 
-		g.setColor(new Color(0, 0, 0, easeval.get()));
-		g.drawTexture(tex, cam.getX() + cam.getWidth() / 2 - width / 2, cam.getY() + cam.getHeight() / 2 - height / 2, width, height);
-		return _return_;
+		g.setColor(new Color(0, 0, 0, easingValue.get()));
+		g.drawTexture(splashTexture, cam.getX() + cam.getWidth() / 2 - width / 2, cam.getY() + cam.getHeight() / 2 - height / 2, width, height);
+		
+		return returned;
 	}
 
 	/**
-	 * Show some love for MERCury and give some credit!
+	 * Show some love for Mercury by using a shiny Mercury splash screen!
 	 * 
-	 * @return The love of all developers from MERCury, unless you are a child
-	 *         murderer. Even if you code you can't get anybody's love. Sicko.
+	 * @return The love of Mercury's developers. <3
 	 */
-	public static SplashScreen getMERCuryDefault() {
-		Texture tex = null;
-		tex = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/framework/splash/splash.png"), Texture.FILTER_LINEAR);
+	public static SplashScreen getMercuryDefault() {
+		Texture texture = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/framework/splash/splash.png"), Texture.FILTER_LINEAR);
 
-		return new SplashScreen(tex, 3000);
+		return new SplashScreen(texture, 4000);
 	}
 }

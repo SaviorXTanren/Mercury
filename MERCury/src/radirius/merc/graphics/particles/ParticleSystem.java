@@ -1,10 +1,11 @@
 package radirius.merc.graphics.particles;
 
-import radirius.merc.environment.Entity;
+import radirius.merc.environment.Renderable;
+import radirius.merc.environment.Updatable;
 import radirius.merc.graphics.Color;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.graphics.Texture;
-import radirius.merc.math.MERCMath;
+import radirius.merc.math.MathUtil;
 import radirius.merc.math.geometry.Vec2;
 import radirius.merc.utilities.WipingArrayList;
 
@@ -14,7 +15,7 @@ import radirius.merc.utilities.WipingArrayList;
  * @author wessles
  */
 
-public class ParticleSystem implements Entity {
+public class ParticleSystem implements Updatable, Renderable {
 	/**
 	 * A setup for particle systems.
 	 */
@@ -88,7 +89,7 @@ public class ParticleSystem implements Entity {
 	 */
 	public void generateParticle(int amount, Vec2 point) {
 		for (int p = 0; p < amount; p++) {
-			float angle = (float) MERCMath.random(pesetup.validangle.x, pesetup.validangle.y);
+			float angle = (float) MathUtil.random(pesetup.validangle.x, pesetup.validangle.y);
 			generateParticle(1, point, angle);
 		}
 	}

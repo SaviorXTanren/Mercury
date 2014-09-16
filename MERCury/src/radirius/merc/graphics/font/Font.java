@@ -36,18 +36,18 @@ public interface Font extends Resource {
 	/**
 	 * @return The width of a given string in I, the font.
 	 */
-	public float getWidth(String what);
+	public float getWidth(String message);
 
 	/**
 	 * @return The maximum width that a given string of length len could be.
 	 */
-	public float getMaxWidth(int len);
+	public float getMaxWidth(int length);
 
 	/**
 	 * @return The average width of all number/letter characters, multiplied by
 	 *         len.
 	 */
-	public float getAverageWidth(int len);
+	public float getAverageWidth(int length);
 
 	/**
 	 * @return The overall texture used for rendering the font.

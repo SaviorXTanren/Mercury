@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL11;
 import radirius.merc.framework.Runner;
 import radirius.merc.graphics.font.Font;
 import radirius.merc.graphics.font.TrueTypeFont;
-import radirius.merc.math.MERCMath;
+import radirius.merc.math.MathUtil;
 import radirius.merc.math.geometry.Line;
 import radirius.merc.math.geometry.Point;
 import radirius.merc.math.geometry.Polygon;
@@ -25,26 +25,26 @@ public class VAOGraphics implements Graphics {
 	private VAOBatcher batcher;
 
 	private Vec2 scale;
-	private Font current_font;
-	private Color background_color;
-	private Color current_color;
+	private Font currentfont;
+	private Color backgroundcolor;
+	private Color currentcolor;
 
 	@Override
 	public void init() {
 		batcher = new VAOBatcher();
 		scale = new Vec2(1, 1);
 
-		current_font = TrueTypeFont.OPENSANS_REGULAR;
+		currentfont = TrueTypeFont.OPENSANS_REGULAR;
 
-		background_color = Color.DEFAULT_BACKGROUND;
-		current_color = Color.DEFAULT_DRAWING;
+		backgroundcolor = Color.DEFAULT_BACKGROUND;
+		currentcolor = Color.DEFAULT_DRAWING;
 	}
 
 	@Override
 	public void pre() {
 		batcher.begin();
 
-		GL11.glClearColor(background_color.r, background_color.g, background_color.b, background_color.a);
+		GL11.glClearColor(backgroundcolor.r, backgroundcolor.g, backgroundcolor.b, backgroundcolor.a);
 	}
 
 	@Override
@@ -97,34 +97,44 @@ public class VAOGraphics implements Graphics {
 
 	@Override
 	public void setFont(Font font) {
-		current_font = font;
+		currentfont = font;
 	}
 
 	@Override
 	public Font getFont() {
-		return current_font;
+		return currentfont;
 	}
-
+	
 	@Override
 	public void setBackground(Color color) {
-		background_color = color;
+		backgroundcolor = color;
 	}
 
 	@Override
 	public Color getBackground() {
-		return background_color;
+		return backgroundcolor;
 	}
 
 	@Override
 	public void setColor(Color color) {
-		current_color = color;
+		currentcolor = color;
 
-		batcher.setColor(current_color);
+		batcher.setColor(currentcolor);
 	}
 
 	@Override
+	public void setColor(float r, float g, float b, float a) {
+		setColor(new Color(r, g, b, a));
+	}
+	
+	@Override
+	public void setColor(float r, float g, float b) {
+		setColor(r, g, b, 255);
+	}
+	
+	@Override
 	public Color getColor() {
-		return current_color;
+		return currentcolor;
 	}
 
 	@Override
@@ -157,44 +167,47 @@ public class VAOGraphics implements Graphics {
 	}
 
 	@Override
-	public void drawString(String msg, float x, float y) {
-		drawString(msg, current_font, x, y);
+	public void drawString(String message, float x, float y) {
+		drawString(message, currentfont, x, y);
 	}
 
 	@Override
-	public void drawString(String msg, Font font, float x, float y) {
-		drawString(msg, 1, font, x, y);
+	public void drawString(String message, Font font, float x, float y) {
+		drawString(message, 1, font, x, y);
 	}
 
 	@Override
-	public void drawString(String msg, float scale, float x, float y) {
-		drawString(msg, scale, current_font, x, y);
+	public void drawString(String message, float scale, float x, float y) {
+		drawString(message, scale, currentfont, x, y);
 	}
 
 	@Override
-	public void drawString(String msg, float scale, Font font, float x, float y) {
+	public void drawString(String message, float scale, Font font, float x, float y) {
 		if (font instanceof TrueTypeFont) {
 			TrueTypeFont jf = (TrueTypeFont) font;
 
-			float current_x = 0;
+			float currentx = 0;
 
-			boolean default_color = current_color == Color.DEFAULT_DRAWING;
+			boolean defaultcolor = currentcolor == Color.DEFAULT_DRAWING;
 
-			if (default_color)
+			if (defaultcolor)
 				setColor(Color.DEFAULT_TEXT_COLOR);
 
-			for (int ci = 0; ci < msg.toCharArray().length; ci++) {
-				if (msg.toCharArray()[ci] == '\n') {
+			for (int ci = 0; ci < message.toCharArray().length; ci++) {
+				if (message.toCharArray()[ci] == '\n') {
 					y += jf.getHeight() * scale;
-					current_x = 0;
+					
+					currentx = 0;
 				}
 
-				TrueTypeFont.IntObject intobj = jf.chars[msg.toCharArray()[ci]];
-				batcher.drawTexture(font.getFontTexture(), new Rectangle(intobj.x, intobj.y, intobj.w, intobj.h), new Rectangle(x + current_x, y, intobj.w * scale, intobj.h * scale));
-				current_x += intobj.w * scale;
+				TrueTypeFont.IntObject intobj = jf.chars[message.toCharArray()[ci]];
+				
+				batcher.drawTexture(font.getFontTexture(), new Rectangle(intobj.x, intobj.y, intobj.w, intobj.h), new Rectangle(x + currentx, y, intobj.w * scale, intobj.h * scale));
+				
+				currentx += intobj.w * scale;
 			}
 
-			if (default_color)
+			if (defaultcolor)
 				setColor(Color.DEFAULT_DRAWING);
 		}
 	}
@@ -241,7 +254,7 @@ public class VAOGraphics implements Graphics {
 
 	@Override
 	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region) {
-		boolean default_color = current_color == Color.DEFAULT_DRAWING;
+		boolean default_color = currentcolor == Color.DEFAULT_DRAWING;
 
 		if (default_color)
 			setColor(Color.DEFAULT_TEXTURE_COLOR);
@@ -285,10 +298,10 @@ public class VAOGraphics implements Graphics {
 
 		float w = batcher.getTexture().getWidth(), h = batcher.getTexture().getHeight();
 
-		for (Polygon _polygon : polygon) {
-			Vec2[] vs = _polygon.getVertices();
+		for (Polygon poly : polygon) {
+			Vec2[] vs = poly.getVertices();
 
-			if (_polygon instanceof Triangle) {
+			if (poly instanceof Triangle) {
 				batcher.flushIfOverflow(3);
 
 				batcher.vertex(vs[0].x, vs[0].y, 0, 0);
@@ -296,8 +309,8 @@ public class VAOGraphics implements Graphics {
 				batcher.vertex(vs[2].x, vs[2].y, 0, 0);
 
 				continue;
-			} else if (_polygon instanceof Rectangle) {
-				drawFunctionlessRect((Rectangle) _polygon);
+			} else if (poly instanceof Rectangle) {
+				drawFunctionlessRect((Rectangle) poly);
 
 				continue;
 			}
@@ -308,7 +321,7 @@ public class VAOGraphics implements Graphics {
 			batcher.flushIfOverflow(3 * vs.length);
 
 			for (int c = 0; c < vs.length; c++) {
-				batcher.vertex(_polygon.getCenter().x, _polygon.getCenter().y, _polygon.getCenter().x / w, _polygon.getCenter().y / h);
+				batcher.vertex(poly.getCenter().x, poly.getCenter().y, poly.getCenter().x / w, poly.getCenter().y / h);
 
 				if (c >= vs.length - 1)
 					batcher.vertex(vs[0].x, vs[0].y, vs[0].x / w, vs[0].y / h);
@@ -326,10 +339,11 @@ public class VAOGraphics implements Graphics {
 	@Override
 	public void tracePolygon(Polygon... polygon) {
 		batcher.clearTextures();
-		for (Polygon _polygon : polygon) {
-			batcher.flushIfOverflow(_polygon.getVertices().length * 6);
+		
+		for (Polygon poly : polygon) {
+			batcher.flushIfOverflow(poly.getVertices().length * 6);
 
-			Vec2[] vs = _polygon.getVertices();
+			Vec2[] vs = poly.getVertices();
 
 			for (int c = 0; c < vs.length; c++) {
 				Vec2 p1, p2;
@@ -350,6 +364,26 @@ public class VAOGraphics implements Graphics {
 	}
 
 	@Override
+	public void drawRectangle(Rectangle... rectangle) {
+		drawPolygon(rectangle);
+	}
+	
+	@Override
+	public void drawRectangle(float x, float y, float w, float h) {
+		drawRectangle(new Rectangle(x, y, w, h));
+	}
+
+	@Override
+	public void traceRectangle(Rectangle... rectangle) {
+		tracePolygon(rectangle);
+	}
+	
+	@Override
+	public void traceRectangle(float x, float y, float w, float h) {
+		traceRectangle(new Rectangle(x, y, w, h));
+	}
+	
+	@Override
 	public void drawLine(float x1, float y1, float x2, float y2) {
 		drawLine(new Vec2(x1, y1), new Vec2(x2, y2));
 	}
@@ -366,12 +400,12 @@ public class VAOGraphics implements Graphics {
 	private void drawFunctionlessLine(Line l) {
 		float dx = l.getVertices()[0].x - l.getVertices()[1].x;
 		float dy = l.getVertices()[0].y - l.getVertices()[1].y;
-		float angle = MERCMath.atan2(dx, dy) - 90;
+		float angle = MathUtil.atan2(dx, dy) - 90;
 
-		Vec2 p1 = new Vec2(l.getVertices()[0].x - MERCMath.cos(angle) * linewidth / 2, l.getVertices()[0].y - MERCMath.sin(angle) * linewidth / 2);
-		Vec2 p2 = new Vec2(l.getVertices()[0].x + MERCMath.cos(angle) * linewidth / 2, l.getVertices()[0].y + MERCMath.sin(angle) * linewidth / 2);
-		Vec2 p3 = new Vec2(l.getVertices()[1].x + MERCMath.cos(angle) * linewidth / 2, l.getVertices()[1].y + MERCMath.sin(angle) * linewidth / 2);
-		Vec2 p4 = new Vec2(l.getVertices()[1].x - MERCMath.cos(angle) * linewidth / 2, l.getVertices()[1].y - MERCMath.sin(angle) * linewidth / 2);
+		Vec2 p1 = new Vec2(l.getVertices()[0].x - MathUtil.cos(angle) * linewidth / 2, l.getVertices()[0].y - MathUtil.sin(angle) * linewidth / 2);
+		Vec2 p2 = new Vec2(l.getVertices()[0].x + MathUtil.cos(angle) * linewidth / 2, l.getVertices()[0].y + MathUtil.sin(angle) * linewidth / 2);
+		Vec2 p3 = new Vec2(l.getVertices()[1].x + MathUtil.cos(angle) * linewidth / 2, l.getVertices()[1].y + MathUtil.sin(angle) * linewidth / 2);
+		Vec2 p4 = new Vec2(l.getVertices()[1].x - MathUtil.cos(angle) * linewidth / 2, l.getVertices()[1].y - MathUtil.sin(angle) * linewidth / 2);
 
 		drawFunctionlessRect(new Rectangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y));
 	}
@@ -392,6 +426,7 @@ public class VAOGraphics implements Graphics {
 		for (Point _point : point) {
 			float x = _point.getX();
 			float y = _point.getY();
+			
 			drawFunctionlessRect(new Rectangle(x, y, x + 1, y, x + 1, y + 1, x, y + 1));
 		}
 	}
