@@ -7,7 +7,7 @@ Mercury puts all of its effort into keeping things short and simple. The initial
 Mercury is entirely built around the wishes of its users, so please do not hesitate to suggest and critique!
 
 ## Features
-MERCury comes packed with just enough features built in to it to ensure that the games you make with MERCury are brilliant. These features include, but aren't limited to: a particle engine, command-line debugging, hardware-accelerated OpenGL graphics, image post-processing, geometry, various audio capabilities, and a simple GUI toolkit that allows for the easy creation of graphical user interfaces. There will also be many others to come.
+Mercury comes packed with just enough features built in to it to ensure that the games you make with Mercury are brilliant. These features include, but aren't limited to: a particle engine, command-line debugging, hardware-accelerated OpenGL graphics, image post-processing, geometry, various audio capabilities, and a simple GUI toolkit that allows for the easy creation of graphical user interfaces. There will also be many others to come.
 
 ## Links
 **[Official Website & Downloads](http://merc.radiri.us/)**  
