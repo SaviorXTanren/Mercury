@@ -18,33 +18,34 @@ import radirius.merc.resource.Resource;
  * An object version of shaders. Does all of the tedious stuff for you and lets
  * you use the shader easily.
  * 
- * @author wessles, opiop65
+ * @author wessles, opiop65, Jeviny
  */
 
 public class Shader implements Resource {
 	/** The vertex shader type. */
 	public static final int VERTEX_SHADER = 0;
+	
 	/** The fragment shader type. */
 	public static final int FRAGMENT_SHADER = 1;
 
-	private final int programobject;
+	private final int programObject;
 
 	/**
-	 * @param programobject
+	 * @param programObject
 	 *            The id for the program object you wish to encapsulate.
 	 */
-	public Shader(int programobject) {
-		this.programobject = programobject;
+	public Shader(int programObject) {
+		this.programObject = programObject;
 	}
 
 	/** @return The id for the encapsulated program object. */
 	public int getProgramObject() {
-		return programobject;
+		return programObject;
 	}
 
 	/** Uses the shader (only use if you know what you are doing). */
 	public void use() {
-		ARBShaderObjects.glUseProgramObjectARB(programobject);
+		ARBShaderObjects.glUseProgramObjectARB(programObject);
 	}
 
 	/** Sets the shader to default. */
@@ -61,7 +62,7 @@ public class Shader implements Resource {
 	 *            The values you wish to pass in.
 	 */
 	public void setUniformf(String name, float... values) {
-		int location = ARBShaderObjects.glGetUniformLocationARB(programobject, name);
+		int location = ARBShaderObjects.glGetUniformLocationARB(programObject, name);
 
 		if (values.length == 1)
 			ARBShaderObjects.glUniform1fARB(location, values[0]);
@@ -82,7 +83,7 @@ public class Shader implements Resource {
 	 *            The values you wish to pass in.
 	 */
 	public void setUniformi(String name, int... values) {
-		int location = ARBShaderObjects.glGetUniformLocationARB(programobject, name);
+		int location = ARBShaderObjects.glGetUniformLocationARB(programObject, name);
 
 		if (values.length == 1)
 			ARBShaderObjects.glUniform1iARB(location, values[0]);
@@ -96,7 +97,7 @@ public class Shader implements Resource {
 
 	@Override
 	public void clean() {
-		glDeleteProgram(programobject);
+		glDeleteProgram(programObject);
 	}
 
 	/**
@@ -110,7 +111,7 @@ public class Shader implements Resource {
 	 * Set the shader to default.
 	 */
 	public static void releaseShaders() {
-		ARBShaderObjects.glUseProgramObjectARB(DEFAULT_SHADER.programobject);
+		ARBShaderObjects.glUseProgramObjectARB(DEFAULT_SHADER.programObject);
 	}
 
 	/**
@@ -126,14 +127,18 @@ public class Shader implements Resource {
 		ARBShaderObjects.glAttachObjectARB(program, frag);
 
 		ARBShaderObjects.glLinkProgramARB(program);
+		
 		if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL11.GL_FALSE) {
 			System.err.println(ARBShaderObjects.glGetInfoLogARB(program, ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB)));
+			
 			return null;
 		}
 
 		ARBShaderObjects.glValidateProgramARB(program);
+		
 		if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL11.GL_FALSE) {
 			System.err.println(ARBShaderObjects.glGetInfoLogARB(program, ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB)));
+			
 			return null;
 		}
 
@@ -141,30 +146,32 @@ public class Shader implements Resource {
 	}
 
 	/**
-	 * @param vin
+	 * @param vertexIn
 	 *            The vertex shader's file
-	 * @param fin
+	 * @param fragmentIn
 	 *            The fragment shader's file.
+	 *            
 	 * @return A shader based off of the files in vin and fin.
 	 */
-	public static Shader getShader(InputStream vin, InputStream fin) {
-		return getShader(readShader(vin), readShader(fin));
+	public static Shader getShader(InputStream vertexIn, InputStream fragmentIn) {
+		return getShader(readShader(vertexIn), readShader(fragmentIn));
 	}
 
 	/**
-	 * @param vsrc
+	 * @param vertexSource
 	 *            The source of the vertex shader.
-	 * @param fsrc
+	 * @param fragmentSource
 	 *            The source of the fragment shader.
-	 * @return A shader based off of the sources vsrc and fsrc.
+	 *            
+	 * @return A shader based off of the sources vertexSource and fragmentSource.
 	 */
-	public static Shader getShader(String vsrc, String fsrc) {
+	public static Shader getShader(String vertexSource, String fragmentSource) {
 		int vertShader = 0;
 		int fragShader = 0;
 
 		try {
-			vertShader = createVertexShader(vsrc);
-			fragShader = createFragmentShader(fsrc);
+			vertShader = createVertexShader(vertexSource);
+			fragShader = createFragmentShader(fragmentSource);
 		} catch (Exception exc) {
 			exc.printStackTrace();
 			return null;
@@ -197,36 +204,37 @@ public class Shader implements Resource {
 	}
 
 	/**
-	 * @param src
+	 * @param source
 	 *            The stream to the source file.
 	 * @param type
 	 *            The type of shader (the other half will use the MERCury
 	 *            default shader).
-	 * @return A shader based off of the stream src, of the type type.
+	 *            
+	 * @return A shader based off of the stream source, of the type type.
 	 */
-	public static Shader getShader(InputStream src, int type) {
-		return getShader(readShader(src), type);
+	public static Shader getShader(InputStream source, int type) {
+		return getShader(readShader(source), type);
 	}
 
 	/**
-	 * @param src
+	 * @param source
 	 *            The source of the shader.
 	 * @param type
-	 *            The type of shader (the other half will use the MERCury
-	 *            default shader).
-	 * @return A shader based off of the src of the type type.
+	 *            The type of shader (the other half will use the Mercury defaults).
+	 *            
+	 * @return A shader based off of the source of the type type.
 	 */
-	public static Shader getShader(String src, int type) {
+	public static Shader getShader(String source, int type) {
 		int vertShader = 0;
 		int fragShader = 0;
 
 		try {
 			if (type == Shader.FRAGMENT_SHADER) {
-				vertShader = createVertexShader(readShader(Loader.streamFromClasspath("radirius/merc/graphics/shaders/default_shader.vs")));
-				fragShader = createFragmentShader(src);
+				vertShader = createVertexShader(readShader(Loader.streamFromClasspath("radirius/merc/graphics/shaders/default_shader.vsh")));
+				fragShader = createFragmentShader(source);
 			} else if (type == Shader.VERTEX_SHADER) {
-				fragShader = createFragmentShader(readShader(Loader.streamFromClasspath("radirius/merc/graphics/shaders/default_shader.fs")));
-				vertShader = createVertexShader(src);
+				fragShader = createFragmentShader(readShader(Loader.streamFromClasspath("radirius/merc/graphics/shaders/default_shader.fsh")));
+				vertShader = createVertexShader(source);
 			}
 		} catch (Exception exc) {
 			exc.printStackTrace();
@@ -259,23 +267,24 @@ public class Shader implements Resource {
 		return new Shader(program);
 	}
 
-	private static int createVertexShader(String src) {
-		return createShader(src, ARBVertexShader.GL_VERTEX_SHADER_ARB);
+	private static int createVertexShader(String source) {
+		return createShader(source, ARBVertexShader.GL_VERTEX_SHADER_ARB);
 	}
 
-	private static int createFragmentShader(String src) {
-		return createShader(src, ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
+	private static int createFragmentShader(String source) {
+		return createShader(source, ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
 	}
 
-	private static int createShader(String shadersource, int shadertype) {
+	private static int createShader(String shaderSource, int shaderType) {
 		int shader = 0;
+		
 		try {
-			shader = ARBShaderObjects.glCreateShaderObjectARB(shadertype);
+			shader = ARBShaderObjects.glCreateShaderObjectARB(shaderType);
 
 			if (shader == 0)
 				return 0;
 
-			ARBShaderObjects.glShaderSourceARB(shader, shadersource);
+			ARBShaderObjects.glShaderSourceARB(shader, shaderSource);
 			ARBShaderObjects.glCompileShaderARB(shader);
 
 			if (ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_COMPILE_STATUS_ARB) == GL11.GL_FALSE)
@@ -284,6 +293,7 @@ public class Shader implements Resource {
 			return shader;
 		} catch (Exception exc) {
 			ARBShaderObjects.glDeleteObjectARB(shader);
+			
 			throw exc;
 		}
 	}
@@ -294,12 +304,15 @@ public class Shader implements Resource {
 		Exception exception = null;
 
 		BufferedReader reader;
+		
 		try {
 			reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
 
 			Exception innerExc = null;
+			
 			try {
 				String line;
+				
 				while ((line = reader.readLine()) != null)
 					source.append(line).append('\n');
 			} catch (Exception exc) {
@@ -342,9 +355,10 @@ public class Shader implements Resource {
 
 	public static Shader DEFAULT_SHADER;
 
-	/** The default shader for MERCury (not to be confused with shader 0). */
+	/** Loads the default shaders for Mercury
+	 *  (not to be confused with shader 0). */
 	public static void loadDefaultShaders() {
 		if (DEFAULT_SHADER == null)
-			DEFAULT_SHADER = Shader.getShader(Loader.streamFromClasspath("radirius/merc/graphics/shaders/default_shader.vs"), Loader.streamFromClasspath("radirius/merc/graphics/shaders/default_shader.fs"));
+			DEFAULT_SHADER = Shader.getShader(Loader.streamFromClasspath("radirius/merc/graphics/shaders/default_shader.vsh"), Loader.streamFromClasspath("radirius/merc/graphics/shaders/default_shader.fsh"));
 	}
 }

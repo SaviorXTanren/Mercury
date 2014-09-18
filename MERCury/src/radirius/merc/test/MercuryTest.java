@@ -14,7 +14,7 @@ import radirius.merc.resource.Loader;
 import radirius.merc.utilities.logging.Logger;
 
 /**
- * This is a testing program for most of MERCury's functionality.
+ * This is a testing program for most of Mercury's functionality.
  * Should only be used for debugging.
  * 
  * Note: Is full of *really* hackish code. For testing purposes
@@ -22,19 +22,19 @@ import radirius.merc.utilities.logging.Logger;
  * 
  * @author Jeviny
  */
-public class FuncTest extends Core {
-	private static final String TITLE = "MERCury Functionality Test";
+public class MercuryTest extends Core {
+	private static final String TITLE = "Mercury Testing Program";
 	private static final int WIDTH = 1024;
 	private static final int HEIGHT = 768;
 	
-	public FuncTest() {
+	public MercuryTest() {
 		super(TITLE, WIDTH, HEIGHT);
 	}
 
-	int time = 0;
-	int t = time;
+	int time0 = 0, time1 = 0;
 	
 	Font font;
+	TestEntity te;
 	
 	public void init() {
 		try {
@@ -47,14 +47,18 @@ public class FuncTest extends Core {
 			e.printStackTrace();
 		}
 		
+		te = new TestEntity(0, 0, 256, 256);
+		
 		getRunner().addSplashScreen(SplashScreen.getMercuryDefault());
 	}
 	
 	public void update(float delta) {
-		time++;
-		t = time / 32;
+		time0++;
+		time1 = time0 / 32;
 		
 		Logger.debug(getRunner().getFPS());
+		
+		te.update(delta);
 	}
 	
 	Color[] c = new Color[] { Color.TURQUOISE, Color.GREEN_SEA, Color.GREEN, Color.DARK_GREEN, Color.BLUE, Color.OCEAN_BLUE, Color.PURPLE, Color.VIOLET, Color.CHARCOAL, Color.ASPHALT, Color.YELLOW, Color.ORANGE, Color.CARROT, Color.PUMPKIN, Color.RED, Color.CRIMSON };
@@ -62,10 +66,10 @@ public class FuncTest extends Core {
 	public void render(Graphics g) {
 		Color bg = null;
 		
-		if (t >= c.length || time >= ((c.length) * 32))
-			time = t = 0;
+		if (time1 >= c.length || time0 >= ((c.length) * 32))
+			time0 = time1 = 0;
 		
-		bg = c[t];
+		bg = c[time1];
 		
 		g.setBackground(bg);
 		
@@ -88,13 +92,12 @@ public class FuncTest extends Core {
 		
 		g.drawString("This is a test.", getRunner().getWidth() / 2 - g.getFont().getWidth("This is a test.") / 2, (getRunner().getHeight() / 2 - g.getFont().getHeight() / 2) + 24);
 		
-		g.setColor(new Color(0xFF00FF));
-		g.drawRectangle(0, 0, 256, 256);
+		te.render(g);
 	}
 	
 	public void cleanup() {}
 	
 	public static void main(String[] args) {
-		new FuncTest().run();
+		new MercuryTest().run();
 	}
 }

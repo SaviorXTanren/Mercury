@@ -6,16 +6,22 @@ import radirius.merc.exceptions.MercuryException;
  * A class that will log in different levels of impact, from NULL to SEVERE.
  * SEVERE being the program killer.
  * 
- * @author wessles
+ * @author wessles, Jeviny
  */
 
 public class Logger {
 	/** Whether or not information can be logged */
-	public static boolean logging = true;
+	private static boolean logging = true;
 
 	/** Cases describing the nature of the log. */
 	public static enum Case {
-		NULL(""), INFO("INFO: "), DEBUG("DEBUG: "), WARNING("WARNING: "), SEVERE("SEVERE: "), CONSOLE("CONSOLE: "), CONSOLEPROBLEM("CONSOLE PROBLEM: ");
+		NULL(""),
+		INFO("INFO: "),
+		DEBUG("DEBUG: "),
+		WARNING("WARNING: "),
+		SEVERE("SEVERE: "),
+		CONSOLE("CONSOLE: "),
+		CONSOLEPROBLEM("CONSOLE PROBLEM: ");
 
 		public String caseMessage;
 

@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>radirius.merc</groupId>
     <artifactId>Mercury</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.1-dev</version>
     <name>Mercury</name>
     <description>A Simple Java Game Library</description>
     <properties>
