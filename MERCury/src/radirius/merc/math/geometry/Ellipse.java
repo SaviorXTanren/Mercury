@@ -2,7 +2,7 @@ package radirius.merc.math.geometry;
 
 /**
  * An ellipse that can have a length and width.
- * 
+ *
  * @author wessles
  */
 public class Ellipse extends Polygon {

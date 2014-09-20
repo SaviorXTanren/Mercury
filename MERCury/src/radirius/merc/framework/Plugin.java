@@ -2,7 +2,7 @@ package radirius.merc.framework;
 
 /**
  * An abstraction for plugins.
- * 
+ *
  * @author wessles, Jeviny
  */
 
@@ -15,7 +15,7 @@ public abstract class Plugin {
 
 	/** The method for cleaning up the plugin. */
 	public abstract void cleanup();
-	
+
 	/** @return The name of the plugin. */
 	public String getName() {
 		return getClass().getSimpleName();

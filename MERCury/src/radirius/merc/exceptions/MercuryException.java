@@ -2,7 +2,7 @@ package radirius.merc.exceptions;
 
 /**
  * A general exception for Mercury.
- * 
+ *
  * @author wessles
  */
 

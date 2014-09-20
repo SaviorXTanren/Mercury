@@ -1,21 +1,18 @@
 package radirius.merc.graphics;
 
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glTranslatef;
+import static org.lwjgl.opengl.GL11.*;
 import radirius.merc.framework.Runner;
-import radirius.merc.math.geometry.Rectangle;
-import radirius.merc.math.geometry.Vec2;
+import radirius.merc.math.geometry.*;
 
 /**
  * An object for the camera.
- * 
+ *
  * @author wessles
  */
 public class Camera {
 	/** The position on its respective axis */
 	float x, y;
-	
+
 	/** The point on the screen that anchors the camera to the world. */
 	private Vec2 origin = new Vec2(0, 0);
 
@@ -64,7 +61,7 @@ public class Camera {
 
 	/**
 	 * Zooms the camera in.
-	 * 
+	 *
 	 * @param zoom
 	 *            The value by which to zoom to.
 	 * @param g
@@ -76,7 +73,7 @@ public class Camera {
 
 	/**
 	 * Translates the camera by x and y.
-	 * 
+	 *
 	 * @param x
 	 *            The x movement.
 	 * @param y
@@ -89,7 +86,7 @@ public class Camera {
 
 	/**
 	 * Translates the camera to x and y.
-	 * 
+	 *
 	 * @param x
 	 *            The x position.
 	 * @param y

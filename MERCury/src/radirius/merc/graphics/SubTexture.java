@@ -26,7 +26,7 @@ public class SubTexture extends Texture {
 	/**
 	 * This is useful for when you want the functionality of a real Texture from
 	 * a SubTexture, such as GL_REPEAT, which is impossible with SubTextures.
-	 * 
+	 *
 	 * @return A Texture version of the SubTexture.
 	 */
 	public Texture convertToTexture() {
@@ -36,7 +36,7 @@ public class SubTexture extends Texture {
 	/**
 	 * This is useful for when you want the functionality of a real Texture from
 	 * a SubTexture, such as GL_REPEAT, which is impossible with SubTextures.
-	 * 
+	 *
 	 * @return A Texture version of the SubTexture.
 	 */
 	public Texture convertToTexture(boolean fliphor, boolean flipvert) {
@@ -46,7 +46,7 @@ public class SubTexture extends Texture {
 	/**
 	 * This is useful for when you want the functionality of a real Texture from
 	 * a SubTexture, such as GL_REPEAT, which is impossible with SubTextures.
-	 * 
+	 *
 	 * @return A Texture version of the SubTexture.
 	 */
 	public Texture convertToTexture(int filter) {
@@ -56,7 +56,7 @@ public class SubTexture extends Texture {
 	/**
 	 * This is useful for when you want the functionality of a real Texture from
 	 * a SubTexture, such as GL_REPEAT, which is impossible with SubTextures.
-	 * 
+	 *
 	 * @return A Texture version of the SubTexture.
 	 */
 	public Texture convertToTexture(boolean fliphor, boolean flipvert, int filter) {
@@ -66,7 +66,7 @@ public class SubTexture extends Texture {
 	/**
 	 * This is useful for when you want the functionality of a real Texture from
 	 * a SubTexture, such as GL_REPEAT, which is impossible with SubTextures.
-	 * 
+	 *
 	 * @return A Texture version of the SubTexture.
 	 */
 	public Texture convertToTexture(int rot, int filter) {
@@ -76,7 +76,7 @@ public class SubTexture extends Texture {
 	/**
 	 * This is useful for when you want the functionality of a real Texture from
 	 * a SubTexture, such as GL_REPEAT, which is impossible with SubTextures.
-	 * 
+	 *
 	 * @return A Texture version of the SubTexture.
 	 */
 	public Texture convertToTexture(boolean fliphor, boolean flipvert, int rot, int filter) {

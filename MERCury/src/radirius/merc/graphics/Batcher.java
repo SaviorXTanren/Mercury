@@ -4,7 +4,7 @@ import radirius.merc.math.geometry.Rectangle;
 
 /**
  * An abstraction for batchers.
- * 
+ *
  * @author wessles
  */
 public interface Batcher {
@@ -92,7 +92,7 @@ public interface Batcher {
 
 	/**
 	 * Adds a vertex to the stack.
-	 * 
+	 *
 	 * @param x
 	 *            The x position.
 	 * @param y
@@ -106,7 +106,7 @@ public interface Batcher {
 
 	/**
 	 * Adds a vertex to the stack.
-	 * 
+	 *
 	 * @param x
 	 *            The x position.
 	 * @param y
@@ -122,7 +122,7 @@ public interface Batcher {
 
 	/**
 	 * Adds a vertex to the stack.
-	 * 
+	 *
 	 * @param x
 	 *            The x position.
 	 * @param y
@@ -142,7 +142,7 @@ public interface Batcher {
 
 	/**
 	 * Adds a vertex to the stack.
-	 * 
+	 *
 	 * @param x
 	 *            The x position.
 	 * @param y
@@ -165,7 +165,7 @@ public interface Batcher {
 	/**
 	 * Will flush the data to OGL if the sum of the vertex count and the
 	 * allocation is higher than the limit.
-	 * 
+	 *
 	 * @param allocate
 	 *            The amount of vertices that will be rendered in the next
 	 *            vertex-group.

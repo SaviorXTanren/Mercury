@@ -3,20 +3,16 @@ package radirius.merc.input;
 import java.util.ArrayList;
 
 import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Controller;
-import org.lwjgl.input.Controllers;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
+import org.lwjgl.input.*;
 import org.lwjgl.opengl.Display;
 
 import radirius.merc.framework.Runner;
 import radirius.merc.graphics.Camera;
-import radirius.merc.math.geometry.Point;
-import radirius.merc.math.geometry.Vec2;
+import radirius.merc.math.geometry.*;
 
 /**
  * An object form of input.
- * 
+ *
  * @author wessles
  */
 public class Input {

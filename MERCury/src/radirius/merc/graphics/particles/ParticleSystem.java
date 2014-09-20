@@ -1,17 +1,14 @@
 package radirius.merc.graphics.particles;
 
-import radirius.merc.environment.Renderable;
-import radirius.merc.environment.Updatable;
-import radirius.merc.graphics.Color;
-import radirius.merc.graphics.Graphics;
-import radirius.merc.graphics.Texture;
+import radirius.merc.environment.*;
+import radirius.merc.graphics.*;
 import radirius.merc.math.MathUtil;
 import radirius.merc.math.geometry.Vec2;
 import radirius.merc.utilities.WipingArrayList;
 
 /**
  * An object that simulates a mass of particles.
- * 
+ *
  * @author wessles
  */
 
@@ -67,7 +64,7 @@ public class ParticleSystem implements Updatable, Renderable {
 
 	/**
 	 * Generates new particles launching at an angle.
-	 * 
+	 *
 	 * @param amount
 	 *            The amount of particles to generate.
 	 * @param point
@@ -81,7 +78,7 @@ public class ParticleSystem implements Updatable, Renderable {
 
 	/**
 	 * Generates new particles launching at random angles.
-	 * 
+	 *
 	 * @param amount
 	 *            The amount of particles to generate.
 	 * @param point

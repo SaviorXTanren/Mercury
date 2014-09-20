@@ -2,7 +2,7 @@ package radirius.merc.math.geometry;
 
 /**
  * An ellipse in which the length and width are the same.
- * 
+ *
  * @author wessles
  */
 public class Circle extends Ellipse {

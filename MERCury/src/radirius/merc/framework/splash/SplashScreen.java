@@ -1,25 +1,22 @@
 package radirius.merc.framework.splash;
 
 import radirius.merc.framework.Runner;
-import radirius.merc.graphics.Color;
-import radirius.merc.graphics.Graphics;
-import radirius.merc.graphics.Texture;
+import radirius.merc.graphics.*;
 import radirius.merc.math.geometry.Rectangle;
 import radirius.merc.resource.Loader;
-import radirius.merc.utilities.TaskTiming;
+import radirius.merc.utilities.*;
 import radirius.merc.utilities.TaskTiming.Task;
-import radirius.merc.utilities.easing.EasingUtils;
-import radirius.merc.utilities.easing.EasingValue;
+import radirius.merc.utilities.easing.*;
 
 /**
  * A base for all splash screens.
- * 
+ *
  * @author wessles
  */
 
 public class SplashScreen {
 	static Runner runner = Runner.getInstance();
-	
+
 	public boolean showing = false;
 	private boolean returned = true;
 
@@ -57,7 +54,7 @@ public class SplashScreen {
 	/**
 	 * Shows the splash screen on screen, whilst checking if it is time to stop
 	 * as well.
-	 * 
+	 *
 	 * @return Whether or not the splash is done.
 	 */
 	public boolean show(Graphics g) {
@@ -75,13 +72,13 @@ public class SplashScreen {
 		}
 
 		Rectangle cam = Runner.getInstance().getCamera().getBounds();
-		
+
 		float width = splashTexture.getWidth();
 		float height = splashTexture.getHeight();
 
 		if (fitToScreen) {
 			float scale = cam.getWidth() / splashTexture.getWidth();
-			
+
 			width = cam.getWidth();
 			height = splashTexture.getHeight() * scale;
 			scale = cam.getHeight() / height;
@@ -92,13 +89,13 @@ public class SplashScreen {
 
 		g.setColor(new Color(0, 0, 0, easingValue.get()));
 		g.drawTexture(splashTexture, cam.getX() + cam.getWidth() / 2 - width / 2, cam.getY() + cam.getHeight() / 2 - height / 2, width, height);
-		
+
 		return returned;
 	}
 
 	/**
 	 * Show some love for Mercury by using a shiny Mercury splash screen!
-	 * 
+	 *
 	 * @return The love of Mercury's developers. <3
 	 */
 	public static SplashScreen getMercuryDefault() {

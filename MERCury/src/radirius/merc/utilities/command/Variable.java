@@ -3,7 +3,7 @@ package radirius.merc.utilities.command;
 /**
  * A Variable that can be referenced within the given inputstream (the console
  * by default).
- * 
+ *
  * @author wessles
  */
 

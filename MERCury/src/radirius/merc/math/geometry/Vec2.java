@@ -4,13 +4,14 @@ import radirius.merc.math.MathUtil;
 
 /**
  * A class for 2-dimensional vectors.
- * 
+ *
  * @authors wessles, Jeviny
  */
 public class Vec2 extends Vector {
 	public float x = 0, y = 0;
 
-	public Vec2() {}
+	public Vec2() {
+	}
 
 	public Vec2(float x, float y) {
 		this.x = x;
@@ -25,7 +26,7 @@ public class Vec2 extends Vector {
 	@Override
 	public Vector add(Vector vec) {
 		Vec2 vec2 = (Vec2) vec;
-		
+
 		x += vec2.x;
 		y += vec2.y;
 
@@ -42,7 +43,7 @@ public class Vec2 extends Vector {
 	@Override
 	public Vector sub(Vector vec) {
 		Vec2 vec2 = (Vec2) vec;
-		
+
 		x -= vec2.x;
 		y -= vec2.y;
 
@@ -59,7 +60,7 @@ public class Vec2 extends Vector {
 	@Override
 	public Vector mul(Vector vec) {
 		Vec2 vec2 = (Vec2) vec;
-		
+
 		x *= vec2.x;
 		y *= vec2.y;
 
@@ -69,7 +70,7 @@ public class Vec2 extends Vector {
 	@Override
 	public Vector div(Vector vec) {
 		Vec2 vec2 = (Vec2) vec;
-		
+
 		x /= vec2.x;
 		y /= vec2.y;
 
@@ -86,7 +87,7 @@ public class Vec2 extends Vector {
 	@Override
 	public Vector set(Vector vec) {
 		Vec2 vec2 = (Vec2) vec;
-		
+
 		x = vec2.x;
 		y = vec2.y;
 
@@ -168,14 +169,12 @@ public class Vec2 extends Vector {
 	public String toString() {
 		return "(" + x + ", " + y + ")";
 	}
-	
-	public float getX()
-	{
+
+	public float getX() {
 		return x;
 	}
-	
-	public float getY()
-	{
+
+	public float getY() {
 		return y;
 	}
 }

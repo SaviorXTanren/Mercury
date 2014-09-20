@@ -2,7 +2,7 @@ package radirius.merc.math;
 
 /**
  * A utilities class for math.
- * 
+ *
  * @author wessles, Jeviny
  */
 public class MathUtil {
@@ -10,7 +10,7 @@ public class MathUtil {
 
 	/**
 	 * Base method for random number methods.
-	 * 
+	 *
 	 * @return A random double value between minimum and maximum
 	 */
 	public static final double random(double minimum, double maximum) {
@@ -33,14 +33,14 @@ public class MathUtil {
 
 		if (random(0, 100) < percent)
 			return true;
-		
+
 		return false;
 	}
 
 	/**
 	 * @param percent
 	 *            Percent chance of true
-	 *            
+	 *
 	 * @return A boolean that has a percent% chance of being true.
 	 */
 	public static boolean chance(float percent) {
@@ -49,7 +49,7 @@ public class MathUtil {
 
 		if (random(0, 1000) < percent * 1000)
 			return true;
-		
+
 		return false;
 	}
 
@@ -107,7 +107,7 @@ public class MathUtil {
 	public static float negpos(float mult) {
 		if (mult == 0)
 			return 0;
-		
+
 		return mult / Math.abs(mult);
 	}
 }

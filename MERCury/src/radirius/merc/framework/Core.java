@@ -1,62 +1,62 @@
 package radirius.merc.framework;
 
-import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
-import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.GL_PROJECTION;
-import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.glBlendFunc;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glMatrixMode;
-import static org.lwjgl.opengl.GL11.glOrtho;
+import static org.lwjgl.opengl.GL11.*;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.*;
 
-import radirius.merc.graphics.Graphics;
-import radirius.merc.graphics.Shader;
-import radirius.merc.graphics.VAOGraphics;
+import radirius.merc.graphics.*;
 import radirius.merc.resource.Loader;
 import radirius.merc.utilities.logging.Logger;
 
 /**
  * The Core that will host the game with help from the Runner class.
- * 
+ *
  * @author wessles
  */
 
 public abstract class Core {
-	public final String name;
 	private final Runner runner = Runner.getInstance();
-	
+
+	public final String name;
+	public final int WIDTH;
+	public final int HEIGHT;
+	public final boolean fullscreen;
+	public final boolean vsync;
+	public final boolean initonseparatethread;
+	public final boolean devconsole;
+
 	public Core(String name, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean initonseparatethread, boolean devconsole) {
 		this.name = name;
-		
-		runner.init(this, WIDTH, HEIGHT, fullscreen, vsync, initonseparatethread, devconsole);
+		this.WIDTH = WIDTH;
+		this.HEIGHT = HEIGHT;
+		this.fullscreen = fullscreen;
+		this.vsync = vsync;
+		this.initonseparatethread = initonseparatethread;
+		this.devconsole = devconsole;
 	}
-	
+
 	public Core(String name, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
-		this(name, WIDTH, HEIGHT, fullscreen, vsync, false, true);
+		this(name, WIDTH, HEIGHT, fullscreen, vsync, false, false);
 	}
-	
+
 	public Core(String name, int WIDTH, int HEIGHT, boolean fullscreen) {
-		this(name, WIDTH, HEIGHT, fullscreen, true, false, true);
+		this(name, WIDTH, HEIGHT, fullscreen, true, false, false);
 	}
-	
+
 	public Core(String name, int WIDTH, int HEIGHT) {
 		this(name, WIDTH, HEIGHT, false, true);
 	}
-	
+
 	/**
-	 * Runs the runner.
+	 * Initializes and then runs the Runner.
 	 */
-	public void run() {
+	public void start() {
+		runner.init(this, WIDTH, HEIGHT, fullscreen, vsync, initonseparatethread, devconsole);
 		runner.run();
 	}
-	
+
 	public Runner getRunner() {
 		return runner;
 	}
@@ -70,7 +70,7 @@ public abstract class Core {
 
 	/**
 	 * Called once every frame and used to handle all game logic.
-	 * 
+	 *
 	 * @param delta
 	 *            The delta time.
 	 */
@@ -78,7 +78,7 @@ public abstract class Core {
 
 	/**
 	 * Called once every frame and used to render graphics.
-	 * 
+	 *
 	 * @param g
 	 *            The Graphics object for rendering.
 	 */
@@ -91,7 +91,7 @@ public abstract class Core {
 
 	/**
 	 * Initializes the display.
-	 * 
+	 *
 	 * @param WIDTH
 	 *            The width of the display.
 	 * @param HEIGHT
@@ -106,7 +106,7 @@ public abstract class Core {
 			Display.setVSyncEnabled(vsync);
 
 			DisplayMode dm = new DisplayMode(WIDTH, HEIGHT);
-			
+
 			boolean screendimmatched = false;
 
 			if (fullscreen) {

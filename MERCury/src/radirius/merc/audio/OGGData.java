@@ -18,7 +18,7 @@ import java.nio.ByteBuffer;
 
 /**
  * Data describing the sounds in a OGG file
- * 
+ *
  * @author Kevin Glass
  */
 public class OGGData {

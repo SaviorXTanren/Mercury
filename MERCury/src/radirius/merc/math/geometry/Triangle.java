@@ -2,7 +2,7 @@ package radirius.merc.math.geometry;
 
 /**
  * A triangle shape; 3 sides.
- * 
+ *
  * @author wessles
  */
 

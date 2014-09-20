@@ -7,7 +7,7 @@ import radirius.merc.utilities.ArrayUtils;
 
 /**
  * The abstraction of all shapes.
- * 
+ *
  * @author wessles
  */
 
@@ -145,7 +145,7 @@ public class Shape {
 
 	/**
 	 * Moves all vertices by x and y.
-	 * 
+	 *
 	 * @param x
 	 *            The amount every vertex should move on x.
 	 * @param y
@@ -168,7 +168,7 @@ public class Shape {
 
 	/**
 	 * Moves all vertices to x and y.
-	 * 
+	 *
 	 * @param x
 	 *            Where every vertex should move relative to the nearest point
 	 *            of the shape on x.
@@ -183,7 +183,7 @@ public class Shape {
 
 	/**
 	 * Rotate the object relative to a origin.
-	 * 
+	 *
 	 * @param origx
 	 *            The origin's x.
 	 * @param origy
@@ -223,7 +223,7 @@ public class Shape {
 
 	/**
 	 * Rotate the object relative to the center of the object.
-	 * 
+	 *
 	 * @param angle
 	 *            The angle of rotation.
 	 * @return Me
@@ -234,7 +234,7 @@ public class Shape {
 
 	/**
 	 * Rotate the object to a point in rotation relative to a origin.
-	 * 
+	 *
 	 * @param origx
 	 *            The origin's x.
 	 * @param origy
@@ -251,7 +251,7 @@ public class Shape {
 	/**
 	 * Rotate the object to a point in rotation relative to the center of the
 	 * object.
-	 * 
+	 *
 	 * @param angle
 	 *            The angle of rotation that the object will rotate to.
 	 * @return Me
@@ -262,7 +262,7 @@ public class Shape {
 
 	/**
 	 * Scales a shape from a point.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Shape scale(Vec2 point, float scale) {
@@ -287,7 +287,7 @@ public class Shape {
 
 	/**
 	 * Scales a shape from the center of the shape.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Shape scale(float scale) {
@@ -296,7 +296,7 @@ public class Shape {
 
 	/**
 	 * Scales a shape from a point.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Shape setScale(Vec2 point, float scale) {
@@ -305,7 +305,7 @@ public class Shape {
 
 	/**
 	 * Scales a shape from the center of the shape.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Shape setScale(float scale) {
@@ -314,7 +314,7 @@ public class Shape {
 
 	/**
 	 * Flips the object over the y axis, relative to the mean center.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Shape flipX() {
@@ -328,7 +328,7 @@ public class Shape {
 
 	/**
 	 * Flips the object over the y axis, relative to the mean center.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Shape flipY() {
@@ -425,7 +425,7 @@ public class Shape {
 
 	/**
 	 * Adds a child shape.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Shape addChild(Shape... child) {
@@ -444,7 +444,7 @@ public class Shape {
 
 	/**
 	 * Sets the parent of the shape.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Shape setParent(Shape parent) {
@@ -456,7 +456,7 @@ public class Shape {
 	/**
 	 * Makes me an orphan. Parent will lose me from it's arraylist of children,
 	 * so there is no trace of my previous life ;(.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Shape clearParent() {

@@ -1,10 +1,6 @@
 package radirius.merc.utilities.command;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 
 import radirius.merc.utilities.logging.Logger;
@@ -12,7 +8,7 @@ import radirius.merc.utilities.logging.Logger;
 /**
  * A thread to be ran seperate from the library itself so that in-game freezes
  * will not effect the console, and that the Scanner will not hang.
- * 
+ *
  * @author wessles
  */
 

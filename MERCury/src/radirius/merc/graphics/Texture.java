@@ -1,24 +1,10 @@
 package radirius.merc.graphics;
 
-import static org.lwjgl.opengl.GL11.GL_LINEAR;
-import static org.lwjgl.opengl.GL11.GL_NEAREST;
-import static org.lwjgl.opengl.GL11.GL_RGBA;
-import static org.lwjgl.opengl.GL11.GL_RGBA8;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
-import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
-import static org.lwjgl.opengl.GL11.glBindTexture;
-import static org.lwjgl.opengl.GL11.glDeleteTextures;
-import static org.lwjgl.opengl.GL11.glGenTextures;
-import static org.lwjgl.opengl.GL11.glTexImage2D;
-import static org.lwjgl.opengl.GL11.glTexParameteri;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+import java.awt.image.*;
+import java.io.*;
 import java.nio.ByteBuffer;
 
 import javax.imageio.ImageIO;
@@ -32,7 +18,7 @@ import radirius.merc.resource.Resource;
 /**
  * An object version of a texture. This will store the width and height of the
  * object.
- * 
+ *
  * @author wessles
  */
 
@@ -51,7 +37,7 @@ public class Texture implements Resource {
 	/**
 	 * Make a texture of the textureid, with a width and height, based off of
 	 * bufferedimage buf.
-	 * 
+	 *
 	 * @param textureid
 	 *            The id of the texture.
 	 * @param width
@@ -354,7 +340,7 @@ public class Texture implements Resource {
 	 * things like GL_REPEAT, and faster rendering time. Certain aspect of the
 	 * library may break, should you choose to mess with this value. Seriously,
 	 * you can use the non-PoT SubTextures in much the same for the most part.
-	 * 
+	 *
 	 * Mess with at your own risk.
 	 */
 	public static void setExpandToPowerOfTwo(boolean expand2PoT) {

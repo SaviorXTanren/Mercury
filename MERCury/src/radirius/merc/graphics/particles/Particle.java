@@ -1,23 +1,21 @@
 package radirius.merc.graphics.particles;
 
-import radirius.merc.environment.Renderable;
-import radirius.merc.environment.Updatable;
+import radirius.merc.environment.*;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.math.MathUtil;
-import radirius.merc.math.geometry.Rectangle;
-import radirius.merc.math.geometry.Vec2;
+import radirius.merc.math.geometry.*;
 import radirius.merc.utilities.Wipeable;
 
 /**
  * A class that will represent a single particle, with a parent particle system.
- * 
+ *
  * @author wessles
  */
 
 public class Particle implements Updatable, Renderable, Wipeable {
 	/** Size of the particle. */
 	private float size;
-	
+
 	/** Position of the particle. */
 	private Vec2 pos;
 	/** Bounds of the particle. */

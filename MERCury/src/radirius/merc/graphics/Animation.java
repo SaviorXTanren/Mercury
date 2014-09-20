@@ -5,7 +5,7 @@ import radirius.merc.resource.Resource;
 
 /**
  * An easy to use animation class. Just render, and watch the moving picture.
- * 
+ *
  * @author wessles
  */
 public class Animation implements Resource {
@@ -15,7 +15,7 @@ public class Animation implements Resource {
 	private int frame = 0;
 	private int first = 0, last = 0;
 	private int framestep = 1;
-	
+
 	private boolean bounce;
 
 	private int framerateMillis;
@@ -105,7 +105,7 @@ public class Animation implements Resource {
 
 	/**
 	 * Useful if you want to render the frames in a special way.
-	 * 
+	 *
 	 * @return The current frame.
 	 */
 	public SubTexture getCurrentFrame() {
@@ -115,7 +115,7 @@ public class Animation implements Resource {
 	/**
 	 * Moves on to the next frame in the animation if the current frame has been
 	 * around more than the frame-rate.
-	 * 
+	 *
 	 * @return If this is the last frame.
 	 */
 	public boolean nextFrame() {

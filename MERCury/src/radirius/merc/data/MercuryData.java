@@ -1,19 +1,13 @@
 package radirius.merc.data;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * A way to store information outside of local data and store data in files.
  * Uses a system of properties and values.
- * 
+ *
  * @author wessles, Jeviny
  */
 
@@ -45,7 +39,7 @@ public class MercuryData implements Data {
 	/**
 	 * @param prop
 	 *            The property you want to see the value of.
-	 *            
+	 *
 	 * @return The property's value. If it does not exist, you get null.
 	 */
 	public String getProperty(String prop) {
@@ -56,7 +50,7 @@ public class MercuryData implements Data {
 	public void open() {
 		// Create and open a scanner for the file.
 		Scanner scanner = null;
-		
+
 		try {
 			scanner = new Scanner(new FileInputStream(location));
 		} catch (FileNotFoundException e) {
@@ -66,7 +60,7 @@ public class MercuryData implements Data {
 		while (scanner.hasNextLine()) {
 			String line = scanner.nextLine();
 			String[] split = line.split(" ", 2);
-			
+
 			if (split.length <= 1) {
 				try {
 					throw new IOException("Corrupted data file.");
@@ -74,10 +68,10 @@ public class MercuryData implements Data {
 					e.printStackTrace();
 				}
 			}
-		
+
 			String property = split[0];
 			String value = split[1];
-			
+
 			values.put(property, value);
 		}
 
@@ -89,7 +83,7 @@ public class MercuryData implements Data {
 	public void close() {
 		// Create and open a writer for writing data to the file.
 		PrintWriter write = null;
-		
+
 		try {
 			write = new PrintWriter(new FileOutputStream(new File(location)));
 		} catch (FileNotFoundException e) {
@@ -100,7 +94,8 @@ public class MercuryData implements Data {
 			String property = (String) values.keySet().toArray()[i];
 			String value = (String) values.values().toArray()[i];
 
-			write.println(property + " " + value); // Write key/value to the file.
+			write.println(property + " " + value); // Write key/value to the
+			// file.
 		}
 
 		// Close the writer and clear any temporary storage.

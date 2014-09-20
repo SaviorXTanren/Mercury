@@ -1,11 +1,8 @@
 package radirius.merc.framework;
 
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.*;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
@@ -13,31 +10,27 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.*;
 
 import radirius.merc.exceptions.MercuryException;
 import radirius.merc.framework.splash.SplashScreen;
-import radirius.merc.graphics.Camera;
-import radirius.merc.graphics.Graphics;
-import radirius.merc.graphics.Texture;
+import radirius.merc.graphics.*;
 import radirius.merc.input.Input;
 import radirius.merc.utilities.TaskTiming;
-import radirius.merc.utilities.command.CommandList;
-import radirius.merc.utilities.command.CommandThread;
+import radirius.merc.utilities.command.*;
 import radirius.merc.utilities.logging.Logger;
 
 /**
- * The heart of Mercury.
- * Runs the Core and provides all of the various materials required for your game.
- * 
+ * The heart of Mercury. Runs the Core and provides all of the various materials
+ * required for your game.
+ *
  * @authors wessles, Jeviny
  */
 
 public class Runner {
 	/**
-	 * The singleton instance of the Runner.
-	 * This should be the only Runner used.
+	 * The singleton instance of the Runner. This should be the only Runner
+	 * used.
 	 */
 	private final static Runner singleton = new Runner();
 
@@ -46,37 +39,37 @@ public class Runner {
 
 	/** A list of splash screens. */
 	private final ArrayList<SplashScreen> splashes = new ArrayList<SplashScreen>();
-	
+
 	/** A list of plugins. */
 	private final ArrayList<Plugin> plugins = new ArrayList<Plugin>();
 
 	/** A Runnable for the console thread. */
 	private final CommandThread consoleRunnable = new CommandThread();
-	
+
 	/** A Thread for the console. */
 	private final Thread consoleThread = new Thread(consoleRunnable);
 
 	/** Whether or not the game is being updated. */
 	private boolean updating = true;
-	
+
 	/** Whether or not the game is being rendered. */
 	private boolean rendering = true;
 
 	/** Whether or not v-sync is enabled. */
 	private boolean vsync;
-	
+
 	/** The delta variable. */
 	private int delta = 1;
-	
+
 	/** The target framerate. */
 	private int FPS_TARGET = 60;
-	
+
 	/** The current framerate. */
 	private int FPS;
-	
+
 	/** The last frame. Used for calculating the framerate. */
 	private long lastframe;
-	
+
 	/** The factor by which the delta time is multiplied. */
 	private float deltafactor = 1;
 
@@ -85,7 +78,7 @@ public class Runner {
 	 * `showdebug` be true.
 	 */
 	private String debugdata = "";
-	
+
 	/** Whether or not the debugdata will be drawn to the screen. */
 	private boolean showdebug = false;
 
@@ -97,14 +90,16 @@ public class Runner {
 
 	/** The camera object. */
 	private Camera camera;
-	
+
 	/** The input object. */
 	private Input input;
 
-	/* We don't want anybody attempting to create another Runner,
-	 * there's a singleton and it should be put to use.
+	/*
+	 * We don't want anybody attempting to create another Runner, there's a
+	 * singleton and it should be put to use.
 	 */
-	private Runner() {}
+	private Runner() {
+	}
 
 	/**
 	 * An object that will be used for initializing the Runner with default
@@ -135,7 +130,7 @@ public class Runner {
 
 	/**
 	 * Initializes Mercury.
-	 * 
+	 *
 	 * @param core
 	 *            The Core to be ran.
 	 * @param WIDTH
@@ -149,7 +144,7 @@ public class Runner {
 
 	/**
 	 * Initializes Mercury.
-	 * 
+	 *
 	 * @param core
 	 *            The Core to be ran.
 	 * @param WIDTH
@@ -165,7 +160,7 @@ public class Runner {
 
 	/**
 	 * Initializes Mercury.
-	 * 
+	 *
 	 * @param core
 	 *            The Core to be ran.
 	 * @param fullscreen
@@ -179,7 +174,7 @@ public class Runner {
 
 	/**
 	 * Initializes Mercury.
-	 * 
+	 *
 	 * @param iniset
 	 *            The initialization setup filled with information to initialize
 	 *            with.
@@ -192,7 +187,7 @@ public class Runner {
 
 	/**
 	 * Initializes the library
-	 * 
+	 *
 	 * @param core
 	 *            The Core to be ran.
 	 * @param WIDTH
@@ -241,26 +236,29 @@ public class Runner {
 		Logger.info("Making Plugins...");
 		for (Plugin plugin : plugins) {
 			Logger.info("\tInitializing " + plugin.getName() + "...");
-			
+
 			plugin.init();
 		}
 
 		Logger.info("Starting Core" + (initonseparatethread ? " (On Separate Thread)" : "") + "...");
 		if (initonseparatethread) {
 			Runnable initthread_run = new Runnable() {
+				@Override
 				public void run() {
 					core.init();
-					
+
 					inited = true;
 				}
 			};
-			
+
 			Thread initthread = new Thread(initthread_run);
-			
+
 			initthread.run();
 		} else {
-			/* FIXME: There is a terrible hack from the change made to the Core/Runner classes.
-			 * Will let Wesley fix this when he gets back from the grave.
+			/*
+			 * FIXME: There is a terrible hack from the change made to the
+			 * Core/Runner classes. Will let Wesley fix this when he gets back
+			 * from the grave.
 			 */
 		}
 
@@ -280,9 +278,9 @@ public class Runner {
 	public void run() {
 		Logger.info("Starting Game Loop...");
 		Logger.newLine();
-		
+
 		core.init();
-		
+
 		inited = true;
 
 		running = true;
@@ -321,14 +319,14 @@ public class Runner {
 
 			if (rendering)
 				glClear(GL_COLOR_BUFFER_BIT);
-			
+
 			if (updating)
 				core.update(getDelta());
-			
+
 			// Update timing
 			TaskTiming.update();
 
-			if (rendering) {				
+			if (rendering) {
 				// Pre-Render Camera
 				camera.pre(graphics);
 
@@ -358,11 +356,11 @@ public class Runner {
 		}
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
+
 		Display.update();
 
 		// End the loop and clean up things...
-		
+
 		Logger.newLine();
 		Logger.info("Ending Game Loop...");
 		Logger.info("Beginning Clean Up:");
@@ -372,10 +370,10 @@ public class Runner {
 
 		Logger.info("Cleaning Up Core & Plugins...");
 		core.cleanup();
-		
+
 		for (Plugin plugin : plugins) {
 			Logger.info("     Cleaning Up '" + plugin.getName() + "' Plugin...");
-			
+
 			plugin.cleanup();
 		}
 
@@ -403,7 +401,7 @@ public class Runner {
 
 	/**
 	 * Sets whether or not debug data should be displayed.
-	 * 
+	 *
 	 * @param showdebug
 	 *            Whether or not debug is to be shown onscreen.
 	 */
@@ -414,7 +412,7 @@ public class Runner {
 	/**
 	 * Adds information to the debugdata. Debug data is wiped every single
 	 * update frame, so this is to be called every frame.
-	 * 
+	 *
 	 * @param name
 	 *            The name of the debug information.
 	 * @param value
@@ -454,7 +452,7 @@ public class Runner {
 
 	/**
 	 * Sleeps the thread for a few milliseconds.
-	 * 
+	 *
 	 * @param milliseconds
 	 *            The milliseconds to wait.
 	 */
@@ -468,7 +466,7 @@ public class Runner {
 
 	/**
 	 * Enables or disables mouse grabbing.
-	 * 
+	 *
 	 * @param grab
 	 *            Whether or not to grab the mouse.
 	 */
@@ -478,13 +476,13 @@ public class Runner {
 
 	/**
 	 * Sets whether or not v-sync is enabled.
-	 * 
+	 *
 	 * @param vsync
 	 *            Whether or not to use v-sync.
 	 */
 	public void enableVsync(boolean vsync) {
 		this.vsync = vsync;
-		
+
 		Display.setVSyncEnabled(vsync);
 	}
 
@@ -495,7 +493,7 @@ public class Runner {
 
 	/**
 	 * Sets the title of the window.
-	 * 
+	 *
 	 * @param title
 	 *            The title of the window.
 	 */
@@ -506,7 +504,7 @@ public class Runner {
 	/**
 	 * Sets the icon for given size(s). Recommended sizes that you should put in
 	 * are x16, x32, and x64.
-	 * 
+	 *
 	 * @param icons
 	 *            Icon(s) for the game.
 	 */
@@ -524,14 +522,14 @@ public class Runner {
 		}
 
 		ByteBuffer[] bufferarray = new ByteBuffer[buffers.size()];
-		
+
 		buffers.toArray(bufferarray);
 		Display.setIcon(bufferarray);
 	}
 
 	/**
 	 * Sets the resizability of the window.
-	 * 
+	 *
 	 * @param resizable
 	 *            The resizability of the window
 	 */
@@ -562,7 +560,7 @@ public class Runner {
 
 	/**
 	 * Sets the factor by which the delta time will be multiplied.
-	 * 
+	 *
 	 * @param factor
 	 *            The new delta factor.
 	 */
@@ -577,7 +575,7 @@ public class Runner {
 
 	/**
 	 * Enables/Disables all updating.
-	 * 
+	 *
 	 * @param updating
 	 *            Whether or not to stop updating.
 	 */
@@ -592,7 +590,7 @@ public class Runner {
 
 	/**
 	 * Enables/Disables all rendering.
-	 * 
+	 *
 	 * @param rendering
 	 *            Whether or not to stop rendering.
 	 */
@@ -615,7 +613,7 @@ public class Runner {
 
 	/**
 	 * Shows the current splash screen.
-	 * 
+	 *
 	 * @return Whether there aren't any more splash screens to be shown.
 	 */
 	public boolean showSplashScreens(Graphics g) {
@@ -630,7 +628,7 @@ public class Runner {
 
 	/**
 	 * Adds a splash screen to the queue.
-	 * 
+	 *
 	 * @param splash
 	 *            The splash screen to add.
 	 */
@@ -640,7 +638,7 @@ public class Runner {
 
 	/**
 	 * Adds a plugin.
-	 * 
+	 *
 	 * @param plugin
 	 *            The plugin to add.
 	 */
@@ -651,14 +649,14 @@ public class Runner {
 	/**
 	 * @param name
 	 *            The name of the plugin you want.
-	 *            
+	 *
 	 * @return The plugin corresponding to name.
 	 */
 	public Plugin getPlugin(String name) throws MercuryException {
 		for (Plugin plugin : plugins)
 			if (plugin.getName().equalsIgnoreCase(name))
 				return plugin;
-		
+
 		throw new MercuryException("Plugin '" + name + "' was not found!");
 	}
 

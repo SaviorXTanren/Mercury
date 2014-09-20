@@ -1,15 +1,12 @@
 package radirius.merc.resource;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.*;
+import java.net.*;
 
 /**
  * A utility for resource management to load different resources from specific
  * roots.
- * 
+ *
  * @author wessles, Jeviny
  */
 
@@ -24,13 +21,13 @@ public class Loader {
 	/** @return The URL from a file system. */
 	public static URL loadFromSystem(String path) {
 		path = path.replace('\\', '/');
-		
+
 		try {
 			return new URL("file:" + path);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 
@@ -41,7 +38,7 @@ public class Loader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 
@@ -52,7 +49,7 @@ public class Loader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 

@@ -6,7 +6,7 @@ import radirius.merc.math.geometry.Vec2;
 
 /**
  * A utilities class for arrays.
- * 
+ *
  * @author wessles
  */
 public class ArrayUtils {

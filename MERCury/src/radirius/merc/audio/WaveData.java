@@ -31,27 +31,21 @@
  */
 package radirius.merc.audio;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.ShortBuffer;
+import java.nio.*;
 
-import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.*;
 import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 
 import org.lwjgl.openal.AL10;
 
 import com.sun.media.sound.WaveFileReader;
 
 /**
- * 
+ *
  * Utitlity class for loading wavefiles.
- * 
+ *
  * @author Brian Matzon <brian@matzon.dk>
  * @version $Revision$ $Id$
  */
@@ -67,7 +61,7 @@ public class WaveData {
 
 	/**
 	 * Creates a new WaveData
-	 * 
+	 *
 	 * @param data
 	 *            actual wavedata
 	 * @param format
@@ -90,7 +84,7 @@ public class WaveData {
 
 	/**
 	 * Creates a WaveData container from the specified url
-	 * 
+	 *
 	 * @param path
 	 *            URL to file
 	 * @return WaveData containing data, or null if a failure occured
@@ -100,8 +94,7 @@ public class WaveData {
 			// due to an issue with AudioSystem.getAudioInputStream
 			// and mixing unsigned and signed code
 			// we will use the reader directly
-			WaveFileReader wfr = new WaveFileReader();
-			return create(wfr.getAudioInputStream(new BufferedInputStream(path.openStream())));
+			return create(new WaveFileReader().getAudioInputStream(new BufferedInputStream(path.openStream())));
 		} catch (Exception e) {
 			org.lwjgl.LWJGLUtil.log("Unable to create from: " + path + ", " + e.getMessage());
 			return null;
@@ -110,7 +103,7 @@ public class WaveData {
 
 	/**
 	 * Creates a WaveData container from the specified in the classpath
-	 * 
+	 *
 	 * @param path
 	 *            path to file (relative, and in classpath)
 	 * @return WaveData containing data, or null if a failure occured
@@ -121,7 +114,7 @@ public class WaveData {
 
 	/**
 	 * Creates a WaveData container from the specified inputstream
-	 * 
+	 *
 	 * @param is
 	 *            InputStream to read from
 	 * @return WaveData containing data, or null if a failure occured
@@ -137,7 +130,7 @@ public class WaveData {
 
 	/**
 	 * Creates a WaveData container from the specified bytes
-	 * 
+	 *
 	 * @param buffer
 	 *            array of bytes containing the complete wave file
 	 * @return WaveData containing data, or null if a failure occured
@@ -155,7 +148,7 @@ public class WaveData {
 	 * Creates a WaveData container from the specified ByetBuffer. If the buffer
 	 * is backed by an array, it will be used directly, else the contents of the
 	 * buffer will be copied using get(byte[]).
-	 * 
+	 *
 	 * @param buffer
 	 *            ByteBuffer containing sound file
 	 * @return WaveData containing data, or null if a failure occured
@@ -179,7 +172,7 @@ public class WaveData {
 
 	/**
 	 * Creates a WaveData container from the specified stream
-	 * 
+	 *
 	 * @param ais
 	 *            AudioInputStream to read from
 	 * @return WaveData containing data, or null if a failure occured

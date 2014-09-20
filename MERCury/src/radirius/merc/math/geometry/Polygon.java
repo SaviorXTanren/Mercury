@@ -4,7 +4,7 @@ import radirius.merc.math.MathUtil;
 
 /**
  * A shape with any amount of sides.
- * 
+ *
  * @author wessles
  */
 

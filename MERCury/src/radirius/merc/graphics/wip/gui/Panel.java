@@ -2,14 +2,12 @@ package radirius.merc.graphics.wip.gui;
 
 import java.util.ArrayList;
 
-import radirius.merc.graphics.Graphics;
-import radirius.merc.graphics.Texture;
-import radirius.merc.math.geometry.Rectangle;
-import radirius.merc.math.geometry.Shape;
+import radirius.merc.graphics.*;
+import radirius.merc.math.geometry.*;
 
 /**
  * A component to contain and render sorted components.
- * 
+ *
  * @author wessles, Jeviny
  */
 

@@ -52,7 +52,7 @@ public class SpriteSheet implements Resource {
 
 		int numx = texture0.getWidth() / divWidth;
 		int numy = texture0.getHeight() / divHeight;
-		
+
 		SubTexture[] subtexs = new SubTexture[numx * numy];
 
 		for (int y = 0; y < numy; y++)
@@ -68,5 +68,6 @@ public class SpriteSheet implements Resource {
 	}
 
 	@Override
-	public void clean() {}
+	public void clean() {
+	}
 }

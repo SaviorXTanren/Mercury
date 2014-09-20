@@ -1,11 +1,8 @@
 package radirius.merc.graphics.wip.gui;
 
 import radirius.merc.framework.Runner;
-import radirius.merc.graphics.Color;
-import radirius.merc.graphics.Graphics;
-import radirius.merc.graphics.Texture;
-import radirius.merc.graphics.font.Font;
-import radirius.merc.graphics.font.TrueTypeFont;
+import radirius.merc.graphics.*;
+import radirius.merc.graphics.font.*;
 import radirius.merc.input.Input;
 
 /**
@@ -89,18 +86,18 @@ public class TextField extends TextBar {
 		// Number input!
 		if (INPUT_TYPE != INPUT_STRING)
 			switch (INPUT_TYPE) {
-				case INPUT_UNSIGNED_INTEGER_NUM:
-					valid = Character.isDigit(nextchar);
-					break;
-				case INPUT_SIGNED_INTEGER_NUM:
-					valid = Character.isDigit(nextchar) || nextchar == '-' && isatstart;
-					break;
-				case INPUT_UNSIGNED_FLOATING_POINT_NUM:
-					valid = Character.isDigit(nextchar) || nextchar == '.';
-					break;
-				case INPUT_SIGNED_FLOATING_POINT_NUM:
-					valid = Character.isDigit(nextchar) || nextchar == '.' || nextchar == '-' && isatstart;
-					break;
+			case INPUT_UNSIGNED_INTEGER_NUM:
+				valid = Character.isDigit(nextchar);
+				break;
+			case INPUT_SIGNED_INTEGER_NUM:
+				valid = Character.isDigit(nextchar) || nextchar == '-' && isatstart;
+				break;
+			case INPUT_UNSIGNED_FLOATING_POINT_NUM:
+				valid = Character.isDigit(nextchar) || nextchar == '.';
+				break;
+			case INPUT_SIGNED_FLOATING_POINT_NUM:
+				valid = Character.isDigit(nextchar) || nextchar == '.' || nextchar == '-' && isatstart;
+				break;
 			}
 
 		// Validity means addition!

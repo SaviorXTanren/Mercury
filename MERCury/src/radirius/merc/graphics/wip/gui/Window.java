@@ -1,14 +1,10 @@
 package radirius.merc.graphics.wip.gui;
 
 import radirius.merc.framework.Runner;
-import radirius.merc.graphics.Color;
-import radirius.merc.graphics.Graphics;
-import radirius.merc.graphics.Texture;
-import radirius.merc.graphics.font.Font;
-import radirius.merc.graphics.font.TrueTypeFont;
+import radirius.merc.graphics.*;
+import radirius.merc.graphics.font.*;
 import radirius.merc.input.Input;
-import radirius.merc.math.geometry.Rectangle;
-import radirius.merc.math.geometry.Vec2;
+import radirius.merc.math.geometry.*;
 
 /**
  * @author wessles, Jeviny

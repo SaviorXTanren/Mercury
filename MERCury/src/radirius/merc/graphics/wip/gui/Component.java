@@ -1,20 +1,15 @@
 package radirius.merc.graphics.wip.gui;
 
-import radirius.merc.environment.Renderable;
-import radirius.merc.environment.Updatable;
+import radirius.merc.environment.*;
 import radirius.merc.framework.Runner;
-import radirius.merc.graphics.Graphics;
-import radirius.merc.graphics.SpriteSheet;
-import radirius.merc.graphics.SubTexture;
-import radirius.merc.graphics.Texture;
+import radirius.merc.graphics.*;
 import radirius.merc.input.Input;
-import radirius.merc.math.geometry.Rectangle;
-import radirius.merc.math.geometry.Vec2;
+import radirius.merc.math.geometry.*;
 import radirius.merc.resource.Loader;
 
 /**
  * @author wessles, Jeviny
- * 
+ *
  *         A base for all components.
  */
 public class Component implements Updatable, Renderable {

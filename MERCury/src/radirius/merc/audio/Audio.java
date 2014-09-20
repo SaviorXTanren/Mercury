@@ -1,35 +1,8 @@
 package radirius.merc.audio;
 
-import static org.lwjgl.openal.AL10.AL_BUFFER;
-import static org.lwjgl.openal.AL10.AL_FALSE;
-import static org.lwjgl.openal.AL10.AL_FORMAT_MONO16;
-import static org.lwjgl.openal.AL10.AL_FORMAT_STEREO16;
-import static org.lwjgl.openal.AL10.AL_GAIN;
-import static org.lwjgl.openal.AL10.AL_LOOPING;
-import static org.lwjgl.openal.AL10.AL_NO_ERROR;
-import static org.lwjgl.openal.AL10.AL_PAUSED;
-import static org.lwjgl.openal.AL10.AL_PITCH;
-import static org.lwjgl.openal.AL10.AL_PLAYING;
-import static org.lwjgl.openal.AL10.AL_SOURCE_STATE;
-import static org.lwjgl.openal.AL10.AL_STOPPED;
-import static org.lwjgl.openal.AL10.AL_TRUE;
-import static org.lwjgl.openal.AL10.alBufferData;
-import static org.lwjgl.openal.AL10.alDeleteBuffers;
-import static org.lwjgl.openal.AL10.alDeleteSources;
-import static org.lwjgl.openal.AL10.alGenBuffers;
-import static org.lwjgl.openal.AL10.alGenSources;
-import static org.lwjgl.openal.AL10.alGetBoolean;
-import static org.lwjgl.openal.AL10.alGetError;
-import static org.lwjgl.openal.AL10.alGetSourcef;
-import static org.lwjgl.openal.AL10.alGetSourcei;
-import static org.lwjgl.openal.AL10.alSourcePause;
-import static org.lwjgl.openal.AL10.alSourcePlay;
-import static org.lwjgl.openal.AL10.alSourceStop;
-import static org.lwjgl.openal.AL10.alSourcef;
-import static org.lwjgl.openal.AL10.alSourcei;
+import static org.lwjgl.openal.AL10.*;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
@@ -38,7 +11,7 @@ import radirius.merc.resource.Resource;
 
 /**
  * An object for loading and using sounds.
- * 
+ *
  * @author wessles
  */
 
@@ -66,7 +39,7 @@ public class Audio implements Resource {
 	/**
 	 * Plays the clip. If it is already playing, it will restart. If the clip is
 	 * paused, it will continue.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Audio play() {
@@ -76,7 +49,7 @@ public class Audio implements Resource {
 
 	/**
 	 * Plays the clip if it is paused, pauses it if it is not paused.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Audio togglePause() {
@@ -89,7 +62,7 @@ public class Audio implements Resource {
 
 	/**
 	 * Plays the clip if it is stopped, stops it if it is not stopped.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Audio toggleStop() {
@@ -109,7 +82,7 @@ public class Audio implements Resource {
 
 	/**
 	 * Pauses the clip. Reversible by play().
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Audio pause() {
@@ -126,7 +99,7 @@ public class Audio implements Resource {
 
 	/**
 	 * Stops the clip.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Audio stop() {
@@ -143,11 +116,11 @@ public class Audio implements Resource {
 
 	/**
 	 * Sets the volume of the clip.
-	 * 
+	 *
 	 * @param vol
 	 *            A floating point volume value, 0.8 being 80%, 1.5 being 150%,
 	 *            etc.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Audio setVolume(float vol) {
@@ -164,11 +137,11 @@ public class Audio implements Resource {
 
 	/**
 	 * Sets the pitch of the clip.
-	 * 
+	 *
 	 * @param pit
 	 *            A floating point pitch value, 0.8 being 80%, 1.5 being 150%,
 	 *            etc.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Audio setPitch(float pit) {
@@ -185,10 +158,10 @@ public class Audio implements Resource {
 
 	/**
 	 * Sets whether or not the clip should loop.
-	 * 
+	 *
 	 * @param loop
 	 *            Whether or not the clip should loop.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public Audio setLooping(boolean loop) {
@@ -199,10 +172,10 @@ public class Audio implements Resource {
 	/**
 	 * Makes a source based off of buf, and then makes an Audio based off of the
 	 * source.
-	 * 
+	 *
 	 * @param buf
 	 *            The integer buffer of the sound for OpenAL to process.
-	 * 
+	 *
 	 * @return Me
 	 */
 	public static Audio getAudio(IntBuffer buf) {
@@ -220,11 +193,33 @@ public class Audio implements Resource {
 	}
 
 	/**
+	 * Makes a source based off of buf, and then makes an Audio based off of the
+	 * source.
+	 *
+	 * @param is
+	 *            The input file to be read.
+	 *
+	 * @param format
+	 *            The format of the audio file ("wav", "ogg"...).
+	 *
+	 * @return Me
+	 */
+	public static Audio getAudio(InputStream is, String format) {
+		format = format.toLowerCase();
+		if (format == "wav")
+			return getAudio(getWAVBuffer(is));
+		else if (format == "ogg")
+			return getAudio(getOGGBuffer(is));
+
+		return null;
+	}
+
+	/**
 	 * Forms a buffer from is.
-	 * 
+	 *
 	 * @param is
 	 *            The stream to the sound file.
-	 * 
+	 *
 	 * @return The integer buffer for OpenAL based off of the .ogg file at the
 	 *         InputStream is.
 	 */
@@ -257,10 +252,10 @@ public class Audio implements Resource {
 
 	/**
 	 * Froms a buffer from is.
-	 * 
+	 *
 	 * @param is
 	 *            The stream to the sound file.
-	 * 
+	 *
 	 * @return The integer buffer for OpenAL based off of the .wav file at the
 	 *         InputStream is.
 	 */

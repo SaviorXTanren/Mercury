@@ -1,14 +1,8 @@
 package radirius.merc.graphics.font;
 
-import java.awt.Color;
-import java.awt.FontFormatException;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 import radirius.merc.graphics.Texture;
 import radirius.merc.resource.Loader;
@@ -16,7 +10,7 @@ import radirius.merc.utilities.logging.Logger;
 
 /**
  * A font type for .TTF's and .OTF's.
- * 
+ *
  * @author wessles, Jeviny
  */
 
@@ -73,9 +67,9 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
 
 	private TrueTypeFont(java.awt.Font font, boolean antialias) {
 		this.font = font;
-		
+
 		font_size = font.getSize();
-		
+
 		this.antialias = antialias;
 
 		createSet();
@@ -84,9 +78,9 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
 	private void createSet() {
 		for (int i = 0; i < STANDARD_CHARACTERS; i++) {
 			char ch = (char) i;
-			
+
 			BufferedImage fontimg = getFontImage(ch);
-			
+
 			texw += fontimg.getWidth();
 			texh = Math.max(fontimg.getHeight(), texh);
 		}
@@ -144,10 +138,10 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
 		for (int x = 0; x < imgTemp.getWidth(); x++)
 			for (int y = 0; y < imgTemp.getHeight(); y++) {
 				int rgba = imgTemp.getRGB(x, y);
-				
+
 				Color col = new Color(rgba, true);
 				col = new Color(255 - col.getRed(), 255 - col.getGreen(), 255 - col.getBlue(), col.getAlpha());
-				
+
 				imgTemp.setRGB(x, y, col.getRGB());
 			}
 
@@ -200,21 +194,21 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
 	@Override
 	public float getWidth(String message) {
 		float totalwidth = 0;
-		
+
 		IntObject intObject = null;
-		
+
 		int currentChar = 0;
-		
+
 		for (char element : message.toCharArray()) {
 			currentChar = element;
-			
+
 			if (currentChar < STANDARD_CHARACTERS)
 				intObject = chars[currentChar];
 
 			if (intObject != null)
 				totalwidth += intObject.w;
 		}
-		
+
 		return totalwidth;
 	}
 
@@ -268,7 +262,7 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
 
 	/**
 	 * Let's load a font!
-	 * 
+	 *
 	 * @param is
 	 *            The stream for the font.
 	 * @param size
@@ -288,7 +282,7 @@ public class TrueTypeFont implements radirius.merc.graphics.font.Font {
 
 	/**
 	 * Let's load a font!
-	 * 
+	 *
 	 * @param font
 	 *            The base awt font.
 	 * @param antialias

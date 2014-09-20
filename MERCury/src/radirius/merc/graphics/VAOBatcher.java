@@ -1,20 +1,7 @@
 package radirius.merc.graphics;
 
-import static org.lwjgl.opengl.GL11.GL_COLOR;
-import static org.lwjgl.opengl.GL11.GL_COLOR_ARRAY;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_COORD_ARRAY;
-import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
-import static org.lwjgl.opengl.GL11.GL_VERTEX_ARRAY;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static radirius.merc.graphics.VAOUtils.COLOR_ARRAY_POINTER;
-import static radirius.merc.graphics.VAOUtils.TEXTURE_COORD_ARRAY_POINTER;
-import static radirius.merc.graphics.VAOUtils.VERTEX_ARRAY_POINTER;
-import static radirius.merc.graphics.VAOUtils.disableBuffer;
-import static radirius.merc.graphics.VAOUtils.drawBuffers;
-import static radirius.merc.graphics.VAOUtils.enableBuffer;
-import static radirius.merc.graphics.VAOUtils.pointBuffer;
+import static org.lwjgl.opengl.GL11.*;
+import static radirius.merc.graphics.VAOUtils.*;
 
 import java.nio.FloatBuffer;
 
@@ -25,7 +12,7 @@ import radirius.merc.utilities.logging.Logger;
 
 /**
  * A very simple OpenGL batcher.
- * 
+ *
  * @author wessles, Jeviny
  */
 public class VAOBatcher implements Batcher {
@@ -57,7 +44,7 @@ public class VAOBatcher implements Batcher {
 	public void begin() {
 		if (active) {
 			Logger.warn("Must be inactive before calling begin(); ignoring request.");
-			
+
 			return;
 		}
 
@@ -74,7 +61,7 @@ public class VAOBatcher implements Batcher {
 	public void end() {
 		if (!active) {
 			Logger.warn("Must be active before calling end(); ignoring request.");
-			
+
 			return;
 		}
 
@@ -119,9 +106,9 @@ public class VAOBatcher implements Batcher {
 	public void setTexture(Texture texture) {
 		if (texture.equals(lastTexture))
 			return;
-		
+
 		flush();
-		
+
 		lastTexture = texture;
 		Texture.bindTexture(texture);
 	}
@@ -130,9 +117,9 @@ public class VAOBatcher implements Batcher {
 	public void clearTextures() {
 		if (lastTexture.equals(Texture.getEmptyTexture()))
 			return;
-		
+
 		flush();
-		
+
 		lastTexture = Texture.getEmptyTexture();
 		Texture.bindTexture(lastTexture);
 	}
@@ -154,7 +141,7 @@ public class VAOBatcher implements Batcher {
 	public void clearColors() {
 		if (lastColor.equals(Color.DEFAULT_DRAWING))
 			return;
-		
+
 		lastColor = Color.DEFAULT_DRAWING;
 	}
 
@@ -167,9 +154,9 @@ public class VAOBatcher implements Batcher {
 	public void setShader(Shader shader) {
 		if (lastShader.equals(shader))
 			return;
-		
+
 		flush();
-		
+
 		lastShader = shader;
 		Shader.useShader(shader);
 	}
@@ -178,9 +165,9 @@ public class VAOBatcher implements Batcher {
 	public void clearShaders() {
 		if (lastShader.equals(Shader.DEFAULT_SHADER))
 			return;
-		
+
 		flush();
-		
+
 		lastShader = Shader.DEFAULT_SHADER;
 		Shader.useShader(lastShader);
 	}
@@ -243,7 +230,7 @@ public class VAOBatcher implements Batcher {
 
 		// Make a hypothetical subtexture of the texture
 		SubTexture subtexture = null;
-		
+
 		if (texture instanceof SubTexture)
 			subtexture = (SubTexture) texture;
 

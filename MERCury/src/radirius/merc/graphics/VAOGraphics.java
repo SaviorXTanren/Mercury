@@ -5,19 +5,13 @@ import static org.lwjgl.opengl.GL11.glScalef;
 import org.lwjgl.opengl.GL11;
 
 import radirius.merc.framework.Runner;
-import radirius.merc.graphics.font.Font;
-import radirius.merc.graphics.font.TrueTypeFont;
+import radirius.merc.graphics.font.*;
 import radirius.merc.math.MathUtil;
-import radirius.merc.math.geometry.Line;
-import radirius.merc.math.geometry.Point;
-import radirius.merc.math.geometry.Polygon;
-import radirius.merc.math.geometry.Rectangle;
-import radirius.merc.math.geometry.Triangle;
-import radirius.merc.math.geometry.Vec2;
+import radirius.merc.math.geometry.*;
 
 /**
  * An object used for graphics. It will draw just about anything for you.
- * 
+ *
  * @author wessles, Jeviny
  */
 
@@ -104,7 +98,7 @@ public class VAOGraphics implements Graphics {
 	public Font getFont() {
 		return currentfont;
 	}
-	
+
 	@Override
 	public void setBackground(Color color) {
 		backgroundcolor = color;
@@ -126,12 +120,12 @@ public class VAOGraphics implements Graphics {
 	public void setColor(float r, float g, float b, float a) {
 		setColor(new Color(r, g, b, a));
 	}
-	
+
 	@Override
 	public void setColor(float r, float g, float b) {
 		setColor(r, g, b, 255);
 	}
-	
+
 	@Override
 	public Color getColor() {
 		return currentcolor;
@@ -196,14 +190,14 @@ public class VAOGraphics implements Graphics {
 			for (int ci = 0; ci < message.toCharArray().length; ci++) {
 				if (message.toCharArray()[ci] == '\n') {
 					y += jf.getHeight() * scale;
-					
+
 					currentx = 0;
 				}
 
 				TrueTypeFont.IntObject intobj = jf.chars[message.toCharArray()[ci]];
-				
+
 				batcher.drawTexture(font.getFontTexture(), new Rectangle(intobj.x, intobj.y, intobj.w, intobj.h), new Rectangle(x + currentx, y, intobj.w * scale, intobj.h * scale));
-				
+
 				currentx += intobj.w * scale;
 			}
 
@@ -339,7 +333,7 @@ public class VAOGraphics implements Graphics {
 	@Override
 	public void tracePolygon(Polygon... polygon) {
 		batcher.clearTextures();
-		
+
 		for (Polygon poly : polygon) {
 			batcher.flushIfOverflow(poly.getVertices().length * 6);
 
@@ -367,7 +361,7 @@ public class VAOGraphics implements Graphics {
 	public void drawRectangle(Rectangle... rectangle) {
 		drawPolygon(rectangle);
 	}
-	
+
 	@Override
 	public void drawRectangle(float x, float y, float w, float h) {
 		drawRectangle(new Rectangle(x, y, w, h));
@@ -377,12 +371,12 @@ public class VAOGraphics implements Graphics {
 	public void traceRectangle(Rectangle... rectangle) {
 		tracePolygon(rectangle);
 	}
-	
+
 	@Override
 	public void traceRectangle(float x, float y, float w, float h) {
 		traceRectangle(new Rectangle(x, y, w, h));
 	}
-	
+
 	@Override
 	public void drawLine(float x1, float y1, float x2, float y2) {
 		drawLine(new Vec2(x1, y1), new Vec2(x2, y2));
@@ -426,7 +420,7 @@ public class VAOGraphics implements Graphics {
 		for (Point _point : point) {
 			float x = _point.getX();
 			float y = _point.getY();
-			
+
 			drawFunctionlessRect(new Rectangle(x, y, x + 1, y, x + 1, y + 1, x, y + 1));
 		}
 	}

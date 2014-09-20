@@ -2,7 +2,7 @@ package radirius.merc.math.geometry;
 
 /**
  * A point shape. No sides, just a point.
- * 
+ *
  * @author wessles
  */
 

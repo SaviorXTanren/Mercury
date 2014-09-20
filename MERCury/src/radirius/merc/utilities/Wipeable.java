@@ -2,7 +2,7 @@ package radirius.merc.utilities;
 
 /**
  * An abstraction for objects that can 'wipe' themselves, or self destruct.
- * 
+ *
  * @author wessles
  */
 

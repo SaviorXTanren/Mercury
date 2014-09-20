@@ -1,14 +1,13 @@
 package radirius.merc.utilities;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.Scanner;
 
 /**
  * A utility class for reading tile maps from Doppler Indie Games. Credit to
  * Doppler from https://github.com/doppl3r.
- * 
+ *
  * @author wessles
  */
 

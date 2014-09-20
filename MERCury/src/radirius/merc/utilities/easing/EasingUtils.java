@@ -2,29 +2,16 @@ package radirius.merc.utilities.easing;
 
 /**
  * A class for easing utilities.
- * 
+ *
  * @authors wessles, Jeviny, Robert Penner
  */
 public class EasingUtils {
 	/** Different easing types. */
-	public static final int LINEAR_TWEEN 		  = -1,
-							BOUNCING_LINEAR_TWEEN =  0,
-							EASE_QUAD 			  =  1,
-							BOUNCING_EASE_QUAD    =  2,
-							EASE_CUBIC 			  =  3,
-							BOUNCING_EASE_CUBIC   =  4,
-							EASE_QUINT			  =  5,
-							BOUNCING_EASE_QUINT   =  6,
-							EASE_SINE 			  =  7,
-							BOUNCING_EASE_SINE 	  =  8, 
-							EASE_EXPO 			  =  9,
-							BOUNCING_EASE_EXPO	  = 10,
-							EASE_CIRCLE			  = 11,
-							BOUNCING_EASE_CIRCLE  = 12;
+	public static final int LINEAR_TWEEN = -1, BOUNCING_LINEAR_TWEEN = 0, EASE_QUAD = 1, BOUNCING_EASE_QUAD = 2, EASE_CUBIC = 3, BOUNCING_EASE_CUBIC = 4, EASE_QUINT = 5, BOUNCING_EASE_QUINT = 6, EASE_SINE = 7, BOUNCING_EASE_SINE = 8, EASE_EXPO = 9, BOUNCING_EASE_EXPO = 10, EASE_CIRCLE = 11, BOUNCING_EASE_CIRCLE = 12;
 
 	public static float linearTween(float time, float startVal, float endVal, float duration) {
 		float change = endVal - startVal;
-		
+
 		return change * time / duration + startVal;
 	}
 
@@ -37,9 +24,9 @@ public class EasingUtils {
 
 	public static float easeQuad(float time, float startVal, float endVal, float duration) {
 		float change = endVal - startVal;
-		
+
 		time /= duration;
-		
+
 		return change * time * time + startVal;
 	}
 
@@ -52,9 +39,9 @@ public class EasingUtils {
 
 	public static float easeCubic(float time, float startVal, float endVal, float duration) {
 		float change = endVal - startVal;
-		
+
 		time /= duration;
-		
+
 		return change * time * time * time + startVal;
 	}
 
@@ -67,9 +54,9 @@ public class EasingUtils {
 
 	public static float easeQuint(float time, float startVal, float endVal, float duration) {
 		float change = endVal - startVal;
-		
+
 		time /= duration;
-		
+
 		return change * time * time * time * time * time + startVal;
 	}
 
@@ -82,7 +69,7 @@ public class EasingUtils {
 
 	public static float easeSine(float time, float startVal, float endVal, float duration) {
 		float change = endVal - startVal;
-		
+
 		return -change * (float) Math.cos(time / duration * (Math.PI / 2)) + change + startVal;
 	}
 
@@ -95,7 +82,7 @@ public class EasingUtils {
 
 	public static float easeExpo(float time, float startVal, float endVal, float duration) {
 		float change = endVal - startVal;
-		
+
 		return change * (float) Math.pow(2, 10 * (time / duration - 1)) + startVal;
 	}
 
@@ -108,9 +95,9 @@ public class EasingUtils {
 
 	public static float easeCircle(float time, float startVal, float endVal, float duration) {
 		float change = endVal - startVal;
-		
+
 		time /= duration;
-		
+
 		return -change * ((float) Math.sqrt(1 - time * time) - 1) + startVal;
 	}
 

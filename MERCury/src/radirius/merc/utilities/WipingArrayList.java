@@ -1,11 +1,10 @@
 package radirius.merc.utilities;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * An arraylist that you can wipe Wipeables with.
- * 
+ *
  * @author wessles
  */
 

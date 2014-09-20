@@ -3,7 +3,7 @@ package radirius.merc.data;
 /**
  * An interface for data-manipulation. This should be used for file reading and
  * writing.
- * 
+ *
  * @author wessles
  */
 

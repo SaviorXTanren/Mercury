@@ -1,12 +1,8 @@
 package radirius.merc.graphics.wip.gui;
 
-import radirius.merc.graphics.Color;
-import radirius.merc.graphics.Graphics;
-import radirius.merc.graphics.Texture;
-import radirius.merc.graphics.font.Font;
-import radirius.merc.graphics.font.TrueTypeFont;
-import radirius.merc.math.geometry.Rectangle;
-import radirius.merc.math.geometry.Shape;
+import radirius.merc.graphics.*;
+import radirius.merc.graphics.font.*;
+import radirius.merc.math.geometry.*;
 import radirius.merc.utilities.logging.Logger;
 
 /**

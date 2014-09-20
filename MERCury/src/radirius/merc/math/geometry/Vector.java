@@ -2,7 +2,7 @@ package radirius.merc.math.geometry;
 
 /**
  * A base class for all vectors.
- * 
+ *
  * @author wessles, Jeviny
  */
 

@@ -7,7 +7,7 @@ import radirius.merc.exceptions.MercuryException;
 /**
  * An easy to use utility for one-shot, and reccuring timertasks. Operates on
  * seperate thread.
- * 
+ *
  * @author wessles
  */
 
@@ -16,7 +16,7 @@ public class TaskTiming {
 
 	/**
 	 * Adds a task.
-	 * 
+	 *
 	 * @param task
 	 *            The task to add.
 	 */

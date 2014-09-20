@@ -9,7 +9,7 @@ import radirius.merc.utilities.logging.Logger;
 /**
  * A collection of Commands and Variables to be accessed in the given
  * inputstream (the console by default).
- * 
+ *
  * @author wessles
  */
 
@@ -70,7 +70,7 @@ public class CommandList {
 
 	/**
 	 * Adds a command to the list.
-	 * 
+	 *
 	 * @param cmd
 	 *            The command that you want to add.
 	 */
@@ -87,7 +87,7 @@ public class CommandList {
 
 	/**
 	 * Adds a command to the list.
-	 * 
+	 *
 	 * @param v
 	 *            The variable that you want to add.
 	 */

@@ -2,7 +2,7 @@ package radirius.merc.graphics;
 
 /**
  * An abstraction for objects that are textured.
- * 
+ *
  * @author wessles
  */
 

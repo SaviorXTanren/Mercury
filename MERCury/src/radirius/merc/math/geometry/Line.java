@@ -2,7 +2,7 @@ package radirius.merc.math.geometry;
 
 /**
  * A line class.
- * 
+ *
  * @author wessles
  */
 

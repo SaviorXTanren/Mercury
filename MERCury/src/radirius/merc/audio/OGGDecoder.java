@@ -14,14 +14,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” 
 
 package radirius.merc.audio;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.ByteBuffer;
 
 /**
  * Decode an OGG file to PCM data
- * 
+ *
  * @author Kevin Glass
  */
 public class OGGDecoder {
@@ -35,7 +33,7 @@ public class OGGDecoder {
 
 	/**
 	 * Get the data out of an OGG file
-	 * 
+	 *
 	 * @param input
 	 *            The input stream from which to read the OGG file
 	 * @return The data describing the OGG thats been read

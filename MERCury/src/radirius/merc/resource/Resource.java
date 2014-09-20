@@ -3,7 +3,7 @@ package radirius.merc.resource;
 /**
  * A common denominator of all resources. This is so that all resources can be
  * cloned.
- * 
+ *
  * @author wessles
  */
 public interface Resource extends Cloneable {

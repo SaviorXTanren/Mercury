@@ -3,7 +3,7 @@ package radirius.merc.utilities.command;
 /**
  * A Command that will do a specific task when asked in the given inputstream
  * (by default, the console).
- * 
+ *
  * @author wessles
  */
 
@@ -38,7 +38,7 @@ public abstract class Command {
 
 	/**
 	 * The action to do when the command is run given args.
-	 * 
+	 *
 	 * @param args
 	 *            The arguments given for the command. You do not need to use
 	 *            these.

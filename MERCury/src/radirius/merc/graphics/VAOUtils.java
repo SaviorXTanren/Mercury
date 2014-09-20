@@ -1,11 +1,6 @@
 package radirius.merc.graphics;
 
-import static org.lwjgl.opengl.GL11.glColorPointer;
-import static org.lwjgl.opengl.GL11.glDisableClientState;
-import static org.lwjgl.opengl.GL11.glDrawArrays;
-import static org.lwjgl.opengl.GL11.glEnableClientState;
-import static org.lwjgl.opengl.GL11.glTexCoordPointer;
-import static org.lwjgl.opengl.GL11.glVertexPointer;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.nio.FloatBuffer;
 
@@ -13,7 +8,7 @@ import org.lwjgl.BufferUtils;
 
 /**
  * A utilities class for vertex array objects.
- * 
+ *
  * @author wessles
  */
 
