@@ -1,6 +1,5 @@
 package radirius.merc.graphics.particles;
 
-import radirius.merc.environment.*;
 import radirius.merc.graphics.Graphics;
 import radirius.merc.math.MathUtil;
 import radirius.merc.math.geometry.*;
