@@ -23,6 +23,7 @@ public class VAOUtils {
 		FloatBuffer buff = BufferUtils.createFloatBuffer(size * amount);
 		buff.put(data);
 		buff.flip();
+		
 		return buff;
 	}
 

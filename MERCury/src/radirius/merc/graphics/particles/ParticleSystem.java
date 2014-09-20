@@ -4,6 +4,8 @@ import radirius.merc.environment.*;
 import radirius.merc.graphics.*;
 import radirius.merc.math.MathUtil;
 import radirius.merc.math.geometry.Vec2;
+import radirius.merc.utilities.Renderable;
+import radirius.merc.utilities.Updatable;
 import radirius.merc.utilities.WipingArrayList;
 
 /**

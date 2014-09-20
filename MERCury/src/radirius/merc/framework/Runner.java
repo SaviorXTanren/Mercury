@@ -106,24 +106,24 @@ public class Runner {
 	 * values that can be modified.
 	 */
 	public static class InitSetup {
-		public InitSetup(Core core, int WIDTH, int HEIGHT) {
+		public InitSetup(Core core, int width, int height) {
 			this.core = core;
-			this.WIDTH = WIDTH;
-			this.HEIGHT = HEIGHT;
+			this.width = width;
+			this.height = height;
 		}
 
 		/** The Core to be ran. */
 		public Core core;
 		/** The width of the display. */
-		public int WIDTH;
+		public int width;
 		/** The height of the display. */
-		public int HEIGHT;
+		public int height;
 		/** Whether or not fullscreen is enabled. */
 		public boolean fullscreen = false;
 		/** Whether or not v-sync is enabled. */
 		public boolean vsync = true;
 		/** Whether or not the Core is initialized on a separate thread. */
-		public boolean initonseparatethread = false;
+		public boolean multithread = false;
 		/** Whether or not the developers console is enabled. */
 		public boolean devconsole = true;
 	}
@@ -133,13 +133,13 @@ public class Runner {
 	 *
 	 * @param core
 	 *            The Core to be ran.
-	 * @param WIDTH
+	 * @param width
 	 *            The width of the display.
-	 * @param HEIGHT
+	 * @param height
 	 *            The height of the display.
 	 */
-	public void init(Core core, int WIDTH, int HEIGHT) {
-		init(core, WIDTH, HEIGHT, false);
+	public void init(Core core, int width, int height) {
+		init(core, width, height, false);
 	}
 
 	/**
@@ -147,15 +147,15 @@ public class Runner {
 	 *
 	 * @param core
 	 *            The Core to be ran.
-	 * @param WIDTH
+	 * @param width
 	 *            The width of the display.
-	 * @param HEIGHT
+	 * @param height
 	 *            The height of the display.
 	 * @param fullscreen
 	 *            Whether or not fullscreen is enabled.
 	 */
-	public void init(Core core, int WIDTH, int HEIGHT, boolean fullscreen) {
-		init(core, WIDTH, HEIGHT, fullscreen, true, false, true);
+	public void init(Core core, int width, int height, boolean fullscreen) {
+		init(core, width, height, fullscreen, true, false, true);
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class Runner {
 	 *            with.
 	 */
 	public void init(InitSetup iniset) {
-		init(iniset.core, iniset.WIDTH, iniset.HEIGHT, iniset.fullscreen, iniset.vsync, iniset.initonseparatethread, iniset.devconsole);
+		init(iniset.core, iniset.width, iniset.height, iniset.fullscreen, iniset.vsync, iniset.multithread, iniset.devconsole);
 	}
 
 	public boolean inited = false;
@@ -190,20 +190,20 @@ public class Runner {
 	 *
 	 * @param core
 	 *            The Core to be ran.
-	 * @param WIDTH
+	 * @param width
 	 *            The width of the display.
-	 * @param HEIGHT
+	 * @param height
 	 *            The height of the display.
 	 * @param fullscreen
 	 *            Whether or not fullscreen is enabled.
 	 * @param vsync
 	 *            Whether or not v-sync is enabled.
-	 * @param initonseparatethread
+	 * @param multithread
 	 *            Whether or not the Core is initialized on a separate thread.
 	 * @param devconsole
 	 *            Whether or not the developers console is enabled.
 	 */
-	public void init(final Core core, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean initonseparatethread, boolean devconsole) {
+	public void init(final Core core, int width, int height, boolean fullscreen, boolean vsync, boolean multithread, boolean devconsole) {
 		System.out.println("Mercury 2D Game Library\n" + "Designed by Radirius\n" + "Website: http://merc.radiri.us/");
 		System.out.println("-------------------------------");
 
@@ -214,7 +214,7 @@ public class Runner {
 		this.vsync = vsync;
 
 		Logger.info("Making Display & Graphics...");
-		this.core.initDisplay(WIDTH, HEIGHT, fullscreen, vsync);
+		this.core.initDisplay(width, height, fullscreen, vsync);
 
 		graphics = this.core.initGraphics();
 		Logger.info("OpenGL Version: " + GL11.glGetString(GL11.GL_VERSION));
@@ -240,8 +240,8 @@ public class Runner {
 			plugin.init();
 		}
 
-		Logger.info("Starting Core" + (initonseparatethread ? " (On Separate Thread)" : "") + "...");
-		if (initonseparatethread) {
+		Logger.info("Starting Core" + (multithread ? " (On Separate Thread)" : "") + "...");
+		if (multithread) {
 			Runnable initthread_run = new Runnable() {
 				@Override
 				public void run() {

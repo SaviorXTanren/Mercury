@@ -94,8 +94,7 @@ public class MercuryData implements Data {
 			String property = (String) values.keySet().toArray()[i];
 			String value = (String) values.values().toArray()[i];
 
-			write.println(property + " " + value); // Write key/value to the
-			// file.
+			write.println(property + " " + value); // Write key/value to the file
 		}
 
 		// Close the writer and clear any temporary storage.

@@ -15,10 +15,10 @@ public interface Batcher {
 	/** @return Whether or not I am active. */
 	public boolean isActive();
 
-	/** Make inactive, and push data to OGL. */
+	/** Make inactive, and push data to OpenGL. */
 	public void end();
 
-	/** Pushes data to OGL. */
+	/** Pushes data to OpenGL. */
 	public void flush();
 
 	/**
@@ -163,7 +163,7 @@ public interface Batcher {
 	public void vertex(float x, float y, float r, float g, float b, float a, float u, float v);
 
 	/**
-	 * Will flush the data to OGL if the sum of the vertex count and the
+	 * Will flush the data to OpenGL if the sum of the vertex count and the
 	 * allocation is higher than the limit.
 	 *
 	 * @param allocate

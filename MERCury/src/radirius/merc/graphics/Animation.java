@@ -19,7 +19,7 @@ public class Animation implements Resource {
 	private boolean bounce;
 
 	private int framerateMillis;
-	private long framemillis = 0, lastframemillis;
+	private long frameMillis = 0, lastFrameMillis;
 
 	/**
 	 * @param framerateMillis
@@ -119,9 +119,9 @@ public class Animation implements Resource {
 	 * @return If this is the last frame.
 	 */
 	public boolean nextFrame() {
-		framemillis = System.currentTimeMillis();
+		frameMillis = System.currentTimeMillis();
 
-		if (framemillis - lastframemillis >= framerateMillis) {
+		if (frameMillis - lastFrameMillis >= framerateMillis) {
 
 			frame += framestep;
 
@@ -131,7 +131,7 @@ public class Animation implements Resource {
 				else
 					frame = first;
 
-			lastframemillis = System.currentTimeMillis();
+			lastFrameMillis = System.currentTimeMillis();
 			return frame == first;
 		}
 

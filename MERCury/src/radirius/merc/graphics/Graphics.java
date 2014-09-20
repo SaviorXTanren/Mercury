@@ -51,7 +51,7 @@ public interface Graphics {
 	public Font getFont();
 
 	/** Sets the background color. */
-	public void setBackground(Color col);
+	public void setBackground(Color color);
 
 	/** @return The background color. */
 	public Color getBackground();

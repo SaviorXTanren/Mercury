@@ -20,40 +20,40 @@ public abstract class Core {
 	private final Runner runner = Runner.getInstance();
 
 	public final String name;
-	public final int WIDTH;
-	public final int HEIGHT;
+	public final int width;
+	public final int height;
 	public final boolean fullscreen;
 	public final boolean vsync;
-	public final boolean initonseparatethread;
+	public final boolean multithread;
 	public final boolean devconsole;
 
-	public Core(String name, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync, boolean initonseparatethread, boolean devconsole) {
+	public Core(String name, int width, int height, boolean fullscreen, boolean vsync, boolean multithread, boolean devconsole) {
 		this.name = name;
-		this.WIDTH = WIDTH;
-		this.HEIGHT = HEIGHT;
+		this.width = width;
+		this.height = height;
 		this.fullscreen = fullscreen;
 		this.vsync = vsync;
-		this.initonseparatethread = initonseparatethread;
+		this.multithread = multithread;
 		this.devconsole = devconsole;
 	}
 
-	public Core(String name, int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
-		this(name, WIDTH, HEIGHT, fullscreen, vsync, false, false);
+	public Core(String name, int width, int height, boolean fullscreen, boolean vsync) {
+		this(name, width, height, fullscreen, vsync, false, false);
 	}
 
-	public Core(String name, int WIDTH, int HEIGHT, boolean fullscreen) {
-		this(name, WIDTH, HEIGHT, fullscreen, true, false, false);
+	public Core(String name, int width, int height, boolean fullscreen) {
+		this(name, width, height, fullscreen, true, false, false);
 	}
 
-	public Core(String name, int WIDTH, int HEIGHT) {
-		this(name, WIDTH, HEIGHT, false, true);
+	public Core(String name, int width, int height) {
+		this(name, width, height, false, true);
 	}
 
 	/**
 	 * Initializes and then runs the Runner.
 	 */
 	public void start() {
-		runner.init(this, WIDTH, HEIGHT, fullscreen, vsync, initonseparatethread, devconsole);
+		runner.init(this, width, height, fullscreen, vsync, multithread, devconsole);
 		runner.run();
 	}
 
@@ -92,20 +92,20 @@ public abstract class Core {
 	/**
 	 * Initializes the display.
 	 *
-	 * @param WIDTH
+	 * @param width
 	 *            The width of the display.
-	 * @param HEIGHT
+	 * @param height
 	 *            The height of the display.
 	 * @param fullscreen
 	 *            Whether or not fullscreen is enabled.
 	 * @param vsync
 	 *            Whether or not v-sync is used.
 	 */
-	public void initDisplay(int WIDTH, int HEIGHT, boolean fullscreen, boolean vsync) {
+	public void initDisplay(int width, int height, boolean fullscreen, boolean vsync) {
 		try {
 			Display.setVSyncEnabled(vsync);
 
-			DisplayMode dm = new DisplayMode(WIDTH, HEIGHT);
+			DisplayMode dm = new DisplayMode(width, height);
 
 			boolean screendimmatched = false;
 
@@ -113,14 +113,14 @@ public abstract class Core {
 				DisplayMode[] modes = Display.getAvailableDisplayModes();
 
 				for (DisplayMode mode : modes) {
-					if (mode.getWidth() == WIDTH && mode.getHeight() == HEIGHT && mode.isFullscreenCapable()) {
+					if (mode.getWidth() == width && mode.getHeight() == height && mode.isFullscreenCapable()) {
 						dm = mode;
 						screendimmatched = true;
 					}
 				}
 
 				if (!screendimmatched)
-					Logger.warn("Dimensions " + WIDTH + "x" + HEIGHT + " is not supported! Disabling Fullscreen.");
+					Logger.warn("Dimensions " + width + "x" + height + " is not supported! Disabling Fullscreen.");
 				else
 					Display.setFullscreen(true);
 			}
@@ -132,7 +132,7 @@ public abstract class Core {
 			e.printStackTrace();
 		}
 
-		Runner.getInstance().setIcon(Loader.streamFromClasspath("radirius/merc/framework/merc_mascot_x16.png"), Loader.streamFromClasspath("radirius/merc/framework/merc_mascot_x32.png"), Loader.streamFromClasspath("radirius/merc/framework/merc_mascot_x64.png"));
+		Runner.getInstance().setIcon(Loader.streamFromClasspath("radirius/merc/framework/icons/merc_mascot_x16.png"), Loader.streamFromClasspath("radirius/merc/framework/icons/merc_mascot_x32.png"), Loader.streamFromClasspath("radirius/merc/framework/icons/merc_mascot_x64.png"));
 	}
 
 	/**

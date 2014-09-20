@@ -17,8 +17,10 @@ public class TestEntity extends Entity {
 	public void update(float delta) {
 		time++;
 
-		setX((float) Math.sin(time / 50.0) * 50.0f + 128);
-		setY((float) Math.cos(time / 50.0) * 50.0f + 128);
+		float xm = (float) Math.sin(time / 50.0) * 50.0f + 128;
+		float ym = (float) Math.cos(time / 50.0) * 50.0f + 128;
+		
+		setPosition(xm, ym);
 		setRotation(time / 2.0f);
 	}
 

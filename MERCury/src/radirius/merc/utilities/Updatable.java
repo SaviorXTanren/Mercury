@@ -1,4 +1,4 @@
-package radirius.merc.environment;
+package radirius.merc.utilities;
 
 /**
  * An abstraction for objects that can be updated.

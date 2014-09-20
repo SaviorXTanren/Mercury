@@ -1,4 +1,4 @@
-package radirius.merc.environment;
+package radirius.merc.utilities;
 
 import radirius.merc.graphics.Graphics;
 

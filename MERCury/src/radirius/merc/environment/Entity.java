@@ -2,6 +2,8 @@ package radirius.merc.environment;
 
 import radirius.merc.graphics.Graphics;
 import radirius.merc.math.geometry.*;
+import radirius.merc.utilities.Renderable;
+import radirius.merc.utilities.Updatable;
 
 /**
  * A base for all Entities that have a function in a Mercury game's environment.
@@ -10,8 +12,7 @@ import radirius.merc.math.geometry.*;
  */
 
 public class Entity implements Updatable, Renderable {
-	private float x, y, w, h, rot;
-	private boolean alive = true;
+	private float x, y, w, h, rotation;
 
 	public Entity(float x, float y, float w, float h) {
 		this.x = x;
@@ -20,39 +21,27 @@ public class Entity implements Updatable, Renderable {
 		this.h = h;
 	}
 
-	@Override
-	public void update(float delta) {
-	}
-
-	@Override
-	public void render(Graphics g) {
-	}
+	public void update(float delta) {}
+	public void render(Graphics g) {}
 
 	public Vec2 getPosition() {
 		return new Vec2(x, y);
 	}
 
 	public Rectangle getBounds() {
-		return (Rectangle) new Rectangle(x, y, w, h).rotate(rot);
+		return (Rectangle) new Rectangle(x, y, w, h).rotate(rotation);
 	}
 
 	public String getName() {
 		return getClass().getSimpleName();
 	}
-
-	public boolean isAlive() {
-		return alive;
-	}
-
-	public void setX(float x) {
+	
+	public void setPosition(float x, float y) {
 		this.x = x;
-	}
-
-	public void setY(float y) {
 		this.y = y;
 	}
 
-	public void setRotation(float rot) {
-		this.rot = rot;
+	public void setRotation(float rotation) {
+		this.rotation = rotation;
 	}
 }

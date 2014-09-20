@@ -6,6 +6,8 @@ import radirius.merc.graphics.*;
 import radirius.merc.input.Input;
 import radirius.merc.math.geometry.*;
 import radirius.merc.resource.Loader;
+import radirius.merc.utilities.Renderable;
+import radirius.merc.utilities.Updatable;
 
 /**
  * @author wessles, Jeviny
