@@ -1,6 +1,5 @@
 package radirius.merc.graphics.wip.gui;
 
-import radirius.merc.environment.*;
 import radirius.merc.framework.Runner;
 import radirius.merc.graphics.*;
 import radirius.merc.input.Input;
