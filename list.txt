@@ -76,7 +76,7 @@ Primary Code To-Do List:
 - [-] Change drawPolygon to simply drawShape
 - [+] Add a better implementation of entities.
 - [=] Improve upon the new entities.
-- [-] Move Updatable/Renderable to /utilities/
+- [+] Move Updatable/Renderable to /utilities/
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
 
