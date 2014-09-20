@@ -69,7 +69,14 @@ Primary Code To-Do List:
       [-] Easing Utility ^ ]
       // Probably More To come
 - [+] Change "drawString(x, y, msg)" to "drawString(msg, x, y)"
-- [-] Updated Default Splash Screen. Due to name changes. 
+- [+] Simply Core's Setup.
+- [-] Update Default Splash Screen. Due to name changes. 
+- [-] Fix up Wiki from name change.
+- [-] Update To-Do to adapt to the name change (Yay for going meta \o/)
+- [-] Change drawPolygon to simply drawShape
+- [+] Add a better implementation of entities.
+- [=] Improve upon the new entities.
+- [-] Move Updatable/Renderable to /utilities/
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
 
