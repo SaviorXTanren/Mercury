@@ -77,6 +77,7 @@ Primary Code To-Do List:
 - [+] Add a better implementation of entities.
 - [=] Improve upon the new entities.
 - [+] Move Updatable/Renderable to /utilities/
+- [-] Change 'setScale()' in Rectangle to 'scaleTo()' to stay consistent with the other 'To' functions.
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
 
