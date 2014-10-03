@@ -90,6 +90,39 @@ public interface Batcher {
 	/** Draws the portion sourceregion of a texture to the Rectangle region */
 	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region);
 
+	/** Draws a Texture texture at x and y with a tint */
+	public void drawTexture(Texture texture, float x, float y, Color tint);
+
+	/** Draws a Texture texture at x and y at w and h size with a tint */
+	public void drawTexture(Texture texture, float x, float y, float w, float h, Color tint);
+
+	/**
+	 * Draws a Texture texture at x and y at w and h size, rotated rot degrees
+	 * by the local origin (0, 0) with a tint
+	 */
+	public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, Color tint);
+
+	/**
+	 * Draws a Texture texture at x and y at w and h size, rotated rot degrees
+	 * by the local origin (local_origin_x, local_origin_y) with a tint
+	 */
+	public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, float local_origin_x, float local_origin_y, Color tint);
+
+	/** Draws a portion of the texture at x and y with a tint */
+	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, Color tint);
+
+	/** Draws a portion of the texture at x1 and y1, to x2 and y2 with a tint */
+	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, float w, float h, Color tint);
+
+	/** Draws a Texture texture to the Rectangle region with a tint */
+	public void drawTexture(Texture texture, Rectangle region, Color tint);
+
+	/** Draws a portion of a texture to the Rectangle region with a tint */
+	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region, Color tint);
+	
+	/** Draws the portion sourceregion of a texture to the Rectangle region with a tint */
+	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region, Color tint);
+
 	/**
 	 * Adds a vertex to the stack.
 	 *

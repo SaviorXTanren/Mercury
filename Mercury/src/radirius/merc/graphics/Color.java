@@ -39,9 +39,8 @@ public class Color {
 	public static final Color GRAY = GREY.duplicate();
 
 	public static final Color DEFAULT_BACKGROUND = BLACK;
-	public static final Color DEFAULT_DRAWING = WHITE;
 	public static final Color DEFAULT_TEXTURE_COLOR = BLACK;
-	public static final Color DEFAULT_TEXT_COLOR = WHITE;
+	public static final Color DEFAULT_DRAWING = WHITE;
 
 	/** Red, Green, Blue, and Alpha variables. */
 	public float r = 0, g = 0, b = 0, a = 0;
