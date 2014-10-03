@@ -169,7 +169,8 @@ public class Runner {
 	 *            Whether or not v-sync is enabled.
 	 */
 	public void init(Core core, boolean fullscreen, boolean vsync) {
-		init(core, Display.getDesktopDisplayMode().getWidth(), Display.getDesktopDisplayMode().getHeight(), fullscreen, vsync, false, true);
+		init(core, Display.getDesktopDisplayMode().getWidth(), Display.getDesktopDisplayMode().getHeight(), fullscreen,
+				vsync, false, true);
 	}
 
 	/**
@@ -180,7 +181,8 @@ public class Runner {
 	 *            with.
 	 */
 	public void init(InitSetup iniset) {
-		init(iniset.core, iniset.width, iniset.height, iniset.fullscreen, iniset.vsync, iniset.multithread, iniset.devconsole);
+		init(iniset.core, iniset.width, iniset.height, iniset.fullscreen, iniset.vsync, iniset.multithread,
+				iniset.devconsole);
 	}
 
 	public boolean inited = false;
@@ -203,7 +205,8 @@ public class Runner {
 	 * @param devconsole
 	 *            Whether or not the developers console is enabled.
 	 */
-	public void init(final Core core, int width, int height, boolean fullscreen, boolean vsync, boolean multithread, boolean devconsole) {
+	public void init(final Core core, int width, int height, boolean fullscreen, boolean vsync, boolean multithread,
+			boolean devconsole) {
 		System.out.println("Mercury 2D Game Library\n" + "Designed by Radirius\n" + "Website: http://merc.radiri.us/");
 		System.out.println("-------------------------------");
 
@@ -607,6 +610,10 @@ public class Runner {
 	public Camera getCamera() {
 		return camera;
 	}
+	
+	public void setViewport(int x, int y, int width, int height) {
+		glViewport(x, y, width, height);
+	}
 
 	/** The current splash screen. */
 	private int splidx = 0;
@@ -616,7 +623,7 @@ public class Runner {
 	 *
 	 * @return Whether there aren't any more splash screens to be shown.
 	 */
-	public boolean showSplashScreens(Graphics g) {
+	private boolean showSplashScreens(Graphics g) {
 		if (splidx > splashes.size() - 1)
 			return true;
 
@@ -624,6 +631,16 @@ public class Runner {
 			splidx++;
 
 		return false;
+	}
+
+	/*
+	 * @return Whether the splashes screens are being shown.
+	 */
+	public boolean showingSplashScreens() {
+		if (splidx > splashes.size() - 1)
+			return false;
+
+		return true;
 	}
 
 	/**

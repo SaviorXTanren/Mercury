@@ -74,7 +74,7 @@ public class Particle implements Updatable, Renderable, Wipeable {
 		if (emitter.getOptions().texture == null)
 			g.drawPolygon(bounds);
 		else
-			g.drawTexture(emitter.getOptions().texture, bounds);
+			g.drawTexture(emitter.getOptions().texture, bounds, g.getColor());
 	}
 
 	boolean wiped = false;

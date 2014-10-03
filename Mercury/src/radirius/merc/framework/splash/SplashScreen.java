@@ -2,6 +2,7 @@ package radirius.merc.framework.splash;
 
 import radirius.merc.framework.Runner;
 import radirius.merc.graphics.*;
+import radirius.merc.input.Input;
 import radirius.merc.math.geometry.Rectangle;
 import radirius.merc.resource.Loader;
 import radirius.merc.utilities.*;
@@ -46,7 +47,8 @@ public class SplashScreen {
 	 *            The time that the splash screen is shown.
 	 */
 	public SplashScreen(Texture splashTexture, long showTimeMillis) {
-		this(splashTexture, showTimeMillis, (splashTexture.width <= runner.getWidth() && splashTexture.height <= runner.getHeight()) ? false : true);
+		this(splashTexture, showTimeMillis, (splashTexture.width <= runner.getWidth() && splashTexture.height <= runner
+				.getHeight()) ? false : true);
 	}
 
 	EasingValue easingValue;
@@ -71,6 +73,12 @@ public class SplashScreen {
 			showing = true;
 		}
 
+		for (int c_skipbtn : skipbutton)
+			if (Runner.getInstance().getInput().keyClicked(c_skipbtn)) {
+				returned = false;
+				showing = false;
+			}
+
 		Rectangle cam = Runner.getInstance().getCamera().getBounds();
 
 		float width = splashTexture.getWidth();
@@ -87,10 +95,24 @@ public class SplashScreen {
 			width *= scale;
 		}
 
-		g.setColor(new Color(0, 0, 0, easingValue.get()));
-		g.drawTexture(splashTexture, cam.getX() + cam.getWidth() / 2 - width / 2, cam.getY() + cam.getHeight() / 2 - height / 2, width, height);
+		g.drawTexture(splashTexture, cam.getX() + cam.getWidth() / 2 - width / 2, cam.getY() + cam.getHeight() / 2
+				- height / 2, width, height, new Color(0, 0, 0, easingValue.get()));
 
 		return returned;
+	}
+
+	private int[] skipbutton = new int[] {};
+
+	/**
+	 * Sets the buttons (from Input) for skipping the splash screen.
+	 * 
+	 * @param skipbutton
+	 *            The button for skipping
+	 * @return Me
+	 */
+	public SplashScreen setSkipButton(int... skipbutton) {
+		this.skipbutton = skipbutton;
+		return this;
 	}
 
 	/**
@@ -99,8 +121,9 @@ public class SplashScreen {
 	 * @return The love of Mercury's developers. <3
 	 */
 	public static SplashScreen getMercuryDefault() {
-		Texture texture = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/framework/splash/splash.png"), Texture.FILTER_LINEAR);
+		Texture texture = Texture.loadTexture(Loader.streamFromClasspath("radirius/merc/framework/splash/splash.png"),
+				Texture.FILTER_LINEAR);
 
-		return new SplashScreen(texture, 4000);
+		return new SplashScreen(texture, 4000).setSkipButton(Input.KEY_SPACE, Input.KEY_ENTER);
 	}
 }

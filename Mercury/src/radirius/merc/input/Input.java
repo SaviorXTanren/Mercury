@@ -172,9 +172,6 @@ public class Input {
 
 	/** Updates a list of things that happened every frame. */
 	public void pollKeyboard() {
-		nextchar = 0;
-		eventkeystates.clear();
-
 		while (Keyboard.next())
 			if (Keyboard.getEventKeyState()) {
 				eventkeystates.add(Keyboard.getEventKey());
@@ -184,8 +181,6 @@ public class Input {
 
 	/** Updates a list of things that happened every frame. */
 	public void pollMouse() {
-		eventmousebuttonstates.clear();
-
 		while (Mouse.next())
 			if (Mouse.getEventButtonState())
 				eventmousebuttonstates.add(Mouse.getEventButton());
@@ -198,10 +193,8 @@ public class Input {
 		if (!Controllers.isCreated())
 			return;
 
-		eventcontbuttonstates.clear();
-
 		int controlleridx = 0;
-
+		
 		while (Controllers.next()) {
 			if (Controllers.isEventButton()) {
 				int button = Controllers.getEventControlIndex();
@@ -226,9 +219,19 @@ public class Input {
 
 	/** Polls keyboard and mouse. */
 	public void poll() {
+		purgeBuffers();
 		pollKeyboard();
 		pollMouse();
 		pollControllers();
+	}
+	
+	public void purgeBuffers() {
+		eventkeystates.clear();
+		nextchar = 0;
+		
+		eventmousebuttonstates.clear();
+		
+		eventcontbuttonstates.clear();
 	}
 
 	/** @return If key was clicked. */
@@ -237,6 +240,11 @@ public class Input {
 			if (eventkey == key)
 				return true;
 		return false;
+	}
+	
+	/** @return If any key was clicked. */
+	public boolean wasKeyClicked() {
+		return eventkeystates.size() != 0;
 	}
 
 	/** @return If key is down. */

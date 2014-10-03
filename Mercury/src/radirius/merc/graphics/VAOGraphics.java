@@ -125,7 +125,7 @@ public class VAOGraphics implements Graphics {
 
 	@Override
 	public void setColor(float r, float g, float b) {
-		setColor(r, g, b, 255);
+		setColor(r, g, b, 1f);
 	}
 
 	@Override
@@ -184,11 +184,6 @@ public class VAOGraphics implements Graphics {
 
 			float currentX = 0;
 
-			boolean defaultColor = currentColor == Color.DEFAULT_DRAWING;
-
-			if (defaultColor)
-				setColor(Color.DEFAULT_TEXT_COLOR);
-
 			for (int ci = 0; ci < message.toCharArray().length; ci++) {
 				if (message.toCharArray()[ci] == '\n') {
 					y += ttf.getHeight() * scale;
@@ -198,13 +193,10 @@ public class VAOGraphics implements Graphics {
 
 				TrueTypeFont.IntObject intObject = ttf.chars[message.toCharArray()[ci]];
 
-				batcher.drawTexture(font.getFontTexture(), new Rectangle(intObject.x, intObject.y, intObject.w, intObject.h), new Rectangle(x + currentX, y, intObject.w * scale, intObject.h * scale));
+				batcher.drawTexture(font.getFontTexture(), new Rectangle(intObject.x, intObject.y, intObject.w, intObject.h), new Rectangle(x + currentX, y, intObject.w * scale, intObject.h * scale), getColor());
 
 				currentX += intObject.w * scale;
 			}
-
-			if (defaultColor)
-				setColor(Color.DEFAULT_DRAWING);
 		}
 	}
 
@@ -250,15 +242,52 @@ public class VAOGraphics implements Graphics {
 
 	@Override
 	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region) {
-		boolean defaultColor = currentColor == Color.DEFAULT_DRAWING;
-
-		if (defaultColor)
-			setColor(Color.DEFAULT_TEXTURE_COLOR);
-
 		batcher.drawTexture(texture, sourceregion, region);
+	}
 
-		if (defaultColor)
-			setColor(Color.DEFAULT_DRAWING);
+	@Override
+	public void drawTexture(Texture texture, float x, float y, Color tint) {
+		drawTexture(texture, x, y, texture.getWidth(), texture.getHeight(), tint);
+	}
+
+	@Override
+	public void drawTexture(Texture texture, float x, float y, float w, float h, Color tint) {
+		drawTexture(texture, x, y, w, h, 0, tint);
+	}
+
+	@Override
+	public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, Color tint) {
+		drawTexture(texture, x, y, w, h, rot, 0, 0, tint);
+	}
+
+	@Override
+	public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, float local_origin_x, float local_origin_y, Color tint) {
+		drawTexture(texture, (Rectangle) new Rectangle(x, y, w, h).rotate(rot, local_origin_x, local_origin_y), tint);
+	}
+
+	@Override
+	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, Color tint) {
+		drawTexture(texture, sx1, sy1, sx2, sy2, x, y, texture.getWidth(), texture.getHeight(), tint);
+	}
+
+	@Override
+	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, float w, float h, Color tint) {
+		drawTexture(texture, sx1, sy1, sx2, sy2, new Rectangle(x, y, w, h), tint);
+	}
+
+	@Override
+	public void drawTexture(Texture texture, Rectangle region, Color tint) {
+		drawTexture(texture, 0, 0, texture.getWidth(), texture.getHeight(), region, tint);
+	}
+
+	@Override
+	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region, Color tint) {
+		drawTexture(texture, new Rectangle(sx1, sy1, sx2 - sx1, sy2 - sy1), region, tint);
+	}
+	
+	@Override
+	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region, Color tint) {
+		batcher.drawTexture(texture, sourceregion, region, tint);
 	}
 
 	/**
@@ -404,6 +433,8 @@ public class VAOGraphics implements Graphics {
 		Vec2 p4 = new Vec2(l.getVertices()[1].x - MathUtil.cos(angle) * lineWidth / 2, l.getVertices()[1].y - MathUtil.sin(angle) * lineWidth / 2);
 
 		drawFunctionlessRect(new Rectangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y));
+		drawPolygon(new Polygon(l.getVertices()[0].x, l.getVertices()[0].y, lineWidth/2, 8));
+		drawPolygon(new Polygon(l.getVertices()[1].x, l.getVertices()[1].y, lineWidth/2, 8));
 	}
 
 	@Override
