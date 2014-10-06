@@ -13,7 +13,7 @@ import org.lwjgl.BufferUtils;
 
 import radirius.merc.exceptions.MercuryException;
 import radirius.merc.math.MathUtil;
-import radirius.merc.resource.Resource;
+import radirius.merc.resource.*;
 
 /**
  * An object version of a texture. This will store the width and height of the
@@ -339,7 +339,7 @@ public class Texture implements Resource {
 	/** @return The default no-texture of OpenGL. */
 	public static Texture getEmptyTexture() {
 		if (BLANK_TEXTURE == null)
-			BLANK_TEXTURE = new Texture(0, 0, 0, null, null);
+			BLANK_TEXTURE = loadTexture(Loader.streamFromClasspath("radirius/merc/graphics/empty.png"));
 
 		return BLANK_TEXTURE;
 	}

@@ -19,9 +19,9 @@ public class VAOGraphics implements Graphics {
 	private VAOBatcher batcher;
 
 	private Vec2 scale;
-	
+
 	private Font currentFont;
-	
+
 	private Color backgroundColor;
 	private Color currentColor;
 
@@ -70,7 +70,7 @@ public class VAOGraphics implements Graphics {
 
 		GL11.glLoadIdentity();
 		glScalef(x, y, 1);
-		
+
 		Vec2 scaledOrigin = new Vec2(cam.getOrigin().x / x, cam.getOrigin().y / y);
 		GL11.glTranslatef(cam.x + scaledOrigin.x, cam.y + scaledOrigin.y, 0);
 
@@ -284,7 +284,7 @@ public class VAOGraphics implements Graphics {
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region, Color tint) {
 		drawTexture(texture, new Rectangle(sx1, sy1, sx2 - sx1, sy2 - sy1), region, tint);
 	}
-	
+
 	@Override
 	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region, Color tint) {
 		batcher.drawTexture(texture, sourceregion, region, tint);
@@ -321,8 +321,6 @@ public class VAOGraphics implements Graphics {
 	public void drawPolygon(Polygon... polygon) {
 		batcher.clearTextures();
 
-		float w = batcher.getTexture().getWidth(), h = batcher.getTexture().getHeight();
-
 		for (Polygon poly : polygon) {
 			Vec2[] vs = poly.getVertices();
 
@@ -346,17 +344,17 @@ public class VAOGraphics implements Graphics {
 			batcher.flushIfOverflow(3 * vs.length);
 
 			for (int c = 0; c < vs.length; c++) {
-				batcher.vertex(poly.getCenter().x, poly.getCenter().y, poly.getCenter().x / w, poly.getCenter().y / h);
+				batcher.vertex(poly.getCenter().x, poly.getCenter().y, 0, 0);
 
 				if (c >= vs.length - 1)
-					batcher.vertex(vs[0].x, vs[0].y, vs[0].x / w, vs[0].y / h);
+					batcher.vertex(vs[0].x, vs[0].y, 0, 0);
 				else
-					batcher.vertex(vs[c].x, vs[c].y, vs[c].x / w, vs[c].y / h);
+					batcher.vertex(vs[c].x, vs[c].y, 0, 0);
 
 				if (c >= vs.length - 1)
-					batcher.vertex(vs[vs.length - 1].x, vs[vs.length - 1].y, vs[vs.length - 1].x / w, vs[vs.length - 1].y / h);
+					batcher.vertex(vs[vs.length - 1].x, vs[vs.length - 1].y, 0, 0);
 				else
-					batcher.vertex(vs[c + 1].x, vs[c + 1].y, vs[c + 1].x / w, vs[c + 1].y / h);
+					batcher.vertex(vs[c + 1].x, vs[c + 1].y, 0, 0);
 			}
 		}
 	}
@@ -433,8 +431,8 @@ public class VAOGraphics implements Graphics {
 		Vec2 p4 = new Vec2(l.getVertices()[1].x - MathUtil.cos(angle) * lineWidth / 2, l.getVertices()[1].y - MathUtil.sin(angle) * lineWidth / 2);
 
 		drawFunctionlessRect(new Rectangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y));
-		drawPolygon(new Polygon(l.getVertices()[0].x, l.getVertices()[0].y, lineWidth/2, 8));
-		drawPolygon(new Polygon(l.getVertices()[1].x, l.getVertices()[1].y, lineWidth/2, 8));
+		drawPolygon(new Polygon(l.getVertices()[0].x, l.getVertices()[0].y, lineWidth / 2, 8));
+		drawPolygon(new Polygon(l.getVertices()[1].x, l.getVertices()[1].y, lineWidth / 2, 8));
 	}
 
 	@Override

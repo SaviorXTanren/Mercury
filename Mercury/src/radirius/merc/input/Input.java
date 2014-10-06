@@ -172,6 +172,9 @@ public class Input {
 
 	/** Updates a list of things that happened every frame. */
 	public void pollKeyboard() {
+		if(!keyboardpolling)
+			return;
+		
 		while (Keyboard.next())
 			if (Keyboard.getEventKeyState()) {
 				eventkeystates.add(Keyboard.getEventKey());
@@ -181,6 +184,9 @@ public class Input {
 
 	/** Updates a list of things that happened every frame. */
 	public void pollMouse() {
+		if(!mousepolling)
+			return;
+		
 		while (Mouse.next())
 			if (Mouse.getEventButtonState())
 				eventmousebuttonstates.add(Mouse.getEventButton());
@@ -190,11 +196,14 @@ public class Input {
 
 	/** Updates a list of things that happened every frame. */
 	public void pollControllers() {
+		if(!controllerpolling)
+			return;
+		
 		if (!Controllers.isCreated())
 			return;
 
 		int controlleridx = 0;
-		
+
 		while (Controllers.next()) {
 			if (Controllers.isEventButton()) {
 				int button = Controllers.getEventControlIndex();
@@ -224,13 +233,13 @@ public class Input {
 		pollMouse();
 		pollControllers();
 	}
-	
+
 	public void purgeBuffers() {
 		eventkeystates.clear();
 		nextchar = 0;
-		
+
 		eventmousebuttonstates.clear();
-		
+
 		eventcontbuttonstates.clear();
 	}
 
@@ -241,7 +250,7 @@ public class Input {
 				return true;
 		return false;
 	}
-	
+
 	/** @return If any key was clicked. */
 	public boolean wasKeyClicked() {
 		return eventkeystates.size() != 0;
@@ -474,5 +483,51 @@ public class Input {
 			return -1;
 
 		return Controllers.getControllerCount();
+	}
+
+	private boolean keyboardpolling = true;
+
+	/**
+	 * Enables event polling.
+	 * 
+	 * @param keyboard Enable keyboard polling?
+	 */
+	public void setKeyboardPollingEnabled(boolean keyboard) {
+		keyboardpolling = keyboard;
+	}
+
+	private boolean mousepolling = true;
+
+	/**
+	 * Enables event polling.
+	 * 
+	 * @param mouse Enable mouse polling?
+	 */
+	public void setMousePollingEnabled(boolean mouse) {
+		mousepolling = mouse;
+	}
+
+	private boolean controllerpolling = true;
+
+	/**
+	 * Enables event polling.
+	 * 
+	 * @param controller Enable controller polling?
+	 */
+	public void setControllerPollingEnabled(boolean controller) {
+		controllerpolling = controller;
+	}
+
+	/**
+	 * Enables event polling.
+	 * 
+	 * @param keyboard Enable keyboard polling?
+	 * @param mouse Enable mouse polling?
+	 * @param controller Enable controller polling?
+	 */
+	public void setPollingEnabled(boolean keyboard, boolean mouse, boolean controller) {
+		keyboardpolling = keyboard;
+		mousepolling = mouse;
+		controllerpolling = controller;
 	}
 }
