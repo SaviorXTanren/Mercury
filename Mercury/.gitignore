@@ -1,6 +1,0 @@
-*
-
-!src/
-!target/*.jar
-!target/site/
-!pom.xml
