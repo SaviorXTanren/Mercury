@@ -88,7 +88,7 @@ public class MathUtil {
 		return (float) Math.cos(Math.toRadians(angle));
 	}
 
-	/** @return The a-tangeant of x, and y. */
+	/** @return The arch-tangent (tan^-1) of x, and y. */
 	public static float atan2(float x, float y) {
 		return (float) Math.toDegrees(Math.atan2(y, x));
 	}
