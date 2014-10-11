@@ -6,15 +6,15 @@ Mercury puts all of its effort into keeping things short and simple. The initial
 
 Mercury is entirely built around the wishes of its users, so please do not hesitate to suggest and critique!
 
-## Features
-Mercury comes packed with just enough features built in to it to ensure that the games you make with Mercury are brilliant. These features include, but aren't limited to: a particle engine, command-line debugging, hardware-accelerated OpenGL graphics, image post-processing, geometry, various audio capabilities, and a simple GUI toolkit that allows for the easy creation of graphical user interfaces. There will also be many others to come.
-
 ## Links
-**[Official Website & Downloads](http://merc.radiri.us/)**  
-**[Community & Forum](http://merc.radiri.us/forum)**  
+**[Official Website](http://mercurylib.com/)**  
+**[Community & Forum](http://mercurylib.com/forum)**  
 **[Wiki & Guides](https://github.com/Radirius/Mercury/wiki/)**  
 
 We also have an [IRC Channel](http://webchat.esper.net/?channels=#Mercury) that you can visit to ask questions, talk about the library, and just chat! (#Mercury on irc.esper.net)
+
+## Features
+Mercury comes packed with just enough features built in to it to ensure that the games you make with Mercury are brilliant. These features include, but aren't limited to: a particle engine, command-line debugging, hardware-accelerated OpenGL graphics, image post-processing, geometry, various audio capabilities, and a simple GUI toolkit that allows for the easy creation of graphical user interfaces. There will also be many others to come.
 
 ## Report Bugs
 You can report any problems you find in the library using the [Github Issue Tracker](https://github.com/Radirius/Mercury/issues).
