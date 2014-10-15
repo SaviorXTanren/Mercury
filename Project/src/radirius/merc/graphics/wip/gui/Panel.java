@@ -10,7 +10,6 @@ import radirius.merc.math.geometry.*;
  *
  * @author wessles, Jeviny
  */
-
 public class Panel extends Component implements Container {
 	public static final int LEFTWARDS = -1, RIGHTWARDS = 1, CENTERED = 0;
 

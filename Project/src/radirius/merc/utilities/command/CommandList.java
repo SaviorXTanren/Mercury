@@ -12,7 +12,6 @@ import radirius.merc.utilities.logging.Logger;
  *
  * @author wessles
  */
-
 public class CommandList {
 	/**
 	 * The general manual that will show up when requested in the dev console.

@@ -1,12 +1,11 @@
 package radirius.merc.utilities.command;
 
 /**
- * A Command that will do a specific task when asked in the given inputstream
+ * A Command that will do a specific task when asked in the given InputStream
  * (by default, the console).
  *
  * @author wessles
  */
-
 public abstract class Command {
 	/** The name of the command. This will be case-insensitive. */
 	public final String name;

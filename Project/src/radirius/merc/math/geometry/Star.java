@@ -5,7 +5,6 @@ import radirius.merc.math.MathUtil;
 /**
  * @author wessles
  */
-
 public class Star extends Polygon {
 	public Star(float centerx, float centery, float inner_radius, float outer_radius, int numberofsides) {
 		this(centerx, centery, inner_radius, inner_radius, outer_radius, outer_radius, numberofsides);
@@ -24,9 +23,9 @@ public class Star extends Polygon {
 	 */
 	protected void extendPoints(float push_radiusx, float push_radiusy) {
 		for (int _v = 0; _v < vertices.length; _v += 2) {
-			Vec2 v = vertices[_v];
+			Vector2f v = vertices[_v];
 			float angletocenter = MathUtil.atan2(center.x - v.x, center.y - v.y);
-			v.add(new Vec2(-MathUtil.cos(angletocenter) * push_radiusx, -MathUtil.sin(angletocenter) * push_radiusy));
+			v.add(new Vector2f(-MathUtil.cos(angletocenter) * push_radiusx, -MathUtil.sin(angletocenter) * push_radiusy));
 		}
 	}
 }

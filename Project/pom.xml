@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>radirius.merc</groupId>
     <artifactId>Mercury</artifactId>
-    <version>1.0.1-dev</version>
+    <version>1.0.1.1-dev</version>
     <name>Mercury</name>
-    <description>A Simple Java Game Library</description>
+    <description>The Simple Java Game Library</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -83,7 +83,7 @@
         <name>Radirius</name>
         <url>http://www.radiri.us/</url>
     </organization>
-    <url>http://merc.radiri.us/</url>
+    <url>http://mercurylib.com/</url>
     <issueManagement>
         <system>Github Issue Tracker</system>
         <url>https://github.com/Radirius/Mercury/issues</url>

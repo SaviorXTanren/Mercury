@@ -1,21 +1,33 @@
 package radirius.merc.framework;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_PROJECTION;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glMatrixMode;
+import static org.lwjgl.opengl.GL11.glOrtho;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.DisplayMode;
 
-import radirius.merc.graphics.*;
+import radirius.merc.environment.GameScene;
+import radirius.merc.graphics.Graphics;
+import radirius.merc.graphics.Shader;
+import radirius.merc.graphics.VAOGraphics;
 import radirius.merc.resource.Loader;
 import radirius.merc.utilities.logging.Logger;
 
 /**
  * The Core that will host the game with help from the Runner class.
  *
- * @author wessles
+ * @author wessles, Jeviny
  */
-
 public abstract class Core {
 	private final Runner runner = Runner.getInstance();
 
@@ -59,6 +71,10 @@ public abstract class Core {
 
 	public Runner getRunner() {
 		return runner;
+	}
+	
+	public GameScene getScene() {
+		return runner.getScene();
 	}
 
 	/**

@@ -5,9 +5,7 @@ package radirius.merc.math.geometry;
  *
  * @author wessles
  */
-
 public class Rectangle extends Polygon {
-
 	/**
 	 * @param x
 	 *            The x position.
@@ -45,7 +43,7 @@ public class Rectangle extends Polygon {
 	}
 
 	@Override
-	public boolean contains(Vec2 v) {
+	public boolean contains(Vector2f v) {
 		return v.x >= getX() && v.x <= getX2() && v.y >= getY() && v.y <= getY2();
 	}
 }

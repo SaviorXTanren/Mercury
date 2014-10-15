@@ -14,11 +14,10 @@ import radirius.merc.math.geometry.*;
  *
  * @author wessles, Jeviny
  */
-
 public class VAOGraphics implements Graphics {
 	private VAOBatcher batcher;
 
-	private Vec2 scale;
+	private Vector2f scale;
 
 	private Font currentFont;
 
@@ -28,7 +27,7 @@ public class VAOGraphics implements Graphics {
 	@Override
 	public void init() {
 		batcher = new VAOBatcher();
-		scale = new Vec2(1, 1);
+		scale = new Vector2f(1, 1);
 
 		currentFont = TrueTypeFont.OPENSANS_REGULAR;
 
@@ -71,7 +70,7 @@ public class VAOGraphics implements Graphics {
 		GL11.glLoadIdentity();
 		glScalef(x, y, 1);
 
-		Vec2 scaledOrigin = new Vec2(cam.getOrigin().x / x, cam.getOrigin().y / y);
+		Vector2f scaledOrigin = new Vector2f(cam.getOrigin().x / x, cam.getOrigin().y / y);
 		GL11.glTranslatef(cam.x + scaledOrigin.x, cam.y + scaledOrigin.y, 0);
 
 		scale.x = x;
@@ -82,7 +81,7 @@ public class VAOGraphics implements Graphics {
 	}
 
 	@Override
-	public Vec2 getScaleDimensions() {
+	public Vector2f getScaleDimensions() {
 		return scale;
 	}
 
@@ -322,7 +321,7 @@ public class VAOGraphics implements Graphics {
 		batcher.clearTextures();
 
 		for (Polygon poly : polygon) {
-			Vec2[] vs = poly.getVertices();
+			Vector2f[] vs = poly.getVertices();
 
 			if (poly instanceof Triangle) {
 				batcher.flushIfOverflow(3);
@@ -366,10 +365,10 @@ public class VAOGraphics implements Graphics {
 		for (Polygon polygon0 : polygon) {
 			batcher.flushIfOverflow(polygon0.getVertices().length * 6);
 
-			Vec2[] vs = polygon0.getVertices();
+			Vector2f[] vs = polygon0.getVertices();
 
 			for (int c = 0; c < vs.length; c++) {
-				Vec2 p1, p2;
+				Vector2f p1, p2;
 
 				if (c >= vs.length - 1)
 					p1 = vs[0];
@@ -408,11 +407,11 @@ public class VAOGraphics implements Graphics {
 
 	@Override
 	public void drawLine(float x1, float y1, float x2, float y2) {
-		drawLine(new Vec2(x1, y1), new Vec2(x2, y2));
+		drawLine(new Vector2f(x1, y1), new Vector2f(x2, y2));
 	}
 
 	@Override
-	public void drawLine(Vec2 p1, Vec2 p2) {
+	public void drawLine(Vector2f p1, Vector2f p2) {
 		drawLine(new Line(p1, p2));
 	}
 
@@ -425,10 +424,10 @@ public class VAOGraphics implements Graphics {
 		float dy = l.getVertices()[0].y - l.getVertices()[1].y;
 		float angle = MathUtil.atan2(dx, dy) - 90;
 
-		Vec2 p1 = new Vec2(l.getVertices()[0].x - MathUtil.cos(angle) * lineWidth / 2, l.getVertices()[0].y - MathUtil.sin(angle) * lineWidth / 2);
-		Vec2 p2 = new Vec2(l.getVertices()[0].x + MathUtil.cos(angle) * lineWidth / 2, l.getVertices()[0].y + MathUtil.sin(angle) * lineWidth / 2);
-		Vec2 p3 = new Vec2(l.getVertices()[1].x + MathUtil.cos(angle) * lineWidth / 2, l.getVertices()[1].y + MathUtil.sin(angle) * lineWidth / 2);
-		Vec2 p4 = new Vec2(l.getVertices()[1].x - MathUtil.cos(angle) * lineWidth / 2, l.getVertices()[1].y - MathUtil.sin(angle) * lineWidth / 2);
+		Vector2f p1 = new Vector2f(l.getVertices()[0].x - MathUtil.cos(angle) * lineWidth / 2, l.getVertices()[0].y - MathUtil.sin(angle) * lineWidth / 2);
+		Vector2f p2 = new Vector2f(l.getVertices()[0].x + MathUtil.cos(angle) * lineWidth / 2, l.getVertices()[0].y + MathUtil.sin(angle) * lineWidth / 2);
+		Vector2f p3 = new Vector2f(l.getVertices()[1].x + MathUtil.cos(angle) * lineWidth / 2, l.getVertices()[1].y + MathUtil.sin(angle) * lineWidth / 2);
+		Vector2f p4 = new Vector2f(l.getVertices()[1].x - MathUtil.cos(angle) * lineWidth / 2, l.getVertices()[1].y - MathUtil.sin(angle) * lineWidth / 2);
 
 		drawFunctionlessRect(new Rectangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y));
 		drawPolygon(new Polygon(l.getVertices()[0].x, l.getVertices()[0].y, lineWidth / 2, 8));

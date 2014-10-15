@@ -14,7 +14,6 @@ import radirius.merc.resource.Resource;
  *
  * @author wessles
  */
-
 public class Audio implements Resource {
 	private final int src, buf;
 

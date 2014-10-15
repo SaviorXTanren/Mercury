@@ -21,7 +21,6 @@ import radirius.merc.resource.*;
  *
  * @author wessles, Jeviny
  */
-
 public class Texture implements Resource {
 	public static final int FILTER_NEAREST = GL_NEAREST, FILTER_LINEAR = GL_LINEAR;
 

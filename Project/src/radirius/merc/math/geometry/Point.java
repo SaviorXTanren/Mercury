@@ -5,7 +5,6 @@ package radirius.merc.math.geometry;
  *
  * @author wessles
  */
-
 public class Point extends Shape {
 
 	/**
@@ -29,17 +28,17 @@ public class Point extends Shape {
 	}
 
 	/** @return The point in the form of a vector. */
-	public Vec2 toVec2() {
-		return new Vec2(getX(), getY());
+	public Vector2f toVec2() {
+		return new Vector2f(getX(), getY());
 	}
 
 	@Override
 	public boolean intersects(Shape s) {
-		return s.contains(new Vec2(getX(), getY()));
+		return s.contains(new Vector2f(getX(), getY()));
 	}
 
 	@Override
-	public boolean contains(Vec2 v) {
+	public boolean contains(Vector2f v) {
 		return v.x == getX() && v.y == getY();
 	}
 }

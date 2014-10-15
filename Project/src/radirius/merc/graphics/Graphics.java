@@ -8,7 +8,6 @@ import radirius.merc.math.geometry.*;
  *
  * @author wessles, Jeviny
  */
-
 public interface Graphics {
 	/** Initializes the graphics object. */
 	public void init();
@@ -36,7 +35,7 @@ public interface Graphics {
 	public void setScale(float x, float y);
 
 	/** The last scale that was set in the graphics object's x and y. */
-	public Vec2 getScaleDimensions();
+	public Vector2f getScaleDimensions();
 
 	/**
 	 * @return The average last scale that was set in the graphics object's x
@@ -183,7 +182,7 @@ public interface Graphics {
 	public void drawLine(float x1, float y1, float x2, float y2);
 
 	/** Draws a line from p1 to p2. */
-	public void drawLine(Vec2 p1, Vec2 p2);
+	public void drawLine(Vector2f p1, Vector2f p2);
 
 	/** Draws a line. */
 	public void drawLine(Line... l);

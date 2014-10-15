@@ -7,7 +7,6 @@ import radirius.merc.graphics.Graphics;
  *
  * @author wessles
  */
-
 public interface Renderable {
 	/**
 	 * The render method. In here there should be peripheral activity, such as

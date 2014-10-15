@@ -10,13 +10,12 @@ import radirius.merc.utilities.ArrayUtils;
  *
  * @author wessles
  */
-
 public class Shape {
 	protected Shape parent = null;
 	protected ArrayList<Shape> children = new ArrayList<Shape>();
 
 	/** All vertices that make up the shape. */
-	protected Vec2[] vertices;
+	protected Vector2f[] vertices;
 
 	/** The x value of the vertex top-left-most vertex. */
 	protected float x;
@@ -32,7 +31,7 @@ public class Shape {
 	protected float h;
 
 	/** The center of mass. Basically the mean location of all vertices. */
-	protected Vec2 center;
+	protected Vector2f center;
 
 	/** The rotation angle (in degrees, COS screw radians) */
 	protected float rot = 0;
@@ -71,7 +70,7 @@ public class Shape {
 	 * @param vertices
 	 *            All vertices in the shape.
 	 */
-	protected Shape(Vec2... vertices) {
+	protected Shape(Vector2f... vertices) {
 		this.vertices = vertices;
 		regen();
 	}
@@ -90,13 +89,13 @@ public class Shape {
 			//
 			// For the second point, we want to make sure that we are not doing
 			// twice the work for a line, which is not a closed shape.
-			Vec2 l1v1 = vertices[v_], l1v2 = vertices.length > 2 ? vertices[++v_ % vertices.length] : vertices[++v_];
+			Vector2f l1v1 = vertices[v_], l1v2 = vertices.length > 2 ? vertices[++v_ % vertices.length] : vertices[++v_];
 			Line l1 = new Line(l1v1, l1v2);
 
 			// Now, for each line in this shape, we need to test all lines in
 			// the other shape.
 			for (int v2_ = 0; v2_ < s.vertices.length;) {
-				Vec2 l2v1 = s.vertices[v2_], l2v2 = s.vertices.length > 2 ? s.vertices[++v2_ % s.vertices.length] : s.vertices[++v2_];
+				Vector2f l2v1 = s.vertices[v2_], l2v2 = s.vertices.length > 2 ? s.vertices[++v2_ % s.vertices.length] : s.vertices[++v2_];
 				Line l2 = new Line(l2v1, l2v2);
 
 				// Now we test!
@@ -111,7 +110,7 @@ public class Shape {
 	/** @return Whether all vertices of s is inside of this shape. */
 	public boolean contains(Shape s) {
 		// Loop through all vertices and test them.
-		for (Vec2 v : s.vertices)
+		for (Vector2f v : s.vertices)
 			if (contains(v))
 				return true;
 
@@ -119,7 +118,7 @@ public class Shape {
 	}
 
 	/** @return Whether v is inside of this shape. */
-	public boolean contains(Vec2 v) {
+	public boolean contains(Vector2f v) {
 		for (Shape child : children)
 			if (child.contains(v))
 				return true;
@@ -130,7 +129,7 @@ public class Shape {
 
 		float sumangle = 0;
 
-		for (Vec2 v2 : vertices) {
+		for (Vector2f v2 : vertices) {
 			// Find angle between vertex of shape and point.
 			float dx = v.x - v2.x, dy = v.y - v2.x;
 			float angle = MathUtil.atan2(dy, dx);
@@ -153,7 +152,7 @@ public class Shape {
 	 * @return Me
 	 * */
 	public Shape translate(float x, float y) {
-		for (Vec2 vertex : vertices) {
+		for (Vector2f vertex : vertices) {
 			vertex.x += x;
 			vertex.y += y;
 		}
@@ -197,7 +196,7 @@ public class Shape {
 		if (angle == 0)
 			return this;
 
-		for (Vec2 p : vertices) {
+		for (Vector2f p : vertices) {
 			float s = MathUtil.sin(angle);
 			float c = MathUtil.cos(angle);
 
@@ -265,10 +264,10 @@ public class Shape {
 	 *
 	 * @return Me
 	 */
-	public Shape scale(Vec2 point, float scale) {
+	public Shape scale(Vector2f point, float scale) {
 		translate(-point.x, -point.y);
 
-		for (Vec2 v : vertices) {
+		for (Vector2f v : vertices) {
 			v.x *= scale;
 			v.y *= scale;
 		}
@@ -299,7 +298,7 @@ public class Shape {
 	 *
 	 * @return Me
 	 */
-	public Shape setScale(Vec2 point, float scale) {
+	public Shape setScale(Vector2f point, float scale) {
 		return scale(point, scale / this.scale);
 	}
 
@@ -318,8 +317,8 @@ public class Shape {
 	 * @return Me
 	 */
 	public Shape flipX() {
-		for (Vec2 v : vertices)
-			v.add(new Vec2(0, (getCenter().y - v.y) * 2));
+		for (Vector2f v : vertices)
+			v.add(new Vector2f(0, (getCenter().y - v.y) * 2));
 
 		regen();
 
@@ -332,8 +331,8 @@ public class Shape {
 	 * @return Me
 	 */
 	public Shape flipY() {
-		for (Vec2 v : vertices)
-			v.add(new Vec2((getCenter().x - v.x) * 2, 0));
+		for (Vector2f v : vertices)
+			v.add(new Vector2f((getCenter().x - v.x) * 2, 0));
 
 		regen();
 
@@ -386,7 +385,7 @@ public class Shape {
 	}
 
 	/** @return The center of the object. */
-	public Vec2 getCenter() {
+	public Vector2f getCenter() {
 		return center;
 	}
 
@@ -400,7 +399,7 @@ public class Shape {
 		// Center x and y
 		float cx = 0, cy = 0;
 
-		for (Vec2 vertex : vertices) {
+		for (Vector2f vertex : vertices) {
 			cx += vertex.x;
 			cy += vertex.y;
 
@@ -412,14 +411,14 @@ public class Shape {
 
 		cx /= vertices.length;
 		cy /= vertices.length;
-		center = new Vec2(cx, cy);
+		center = new Vector2f(cx, cy);
 
 		w = Math.abs(x2 - x);
 		h = Math.abs(y2 - y);
 	}
 
 	/** @return All vertices of the object. */
-	public Vec2[] getVertices() {
+	public Vector2f[] getVertices() {
 		return vertices;
 	}
 

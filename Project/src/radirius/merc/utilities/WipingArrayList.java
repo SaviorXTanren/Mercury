@@ -7,7 +7,6 @@ import java.util.*;
  *
  * @author wessles
  */
-
 @SuppressWarnings("serial")
 public class WipingArrayList<T extends Wipeable> extends ArrayList<T> {
 	/**

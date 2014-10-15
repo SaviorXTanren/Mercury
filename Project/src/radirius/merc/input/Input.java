@@ -328,8 +328,8 @@ public class Input {
 	 * @return The mouse 'correct' position (Has to do with the opengl origin
 	 *         being bottom left, and ours being top left).
 	 */
-	public Vec2 getAbsoluteMousePosition() {
-		return new Vec2(getMouseX(), Display.getHeight() - 1 - getMouseY());
+	public Vector2f getAbsoluteMousePosition() {
+		return new Vector2f(getMouseX(), Display.getHeight() - 1 - getMouseY());
 	}
 
 	/**
@@ -352,14 +352,14 @@ public class Input {
 	 * @return The global mouse position based on the displacement of the
 	 *         Runner's Camera and the scaling of the graphics.
 	 */
-	public Vec2 getGlobalMousePosition() {
-		Vec2 globalmousepos = getAbsoluteMousePosition();
+	public Vector2f getGlobalMousePosition() {
+		Vector2f globalmousepos = getAbsoluteMousePosition();
 		Camera cam = Runner.getInstance().getCamera();
 
 		// Scale the mouse position
 		globalmousepos.div(Runner.getInstance().getGraphics().getScaleDimensions());
 		// Move the mouse position to the camera's near-position.
-		globalmousepos.add(new Vec2(cam.getBounds().getX(), cam.getBounds().getY()));
+		globalmousepos.add(new Vector2f(cam.getBounds().getX(), cam.getBounds().getY()));
 		// Subtract the origin
 		globalmousepos.sub(cam.getOrigin().copy().div(Runner.getInstance().getGraphics().getScaleDimensions()));
 
@@ -395,7 +395,7 @@ public class Input {
 
 	public boolean controllerButtonClicked(int button, int controller) {
 		if (!Controllers.isCreated())
-			return (Boolean) null;
+			return false;
 
 		for (ControllerEvent cevent : eventcontbuttonstates)
 			if (cevent.button == button && cevent.controller == controller)
@@ -410,7 +410,7 @@ public class Input {
 	 */
 	public boolean controllerButtonDown(int button, int controller) {
 		if (!Controllers.isCreated())
-			return (Boolean) null;
+			return false;
 
 		return Controllers.getController(controller).isButtonPressed(button);
 	}
@@ -427,11 +427,11 @@ public class Input {
 	 * @return A vector containing the x and y value of the left analog stick.
 	 *         null if controllers have not been initialized.
 	 */
-	public Vec2 getLeftAnalogStick(int controller) {
+	public Vector2f getLeftAnalogStick(int controller) {
 		if (!Controllers.isCreated())
 			return null;
 
-		Vec2 result = new Vec2(0, 0);
+		Vector2f result = new Vector2f(0, 0);
 
 		Controller control = Controllers.getController(controller);
 		result.x = control.getXAxisValue();
@@ -444,11 +444,11 @@ public class Input {
 	 * @return A vector containing the x and y value of the right analog stick.
 	 *         null if controllers have not been initialized.
 	 */
-	public Vec2 getRightAnalogStick(int controller) {
+	public Vector2f getRightAnalogStick(int controller) {
 		if (!Controllers.isCreated())
 			return null;
 
-		Vec2 result = new Vec2(0, 0);
+		Vector2f result = new Vector2f(0, 0);
 
 		Controller control = Controllers.getController(controller);
 		result.x = control.getRXAxisValue();
@@ -461,11 +461,11 @@ public class Input {
 	 * @return A vector containing the x and y value of the dpad. null if
 	 *         controllers have not been initialized.
 	 */
-	public Vec2 getDPad(int controller) {
+	public Vector2f getDPad(int controller) {
 		if (!Controllers.isCreated())
 			return null;
 
-		Vec2 result = new Vec2(0, 0);
+		Vector2f result = new Vector2f(0, 0);
 
 		Controller control = Controllers.getController(controller);
 		result.x = control.getPovX();

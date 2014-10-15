@@ -34,14 +34,14 @@ public class Ellipse extends Polygon {
 	@Override
 	public boolean intersects(Shape s) {
 		if (s instanceof Ellipse)
-			for (Vec2 v : s.vertices)
+			for (Vector2f v : s.vertices)
 				if (contains(v))
 					return true;
 		return false;
 	}
 
 	@Override
-	public boolean contains(Vec2 v) {
+	public boolean contains(Vector2f v) {
 		// Source
 		// http://math.stackexchange.com/questions/76457/check-if-a-point-is-within-an-ellipse
 		float test = (v.x - getCenter().x) * (v.x - getCenter().x) / (radx * radx) + (v.y - getCenter().y) * (v.y - getCenter().y) / (rady * rady);

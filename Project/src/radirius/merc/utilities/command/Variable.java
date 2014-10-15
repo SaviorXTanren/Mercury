@@ -6,7 +6,6 @@ package radirius.merc.utilities.command;
  *
  * @author wessles
  */
-
 public abstract class Variable {
 	/** The name of the variable. This will be case-insensitive. */
 	public final String name;

@@ -64,7 +64,7 @@ public class Component implements Updatable, Renderable {
 
 	public static boolean isHovered(Rectangle bounds) {
 		Input input = Runner.getInstance().getInput();
-		Vec2 globalmousepos = input.getGlobalMousePosition();
+		Vector2f globalmousepos = input.getGlobalMousePosition();
 
 		globalmousepos.div(Runner.getInstance().getGraphics().getScaleDimensions());
 

@@ -5,7 +5,6 @@ package radirius.merc.utilities;
  *
  * @author wessles
  */
-
 public interface Updatable {
 	/**
 	 * The method for updating. In here, logic should occur, given delta.

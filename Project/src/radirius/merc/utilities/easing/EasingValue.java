@@ -7,7 +7,6 @@ import static radirius.merc.utilities.easing.EasingUtils.*;
  *
  * @author wessles, Jeviny
  */
-
 public class EasingValue {
 	public int easeType;
 	public float startVal, endVal, easeValue;

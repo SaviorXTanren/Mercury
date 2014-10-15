@@ -12,7 +12,6 @@ import radirius.merc.utilities.logging.Logger;
  *
  * @author wessles
  */
-
 public class FrameBuffer {
 	private final int fboId;
 	private final Texture fboTexture;

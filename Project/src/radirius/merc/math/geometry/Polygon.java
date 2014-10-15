@@ -7,7 +7,6 @@ import radirius.merc.math.MathUtil;
  *
  * @author wessles
  */
-
 public class Polygon extends Shape {
 	private float radius;
 
@@ -21,7 +20,7 @@ public class Polygon extends Shape {
 		radius = 0.5f * (radiusx + radiusy);
 	}
 
-	public Polygon(Vec2... verts) {
+	public Polygon(Vector2f... verts) {
 		super(verts);
 	}
 
@@ -30,7 +29,7 @@ public class Polygon extends Shape {
 	}
 
 	@Override
-	public boolean contains(Vec2 v) {
+	public boolean contains(Vector2f v) {
 		return v.distance(getCenter()) < radius;
 	}
 
@@ -38,11 +37,11 @@ public class Polygon extends Shape {
 	 * @return Basically the vertices for a whole bunch of triangles 'slices'
 	 *         that make up a 'pie.'
 	 */
-	protected static Vec2[] getTrigVerts(float x, float y, float radiusx, float radiusy, int numberofsides) {
+	protected static Vector2f[] getTrigVerts(float x, float y, float radiusx, float radiusy, int numberofsides) {
 		if (numberofsides < 3)
 			throw new IllegalArgumentException("Polygon must have at least 3 sides!");
 
-		Vec2[] verts = new Vec2[numberofsides];
+		Vector2f[] verts = new Vector2f[numberofsides];
 
 		// start at 270, so that we have an upwards-facing polygon. More fun
 		// that way.
@@ -51,7 +50,7 @@ public class Polygon extends Shape {
 		for (int a = 0; a < numberofsides; a++) {
 			if (angle > 360)
 				angle %= 360;
-			verts[a] = new Vec2(x + MathUtil.cos(angle) * radiusx, y + MathUtil.sin(angle) * radiusy);
+			verts[a] = new Vector2f(x + MathUtil.cos(angle) * radiusx, y + MathUtil.sin(angle) * radiusy);
 			angle += step;
 		}
 

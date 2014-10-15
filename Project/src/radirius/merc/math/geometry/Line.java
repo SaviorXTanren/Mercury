@@ -5,15 +5,14 @@ package radirius.merc.math.geometry;
  *
  * @author wessles
  */
-
 public class Line extends Shape {
 	private float slope, xintercept, yintercept;
 
 	public Line(float x1, float y1, float x2, float y2) {
-		this(new Vec2(x1, y1), new Vec2(x2, y2));
+		this(new Vector2f(x1, y1), new Vector2f(x2, y2));
 	}
 
-	public Line(Vec2 p1, Vec2 p2) {
+	public Line(Vector2f p1, Vector2f p2) {
 		super(p1, p2);
 	}
 
@@ -32,10 +31,10 @@ public class Line extends Shape {
 	@Override
 	public boolean intersects(Shape s) {
 		if (s instanceof Line) {
-			Vec2 l1_1 = vertices[0];
-			Vec2 l1_2 = vertices[1];
-			Vec2 l2_1 = s.vertices[0];
-			Vec2 l2_2 = s.vertices[1];
+			Vector2f l1_1 = vertices[0];
+			Vector2f l1_2 = vertices[1];
+			Vector2f l2_1 = s.vertices[0];
+			Vector2f l2_2 = s.vertices[1];
 
 			float UA = ((l2_2.x - l2_1.x) * (l1_1.y - l2_1.y) - (l2_2.y - l2_1.y) * (l1_1.x - l2_1.x)) / ((l2_2.y - l2_1.y) * (l1_2.x - l1_1.x) - (l2_2.x - l2_1.x) * (l1_2.y - l1_1.y));
 			float UB = ((l1_2.x - l1_1.x) * (l1_1.y - l2_1.y) - (l1_2.y - l1_1.y) * (l1_1.x - l2_1.x)) / ((l2_2.y - l2_1.y) * (l1_2.x - l1_1.x) - (l2_2.x - l2_1.x) * (l1_2.y - l1_1.y));
@@ -49,7 +48,7 @@ public class Line extends Shape {
 	}
 
 	@Override
-	public boolean contains(Vec2 p) {
+	public boolean contains(Vector2f p) {
 		// Plug the point into this formula, and see if it checks out.
 		// ----- b = y-mx
 
@@ -67,7 +66,7 @@ public class Line extends Shape {
 	@Override
 	public void regen() {
 		// Get our two points.
-		Vec2 p1 = vertices[0], p2 = vertices[1];
+		Vector2f p1 = vertices[0], p2 = vertices[1];
 
 		// ----- y = mx + b
 		// or,

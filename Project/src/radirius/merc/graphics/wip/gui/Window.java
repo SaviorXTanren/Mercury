@@ -9,7 +9,6 @@ import radirius.merc.math.geometry.*;
 /**
  * @author wessles, Jeviny
  */
-
 public class Window extends Panel {
 	protected String name;
 	protected Font namefont;
@@ -74,7 +73,7 @@ public class Window extends Panel {
 		this.bounds.addChild(barbounds);
 	}
 
-	private Vec2 mouseanchor;
+	private Vector2f mouseanchor;
 
 	@Override
 	public void update(float delta) {
@@ -94,7 +93,7 @@ public class Window extends Panel {
 				float dx = in.getGlobalMouseX() - mouseanchor.x, dy = in.getGlobalMouseY() - mouseanchor.y;
 
 				bounds.translate(dx, dy);
-				mouseanchor.add(new Vec2(dx, dy));
+				mouseanchor.add(new Vector2f(dx, dy));
 			}
 
 		} else

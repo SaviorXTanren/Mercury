@@ -3,7 +3,6 @@ package radirius.merc.graphics.wip.gui;
 /**
  * @author wessles
  */
-
 public class NewLine extends Component {
 
 	public NewLine() {

@@ -8,65 +8,65 @@ import java.util.Scanner;
  * A utility class for reading tile maps from Doppler Indie Games. Credit to
  * Doppler from https://github.com/doppl3r.
  *
- * @author wessles
+ * @author wessles, Jeviny
  */
-
 public class DopplerTileMapReader {
 	public static final int DIGITS_PER_TILE = 4;
 
 	/**
-	 * @return An integer array representing what the doppler tile map file
-	 *         contained. Each integer is stored result[x][y].
+	 * @return A 2D array representing what the map file contains.
+	 *         Each integer is stored result[x][y].
 	 */
 	public static int[][] getTiles(URL in) throws IOException {
-		// Read WIDTH and HEIGHT
 		int[] dimensions = readDimensions(in.openStream());
-		int WIDTH = dimensions[0], HEIGHT = dimensions[1];
+		int width = dimensions[0], height = dimensions[1];
 
-		// Read data
-		int[][] result = readData(WIDTH, HEIGHT, in.openStream());
+		int[][] result = readData(width, height, in.openStream());
 
 		return result;
 	}
 
 	private static int[] readDimensions(InputStream in) {
-		int WIDTH = 0, HEIGHT = 0;
+		int width = 0, height = 0;
 
-		Scanner read = new Scanner(in);
+		Scanner scanner = new Scanner(in);
 
-		while (read.hasNextLine()) {
-			String line = read.nextLine();
+		while (scanner.hasNextLine()) {
+			String line = scanner.nextLine();
+			
 			if (line.startsWith("texture"))
 				break;
 
-			WIDTH = line.length() / DIGITS_PER_TILE;
-			HEIGHT++;
+			width = line.length() / DIGITS_PER_TILE;
+			height++;
 		}
 
-		read.close();
+		scanner.close();
 
-		return new int[] { WIDTH, HEIGHT };
+		return new int[] { width, height };
 	}
 
-	private static int[][] readData(int WIDTH, int HEIGHT, InputStream in) {
-		int[][] data = new int[WIDTH][HEIGHT];
-
-		Scanner read = new Scanner(in);
-
+	private static int[][] readData(int width, int height, InputStream in) {
+		int[][] data = new int[width][height];
 		int y = 0;
-		while (read.hasNextLine()) {
-			String line = read.nextLine();
+
+		Scanner scanner = new Scanner(in);
+
+		while (scanner.hasNextLine()) {
+			String line = scanner.nextLine();
+			
 			if (line.startsWith("texture"))
 				break;
 
-			for (int x = 0; x < WIDTH * DIGITS_PER_TILE; x += DIGITS_PER_TILE)
+			for (int x = 0; x < width * DIGITS_PER_TILE; x += DIGITS_PER_TILE)
 				data[x / DIGITS_PER_TILE][y] = Integer.valueOf(line.substring(x, x + DIGITS_PER_TILE));
 
 			y++;
 		}
 
-		read.close();
+		scanner.close();
 
 		return data;
 	}
 }
+

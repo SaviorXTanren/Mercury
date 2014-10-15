@@ -14,7 +14,7 @@ public class Camera {
 	float x, y;
 
 	/** The point on the screen that anchors the camera to the world. */
-	private Vec2 origin = new Vec2(0, 0);
+	private Vector2f origin = new Vector2f(0, 0);
 
 	/**
 	 * @param x
@@ -50,12 +50,12 @@ public class Camera {
 	 * @param origin
 	 *            The point to set the origin to (on screen).
 	 */
-	public void setOrigin(Vec2 origin) {
+	public void setOrigin(Vector2f origin) {
 		this.origin = origin;
 	}
 
 	/** @return The origin point (on screen). */
-	public Vec2 getOrigin() {
+	public Vector2f getOrigin() {
 		return origin;
 	}
 
@@ -128,8 +128,8 @@ public class Camera {
 	/**
 	 * @return The real world position of the camera.
 	 */
-	public Vec2 getPosition() {
-		return new Vec2(-x, -y);
+	public Vector2f getPosition() {
+		return new Vector2f(-x, -y);
 	}
 
 	/** Returns an in-game rectangle that represents where the camera lies. */

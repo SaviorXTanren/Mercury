@@ -9,7 +9,6 @@ import java.net.*;
  *
  * @author wessles, Jeviny
  */
-
 public class Loader {
 	/** @return The URL from a classpath. */
 	public static URL loadFromClasspath(String path) {

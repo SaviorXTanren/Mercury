@@ -5,7 +5,6 @@ package radirius.merc.exceptions;
  *
  * @author wessles
  */
-
 @SuppressWarnings("serial")
 public class MercuryException extends Exception {
 	public MercuryException(String reason) {

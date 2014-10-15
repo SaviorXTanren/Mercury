@@ -8,7 +8,6 @@ import radirius.merc.exceptions.MercuryException;
  *
  * @author wessles, Jeviny
  */
-
 public class Logger {
 	/** Whether or not information can be logged */
 	private static boolean logging = true;

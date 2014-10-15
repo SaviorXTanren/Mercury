@@ -2,7 +2,7 @@ package radirius.merc.graphics.particles;
 
 import radirius.merc.graphics.*;
 import radirius.merc.math.MathUtil;
-import radirius.merc.math.geometry.Vec2;
+import radirius.merc.math.geometry.Vector2f;
 import radirius.merc.utilities.Renderable;
 import radirius.merc.utilities.Updatable;
 import radirius.merc.utilities.WipingArrayList;
@@ -12,14 +12,13 @@ import radirius.merc.utilities.WipingArrayList;
  *
  * @author wessles
  */
-
 public class ParticleSystem implements Updatable, Renderable {
 	/**
 	 * A setup for particle systems.
 	 */
 	public static class ParticleSetup {
 		/** The 2 valid angles in between which any particle can go through. */
-		public Vec2 validangle = new Vec2(0, 360);
+		public Vector2f validangle = new Vector2f(0, 360);
 
 		/** The color of the particles. */
 		public Color color = Color.DEFAULT_TEXTURE_COLOR;
@@ -43,7 +42,7 @@ public class ParticleSystem implements Updatable, Renderable {
 		 */
 		public float acceleration = 0.98f;
 		/** The value that adds to the x and y of each particle each frame. */
-		public Vec2 gravity = new Vec2(0, 0);
+		public Vector2f gravity = new Vector2f(0, 0);
 		/**
 		 * The amount of frames that will pass a single particle before
 		 * death/removal.
@@ -73,7 +72,7 @@ public class ParticleSystem implements Updatable, Renderable {
 	 * @param angle
 	 *            The angle at which the particles emmmit.
 	 */
-	public void generateParticle(int amount, Vec2 point, float angle) {
+	public void generateParticle(int amount, Vector2f point, float angle) {
 		parts.add(new Particle(point.x, point.y, angle, this));
 	}
 
@@ -85,7 +84,7 @@ public class ParticleSystem implements Updatable, Renderable {
 	 * @param point
 	 *            The point from which the particles emmit.
 	 */
-	public void generateParticle(int amount, Vec2 point) {
+	public void generateParticle(int amount, Vector2f point) {
 		for (int p = 0; p < amount; p++) {
 			float angle = (float) MathUtil.random(pesetup.validangle.x, pesetup.validangle.y);
 			generateParticle(1, point, angle);

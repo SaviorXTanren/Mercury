@@ -13,7 +13,6 @@ import radirius.merc.utilities.logging.Logger;
  *
  * @author wessles, Jeviny
  */
-
 public class TrueTypeFont implements radirius.merc.graphics.font.Font {
 	public static int STANDARD_CHARACTERS = 256;
 

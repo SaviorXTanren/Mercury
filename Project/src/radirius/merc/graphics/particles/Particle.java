@@ -12,13 +12,12 @@ import radirius.merc.utilities.Wipeable;
  *
  * @author wessles
  */
-
 public class Particle implements Updatable, Renderable, Wipeable {
 	/** Size of the particle. */
 	private float size;
 
 	/** Position of the particle. */
-	private Vec2 pos;
+	private Vector2f pos;
 	/** Bounds of the particle. */
 	private Rectangle bounds;
 	/** The rotation of the particle. */
@@ -26,7 +25,7 @@ public class Particle implements Updatable, Renderable, Wipeable {
 	/** The rotational velocity of the particle. */
 	private float rotdirection;
 	/** The velocity of the particle. */
-	private Vec2 vel;
+	private Vector2f vel;
 
 	/** The amount of frames that the particle has experienced. */
 	private int life;
@@ -37,8 +36,8 @@ public class Particle implements Updatable, Renderable, Wipeable {
 	public Particle(float x, float y, float angle, ParticleSystem emitter) {
 		size = emitter.getOptions().size;
 
-		pos = new Vec2(x, y);
-		vel = new Vec2(angle);
+		pos = new Vector2f(x, y);
+		vel = new Vector2f(angle);
 		rotdirection = MathUtil.nextBoolean() ? 1 : -1;
 		vel.scale(emitter.getOptions().speed);
 
@@ -54,7 +53,7 @@ public class Particle implements Updatable, Renderable, Wipeable {
 		if (life < 0)
 			wipe();
 
-		pos.add(new Vec2(vel.x * delta, vel.y * delta));
+		pos.add(new Vector2f(vel.x * delta, vel.y * delta));
 		vel.add(emitter.getOptions().gravity);
 		vel.scale(emitter.getOptions().acceleration);
 

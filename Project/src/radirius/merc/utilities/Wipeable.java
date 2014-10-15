@@ -5,7 +5,6 @@ package radirius.merc.utilities;
  *
  * @author wessles
  */
-
 public interface Wipeable {
 	/** Wipes the object. */
 	public void wipe();

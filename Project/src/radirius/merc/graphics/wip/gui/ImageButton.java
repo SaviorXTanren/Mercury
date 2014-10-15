@@ -6,7 +6,6 @@ import radirius.merc.math.geometry.Rectangle;
 /**
  * @author wessles
  */
-
 public class ImageButton extends Component implements Button {
 	protected Texture idle, hover, clicked;
 

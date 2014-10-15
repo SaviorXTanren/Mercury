@@ -31,12 +31,18 @@
  */
 package radirius.merc.audio;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
-import java.nio.*;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.ShortBuffer;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 
 import org.lwjgl.openal.AL10;
 
@@ -49,6 +55,7 @@ import com.sun.media.sound.WaveFileReader;
  * @author Brian Matzon <brian@matzon.dk>
  * @version $Revision$ $Id$
  */
+@SuppressWarnings("restriction")
 public class WaveData {
 	/** actual wave data */
 	public final ByteBuffer data;

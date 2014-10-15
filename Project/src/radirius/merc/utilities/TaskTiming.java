@@ -10,7 +10,6 @@ import radirius.merc.exceptions.MercuryException;
  *
  * @author wessles
  */
-
 public class TaskTiming {
 	private static CopyOnWriteArrayList<Task> tasks = new CopyOnWriteArrayList<Task>();
 

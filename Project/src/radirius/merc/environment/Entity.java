@@ -1,7 +1,8 @@
 package radirius.merc.environment;
 
 import radirius.merc.graphics.Graphics;
-import radirius.merc.math.geometry.*;
+import radirius.merc.math.geometry.Rectangle;
+import radirius.merc.math.geometry.Vector2f;
 import radirius.merc.utilities.Renderable;
 import radirius.merc.utilities.Updatable;
 
@@ -10,8 +11,7 @@ import radirius.merc.utilities.Updatable;
  *
  * @author Jeviny
  */
-
-public class Entity implements Updatable, Renderable {
+public class Entity extends GameObject implements Updatable, Renderable {
 	private float x, y, w, h, rotation;
 
 	public Entity(float x, float y, float w, float h) {
@@ -21,11 +21,14 @@ public class Entity implements Updatable, Renderable {
 		this.h = h;
 	}
 
-	public void update(float delta) {}
-	public void render(Graphics g) {}
+	public void update(float delta) {
+	}
+	
+	public void render(Graphics g) {
+	}
 
-	public Vec2 getPosition() {
-		return new Vec2(x, y);
+	public Vector2f getPosition() {
+		return new Vector2f(x, y);
 	}
 
 	public Rectangle getBounds() {

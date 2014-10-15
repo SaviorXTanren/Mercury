@@ -14,7 +14,6 @@ import radirius.merc.resource.*;
  *
  * @author wessles, opiop65, Jeviny
  */
-
 public class Shader implements Resource {
 	/** The vertex shader type. */
 	public static final int VERTEX_SHADER = 0;

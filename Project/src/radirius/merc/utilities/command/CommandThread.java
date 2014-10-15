@@ -11,7 +11,6 @@ import radirius.merc.utilities.logging.Logger;
  *
  * @author wessles
  */
-
 public class CommandThread implements Runnable {
 	private volatile boolean running = false;
 

@@ -6,7 +6,6 @@ import radirius.merc.graphics.font.*;
 /**
  * @author wessles
  */
-
 public class CheckBox extends Component {
 	protected Texture unchecked, checked;
 	protected boolean ticked = false;

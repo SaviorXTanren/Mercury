@@ -14,7 +14,6 @@ import radirius.merc.utilities.easing.*;
  *
  * @author wessles
  */
-
 public class SplashScreen {
 	static Runner runner = Runner.getInstance();
 

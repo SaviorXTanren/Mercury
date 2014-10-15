@@ -5,9 +5,7 @@ package radirius.merc.math.geometry;
  *
  * @author wessles
  */
-
 public class Triangle extends Polygon {
-
 	public Triangle(float x, float y, float w, float h) {
 		this(x, y, x + w, y, x, y + h);
 	}
@@ -22,7 +20,7 @@ public class Triangle extends Polygon {
 	}
 
 	@Override
-	public boolean contains(Vec2 v) {
+	public boolean contains(Vector2f v) {
 		// Source:
 		// http://stackoverflow.com/questions/2049582/how-to-determine-a-point-in-a-triangle
 
@@ -35,7 +33,7 @@ public class Triangle extends Polygon {
 		return b1 == b2 && b2 == b3;
 	}
 
-	private float sign(Vec2 p1, Vec2 p2, Vec2 p3) {
+	private float sign(Vector2f p1, Vector2f p2, Vector2f p3) {
 		return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
 	}
 }

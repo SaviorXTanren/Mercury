@@ -10,7 +10,6 @@ import java.util.*;
  *
  * @author wessles, Jeviny
  */
-
 public class MercuryData implements Data {
 	/** Location of the data file. */
 	public String location;

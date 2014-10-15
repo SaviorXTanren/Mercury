@@ -3,9 +3,10 @@ package radirius.merc.graphics;
 import radirius.merc.resource.Resource;
 
 /**
+ * A class for spritesheets.
+ * 
  * @author wessles, opiop65, Jeviny
  */
-
 public class SpriteSheet implements Resource {
 	private Texture baseTexture;
 	private SubTexture[] subTextures;

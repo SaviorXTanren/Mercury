@@ -5,7 +5,6 @@ package radirius.merc.framework;
  *
  * @author wessles, Jeviny
  */
-
 public abstract class Plugin {
 	/** The method for initializing the plugin. */
 	public abstract void init();

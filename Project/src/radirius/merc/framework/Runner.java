@@ -1,8 +1,12 @@
 package radirius.merc.framework;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glViewport;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
@@ -10,14 +14,19 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
 
+import radirius.merc.environment.GameScene;
 import radirius.merc.exceptions.MercuryException;
 import radirius.merc.framework.splash.SplashScreen;
-import radirius.merc.graphics.*;
+import radirius.merc.graphics.Camera;
+import radirius.merc.graphics.Graphics;
+import radirius.merc.graphics.Texture;
 import radirius.merc.input.Input;
 import radirius.merc.utilities.TaskTiming;
-import radirius.merc.utilities.command.*;
+import radirius.merc.utilities.command.CommandList;
+import radirius.merc.utilities.command.CommandThread;
 import radirius.merc.utilities.logging.Logger;
 
 /**
@@ -26,7 +35,6 @@ import radirius.merc.utilities.logging.Logger;
  *
  * @authors wessles, Jeviny
  */
-
 public class Runner {
 	/**
 	 * The singleton instance of the Runner. This should be the only Runner
@@ -93,6 +101,9 @@ public class Runner {
 
 	/** The input object. */
 	private Input input;
+	
+	/** The scene object. */
+	private GameScene scene = new GameScene(); 
 
 	/*
 	 * We don't want anybody attempting to create another Runner, there's a
@@ -257,12 +268,6 @@ public class Runner {
 			Thread initthread = new Thread(initthread_run);
 
 			initthread.run();
-		} else {
-			/*
-			 * FIXME: There is a terrible hack from the change made to the
-			 * Core/Runner classes. Will let Wesley fix this when he gets back
-			 * from the grave.
-			 */
 		}
 
 		Logger.info("Making Default CommandList 'merc...'");
@@ -323,9 +328,11 @@ public class Runner {
 			if (rendering)
 				glClear(GL_COLOR_BUFFER_BIT);
 
-			if (updating)
+			if (updating) {
+				scene.update(getDelta());
 				core.update(getDelta());
-
+			}
+				
 			// Update timing
 			TaskTiming.update();
 
@@ -334,8 +341,10 @@ public class Runner {
 				camera.pre(graphics);
 
 				// Render Game
-				if (showSplashScreens(graphics))
+				if (showSplashScreens(graphics)) {
+					scene.render(graphics);
 					core.render(graphics);
+				}
 
 				// Debug
 				if (showdebug) {
@@ -601,14 +610,19 @@ public class Runner {
 		this.rendering = rendering;
 	}
 
-	/** @return The input node. */
-	public Input getInput() {
-		return input;
-	}
-
 	/** @return The camera object. */
 	public Camera getCamera() {
 		return camera;
+	}
+
+	/** @return The input object. */
+	public Input getInput() {
+		return input;
+	}
+	
+	/** @return The scene object. */
+	public GameScene getScene() {
+		return scene;
 	}
 	
 	public void setViewport(int x, int y, int width, int height) {

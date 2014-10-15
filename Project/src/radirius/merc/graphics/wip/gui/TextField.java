@@ -8,7 +8,6 @@ import radirius.merc.input.Input;
 /**
  * @author wessles, Jeviny
  */
-
 public class TextField extends TextBar {
 	public static final int INPUT_STRING = 0, INPUT_SIGNED_INTEGER_NUM = 1, INPUT_UNSIGNED_INTEGER_NUM = 2, INPUT_INTEGER = INPUT_SIGNED_INTEGER_NUM, INPUT_SIGNED_FLOATING_POINT_NUM = 3, INPUT_UNSIGNED_FLOATING_POINT_NUM = 4, INPUT_FLOATING_POINT_NUM = INPUT_SIGNED_INTEGER_NUM;
 

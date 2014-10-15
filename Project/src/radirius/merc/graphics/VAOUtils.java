@@ -11,7 +11,6 @@ import org.lwjgl.BufferUtils;
  *
  * @author wessles
  */
-
 public class VAOUtils {
 	public static final int TEXTURE_COORD_ARRAY_POINTER = 0, VERTEX_ARRAY_POINTER = 1, COLOR_ARRAY_POINTER = 2;
 

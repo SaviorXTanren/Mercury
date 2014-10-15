@@ -5,7 +5,6 @@ package radirius.merc.graphics;
  *
  * @authors wessles, Jeviny
  */
-
 public class Color {
 	public static final Color TURQUOISE = new Color(26, 188, 156);
 	public static final Color GREEN_SEA = new Color(22, 160, 133);

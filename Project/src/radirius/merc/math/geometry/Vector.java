@@ -1,11 +1,10 @@
 package radirius.merc.math.geometry;
 
 /**
- * A base class for all vectors.
+ * An abstraction for vectors.
  *
  * @author wessles, Jeviny
  */
-
 public abstract class Vector {
 	/**
 	 * @param vec
@@ -58,15 +57,18 @@ public abstract class Vector {
 	/** Normalizes the vector. */
 	public abstract Vector normalize();
 
-	/** @return The dot product of me and vec. */
+	/** @return The dot product of this vector and vec. */
 	public abstract float dot(Vector vec);
 
 	/** @return The distance of a vector */
 	public abstract float distance(Vector vec);
 
-	/** @return A copy of me. */
+	/** @return A copy of this vector. */
 	public abstract Vector copy();
+	
+	/** @return The naked vector. */
+	public abstract Vector setZero();
 
-	@Override
+	/** @return The vector coordinates in the form of a string. */
 	public abstract String toString();
 }

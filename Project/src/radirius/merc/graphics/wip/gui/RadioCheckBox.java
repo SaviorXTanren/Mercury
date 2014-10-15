@@ -8,7 +8,6 @@ import radirius.merc.graphics.font.*;
 /**
  * @author wessles
  */
-
 public class RadioCheckBox extends CheckBox {
 	protected ArrayList<RadioCheckBox> group;
 
