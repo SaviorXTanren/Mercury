@@ -1,4 +1,4 @@
-![alt-text](http://i.imgur.com/wSLy9sb.png)  
+![alt-text](http://jeviny.pw/junk/MercuryLogoOctober2014.png)  
 
 Mercury is a small game library designed to simplify the complex and shorten the tedious for both the beginning and the experienced. With it, you can use the best aspects of OpenGL in a super easy and organized way that is optimized for game programming. It's mainly built around the concept that beginners and newcomers to game development should be able to start with the basics and then move up onto a more complex plane of development with the veterans, all on the same platform.  
 
