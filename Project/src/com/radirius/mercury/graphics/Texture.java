@@ -338,7 +338,7 @@ public class Texture implements Resource {
 	/** @return The default no-texture of OpenGL. */
 	public static Texture getEmptyTexture() {
 		if (BLANK_TEXTURE == null)
-			BLANK_TEXTURE = loadTexture(Loader.streamFromClasspath("radirius/merc/graphics/empty.png"));
+			BLANK_TEXTURE = loadTexture(Loader.streamFromClasspath("com/radirius/mercury/graphics/res/empty.png"));
 
 		return BLANK_TEXTURE;
 	}
