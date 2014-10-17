@@ -1,12 +1,8 @@
 package com.radirius.mercury.framework;
 
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
-import static org.lwjgl.opengl.GL11.glViewport;
+import static org.lwjgl.opengl.GL11.*;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
@@ -14,20 +10,16 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.*;
 
-import com.radirius.mercury.exceptions.MercuryException;
-import com.radirius.mercury.framework.splash.SplashScreen;
-import com.radirius.mercury.graphics.Camera;
-import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.graphics.Texture;
-import com.radirius.mercury.input.Input;
+import com.radirius.mercury.exceptions.*;
+import com.radirius.mercury.framework.splash.*;
+import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.input.*;
 import com.radirius.mercury.scene.GameScene;
-import com.radirius.mercury.utilities.TaskTiming;
-import com.radirius.mercury.utilities.command.CommandList;
-import com.radirius.mercury.utilities.command.CommandThread;
-import com.radirius.mercury.utilities.logging.Logger;
+import com.radirius.mercury.utilities.*;
+import com.radirius.mercury.utilities.command.*;
+import com.radirius.mercury.utilities.logging.*;
 
 /**
  * The heart of Mercury. Runs the Core and provides all of the various materials
@@ -37,8 +29,8 @@ import com.radirius.mercury.utilities.logging.Logger;
  */
 public class Runner {
 	/**
-	 * The singleton instance of the Runner. This should be the only Runner
-	 * used.
+	 * The singleton instance of the Runner.  
+	 * This should be the only Runner used.
 	 */
 	private final static Runner singleton = new Runner();
 
@@ -70,25 +62,25 @@ public class Runner {
 	private int delta = 1;
 
 	/** The target framerate. */
-	private int FPS_TARGET = 60;
+	private int fpsTarget = 60;
 
 	/** The current framerate. */
-	private int FPS;
+	private int fps;
 
 	/** The last frame. Used for calculating the framerate. */
-	private long lastframe;
+	private long lastFrame;
 
 	/** The factor by which the delta time is multiplied. */
-	private float deltafactor = 1;
+	private float deltaFactor = 1;
 
 	/**
 	 * A string that holds debugging data to be rendered to the screen, should
-	 * `showdebug` be true.
+	 * `showDebug` be true.
 	 */
-	private String debugdata = "";
+	private String debugData = "";
 
 	/** Whether or not the debugdata will be drawn to the screen. */
-	private boolean showdebug = false;
+	private boolean showDebug = false;
 
 	/** The Core being ran. */
 	private Core core;
@@ -101,9 +93,6 @@ public class Runner {
 
 	/** The input object. */
 	private Input input;
-	
-	/** The scene object. */
-	private GameScene scene = new GameScene(); 
 
 	/*
 	 * We don't want anybody attempting to create another Runner, there's a
@@ -288,6 +277,7 @@ public class Runner {
 		Logger.newLine();
 
 		core.init();
+		GameScene.init();
 
 		inited = true;
 
@@ -300,28 +290,28 @@ public class Runner {
 		 * Initial 'last time...' Otherwise the first delta will be about
 		 * 50000000.
 		 */
-		lastfps = lastframe = Sys.getTime() * 1000 / Sys.getTimerResolution();
+		lastfps = lastFrame = Sys.getTime() * 1000 / Sys.getTimerResolution();
 
 		while (running) {
 			// Set time for FPS and Delta calculations
 			long time = Sys.getTime() * 1000 / Sys.getTimerResolution();
 
 			// Calculate delta
-			delta = (int) (time - lastframe);
+			delta = (int) (time - lastFrame);
 
 			// Update FPS
 			if (time - lastfps < 1000) {
 				FPS1++;
 			} else {
 				lastfps = time;
-				FPS = FPS1;
+				fps = FPS1;
 				FPS1 = 0;
 			}
 
-			if (FPS == 0)
-				FPS = FPS_TARGET;
+			if (fps == 0)
+				fps = fpsTarget;
 
-			lastframe = time;
+			lastFrame = time;
 
 			input.poll();
 
@@ -329,7 +319,7 @@ public class Runner {
 				glClear(GL_COLOR_BUFFER_BIT);
 
 			if (updating) {
-				scene.update(getDelta());
+				GameScene.update(getDelta());
 				core.update(getDelta());
 			}
 				
@@ -342,16 +332,16 @@ public class Runner {
 
 				// Render Game
 				if (showSplashScreens(graphics)) {
-					scene.render(graphics);
+					GameScene.render(graphics);
 					core.render(graphics);
 				}
 
 				// Debug
-				if (showdebug) {
+				if (showDebug) {
 					addDebugData("FPS", getFPS() + "");
 
-					graphics.drawString(debugdata, 1 / graphics.getScale(), 4, 4);
-					debugdata = "";
+					graphics.drawString(debugData, 1 / graphics.getScale(), 4, 4);
+					debugData = "";
 				}
 
 				// Post-Render Camera
@@ -364,7 +354,7 @@ public class Runner {
 
 			// Update and sync the FPS.
 			Display.update();
-			Display.sync(FPS_TARGET);
+			Display.sync(fpsTarget);
 		}
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -381,6 +371,7 @@ public class Runner {
 		consoleThread.interrupt();
 
 		Logger.info("Cleaning Up Core & Plugins...");
+		GameScene.cleanup();
 		core.cleanup();
 
 		for (Plugin plugin : plugins) {
@@ -395,7 +386,7 @@ public class Runner {
 
 	/** @return The framerate. */
 	public int getFPS() {
-		return FPS;
+		return fps;
 	}
 
 	/** @return The vertices rendered in the last rendering frame. */
@@ -408,7 +399,7 @@ public class Runner {
 	 *            The new FPS target
 	 */
 	public void setFPSTarget(int target) {
-		FPS_TARGET = target;
+		fpsTarget = target;
 	}
 
 	/**
@@ -418,7 +409,7 @@ public class Runner {
 	 *            Whether or not debug is to be shown onscreen.
 	 */
 	public void showDebug(boolean showdebug) {
-		this.showdebug = showdebug;
+		this.showDebug = showdebug;
 	}
 
 	/**
@@ -434,7 +425,7 @@ public class Runner {
 		name.trim();
 		value.trim();
 
-		debugdata += name + " " + value + "\n";
+		debugData += name + " " + value + "\n";
 	}
 
 	/** @return The width of the display. */
@@ -567,7 +558,7 @@ public class Runner {
 
 	/** @return The delta time variable. */
 	public float getDelta() {
-		return delta * deltafactor;
+		return delta * deltaFactor;
 	}
 
 	/**
@@ -577,7 +568,7 @@ public class Runner {
 	 *            The new delta factor.
 	 */
 	public void setDeltaFactor(float factor) {
-		deltafactor = factor;
+		deltaFactor = factor;
 	}
 
 	/** @return Get the Core being ran. */
@@ -618,11 +609,6 @@ public class Runner {
 	/** @return The input object. */
 	public Input getInput() {
 		return input;
-	}
-	
-	/** @return The scene object. */
-	public GameScene getScene() {
-		return scene;
 	}
 	
 	public void setViewport(int x, int y, int width, int height) {

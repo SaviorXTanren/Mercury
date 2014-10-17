@@ -20,7 +20,6 @@ import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.graphics.Shader;
 import com.radirius.mercury.graphics.VAOGraphics;
 import com.radirius.mercury.resource.Loader;
-import com.radirius.mercury.scene.GameScene;
 import com.radirius.mercury.utilities.logging.Logger;
 
 /**
@@ -72,10 +71,6 @@ public abstract class Core {
 	public Runner getRunner() {
 		return runner;
 	}
-	
-	public GameScene getScene() {
-		return runner.getScene();
-	}
 
 	/**
 	 * Used to initialize all resources, and for whatever you wish to do for
@@ -121,27 +116,27 @@ public abstract class Core {
 		try {
 			Display.setVSyncEnabled(vsync);
 
-			DisplayMode dm = new DisplayMode(width, height);
+			DisplayMode dimensions = new DisplayMode(width, height);
 
-			boolean screendimmatched = false;
+			boolean matchedDimensions = false;
 
 			if (fullscreen) {
 				DisplayMode[] modes = Display.getAvailableDisplayModes();
 
 				for (DisplayMode mode : modes) {
 					if (mode.getWidth() == width && mode.getHeight() == height && mode.isFullscreenCapable()) {
-						dm = mode;
-						screendimmatched = true;
+						dimensions = mode;
+						matchedDimensions = true;
 					}
 				}
 
-				if (!screendimmatched)
+				if (!matchedDimensions)
 					Logger.warn("Dimensions " + width + "x" + height + " is not supported! Disabling Fullscreen.");
 				else
 					Display.setFullscreen(true);
 			}
 
-			Display.setDisplayMode(dm);
+			Display.setDisplayMode(dimensions);
 			Display.setTitle(name);
 			Display.create();
 		} catch (LWJGLException e) {
@@ -152,7 +147,7 @@ public abstract class Core {
 	}
 
 	/**
-	 * Initializes graphics.
+	 * Initializes graphics & handle OpenGL initialization calls.
 	 */
 	public Graphics initGraphics() {
 		glMatrixMode(GL_PROJECTION);
@@ -163,12 +158,12 @@ public abstract class Core {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		VAOGraphics graphicsobject = new VAOGraphics();
+		VAOGraphics graphicsObject = new VAOGraphics();
 
 		Shader.loadDefaultShaders();
 		Shader.releaseShaders();
 
-		return graphicsobject;
+		return graphicsObject;
 	}
 
 	/**

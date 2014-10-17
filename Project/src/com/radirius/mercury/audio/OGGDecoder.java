@@ -23,14 +23,6 @@ import java.nio.ByteBuffer;
  * @author Kevin Glass
  */
 public class OGGDecoder {
-	/** The buffer used to read OGG file */
-
-	/**
-	 * Create a new OGG decoder
-	 */
-	public OGGDecoder() {
-	}
-
 	/**
 	 * Get the data out of an OGG file
 	 *
@@ -38,11 +30,12 @@ public class OGGDecoder {
 	 *            The input stream from which to read the OGG file
 	 * @return The data describing the OGG thats been read
 	 * @throws IOException
-	 *             Indicaites a failure to read the OGG file
+	 *             Indicates a failure to read the OGG file
 	 */
 	public OGGData getData(InputStream input) throws IOException {
 		if (input == null)
-			throw new IOException("Failed to read OGG, source does not exist?");
+			throw new IOException("Failed to read OGG file. Does the source exist?");
+		
 		ByteArrayOutputStream dataout = new ByteArrayOutputStream();
 
 		OGGInputStream oggInput = new OGGInputStream(input);

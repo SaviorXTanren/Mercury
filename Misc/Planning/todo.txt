@@ -77,6 +77,9 @@ Code/Features To-Do List:
 - [-] Change 'setScale()' in Rectangle to 'scaleTo()' to stay consistent with the other 'To' functions.
 - [-] Add better crash-handling for developers using the lib.
 - [-] Add camera rotation.
+- [-] Fix/Update Documentation.
+- [-] Update Documentation CSS.
+- [-] Improve Entities; De-Rectanglify them.
 
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:

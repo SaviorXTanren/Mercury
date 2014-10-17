@@ -107,7 +107,8 @@ public class SplashScreen {
 	 * 
 	 * @param skipbutton
 	 *            The button for skipping
-	 * @return Me
+	 *            
+	 * @return the splash screen
 	 */
 	public SplashScreen setSkipButton(int... skipbutton) {
 		this.skipbutton = skipbutton;

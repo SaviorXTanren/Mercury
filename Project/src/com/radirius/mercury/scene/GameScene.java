@@ -1,26 +1,49 @@
 package com.radirius.mercury.scene;
 
+import java.util.ArrayList;
+
 import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.utilities.Component;
 
 /**
- * A scene graph containing hierarchies of GameObjects.
+ * A basic scene graph containing hierarchies of GameObjects.
  * 
  * @author Jeviny
  */
-public class GameScene extends GameObject implements Component {
-	@Override
-	public void init() {
-		super.init();
-	}
+public class GameScene {
+	private static ArrayList<GameObject> objects = new ArrayList<GameObject>();;
 	
-	@Override
-	public void update(float delta) {
-		super.update(delta);
+	/**
+	 * Adds a child to the list of children nodes.
+	 */
+	public static void addObject(GameObject... object) {
+		for (GameObject object0 : object)
+			objects.add(object0);
 	}
 
-	@Override
-	public void render(Graphics g) {
-		super.render(g);
+	public static void init() {
+		for (GameObject object : objects)
+			object.init();
+	}
+	
+	public static void update(float delta) {
+		for (GameObject object : objects)
+			object.update(delta);
+	}
+	
+	public static void render(Graphics g) {
+		for (GameObject object : objects)
+			object.render(g);
+	}
+	
+	public static void cleanup() {
+		for (GameObject object : objects)
+			object.cleanup();
+	}
+	
+	/**
+	 * @return The objects inside the scene.
+	 */
+	public static ArrayList<GameObject> getObjects() {
+		return objects;
 	}
 }

@@ -14,7 +14,7 @@ public class MercuryData implements Data {
 	/** Location of the data file. */
 	public String location;
 
-	/** The values of the data file. This is temperary in-code storage. */
+	/** The values of the data file. This is temporary in-code storage. */
 	public HashMap<String, String> values = new HashMap<String, String>();
 
 	/**
@@ -47,7 +47,6 @@ public class MercuryData implements Data {
 
 	@Override
 	public void open() {
-		// Create and open a scanner for the file.
 		Scanner scanner = null;
 
 		try {
@@ -74,13 +73,11 @@ public class MercuryData implements Data {
 			values.put(property, value);
 		}
 
-		// Close the scanner.
 		scanner.close();
 	}
 
 	@Override
 	public void close() {
-		// Create and open a writer for writing data to the file.
 		PrintWriter write = null;
 
 		try {
@@ -93,10 +90,9 @@ public class MercuryData implements Data {
 			String property = (String) values.keySet().toArray()[i];
 			String value = (String) values.values().toArray()[i];
 
-			write.println(property + " " + value); // Write key/value to the file
+			write.println(property + " " + value);
 		}
 
-		// Close the writer and clear any temporary storage.
 		write.close();
 		values.clear();
 	}

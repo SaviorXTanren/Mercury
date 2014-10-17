@@ -11,14 +11,7 @@ import com.radirius.mercury.utilities.Component;
  * @author Jeviny
  */
 public class GameObject implements Component {
-	private ArrayList<GameObject> children;
-	
-	/**
-	 * Creates the node.
-	 */
-	public GameObject() {
-		children = new ArrayList<GameObject>();
-	}
+	protected ArrayList<GameObject> children = new ArrayList<GameObject>();
 
 	/**
 	 * Adds a child to the list of children nodes.
@@ -28,7 +21,9 @@ public class GameObject implements Component {
 	}
 
 	@Override
-	public void init() {	
+	public void init() {
+		for (GameObject child : children)
+			child.init();
 	}
 	
 	@Override
@@ -41,5 +36,11 @@ public class GameObject implements Component {
 	public void render(Graphics g) {
 		for (GameObject child : children)
 			child.render(g);
+	}
+	
+	@Override
+	public void cleanup() {
+		for (GameObject child : children)
+			child.cleanup();
 	}
 }

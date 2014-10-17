@@ -53,7 +53,6 @@ import com.sun.media.sound.WaveFileReader;
  * Utitlity class for loading wavefiles.
  *
  * @author Brian Matzon <brian@matzon.dk>
- * @version $Revision$ $Id$
  */
 @SuppressWarnings("restriction")
 public class WaveData {
@@ -70,7 +69,7 @@ public class WaveData {
 	 * Creates a new WaveData
 	 *
 	 * @param data
-	 *            actual wavedata
+	 *            actual wave data
 	 * @param format
 	 *            format of wave data
 	 * @param samplerate
@@ -94,6 +93,7 @@ public class WaveData {
 	 *
 	 * @param path
 	 *            URL to file
+	 *            
 	 * @return WaveData containing data, or null if a failure occured
 	 */
 	public static WaveData create(URL path) {
@@ -113,6 +113,7 @@ public class WaveData {
 	 *
 	 * @param path
 	 *            path to file (relative, and in classpath)
+	 *            
 	 * @return WaveData containing data, or null if a failure occured
 	 */
 	public static WaveData create(String path) {
@@ -124,6 +125,7 @@ public class WaveData {
 	 *
 	 * @param is
 	 *            InputStream to read from
+	 *            
 	 * @return WaveData containing data, or null if a failure occured
 	 */
 	public static WaveData create(InputStream is) {
@@ -140,6 +142,7 @@ public class WaveData {
 	 *
 	 * @param buffer
 	 *            array of bytes containing the complete wave file
+	 *            
 	 * @return WaveData containing data, or null if a failure occured
 	 */
 	public static WaveData create(byte[] buffer) {
@@ -158,21 +161,24 @@ public class WaveData {
 	 *
 	 * @param buffer
 	 *            ByteBuffer containing sound file
+	 *            
 	 * @return WaveData containing data, or null if a failure occured
 	 */
 	public static WaveData create(ByteBuffer buffer) {
 		try {
 			byte[] bytes = null;
 
-			if (buffer.hasArray())
+			if (buffer.hasArray()) {
 				bytes = buffer.array();
-			else {
+			} else {
 				bytes = new byte[buffer.capacity()];
 				buffer.get(bytes);
 			}
+			
 			return create(bytes);
 		} catch (Exception e) {
 			org.lwjgl.LWJGLUtil.log("Unable to create from ByteBuffer, " + e.getMessage());
+			
 			return null;
 		}
 	}
@@ -185,11 +191,10 @@ public class WaveData {
 	 * @return WaveData containing data, or null if a failure occured
 	 */
 	public static WaveData create(AudioInputStream ais) {
-		// get format of data
 		AudioFormat audioformat = ais.getFormat();
 
-		// get channels
 		int channels = 0;
+		
 		if (audioformat.getChannels() == 1) {
 			if (audioformat.getSampleSizeInBits() == 8)
 				channels = AL10.AL_FORMAT_MONO8;
@@ -204,28 +209,31 @@ public class WaveData {
 				channels = AL10.AL_FORMAT_STEREO16;
 			else
 				assert false : "Illegal sample size";
-		} else
+		} else {
 			assert false : "Only mono or stereo is supported";
-
-		// read data into buffer
+		}
+		
 		ByteBuffer buffer = null;
+		
 		try {
 			int available = ais.available();
+			
 			if (available <= 0)
 				available = ais.getFormat().getChannels() * (int) ais.getFrameLength() * ais.getFormat().getSampleSizeInBits() / 8;
+			
 			byte[] buf = new byte[ais.available()];
 			int read = 0, total = 0;
+			
 			while ((read = ais.read(buf, total, buf.length - total)) != -1 && total < buf.length)
 				total += read;
+			
 			buffer = convertAudioBytes(buf, audioformat.getSampleSizeInBits() == 16, audioformat.isBigEndian() ? ByteOrder.BIG_ENDIAN : ByteOrder.LITTLE_ENDIAN);
 		} catch (IOException ioe) {
 			return null;
 		}
 
-		// create our result
 		WaveData wavedata = new WaveData(buffer, channels, (int) audioformat.getSampleRate());
 
-		// close stream
 		try {
 			ais.close();
 		} catch (IOException ioe) {
@@ -237,17 +245,23 @@ public class WaveData {
 	private static ByteBuffer convertAudioBytes(byte[] audio_bytes, boolean two_bytes_data, ByteOrder order) {
 		ByteBuffer dest = ByteBuffer.allocateDirect(audio_bytes.length);
 		dest.order(ByteOrder.nativeOrder());
+		
 		ByteBuffer src = ByteBuffer.wrap(audio_bytes);
 		src.order(order);
+		
 		if (two_bytes_data) {
 			ShortBuffer dest_short = dest.asShortBuffer();
 			ShortBuffer src_short = src.asShortBuffer();
+			
 			while (src_short.hasRemaining())
 				dest_short.put(src_short.get());
-		} else
+		} else {
 			while (src.hasRemaining())
 				dest.put(src.get());
+		}
+		
 		dest.rewind();
+		
 		return dest;
 	}
 }
