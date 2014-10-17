@@ -80,6 +80,8 @@ Code/Features To-Do List:
 - [-] Fix/Update Documentation.
 - [-] Update Documentation CSS.
 - [-] Improve Entities; De-Rectanglify them.
+- [-] Add getCenterX() and getCenterY() functions to Runner.
+- [-] Add clone/dupe functions to all of geometry.
 
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
