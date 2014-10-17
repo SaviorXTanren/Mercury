@@ -93,6 +93,13 @@ Misc To-Do List:
 - [+] Buy new domain name(s) (mercurylib.com) and/or (mercury2d.com).
   
 ---------------------------------------------------------------------------------------------
+Wiki To-Do List:
+
+- [-] Add page for particles.
+- [-] Add page for scene-graphing.
+- [-] Add page for GUI. (Once GUI is ready).
+
+---------------------------------------------------------------------------------------------
 
 End Of List
 
