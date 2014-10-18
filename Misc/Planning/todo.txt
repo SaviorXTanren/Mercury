@@ -82,6 +82,8 @@ Code/Features To-Do List:
 - [-] Improve Entities; De-Rectanglify them.
 - [-] Add getCenterX() and getCenterY() functions to Runner.
 - [-] Add clone/dupe functions to all of geometry.
+- [-] Get rid of user-required t/c statements in Font and TrueTypeFont's loaders.
+- [-] Rename DopplerTiledMapReader to DopplerReader.
 
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
