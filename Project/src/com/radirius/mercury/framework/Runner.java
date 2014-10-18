@@ -319,8 +319,8 @@ public class Runner {
 				glClear(GL_COLOR_BUFFER_BIT);
 
 			if (updating) {
-				GameScene.update(getDelta());
 				core.update(getDelta());
+				GameScene.update(getDelta());
 			}
 				
 			// Update timing
@@ -332,8 +332,8 @@ public class Runner {
 
 				// Render Game
 				if (showSplashScreens(graphics)) {
-					GameScene.render(graphics);
 					core.render(graphics);
+					GameScene.render(graphics);
 				}
 
 				// Debug
