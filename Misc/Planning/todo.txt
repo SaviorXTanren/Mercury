@@ -66,15 +66,15 @@ Code/Features To-Do List:
       // Probably More To come
 - [+] Change "drawString(x, y, msg)" to "drawString(msg, x, y)"
 - [+] Simplify Core Setup.
-- [=] Rename project to Mercury instead of MERCury.
-- [-] Update Default Splash Screen. Due to name changes. 
+- [+] Rename project to Mercury instead of MERCury.
+- [+] Update Default Splash Screen. Due to name changes. 
 - [=] Fix up Wiki from name change.
 - [+] Update To-Do to adapt to the name change (Yay for being meta. \o/)
 - [-] Change drawPolygon to simply drawShape
 - [+] Add a better implementation of entities.
 - [+] Improve upon the new entities.
 - [+] Move Updatable/Renderable to /utilities/
-- [-] Change 'setScale()' in Rectangle to 'scaleTo()' to stay consistent with the other 'To' functions.
+- [+] Change 'setScale()' in Rectangle to 'scaleTo()' to stay consistent with the other 'To' functions.
 - [-] Add better crash-handling for developers using the lib.
 - [-] Add camera rotation.
 - [-] Fix/Update Documentation.
@@ -83,7 +83,7 @@ Code/Features To-Do List:
 - [-] Add getCenterX() and getCenterY() functions to Runner.
 - [-] Add clone/dupe functions to all of geometry.
 - [-] Get rid of user-required t/c statements in Font and TrueTypeFont's loaders.
-- [-] Rename DopplerTiledMapReader to DopplerReader.
+- [+] Rename DopplerTiledMapReader to DopplerReader.
 - [-] Add TMX Loader.
 
 ---------------------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ Misc To-Do List:
 
 - [+] Buy official Radirius domain name (radiri.us)
 - [+] Get hosted.
-- [+] Make MERCury Website.
+- [+] Make Mercury Website.
 - [=] Make Demonstration Video.
 - [+] Buy new domain name(s) (mercurylib.com) and/or (mercury2d.com).
   

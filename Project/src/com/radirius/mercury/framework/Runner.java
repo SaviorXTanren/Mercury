@@ -1,8 +1,12 @@
 package com.radirius.mercury.framework;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glViewport;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
@@ -10,16 +14,21 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
 
-import com.radirius.mercury.exceptions.*;
-import com.radirius.mercury.framework.splash.*;
-import com.radirius.mercury.graphics.*;
-import com.radirius.mercury.input.*;
+import com.radirius.mercury.exceptions.MercuryException;
+import com.radirius.mercury.framework.splash.SplashScreen;
+import com.radirius.mercury.graphics.Camera;
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.graphics.Texture;
+import com.radirius.mercury.input.Input;
+import com.radirius.mercury.math.geometry.Vector2f;
 import com.radirius.mercury.scene.GameScene;
-import com.radirius.mercury.utilities.*;
-import com.radirius.mercury.utilities.command.*;
-import com.radirius.mercury.utilities.logging.*;
+import com.radirius.mercury.utilities.TaskTiming;
+import com.radirius.mercury.utilities.command.CommandList;
+import com.radirius.mercury.utilities.command.CommandThread;
+import com.radirius.mercury.utilities.logging.Logger;
 
 /**
  * The heart of Mercury. Runs the Core and provides all of the various materials
@@ -436,6 +445,21 @@ public class Runner {
 	/** @return The height of the display. */
 	public int getHeight() {
 		return Display.getHeight();
+	}
+	
+	/** @return The horizontal center of the display. */
+	public int getCenterX() {
+		return Display.getWidth() / 2;
+	}
+	
+	/** @return The vertical center of the display. */
+	public int getCenterY() {
+		return Display.getHeight() / 2;
+	}
+	
+	/** @return The center of the display. */
+	public Vector2f getCenter() {
+		return new Vector2f(getCenterX(), getCenterY());
 	}
 
 	/** @return The aspect ratio of the display. */

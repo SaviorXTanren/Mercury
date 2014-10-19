@@ -3,15 +3,13 @@ package com.radirius.mercury.scene;
 import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.math.geometry.Rectangle;
 import com.radirius.mercury.math.geometry.Vector2f;
-import com.radirius.mercury.utilities.Renderable;
-import com.radirius.mercury.utilities.Updatable;
 
 /**
  * A base for all Entities that have a function in a Mercury game's environment.
  *
  * @author Jeviny
  */
-public class Entity extends GameObject implements Updatable, Renderable {
+public class Entity extends GameObject {
 	private float x, y, w, h, rotation;
 
 	public Entity(float x, float y, float w, float h) {

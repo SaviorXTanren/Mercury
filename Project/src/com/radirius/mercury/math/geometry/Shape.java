@@ -301,7 +301,7 @@ public class Shape {
 	 *
 	 * @return The Shape.
 	 */
-	public Shape setScale(Vector2f point, float scale) {
+	public Shape scaleTo(Vector2f point, float scale) {
 		return scale(point, scale / this.scale);
 	}
 
@@ -310,8 +310,8 @@ public class Shape {
 	 *
 	 * @return The Shape.
 	 */
-	public Shape setScale(float scale) {
-		return setScale(getCenter(), scale);
+	public Shape scaleTo(float scale) {
+		return scaleTo(getCenter(), scale);
 	}
 
 	/**
@@ -425,7 +425,7 @@ public class Shape {
 	public Vector2f[] getVertices() {
 		return vertices;
 	}
-
+	
 	/**
 	 * Adds a child shape.
 	 *
@@ -474,5 +474,10 @@ public class Shape {
 	/** @return The parent shape of me. */
 	public Shape getParent() {
 		return parent;
+	}
+
+	/** @return A duplicate of the shape */
+	public Shape duplicate() {
+		return new Shape(this);
 	}
 }

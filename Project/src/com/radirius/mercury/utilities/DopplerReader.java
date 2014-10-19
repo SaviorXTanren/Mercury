@@ -10,7 +10,7 @@ import java.util.Scanner;
  *
  * @author wessles, Jeviny
  */
-public class DopplerTileMapReader {
+public class DopplerReader {
 	public static final int DIGITS_PER_TILE = 4;
 
 	/**
