@@ -436,7 +436,7 @@ public class Runner {
 
 		debugData += name + " " + value + "\n";
 	}
-
+	
 	/** @return The width of the display. */
 	public int getWidth() {
 		return Display.getWidth();
@@ -706,3 +706,5 @@ public class Runner {
 		return singleton;
 	}
 }
+
+// no comment
