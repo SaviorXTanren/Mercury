@@ -85,6 +85,7 @@ Code/Features To-Do List:
 - [-] Get rid of user-required t/c statements in Font and TrueTypeFont's loaders.
 - [+] Rename DopplerTiledMapReader to DopplerReader.
 - [-] Add TMX Loader.
+- [-] Make Jev fix JDK problem.
 
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:

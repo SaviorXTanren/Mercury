@@ -1,12 +1,12 @@
 package com.radirius.mercury.graphics.font;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.awt.image.*;
+
 import java.io.*;
 
 import com.radirius.mercury.graphics.Texture;
 import com.radirius.mercury.resource.Loader;
-import com.radirius.mercury.utilities.logging.Logger;
 
 /**
  * A font type for .TTF's and .OTF's.
@@ -18,24 +18,21 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 
 	/** The default Open Sans Bold font. */
 	public static TrueTypeFont OPENSANS_BOLD;
+	
 	/** The default Open Sans Regular font. */
 	public static TrueTypeFont OPENSANS_REGULAR;
+	
 	/** The default Open Sans Light font. */
 	public static TrueTypeFont OPENSANS_LIGHT;
+	
 	/** The default Open Sans Semi-bold font. */
 	public static TrueTypeFont OPENSANS_SEMIBOLD;
 
 	static {
-		try {
-			OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/OpenSans-Bold.ttf"), 22f, 1, true);
-			OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/OpenSans-Regular.ttf"), 22f, 1, true);
-			OPENSANS_SEMIBOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/OpenSans-Semibold.ttf"), 22f, 1, true);
-			OPENSANS_LIGHT = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/OpenSans-Light.ttf"), 22f, 1, true);
-		} catch (IOException e) {
-			Logger.warn("Problems loading default opensans fonts.");
-		} catch (FontFormatException e) {
-			e.printStackTrace();
-		}
+		OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/OpenSans-Bold.ttf"), 22f, 1, true);
+		OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/OpenSans-Regular.ttf"), 22f, 1, true);
+		OPENSANS_SEMIBOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/OpenSans-Semibold.ttf"), 22f, 1, true);
+		OPENSANS_LIGHT = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/OpenSans-Light.ttf"), 22f, 1, true);
 	}
 
 	/** All data for all characters. */
@@ -45,31 +42,34 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 	private boolean antialias;
 
 	/** The size of the font */
-	private float font_size = 0;
+	private float fontSize = 0;
+	
 	/** The height of the font */
-	private float font_height = 0;
+	private float fontHeight = 0;
+	
 	/** The maximum number/letter character width */
-	private float font_max_width = 0;
+	private float fontMaxWidth = 0;
+	
 	/** The average number/letter character width */
-	private float font_average_width = 0;
+	private float fontAverageWidth = 0;
 
 	/** The overall texture used for rendering the font. */
-	private Texture font_tex;
+	private Texture fontTexture;
 
-	private int texw = 0;
-	private int texh = 0;
+	private int baseWidth = 0;
+	private int baseHeight = 0;
 
 	/** Some AWT jargon for fonts. */
 	private java.awt.Font font;
-	/** Some AWT jargon for fonts. */
-	private FontMetrics fmetrics;
+	
+	/** Some more AWT jargon for fonts. */
+	private FontMetrics fontMetrics;
 
 	private TrueTypeFont(java.awt.Font font, boolean antialias) {
 		this.font = font;
-
-		font_size = font.getSize();
-
 		this.antialias = antialias;
+
+		fontSize = font.getSize();
 
 		createSet();
 	}
@@ -80,20 +80,20 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 
 			BufferedImage fontimg = getFontImage(ch);
 
-			texw += fontimg.getWidth();
-			texh = Math.max(fontimg.getHeight(), texh);
+			baseWidth += fontimg.getWidth();
+			baseHeight = Math.max(fontimg.getHeight(), baseHeight);
 		}
 
-		texw /= 8;
-		texh *= 8;
+		baseWidth /= 8;
+		baseHeight *= 8;
 
 		// Make a graphics object for the buffered image.
-		BufferedImage imgTemp = new BufferedImage(texw, texh, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage imgTemp = new BufferedImage(baseWidth, baseHeight, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) imgTemp.getGraphics();
 
 		// Set the color to transparent
 		g.setColor(new java.awt.Color(255, 255, 255, 0));
-		g.fillRect(0, 0, texw, texh);
+		g.fillRect(0, 0, baseWidth, baseHeight);
 
 		// Initialize temporary variables.
 		float positionX = 0;
@@ -112,7 +112,7 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 			newIntObject.h = fontImage.getHeight();
 
 			// Go to next row if there is no room on x axis.
-			if (positionX + newIntObject.w >= texw) {
+			if (positionX + newIntObject.w >= baseWidth) {
 				positionX = 0;
 				positionY += getHeight();
 			}
@@ -145,7 +145,7 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 			}
 
 		// Load texture!
-		font_tex = Texture.loadTexture(imgTemp, false, false);
+		fontTexture = Texture.loadTexture(imgTemp, false, false);
 	}
 
 	private BufferedImage getFontImage(char ch) {
@@ -159,40 +159,40 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 		g.setFont(font);
 
 		// Font preperation.
-		fmetrics = g.getFontMetrics();
+		fontMetrics = g.getFontMetrics();
 
-		float charwidth = fmetrics.charWidth(ch);
+		float charwidth = fontMetrics.charWidth(ch);
 		// Safety guards just in case.
 		if (charwidth <= 0)
 			charwidth = 1;
 
 		if (Character.isLetterOrDigit(ch)) {
-			font_max_width = Math.max(font_max_width, charwidth);
-			font_average_width += charwidth / STANDARD_CHARACTERS;
+			fontMaxWidth = Math.max(fontMaxWidth, charwidth);
+			fontAverageWidth += charwidth / STANDARD_CHARACTERS;
 		}
 
 		// Height!
-		font_height = fmetrics.getHeight();
+		fontHeight = fontMetrics.getHeight();
 
 		// Now to the actual image!
 		BufferedImage fontImage = new BufferedImage((int) charwidth, (int) getHeight(), BufferedImage.TYPE_INT_ARGB);
-		Graphics2D gt = (Graphics2D) fontImage.getGraphics();
+		Graphics2D g2d = (Graphics2D) fontImage.getGraphics();
 
 		if (antialias == true)
-			gt.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-		gt.setFont(font);
+		g2d.setFont(font);
 
 		// Set the text color to white, set x and y, and return to font image.
 		g.setColor(Color.WHITE);
-		gt.drawString(String.valueOf(ch), 0, fmetrics.getAscent());
+		g2d.drawString(String.valueOf(ch), 0, fontMetrics.getAscent());
 
 		return fontImage;
 	}
 
 	@Override
 	public float getWidth(String message) {
-		float totalwidth = 0;
+		float totalWidth = 0;
 
 		IntObject intObject = null;
 
@@ -205,20 +205,20 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 				intObject = chars[currentChar];
 
 			if (intObject != null)
-				totalwidth += intObject.w;
+				totalWidth += intObject.w;
 		}
 
-		return totalwidth;
+		return totalWidth;
 	}
 
 	@Override
 	public float getMaxWidth(int len) {
-		return len * font_max_width;
+		return len * fontMaxWidth;
 	}
 
 	@Override
 	public float getAverageWidth(int len) {
-		return len * font_average_width;
+		return len * fontAverageWidth;
 	}
 
 	@Override
@@ -233,17 +233,17 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 
 	@Override
 	public float getSize() {
-		return font_size;
+		return fontSize;
 	}
 
 	@Override
 	public float getHeight() {
-		return font_height;
+		return fontHeight;
 	}
 
 	@Override
 	public Texture getFontTexture() {
-		return font_tex;
+		return fontTexture;
 	}
 
 	/** An object type for storing data for each character. */
@@ -256,7 +256,7 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 
 	@Override
 	public void clean() {
-		font_tex.clean();
+		fontTexture.clean();
 	}
 
 	/**
@@ -271,12 +271,20 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 	 * @param antialias
 	 *            Whether or not the text is anti-aliased.
 	 */
-	public static TrueTypeFont loadTrueTypeFont(InputStream is, float size, int style, boolean antialias) throws FileNotFoundException, FontFormatException, IOException {
-		java.awt.Font font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, is);
+	public static TrueTypeFont loadTrueTypeFont(InputStream is, float size, int style, boolean antialias) {
+		java.awt.Font font;
+		try {
+			font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, is);
+			font = font.deriveFont(size);
 
-		font = font.deriveFont(size);
-
-		return loadTrueTypeFont(font, antialias);
+			return loadTrueTypeFont(font, antialias);
+		} catch (FontFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 
 	/**
