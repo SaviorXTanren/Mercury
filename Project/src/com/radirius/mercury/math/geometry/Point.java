@@ -3,7 +3,7 @@ package com.radirius.mercury.math.geometry;
 /**
  * A point shape. No sides, just a point.
  *
- * @author wessles
+ * @author wessles, Jeviny
  */
 public class Point extends Shape {
 
@@ -19,7 +19,7 @@ public class Point extends Shape {
 
 	@Override
 	public String toString() {
-		return "Point at " + getX() + ", " + getY();
+		return "(Point) " + toVector().toString();
 	}
 
 	@Override
@@ -27,8 +27,10 @@ public class Point extends Shape {
 		return 1;
 	}
 
-	/** @return The point in the form of a vector. */
-	public Vector2f toVec2() {
+	/**
+	 * @return The point in the form of a vector.
+	 */
+	public Vector2f toVector() {
 		return new Vector2f(getX(), getY());
 	}
 

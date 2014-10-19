@@ -14,26 +14,31 @@ public class Shape {
 	protected Shape parent = null;
 	protected ArrayList<Shape> children = new ArrayList<Shape>();
 
-	/** All vertices that make up the shape. */
+	/** All of the vertices that make up the shape. */
 	protected Vector2f[] vertices;
 
 	/** The x value of the vertex top-left-most vertex. */
 	protected float x;
+	
 	/** The y value of the vertex top-left-most vertex. */
 	protected float y;
+	
 	/** The x value of the vertex bottom-right-most vertex. */
 	protected float x2;
+	
 	/** The y value of the vertex bottom-right-most vertex. */
 	protected float y2;
+	
 	/** The absolute value of the difference of x and x2. */
 	protected float w;
+	
 	/** The absolute value of the difference of y and y2. */
 	protected float h;
 
 	/** The center of mass. Basically the mean location of all vertices. */
 	protected Vector2f center;
 
-	/** The rotation angle (in degrees, COS screw radians) */
+	/** The rotation angle (in degrees). */
 	protected float rot = 0;
 
 	/** The scale! */
@@ -75,7 +80,9 @@ public class Shape {
 		regen();
 	}
 
-	/** @return Whether s intersects with this shape. */
+	/**
+	 * @return Whether s intersects with this shape.
+	 */
 	public boolean intersects(Shape s) {
 		for (Shape child : children)
 			if (child.intersects(s))
@@ -109,7 +116,6 @@ public class Shape {
 
 	/** @return Whether all vertices of s is inside of this shape. */
 	public boolean contains(Shape s) {
-		// Loop through all vertices and test them.
 		for (Vector2f v : s.vertices)
 			if (contains(v))
 				return true;
@@ -123,16 +129,12 @@ public class Shape {
 			if (child.contains(v))
 				return true;
 
-		// This is based off of the fact that any point inside of a convex
-		// shape's angles add up to 360. Thus, we will find the sum of all
-		// angles of all vertices in the shape to the one point we are testing.
-
 		float sumangle = 0;
 
 		for (Vector2f v2 : vertices) {
-			// Find angle between vertex of shape and point.
 			float dx = v.x - v2.x, dy = v.y - v2.x;
 			float angle = MathUtil.atan2(dy, dx);
+			
 			sumangle += angle;
 		}
 
@@ -149,7 +151,8 @@ public class Shape {
 	 *            The amount every vertex should move on x.
 	 * @param y
 	 *            The amount every vertex should move on y.
-	 * @return Me
+	 *            
+	 * @return The Shape.
 	 * */
 	public Shape translate(float x, float y) {
 		for (Vector2f vertex : vertices) {
@@ -174,7 +177,7 @@ public class Shape {
 	 * @param y
 	 *            Where every vertex should move relative to the nearest point
 	 *            of the shape on y.
-	 * @return Me
+	 * @return The Shape.
 	 */
 	public Shape translateTo(float x, float y) {
 		return translate(x - this.x, y - this.y);
@@ -190,7 +193,7 @@ public class Shape {
 	 * @param angle
 	 *            The angle by which the object will rotate relative to the
 	 *            origin.
-	 * @return Me
+	 * @return The Shape.
 	 */
 	public Shape rotate(float origx, float origy, float angle) {
 		if (angle == 0)
@@ -225,7 +228,7 @@ public class Shape {
 	 *
 	 * @param angle
 	 *            The angle of rotation.
-	 * @return Me
+	 * @return The Shape.
 	 */
 	public Shape rotate(float angle) {
 		return rotate(center.x, center.y, angle);
@@ -241,7 +244,7 @@ public class Shape {
 	 * @param angle
 	 *            The angle by which the object will rotate to relative to the
 	 *            origin.
-	 * @return Me
+	 * @return The Shape.
 	 */
 	public Shape rotateTo(float origx, float origy, float angle) {
 		return rotate(origx, origy, angle - rot);
@@ -253,7 +256,7 @@ public class Shape {
 	 *
 	 * @param angle
 	 *            The angle of rotation that the object will rotate to.
-	 * @return Me
+	 * @return The Shape.
 	 */
 	public Shape rotateTo(float angle) {
 		return rotateTo(center.x, center.y, angle);
@@ -262,7 +265,7 @@ public class Shape {
 	/**
 	 * Scales a shape from a point.
 	 *
-	 * @return Me
+	 * @return The Shape.
 	 */
 	public Shape scale(Vector2f point, float scale) {
 		translate(-point.x, -point.y);
@@ -287,7 +290,7 @@ public class Shape {
 	/**
 	 * Scales a shape from the center of the shape.
 	 *
-	 * @return Me
+	 * @return The Shape.
 	 */
 	public Shape scale(float scale) {
 		return scale(getCenter(), scale);
@@ -296,7 +299,7 @@ public class Shape {
 	/**
 	 * Scales a shape from a point.
 	 *
-	 * @return Me
+	 * @return The Shape.
 	 */
 	public Shape setScale(Vector2f point, float scale) {
 		return scale(point, scale / this.scale);
@@ -305,7 +308,7 @@ public class Shape {
 	/**
 	 * Scales a shape from the center of the shape.
 	 *
-	 * @return Me
+	 * @return The Shape.
 	 */
 	public Shape setScale(float scale) {
 		return setScale(getCenter(), scale);
@@ -314,7 +317,7 @@ public class Shape {
 	/**
 	 * Flips the object over the y axis, relative to the mean center.
 	 *
-	 * @return Me
+	 * @return The Shape.
 	 */
 	public Shape flipX() {
 		for (Vector2f v : vertices)
@@ -328,7 +331,7 @@ public class Shape {
 	/**
 	 * Flips the object over the y axis, relative to the mean center.
 	 *
-	 * @return Me
+	 * @return The Shape.
 	 */
 	public Shape flipY() {
 		for (Vector2f v : vertices)
@@ -403,14 +406,15 @@ public class Shape {
 			cx += vertex.x;
 			cy += vertex.y;
 
-			x = Math.min(vertex.x, x);
-			y = Math.min(vertex.y, y);
+			x  = Math.min(vertex.x, x);
+			y  = Math.min(vertex.y, y);
 			x2 = Math.max(vertex.x, x2);
 			y2 = Math.max(vertex.y, y2);
 		}
 
 		cx /= vertices.length;
 		cy /= vertices.length;
+		
 		center = new Vector2f(cx, cy);
 
 		w = Math.abs(x2 - x);
@@ -425,11 +429,12 @@ public class Shape {
 	/**
 	 * Adds a child shape.
 	 *
-	 * @return Me
+	 * @return The Shape.
 	 */
 	public Shape addChild(Shape... child) {
 		for (Shape s : child) {
 			s.parent = this;
+			
 			children.add(s);
 		}
 
@@ -444,7 +449,7 @@ public class Shape {
 	/**
 	 * Sets the parent of the shape.
 	 *
-	 * @return Me
+	 * @return The Shape.
 	 */
 	public Shape setParent(Shape parent) {
 		parent.addChild(this);
@@ -456,10 +461,11 @@ public class Shape {
 	 * Makes me an orphan. Parent will lose me from it's arraylist of children,
 	 * so there is no trace of my previous life ;(.
 	 *
-	 * @return Me
+	 * @return The Shape.
 	 */
 	public Shape clearParent() {
 		parent.children.remove(this);
+		
 		parent = null;
 
 		return this;

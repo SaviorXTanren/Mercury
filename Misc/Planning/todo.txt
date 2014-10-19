@@ -84,6 +84,7 @@ Code/Features To-Do List:
 - [-] Add clone/dupe functions to all of geometry.
 - [-] Get rid of user-required t/c statements in Font and TrueTypeFont's loaders.
 - [-] Rename DopplerTiledMapReader to DopplerReader.
+- [-] Add TMX Loader.
 
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:

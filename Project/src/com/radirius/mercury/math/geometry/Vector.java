@@ -43,10 +43,10 @@ public abstract class Vector {
 	public abstract Vector set(float... coord);
 
 	/**
-	 * @param a
+	 * @param amount
 	 *            The value by which to scale each value of the vector.
 	 */
-	public abstract Vector scale(float a);
+	public abstract Vector scale(float amount);
 
 	/** Scales the vector by -1. */
 	public abstract Vector negate();
