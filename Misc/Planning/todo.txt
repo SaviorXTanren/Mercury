@@ -70,7 +70,7 @@ Code/Features To-Do List:
 - [+] Update Default Splash Screen. Due to name changes. 
 - [=] Fix up Wiki from name change.
 - [+] Update To-Do to adapt to the name change (Yay for being meta. \o/)
-- [-] Change drawPolygon to simply drawShape
+- [-] Change drawPolygon() to simply drawShape()
 - [+] Add a better implementation of entities.
 - [+] Improve upon the new entities.
 - [+] Move Updatable/Renderable to /utilities/
@@ -85,7 +85,8 @@ Code/Features To-Do List:
 - [-] Get rid of user-required t/c statements in Font and TrueTypeFont's loaders.
 - [+] Rename DopplerTiledMapReader to DopplerReader.
 - [-] Add TMX Loader.
-- [-] Make Jev fix JDK problem.
+- [-] Add getCenter() functions to textures.
+- [-] Turn Shapes Into GameObjects.
 
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
