@@ -77,11 +77,12 @@ public class Color {
 		this.r = r;
 		this.g = g;
 		this.b = b;
-		this.a = 1f;
+		a = 1f;
 	}
 
 	/**
-	 * Creates a color with all 4 RGBA components in integers.
+	 * Creates a color with all 4 RGBA components in
+	 * integers.
 	 *
 	 * @param r
 	 *            The Red Component.
@@ -113,7 +114,7 @@ public class Color {
 		this.r = r / 255f;
 		this.g = g / 255f;
 		this.b = b / 255f;
-		this.a = 1f;
+		a = 1f;
 	}
 
 	/**
@@ -123,9 +124,9 @@ public class Color {
 	 *            The integer to take the color from.
 	 */
 	public Color(int value) {
-		r = (value >> 16) & 0xff;
-		g = (value >> 8) & 0xff;
-		b = (value) & 0xff;
+		r = value >> 16 & 0xff;
+		g = value >> 8 & 0xff;
+		b = value & 0xff;
 		a = 0xff;
 	}
 

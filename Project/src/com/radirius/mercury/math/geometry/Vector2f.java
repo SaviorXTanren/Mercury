@@ -10,9 +10,6 @@ import com.radirius.mercury.math.MathUtil;
 public class Vector2f extends Vector {
 	public float x = 0, y = 0;
 
-	public Vector2f() {
-	}
-
 	public Vector2f(float x, float y) {
 		this.x = x;
 		this.y = y;
@@ -102,9 +99,9 @@ public class Vector2f extends Vector {
 	}
 
 	@Override
-	public Vector scale(float a) {
-		x *= a;
-		y *= a;
+	public Vector scale(float amt) {
+		x *= amt;
+		y *= amt;
 
 		return this;
 	}

@@ -1,6 +1,7 @@
 package com.radirius.mercury.graphics.wip.gui;
 
-import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.graphics.Texture;
 import com.radirius.mercury.math.geometry.Rectangle;
 
 /**

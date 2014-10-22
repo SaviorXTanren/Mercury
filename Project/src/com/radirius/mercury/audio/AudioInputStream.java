@@ -17,8 +17,8 @@ package com.radirius.mercury.audio;
 import java.io.IOException;
 
 /**
- * The description of an input stream that supplied audio data suitable for use
- * in OpenAL buffers
+ * The description of an input stream that supplied audio
+ * data suitable for use in OpenAL buffers
  *
  * @author Kevin Glass
  */
@@ -31,7 +31,8 @@ interface AudioInputStream {
 	public int getChannels();
 
 	/**
-	 * The play back rate described in the underling audio file
+	 * The play back rate described in the underling audio
+	 * file
 	 *
 	 * @return The playback rate
 	 */
@@ -42,7 +43,8 @@ interface AudioInputStream {
 	 *
 	 * @return The single byte read
 	 * @throws IOException
-	 *             Indicates a failure to read the underlying media
+	 *             Indicates a failure to read the
+	 *             underlying media
 	 * @see java.io.InputStream#read()
 	 */
 	public int read() throws IOException;
@@ -52,10 +54,11 @@ interface AudioInputStream {
 	 *
 	 * @param data
 	 *            The array to read into
-	 * @return The number of bytes read or -1 to indicate no more bytes are
-	 *         available
+	 * @return The number of bytes read or -1 to indicate no
+	 *         more bytes are available
 	 * @throws IOException
-	 *             Indicates a failure to read the underlying media
+	 *             Indicates a failure to read the
+	 *             underlying media
 	 * @see java.io.InputStream#read(byte[])
 	 */
 	public int read(byte[] data) throws IOException;
@@ -66,19 +69,22 @@ interface AudioInputStream {
 	 * @param data
 	 *            The array to read into
 	 * @param ofs
-	 *            The offset into the array at which to start writing
+	 *            The offset into the array at which to
+	 *            start writing
 	 * @param len
 	 *            The maximum number of bytes to read
-	 * @return The number of bytes read or -1 to indicate no more bytes are
-	 *         available
+	 * @return The number of bytes read or -1 to indicate no
+	 *         more bytes are available
 	 * @throws IOException
-	 *             Indicates a failure to read the underlying media
+	 *             Indicates a failure to read the
+	 *             underlying media
 	 * @see java.io.InputStream#read(byte[], int, int)
 	 */
 	public int read(byte[] data, int ofs, int len) throws IOException;
 
 	/**
-	 * Check if the stream is at the end, i.e. end of file or URL
+	 * Check if the stream is at the end, i.e. end of file
+	 * or URL
 	 *
 	 * @return True if the stream has no more data available
 	 */
@@ -89,7 +95,8 @@ interface AudioInputStream {
 	 *
 	 * @see java.io.InputStream#close()
 	 * @throws IOException
-	 *             Indicates a failure to access the resource
+	 *             Indicates a failure to access the
+	 *             resource
 	 */
 	public void close() throws IOException;
 }

@@ -1,8 +1,11 @@
 package com.radirius.mercury.graphics.wip.gui;
 
 import com.radirius.mercury.framework.Runner;
-import com.radirius.mercury.graphics.*;
-import com.radirius.mercury.graphics.font.*;
+import com.radirius.mercury.graphics.Color;
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.graphics.Texture;
+import com.radirius.mercury.graphics.font.Font;
+import com.radirius.mercury.graphics.font.TrueTypeFont;
 import com.radirius.mercury.input.Input;
 
 /**
@@ -130,8 +133,8 @@ public class TextField extends TextBar {
 	String cursor = "_";
 
 	/**
-	 * Sets the cursor, the character that will be put always at the end of the
-	 * input.
+	 * Sets the cursor, the character that will be put
+	 * always at the end of the input.
 	 */
 	public void setCursor(String cursor) {
 		this.cursor = cursor;

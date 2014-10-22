@@ -1,9 +1,13 @@
 package com.radirius.mercury.graphics.particles;
 
-import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.graphics.Color;
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.graphics.Texture;
 import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.math.geometry.Vector2f;
-import com.radirius.mercury.utilities.*;
+import com.radirius.mercury.utilities.Renderable;
+import com.radirius.mercury.utilities.Updatable;
+import com.radirius.mercury.utilities.WipingArrayList;
 
 /**
  * An object that simulates a mass of particles.
@@ -15,7 +19,10 @@ public class ParticleSystem implements Updatable, Renderable {
 	 * A setup for particle systems.
 	 */
 	public static class ParticleSetup {
-		/** The 2 valid angles in between which any particle can go through. */
+		/**
+		 * The 2 valid angles in between which any particle
+		 * can go through.
+		 */
 		public Vector2f validangle = new Vector2f(0, 360);
 
 		/** The color of the particles. */
@@ -25,25 +32,34 @@ public class ParticleSystem implements Updatable, Renderable {
 		/** The size of the particles. */
 		public float size = 1;
 		/**
-		 * The value by which the size of the particles will be multiplied each
-		 * frame.
+		 * The value by which the size of the particles will
+		 * be multiplied each frame.
 		 */
 		public float growth = 1;
-		/** The amount that each particle will rotate each frame. */
-		public float rotation = 0;
-
-		/** The speed by which the particle will be launched out of the emitter. */
-		public float speed = 0.01f;
 		/**
-		 * The value by which the velocity of a particle will be multiplied each
+		 * The amount that each particle will rotate each
 		 * frame.
 		 */
+		public float rotation = 0;
+
+		/**
+		 * The speed by which the particle will be launched
+		 * out of the emitter.
+		 */
+		public float speed = 0.01f;
+		/**
+		 * The value by which the velocity of a particle
+		 * will be multiplied each frame.
+		 */
 		public float acceleration = 0.98f;
-		/** The value that adds to the x and y of each particle each frame. */
+		/**
+		 * The value that adds to the x and y of each
+		 * particle each frame.
+		 */
 		public Vector2f gravity = new Vector2f(0, 0);
 		/**
-		 * The amount of frames that will pass a single particle before
-		 * death/removal.
+		 * The amount of frames that will pass a single
+		 * particle before death/removal.
 		 */
 		public int lifeinframes = 1000;
 	}

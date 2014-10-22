@@ -1,10 +1,24 @@
 package com.radirius.mercury.graphics;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_LINEAR;
+import static org.lwjgl.opengl.GL11.GL_NEAREST;
+import static org.lwjgl.opengl.GL11.GL_RGBA;
+import static org.lwjgl.opengl.GL11.GL_RGBA8;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
+import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
+import static org.lwjgl.opengl.GL11.glBindTexture;
+import static org.lwjgl.opengl.GL11.glDeleteTextures;
+import static org.lwjgl.opengl.GL11.glGenTextures;
+import static org.lwjgl.opengl.GL11.glTexImage2D;
+import static org.lwjgl.opengl.GL11.glTexParameteri;
 
 import java.awt.geom.AffineTransform;
-import java.awt.image.*;
-import java.io.*;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 import javax.imageio.ImageIO;
@@ -13,11 +27,12 @@ import org.lwjgl.BufferUtils;
 
 import com.radirius.mercury.exceptions.MercuryException;
 import com.radirius.mercury.math.MathUtil;
-import com.radirius.mercury.resource.*;
+import com.radirius.mercury.resource.Loader;
+import com.radirius.mercury.resource.Resource;
 
 /**
- * An object version of a texture. This will store the width and height of the
- * object.
+ * An object version of a texture. This will store the width
+ * and height of the object.
  *
  * @author wessles, Jeviny
  */
@@ -35,8 +50,8 @@ public class Texture implements Resource {
 	public ByteBuffer buffer;
 
 	/**
-	 * Make a texture of the textureId, with a width and height, based off of
-	 * bufferedimage buf.
+	 * Make a texture of the textureId, with a width and
+	 * height, based off of bufferedimage buf.
 	 *
 	 * @param textureId
 	 *            The id of the texture.
@@ -45,7 +60,8 @@ public class Texture implements Resource {
 	 * @param height
 	 *            The height of the texture.
 	 * @param bufferedImage
-	 *            The source of the image, the BufferedImage.
+	 *            The source of the image, the
+	 *            BufferedImage.
 	 * @param buffer
 	 *            The original buffer.
 	 */
@@ -90,13 +106,12 @@ public class Texture implements Resource {
 
 	/** @return The source image. */
 	public BufferedImage getSourceImage() {
-		if (bufferedImage == null) {
+		if (bufferedImage == null)
 			try {
 				throw new MercuryException("No source image given.");
 			} catch (MercuryException e) {
 				e.printStackTrace();
 			}
-		}
 
 		return bufferedImage;
 	}
@@ -144,16 +159,16 @@ public class Texture implements Resource {
 	}
 
 	/**
-	 * Loads a texture from in, flipping it depending on flipX horizontally, and
-	 * flipY vertically.
+	 * Loads a texture from in, flipping it depending on
+	 * flipX horizontally, and flipY vertically.
 	 */
 	public static Texture loadTexture(InputStream inputStream, boolean flipX, boolean flipY) {
 		return loadTexture(inputStream, flipX, flipY, GL_NEAREST);
 	}
 
 	/**
-	 * Loads a texture from bi, flipping it depending on flipX horizontally, and
-	 * flipY vertically.
+	 * Loads a texture from bi, flipping it depending on
+	 * flipX horizontally, and flipY vertically.
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage, boolean flipX, boolean flipY) {
 		return loadTexture(bufferedImage, flipX, flipY, GL_NEAREST);
@@ -174,38 +189,43 @@ public class Texture implements Resource {
 	}
 
 	/**
-	 * Loads a texture from in, flipping it depending on flipX horizontally, and
-	 * flipY vertically, filtered through filter.
+	 * Loads a texture from in, flipping it depending on
+	 * flipX horizontally, and flipY vertically, filtered
+	 * through filter.
 	 */
 	public static Texture loadTexture(InputStream in, boolean flipX, boolean flipY, int filter) {
 		return loadTexture(in, flipX, flipY, 0, filter);
 	}
 
 	/**
-	 * Loads a texture from bi, flipping it depending on flipX horizontally, and
-	 * flipY vertically, filtered through filter.
+	 * Loads a texture from bi, flipping it depending on
+	 * flipX horizontally, and flipY vertically, filtered
+	 * through filter.
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage, boolean flipX, boolean flipY, int filter) {
 		return loadTexture(bufferedImage, flipX, flipY, 0, filter);
 	}
 
 	/**
-	 * Loads a texture from in, rotating it by rot, filtered through filter.
+	 * Loads a texture from in, rotating it by rot, filtered
+	 * through filter.
 	 */
 	public static Texture loadTexture(InputStream in, int rot, int filter) {
 		return loadTexture(in, false, false, rot, filter);
 	}
 
 	/**
-	 * Loads a texture from bi, rotating it by rot, filtered through filter.
+	 * Loads a texture from bi, rotating it by rot, filtered
+	 * through filter.
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage, int rot, int filter) {
 		return loadTexture(bufferedImage, false, false, rot, filter);
 	}
 
 	/**
-	 * Loads a texture from in, flipping it depending on flipX horizontally, and
-	 * flipY vertically, rotated by rot, filtered through filter.
+	 * Loads a texture from in, flipping it depending on
+	 * flipX horizontally, and flipY vertically, rotated by
+	 * rot, filtered through filter.
 	 */
 	public static Texture loadTexture(InputStream in, boolean flipX, boolean flipY, int rot, int filter) {
 		try {
@@ -218,8 +238,9 @@ public class Texture implements Resource {
 	}
 
 	/**
-	 * Loads a texture from bi, flipping it depending on flipX horizontally, and
-	 * flipY vertically, rotated by rot, filtered through filter.
+	 * Loads a texture from bi, flipping it depending on
+	 * flipX horizontally, and flipY vertically, rotated by
+	 * rot, filtered through filter.
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage, boolean flipX, boolean flipY, int rot, int filter) {
 		BufferedImage bufferedImage0 = processBufferedImage(bufferedImage, flipX, flipY, rot);
@@ -233,10 +254,12 @@ public class Texture implements Resource {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
 
-		// Push all buffer data into the now configured OpenGL.
+		// Push all buffer data into the now configured
+		// OpenGL.
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, bufferedImage0.getWidth(), bufferedImage0.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 
-		// Unbind, so that this texture is not being rendered when you want to
+		// Unbind, so that this texture is not being
+		// rendered when you want to
 		// draw a square!
 		unbindTextures();
 
@@ -266,13 +289,15 @@ public class Texture implements Resource {
 			bufferedImage = op.filter(bufferedImage, null);
 		}
 
-		// Power of two stuffs! This is actually kind of a wierd problem with
+		// Power of two stuffs! This is actually kind of a
+		// wierd problem with
 		// OpenGL, but it has to do with speedy-thingies.
 		boolean PoT = isPoT(bufferedImage.getWidth(), bufferedImage.getHeight());
 
 		BufferedImage bufferedImage0 = bufferedImage;
 
-		// Power of two expansion; we will set the width and height to their
+		// Power of two expansion; we will set the width and
+		// height to their
 		// nearest larger PoT, since PoT is way faster :
 		if (!PoT && expandToPoT) {
 			int newwidth = 0, newheight = 0;
@@ -303,10 +328,11 @@ public class Texture implements Resource {
 	}
 
 	public static ByteBuffer convertBufferedImageToBuffer(BufferedImage bufferedImage, boolean flipX, boolean flipY) {
-		// A buffer to store with bufferedimage data and throw into LWJGL
+		// A buffer to store with bufferedimage data and
+		// throw into LWJGL
 		ByteBuffer buffer = BufferUtils.createByteBuffer(bufferedImage.getWidth() * bufferedImage.getHeight() * BYTES_PER_PIXEL);
 
-		for (int y = flipY ? bufferedImage.getHeight() - 1 : 0; flipY ? y > -1 : y < bufferedImage.getHeight(); y += flipY ? -1 : 1) {
+		for (int y = flipY ? bufferedImage.getHeight() - 1 : 0; flipY ? y > -1 : y < bufferedImage.getHeight(); y += flipY ? -1 : 1)
 			for (int x = flipX ? bufferedImage.getWidth() - 1 : 0; flipX ? x > -1 : x < bufferedImage.getWidth(); x += flipX ? -1 : 1) {
 				int pixel = bufferedImage.getRGB(x, y);
 
@@ -315,7 +341,6 @@ public class Texture implements Resource {
 				buffer.put((byte) (pixel & 0xFF));
 				buffer.put((byte) (pixel >> 24 & 0xFF));
 			}
-		}
 
 		buffer.flip();
 
@@ -330,7 +355,9 @@ public class Texture implements Resource {
 		return (width & width - 1) == 0 && (height & height - 1) == 0;
 	}
 
-	/** @return A texture object with no data or source image. */
+	/**
+	 * @return A texture object with no data or source image.
+	 */
 	public static Texture createTextureObject(int textureId, int width, int height) {
 		return new Texture(textureId, width, height, null, null);
 	}
@@ -346,13 +373,14 @@ public class Texture implements Resource {
 	private static boolean expandToPoT = true;
 
 	/**
-	 * Sets whether or not all Textures will be expanded to the nearest power of
-	 * two. Keep in mind before you change this: PoT Textures allow for great
-	 * things like GL_REPEAT and faster rendering time. Certain aspect of the
-	 * library may break, should you choose to mess with this value. You can use
-	 * the non-PoT SubTextures in much the same for the most part.
-	 *
-	 * Use at your own risk.
+	 * Sets whether or not all Textures will be expanded to
+	 * the nearest power of two. Keep in mind before you
+	 * change this: PoT Textures allow for great things like
+	 * GL_REPEAT and faster rendering time. Certain aspect
+	 * of the library may break, should you choose to mess
+	 * with this value. You can use the non-PoT SubTextures
+	 * in much the same for the most part. Use at your own
+	 * risk.
 	 */
 	public static void setExpandToPowerOfTwo(boolean expandToPoT) {
 		Texture.expandToPoT = expandToPoT;

@@ -2,8 +2,11 @@ package com.radirius.mercury.graphics.wip.gui;
 
 import java.util.ArrayList;
 
-import com.radirius.mercury.graphics.*;
-import com.radirius.mercury.graphics.font.*;
+import com.radirius.mercury.graphics.Color;
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.graphics.Texture;
+import com.radirius.mercury.graphics.font.Font;
+import com.radirius.mercury.graphics.font.TrueTypeFont;
 import com.radirius.mercury.math.geometry.Rectangle;
 
 /**
@@ -118,10 +121,12 @@ public class TextBox extends Component {
 
 			idx++;
 
-			// If we are pushing the width limit or we are at the end of the
+			// If we are pushing the width limit or we are
+			// at the end of the
 			// text, new line (or not)!
 			if (textfont.getWidth(content.substring(lidx, idx)) > bounds.getWidth() - margin * 2 || idx >= content.length()) {
-				// Making sure no words get cut off, or split in half.
+				// Making sure no words get cut off, or
+				// split in half.
 				int lastspace = linetxt.lastIndexOf(' ') + 1;
 
 				if (lastspace > 0) {

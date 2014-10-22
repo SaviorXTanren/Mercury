@@ -7,14 +7,15 @@ import com.radirius.mercury.framework.Runner;
 import com.radirius.mercury.utilities.logging.Logger;
 
 /**
- * A collection of Commands and Variables to be accessed in the given
- * inputstream (the console by default).
+ * A collection of Commands and Variables to be accessed in
+ * the given inputstream (the console by default).
  *
  * @author wessles
  */
 public class CommandList {
 	/**
-	 * The general manual that will show up when requested in the dev console.
+	 * The general manual that will show up when requested
+	 * in the dev console.
 	 */
 	public static final String general_usage_manual = "\n[ MERCury Developer Console General Usage Manual ]\n\tFormatting of Commands:\n\t\tIf you wish to use a Command with no arguments, simply:\n\t\t\t[Command List] [Command]\n\t\tIf you wish to use a Command with an argument, simply:\n\t\t\t[Command List] [Command] [Argument]\n\t\tIf you wish to use a Command with multiple arguments, simply:\n\t\t\t[Command List] [Command] [Argument 1] [Argument 2]\n\tVariables\n\t\tIf you wish to use a Variable, simply:\n\t\t\t[Command List] [Command] {[Command List] [Variable]}\n\t\tIf the Variable requires an argument, simply:\n\t\t\t[Command List] [Command] {[Command List] [Variable] [Argument 1] [Argument 2]}\n\tEscaping\n\t\tIf your argument uses a curly brace or space, in Variable or not, you will use quotation marks, like so:\n\t\t\t[Command List] [Command] \"This argument can contain spaces without being seperated into different arguments\" \"And this is another argument\"\n\t\tIf your argument wishes to use a quotation mark, simply escape the character:\n\t\t\t[Command List] [Command] \"This argument will have a quotation mark here \\\" and here \\\" and still not be seperated\"\n\tManuals\n\t\tIf you wish to acquire the manual provided from MERCury, simply type '?' :\n\t\t\t?\n\t\tIf you wish to acquire the manual provided by a specific Command List, simply:\n\t\t\t[Command List].?\n\t\tIf you wish to acquire the manual provided by a specific Command, simply:\n\t\t\t[Command List] [Command].?\n\t\tIf you wish to acquire the manual provided by a specific Variable, simply:\n\t\t\t[Command List] [Variable].?";
 
@@ -36,11 +37,15 @@ public class CommandList {
 		commandlists.put(cmdl.name, cmdl);
 	}
 
-	/** The name of the command list. This will be case-insensitive. */
+	/**
+	 * The name of the command list. This will be
+	 * case-insensitive.
+	 */
 	public final String name;
 	/**
-	 * The manual that will be shown when requested by the console user. Used
-	 * for general instruction of using the command list.
+	 * The manual that will be shown when requested by the
+	 * console user. Used for general instruction of using
+	 * the command list.
 	 */
 	public String manual;
 
@@ -49,10 +54,13 @@ public class CommandList {
 
 	/**
 	 * @param name
-	 *            The name of the command list. This will be case-insensitive.
+	 *            The name of the command list. This will be
+	 *            case-insensitive.
 	 * @param manual
-	 *            The manual that will be shown when requested by the console
-	 *            user. Used for general instruction of using the command list.
+	 *            The manual that will be shown when
+	 *            requested by the console user. Used for
+	 *            general instruction of using the command
+	 *            list.
 	 */
 	public CommandList(String name, String manual) {
 		this.name = name.toLowerCase();
@@ -61,7 +69,8 @@ public class CommandList {
 
 	/**
 	 * @param name
-	 *            The name of the command list. This will be case-insensitive.
+	 *            The name of the command list. This will be
+	 *            case-insensitive.
 	 */
 	public CommandList(String name) {
 		this(name, "Command List Developer did not provide a manual.");

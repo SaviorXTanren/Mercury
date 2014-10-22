@@ -3,13 +3,17 @@ package com.radirius.mercury.input;
 import java.util.ArrayList;
 
 import org.lwjgl.LWJGLException;
-import org.lwjgl.input.*;
+import org.lwjgl.input.Controller;
+import org.lwjgl.input.Controllers;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import com.radirius.mercury.framework.Runner;
 import com.radirius.mercury.graphics.Camera;
 import com.radirius.mercury.math.MathUtil;
-import com.radirius.mercury.math.geometry.*;
+import com.radirius.mercury.math.geometry.Point;
+import com.radirius.mercury.math.geometry.Vector2f;
 
 /**
  * An object form of input.
@@ -371,7 +375,7 @@ public class Input {
 		// Rotate to alignment
 		float origx = cam.getPositionX();
 		float origy = cam.getPositionY();
-		
+
 		float s = MathUtil.sin(-cam.getRotation());
 		float c = MathUtil.cos(-cam.getRotation());
 
@@ -383,7 +387,7 @@ public class Input {
 
 		globalmousepos.x = xnew + origx;
 		globalmousepos.y = ynew + origy;
-		
+
 		return globalmousepos;
 	}
 

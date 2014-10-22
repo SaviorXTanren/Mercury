@@ -3,12 +3,19 @@ package com.radirius.mercury.graphics;
 import org.lwjgl.opengl.GL11;
 
 import com.radirius.mercury.framework.Runner;
-import com.radirius.mercury.graphics.font.*;
+import com.radirius.mercury.graphics.font.Font;
+import com.radirius.mercury.graphics.font.TrueTypeFont;
 import com.radirius.mercury.math.MathUtil;
-import com.radirius.mercury.math.geometry.*;
+import com.radirius.mercury.math.geometry.Line;
+import com.radirius.mercury.math.geometry.Point;
+import com.radirius.mercury.math.geometry.Polygon;
+import com.radirius.mercury.math.geometry.Rectangle;
+import com.radirius.mercury.math.geometry.Triangle;
+import com.radirius.mercury.math.geometry.Vector2f;
 
 /**
- * An object used for graphics. It will draw just about anything for you.
+ * An object used for graphics. It will draw just about
+ * anything for you.
  *
  * @author wessles, Jeviny
  */
@@ -277,8 +284,8 @@ public class VAOGraphics implements Graphics {
 	}
 
 	/**
-	 * A method that can be called without pulling a color, setting a color,
-	 * binding, etc.
+	 * A method that can be called without pulling a color,
+	 * setting a color, binding, etc.
 	 */
 	private void drawFunctionlessRect(Rectangle... rectangle) {
 		for (Rectangle rectangle0 : rectangle) {
@@ -326,7 +333,8 @@ public class VAOGraphics implements Graphics {
 
 			// # of sides == # of vertices
 			// 3 == number of vertices in triangle
-			// 3 * # of vertices = number of vertices we need.
+			// 3 * # of vertices = number of vertices we
+			// need.
 			batcher.flushIfOverflow(3 * vs.length);
 
 			for (int c = 0; c < vs.length; c++) {
@@ -403,8 +411,8 @@ public class VAOGraphics implements Graphics {
 	}
 
 	/**
-	 * A method that can be called without pulling a color, setting a color,
-	 * binding, etc.
+	 * A method that can be called without pulling a color,
+	 * setting a color, binding, etc.
 	 */
 	private void drawFunctionlessLine(Line l) {
 		float dx = l.getVertices()[0].x - l.getVertices()[1].x;

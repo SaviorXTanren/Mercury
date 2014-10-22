@@ -1,17 +1,30 @@
 package com.radirius.mercury.framework;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_PROJECTION;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glMatrixMode;
+import static org.lwjgl.opengl.GL11.glOrtho;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.DisplayMode;
 
-import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.graphics.Shader;
+import com.radirius.mercury.graphics.VAOGraphics;
 import com.radirius.mercury.resource.Loader;
 import com.radirius.mercury.utilities.logging.Logger;
 
 /**
- * The Core that will host the game with help from the Runner class.
+ * The Core that will host the game with help from the
+ * Runner class.
  *
  * @author wessles, Jeviny
  */
@@ -61,14 +74,16 @@ public abstract class Core {
 	}
 
 	/**
-	 * Used to initialize all resources, and for whatever you wish to do for
-	 * initialization. May run on a seperate thread, while the main Thread
-	 * continues to the game loop.
+	 * Used to initialize all resources, and for whatever
+	 * you wish to do for initialization. May run on a
+	 * seperate thread, while the main Thread continues to
+	 * the game loop.
 	 */
 	public abstract void init();
 
 	/**
-	 * Called once every frame and used to handle all game logic.
+	 * Called once every frame and used to handle all game
+	 * logic.
 	 *
 	 * @param delta
 	 *            The delta time.
@@ -111,12 +126,11 @@ public abstract class Core {
 			if (fullscreen) {
 				DisplayMode[] modes = Display.getAvailableDisplayModes();
 
-				for (DisplayMode mode : modes) {
+				for (DisplayMode mode : modes)
 					if (mode.getWidth() == width && mode.getHeight() == height && mode.isFullscreenCapable()) {
 						dimensions = mode;
 						matchedDimensions = true;
 					}
-				}
 
 				if (!matchedDimensions)
 					Logger.warn("Dimensions " + width + "x" + height + " is not supported! Disabling Fullscreen.");
@@ -135,7 +149,8 @@ public abstract class Core {
 	}
 
 	/**
-	 * Initializes graphics & handle OpenGL initialization calls.
+	 * Initializes graphics & handle OpenGL initialization
+	 * calls.
 	 */
 	public Graphics initGraphics() {
 		glMatrixMode(GL_PROJECTION);

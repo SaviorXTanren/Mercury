@@ -2,11 +2,15 @@ package com.radirius.mercury.graphics.particles;
 
 import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.math.MathUtil;
-import com.radirius.mercury.math.geometry.*;
-import com.radirius.mercury.utilities.*;
+import com.radirius.mercury.math.geometry.Rectangle;
+import com.radirius.mercury.math.geometry.Vector2f;
+import com.radirius.mercury.utilities.Renderable;
+import com.radirius.mercury.utilities.Updatable;
+import com.radirius.mercury.utilities.Wipeable;
 
 /**
- * A class that will represent a single particle, with a parent particle system.
+ * A class that will represent a single particle, with a
+ * parent particle system.
  *
  * @author wessles
  */
@@ -25,7 +29,10 @@ public class Particle implements Updatable, Renderable, Wipeable {
 	/** The velocity of the particle. */
 	private Vector2f vel;
 
-	/** The amount of frames that the particle has experienced. */
+	/**
+	 * The amount of frames that the particle has
+	 * experienced.
+	 */
 	private int life;
 
 	// The parent particle system

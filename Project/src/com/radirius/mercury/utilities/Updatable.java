@@ -7,7 +7,8 @@ package com.radirius.mercury.utilities;
  */
 public interface Updatable {
 	/**
-	 * The method for updating. In here, logic should occur, given delta.
+	 * The method for updating. In here, logic should occur,
+	 * given delta.
 	 *
 	 * @param delta
 	 *            The delta time variable.

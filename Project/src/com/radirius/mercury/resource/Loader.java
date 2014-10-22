@@ -1,11 +1,14 @@
 package com.radirius.mercury.resource;
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
- * A utility for resource management to load different resources from specific
- * roots.
+ * A utility for resource management to load different
+ * resources from specific roots.
  *
  * @author wessles, Jeviny
  */
@@ -53,8 +56,8 @@ public class Loader {
 	}
 
 	/**
-	 * @return The URL from a file system. If null, from the classpath. This is
-	 *         for easier modding.
+	 * @return The URL from a file system. If null, from the
+	 *         classpath. This is for easier modding.
 	 */
 	public static URL load(String path) {
 		URL filesystem = loadFromSystem(path);
@@ -69,8 +72,9 @@ public class Loader {
 	}
 
 	/**
-	 * @return The InputStream from a file system. If null, from the classpath.
-	 *         This is for easier modding.
+	 * @return The InputStream from a file system. If null,
+	 *         from the classpath. This is for easier
+	 *         modding.
 	 */
 	public static InputStream stream(String path) {
 		InputStream filesystem = streamFromSystem(path);

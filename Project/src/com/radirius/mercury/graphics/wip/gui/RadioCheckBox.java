@@ -2,8 +2,10 @@ package com.radirius.mercury.graphics.wip.gui;
 
 import java.util.ArrayList;
 
-import com.radirius.mercury.graphics.*;
-import com.radirius.mercury.graphics.font.*;
+import com.radirius.mercury.graphics.Color;
+import com.radirius.mercury.graphics.Texture;
+import com.radirius.mercury.graphics.font.Font;
+import com.radirius.mercury.graphics.font.TrueTypeFont;
 
 /**
  * @author wessles

@@ -34,16 +34,18 @@ public class SpriteSheet implements Resource {
 	}
 
 	/**
-	 * Slices the Texture tex up, cutting vertically every divWidth length.
+	 * Slices the Texture tex up, cutting vertically every
+	 * divWidth length.
 	 */
 	public static SpriteSheet loadSpriteSheet(Texture tex, int divWidth) {
 		return loadSpriteSheet(tex, divWidth, tex.getHeight());
 	}
 
 	/**
-	 * Slices the Texture tex up, cutting vertically every divwidth length, and
-	 * cutting horizontally every divHeight length. The subtextures are counted
-	 * reading left to right.
+	 * Slices the Texture tex up, cutting vertically every
+	 * divwidth length, and cutting horizontally every
+	 * divHeight length. The subtextures are counted reading
+	 * left to right.
 	 */
 	public static SpriteSheet loadSpriteSheet(Texture texture, int divWidth, int divHeight) {
 		SubTexture texture0 = (SubTexture) texture;
@@ -63,7 +65,10 @@ public class SpriteSheet implements Resource {
 		return new SpriteSheet(texture0, subtexs);
 	}
 
-	/** @return A spritesheet based off of Texture tex, with SubTextures subtexs. */
+	/**
+	 * @return A spritesheet based off of Texture tex, with
+	 *         SubTextures subtexs.
+	 */
 	public static SpriteSheet loadSpriteSheet(Texture tex, SubTexture... subtexs) {
 		return new SpriteSheet(tex, subtexs);
 	}

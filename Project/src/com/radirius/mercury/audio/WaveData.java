@@ -31,19 +31,24 @@
  */
 package com.radirius.mercury.audio;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
-import java.nio.*;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.ShortBuffer;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 
 import org.lwjgl.openal.AL10;
 
 import com.sun.media.sound.WaveFileReader;
 
 /**
- *
  * Utitlity class for loading wavefiles.
  *
  * @author Brian Matzon <brian@matzon.dk>
@@ -87,12 +92,13 @@ public class WaveData {
 	 *
 	 * @param path
 	 *            URL to file
-	 * 
-	 * @return WaveData containing data, or null if a failure occured
+	 * @return WaveData containing data, or null if a failure
+	 *         occured
 	 */
 	public static WaveData create(URL path) {
 		try {
-			// due to an issue with AudioSystem.getAudioInputStream
+			// due to an issue with
+			// AudioSystem.getAudioInputStream
 			// and mixing unsigned and signed code
 			// we will use the reader directly
 			return create(new WaveFileReader().getAudioInputStream(new BufferedInputStream(path.openStream())));
@@ -103,24 +109,26 @@ public class WaveData {
 	}
 
 	/**
-	 * Creates a WaveData container from the specified in the classpath
+	 * Creates a WaveData container from the specified in
+	 * the classpath
 	 *
 	 * @param path
 	 *            path to file (relative, and in classpath)
-	 * 
-	 * @return WaveData containing data, or null if a failure occured
+	 * @return WaveData containing data, or null if a failure
+	 *         occured
 	 */
 	public static WaveData create(String path) {
 		return create(Thread.currentThread().getContextClassLoader().getResource(path));
 	}
 
 	/**
-	 * Creates a WaveData container from the specified inputstream
+	 * Creates a WaveData container from the specified
+	 * inputstream
 	 *
 	 * @param is
 	 *            InputStream to read from
-	 * 
-	 * @return WaveData containing data, or null if a failure occured
+	 * @return WaveData containing data, or null if a failure
+	 *         occured
 	 */
 	public static WaveData create(InputStream is) {
 		try {
@@ -135,9 +143,10 @@ public class WaveData {
 	 * Creates a WaveData container from the specified bytes
 	 *
 	 * @param buffer
-	 *            array of bytes containing the complete wave file
-	 * 
-	 * @return WaveData containing data, or null if a failure occured
+	 *            array of bytes containing the complete
+	 *            wave file
+	 * @return WaveData containing data, or null if a failure
+	 *         occured
 	 */
 	public static WaveData create(byte[] buffer) {
 		try {
@@ -149,22 +158,23 @@ public class WaveData {
 	}
 
 	/**
-	 * Creates a WaveData container from the specified ByetBuffer. If the buffer
-	 * is backed by an array, it will be used directly, else the contents of the
+	 * Creates a WaveData container from the specified
+	 * ByetBuffer. If the buffer is backed by an array, it
+	 * will be used directly, else the contents of the
 	 * buffer will be copied using get(byte[]).
 	 *
 	 * @param buffer
 	 *            ByteBuffer containing sound file
-	 * 
-	 * @return WaveData containing data, or null if a failure occured
+	 * @return WaveData containing data, or null if a failure
+	 *         occured
 	 */
 	public static WaveData create(ByteBuffer buffer) {
 		try {
 			byte[] bytes = null;
 
-			if (buffer.hasArray()) {
+			if (buffer.hasArray())
 				bytes = buffer.array();
-			} else {
+			else {
 				bytes = new byte[buffer.capacity()];
 				buffer.get(bytes);
 			}
@@ -178,11 +188,13 @@ public class WaveData {
 	}
 
 	/**
-	 * Creates a WaveData container from the specified stream
+	 * Creates a WaveData container from the specified
+	 * stream
 	 *
 	 * @param ais
 	 *            AudioInputStream to read from
-	 * @return WaveData containing data, or null if a failure occured
+	 * @return WaveData containing data, or null if a
+	 *         failure occured
 	 */
 	public static WaveData create(AudioInputStream ais) {
 		AudioFormat audioformat = ais.getFormat();
@@ -203,9 +215,8 @@ public class WaveData {
 				channels = AL10.AL_FORMAT_STEREO16;
 			else
 				assert false : "Illegal sample size";
-		} else {
+		} else
 			assert false : "Only mono or stereo is supported";
-		}
 
 		ByteBuffer buffer = null;
 
@@ -249,10 +260,9 @@ public class WaveData {
 
 			while (src_short.hasRemaining())
 				dest_short.put(src_short.get());
-		} else {
+		} else
 			while (src.hasRemaining())
 				dest.put(src.get());
-		}
 
 		dest.rewind();
 

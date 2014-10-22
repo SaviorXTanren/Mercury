@@ -1,8 +1,12 @@
 package com.radirius.mercury.framework;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glViewport;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
@@ -10,27 +14,32 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
 
 import com.radirius.mercury.exceptions.MercuryException;
 import com.radirius.mercury.framework.splash.SplashScreen;
-import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.graphics.Camera;
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.graphics.Texture;
 import com.radirius.mercury.input.Input;
+import com.radirius.mercury.math.geometry.Vector2f;
 import com.radirius.mercury.scene.GameScene;
 import com.radirius.mercury.utilities.TaskTiming;
-import com.radirius.mercury.utilities.command.*;
+import com.radirius.mercury.utilities.command.CommandList;
+import com.radirius.mercury.utilities.command.CommandThread;
 import com.radirius.mercury.utilities.logging.Logger;
 
 /**
- * The heart of Mercury. Runs the Core and provides all of the various materials
- * required for your game.
+ * The heart of Mercury. Runs the Core and provides all of
+ * the various materials required for your game.
  *
  * @authors wessles, Jeviny
  */
 public class Runner {
 	/**
-	 * The singleton instance of the Runner. This should be the only Runner
-	 * used.
+	 * The singleton instance of the Runner. This should be
+	 * the only Runner used.
 	 */
 	private final static Runner singleton = new Runner();
 
@@ -74,12 +83,15 @@ public class Runner {
 	private float deltaFactor = 1;
 
 	/**
-	 * A string that holds debugging data to be rendered to the screen, should
-	 * `showDebug` be true.
+	 * A string that holds debugging data to be rendered to
+	 * the screen, should `showDebug` be true.
 	 */
 	private String debugData = "";
 
-	/** Whether or not the debugdata will be drawn to the screen. */
+	/**
+	 * Whether or not the debugdata will be drawn to the
+	 * screen.
+	 */
 	private boolean showDebug = false;
 
 	/** The Core being ran. */
@@ -95,15 +107,16 @@ public class Runner {
 	private Input input;
 
 	/*
-	 * We don't want anybody attempting to create another Runner, there's a
-	 * singleton and it should be put to use.
+	 * We don't want anybody attempting to create another
+	 * Runner, there's a singleton and it should be put to
+	 * use.
 	 */
 	private Runner() {
 	}
 
 	/**
-	 * An object that will be used for initializing the Runner with default
-	 * values that can be modified.
+	 * An object that will be used for initializing the
+	 * Runner with default values that can be modified.
 	 */
 	public static class InitSetup {
 		public InitSetup(Core core, int width, int height) {
@@ -122,9 +135,14 @@ public class Runner {
 		public boolean fullscreen = false;
 		/** Whether or not v-sync is enabled. */
 		public boolean vsync = true;
-		/** Whether or not the Core is initialized on a separate thread. */
+		/**
+		 * Whether or not the Core is initialized on a
+		 * separate thread.
+		 */
 		public boolean multithread = false;
-		/** Whether or not the developers console is enabled. */
+		/**
+		 * Whether or not the developers console is enabled.
+		 */
 		public boolean devconsole = true;
 	}
 
@@ -176,8 +194,8 @@ public class Runner {
 	 * Initializes Mercury.
 	 *
 	 * @param iniset
-	 *            The initialization setup filled with information to initialize
-	 *            with.
+	 *            The initialization setup filled with
+	 *            information to initialize with.
 	 */
 	public void init(InitSetup iniset) {
 		init(iniset.core, iniset.width, iniset.height, iniset.fullscreen, iniset.vsync, iniset.multithread, iniset.devconsole);
@@ -199,15 +217,18 @@ public class Runner {
 	 * @param vsync
 	 *            Whether or not v-sync is enabled.
 	 * @param multithread
-	 *            Whether or not the Core is initialized on a separate thread.
+	 *            Whether or not the Core is initialized on
+	 *            a separate thread.
 	 * @param devconsole
-	 *            Whether or not the developers console is enabled.
+	 *            Whether or not the developers console is
+	 *            enabled.
 	 */
 	public void init(final Core core, int width, int height, boolean fullscreen, boolean vsync, boolean multithread, boolean devconsole) {
 		System.out.println("Mercury 2D Game Library\n" + "Designed by Radirius\n" + "Website: http://merc.radiri.us/");
 		System.out.println("-------------------------------");
 
-		// Lots of initialization that is self explanatory...
+		// Lots of initialization that is self
+		// explanatory...
 		Logger.info("Mercury Starting:");
 		Logger.info("Making Core...");
 		this.core = core;
@@ -284,8 +305,8 @@ public class Runner {
 		long lastfps;
 
 		/*
-		 * Initial 'last time...' Otherwise the first delta will be about
-		 * 50000000.
+		 * Initial 'last time...' Otherwise the first delta
+		 * will be about 50000000.
 		 */
 		lastfps = lastFrame = Sys.getTime() * 1000 / Sys.getTimerResolution();
 
@@ -297,9 +318,9 @@ public class Runner {
 			delta = (int) (time - lastFrame);
 
 			// Update FPS
-			if (time - lastfps < 1000) {
+			if (time - lastfps < 1000)
 				FPS1++;
-			} else {
+			else {
 				lastfps = time;
 				fps = FPS1;
 				FPS1 = 0;
@@ -386,7 +407,10 @@ public class Runner {
 		return fps;
 	}
 
-	/** @return The vertices rendered in the last rendering frame. */
+	/**
+	 * @return The vertices rendered in the last rendering
+	 *         frame.
+	 */
 	public int getVerticesLastRendered() {
 		return getGraphics().getBatcher().getVerticesLastRendered();
 	}
@@ -403,15 +427,17 @@ public class Runner {
 	 * Sets whether or not debug data should be displayed.
 	 *
 	 * @param showdebug
-	 *            Whether or not debug is to be shown onscreen.
+	 *            Whether or not debug is to be shown
+	 *            onscreen.
 	 */
 	public void showDebug(boolean showdebug) {
-		this.showDebug = showdebug;
+		showDebug = showdebug;
 	}
 
 	/**
-	 * Adds information to the debugdata. Debug data is wiped every single
-	 * update frame, so this is to be called every frame.
+	 * Adds information to the debugdata. Debug data is
+	 * wiped every single update frame, so this is to be
+	 * called every frame.
 	 *
 	 * @param name
 	 *            The name of the debug information.
@@ -435,9 +461,24 @@ public class Runner {
 		return Display.getHeight();
 	}
 
+	/** @return The horizontal center of the display. */
+	public int getCenterX() {
+		return Display.getWidth() / 2;
+	}
+
+	/** @return The vertical center of the display. */
+	public int getCenterY() {
+		return Display.getHeight() / 2;
+	}
+
+	/** @return The center of the display. */
+	public Vector2f getCenter() {
+		return new Vector2f(getCenterX(), getCenterY());
+	}
+
 	/** @return The aspect ratio of the display. */
 	public float getAspectRatio() {
-		return (float) (getWidth()) / (float) (getHeight());
+		return (float) getWidth() / (float) getHeight();
 	}
 
 	/** @return Time in milliseconds. */
@@ -502,8 +543,8 @@ public class Runner {
 	}
 
 	/**
-	 * Sets the icon for given size(s). Recommended sizes that you should put in
-	 * are x16, x32, and x64.
+	 * Sets the icon for given size(s). Recommended sizes
+	 * that you should put in are x16, x32, and x64.
 	 *
 	 * @param icons
 	 *            Icon(s) for the game.
@@ -511,15 +552,13 @@ public class Runner {
 	public void setIcon(InputStream... icons) {
 		ArrayList<ByteBuffer> buffers = new ArrayList<ByteBuffer>();
 
-		for (InputStream is : icons) {
-			if (is != null) {
+		for (InputStream is : icons)
+			if (is != null)
 				try {
 					buffers.add(Texture.convertBufferedImageToBuffer(ImageIO.read(is)));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}
-		}
 
 		ByteBuffer[] bufferarray = new ByteBuffer[buffers.size()];
 
@@ -559,7 +598,8 @@ public class Runner {
 	}
 
 	/**
-	 * Sets the factor by which the delta time will be multiplied.
+	 * Sets the factor by which the delta time will be
+	 * multiplied.
 	 *
 	 * @param factor
 	 *            The new delta factor.
@@ -618,7 +658,8 @@ public class Runner {
 	/**
 	 * Shows the current splash screen.
 	 *
-	 * @return Whether there aren't any more splash screens to be shown.
+	 * @return Whether there aren't any more splash screens
+	 *         to be shown.
 	 */
 	private boolean showSplashScreens(Graphics g) {
 		if (splidx > splashes.size() - 1)
@@ -663,7 +704,6 @@ public class Runner {
 	/**
 	 * @param name
 	 *            The name of the plugin you want.
-	 *
 	 * @return The plugin corresponding to name.
 	 */
 	public Plugin getPlugin(String name) throws MercuryException {
@@ -679,3 +719,5 @@ public class Runner {
 		return singleton;
 	}
 }
+
+// no comment

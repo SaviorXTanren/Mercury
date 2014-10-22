@@ -11,13 +11,17 @@ public class MathUtil {
 	/**
 	 * Base method for random number methods.
 	 *
-	 * @return A random double value between minimum and maximum
+	 * @return A random double value between minimum and
+	 *         maximum
 	 */
 	public static final double random(double minimum, double maximum) {
 		return (float) minimum + (int) (Math.random() * (maximum - minimum + 1));
 	}
 
-	/** @return A random boolean. 50-50 chance of true or false. */
+	/**
+	 * @return A random boolean. 50-50 chance of true or
+	 *         false.
+	 */
 	public static boolean nextBoolean() {
 		return (int) random(0, 20) % 2 == 0;
 	}
@@ -25,7 +29,8 @@ public class MathUtil {
 	/**
 	 * @param percent
 	 *            Percent chance of true
-	 * @return A boolean that has a percent% chance of being true.
+	 * @return A boolean that has a percent% chance of being
+	 *         true.
 	 */
 	public static boolean chance(int percent) {
 		if (percent > 100)
@@ -40,8 +45,8 @@ public class MathUtil {
 	/**
 	 * @param percent
 	 *            Percent chance of true
-	 *
-	 * @return A boolean that has a percent% chance of being true.
+	 * @return A boolean that has a percent% chance of being
+	 *         true.
 	 */
 	public static boolean chance(float percent) {
 		if (percent > 1)
@@ -53,7 +58,10 @@ public class MathUtil {
 		return false;
 	}
 
-	/** @return An integer value between Integer.MIN_VALUE and Integer.MAX_VALUE. */
+	/**
+	 * @return An integer value between Integer.MIN_VALUE and
+	 *         Integer.MAX_VALUE.
+	 */
 	public static int nextInt() {
 		return (int) random(Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
@@ -73,7 +81,10 @@ public class MathUtil {
 		return (float) random(0, 100) / 100;
 	}
 
-	/** @return A double value between Double.MIN_VALUE and Double.MAX_VALUE. */
+	/**
+	 * @return A double value between Double.MIN_VALUE and
+	 *         Double.MAX_VALUE.
+	 */
 	public static double nextDouble() {
 		return random(Double.MIN_VALUE, Double.MAX_VALUE);
 	}

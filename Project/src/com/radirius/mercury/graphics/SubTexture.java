@@ -27,8 +27,9 @@ public class SubTexture extends Texture {
 	}
 
 	/**
-	 * This is useful for when you want the functionality of a real Texture from
-	 * a SubTexture, such as GL_REPEAT, which is impossible with SubTextures.
+	 * This is useful for when you want the functionality of
+	 * a real Texture from a SubTexture, such as GL_REPEAT,
+	 * which is impossible with SubTextures.
 	 *
 	 * @return A Texture version of the SubTexture.
 	 */
@@ -37,8 +38,9 @@ public class SubTexture extends Texture {
 	}
 
 	/**
-	 * This is useful for when you want the functionality of a real Texture from
-	 * a SubTexture, such as GL_REPEAT, which is impossible with SubTextures.
+	 * This is useful for when you want the functionality of
+	 * a real Texture from a SubTexture, such as GL_REPEAT,
+	 * which is impossible with SubTextures.
 	 *
 	 * @return A Texture version of the SubTexture.
 	 */
@@ -47,8 +49,9 @@ public class SubTexture extends Texture {
 	}
 
 	/**
-	 * This is useful for when you want the functionality of a real Texture from
-	 * a SubTexture, such as GL_REPEAT, which is impossible with SubTextures.
+	 * This is useful for when you want the functionality of
+	 * a real Texture from a SubTexture, such as GL_REPEAT,
+	 * which is impossible with SubTextures.
 	 *
 	 * @return A Texture version of the SubTexture.
 	 */
@@ -57,8 +60,9 @@ public class SubTexture extends Texture {
 	}
 
 	/**
-	 * This is useful for when you want the functionality of a real Texture from
-	 * a SubTexture, such as GL_REPEAT, which is impossible with SubTextures.
+	 * This is useful for when you want the functionality of
+	 * a real Texture from a SubTexture, such as GL_REPEAT,
+	 * which is impossible with SubTextures.
 	 *
 	 * @return A Texture version of the SubTexture.
 	 */
@@ -67,8 +71,9 @@ public class SubTexture extends Texture {
 	}
 
 	/**
-	 * This is useful for when you want the functionality of a real Texture from
-	 * a SubTexture, such as GL_REPEAT, which is impossible with SubTextures.
+	 * This is useful for when you want the functionality of
+	 * a real Texture from a SubTexture, such as GL_REPEAT,
+	 * which is impossible with SubTextures.
 	 *
 	 * @return A Texture version of the SubTexture.
 	 */
@@ -77,8 +82,9 @@ public class SubTexture extends Texture {
 	}
 
 	/**
-	 * This is useful for when you want the functionality of a real Texture from
-	 * a SubTexture, such as GL_REPEAT, which is impossible with SubTextures.
+	 * This is useful for when you want the functionality of
+	 * a real Texture from a SubTexture, such as GL_REPEAT,
+	 * which is impossible with SubTextures.
 	 *
 	 * @return A Texture version of the SubTexture.
 	 */
@@ -91,33 +97,51 @@ public class SubTexture extends Texture {
 		return parent;
 	}
 
-	/** @return The x location of the subtexture on the parent texture. */
+	/**
+	 * @return The x location of the subtexture on the parent
+	 *         texture.
+	 */
 	public int getSubX() {
 		return x;
 	}
 
-	/** @return The y location of the subtexture on the parent texture. */
+	/**
+	 * @return The y location of the subtexture on the parent
+	 *         texture.
+	 */
 	public int getSubY() {
 		return y;
 	}
 
-	/** @return The second x location of the subtexture on the parent texture. */
+	/**
+	 * @return The second x location of the subtexture on the
+	 *         parent texture.
+	 */
 	public int getSubX2() {
 		return x2;
 	}
 
-	/** @return The second y location of the subtexture on the parent texture. */
+	/**
+	 * @return The second y location of the subtexture on the
+	 *         parent texture.
+	 */
 	public int getSubY2() {
 		return y2;
 	}
 
-	/** @return The width of the subtexture of the parent texture. */
+	/**
+	 * @return The width of the subtexture of the parent
+	 *         texture.
+	 */
 	@Override
 	public int getWidth() {
 		return x2 - x;
 	}
 
-	/** @return The height of the subtexture of the parent texture. */
+	/**
+	 * @return The height of the subtexture of the parent
+	 *         texture.
+	 */
 	@Override
 	public int getHeight() {
 		return y2 - y;

@@ -1,16 +1,19 @@
 package com.radirius.mercury.graphics.wip.gui;
 
 import com.radirius.mercury.framework.Runner;
-import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.graphics.SpriteSheet;
+import com.radirius.mercury.graphics.SubTexture;
+import com.radirius.mercury.graphics.Texture;
 import com.radirius.mercury.input.Input;
-import com.radirius.mercury.math.geometry.*;
+import com.radirius.mercury.math.geometry.Rectangle;
+import com.radirius.mercury.math.geometry.Vector2f;
 import com.radirius.mercury.resource.Loader;
-import com.radirius.mercury.utilities.*;
+import com.radirius.mercury.utilities.Renderable;
+import com.radirius.mercury.utilities.Updatable;
 
 /**
- * @author wessles, Jeviny
- *
- *         A base for all components.
+ * @author wessles, Jeviny A base for all components.
  */
 public class Component implements Updatable, Renderable {
 	public static Component focused;

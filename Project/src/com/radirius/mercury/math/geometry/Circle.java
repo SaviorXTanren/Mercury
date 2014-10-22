@@ -6,7 +6,13 @@ package com.radirius.mercury.math.geometry;
  * @author wessles
  */
 public class Circle extends Ellipse {
-
+	/**
+	 * @param x
+	 *            The x position of the center.
+	 * @param y
+	 *            The y position of the center.
+	 * @param radius
+	 */
 	public Circle(float x, float y, float radius) {
 		super(x, y, radius, radius);
 	}
@@ -15,6 +21,7 @@ public class Circle extends Ellipse {
 	public boolean intersects(Shape s) {
 		if (s instanceof Circle) {
 			float dist = s.getCenter().distance(getCenter());
+
 			if (dist <= ((Circle) s).radx + radx)
 				return true;
 		} else

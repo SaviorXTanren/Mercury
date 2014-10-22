@@ -1,7 +1,20 @@
 package com.radirius.mercury.graphics;
 
-import static com.radirius.mercury.graphics.VAOUtils.*;
-import static org.lwjgl.opengl.GL11.*;
+import static com.radirius.mercury.graphics.VAOUtils.COLOR_ARRAY_POINTER;
+import static com.radirius.mercury.graphics.VAOUtils.TEXTURE_COORD_ARRAY_POINTER;
+import static com.radirius.mercury.graphics.VAOUtils.VERTEX_ARRAY_POINTER;
+import static com.radirius.mercury.graphics.VAOUtils.disableBuffer;
+import static com.radirius.mercury.graphics.VAOUtils.drawBuffers;
+import static com.radirius.mercury.graphics.VAOUtils.enableBuffer;
+import static com.radirius.mercury.graphics.VAOUtils.pointBuffer;
+import static org.lwjgl.opengl.GL11.GL_COLOR;
+import static org.lwjgl.opengl.GL11.GL_COLOR_ARRAY;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_COORD_ARRAY;
+import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
+import static org.lwjgl.opengl.GL11.GL_VERTEX_ARRAY;
+import static org.lwjgl.opengl.GL11.glEnable;
 
 import java.nio.FloatBuffer;
 

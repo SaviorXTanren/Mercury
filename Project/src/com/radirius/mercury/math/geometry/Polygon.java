@@ -5,23 +5,57 @@ import com.radirius.mercury.math.MathUtil;
 /**
  * A shape with any amount of sides.
  *
- * @author wessles
+ * @author wessles, Jeviny
  */
 public class Polygon extends Shape {
 	private float radius;
 
-	public Polygon(float centerx, float centery, float radius, int numberofsides) {
-		this(centerx, centery, radius, radius, numberofsides);
+	/**
+	 * Creates a new Polygon taking in the center position
+	 * on the x/y axis, radius and number of sides.
+	 *
+	 * @param xCenter
+	 *            The center x position.
+	 * @param yCenter
+	 *            The center y position.
+	 * @param radius
+	 *            The radius of the polygon.
+	 * @param numSides
+	 *            The number of sides on the polygon.
+	 */
+	public Polygon(float xCenter, float yCenter, float radius, int numSides) {
+		this(xCenter, yCenter, radius, radius, numSides);
 	}
 
-	public Polygon(float centerx, float centery, float radiusx, float radiusy, int numberofsides) {
-		this(getTrigVerts(centerx, centery, radiusx, radiusy, numberofsides));
-		// Average radius!
-		radius = 0.5f * (radiusx + radiusy);
+	/**
+	 * Creates a new Polygon taking in the center position
+	 * on the x/y axis, x/y radius and number of sides.
+	 *
+	 * @param xCenter
+	 *            The center x position.
+	 * @param yCenter
+	 *            The center y position.
+	 * @param xRadius
+	 *            The x radius of the polygon.
+	 * @param yRadius
+	 *            The y radius of the polygon.
+	 * @param numSides
+	 *            The number of sides on the polygon.
+	 */
+	public Polygon(float xCenter, float yCenter, float xRadius, float yRadius, int numSides) {
+		this(getTrigVerts(xCenter, yCenter, xRadius, yRadius, numSides));
+
+		radius = 0.5f * (xRadius + yRadius);
 	}
 
-	public Polygon(Vector2f... verts) {
-		super(verts);
+	/**
+	 * Creates a new Polygon from raw vertex data.
+	 *
+	 * @param vertices
+	 *            The vertex data.
+	 */
+	public Polygon(Vector2f... vertices) {
+		super(vertices);
 	}
 
 	public Polygon(float... fs) {
@@ -29,31 +63,33 @@ public class Polygon extends Shape {
 	}
 
 	@Override
-	public boolean contains(Vector2f v) {
-		return v.distance(getCenter()) < radius;
+	public boolean contains(Vector2f vector) {
+		return vector.distance(getCenter()) < radius;
 	}
 
 	/**
-	 * @return Basically the vertices for a whole bunch of triangles 'slices'
-	 *         that make up a 'pie.'
+	 * @return Basically the vertices for a whole bunch of
+	 *         triangles 'slices' that make up a 'pie.'
 	 */
-	protected static Vector2f[] getTrigVerts(float x, float y, float radiusx, float radiusy, int numberofsides) {
-		if (numberofsides < 3)
-			throw new IllegalArgumentException("Polygon must have at least 3 sides!");
+	protected static Vector2f[] getTrigVerts(float x, float y, float xRadius, float yRadius, int numSides) {
+		if (numSides < 3)
+			throw new IllegalArgumentException("A polygon must have at least 3 sides!");
 
-		Vector2f[] verts = new Vector2f[numberofsides];
+		Vector2f[] vertices = new Vector2f[numSides];
 
-		// start at 270, so that we have an upwards-facing polygon. More fun
-		// that way.
-		float angle = 270, step = 360 / numberofsides;
+		// Start at 270, so that we have an upwards-facing
+		// polygon. More fun that way.
+		float angle = 270, step = 360 / numSides;
 
-		for (int a = 0; a < numberofsides; a++) {
+		for (int a = 0; a < numSides; a++) {
 			if (angle > 360)
 				angle %= 360;
-			verts[a] = new Vector2f(x + MathUtil.cos(angle) * radiusx, y + MathUtil.sin(angle) * radiusy);
+
+			vertices[a] = new Vector2f(x + MathUtil.cos(angle) * xRadius, y + MathUtil.sin(angle) * yRadius);
+
 			angle += step;
 		}
 
-		return verts;
+		return vertices;
 	}
 }

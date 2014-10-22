@@ -1,13 +1,18 @@
 package com.radirius.mercury.utilities.command;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import com.radirius.mercury.utilities.logging.Logger;
 
 /**
- * A thread to be ran seperate from the library itself so that in-game freezes
- * will not effect the console, and that the Scanner will not hang.
+ * A thread to be ran seperate from the library itself so
+ * that in-game freezes will not effect the console, and
+ * that the Scanner will not hang.
  *
  * @author wessles
  */
@@ -29,7 +34,8 @@ public class CommandThread implements Runnable {
 				readstreamchanged = false;
 			}
 
-			// Wait until we are ready... we don't want no hangin!
+			// Wait until we are ready... we don't want no
+			// hangin!
 			try {
 				while (!buf.ready() && running)
 					try {
@@ -49,13 +55,15 @@ public class CommandThread implements Runnable {
 				e.printStackTrace();
 			}
 
-			// We know we can only have 1 '.?' in the commands
+			// We know we can only have 1 '.?' in the
+			// commands
 			if (_line.lastIndexOf(".?") != _line.indexOf(".?")) {
 				Logger.consoleProblem("Can only reference 1 manual! Please type '?' for syntax help.");
 				continue runloop;
 			}
 
-			// Now we shall get all the variables after splitting the command
+			// Now we shall get all the variables after
+			// splitting the command
 			// into spaces
 			String[] line = _line.split(" ");
 
@@ -75,19 +83,23 @@ public class CommandThread implements Runnable {
 
 				boolean escapechar = false;
 
-				// Tell whether the character we are reading is to be escaped.
+				// Tell whether the character we are reading
+				// is to be escaped.
 				boolean escaped = false;
 				// Are we getting a variable
 				boolean invar = false;
 				boolean invarescaped = false;
-				// The character that was read in each iteration
+				// The character that was read in each
+				// iteration
 				int _c;
 				char c;
 
-				// A list so that we can have a volatile length of an array; in
+				// A list so that we can have a volatile
+				// length of an array; in
 				// other words, so we can 'add' to it.
 				ArrayList<String> args = new ArrayList<String>();
-				// The argument being concatinated every iteration.
+				// The argument being concatinated every
+				// iteration.
 				String arg = "";
 
 				// Current point
@@ -97,12 +109,14 @@ public class CommandThread implements Runnable {
 
 				// Another list for variables...
 				ArrayList<String> vars = new ArrayList<String>();
-				// The variable being concatinated every iteration that is in a
+				// The variable being concatinated every
+				// iteration that is in a
 				// variable
 				String var = "";
 
 				try {
-					// While we still have a character to read, loop.
+					// While we still have a character to
+					// read, loop.
 					while ((_c = read.read()) > 0) {
 						idx++;
 						// Set the character
@@ -113,10 +127,12 @@ public class CommandThread implements Runnable {
 							continue;
 						}
 
-						// If we are escaped, we will ignore all
+						// If we are escaped, we will ignore
+						// all
 						// syntax-important characters.
 						if (escaped) {
-							// We must stop escaping if there is a closing
+							// We must stop escaping if
+							// there is a closing
 							// parenthesis.
 							if (c == '\"' && !escapechar) {
 								escaped = false;
@@ -146,7 +162,8 @@ public class CommandThread implements Runnable {
 								if (vars.size() < 2)
 									Logger.consoleProblem("Must have at least 2 parameters for a Variable argument. Please type '?' for help.");
 
-								// We have reached the end! Time to inject!
+								// We have reached the end!
+								// Time to inject!
 								// *cracks knuckles*
 
 								String varcommandlist = vars.get(0).toLowerCase();
@@ -195,7 +212,8 @@ public class CommandThread implements Runnable {
 							continue;
 						}
 
-						// From this point on, we are not escaped, nor in a
+						// From this point on, we are not
+						// escaped, nor in a
 						// variable.
 
 						// But do we want to escape?

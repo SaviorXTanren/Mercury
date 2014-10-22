@@ -3,8 +3,8 @@ package com.radirius.mercury.utilities.logging;
 import com.radirius.mercury.exceptions.MercuryException;
 
 /**
- * A class that will log in different levels of impact, from NULL to SEVERE.
- * SEVERE being the program killer.
+ * A class that will log in different levels of impact, from
+ * NULL to SEVERE. SEVERE being the program killer.
  *
  * @author wessles, Jeviny
  */
@@ -23,7 +23,10 @@ public class Logger {
 		}
 	}
 
-	/** Logs a message in a case, with an optional severe message sevmsg. */
+	/**
+	 * Logs a message in a case, with an optional severe
+	 * message sevmsg.
+	 */
 	public static void log(Case selectedCase, String severeMessage, Object... object) throws MercuryException {
 		if (!logging)
 			return;
@@ -33,9 +36,9 @@ public class Logger {
 		for (Object obj : object)
 			message += obj + " ";
 
-		if (selectedCase != Case.SEVERE && selectedCase != Case.WARNING && selectedCase != Case.CONSOLEPROBLEM) {
+		if (selectedCase != Case.SEVERE && selectedCase != Case.WARNING && selectedCase != Case.CONSOLEPROBLEM)
 			System.out.println(selectedCase.caseMessage + message);
-		} else {
+		else {
 			System.err.println(selectedCase.caseMessage + message);
 
 			if (selectedCase == Case.SEVERE)

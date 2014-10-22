@@ -1,6 +1,33 @@
 package com.radirius.mercury.utilities.easing;
 
-import static com.radirius.mercury.utilities.easing.EasingUtils.*;
+import static com.radirius.mercury.utilities.easing.EasingUtils.BOUNCING_EASE_CIRCLE;
+import static com.radirius.mercury.utilities.easing.EasingUtils.BOUNCING_EASE_CUBIC;
+import static com.radirius.mercury.utilities.easing.EasingUtils.BOUNCING_EASE_EXPO;
+import static com.radirius.mercury.utilities.easing.EasingUtils.BOUNCING_EASE_QUAD;
+import static com.radirius.mercury.utilities.easing.EasingUtils.BOUNCING_EASE_QUINT;
+import static com.radirius.mercury.utilities.easing.EasingUtils.BOUNCING_EASE_SINE;
+import static com.radirius.mercury.utilities.easing.EasingUtils.BOUNCING_LINEAR_TWEEN;
+import static com.radirius.mercury.utilities.easing.EasingUtils.EASE_CIRCLE;
+import static com.radirius.mercury.utilities.easing.EasingUtils.EASE_CUBIC;
+import static com.radirius.mercury.utilities.easing.EasingUtils.EASE_EXPO;
+import static com.radirius.mercury.utilities.easing.EasingUtils.EASE_QUAD;
+import static com.radirius.mercury.utilities.easing.EasingUtils.EASE_QUINT;
+import static com.radirius.mercury.utilities.easing.EasingUtils.EASE_SINE;
+import static com.radirius.mercury.utilities.easing.EasingUtils.LINEAR_TWEEN;
+import static com.radirius.mercury.utilities.easing.EasingUtils.bouncingEaseCircle;
+import static com.radirius.mercury.utilities.easing.EasingUtils.bouncingEaseCubic;
+import static com.radirius.mercury.utilities.easing.EasingUtils.bouncingEaseExpo;
+import static com.radirius.mercury.utilities.easing.EasingUtils.bouncingEaseQuad;
+import static com.radirius.mercury.utilities.easing.EasingUtils.bouncingEaseQuint;
+import static com.radirius.mercury.utilities.easing.EasingUtils.bouncingEaseSine;
+import static com.radirius.mercury.utilities.easing.EasingUtils.bouncingLinearTween;
+import static com.radirius.mercury.utilities.easing.EasingUtils.easeCircle;
+import static com.radirius.mercury.utilities.easing.EasingUtils.easeCubic;
+import static com.radirius.mercury.utilities.easing.EasingUtils.easeExpo;
+import static com.radirius.mercury.utilities.easing.EasingUtils.easeQuad;
+import static com.radirius.mercury.utilities.easing.EasingUtils.easeQuint;
+import static com.radirius.mercury.utilities.easing.EasingUtils.easeSine;
+import static com.radirius.mercury.utilities.easing.EasingUtils.linearTween;
 
 /**
  * An object that makes easing easier. (No Pun Intended).
@@ -21,7 +48,7 @@ public class EasingValue {
 		this.startMillis = startMillis;
 		this.startVal = startVal;
 		this.endVal = endVal;
-		this.easeValue = startVal;
+		easeValue = startVal;
 		this.durationMillis = durationMillis;
 	}
 

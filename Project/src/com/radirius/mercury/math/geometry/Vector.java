@@ -43,10 +43,11 @@ public abstract class Vector {
 	public abstract Vector set(float... coord);
 
 	/**
-	 * @param a
-	 *            The value by which to scale each value of the vector.
+	 * @param amount
+	 *            The value by which to scale each value of
+	 *            the vector.
 	 */
-	public abstract Vector scale(float a);
+	public abstract Vector scale(float amount);
 
 	/** Scales the vector by -1. */
 	public abstract Vector negate();
@@ -69,7 +70,10 @@ public abstract class Vector {
 	/** @return The naked vector. */
 	public abstract Vector setZero();
 
-	/** @return The vector coordinates in the form of a string. */
+	/**
+	 * @return The vector coordinates in the form of a
+	 *         string.
+	 */
 	@Override
 	public abstract String toString();
 }

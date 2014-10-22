@@ -2,8 +2,10 @@ package com.radirius.mercury.graphics.wip.gui;
 
 import java.util.ArrayList;
 
-import com.radirius.mercury.graphics.*;
-import com.radirius.mercury.math.geometry.*;
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.graphics.Texture;
+import com.radirius.mercury.math.geometry.Rectangle;
+import com.radirius.mercury.math.geometry.Shape;
 
 /**
  * A component to contain and render sorted components.
@@ -95,7 +97,8 @@ public class Panel extends Component implements Container {
 			else if (child.FLOAT == FLOAT_CENTER)
 				centershift.add(child.bounds);
 
-			// If the line is too long, or the component is a div, or the
+			// If the line is too long, or the component is
+			// a div, or the
 			// floating has changed, then make a new line.
 			if (x + child.bounds.getWidth() > textbounds.getX2() || child.TYPE == Component.TYPE_NONSPAN || child.TYPE != lastfloat || cnum == children.size()) {
 				if (!rightshift.isEmpty()) {
@@ -114,14 +117,16 @@ public class Panel extends Component implements Container {
 
 			child.bounds.translateTo(x, y);
 
-			// Update the current length of the line, since it has been
+			// Update the current length of the line, since
+			// it has been
 			// proven to fit.
 			x += child.bounds.getWidth();
 
 			// Update the type!
 			lastfloat = child.FLOAT;
 
-			// Update the maximum height of all objects on this line.
+			// Update the maximum height of all objects on
+			// this line.
 			max_height = Math.max(max_height, child.bounds.getHeight());
 		}
 

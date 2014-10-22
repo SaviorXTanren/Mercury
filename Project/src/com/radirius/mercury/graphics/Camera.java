@@ -1,9 +1,14 @@
 package com.radirius.mercury.graphics;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.glPopMatrix;
+import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.glRotatef;
+import static org.lwjgl.opengl.GL11.glScalef;
+import static org.lwjgl.opengl.GL11.glTranslatef;
 
 import com.radirius.mercury.framework.Runner;
-import com.radirius.mercury.math.geometry.*;
+import com.radirius.mercury.math.geometry.Rectangle;
+import com.radirius.mercury.math.geometry.Vector2f;
 
 /**
  * An object for the camera.
@@ -122,7 +127,7 @@ public class Camera {
 
 	/**
 	 * Rotates the camera on its origin.
-	 * 
+	 *
 	 * @param rot
 	 *            The amount by which to rotate
 	 */
@@ -132,7 +137,7 @@ public class Camera {
 
 	/**
 	 * Sets the camera rotation on its origin.
-	 * 
+	 *
 	 * @param rot
 	 *            The amount of rotation.
 	 */

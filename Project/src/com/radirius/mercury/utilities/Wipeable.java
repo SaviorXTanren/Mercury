@@ -1,7 +1,8 @@
 package com.radirius.mercury.utilities;
 
 /**
- * An abstraction for objects that can 'wipe' themselves, or self destruct.
+ * An abstraction for objects that can 'wipe' themselves, or
+ * self destruct.
  *
  * @author wessles
  */

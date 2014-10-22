@@ -1,13 +1,16 @@
 package com.radirius.mercury.framework.splash;
 
 import com.radirius.mercury.framework.Runner;
-import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.graphics.Color;
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.graphics.Texture;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.math.geometry.Rectangle;
 import com.radirius.mercury.resource.Loader;
-import com.radirius.mercury.utilities.*;
+import com.radirius.mercury.utilities.TaskTiming;
 import com.radirius.mercury.utilities.TaskTiming.Task;
-import com.radirius.mercury.utilities.easing.*;
+import com.radirius.mercury.utilities.easing.EasingUtils;
+import com.radirius.mercury.utilities.easing.EasingValue;
 
 /**
  * A base for all splash screens.
@@ -30,8 +33,9 @@ public class SplashScreen {
 	 * @param showTimeMillis
 	 *            The time that the splash screen is shown.
 	 * @param fitToScreen
-	 *            Whether or not to fit the image to the screen while still
-	 *            maintaining the aspect ratio.
+	 *            Whether or not to fit the image to the
+	 *            screen while still maintaining the aspect
+	 *            ratio.
 	 */
 	public SplashScreen(Texture splashTexture, long showTimeMillis, boolean fitToScreen) {
 		this.showTimeMillis = showTimeMillis;
@@ -46,14 +50,14 @@ public class SplashScreen {
 	 *            The time that the splash screen is shown.
 	 */
 	public SplashScreen(Texture splashTexture, long showTimeMillis) {
-		this(splashTexture, showTimeMillis, (splashTexture.width <= runner.getWidth() && splashTexture.height <= runner.getHeight()) ? false : true);
+		this(splashTexture, showTimeMillis, splashTexture.width <= runner.getWidth() && splashTexture.height <= runner.getHeight() ? false : true);
 	}
 
 	EasingValue easingValue;
 
 	/**
-	 * Shows the splash screen on screen, whilst checking if it is time to stop
-	 * as well.
+	 * Shows the splash screen on screen, whilst checking if
+	 * it is time to stop as well.
 	 *
 	 * @return Whether or not the splash is done.
 	 */
@@ -71,12 +75,11 @@ public class SplashScreen {
 			showing = true;
 		}
 
-		for (int c_skipbtn : skipbutton) {
+		for (int c_skipbtn : skipbutton)
 			if (Runner.getInstance().getInput().keyClicked(c_skipbtn)) {
 				returned = false;
 				showing = false;
 			}
-		}
 
 		Rectangle cameraBounds = Runner.getInstance().getCamera().getBounds();
 
@@ -102,11 +105,11 @@ public class SplashScreen {
 	private int[] skipbutton = new int[] {};
 
 	/**
-	 * Sets the buttons (from Input) for skipping the splash screen.
+	 * Sets the buttons (from Input) for skipping the splash
+	 * screen.
 	 *
 	 * @param skipbutton
 	 *            The button for skipping
-	 * 
 	 * @return the splash screen
 	 */
 	public SplashScreen setSkipButton(int... skipbutton) {
@@ -116,7 +119,8 @@ public class SplashScreen {
 	}
 
 	/**
-	 * Show some love for Mercury by using a shiny Mercury splash screen!
+	 * Show some love for Mercury by using a shiny Mercury
+	 * splash screen!
 	 *
 	 * @return The love of Mercury's developers. <3
 	 */

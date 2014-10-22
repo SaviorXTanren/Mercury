@@ -5,8 +5,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import com.radirius.mercury.exceptions.MercuryException;
 
 /**
- * An easy to use utility for one-shot, and reccuring timertasks. Operates on
- * seperate thread.
+ * An easy to use utility for one-shot, and reccuring
+ * timertasks. Operates on seperate thread.
  *
  * @author wessles
  */
@@ -52,7 +52,8 @@ public class TaskTiming {
 
 		/**
 		 * @param timeout
-		 *            The time to pass before the task is started.
+		 *            The time to pass before the task is
+		 *            started.
 		 */
 		public Task(long timeout) {
 			this(timeout, 1);
@@ -60,10 +61,11 @@ public class TaskTiming {
 
 		/**
 		 * @param timeout
-		 *            The time to pass before the task is started.
+		 *            The time to pass before the task is
+		 *            started.
 		 * @param reccurances
-		 *            The number of times the task repeats (infinite if less
-		 *            than 1).
+		 *            The number of times the task repeats
+		 *            (infinite if less than 1).
 		 */
 		public Task(long timeout, int reccurances) {
 			this(timeout, reccurances, false);
@@ -71,9 +73,11 @@ public class TaskTiming {
 
 		/**
 		 * @param timeout
-		 *            The time to pass before the task is started.
+		 *            The time to pass before the task is
+		 *            started.
 		 * @param loop
-		 *            Whether the task is to recur infinitely.
+		 *            Whether the task is to recur
+		 *            infinitely.
 		 */
 		public Task(long timeout, boolean loop) {
 			this(timeout, loop ? -1 : 1);
@@ -81,12 +85,14 @@ public class TaskTiming {
 
 		/**
 		 * @param timeout
-		 *            The time to pass before the task is started.
+		 *            The time to pass before the task is
+		 *            started.
 		 * @param reccurances
-		 *            The number of times the task repeats (infinite if less
-		 *            than 1).
+		 *            The number of times the task repeats
+		 *            (infinite if less than 1).
 		 * @param loop
-		 *            Whether the task is to recur infinitely.
+		 *            Whether the task is to recur
+		 *            infinitely.
 		 */
 		public Task(long timeout, int reccurances, boolean loop) {
 			recur = reccurances;

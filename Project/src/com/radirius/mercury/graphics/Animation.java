@@ -4,7 +4,8 @@ import com.radirius.mercury.math.geometry.Rectangle;
 import com.radirius.mercury.resource.Resource;
 
 /**
- * An easy to use animation class. Just render, and watch the moving picture.
+ * An easy to use animation class. Just render, and watch
+ * the moving picture.
  *
  * @author wessles
  */
@@ -65,12 +66,12 @@ public class Animation implements Resource {
 	 * @param endframe
 	 *            The last frame of the animation.
 	 * @param bounce
-	 *            Whether or not the animation should reverse once it gets to
-	 *            the end.
+	 *            Whether or not the animation should
+	 *            reverse once it gets to the end.
 	 */
 	public Animation(int frameratemillis, SpriteSheet texs, int startframe, int endframe, boolean bounce) {
-		this.framerateMillis = frameratemillis;
-		this.baseTextures = texs;
+		framerateMillis = frameratemillis;
+		baseTextures = texs;
 
 		frame = 0;
 
@@ -93,7 +94,8 @@ public class Animation implements Resource {
 	}
 
 	/**
-	 * Renders the current frame at x and y, with a size of width w by height h.
+	 * Renders the current frame at x and y, with a size of
+	 * width w by height h.
 	 */
 	public void render(float x, float y, float w, float h, Graphics g) {
 		render(new Rectangle(x, y, w, h), g);
@@ -104,7 +106,8 @@ public class Animation implements Resource {
 	}
 
 	/**
-	 * Useful if you want to render the frames in a special way.
+	 * Useful if you want to render the frames in a special
+	 * way.
 	 *
 	 * @return The current frame.
 	 */
@@ -113,8 +116,9 @@ public class Animation implements Resource {
 	}
 
 	/**
-	 * Moves on to the next frame in the animation if the current frame has been
-	 * around more than the frame-rate.
+	 * Moves on to the next frame in the animation if the
+	 * current frame has been around more than the
+	 * frame-rate.
 	 *
 	 * @return If this is the last frame.
 	 */

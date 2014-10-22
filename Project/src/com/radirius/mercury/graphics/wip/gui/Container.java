@@ -13,7 +13,8 @@ public interface Container {
 	public void addNewLine();
 
 	/**
-	 * @return A list of all child components belonging to the parent container.
+	 * @return A list of all child components belonging to
+	 *         the parent container.
 	 */
 	public ArrayList<Component> getChildren();
 }

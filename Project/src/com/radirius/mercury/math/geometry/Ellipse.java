@@ -8,8 +8,10 @@ package com.radirius.mercury.math.geometry;
 public class Ellipse extends Polygon {
 	/** The radius in the respective axis. */
 	public float radx, rady;
+
 	/**
-	 * Maximum amount of sides that can be rendered when rendering an ellipse
+	 * Maximum amount of sides that can be rendered when
+	 * rendering an ellipse.
 	 */
 	public static int MAX_SIDES = 40;
 
@@ -29,7 +31,8 @@ public class Ellipse extends Polygon {
 		this.rady = rady;
 	}
 
-	// They are round, with a lot of vertices. This isn't pixel-perfect, but it
+	// They are round, with a lot of vertices. This isn't
+	// pixel-perfect, but it
 	// is good enough.
 	@Override
 	public boolean intersects(Shape s) {
@@ -37,6 +40,7 @@ public class Ellipse extends Polygon {
 			for (Vector2f v : s.vertices)
 				if (contains(v))
 					return true;
+
 		return false;
 	}
 
@@ -45,6 +49,7 @@ public class Ellipse extends Polygon {
 		// Source
 		// http://math.stackexchange.com/questions/76457/check-if-a-point-is-within-an-ellipse
 		float test = (v.x - getCenter().x) * (v.x - getCenter().x) / (radx * radx) + (v.y - getCenter().y) * (v.y - getCenter().y) / (rady * rady);
+
 		return test <= 1;
 	}
 

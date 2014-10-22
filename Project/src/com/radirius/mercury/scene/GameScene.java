@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import com.radirius.mercury.graphics.Graphics;
 
 /**
- * A basic scene graph containing hierarchies of GameObjects.
+ * A basic scene graph containing hierarchies of
+ * GameObjects.
  *
  * @author Jeviny
  */

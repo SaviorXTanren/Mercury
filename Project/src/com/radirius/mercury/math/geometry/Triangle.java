@@ -6,10 +6,41 @@ package com.radirius.mercury.math.geometry;
  * @author wessles
  */
 public class Triangle extends Polygon {
+	/**
+	 * Creates a new triangle taking in the x, y, width and
+	 * height values.
+	 *
+	 * @param x
+	 *            The x position.
+	 * @param y
+	 *            The y position.
+	 * @param w
+	 *            The width of the triangle.
+	 * @param h
+	 *            The height of the triangle.
+	 */
 	public Triangle(float x, float y, float w, float h) {
 		this(x, y, x + w, y, x, y + h);
 	}
 
+	/**
+	 * Creates a new triangle taking in the location data
+	 * for the top-center, bottom-left and bottom-right
+	 * parts of the triangle.
+	 *
+	 * @param x1
+	 *            The top-center x position.
+	 * @param y1
+	 *            The top-center y position.
+	 * @param x2
+	 *            The bottom-left x position.
+	 * @param y2
+	 *            The bottom-left y position.
+	 * @param x3
+	 *            The bottom-right x position.
+	 * @param y3
+	 *            The bottom-right y position.
+	 */
 	public Triangle(float x1, float y1, float x2, float y2, float x3, float y3) {
 		super(new float[] { x1, y1, x2, y2, x3, y3 });
 	}

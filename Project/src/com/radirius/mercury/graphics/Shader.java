@@ -2,15 +2,21 @@ package com.radirius.mercury.graphics;
 
 import static org.lwjgl.opengl.GL20.glDeleteProgram;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.ARBFragmentShader;
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.ARBVertexShader;
+import org.lwjgl.opengl.GL11;
 
-import com.radirius.mercury.resource.*;
+import com.radirius.mercury.resource.Loader;
+import com.radirius.mercury.resource.Resource;
 
 /**
- * An object version of shaders. Does all of the tedious stuff for you and lets
- * you use the shader easily.
+ * An object version of shaders. Does all of the tedious
+ * stuff for you and lets you use the shader easily.
  *
  * @author wessles, opiop65, Jeviny
  */
@@ -25,7 +31,8 @@ public class Shader implements Resource {
 
 	/**
 	 * @param programObject
-	 *            The id for the program object you wish to encapsulate.
+	 *            The id for the program object you wish to
+	 *            encapsulate.
 	 */
 	public Shader(int programObject) {
 		this.programObject = programObject;
@@ -36,7 +43,10 @@ public class Shader implements Resource {
 		return programObject;
 	}
 
-	/** Uses the shader (only use if you know what you are doing). */
+	/**
+	 * Uses the shader (only use if you know what you are
+	 * doing).
+	 */
 	public void use() {
 		ARBShaderObjects.glUseProgramObjectARB(programObject);
 	}
@@ -108,7 +118,8 @@ public class Shader implements Resource {
 	}
 
 	/**
-	 * @return A shader based off of the two program objects vert and frag.
+	 * @return A shader based off of the two program objects
+	 *         vert and frag.
 	 */
 	public static Shader getShader(int vert, int frag) {
 		int program = ARBShaderObjects.glCreateProgramObjectARB();
@@ -143,8 +154,8 @@ public class Shader implements Resource {
 	 *            The vertex shader's file
 	 * @param fragmentIn
 	 *            The fragment shader's file.
-	 *
-	 * @return A shader based off of the files in vin and fin.
+	 * @return A shader based off of the files in vin and
+	 *         fin.
 	 */
 	public static Shader getShader(InputStream vertexIn, InputStream fragmentIn) {
 		return getShader(readShader(vertexIn), readShader(fragmentIn));
@@ -155,9 +166,8 @@ public class Shader implements Resource {
 	 *            The source of the vertex shader.
 	 * @param fragmentSource
 	 *            The source of the fragment shader.
-	 *
-	 * @return A shader based off of the sources vertexSource and
-	 *         fragmentSource.
+	 * @return A shader based off of the sources vertexSource
+	 *         and fragmentSource.
 	 */
 	public static Shader getShader(String vertexSource, String fragmentSource) {
 		int vertShader = 0;
@@ -201,10 +211,10 @@ public class Shader implements Resource {
 	 * @param source
 	 *            The stream to the source file.
 	 * @param type
-	 *            The type of shader (the other half will use the MERCury
-	 *            default shader).
-	 *
-	 * @return A shader based off of the stream source, of the type type.
+	 *            The type of shader (the other half will
+	 *            use the MERCury default shader).
+	 * @return A shader based off of the stream source, of
+	 *         the type type.
 	 */
 	public static Shader getShader(InputStream source, int type) {
 		return getShader(readShader(source), type);
@@ -214,10 +224,10 @@ public class Shader implements Resource {
 	 * @param source
 	 *            The source of the shader.
 	 * @param type
-	 *            The type of shader (the other half will use the Mercury
-	 *            defaults).
-	 *
-	 * @return A shader based off of the source of the type type.
+	 *            The type of shader (the other half will
+	 *            use the Mercury defaults).
+	 * @return A shader based off of the source of the type
+	 *         type.
 	 */
 	public static Shader getShader(String source, int type) {
 		int vertShader = 0;
@@ -351,7 +361,8 @@ public class Shader implements Resource {
 	public static Shader DEFAULT_SHADER;
 
 	/**
-	 * Loads the default shaders for Mercury (not to be confused with shader 0).
+	 * Loads the default shaders for Mercury (not to be
+	 * confused with shader 0).
 	 */
 	public static void loadDefaultShaders() {
 		if (DEFAULT_SHADER == null)
