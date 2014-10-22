@@ -31,18 +31,12 @@
  */
 package com.radirius.mercury.audio;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.ShortBuffer;
+import java.nio.*;
 
-import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.*;
 import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 
 import org.lwjgl.openal.AL10;
 
@@ -93,7 +87,7 @@ public class WaveData {
 	 *
 	 * @param path
 	 *            URL to file
-	 *            
+	 * 
 	 * @return WaveData containing data, or null if a failure occured
 	 */
 	public static WaveData create(URL path) {
@@ -113,7 +107,7 @@ public class WaveData {
 	 *
 	 * @param path
 	 *            path to file (relative, and in classpath)
-	 *            
+	 * 
 	 * @return WaveData containing data, or null if a failure occured
 	 */
 	public static WaveData create(String path) {
@@ -125,7 +119,7 @@ public class WaveData {
 	 *
 	 * @param is
 	 *            InputStream to read from
-	 *            
+	 * 
 	 * @return WaveData containing data, or null if a failure occured
 	 */
 	public static WaveData create(InputStream is) {
@@ -142,7 +136,7 @@ public class WaveData {
 	 *
 	 * @param buffer
 	 *            array of bytes containing the complete wave file
-	 *            
+	 * 
 	 * @return WaveData containing data, or null if a failure occured
 	 */
 	public static WaveData create(byte[] buffer) {
@@ -161,7 +155,7 @@ public class WaveData {
 	 *
 	 * @param buffer
 	 *            ByteBuffer containing sound file
-	 *            
+	 * 
 	 * @return WaveData containing data, or null if a failure occured
 	 */
 	public static WaveData create(ByteBuffer buffer) {
@@ -174,11 +168,11 @@ public class WaveData {
 				bytes = new byte[buffer.capacity()];
 				buffer.get(bytes);
 			}
-			
+
 			return create(bytes);
 		} catch (Exception e) {
 			org.lwjgl.LWJGLUtil.log("Unable to create from ByteBuffer, " + e.getMessage());
-			
+
 			return null;
 		}
 	}
@@ -194,7 +188,7 @@ public class WaveData {
 		AudioFormat audioformat = ais.getFormat();
 
 		int channels = 0;
-		
+
 		if (audioformat.getChannels() == 1) {
 			if (audioformat.getSampleSizeInBits() == 8)
 				channels = AL10.AL_FORMAT_MONO8;
@@ -212,21 +206,21 @@ public class WaveData {
 		} else {
 			assert false : "Only mono or stereo is supported";
 		}
-		
+
 		ByteBuffer buffer = null;
-		
+
 		try {
 			int available = ais.available();
-			
+
 			if (available <= 0)
 				available = ais.getFormat().getChannels() * (int) ais.getFrameLength() * ais.getFormat().getSampleSizeInBits() / 8;
-			
+
 			byte[] buf = new byte[ais.available()];
 			int read = 0, total = 0;
-			
+
 			while ((read = ais.read(buf, total, buf.length - total)) != -1 && total < buf.length)
 				total += read;
-			
+
 			buffer = convertAudioBytes(buf, audioformat.getSampleSizeInBits() == 16, audioformat.isBigEndian() ? ByteOrder.BIG_ENDIAN : ByteOrder.LITTLE_ENDIAN);
 		} catch (IOException ioe) {
 			return null;
@@ -245,23 +239,23 @@ public class WaveData {
 	private static ByteBuffer convertAudioBytes(byte[] audio_bytes, boolean two_bytes_data, ByteOrder order) {
 		ByteBuffer dest = ByteBuffer.allocateDirect(audio_bytes.length);
 		dest.order(ByteOrder.nativeOrder());
-		
+
 		ByteBuffer src = ByteBuffer.wrap(audio_bytes);
 		src.order(order);
-		
+
 		if (two_bytes_data) {
 			ShortBuffer dest_short = dest.asShortBuffer();
 			ShortBuffer src_short = src.asShortBuffer();
-			
+
 			while (src_short.hasRemaining())
 				dest_short.put(src_short.get());
 		} else {
 			while (src.hasRemaining())
 				dest.put(src.get());
 		}
-		
+
 		dest.rewind();
-		
+
 		return dest;
 	}
 }

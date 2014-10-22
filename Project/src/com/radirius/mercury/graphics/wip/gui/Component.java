@@ -5,8 +5,7 @@ import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.math.geometry.*;
 import com.radirius.mercury.resource.Loader;
-import com.radirius.mercury.utilities.Renderable;
-import com.radirius.mercury.utilities.Updatable;
+import com.radirius.mercury.utilities.*;
 
 /**
  * @author wessles, Jeviny

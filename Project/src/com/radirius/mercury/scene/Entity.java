@@ -1,10 +1,8 @@
 package com.radirius.mercury.scene;
 
 import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.math.geometry.Rectangle;
-import com.radirius.mercury.math.geometry.Vector2f;
-import com.radirius.mercury.utilities.Renderable;
-import com.radirius.mercury.utilities.Updatable;
+import com.radirius.mercury.math.geometry.*;
+import com.radirius.mercury.utilities.*;
 
 /**
  * A base for all Entities that have a function in a Mercury game's environment.
@@ -21,9 +19,11 @@ public class Entity extends GameObject implements Updatable, Renderable {
 		this.h = h;
 	}
 
+	@Override
 	public void update(float delta) {
 	}
-	
+
+	@Override
 	public void render(Graphics g) {
 	}
 
@@ -38,7 +38,7 @@ public class Entity extends GameObject implements Updatable, Renderable {
 	public String getName() {
 		return getClass().getSimpleName();
 	}
-	
+
 	public void setPosition(float x, float y) {
 		this.x = x;
 		this.y = y;

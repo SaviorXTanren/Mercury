@@ -221,7 +221,7 @@ public class VAOBatcher implements Batcher {
 	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region) {
 		drawTexture(texture, sourceregion, region, Color.DEFAULT_TEXTURE_COLOR);
 	}
-	
+
 	@Override
 	public void drawTexture(Texture texture, float x, float y, Color tint) {
 		drawTexture(texture, x, y, texture.getWidth(), texture.getHeight(), tint);
@@ -261,12 +261,12 @@ public class VAOBatcher implements Batcher {
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region, Color tint) {
 		drawTexture(texture, new Rectangle(sx1, sy1, sx2 - sx1, sy2 - sy1), region, tint);
 	}
-	
+
 	@Override
 	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region, Color tint) {
 		Color beforecolor = getColor();
 		setColor(tint);
-		
+
 		float x1 = region.getVertices()[0].x;
 		float y1 = region.getVertices()[0].y;
 		float x2 = region.getVertices()[1].x;
@@ -319,7 +319,7 @@ public class VAOBatcher implements Batcher {
 		vertex(x3, y3, sx3, sy3);
 		vertex(x4, y4, sx4, sy4);
 		vertex(x2, y2, sx2, sy2);
-		
+
 		setColor(beforecolor);
 	}
 

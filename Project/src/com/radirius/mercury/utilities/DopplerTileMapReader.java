@@ -14,8 +14,8 @@ public class DopplerTileMapReader {
 	public static final int DIGITS_PER_TILE = 4;
 
 	/**
-	 * @return A 2D array representing what the map file contains.
-	 *         Each integer is stored result[x][y].
+	 * @return A 2D array representing what the map file contains. Each integer
+	 *         is stored result[x][y].
 	 */
 	public static int[][] getTiles(URL in) throws IOException {
 		int[] dimensions = readDimensions(in.openStream());
@@ -33,7 +33,7 @@ public class DopplerTileMapReader {
 
 		while (scanner.hasNextLine()) {
 			String line = scanner.nextLine();
-			
+
 			if (line.startsWith("texture"))
 				break;
 
@@ -54,7 +54,7 @@ public class DopplerTileMapReader {
 
 		while (scanner.hasNextLine()) {
 			String line = scanner.nextLine();
-			
+
 			if (line.startsWith("texture"))
 				break;
 
@@ -69,4 +69,3 @@ public class DopplerTileMapReader {
 		return data;
 	}
 }
-

@@ -65,10 +65,11 @@ public abstract class Vector {
 
 	/** @return A copy of this vector. */
 	public abstract Vector copy();
-	
+
 	/** @return The naked vector. */
 	public abstract Vector setZero();
 
 	/** @return The vector coordinates in the form of a string. */
+	@Override
 	public abstract String toString();
 }

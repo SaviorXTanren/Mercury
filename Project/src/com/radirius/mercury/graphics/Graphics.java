@@ -126,7 +126,7 @@ public interface Graphics {
 
 	/** Draws the portion sourceregion of a texture to the Rectangle region */
 	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region);
-	
+
 	/** Draws a Texture texture at x and y with a tint */
 	public void drawTexture(Texture texture, float x, float y, Color tint);
 
@@ -156,10 +156,13 @@ public interface Graphics {
 
 	/** Draws a portion of a texture to the Rectangle region with a tint */
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region, Color tint);
-	
-	/** Draws the portion sourceregion of a texture to the Rectangle region with a tint */
+
+	/**
+	 * Draws the portion sourceregion of a texture to the Rectangle region with
+	 * a tint
+	 */
 	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region, Color tint);
-	
+
 	/** Draws a polygon. */
 	public void drawPolygon(Polygon... polygon);
 

@@ -2,7 +2,7 @@ package com.radirius.mercury.graphics;
 
 /**
  * A class for sub-textures.
- * 
+ *
  * @author opiop65 (base code), wessles (modifications)
  */
 public class SubTexture extends Texture {
@@ -11,15 +11,15 @@ public class SubTexture extends Texture {
 
 	public SubTexture(Texture parent, int x, int y, int x2, int y2) {
 		super(parent.getTextureId(), parent.getWidth(), parent.getHeight(), parent.getSourceImage(), parent.getBuffer());
-		
+
 		this.parent = parent;
-		
+
 		if (parent instanceof SubTexture) {
 			SubTexture sb = (SubTexture) parent;
 			width = sb.getParentWidth();
 			height = sb.getParentHeight();
 		}
-		
+
 		this.x = x;
 		this.y = y;
 		this.x2 = x2;

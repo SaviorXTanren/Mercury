@@ -133,7 +133,7 @@ public class Vector2f extends Vector {
 	@Override
 	public float dot(Vector other) {
 		Vector2f vec2 = (Vector2f) other;
-		
+
 		return x * vec2.x + y * vec2.y;
 	}
 
@@ -165,7 +165,7 @@ public class Vector2f extends Vector {
 	public Vector copy() {
 		return new Vector2f(x, y);
 	}
-	
+
 	@Override
 	public Vector setZero() {
 		return new Vector2f(0, 0);

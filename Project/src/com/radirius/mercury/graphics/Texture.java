@@ -30,7 +30,7 @@ public class Texture implements Resource {
 	public int textureId;
 	public int width;
 	public int height;
-	
+
 	public BufferedImage bufferedImage;
 	public ByteBuffer buffer;
 
@@ -97,7 +97,7 @@ public class Texture implements Resource {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return bufferedImage;
 	}
 
@@ -109,12 +109,12 @@ public class Texture implements Resource {
 	/** @return If the Texture is PoT and not a SubTexture. */
 	public boolean fullCapabilities() {
 		boolean capable = isPoT();
-		
+
 		if (this instanceof SubTexture) {
 			SubTexture subthis = (SubTexture) this;
 			capable = capable && subthis.getWidth() == subthis.getParentWidth() && subthis.getHeight() == subthis.getParentHeight();
 		}
-		
+
 		return capable;
 	}
 
@@ -144,16 +144,16 @@ public class Texture implements Resource {
 	}
 
 	/**
-	 * Loads a texture from in, flipping it depending on flipX horizontally,
-	 * and flipY vertically.
+	 * Loads a texture from in, flipping it depending on flipX horizontally, and
+	 * flipY vertically.
 	 */
 	public static Texture loadTexture(InputStream inputStream, boolean flipX, boolean flipY) {
 		return loadTexture(inputStream, flipX, flipY, GL_NEAREST);
 	}
 
 	/**
-	 * Loads a texture from bi, flipping it depending on flipX horizontally,
-	 * and flipY vertically.
+	 * Loads a texture from bi, flipping it depending on flipX horizontally, and
+	 * flipY vertically.
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage, boolean flipX, boolean flipY) {
 		return loadTexture(bufferedImage, flipX, flipY, GL_NEAREST);
@@ -174,16 +174,16 @@ public class Texture implements Resource {
 	}
 
 	/**
-	 * Loads a texture from in, flipping it depending on flipX horizontally,
-	 * and flipY vertically, filtered through filter.
+	 * Loads a texture from in, flipping it depending on flipX horizontally, and
+	 * flipY vertically, filtered through filter.
 	 */
 	public static Texture loadTexture(InputStream in, boolean flipX, boolean flipY, int filter) {
 		return loadTexture(in, flipX, flipY, 0, filter);
 	}
 
 	/**
-	 * Loads a texture from bi, flipping it depending on flipX horizontally,
-	 * and flipY vertically, filtered through filter.
+	 * Loads a texture from bi, flipping it depending on flipX horizontally, and
+	 * flipY vertically, filtered through filter.
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage, boolean flipX, boolean flipY, int filter) {
 		return loadTexture(bufferedImage, flipX, flipY, 0, filter);
@@ -204,8 +204,8 @@ public class Texture implements Resource {
 	}
 
 	/**
-	 * Loads a texture from in, flipping it depending on flipX horizontally,
-	 * and flipY vertically, rotated by rot, filtered through filter.
+	 * Loads a texture from in, flipping it depending on flipX horizontally, and
+	 * flipY vertically, rotated by rot, filtered through filter.
 	 */
 	public static Texture loadTexture(InputStream in, boolean flipX, boolean flipY, int rot, int filter) {
 		try {
@@ -213,13 +213,13 @@ public class Texture implements Resource {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 
 	/**
-	 * Loads a texture from bi, flipping it depending on flipX horizontally,
-	 * and flipY vertically, rotated by rot, filtered through filter.
+	 * Loads a texture from bi, flipping it depending on flipX horizontally, and
+	 * flipY vertically, rotated by rot, filtered through filter.
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage, boolean flipX, boolean flipY, int rot, int filter) {
 		BufferedImage bufferedImage0 = processBufferedImage(bufferedImage, flipX, flipY, rot);
@@ -248,10 +248,10 @@ public class Texture implements Resource {
 		if (rot != 0) {
 			rot *= -1;
 			rot -= 90;
-			
+
 			AffineTransform transform = new AffineTransform();
 			transform.rotate(MathUtil.toRadians(rot), bufferedImage.getWidth() / 2, bufferedImage.getHeight() / 2);
-			
+
 			AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
 			bufferedImage = op.filter(bufferedImage, null);
 		}
@@ -261,7 +261,7 @@ public class Texture implements Resource {
 			AffineTransform tx = new AffineTransform();
 			tx.scale(flipX ? -1 : 1, flipY ? -1 : 1);
 			tx.translate(flipX ? -bufferedImage.getWidth() : 0, flipY ? -bufferedImage.getHeight() : 0);
-			
+
 			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
 			bufferedImage = op.filter(bufferedImage, null);
 		}
@@ -276,9 +276,9 @@ public class Texture implements Resource {
 		// nearest larger PoT, since PoT is way faster :
 		if (!PoT && expandToPoT) {
 			int newwidth = 0, newheight = 0;
-			
+
 			boolean done = false;
-			
+
 			for (int power = 1; !done; power += 1) {
 				int pot = (int) Math.pow(2, power);
 

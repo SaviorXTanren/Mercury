@@ -3,9 +3,7 @@ package com.radirius.mercury.graphics.particles;
 import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.math.geometry.*;
-import com.radirius.mercury.utilities.Renderable;
-import com.radirius.mercury.utilities.Updatable;
-import com.radirius.mercury.utilities.Wipeable;
+import com.radirius.mercury.utilities.*;
 
 /**
  * A class that will represent a single particle, with a parent particle system.

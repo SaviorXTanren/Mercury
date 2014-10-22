@@ -17,7 +17,7 @@ import com.radirius.mercury.resource.Resource;
 public class Audio implements Resource {
 	/** The source index for OpenAL. */
 	private final int source;
-	
+
 	/** The buffer for OpenAL to process. */
 	private final int buffer;
 
@@ -47,7 +47,7 @@ public class Audio implements Resource {
 	 */
 	public Audio play() {
 		alSourcePlay(source);
-		
+
 		return this;
 	}
 
@@ -61,7 +61,7 @@ public class Audio implements Resource {
 			play();
 		else
 			pause();
-		
+
 		return this;
 	}
 
@@ -75,7 +75,7 @@ public class Audio implements Resource {
 			play();
 		else
 			stop();
-		
+
 		return this;
 	}
 
@@ -93,7 +93,7 @@ public class Audio implements Resource {
 	 */
 	public Audio pause() {
 		alSourcePause(source);
-		
+
 		return this;
 	}
 
@@ -111,7 +111,7 @@ public class Audio implements Resource {
 	 */
 	public Audio stop() {
 		alSourceStop(source);
-		
+
 		return this;
 	}
 
@@ -133,7 +133,7 @@ public class Audio implements Resource {
 	 */
 	public Audio setVolume(float vol) {
 		alSourcef(source, AL_GAIN, vol);
-		
+
 		return this;
 	}
 
@@ -155,7 +155,7 @@ public class Audio implements Resource {
 	 */
 	public Audio setPitch(float pit) {
 		alSourcef(source, AL_PITCH, pit);
-		
+
 		return this;
 	}
 
@@ -176,13 +176,13 @@ public class Audio implements Resource {
 	 */
 	public Audio setLooping(boolean loop) {
 		alSourcei(source, AL_LOOPING, loop ? AL_TRUE : AL_FALSE);
-		
+
 		return this;
 	}
 
 	/**
-	 * Makes a source based off of buffer, and then makes an Audio based off of the
-	 * source.
+	 * Makes a source based off of buffer, and then makes an Audio based off of
+	 * the source.
 	 *
 	 * @param buffer
 	 *            The integer buffer of the sound for OpenAL to process.
@@ -204,8 +204,8 @@ public class Audio implements Resource {
 	}
 
 	/**
-	 * Makes a source based off of buffer, and then makes an Audio based off of the
-	 * source.
+	 * Makes a source based off of buffer, and then makes an Audio based off of
+	 * the source.
 	 *
 	 * @param is
 	 *            The input file to be read.
@@ -237,7 +237,7 @@ public class Audio implements Resource {
 
 		OGGDecoder decoder = new OGGDecoder();
 		OGGData ogg = null;
-		
+
 		try {
 			ogg = decoder.getData(is);
 		} catch (IOException e) {
@@ -245,7 +245,7 @@ public class Audio implements Resource {
 		}
 
 		alGenBuffers(buffer);
-		
+
 		if (alGetError() != AL_NO_ERROR)
 			throw new RuntimeException("An error occurred while making buffers.");
 
@@ -265,14 +265,14 @@ public class Audio implements Resource {
 	 */
 	public static IntBuffer getWAVBuffer(InputStream is) {
 		IntBuffer buffer = BufferUtils.createIntBuffer(1);
-		
+
 		alGenBuffers(buffer);
 
 		if (alGetError() != AL_NO_ERROR)
 			throw new RuntimeException("An error occurred while making buffers.");
 
 		WaveData waveFile = WaveData.create(is);
-		
+
 		alBufferData(buffer.get(0), waveFile.format, waveFile.data, waveFile.samplerate);
 		waveFile.dispose();
 

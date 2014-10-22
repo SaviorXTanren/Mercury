@@ -8,6 +8,7 @@ import org.lwjgl.opengl.Display;
 
 import com.radirius.mercury.framework.Runner;
 import com.radirius.mercury.graphics.Camera;
+import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.math.geometry.*;
 
 /**
@@ -16,8 +17,10 @@ import com.radirius.mercury.math.geometry.*;
  * @author wessles
  */
 public class Input {
-	// No, I did not type out all of these keys; I got it from slick2d, by
-	// kevglass. Shout out to him for crafting this much stuff!
+	// No, I did not type out all of these keys; I got it
+	// from slick2d, by
+	// kevglass. Shout out to him for crafting this much
+	// stuff!
 	// https://bitbucket.org/kevglass/slick/src/9d7443ec33af/trunk/Slick/src/org/newdawn/slick/Input.java?at=default
 	public static final int KEY_ESCAPE = 0x01;
 	public static final int KEY_1 = 0x02;
@@ -172,9 +175,9 @@ public class Input {
 
 	/** Updates a list of things that happened every frame. */
 	public void pollKeyboard() {
-		if(!keyboardpolling)
+		if (!keyboardpolling)
 			return;
-		
+
 		while (Keyboard.next())
 			if (Keyboard.getEventKeyState()) {
 				eventkeystates.add(Keyboard.getEventKey());
@@ -184,9 +187,9 @@ public class Input {
 
 	/** Updates a list of things that happened every frame. */
 	public void pollMouse() {
-		if(!mousepolling)
+		if (!mousepolling)
 			return;
-		
+
 		while (Mouse.next())
 			if (Mouse.getEventButtonState())
 				eventmousebuttonstates.add(Mouse.getEventButton());
@@ -196,9 +199,9 @@ public class Input {
 
 	/** Updates a list of things that happened every frame. */
 	public void pollControllers() {
-		if(!controllerpolling)
+		if (!controllerpolling)
 			return;
-		
+
 		if (!Controllers.isCreated())
 			return;
 
@@ -325,58 +328,78 @@ public class Input {
 	}
 
 	/**
-	 * @return The mouse 'correct' position (Has to do with the opengl origin
-	 *         being bottom left, and ours being top left).
+	 * @return The mouse 'correct' position (Has to do with
+	 *         the opengl origin being bottom left, and ours
+	 *         being top left).
 	 */
 	public Vector2f getAbsoluteMousePosition() {
 		return new Vector2f(getMouseX(), Display.getHeight() - 1 - getMouseY());
 	}
 
 	/**
-	 * @return The mouse position's 'correct' x (Has to do with the opengl
-	 *         origin being bottom left, and ours being top left).
+	 * @return The mouse position's 'correct' x (Has to do
+	 *         with the opengl origin being bottom left, and
+	 *         ours being top left).
 	 */
 	public int getAbsoluteMouseX() {
 		return (int) getAbsoluteMousePosition().x;
 	}
 
 	/**
-	 * @return The mouse position's 'correct' y (Has to do with the opengl
-	 *         origin being bottom left, and ours being top left).
+	 * @return The mouse position's 'correct' y (Has to do
+	 *         with the opengl origin being bottom left, and
+	 *         ours being top left).
 	 */
 	public int getAbsoluteMouseY() {
 		return (int) getAbsoluteMousePosition().y;
 	}
 
 	/**
-	 * @return The global mouse position based on the displacement of the
-	 *         Runner's Camera and the scaling of the graphics.
+	 * @return The global mouse position based on the
+	 *         displacement of the Runner's Camera and the
+	 *         scaling of the graphics.
 	 */
 	public Vector2f getGlobalMousePosition() {
 		Vector2f globalmousepos = getAbsoluteMousePosition();
 		Camera cam = Runner.getInstance().getCamera();
 
 		// Scale the mouse position
-		globalmousepos.div(Runner.getInstance().getGraphics().getScaleDimensions());
-		// Move the mouse position to the camera's near-position.
-		globalmousepos.add(new Vector2f(cam.getBounds().getX(), cam.getBounds().getY()));
-		// Subtract the origin
-		globalmousepos.sub(cam.getOrigin().copy().div(Runner.getInstance().getGraphics().getScaleDimensions()));
+		globalmousepos.div(cam.getScaleDimensions());
+		// Move the mouse position to the camera
+		globalmousepos.add(new Vector2f(cam.getPositionX() - cam.getOrigin().x / cam.getScaleDimensions().x, cam.getPositionY() - cam.getOrigin().y / cam.getScaleDimensions().y));
 
+		// Rotate to alignment
+		float origx = cam.getPositionX();
+		float origy = cam.getPositionY();
+		
+		float s = MathUtil.sin(-cam.getRotation());
+		float c = MathUtil.cos(-cam.getRotation());
+
+		globalmousepos.x -= origx;
+		globalmousepos.y -= origy;
+
+		float xnew = globalmousepos.x * c - globalmousepos.y * s;
+		float ynew = globalmousepos.x * s + globalmousepos.y * c;
+
+		globalmousepos.x = xnew + origx;
+		globalmousepos.y = ynew + origy;
+		
 		return globalmousepos;
 	}
 
 	/**
-	 * @return The global mouse x position based on the displacement of the
-	 *         Runner's Camera and the scaling of the graphics.
+	 * @return The global mouse x position based on the
+	 *         displacement of the Runner's Camera and the
+	 *         scaling of the graphics.
 	 */
 	public float getGlobalMouseX() {
 		return getGlobalMousePosition().x;
 	}
 
 	/**
-	 * @return The global mouse y position based on the displacement of the
-	 *         Runner's Camera and the scaling of the graphics.
+	 * @return The global mouse y position based on the
+	 *         displacement of the Runner's Camera and the
+	 *         scaling of the graphics.
 	 */
 	public float getGlobalMouseY() {
 		return getGlobalMousePosition().y;
@@ -405,8 +428,9 @@ public class Input {
 	}
 
 	/**
-	 * @return Whether or not the button on controller is down; null if
-	 *         controllers have not been initialized.
+	 * @return Whether or not the button on controller is
+	 *         down; null if controllers have not been
+	 *         initialized.
 	 */
 	public boolean controllerButtonDown(int button, int controller) {
 		if (!Controllers.isCreated())
@@ -416,16 +440,18 @@ public class Input {
 	}
 
 	/**
-	 * @return Whether or not the button on controller is up; null if
-	 *         controllers have not been initialized.
+	 * @return Whether or not the button on controller is
+	 *         up; null if controllers have not been
+	 *         initialized.
 	 */
 	public boolean controllerButtonUp(int button, int controller) {
 		return !controllerButtonDown(button, controller);
 	}
 
 	/**
-	 * @return A vector containing the x and y value of the left analog stick.
-	 *         null if controllers have not been initialized.
+	 * @return A vector containing the x and y value of the
+	 *         left analog stick. null if controllers have
+	 *         not been initialized.
 	 */
 	public Vector2f getLeftAnalogStick(int controller) {
 		if (!Controllers.isCreated())
@@ -441,8 +467,9 @@ public class Input {
 	}
 
 	/**
-	 * @return A vector containing the x and y value of the right analog stick.
-	 *         null if controllers have not been initialized.
+	 * @return A vector containing the x and y value of the
+	 *         right analog stick. null if controllers have
+	 *         not been initialized.
 	 */
 	public Vector2f getRightAnalogStick(int controller) {
 		if (!Controllers.isCreated())
@@ -458,8 +485,9 @@ public class Input {
 	}
 
 	/**
-	 * @return A vector containing the x and y value of the dpad. null if
-	 *         controllers have not been initialized.
+	 * @return A vector containing the x and y value of the
+	 *         dpad. null if controllers have not been
+	 *         initialized.
 	 */
 	public Vector2f getDPad(int controller) {
 		if (!Controllers.isCreated())
@@ -475,8 +503,8 @@ public class Input {
 	}
 
 	/**
-	 * @return The amount of controllers. -1 if controllers have not been
-	 *         initialized.
+	 * @return The amount of controllers. -1 if controllers
+	 *         have not been initialized.
 	 */
 	public int getControllerCount() {
 		if (!Controllers.isCreated())
@@ -489,8 +517,9 @@ public class Input {
 
 	/**
 	 * Enables event polling.
-	 * 
-	 * @param keyboard Enable keyboard polling?
+	 *
+	 * @param keyboard
+	 *            Enable keyboard polling?
 	 */
 	public void setKeyboardPollingEnabled(boolean keyboard) {
 		keyboardpolling = keyboard;
@@ -500,8 +529,9 @@ public class Input {
 
 	/**
 	 * Enables event polling.
-	 * 
-	 * @param mouse Enable mouse polling?
+	 *
+	 * @param mouse
+	 *            Enable mouse polling?
 	 */
 	public void setMousePollingEnabled(boolean mouse) {
 		mousepolling = mouse;
@@ -511,8 +541,9 @@ public class Input {
 
 	/**
 	 * Enables event polling.
-	 * 
-	 * @param controller Enable controller polling?
+	 *
+	 * @param controller
+	 *            Enable controller polling?
 	 */
 	public void setControllerPollingEnabled(boolean controller) {
 		controllerpolling = controller;
@@ -520,10 +551,13 @@ public class Input {
 
 	/**
 	 * Enables event polling.
-	 * 
-	 * @param keyboard Enable keyboard polling?
-	 * @param mouse Enable mouse polling?
-	 * @param controller Enable controller polling?
+	 *
+	 * @param keyboard
+	 *            Enable keyboard polling?
+	 * @param mouse
+	 *            Enable mouse polling?
+	 * @param controller
+	 *            Enable controller polling?
 	 */
 	public void setPollingEnabled(boolean keyboard, boolean mouse, boolean controller) {
 		keyboardpolling = keyboard;

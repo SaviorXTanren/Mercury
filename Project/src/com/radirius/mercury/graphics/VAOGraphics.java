@@ -1,7 +1,5 @@
 package com.radirius.mercury.graphics;
 
-import static org.lwjgl.opengl.GL11.glScalef;
-
 import org.lwjgl.opengl.GL11;
 
 import com.radirius.mercury.framework.Runner;
@@ -17,8 +15,6 @@ import com.radirius.mercury.math.geometry.*;
 public class VAOGraphics implements Graphics {
 	private VAOBatcher batcher;
 
-	private Vector2f scale;
-
 	private Font currentFont;
 
 	private Color backgroundColor;
@@ -27,7 +23,6 @@ public class VAOGraphics implements Graphics {
 	@Override
 	public void init() {
 		batcher = new VAOBatcher();
-		scale = new Vector2f(1, 1);
 
 		currentFont = TrueTypeFont.OPENSANS_REGULAR;
 
@@ -63,18 +58,8 @@ public class VAOGraphics implements Graphics {
 
 	@Override
 	public void setScale(float x, float y) {
-		flush();
-
 		Camera cam = Runner.getInstance().getCamera();
-
-		GL11.glLoadIdentity();
-		glScalef(x, y, 1);
-
-		Vector2f scaledOrigin = new Vector2f(cam.getOrigin().x / x, cam.getOrigin().y / y);
-		GL11.glTranslatef(cam.x + scaledOrigin.x, cam.y + scaledOrigin.y, 0);
-
-		scale.x = x;
-		scale.y = y;
+		cam.setScale(x, y);
 
 		if (!lineWidthChanged)
 			lineWidth = 1 / getScale();
@@ -82,12 +67,12 @@ public class VAOGraphics implements Graphics {
 
 	@Override
 	public Vector2f getScaleDimensions() {
-		return scale;
+		return Runner.getInstance().getCamera().scale;
 	}
 
 	@Override
 	public float getScale() {
-		return (scale.x + scale.y) / 2;
+		return (Runner.getInstance().getCamera().scale.x + Runner.getInstance().getCamera().scale.y) / 2;
 	}
 
 	@Override
@@ -158,7 +143,9 @@ public class VAOGraphics implements Graphics {
 
 	@Override
 	public void flush() {
+		Runner.getInstance().getCamera().post(this);
 		batcher.flush();
+		Runner.getInstance().getCamera().pre(this);
 	}
 
 	@Override

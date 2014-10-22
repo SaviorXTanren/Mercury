@@ -12,14 +12,14 @@ import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
 
-import com.radirius.mercury.exceptions.*;
-import com.radirius.mercury.framework.splash.*;
+import com.radirius.mercury.exceptions.MercuryException;
+import com.radirius.mercury.framework.splash.SplashScreen;
 import com.radirius.mercury.graphics.*;
-import com.radirius.mercury.input.*;
+import com.radirius.mercury.input.Input;
 import com.radirius.mercury.scene.GameScene;
-import com.radirius.mercury.utilities.*;
+import com.radirius.mercury.utilities.TaskTiming;
 import com.radirius.mercury.utilities.command.*;
-import com.radirius.mercury.utilities.logging.*;
+import com.radirius.mercury.utilities.logging.Logger;
 
 /**
  * The heart of Mercury. Runs the Core and provides all of the various materials
@@ -29,8 +29,8 @@ import com.radirius.mercury.utilities.logging.*;
  */
 public class Runner {
 	/**
-	 * The singleton instance of the Runner.  
-	 * This should be the only Runner used.
+	 * The singleton instance of the Runner. This should be the only Runner
+	 * used.
 	 */
 	private final static Runner singleton = new Runner();
 
@@ -169,8 +169,7 @@ public class Runner {
 	 *            Whether or not v-sync is enabled.
 	 */
 	public void init(Core core, boolean fullscreen, boolean vsync) {
-		init(core, Display.getDesktopDisplayMode().getWidth(), Display.getDesktopDisplayMode().getHeight(), fullscreen,
-				vsync, false, true);
+		init(core, Display.getDesktopDisplayMode().getWidth(), Display.getDesktopDisplayMode().getHeight(), fullscreen, vsync, false, true);
 	}
 
 	/**
@@ -181,8 +180,7 @@ public class Runner {
 	 *            with.
 	 */
 	public void init(InitSetup iniset) {
-		init(iniset.core, iniset.width, iniset.height, iniset.fullscreen, iniset.vsync, iniset.multithread,
-				iniset.devconsole);
+		init(iniset.core, iniset.width, iniset.height, iniset.fullscreen, iniset.vsync, iniset.multithread, iniset.devconsole);
 	}
 
 	public boolean inited = false;
@@ -205,8 +203,7 @@ public class Runner {
 	 * @param devconsole
 	 *            Whether or not the developers console is enabled.
 	 */
-	public void init(final Core core, int width, int height, boolean fullscreen, boolean vsync, boolean multithread,
-			boolean devconsole) {
+	public void init(final Core core, int width, int height, boolean fullscreen, boolean vsync, boolean multithread, boolean devconsole) {
 		System.out.println("Mercury 2D Game Library\n" + "Designed by Radirius\n" + "Website: http://merc.radiri.us/");
 		System.out.println("-------------------------------");
 
@@ -322,7 +319,7 @@ public class Runner {
 				core.update(getDelta());
 				GameScene.update(getDelta());
 			}
-				
+
 			// Update timing
 			TaskTiming.update();
 
@@ -610,7 +607,7 @@ public class Runner {
 	public Input getInput() {
 		return input;
 	}
-	
+
 	public void setViewport(int x, int y, int width, int height) {
 		glViewport(x, y, width, height);
 	}

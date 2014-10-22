@@ -119,8 +119,11 @@ public interface Batcher {
 
 	/** Draws a portion of a texture to the Rectangle region with a tint */
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region, Color tint);
-	
-	/** Draws the portion sourceregion of a texture to the Rectangle region with a tint */
+
+	/**
+	 * Draws the portion sourceregion of a texture to the Rectangle region with
+	 * a tint
+	 */
 	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region, Color tint);
 
 	/**

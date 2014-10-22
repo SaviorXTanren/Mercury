@@ -3,9 +3,7 @@ package com.radirius.mercury.graphics.particles;
 import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.math.geometry.Vector2f;
-import com.radirius.mercury.utilities.Renderable;
-import com.radirius.mercury.utilities.Updatable;
-import com.radirius.mercury.utilities.WipingArrayList;
+import com.radirius.mercury.utilities.*;
 
 /**
  * An object that simulates a mass of particles.

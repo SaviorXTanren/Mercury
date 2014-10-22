@@ -4,7 +4,7 @@ import com.radirius.mercury.resource.Resource;
 
 /**
  * A class for spritesheets.
- * 
+ *
  * @author wessles, opiop65, Jeviny
  */
 public class SpriteSheet implements Resource {

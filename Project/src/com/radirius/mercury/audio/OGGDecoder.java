@@ -35,7 +35,7 @@ public class OGGDecoder {
 	public OGGData getData(InputStream input) throws IOException {
 		if (input == null)
 			throw new IOException("Failed to read OGG file. Does the source exist?");
-		
+
 		ByteArrayOutputStream dataout = new ByteArrayOutputStream();
 
 		OGGInputStream oggInput = new OGGInputStream(input);

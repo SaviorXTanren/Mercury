@@ -46,8 +46,7 @@ public class SplashScreen {
 	 *            The time that the splash screen is shown.
 	 */
 	public SplashScreen(Texture splashTexture, long showTimeMillis) {
-		this(splashTexture, showTimeMillis, (splashTexture.width <= runner.getWidth() && splashTexture.height <= runner
-				.getHeight()) ? false : true);
+		this(splashTexture, showTimeMillis, (splashTexture.width <= runner.getWidth() && splashTexture.height <= runner.getHeight()) ? false : true);
 	}
 
 	EasingValue easingValue;
@@ -104,15 +103,15 @@ public class SplashScreen {
 
 	/**
 	 * Sets the buttons (from Input) for skipping the splash screen.
-	 * 
+	 *
 	 * @param skipbutton
 	 *            The button for skipping
-	 *            
+	 * 
 	 * @return the splash screen
 	 */
 	public SplashScreen setSkipButton(int... skipbutton) {
 		this.skipbutton = skipbutton;
-		
+
 		return this;
 	}
 
