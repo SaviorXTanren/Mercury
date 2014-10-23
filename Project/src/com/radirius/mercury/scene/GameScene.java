@@ -11,7 +11,8 @@ import com.radirius.mercury.graphics.Graphics;
  * @author Jeviny
  */
 public class GameScene {
-	private static ArrayList<GameObject> objects = new ArrayList<GameObject>();;
+	/** The children nodes. */
+	private static ArrayList<GameObject> objects = new ArrayList<GameObject>();
 
 	/**
 	 * Adds a child to the list of children nodes.
@@ -21,21 +22,39 @@ public class GameScene {
 			objects.add(object0);
 	}
 
+	/**
+	 * Initializes the children nodes.
+	 */
 	public static void init() {
 		for (GameObject object : objects)
 			object.init();
 	}
 
+	/**
+	 * Updates the children nodes.
+	 * 
+	 * @param delta
+	 *            The delta time.
+	 */
 	public static void update(float delta) {
 		for (GameObject object : objects)
 			object.update(delta);
 	}
 
+	/**
+	 * Renders the children nodes.
+	 * 
+	 * @param g
+	 *            The Graphics object.
+	 */
 	public static void render(Graphics g) {
 		for (GameObject object : objects)
 			object.render(g);
 	}
 
+	/**
+	 * Cleans up the children nodes.
+	 */
 	public static void cleanup() {
 		for (GameObject object : objects)
 			object.cleanup();

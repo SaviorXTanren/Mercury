@@ -69,6 +69,9 @@ public abstract class Core {
 		runner.run();
 	}
 
+	/**
+	 * @return The core's runner.
+	 */
 	public Runner getRunner() {
 		return runner;
 	}
@@ -126,14 +129,15 @@ public abstract class Core {
 			if (fullscreen) {
 				DisplayMode[] modes = Display.getAvailableDisplayModes();
 
-				for (DisplayMode mode : modes)
+				for (DisplayMode mode : modes) {
 					if (mode.getWidth() == width && mode.getHeight() == height && mode.isFullscreenCapable()) {
 						dimensions = mode;
 						matchedDimensions = true;
 					}
+				}
 
 				if (!matchedDimensions)
-					Logger.warn("Dimensions " + width + "x" + height + " is not supported! Disabling Fullscreen.");
+					Logger.warn("Dimensions " + width + "x" + height + " is not supported! Disabling fullscreen.");
 				else
 					Display.setFullscreen(true);
 			}

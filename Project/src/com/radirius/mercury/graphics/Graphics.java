@@ -198,11 +198,11 @@ public interface Graphics {
 	 */
 	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region, Color tint);
 
-	/** Draws a polygon. */
-	public void drawPolygon(Polygon... polygon);
+	/** Draws a shape from a polygon. */
+	public void drawShape(Polygon... polygon);
 
-	/** Traces a polygon. */
-	public void tracePolygon(Polygon... polygon);
+	/** Traces a shape from a polygon. */
+	public void traceShape(Polygon... polygon);
 
 	/** Draws a rectangle from given rectangle boundaries. */
 	public void drawRectangle(Rectangle... rectangle);

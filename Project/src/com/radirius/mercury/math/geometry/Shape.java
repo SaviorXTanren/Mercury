@@ -95,24 +95,24 @@ public class Shape {
 		// More vertices will cause more lag. Beware.
 
 		// Loop through all of the vertices!
-		for (int v_ = 0; v_ < vertices.length;) {
+		for (int vertex0 = 0; vertex0 < vertices.length;) {
 			// The 'line1vertex1' and 'line1vertex2'
 			//
 			// For the second point, we want to make sure
 			// that we are not doing
 			// twice the work for a line, which is not a
 			// closed shape.
-			Vector2f l1v1 = vertices[v_], l1v2 = vertices.length > 2 ? vertices[++v_ % vertices.length] : vertices[++v_];
+			Vector2f l1v1 = vertices[vertex0], l1v2 = vertices.length > 2 ? vertices[++vertex0 % vertices.length] : vertices[++vertex0];
 			Line l1 = new Line(l1v1, l1v2);
 
 			// Now, for each line in this shape, we need to
 			// test all lines in
 			// the other shape.
-			for (int v2_ = 0; v2_ < s.vertices.length;) {
-				Vector2f l2v1 = s.vertices[v2_], l2v2 = s.vertices.length > 2 ? s.vertices[++v2_ % s.vertices.length] : s.vertices[++v2_];
+			for (int vertex1 = 0; vertex1 < s.vertices.length;) {
+				Vector2f l2v1 = s.vertices[vertex1], l2v2 = s.vertices.length > 2 ? s.vertices[++vertex1 % s.vertices.length] : s.vertices[++vertex1];
 				Line l2 = new Line(l2v1, l2v2);
 
-				// Now we test!
+				// Now we test.
 				if (l1.intersects(l2))
 					return true;
 			}
@@ -139,16 +139,16 @@ public class Shape {
 			if (child.contains(v))
 				return true;
 
-		float sumangle = 0;
+		float sumAngle = 0;
 
 		for (Vector2f v2 : vertices) {
 			float dx = v.x - v2.x, dy = v.y - v2.x;
 			float angle = MathUtil.atan2(dy, dx);
 
-			sumangle += angle;
+			sumAngle += angle;
 		}
 
-		if (sumangle != 360)
+		if (sumAngle != 360)
 			return false;
 
 		return true;
@@ -195,31 +195,31 @@ public class Shape {
 	/**
 	 * Rotate the object relative to a origin.
 	 *
-	 * @param origx
+	 * @param xOrigin
 	 *            The origin's x.
-	 * @param origy
+	 * @param yOrigin
 	 *            The origin's y.
 	 * @param angle
 	 *            The angle by which the object will rotate
 	 *            relative to the origin.
 	 * @return The Shape.
 	 */
-	public Shape rotate(float origx, float origy, float angle) {
+	public Shape rotate(float xOrigin, float yOrigin, float angle) {
 		if (angle == 0)
 			return this;
 
-		for (Vector2f p : vertices) {
+		for (Vector2f vertex : vertices) {
 			float s = MathUtil.sin(angle);
 			float c = MathUtil.cos(angle);
 
-			p.x -= origx;
-			p.y -= origy;
+			vertex.x -= xOrigin;
+			vertex.y -= yOrigin;
 
-			float xnew = p.x * c - p.y * s;
-			float ynew = p.x * s + p.y * c;
+			float xNew = vertex.x * c - vertex.y * s;
+			float yNew = vertex.x * s + vertex.y * c;
 
-			p.x = xnew + origx;
-			p.y = ynew + origy;
+			vertex.x = xNew + xOrigin;
+			vertex.y = yNew + yOrigin;
 		}
 
 		rot += angle;
@@ -227,7 +227,7 @@ public class Shape {
 		regen();
 
 		for (Shape s : children)
-			s.rotate(origx, origy, angle);
+			s.rotate(xOrigin, yOrigin, angle);
 
 		return this;
 	}
@@ -500,8 +500,13 @@ public class Shape {
 		return parent;
 	}
 
-	/** @return A duplicate of the shape */
+	/** @return A duplicate of the shape. */
 	public Shape duplicate() {
 		return new Shape(this);
+	}
+
+	/** @return The shape boundaries. */
+	public Rectangle getBounds() {
+		return (Rectangle) new Rectangle(x, y, w, h).rotate(rot);
 	}
 }

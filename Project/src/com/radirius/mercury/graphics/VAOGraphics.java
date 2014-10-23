@@ -287,7 +287,7 @@ public class VAOGraphics implements Graphics {
 	 * A method that can be called without pulling a color,
 	 * setting a color, binding, etc.
 	 */
-	private void drawFunctionlessRect(Rectangle... rectangle) {
+	private void drawFunctionlessRectangle(Rectangle... rectangle) {
 		for (Rectangle rectangle0 : rectangle) {
 			float x1 = rectangle0.getVertices()[0].x;
 			float y1 = rectangle0.getVertices()[0].y;
@@ -311,22 +311,22 @@ public class VAOGraphics implements Graphics {
 	}
 
 	@Override
-	public void drawPolygon(Polygon... polygon) {
+	public void drawShape(Polygon... polygon) {
 		batcher.clearTextures();
 
-		for (Polygon poly : polygon) {
-			Vector2f[] vs = poly.getVertices();
+		for (Polygon polygon0 : polygon) {
+			Vector2f[] vertices = polygon0.getVertices();
 
-			if (poly instanceof Triangle) {
+			if (polygon0 instanceof Triangle) {
 				batcher.flushIfOverflow(3);
 
-				batcher.vertex(vs[0].x, vs[0].y, 0, 0);
-				batcher.vertex(vs[1].x, vs[1].y, 0, 0);
-				batcher.vertex(vs[2].x, vs[2].y, 0, 0);
+				batcher.vertex(vertices[0].x, vertices[0].y, 0, 0);
+				batcher.vertex(vertices[1].x, vertices[1].y, 0, 0);
+				batcher.vertex(vertices[2].x, vertices[2].y, 0, 0);
 
 				continue;
-			} else if (poly instanceof Rectangle) {
-				drawFunctionlessRect((Rectangle) poly);
+			} else if (polygon0 instanceof Rectangle) {
+				drawFunctionlessRectangle((Rectangle) polygon0);
 
 				continue;
 			}
@@ -335,26 +335,26 @@ public class VAOGraphics implements Graphics {
 			// 3 == number of vertices in triangle
 			// 3 * # of vertices = number of vertices we
 			// need.
-			batcher.flushIfOverflow(3 * vs.length);
+			batcher.flushIfOverflow(3 * vertices.length);
 
-			for (int c = 0; c < vs.length; c++) {
-				batcher.vertex(poly.getCenter().x, poly.getCenter().y, 0, 0);
+			for (int c = 0; c < vertices.length; c++) {
+				batcher.vertex(polygon0.getCenter().x, polygon0.getCenter().y, 0, 0);
 
-				if (c >= vs.length - 1)
-					batcher.vertex(vs[0].x, vs[0].y, 0, 0);
+				if (c >= vertices.length - 1)
+					batcher.vertex(vertices[0].x, vertices[0].y, 0, 0);
 				else
-					batcher.vertex(vs[c].x, vs[c].y, 0, 0);
+					batcher.vertex(vertices[c].x, vertices[c].y, 0, 0);
 
-				if (c >= vs.length - 1)
-					batcher.vertex(vs[vs.length - 1].x, vs[vs.length - 1].y, 0, 0);
+				if (c >= vertices.length - 1)
+					batcher.vertex(vertices[vertices.length - 1].x, vertices[vertices.length - 1].y, 0, 0);
 				else
-					batcher.vertex(vs[c + 1].x, vs[c + 1].y, 0, 0);
+					batcher.vertex(vertices[c + 1].x, vertices[c + 1].y, 0, 0);
 			}
 		}
 	}
 
 	@Override
-	public void tracePolygon(Polygon... polygon) {
+	public void traceShape(Polygon... polygon) {
 		batcher.clearTextures();
 
 		for (Polygon polygon0 : polygon) {
@@ -382,7 +382,7 @@ public class VAOGraphics implements Graphics {
 
 	@Override
 	public void drawRectangle(Rectangle... rectangle) {
-		drawPolygon(rectangle);
+		drawShape(rectangle);
 	}
 
 	@Override
@@ -392,7 +392,7 @@ public class VAOGraphics implements Graphics {
 
 	@Override
 	public void traceRectangle(Rectangle... rectangle) {
-		tracePolygon(rectangle);
+		traceShape(rectangle);
 	}
 
 	@Override
@@ -424,9 +424,9 @@ public class VAOGraphics implements Graphics {
 		Vector2f p3 = new Vector2f(l.getVertices()[1].x + MathUtil.cos(angle) * lineWidth / 2, l.getVertices()[1].y + MathUtil.sin(angle) * lineWidth / 2);
 		Vector2f p4 = new Vector2f(l.getVertices()[1].x - MathUtil.cos(angle) * lineWidth / 2, l.getVertices()[1].y - MathUtil.sin(angle) * lineWidth / 2);
 
-		drawFunctionlessRect(new Rectangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y));
-		drawPolygon(new Polygon(l.getVertices()[0].x, l.getVertices()[0].y, lineWidth / 2, 8));
-		drawPolygon(new Polygon(l.getVertices()[1].x, l.getVertices()[1].y, lineWidth / 2, 8));
+		drawFunctionlessRectangle(new Rectangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y));
+		drawShape(new Polygon(l.getVertices()[0].x, l.getVertices()[0].y, lineWidth / 2, 8));
+		drawShape(new Polygon(l.getVertices()[1].x, l.getVertices()[1].y, lineWidth / 2, 8));
 	}
 
 	@Override
@@ -446,7 +446,7 @@ public class VAOGraphics implements Graphics {
 			float x = point0.getX();
 			float y = point0.getY();
 
-			drawFunctionlessRect(new Rectangle(x, y, x + 1, y, x + 1, y + 1, x, y + 1));
+			drawFunctionlessRectangle(new Rectangle(x, y, x + 1, y, x + 1, y + 1, x, y + 1));
 		}
 	}
 

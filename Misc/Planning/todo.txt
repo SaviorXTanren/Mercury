@@ -76,17 +76,17 @@ Code/Features To-Do List:
 - [+] Move Updatable/Renderable to /utilities/
 - [+] Change 'setScale()' in Rectangle to 'scaleTo()' to stay consistent with the other 'To' functions.
 - [-] Add better crash-handling for developers using the lib.
-- [-] Add camera rotation.
-- [-] Fix/Update Documentation.
+- [+] Add camera rotation.
+- [+] Fix/Update Documentation.
 - [-] Update Documentation CSS.
-- [-] Improve Entities; De-Rectanglify them.
-- [-] Add getCenterX() and getCenterY() functions to Runner.
-- [-] Add clone/dupe functions to all of geometry.
-- [-] Get rid of user-required t/c statements in Font and TrueTypeFont's loaders.
+- [+] Improve Entities; De-Rectanglify them.
+- [+] Add getCenterX() and getCenterY() functions to Runner.
+- [+] Add clone/dupe functions to all of geometry.
+- [+] Get rid of user-required t/c statements in Font and TrueTypeFont's loaders.
 - [+] Rename DopplerTiledMapReader to DopplerReader.
 - [-] Add TMX Loader.
 - [-] Add getCenter() functions to textures.
-- [-] Turn Shapes Into GameObjects.
+- [+] Make 'ShapeEntity' class that wraps around entities and takes in a shape.
 
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
