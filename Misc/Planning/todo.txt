@@ -107,6 +107,8 @@ Wiki To-Do List:
 - [-] Add page for scene-graphing.
 - [-] Add page for GUI. (Once GUI is ready).
 - [-] Update wiki screenshots. (Some still have the 'MERCury' name in the title bars).
+- [-] Rewrite 'Loading Resources' wiki page.
+- [-] Improve 'Contribution Guide' wiki page.
 
 ---------------------------------------------------------------------------------------------
 
