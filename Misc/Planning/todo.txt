@@ -87,6 +87,9 @@ Code/Features To-Do List:
 - [-] Add TMX Loader.
 - [-] Add getCenter() functions to textures.
 - [+] Make 'ShapeEntity' class that wraps around entities and takes in a shape.
+- [-] Improve ShapeEntity and possibly rename it to 'ShapedEntity'.
+- [-] Add back URL-based loading.
+- [-] Rename '___FromSystem()' functions in Loader to '___FromProject()'. It's just a bit more user-friendly.
 
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
@@ -103,6 +106,7 @@ Wiki To-Do List:
 - [-] Add page for particles.
 - [-] Add page for scene-graphing.
 - [-] Add page for GUI. (Once GUI is ready).
+- [-] Update wiki screenshots. (Some still have the 'MERCury' name in the title bars).
 
 ---------------------------------------------------------------------------------------------
 
