@@ -1,4 +1,4 @@
-package com.radirius.mercury.utilities;
+package com.radirius.mercury.utilities.misc;
 
 /**
  * An abstraction for objects that can be updated.

@@ -4,9 +4,9 @@ import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.math.geometry.Rectangle;
 import com.radirius.mercury.math.geometry.Vector2f;
-import com.radirius.mercury.utilities.Renderable;
-import com.radirius.mercury.utilities.Updatable;
 import com.radirius.mercury.utilities.Wipeable;
+import com.radirius.mercury.utilities.misc.Renderable;
+import com.radirius.mercury.utilities.misc.Updatable;
 
 /**
  * A class that will represent a single particle, with a

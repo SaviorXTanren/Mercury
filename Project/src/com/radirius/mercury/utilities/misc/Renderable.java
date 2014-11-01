@@ -1,4 +1,4 @@
-package com.radirius.mercury.utilities;
+package com.radirius.mercury.utilities.misc;
 
 import com.radirius.mercury.graphics.Graphics;
 

@@ -9,8 +9,8 @@ import com.radirius.mercury.input.Input;
 import com.radirius.mercury.math.geometry.Rectangle;
 import com.radirius.mercury.math.geometry.Vector2f;
 import com.radirius.mercury.resource.Loader;
-import com.radirius.mercury.utilities.Renderable;
-import com.radirius.mercury.utilities.Updatable;
+import com.radirius.mercury.utilities.misc.Renderable;
+import com.radirius.mercury.utilities.misc.Updatable;
 
 /**
  * @author wessles, Jeviny A base for all components.
