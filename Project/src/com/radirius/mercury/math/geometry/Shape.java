@@ -105,6 +105,16 @@ public class Shape {
 			Vector2f l1v1 = vertices[vertex0], l1v2 = vertices.length > 2 ? vertices[++vertex0 % vertices.length] : vertices[++vertex0];
 			Line l1 = new Line(l1v1, l1v2);
 
+			// If it is a line, the next bit of code breaks.
+			if (s instanceof Line) {
+				Line l2 = (Line) s;
+				
+				if(l2.intersects(l1))
+					return true;
+				
+				continue;
+			}
+
 			// Now, for each line in this shape, we need to
 			// test all lines in
 			// the other shape.
