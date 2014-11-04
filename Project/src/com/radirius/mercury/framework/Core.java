@@ -61,6 +61,38 @@ public abstract class Core {
 		this(name, width, height, false, true);
 	}
 
+	final GameState defaultgamestate = new GameState() {
+		public void update(float delta) {
+			// Nothing to see here...
+		}
+
+		public void render(Graphics g) {
+			// Move along.
+		}
+	};
+	
+	GameState currentgamestate = defaultgamestate;
+
+	/**
+	 * Switches to a GameState and after alerting the
+	 * current GameState.
+	 * 
+	 * @param currentgamestate
+	 *            The GameState to switch to.
+	 */
+	public void switchGameState(GameState currentgamestate) {
+		this.currentgamestate.onLeave();
+		this.currentgamestate = currentgamestate;
+		this.currentgamestate.onEnter();
+	}
+
+	/**
+	 * @return The current GameState.
+	 */
+	public GameState getGameState() {
+		return currentgamestate;
+	}
+
 	/**
 	 * Initializes and then runs the Runner.
 	 */

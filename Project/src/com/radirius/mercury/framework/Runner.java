@@ -338,6 +338,11 @@ public class Runner {
 
 			if (updating) {
 				core.update(getDelta());
+
+				if (core.currentgamestate != null)
+					if (!core.currentgamestate.auto)
+						core.currentgamestate.update(getDelta());
+
 				GameScene.update(getDelta());
 			}
 
@@ -351,6 +356,11 @@ public class Runner {
 				// Render Game
 				if (showSplashScreens(graphics)) {
 					core.render(graphics);
+
+					if (core.currentgamestate != null)
+						if (!core.currentgamestate.auto)
+							core.currentgamestate.render(graphics);
+
 					GameScene.render(graphics);
 				}
 
