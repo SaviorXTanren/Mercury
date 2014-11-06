@@ -224,9 +224,11 @@ public class Runner {
 	 *            enabled.
 	 */
 	public void init(final Core core, int width, int height, boolean fullscreen, boolean vsync, boolean multithread, boolean devconsole) {
-		System.out.println("Mercury 2D Game Library\n" + "Designed by Radirius\n" + "Website: http://merc.radiri.us/");
+		System.out.println("Mercury Game Library (In-Dev)\n" + "Designed by Radirius\n" + "Website: http://mercurylib.com/");
 		System.out.println("-------------------------------");
 
+		Logger.warn("You're running a non-stable build of Mercury!\nIf you run into any issues, please leave an issue on GitHub or make a post on the forum.");
+		
 		// Lots of initialization that is self
 		// explanatory...
 		Logger.info("Mercury Starting:");
@@ -262,6 +264,7 @@ public class Runner {
 		}
 
 		Logger.info("Starting Core" + (multithread ? " (On Separate Thread)" : "") + "...");
+		
 		if (multithread) {
 			Runnable initthread_run = new Runnable() {
 				@Override
@@ -339,9 +342,9 @@ public class Runner {
 			if (updating) {
 				core.update(getDelta());
 
-				if (core.currentgamestate != null)
-					if (!core.currentgamestate.auto)
-						core.currentgamestate.update(getDelta());
+				if (core.currentGameState != null)
+					if (!core.currentGameState.auto)
+						core.currentGameState.update(getDelta());
 
 				GameScene.update(getDelta());
 			}
@@ -357,9 +360,9 @@ public class Runner {
 				if (showSplashScreens(graphics)) {
 					core.render(graphics);
 
-					if (core.currentgamestate != null)
-						if (!core.currentgamestate.auto)
-							core.currentgamestate.render(graphics);
+					if (core.currentGameState != null)
+						if (core.currentGameState.auto)
+							core.currentGameState.render(graphics);
 
 					GameScene.render(graphics);
 				}

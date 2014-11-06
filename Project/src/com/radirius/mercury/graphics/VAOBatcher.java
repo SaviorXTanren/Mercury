@@ -62,6 +62,7 @@ public class VAOBatcher implements Batcher {
 		}
 
 		vertexLastRender = 0;
+		
 		active = true;
 	}
 
@@ -289,7 +290,7 @@ public class VAOBatcher implements Batcher {
 		float x4 = region.getVertices()[3].x;
 		float y4 = region.getVertices()[3].y;
 
-		// Make a hypothetical subtexture of the texture
+		// Make a hypothetical sub-texture of the texture
 		SubTexture subtexture = null;
 
 		if (texture instanceof SubTexture)
@@ -323,7 +324,7 @@ public class VAOBatcher implements Batcher {
 		sy4 /= h;
 
 		setTexture(texture);
-		flushIfOverflow(6);
+		flushOnOverflow(6);
 
 		vertex(x1, y1, sx1, sy1);
 		vertex(x2, y2, sx2, sy2);
@@ -358,7 +359,8 @@ public class VAOBatcher implements Batcher {
 
 	public void vertex(VertexData vdo) {
 		vd.put(vdo.x).put(vdo.y);
-		cd.put(vdo.r).put(vdo.g).put(vdo.b).put(vdo.a);
+		cd.put(vdo.r).put(vdo.g)
+		  .put(vdo.b).put(vdo.a);
 		td.put(vdo.u).put(vdo.v);
 
 		vertexCount++;
@@ -380,7 +382,7 @@ public class VAOBatcher implements Batcher {
 	}
 
 	@Override
-	public void flushIfOverflow(int allocate) {
+	public void flushOnOverflow(int allocate) {
 		if (vertexCount + allocate > MAX_VERTICES_PER_RENDER_STACK)
 			flush();
 	}

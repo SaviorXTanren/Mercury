@@ -89,20 +89,20 @@ public interface Graphics {
 	/** Pushes raw vertices to the batcher. */
 	public void drawRawVertices(VAOBatcher.VertexData... verts);
 
-	/** Pushes data in batcher to OGL. */
+	/** Pushes data in batcher to OpenGL. */
 	public void flush();
 
-	/** Draws msg at x and y. */
-	public void drawString(String msg, float x, float y);
+	/** Draws message at x and y. */
+	public void drawString(String message, float x, float y);
 
-	/** Draws msg at x and y with font. */
-	public void drawString(String msg, Font font, float x, float y);
+	/** Draws message at x and y with font. */
+	public void drawString(String message, Font font, float x, float y);
 
-	/** Draws msg at x and y. */
-	public void drawString(String msg, float scale, float x, float y);
+	/** Draws message at x and y. */
+	public void drawString(String message, float scale, float x, float y);
 
-	/** Draws msg at x and y with font. */
-	public void drawString(String msg, float scale, Font font, float x, float y);
+	/** Draws message at x and y with font. */
+	public void drawString(String message, float scale, Font font, float x, float y);
 
 	/** Draws a Texture texture at x and y. */
 	public void drawTexture(Texture texture, float x, float y);
@@ -114,14 +114,14 @@ public interface Graphics {
 	 * Draws a Texture texture at x and y at w and h size,
 	 * rotated rot degrees by the local origin (0, 0).
 	 */
-	public void drawTexture(Texture texture, float x, float y, float w, float h, float rot);
+	public void drawTexture(Texture texture, float x, float y, float w, float h, float rotation);
 
 	/**
 	 * Draws a Texture texture at x and y at w and h size,
 	 * rotated rot degrees by the local origin
-	 * (local_origin_x, local_origin_y).
+	 * (localOriginX, localOriginY).
 	 */
-	public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, float local_origin_x, float local_origin_y);
+	public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, float localOriginX, float localOriginY);
 
 	/** Draws a portion of the texture at x and y. */
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y);
@@ -141,10 +141,10 @@ public interface Graphics {
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region);
 
 	/**
-	 * Draws the portion sourceregion of a texture to the
+	 * Draws the portion sourceRegion of a texture to the
 	 * Rectangle region
 	 */
-	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region);
+	public void drawTexture(Texture texture, Rectangle sourceRegion, Rectangle region);
 
 	/** Draws a Texture texture at x and y with a tint */
 	public void drawTexture(Texture texture, float x, float y, Color tint);
@@ -160,14 +160,14 @@ public interface Graphics {
 	 * rotated rot degrees by the local origin (0, 0) with a
 	 * tint
 	 */
-	public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, Color tint);
+	public void drawTexture(Texture texture, float x, float y, float w, float h, float rotation, Color tint);
 
 	/**
 	 * Draws a Texture texture at x and y at w and h size,
 	 * rotated rot degrees by the local origin
-	 * (local_origin_x, local_origin_y) with a tint
+	 * (localOriginX, localOriginY) with a tint
 	 */
-	public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, float local_origin_x, float local_origin_y, Color tint);
+	public void drawTexture(Texture texture, float x, float y, float w, float h, float rotation, float localOriginX, float localOriginY, Color tint);
 
 	/**
 	 * Draws a portion of the texture at x and y with a tint
@@ -193,11 +193,50 @@ public interface Graphics {
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region, Color tint);
 
 	/**
-	 * Draws the portion sourceregion of a texture to the
+	 * Draws the portion sourceRegion of a texture to the
 	 * Rectangle region with a tint
 	 */
-	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region, Color tint);
+	public void drawTexture(Texture texture, Rectangle sourceRegion, Rectangle region, Color tint);
 
+	/**
+	 * Draws an animation taking in the x and y coordinates.
+	 * 
+	 * @param animation
+	 *            The animation to draw.
+	 * @param x
+	 *            The x position.
+	 * @param y
+	 *            The y position.
+	 */
+	public void drawAnimation(Animation animation, float x, float y);
+	
+	/**
+	 * Draws an animation taking in the x and y coordinates,
+	 * plus the width w and height h.
+	 * 
+	 * @param animation
+	 *            The animation to draw.
+	 * @param x
+	 *            The x position.
+	 * @param y
+	 *            The y position.
+	 * @param w
+	 *            The width.
+	 * @param h
+	 *            The height.
+	 */
+	public void drawAnimation(Animation animation, float x, float y, float w, float h);
+	
+	/**
+	 * Draws an animation taking in the boundaries.
+	 * 
+	 * @param animation
+	 *            The animation to draw.
+	 * @param bounds
+	 *            The animation's boundaries.
+	 */
+	public void drawAnimation(Animation animation, Rectangle bounds);
+	
 	/** Draws a shape from a polygon. */
 	public void drawShape(Polygon... polygon);
 

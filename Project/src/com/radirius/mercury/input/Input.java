@@ -3,11 +3,8 @@ package com.radirius.mercury.input;
 import java.util.ArrayList;
 
 import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Controller;
-import org.lwjgl.input.Controllers;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.input.*;
 
 import com.radirius.mercury.framework.Runner;
 import com.radirius.mercury.graphics.Camera;
@@ -18,14 +15,9 @@ import com.radirius.mercury.math.geometry.Vector2f;
 /**
  * An object form of input.
  *
- * @author wessles
+ * @author wessles, Jeviny
  */
 public class Input {
-	// No, I did not type out all of these keys; I got it
-	// from slick2d, by
-	// kevglass. Shout out to him for crafting this much
-	// stuff!
-	// https://bitbucket.org/kevglass/slick/src/9d7443ec33af/trunk/Slick/src/org/newdawn/slick/Input.java?at=default
 	public static final int KEY_ESCAPE = 0x01;
 	public static final int KEY_1 = 0x02;
 	public static final int KEY_2 = 0x03;
@@ -157,14 +149,17 @@ public class Input {
 	public static final int MOUSE_RIGHT = 1;
 	public static final int MOUSE_MID = 2;
 
-	private ArrayList<Integer> eventkeystates = new ArrayList<Integer>();
-	private char nextchar = 0;
+	private ArrayList<Integer> eventKeyStates = new ArrayList<Integer>();
+	private ArrayList<Integer> eventMouseButtonStates = new ArrayList<Integer>();
+	private ArrayList<ControllerEvent> eventControllerButtonStates = new ArrayList<ControllerEvent>();
 
-	private ArrayList<Integer> eventmousebuttonstates = new ArrayList<Integer>();
-	private int mousedwheel = 0;
+	private int mousedWheel = 0;
+	private char nextCharacter = 0;
 
-	private ArrayList<ControllerEvent> eventcontbuttonstates = new ArrayList<ControllerEvent>();
-
+	private boolean keyboardPolling = true;
+	private boolean mousePolling = true;
+	private boolean controllerPolling = true;
+	
 	/** Creates the input things. */
 	public void create() {
 		try {
@@ -179,37 +174,39 @@ public class Input {
 
 	/** Updates a list of things that happened every frame. */
 	public void pollKeyboard() {
-		if (!keyboardpolling)
+		if (!keyboardPolling)
 			return;
 
-		while (Keyboard.next())
+		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
-				eventkeystates.add(Keyboard.getEventKey());
-				nextchar = Keyboard.getEventCharacter();
+				eventKeyStates.add(Keyboard.getEventKey());
+				nextCharacter = Keyboard.getEventCharacter();
 			}
+		}
 	}
 
 	/** Updates a list of things that happened every frame. */
 	public void pollMouse() {
-		if (!mousepolling)
+		if (!mousePolling)
 			return;
 
-		while (Mouse.next())
+		while (Mouse.next()) {
 			if (Mouse.getEventButtonState())
-				eventmousebuttonstates.add(Mouse.getEventButton());
-
-		mousedwheel = Mouse.getDWheel();
+				eventMouseButtonStates.add(Mouse.getEventButton());
+		}
+			
+		mousedWheel = Mouse.getDWheel();
 	}
 
 	/** Updates a list of things that happened every frame. */
 	public void pollControllers() {
-		if (!controllerpolling)
+		if (!controllerPolling)
 			return;
 
 		if (!Controllers.isCreated())
 			return;
 
-		int controlleridx = 0;
+		int controllerId = 0;
 
 		while (Controllers.next()) {
 			if (Controllers.isEventButton()) {
@@ -217,9 +214,10 @@ public class Input {
 				boolean state = Controllers.getEventButtonState();
 
 				if (!state)
-					eventcontbuttonstates.add(new ControllerEvent(button, controlleridx));
+					eventControllerButtonStates.add(new ControllerEvent(button, controllerId));
 			}
-			controlleridx++;
+			
+			controllerId++;
 		}
 	}
 
@@ -242,17 +240,17 @@ public class Input {
 	}
 
 	public void purgeBuffers() {
-		eventkeystates.clear();
-		nextchar = 0;
+		eventKeyStates.clear();
+		nextCharacter = 0;
 
-		eventmousebuttonstates.clear();
+		eventMouseButtonStates.clear();
 
-		eventcontbuttonstates.clear();
+		eventControllerButtonStates.clear();
 	}
 
 	/** @return If key was clicked. */
 	public boolean keyClicked(int key) {
-		for (Integer eventkey : eventkeystates)
+		for (Integer eventkey : eventKeyStates)
 			if (eventkey == key)
 				return true;
 		return false;
@@ -260,7 +258,7 @@ public class Input {
 
 	/** @return If any key was clicked. */
 	public boolean wasKeyClicked() {
-		return eventkeystates.size() != 0;
+		return eventKeyStates.size() != 0;
 	}
 
 	/** @return If key is down. */
@@ -279,7 +277,7 @@ public class Input {
 	 * @return The last character pressed.
 	 */
 	public char getNextCharacter() {
-		return nextchar;
+		return nextCharacter;
 	}
 
 	/** Sets whether or not to accept repeating events. */
@@ -289,7 +287,7 @@ public class Input {
 
 	/** @return If mousebutton was clicked. */
 	public boolean mouseClicked(int mousebutton) {
-		for (Integer eventmousebutton : eventmousebuttonstates)
+		for (Integer eventmousebutton : eventMouseButtonStates)
 			if (eventmousebutton == mousebutton)
 				return true;
 
@@ -308,12 +306,12 @@ public class Input {
 
 	/** @return If mouse wheel is going up. */
 	public boolean mouseWheelUp() {
-		return mousedwheel > 0;
+		return mousedWheel > 0;
 	}
 
 	/** @return If mouse wheel is going down. */
 	public boolean mouseWheelDown() {
-		return mousedwheel < 0;
+		return mousedWheel < 0;
 	}
 
 	/** @return Mouse position. */
@@ -424,7 +422,7 @@ public class Input {
 		if (!Controllers.isCreated())
 			return false;
 
-		for (ControllerEvent cevent : eventcontbuttonstates)
+		for (ControllerEvent cevent : eventControllerButtonStates)
 			if (cevent.button == button && cevent.controller == controller)
 				return true;
 
@@ -517,8 +515,6 @@ public class Input {
 		return Controllers.getControllerCount();
 	}
 
-	private boolean keyboardpolling = true;
-
 	/**
 	 * Enables event polling.
 	 *
@@ -526,10 +522,8 @@ public class Input {
 	 *            Enable keyboard polling?
 	 */
 	public void setKeyboardPollingEnabled(boolean keyboard) {
-		keyboardpolling = keyboard;
+		keyboardPolling = keyboard;
 	}
-
-	private boolean mousepolling = true;
 
 	/**
 	 * Enables event polling.
@@ -538,10 +532,8 @@ public class Input {
 	 *            Enable mouse polling?
 	 */
 	public void setMousePollingEnabled(boolean mouse) {
-		mousepolling = mouse;
+		mousePolling = mouse;
 	}
-
-	private boolean controllerpolling = true;
 
 	/**
 	 * Enables event polling.
@@ -550,7 +542,7 @@ public class Input {
 	 *            Enable controller polling?
 	 */
 	public void setControllerPollingEnabled(boolean controller) {
-		controllerpolling = controller;
+		controllerPolling = controller;
 	}
 
 	/**
@@ -564,8 +556,8 @@ public class Input {
 	 *            Enable controller polling?
 	 */
 	public void setPollingEnabled(boolean keyboard, boolean mouse, boolean controller) {
-		keyboardpolling = keyboard;
-		mousepolling = mouse;
-		controllerpolling = controller;
+		keyboardPolling = keyboard;
+		mousePolling = mouse;
+		controllerPolling = controller;
 	}
 }

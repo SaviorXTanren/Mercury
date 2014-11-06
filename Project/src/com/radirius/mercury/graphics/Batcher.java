@@ -74,7 +74,7 @@ public interface Batcher {
 	 * rotated rot degrees by the local origin
 	 * (local_origin_x, local_origin_y).
 	 */
-	public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, float local_origin_x, float local_origin_y);
+	public void drawTexture(Texture texture, float x, float y, float w, float h, float rotation, float localOriginX, float localOriginY);
 
 	/** Draws a portion of the texture at x and y. */
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y);
@@ -97,7 +97,7 @@ public interface Batcher {
 	 * Draws the portion sourceregion of a texture to the
 	 * Rectangle region
 	 */
-	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region);
+	public void drawTexture(Texture texture, Rectangle sourceRegion, Rectangle region);
 
 	/** Draws a Texture texture at x and y with a tint */
 	public void drawTexture(Texture texture, float x, float y, Color tint);
@@ -113,14 +113,14 @@ public interface Batcher {
 	 * rotated rot degrees by the local origin (0, 0) with a
 	 * tint
 	 */
-	public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, Color tint);
+	public void drawTexture(Texture texture, float x, float y, float w, float h, float rotation, Color tint);
 
 	/**
 	 * Draws a Texture texture at x and y at w and h size,
 	 * rotated rot degrees by the local origin
 	 * (local_origin_x, local_origin_y) with a tint
 	 */
-	public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, float local_origin_x, float local_origin_y, Color tint);
+	public void drawTexture(Texture texture, float x, float y, float w, float h, float rotation, float localOriginX, float localOriginY, Color tint);
 
 	/**
 	 * Draws a portion of the texture at x and y with a tint
@@ -146,10 +146,10 @@ public interface Batcher {
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region, Color tint);
 
 	/**
-	 * Draws the portion sourceregion of a texture to the
+	 * Draws the portion sourceRegion of a texture to the
 	 * Rectangle region with a tint
 	 */
-	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region, Color tint);
+	public void drawTexture(Texture texture, Rectangle sourceRegion, Rectangle region, Color tint);
 
 	/**
 	 * Adds a vertex to the stack.
@@ -232,7 +232,7 @@ public interface Batcher {
 	 *            The amount of vertices that will be
 	 *            rendered in the next vertex-group.
 	 */
-	public void flushIfOverflow(int allocate);
+	public void flushOnOverflow(int allocate);
 
 	/**
 	 * @return The amount of vertices rendered last render

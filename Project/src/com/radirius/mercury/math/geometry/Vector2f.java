@@ -7,7 +7,7 @@ import com.radirius.mercury.math.MathUtil;
  *
  * @authors wessles, Jeviny
  */
-public class Vector2f extends Vector {
+public class Vector2f {
 	public float x = 0, y = 0;
 
 	public Vector2f(float x, float y) {
@@ -20,106 +20,96 @@ public class Vector2f extends Vector {
 		y = MathUtil.sin(theta);
 	}
 
-	@Override
-	public Vector add(Vector vec) {
-		Vector2f vec2 = (Vector2f) vec;
-
-		x += vec2.x;
-		y += vec2.y;
+	
+	public Vector2f add(Vector2f vec) {
+		x += vec.x;
+		y += vec.y;
 
 		return this;
 	}
 
-	public Vector add(float theta) {
+	public Vector2f add(float theta) {
 		x += (float) Math.cos(theta);
 		y += (float) Math.sin(theta);
 
 		return this;
 	}
 
-	@Override
-	public Vector sub(Vector vec) {
-		Vector2f vec2 = (Vector2f) vec;
-
-		x -= vec2.x;
-		y -= vec2.y;
+	
+	public Vector2f sub(Vector2f vec) {
+		x -= vec.x;
+		y -= vec.y;
 
 		return this;
 	}
 
-	public Vector sub(float theta) {
+	public Vector2f sub(float theta) {
 		x -= MathUtil.cos(theta);
 		y -= MathUtil.sin(theta);
 
 		return this;
 	}
 
-	@Override
-	public Vector mul(Vector vec) {
-		Vector2f vec2 = (Vector2f) vec;
-
-		x *= vec2.x;
-		y *= vec2.y;
+	
+	public Vector2f mul(Vector2f vec) {
+		x *= vec.x;
+		y *= vec.y;
 
 		return this;
 	}
 
-	@Override
-	public Vector div(Vector vec) {
-		Vector2f vec2 = (Vector2f) vec;
-
-		x /= vec2.x;
-		y /= vec2.y;
+	
+	public Vector2f div(Vector2f vec) {
+		x /= vec.x;
+		y /= vec.y;
 
 		return this;
 	}
 
-	public Vector set(float theta) {
+	public Vector2f set(float theta) {
 		x = (float) Math.toDegrees(Math.cos(theta));
 		y = (float) Math.toDegrees(Math.sin(theta));
 
 		return this;
 	}
 
-	@Override
-	public Vector set(Vector vec) {
-		Vector2f vec2 = (Vector2f) vec;
-
-		x = vec2.x;
-		y = vec2.y;
+	
+	public Vector2f set(Vector2f vec) {
+		x = vec.x;
+		y = vec.y;
 
 		return this;
 	}
 
-	@Override
-	public Vector set(float... coords) {
+	
+	public Vector2f set(float... coords) {
 		set(new Vector2f(coords[0], coords[1]));
 
 		return this;
 	}
 
-	@Override
-	public Vector scale(float amt) {
+	
+	public Vector2f scale(float amt) {
 		x *= amt;
 		y *= amt;
 
 		return this;
 	}
 
-	@Override
-	public Vector negate() {
+	
+	public Vector2f negate() {
 		scale(-1);
 
 		return this;
 	}
 
-	@Override
+	
 	public float length() {
 		return (float) Math.sqrt(x * x + y * y);
 	}
 
-	@Override
-	public Vector normalize() {
+	
+	public Vector2f normalize() {
 		float l = length();
 		x /= l;
 		y /= l;
@@ -127,23 +117,20 @@ public class Vector2f extends Vector {
 		return this;
 	}
 
-	@Override
-	public float dot(Vector other) {
-		Vector2f vec2 = (Vector2f) other;
-
-		return x * vec2.x + y * vec2.y;
+	
+	public float dot(Vector2f vec) {
+		return x * vec.x + y * vec.y;
 	}
 
-	@Override
-	public float distance(Vector other) {
-		Vector2f vec2 = (Vector2f) other;
-		float dx = vec2.x - x;
-		float dy = vec2.y - y;
+	
+	public float distance(Vector2f vec) {
+		float dx = vec.x - x;
+		float dy = vec.y - y;
 
 		return (float) Math.sqrt(dx * dx + dy * dy);
 	}
 
-	public Vector rotate(float angle) {
+	public Vector2f rotate(float angle) {
 		double rad = MathUtil.toRadians(angle);
 		double cos = MathUtil.cos((float) rad);
 		double sin = MathUtil.sin((float) rad);
@@ -158,17 +145,16 @@ public class Vector2f extends Vector {
 		return (float) Math.toDegrees(Math.atan2(y, x));
 	}
 
-	@Override
-	public Vector copy() {
+	
+	public Vector2f copy() {
 		return new Vector2f(x, y);
 	}
-
-	@Override
-	public Vector setZero() {
+	
+	public Vector2f setZero() {
 		return new Vector2f(0, 0);
 	}
 
-	@Override
+	
 	public String toString() {
 		return "(" + x + ", " + y + ")";
 	}

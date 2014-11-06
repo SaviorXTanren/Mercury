@@ -1,31 +1,35 @@
 package com.radirius.mercury.framework;
 
+import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.utilities.misc.Renderable;
 import com.radirius.mercury.utilities.misc.Updatable;
 
 /**
- * A class that allows the dividing of a game into different
- * 'states' or 'screens'.
+ * A class that allows the dividing of a game into different 'states' or
+ * 'screens'.
  * 
  * @author wessles
  */
 
-public abstract class GameState implements Updatable, Renderable {
+public class GameState implements Updatable, Renderable {
+	boolean auto = true;
+	
 	/**
 	 * Executed when the GameState is switched to.
 	 */
-	public void onEnter() {
-	}
+	public void onEnter() {}
 
 	/**
-	 * Executed when a different GameState is switched to
-	 * from this one.
+	 * Executed when a different GameState is switched to from this one.
 	 */
-	public void onLeave() {
-	}
-	
-	boolean auto = true;
-	
+	public void onLeave() {}
+
+	@Override
+	public void update(float delta) {}
+
+	@Override
+	public void render(Graphics g) {}
+
 	/**
 	 * Sets whether the updating and rendering should automatically be called.
 	 */

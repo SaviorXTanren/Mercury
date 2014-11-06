@@ -19,7 +19,7 @@ public class Animation implements Resource {
 
 	private boolean bounce;
 
-	private int framerateMillis;
+	private int frameTimeMillis;
 	private long frameMillis = 0, lastFrameMillis;
 
 	/**
@@ -28,60 +28,61 @@ public class Animation implements Resource {
 	 * @param baseTextures
 	 *            The textures, or frames.
 	 */
-	public Animation(int framerateMillis, SpriteSheet baseTextures) {
-		this(framerateMillis, baseTextures, 0, baseTextures.getNumberOfSubTextures() - 1);
+	public Animation(SpriteSheet baseTextures, int frameTimeMillis) {
+		this(baseTextures, frameTimeMillis, 0, baseTextures.getNumberOfSubTextures() - 1);
 	}
 
 	/**
-	 * @param frameratemillis
+	 * @param frameTimeMillis
 	 *            The frame rate in milliseconds
-	 * @param texs
+	 * @param baseTextures
 	 *            The textures, or frames.
 	 */
-	public Animation(int frameratemillis, SpriteSheet texs, boolean bounce) {
-		this(frameratemillis, texs, 0, texs.getNumberOfSubTextures() - 1, bounce);
+	public Animation(SpriteSheet baseTextures, int frameTimeMillis, boolean bounce) {
+		this(frameTimeMillis, baseTextures, 0, baseTextures.getNumberOfSubTextures() - 1, bounce);
 	}
 
 	/**
-	 * @param frameratemillis
+	 * @param frameTimeMillis
 	 *            The frame rate in milliseconds
-	 * @param texs
+	 * @param baseTextures
 	 *            The textures, or frames.
-	 * @param startframe
+	 * @param startFrame
 	 *            The first frame of the animation.
-	 * @param endframe
+	 * @param endFrame
 	 *            The last frame of the animation.
 	 */
-	public Animation(int frameratemillis, SpriteSheet texs, int startframe, int endframe) {
-		this(frameratemillis, texs, startframe, endframe, false);
+	public Animation(SpriteSheet baseTextures, int frameTimeMillis, int startFrame, int endFrame) {
+		this(frameTimeMillis, baseTextures, startFrame, endFrame, false);
 	}
 
 	/**
-	 * @param frameratemillis
+	 * @param frameTimeMillis
 	 *            The frame rate in milliseconds
-	 * @param texs
+	 * @param baseTextures
 	 *            The textures, or frames.
-	 * @param startframe
+	 * @param startFrame
 	 *            The first frame of the animation.
-	 * @param endframe
+	 * @param endFrame
 	 *            The last frame of the animation.
 	 * @param bounce
 	 *            Whether or not the animation should
 	 *            reverse once it gets to the end.
 	 */
-	public Animation(int frameratemillis, SpriteSheet texs, int startframe, int endframe, boolean bounce) {
-		framerateMillis = frameratemillis;
-		baseTextures = texs;
+	public Animation(int frameTimeMillis, SpriteSheet baseTextures, int startFrame, int endFrame, boolean bounce) {
+		this.frameTimeMillis = frameTimeMillis;
+		this.baseTextures = baseTextures;
 
 		frame = 0;
 
-		if (startframe < 0 || startframe > texs.getNumberOfSubTextures())
+		if (startFrame < 0 || startFrame > baseTextures.getNumberOfSubTextures())
 			throw new ArithmeticException("Invalid starting frame.");
-		if (endframe < 0 || endframe > texs.getNumberOfSubTextures())
+		
+		if (endFrame < 0 || endFrame > baseTextures.getNumberOfSubTextures())
 			throw new ArithmeticException("Invalid ending frame.");
 
-		first = startframe;
-		last = endframe + 1;
+		first = startFrame;
+		last = endFrame + 1;
 
 		this.bounce = bounce;
 	}
@@ -102,7 +103,7 @@ public class Animation implements Resource {
 	}
 
 	public void render(Rectangle bounds, Graphics g) {
-		g.drawTexture(baseTextures.getTexture(frame), bounds);
+		g.drawTexture(getCurrentFrame(), bounds);
 	}
 
 	/**
@@ -120,12 +121,12 @@ public class Animation implements Resource {
 	 * current frame has been around more than the
 	 * frame-rate.
 	 *
-	 * @return If this is the last frame.
+	 * @return Whether or not this is the last frame.
 	 */
-	public boolean nextFrame() {
+	public boolean passFrame() {
 		frameMillis = System.currentTimeMillis();
 
-		if (frameMillis - lastFrameMillis >= framerateMillis) {
+		if (frameMillis - lastFrameMillis >= frameTimeMillis) {
 
 			frame += framestep;
 
@@ -136,6 +137,7 @@ public class Animation implements Resource {
 					frame = first;
 
 			lastFrameMillis = System.currentTimeMillis();
+			
 			return frame == first;
 		}
 

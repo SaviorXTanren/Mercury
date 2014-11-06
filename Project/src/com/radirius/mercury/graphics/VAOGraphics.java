@@ -14,8 +14,7 @@ import com.radirius.mercury.math.geometry.Triangle;
 import com.radirius.mercury.math.geometry.Vector2f;
 
 /**
- * An object used for graphics. It will draw just about
- * anything for you.
+ * An object used for graphics. It will draw just about anything for you.
  *
  * @author wessles, Jeviny
  */
@@ -66,6 +65,7 @@ public class VAOGraphics implements Graphics {
 	@Override
 	public void setScale(float x, float y) {
 		Camera cam = Runner.getInstance().getCamera();
+
 		cam.setScale(x, y);
 
 		if (!lineWidthChanged)
@@ -151,7 +151,9 @@ public class VAOGraphics implements Graphics {
 	@Override
 	public void flush() {
 		Runner.getInstance().getCamera().post(this);
+
 		batcher.flush();
+
 		Runner.getInstance().getCamera().pre(this);
 	}
 
@@ -175,20 +177,20 @@ public class VAOGraphics implements Graphics {
 		if (font instanceof TrueTypeFont) {
 			TrueTypeFont ttf = (TrueTypeFont) font;
 
-			float currentX = 0;
+			float xCurrent = 0;
 
-			for (int ci = 0; ci < message.toCharArray().length; ci++) {
-				if (message.toCharArray()[ci] == '\n') {
+			for (int i = 0; i < message.toCharArray().length; i++) {
+				if (message.toCharArray()[i] == '\n') {
 					y += ttf.getHeight() * scale;
 
-					currentX = 0;
+					xCurrent = 0;
 				}
 
-				TrueTypeFont.IntObject intObject = ttf.chars[message.toCharArray()[ci]];
+				TrueTypeFont.IntObject intObject = ttf.chars[message.toCharArray()[i]];
 
-				batcher.drawTexture(font.getFontTexture(), new Rectangle(intObject.x, intObject.y, intObject.w, intObject.h), new Rectangle(x + currentX, y, intObject.w * scale, intObject.h * scale), getColor());
+				batcher.drawTexture(font.getFontTexture(), new Rectangle(intObject.x, intObject.y, intObject.w, intObject.h), new Rectangle(x + xCurrent, y, intObject.w * scale, intObject.h * scale), getColor());
 
-				currentX += intObject.w * scale;
+				xCurrent += intObject.w * scale;
 			}
 		}
 	}
@@ -204,13 +206,13 @@ public class VAOGraphics implements Graphics {
 	}
 
 	@Override
-	public void drawTexture(Texture texture, float x, float y, float w, float h, float rot) {
-		drawTexture(texture, x, y, w, h, rot, 0, 0);
+	public void drawTexture(Texture texture, float x, float y, float w, float h, float rotation) {
+		drawTexture(texture, x, y, w, h, rotation, 0, 0);
 	}
 
 	@Override
-	public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, float local_origin_x, float local_origin_y) {
-		drawTexture(texture, (Rectangle) new Rectangle(x, y, w, h).rotate(rot, local_origin_x, local_origin_y));
+	public void drawTexture(Texture texture, float x, float y, float w, float h, float rotation, float localOriginX, float localOriginY) {
+		drawTexture(texture, (Rectangle) new Rectangle(x, y, w, h).rotate(rotation, localOriginX, localOriginY));
 	}
 
 	@Override
@@ -234,8 +236,8 @@ public class VAOGraphics implements Graphics {
 	}
 
 	@Override
-	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region) {
-		batcher.drawTexture(texture, sourceregion, region);
+	public void drawTexture(Texture texture, Rectangle sourceRegion, Rectangle region) {
+		batcher.drawTexture(texture, sourceRegion, region);
 	}
 
 	@Override
@@ -249,13 +251,13 @@ public class VAOGraphics implements Graphics {
 	}
 
 	@Override
-	public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, Color tint) {
-		drawTexture(texture, x, y, w, h, rot, 0, 0, tint);
+	public void drawTexture(Texture texture, float x, float y, float w, float h, float rotation, Color tint) {
+		drawTexture(texture, x, y, w, h, rotation, 0, 0, tint);
 	}
 
 	@Override
-	public void drawTexture(Texture texture, float x, float y, float w, float h, float rot, float local_origin_x, float local_origin_y, Color tint) {
-		drawTexture(texture, (Rectangle) new Rectangle(x, y, w, h).rotate(rot, local_origin_x, local_origin_y), tint);
+	public void drawTexture(Texture texture, float x, float y, float w, float h, float rotation, float localOriginX, float localOriginY, Color tint) {
+		drawTexture(texture, (Rectangle) new Rectangle(x, y, w, h).rotate(rotation, localOriginX, localOriginY), tint);
 	}
 
 	@Override
@@ -279,26 +281,45 @@ public class VAOGraphics implements Graphics {
 	}
 
 	@Override
-	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region, Color tint) {
-		batcher.drawTexture(texture, sourceregion, region, tint);
+	public void drawTexture(Texture texture, Rectangle sourceRegion, Rectangle region, Color tint) {
+		batcher.drawTexture(texture, sourceRegion, region, tint);
 	}
 
+	@Override
+	public void drawPoint(float x, float y) {
+		drawPoint(new Point(x, y));
+	}
+
+	@Override
+	public void drawAnimation(Animation animation, float x, float y) {
+		drawAnimation(animation, new Rectangle(x, y, animation.getCurrentFrame().getWidth(), animation.getCurrentFrame().getHeight()));
+	}
+
+	@Override
+	public void drawAnimation(Animation animation, float x, float y, float w, float h) {
+		drawAnimation(animation, new Rectangle(x, y, w, h));
+	}
+
+	@Override
+	public void drawAnimation(Animation animation, Rectangle bounds) {
+		animation.passFrame();
+		
+		drawTexture(animation.getCurrentFrame(), bounds);
+	}
+	
 	/**
-	 * A method that can be called without pulling a color,
-	 * setting a color, binding, etc.
+	 * A method that can be called without pulling a color, setting a color,
+	 * binding, etc.
 	 */
 	private void drawFunctionlessRectangle(Rectangle... rectangle) {
 		for (Rectangle rectangle0 : rectangle) {
-			float x1 = rectangle0.getVertices()[0].x;
-			float y1 = rectangle0.getVertices()[0].y;
-			float x2 = rectangle0.getVertices()[1].x;
-			float y2 = rectangle0.getVertices()[1].y;
-			float x3 = rectangle0.getVertices()[2].x;
-			float y3 = rectangle0.getVertices()[2].y;
-			float x4 = rectangle0.getVertices()[3].x;
-			float y4 = rectangle0.getVertices()[3].y;
+			float x1 = rectangle0.getVertices()[0].x, x2 = rectangle0.getVertices()[1].x,
+				  x3 = rectangle0.getVertices()[2].x, x4 = rectangle0.getVertices()[3].x;
+			
+			float y1 = rectangle0.getVertices()[0].y, y2 = rectangle0.getVertices()[1].y,
+				  y3 = rectangle0.getVertices()[2].y, y4 = rectangle0.getVertices()[3].y;
 
-			batcher.flushIfOverflow(6);
+			batcher.flushOnOverflow(6);
 
 			batcher.vertex(x1, y1, 0, 0);
 			batcher.vertex(x2, y2, 0, 0);
@@ -318,7 +339,7 @@ public class VAOGraphics implements Graphics {
 			Vector2f[] vertices = polygon0.getVertices();
 
 			if (polygon0 instanceof Triangle) {
-				batcher.flushIfOverflow(3);
+				batcher.flushOnOverflow(3);
 
 				batcher.vertex(vertices[0].x, vertices[0].y, 0, 0);
 				batcher.vertex(vertices[1].x, vertices[1].y, 0, 0);
@@ -335,7 +356,7 @@ public class VAOGraphics implements Graphics {
 			// 3 == number of vertices in triangle
 			// 3 * # of vertices = number of vertices we
 			// need.
-			batcher.flushIfOverflow(3 * vertices.length);
+			batcher.flushOnOverflow(3 * vertices.length);
 
 			for (int c = 0; c < vertices.length; c++) {
 				batcher.vertex(polygon0.getCenter().x, polygon0.getCenter().y, 0, 0);
@@ -358,7 +379,7 @@ public class VAOGraphics implements Graphics {
 		batcher.clearTextures();
 
 		for (Polygon polygon0 : polygon) {
-			batcher.flushIfOverflow(polygon0.getVertices().length * 6);
+			batcher.flushOnOverflow(polygon0.getVertices().length * 6);
 
 			Vector2f[] vs = polygon0.getVertices();
 
@@ -411,8 +432,8 @@ public class VAOGraphics implements Graphics {
 	}
 
 	/**
-	 * A method that can be called without pulling a color,
-	 * setting a color, binding, etc.
+	 * A method that can be called without pulling a color, setting a color,
+	 * binding, etc.
 	 */
 	private void drawFunctionlessLine(Line l) {
 		float dx = l.getVertices()[0].x - l.getVertices()[1].x;
@@ -430,13 +451,13 @@ public class VAOGraphics implements Graphics {
 	}
 
 	@Override
-	public void drawLine(Line... l) {
+	public void drawLine(Line... line) {
 		batcher.clearTextures();
 
-		for (Line _l : l) {
-			batcher.flushIfOverflow(6);
+		for (Line line0 : line) {
+			batcher.flushOnOverflow(6);
 
-			drawFunctionlessLine(_l);
+			drawFunctionlessLine(line0);
 		}
 	}
 
@@ -448,10 +469,5 @@ public class VAOGraphics implements Graphics {
 
 			drawFunctionlessRectangle(new Rectangle(x, y, x + 1, y, x + 1, y + 1, x, y + 1));
 		}
-	}
-
-	@Override
-	public void drawPoint(float x, float y) {
-		drawPoint(new Point(x, y));
 	}
 }

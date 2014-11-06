@@ -61,17 +61,9 @@ public abstract class Core {
 		this(name, width, height, false, true);
 	}
 
-	final GameState defaultgamestate = new GameState() {
-		public void update(float delta) {
-			// Nothing to see here...
-		}
-
-		public void render(Graphics g) {
-			// Move along.
-		}
-	};
+	final GameState defaultGameState = new GameState();
 	
-	GameState currentgamestate = defaultgamestate;
+	GameState currentGameState = defaultGameState;
 
 	/**
 	 * Switches to a GameState and after alerting the
@@ -81,16 +73,16 @@ public abstract class Core {
 	 *            The GameState to switch to.
 	 */
 	public void switchGameState(GameState currentgamestate) {
-		this.currentgamestate.onLeave();
-		this.currentgamestate = currentgamestate;
-		this.currentgamestate.onEnter();
+		this.currentGameState.onLeave();
+		this.currentGameState = currentgamestate;
+		this.currentGameState.onEnter();
 	}
 
 	/**
 	 * @return The current GameState.
 	 */
-	public GameState getGameState() {
-		return currentgamestate;
+	public GameState getCurrentState() {
+		return currentGameState;
 	}
 
 	/**
