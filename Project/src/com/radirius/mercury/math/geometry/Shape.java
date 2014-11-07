@@ -51,7 +51,9 @@ public class Shape {
 	public Shape(Shape s) {
 		parent = s.parent;
 		children = s.children;
-		vertices = s.vertices;
+		vertices = new Vector2f[s.vertices.length];
+		for(int _v = 0; _v < s.vertices.length; _v++)
+			vertices[_v] = new Vector2f(s.vertices[_v].x, s.vertices[_v].y);
 		x = s.x;
 		y = s.y;
 		x2 = s.x2;
@@ -424,9 +426,9 @@ public class Shape {
 
 	/**
 	 * This method will regenerate all of the values after
-	 * you change things!
+	 * you directly modify things.
 	 */
-	protected void regen() {
+	public void regen() {
 		x = vertices[0].x;
 		y = vertices[0].y;
 		x2 = x;
@@ -492,8 +494,7 @@ public class Shape {
 
 	/**
 	 * Makes me an orphan. Parent will lose me from it's
-	 * arraylist of children, so there is no trace of my
-	 * previous life ;(.
+	 * ArrayList of children.
 	 *
 	 * @return The Shape.
 	 */

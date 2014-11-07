@@ -1,6 +1,6 @@
 package com.radirius.mercury.graphics;
 
-import com.radirius.mercury.math.geometry.Rectangle;
+import com.radirius.mercury.math.geometry.Shape;
 
 /**
  * An abstraction for batchers.
@@ -85,19 +85,19 @@ public interface Batcher {
 	 */
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, float w, float h);
 
-	/** Draws a Texture texture to the Rectangle region. */
-	public void drawTexture(Texture texture, Rectangle region);
+	/** Draws a Texture texture to the Shape region. */
+	public void drawTexture(Texture texture, Shape region);
 
 	/**
-	 * Draws a portion of a texture to the Rectangle region.
+	 * Draws a portion of a texture to the Shape region.
 	 */
-	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region);
+	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Shape region);
 
 	/**
 	 * Draws the portion sourceregion of a texture to the
-	 * Rectangle region
+	 * Shape region
 	 */
-	public void drawTexture(Texture texture, Rectangle sourceRegion, Rectangle region);
+	public void drawTexture(Texture texture, Shape sourceRegion, Shape region);
 
 	/** Draws a Texture texture at x and y with a tint */
 	public void drawTexture(Texture texture, float x, float y, Color tint);
@@ -134,22 +134,22 @@ public interface Batcher {
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, float w, float h, Color tint);
 
 	/**
-	 * Draws a Texture texture to the Rectangle region with
+	 * Draws a Texture texture to the Shape region with
 	 * a tint
 	 */
-	public void drawTexture(Texture texture, Rectangle region, Color tint);
+	public void drawTexture(Texture texture, Shape region, Color tint);
 
 	/**
-	 * Draws a portion of a texture to the Rectangle region
+	 * Draws a portion of a texture to the Shape region
 	 * with a tint
 	 */
-	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region, Color tint);
+	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Shape region, Color tint);
 
 	/**
 	 * Draws the portion sourceRegion of a texture to the
-	 * Rectangle region with a tint
+	 * Shape region with a tint
 	 */
-	public void drawTexture(Texture texture, Rectangle sourceRegion, Rectangle region, Color tint);
+	public void drawTexture(Texture texture, Shape sourceRegion, Shape region, Color tint);
 
 	/**
 	 * Adds a vertex to the stack.

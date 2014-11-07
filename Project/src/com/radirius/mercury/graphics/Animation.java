@@ -1,6 +1,7 @@
 package com.radirius.mercury.graphics;
 
 import com.radirius.mercury.math.geometry.Rectangle;
+import com.radirius.mercury.math.geometry.Shape;
 import com.radirius.mercury.resource.Resource;
 
 /**
@@ -77,7 +78,7 @@ public class Animation implements Resource {
 
 		if (startFrame < 0 || startFrame > baseTextures.getNumberOfSubTextures())
 			throw new ArithmeticException("Invalid starting frame.");
-		
+
 		if (endFrame < 0 || endFrame > baseTextures.getNumberOfSubTextures())
 			throw new ArithmeticException("Invalid ending frame.");
 
@@ -102,8 +103,12 @@ public class Animation implements Resource {
 		render(new Rectangle(x, y, w, h), g);
 	}
 
-	public void render(Rectangle bounds, Graphics g) {
-		g.drawTexture(getCurrentFrame(), bounds);
+	public void render(Shape region, Graphics g) {
+		g.drawTexture(getCurrentFrame(), region);
+	}
+
+	public void render(Shape sourceRegion, Shape region, Graphics g) {
+		g.drawTexture(getCurrentFrame(), sourceRegion, region);
 	}
 
 	/**
@@ -137,7 +142,7 @@ public class Animation implements Resource {
 					frame = first;
 
 			lastFrameMillis = System.currentTimeMillis();
-			
+
 			return frame == first;
 		}
 

@@ -21,6 +21,9 @@ import java.nio.FloatBuffer;
 import org.lwjgl.BufferUtils;
 
 import com.radirius.mercury.math.geometry.Rectangle;
+import com.radirius.mercury.math.geometry.Shape;
+import com.radirius.mercury.math.geometry.Triangle;
+import com.radirius.mercury.math.geometry.Vector2f;
 import com.radirius.mercury.utilities.logging.Logger;
 
 /**
@@ -62,7 +65,7 @@ public class VAOBatcher implements Batcher {
 		}
 
 		vertexLastRender = 0;
-		
+
 		active = true;
 	}
 
@@ -222,18 +225,18 @@ public class VAOBatcher implements Batcher {
 	}
 
 	@Override
-	public void drawTexture(Texture texture, Rectangle region) {
+	public void drawTexture(Texture texture, Shape region) {
 		drawTexture(texture, 0, 0, texture.getWidth(), texture.getHeight(), region);
 	}
 
 	@Override
-	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region) {
+	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Shape region) {
 		drawTexture(texture, new Rectangle(sx1, sy1, sx2 - sx1, sy2 - sy1), region);
 	}
 
 	@Override
-	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region) {
-		drawTexture(texture, sourceregion, region, Color.DEFAULT_TEXTURE_COLOR);
+	public void drawTexture(Texture texture, Shape sourceRegion, Shape region) {
+		drawTexture(texture, sourceRegion, region, Color.DEFAULT_TEXTURE_COLOR);
 	}
 
 	@Override
@@ -267,28 +270,25 @@ public class VAOBatcher implements Batcher {
 	}
 
 	@Override
-	public void drawTexture(Texture texture, Rectangle region, Color tint) {
+	public void drawTexture(Texture texture, Shape region, Color tint) {
 		drawTexture(texture, 0, 0, texture.getWidth(), texture.getHeight(), region, tint);
 	}
 
 	@Override
-	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region, Color tint) {
+	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Shape region, Color tint) {
 		drawTexture(texture, new Rectangle(sx1, sy1, sx2 - sx1, sy2 - sy1), region, tint);
 	}
 
 	@Override
-	public void drawTexture(Texture texture, Rectangle sourceregion, Rectangle region, Color tint) {
+	public void drawTexture(Texture texture, Shape sourceRegion, Shape region, Color tint) {
+		if (region.getVertices().length != sourceRegion.getVertices().length)
+			throw new IllegalArgumentException("The source region and the region must have an equal amount of vertices.");
+
 		Color beforecolor = getColor();
 		setColor(tint);
 
-		float x1 = region.getVertices()[0].x;
-		float y1 = region.getVertices()[0].y;
-		float x2 = region.getVertices()[1].x;
-		float y2 = region.getVertices()[1].y;
-		float x3 = region.getVertices()[2].x;
-		float y3 = region.getVertices()[2].y;
-		float x4 = region.getVertices()[3].x;
-		float y4 = region.getVertices()[3].y;
+		Shape tsourceregion = new Shape(sourceRegion);
+		sourceRegion = tsourceregion;
 
 		// Make a hypothetical sub-texture of the texture
 		SubTexture subtexture = null;
@@ -296,43 +296,56 @@ public class VAOBatcher implements Batcher {
 		if (texture instanceof SubTexture)
 			subtexture = (SubTexture) texture;
 
-		float w, h;
+		if (texture instanceof SubTexture)
+			sourceRegion.translate(subtexture.getSubX(), subtexture.getSubY());
 
-		if (texture instanceof SubTexture) {
-			w = subtexture.getParentWidth();
-			h = subtexture.getParentHeight();
-			sourceregion.translate(subtexture.getSubX(), subtexture.getSubY());
-		} else {
-			w = texture.getWidth();
-			h = texture.getHeight();
+		for (Vector2f v : sourceRegion.getVertices()) {
+			v.x /= subtexture.getParentWidth();
+			v.y /= -subtexture.getParentHeight();
 		}
 
-		float sx1 = sourceregion.getVertices()[0].x, sy1 = sourceregion.getVertices()[0].y, sx2 = sourceregion.getVertices()[1].x, sy2 = sourceregion.getVertices()[1].y, sx3 = sourceregion.getVertices()[2].x, sy3 = sourceregion.getVertices()[2].y, sx4 = sourceregion.getVertices()[3].x, sy4 = sourceregion.getVertices()[3].y;
-
-		sy1 = h - sy1;
-		sy2 = h - sy2;
-		sy3 = h - sy3;
-		sy4 = h - sy4;
-
-		sx1 /= w;
-		sy1 /= h;
-		sx2 /= w;
-		sy2 /= h;
-		sx3 /= w;
-		sy3 /= h;
-		sx4 /= w;
-		sy4 /= h;
+		sourceRegion.regen();
 
 		setTexture(texture);
-		flushOnOverflow(6);
 
-		vertex(x1, y1, sx1, sy1);
-		vertex(x2, y2, sx2, sy2);
-		vertex(x4, y4, sx4, sy4);
+		Vector2f[] vertices = region.getVertices();
+		Vector2f[] sourceVertices = sourceRegion.getVertices();
 
-		vertex(x3, y3, sx3, sy3);
-		vertex(x4, y4, sx4, sy4);
-		vertex(x2, y2, sx2, sy2);
+		if (region instanceof Triangle) {
+			flushOnOverflow(3);
+
+			vertex(vertices[0].x, vertices[0].y, sourceVertices[0].x, sourceVertices[0].y);
+			vertex(vertices[1].x, vertices[1].y, sourceVertices[1].x, sourceVertices[1].y);
+			vertex(vertices[2].x, vertices[2].y, sourceVertices[2].x, sourceVertices[2].y);
+		} else if (region instanceof Rectangle) {
+			flushOnOverflow(6);
+
+			vertex(vertices[0].x, vertices[0].y, sourceVertices[0].x, sourceVertices[0].y);
+			vertex(vertices[1].x, vertices[1].y, sourceVertices[1].x, sourceVertices[1].y);
+			vertex(vertices[3].x, vertices[3].y, sourceVertices[3].x, sourceVertices[3].y);
+
+			vertex(vertices[2].x, vertices[2].y, sourceVertices[2].x, sourceVertices[2].y);
+			vertex(vertices[3].x, vertices[3].y, sourceVertices[3].x, sourceVertices[3].y);
+			vertex(vertices[1].x, vertices[1].y, sourceVertices[1].x, sourceVertices[1].y);
+		} else {
+			// # of sides == # of vertices
+			// 3 == number of vertices in triangle
+			// 3 * # of vertices = number of vertices we
+			// need.
+			flushOnOverflow(3 * vertices.length);
+
+			for (int c = 0; c < vertices.length; c++) {
+				vertex(region.getCenter().x, region.getCenter().y, sourceRegion.getCenter().x, sourceRegion.getCenter().y);
+
+				if (c >= vertices.length - 1) {
+					vertex(vertices[0].x, vertices[0].y, sourceVertices[0].x, sourceVertices[0].y);
+					vertex(vertices[vertices.length - 1].x, vertices[vertices.length - 1].y, sourceVertices[sourceVertices.length - 1].x, sourceVertices[sourceVertices.length - 1].y);
+				} else {
+					vertex(vertices[c].x, vertices[c].y, sourceVertices[c].x, sourceVertices[c].y);
+					vertex(vertices[c + 1].x, vertices[c + 1].y, sourceVertices[c + 1].x, sourceVertices[c + 1].y);
+				}
+			}
+		}
 
 		setColor(beforecolor);
 	}
@@ -359,8 +372,7 @@ public class VAOBatcher implements Batcher {
 
 	public void vertex(VertexData vdo) {
 		vd.put(vdo.x).put(vdo.y);
-		cd.put(vdo.r).put(vdo.g)
-		  .put(vdo.b).put(vdo.a);
+		cd.put(vdo.r).put(vdo.g).put(vdo.b).put(vdo.a);
 		td.put(vdo.u).put(vdo.v);
 
 		vertexCount++;

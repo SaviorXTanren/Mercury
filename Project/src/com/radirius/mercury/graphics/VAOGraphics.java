@@ -10,6 +10,7 @@ import com.radirius.mercury.math.geometry.Line;
 import com.radirius.mercury.math.geometry.Point;
 import com.radirius.mercury.math.geometry.Polygon;
 import com.radirius.mercury.math.geometry.Rectangle;
+import com.radirius.mercury.math.geometry.Shape;
 import com.radirius.mercury.math.geometry.Triangle;
 import com.radirius.mercury.math.geometry.Vector2f;
 
@@ -226,17 +227,17 @@ public class VAOGraphics implements Graphics {
 	}
 
 	@Override
-	public void drawTexture(Texture texture, Rectangle region) {
+	public void drawTexture(Texture texture, Shape region) {
 		drawTexture(texture, 0, 0, texture.getWidth(), texture.getHeight(), region);
 	}
 
 	@Override
-	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region) {
+	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Shape region) {
 		drawTexture(texture, new Rectangle(sx1, sy1, sx2 - sx1, sy2 - sy1), region);
 	}
 
 	@Override
-	public void drawTexture(Texture texture, Rectangle sourceRegion, Rectangle region) {
+	public void drawTexture(Texture texture, Shape sourceRegion, Shape region) {
 		batcher.drawTexture(texture, sourceRegion, region);
 	}
 
@@ -271,17 +272,17 @@ public class VAOGraphics implements Graphics {
 	}
 
 	@Override
-	public void drawTexture(Texture texture, Rectangle region, Color tint) {
+	public void drawTexture(Texture texture, Shape region, Color tint) {
 		drawTexture(texture, 0, 0, texture.getWidth(), texture.getHeight(), region, tint);
 	}
 
 	@Override
-	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Rectangle region, Color tint) {
+	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Shape region, Color tint) {
 		drawTexture(texture, new Rectangle(sx1, sy1, sx2 - sx1, sy2 - sy1), region, tint);
 	}
 
 	@Override
-	public void drawTexture(Texture texture, Rectangle sourceRegion, Rectangle region, Color tint) {
+	public void drawTexture(Texture texture, Shape sourceRegion, Shape region, Color tint) {
 		batcher.drawTexture(texture, sourceRegion, region, tint);
 	}
 
@@ -301,10 +302,17 @@ public class VAOGraphics implements Graphics {
 	}
 
 	@Override
-	public void drawAnimation(Animation animation, Rectangle bounds) {
+	public void drawAnimation(Animation animation, Shape region) {
+		drawTexture(animation.getCurrentFrame(), region);
+
 		animation.passFrame();
+	}
+
+	@Override
+	public void drawAnimation(Animation animation, Shape sourceRegion, Shape region) {
+		drawTexture(animation.getCurrentFrame(), sourceRegion, region);
 		
-		drawTexture(animation.getCurrentFrame(), bounds);
+		animation.passFrame();
 	}
 	
 	/**
@@ -348,7 +356,7 @@ public class VAOGraphics implements Graphics {
 				continue;
 			} else if (polygon0 instanceof Rectangle) {
 				drawFunctionlessRectangle((Rectangle) polygon0);
-
+				
 				continue;
 			}
 
