@@ -7,14 +7,8 @@ import static com.radirius.mercury.graphics.VAOUtils.disableBuffer;
 import static com.radirius.mercury.graphics.VAOUtils.drawBuffers;
 import static com.radirius.mercury.graphics.VAOUtils.enableBuffer;
 import static com.radirius.mercury.graphics.VAOUtils.pointBuffer;
-import static org.lwjgl.opengl.GL11.GL_COLOR;
-import static org.lwjgl.opengl.GL11.GL_COLOR_ARRAY;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_COORD_ARRAY;
-import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
-import static org.lwjgl.opengl.GL11.GL_VERTEX_ARRAY;
-import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.*;
 
 import java.nio.FloatBuffer;
 
@@ -128,6 +122,25 @@ public class VAOBatcher implements Batcher {
 
 		lastTexture = texture;
 		Texture.bindTexture(texture);
+	}
+
+	@Override
+	public void setTexture(Texture texture, int activeIndex) {
+		if (texture.equals(lastTexture))
+			return;
+
+		flush();
+
+		lastTexture = texture;
+		
+		activateTexture(activeIndex);
+		
+		Texture.bindTexture(texture);
+	}
+	
+	@Override
+	public void activateTexture(int activateIndex) {
+		glActiveTexture(activateIndex);
 	}
 
 	@Override

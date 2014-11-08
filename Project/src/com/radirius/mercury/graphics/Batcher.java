@@ -46,10 +46,32 @@ public interface Batcher {
 	public Shader getShader();
 
 	/**
+	 * Set a texture.
+	 * 
 	 * @param texture
 	 *            Texture to set to.
 	 */
 	public void setTexture(Texture texture);
+
+	/**
+	 * Setting and activating a texture index.
+	 * 
+	 * @param texture
+	 *            Texture to set to.
+	 * @param activeIndex
+	 *            The index of the active texture to set
+	 *            (i.e. 'GL13.GL_TEXTURE0').
+	 */
+	public void setTexture(Texture texture, int activeIndex);
+
+	/**
+	 * Activating a texture index.
+	 * 
+	 * @param activeIndex
+	 *            The index of the active texture (i.e.
+	 *            'GL13.GL_TEXTURE0').
+	 */
+	public void activateTexture(int activateIndex);
 
 	/** Clears the current texture. */
 	public void clearTextures();
@@ -134,14 +156,14 @@ public interface Batcher {
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, float w, float h, Color tint);
 
 	/**
-	 * Draws a Texture texture to the Shape region with
-	 * a tint
+	 * Draws a Texture texture to the Shape region with a
+	 * tint
 	 */
 	public void drawTexture(Texture texture, Shape region, Color tint);
 
 	/**
-	 * Draws a portion of a texture to the Shape region
-	 * with a tint
+	 * Draws a portion of a texture to the Shape region with
+	 * a tint
 	 */
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, Shape region, Color tint);
 
