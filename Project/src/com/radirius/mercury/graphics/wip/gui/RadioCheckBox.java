@@ -18,7 +18,7 @@ public class RadioCheckBox extends CheckBox {
 	}
 
 	public RadioCheckBox(ArrayList<RadioCheckBox> group, String txt, float x, float y, Color textcolor) {
-		this(group, txt, x, y, textcolor, TrueTypeFont.OPENSANS_REGULAR);
+		this(group, txt, x, y, textcolor, TrueTypeFont.ROBOTO_REGULAR);
 	}
 
 	public RadioCheckBox(ArrayList<RadioCheckBox> group, String txt, float x, float y, Color textcolor, Font font) {
@@ -26,15 +26,15 @@ public class RadioCheckBox extends CheckBox {
 	}
 
 	public RadioCheckBox(ArrayList<RadioCheckBox> group, String txt, float x, float y, float boxsize) {
-		this(group, txt, x, y, getDefaultTextures().getTexture(0), getDefaultTextures().getTexture(1), boxsize, true, Color.DEFAULT_DRAWING, TrueTypeFont.OPENSANS_REGULAR);
+		this(group, txt, x, y, getDefaultTextures().getTexture(0), getDefaultTextures().getTexture(1), boxsize, true, Color.DEFAULT_DRAWING, TrueTypeFont.ROBOTO_REGULAR);
 	}
 
 	public RadioCheckBox(ArrayList<RadioCheckBox> group, String txt, float x, float y, float boxsize, Color textcolor) {
-		this(group, txt, x, y, getDefaultTextures().getTexture(0), getDefaultTextures().getTexture(1), boxsize, true, textcolor, TrueTypeFont.OPENSANS_REGULAR);
+		this(group, txt, x, y, getDefaultTextures().getTexture(0), getDefaultTextures().getTexture(1), boxsize, true, textcolor, TrueTypeFont.ROBOTO_REGULAR);
 	}
 
 	public RadioCheckBox(ArrayList<RadioCheckBox> group, String txt, float x, float y, float boxsize, boolean boxtoleftoftext) {
-		this(group, txt, x, y, boxsize, boxtoleftoftext, TrueTypeFont.OPENSANS_REGULAR);
+		this(group, txt, x, y, boxsize, boxtoleftoftext, TrueTypeFont.ROBOTO_REGULAR);
 	}
 
 	public RadioCheckBox(ArrayList<RadioCheckBox> group, String txt, float x, float y, float boxsize, boolean boxtoleftoftext, Font font) {

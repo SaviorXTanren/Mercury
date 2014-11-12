@@ -20,23 +20,23 @@ import com.radirius.mercury.resource.Loader;
 public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 	public static int STANDARD_CHARACTERS = 256;
 
-	/** The default Open Sans Bold font. */
-	public static TrueTypeFont OPENSANS_BOLD;
+	/** The default Roboto Bold font. */
+	public static final TrueTypeFont ROBOTO_BOLD;
 
-	/** The default Open Sans Regular font. */
-	public static TrueTypeFont OPENSANS_REGULAR;
+	/** The default Roboto Regular font. */
+	public static final TrueTypeFont ROBOTO_REGULAR;
 
-	/** The default Open Sans Light font. */
-	public static TrueTypeFont OPENSANS_LIGHT;
+	/** The default Roboto Thin font. */
+	public static final TrueTypeFont ROBOTO_THIN;
 
-	/** The default Open Sans Semi-bold font. */
-	public static TrueTypeFont OPENSANS_SEMIBOLD;
+	/** The default Roboto Medium font. */
+	public static final TrueTypeFont ROBOTO_MEDIUM;
 
 	static {
-		OPENSANS_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/OpenSans-Bold.ttf"), 22f, 1, true);
-		OPENSANS_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/OpenSans-Regular.ttf"), 22f, 1, true);
-		OPENSANS_SEMIBOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/OpenSans-Semibold.ttf"), 22f, 1, true);
-		OPENSANS_LIGHT = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/OpenSans-Light.ttf"), 22f, 1, true);
+		ROBOTO_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/Roboto-Bold.ttf"), 22f, 1, true);
+		ROBOTO_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/Roboto-Regular.ttf"), 22f, 1, true);
+		ROBOTO_MEDIUM = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/Roboto-Medium.ttf"), 22f, 1, true);
+		ROBOTO_THIN = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/Roboto-Thin.ttf"), 22f, 1, true);
 	}
 
 	/** All data for all characters. */

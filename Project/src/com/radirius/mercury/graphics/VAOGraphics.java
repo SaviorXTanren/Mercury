@@ -31,7 +31,7 @@ public class VAOGraphics implements Graphics {
 	public void init() {
 		batcher = new VAOBatcher();
 
-		currentFont = TrueTypeFont.OPENSANS_REGULAR;
+		currentFont = TrueTypeFont.ROBOTO_REGULAR;
 
 		backgroundColor = Color.DEFAULT_BACKGROUND;
 		currentColor = Color.DEFAULT_DRAWING;
