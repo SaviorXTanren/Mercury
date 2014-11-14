@@ -94,6 +94,7 @@ Code/Features To-Do List:
 - [+] Clean up Animation and make it interact with Graphics instead of using its own render() functions.
 - [-] Stop update and rendering functions from being called when the splash screens are showing.
 - [-] Add an option for turning on/off automatic updating and rendering in GameScene.
+- [-] Move GameScene and GameState automatic update/render options to Core's flag functions.
 
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:
