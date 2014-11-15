@@ -46,7 +46,7 @@ class FrameworkTest extends Core {
         g.setColor(Color.CARROT);
         g.drawRectangle(0, 310, 1920, 800);
 
-        getRunner().addDebugData("Ticks Given", String.valueOf(f++));
+        getRunner().addDebugData("Frames Rendered", String.valueOf(f++));
         getRunner().addDebugData("OpenGL version", GL11.glGetString(GL11.GL_VERSION));
     }
 

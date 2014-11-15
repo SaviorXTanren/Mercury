@@ -46,9 +46,9 @@ public class Camera {
 
         Matrix4f cm = GraphicsUtils.getCurrentMatrix();
 
-        cm.mul(new Matrix4f().initTranslation(origin.x, origin.y))
-                .mul(new Matrix4f().initScale(scale.x, scale.y))
-                .mul(new Matrix4f().initRotation(rot));
+        cm.mul(new Matrix4f().initTranslation(origin.x, origin.y)
+                .mul(new Matrix4f().initScale(scale.x, scale.y)
+                .mul(new Matrix4f().initRotation(rot))));
 
         g.pre();
     }
