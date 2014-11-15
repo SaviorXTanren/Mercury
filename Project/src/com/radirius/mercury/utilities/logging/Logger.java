@@ -9,94 +9,118 @@ import com.radirius.mercury.exceptions.MercuryException;
  * @author wessles, Jeviny
  */
 public class Logger {
-	/** Whether or not information can be logged */
-	private static boolean logging = true;
+    /**
+     * Whether or not information can be logged
+     */
+    private static boolean logging = true;
 
-	/** Cases describing the nature of the log. */
-	public static enum Case {
-		NULL(""), INFO("INFO: "), DEBUG("DEBUG: "), WARNING("WARNING: "), SEVERE("SEVERE: "), CONSOLE("CONSOLE: "), CONSOLEPROBLEM("CONSOLE PROBLEM: ");
+    /**
+     * Logs a message in a case, with an optional severe
+     * message sevmsg.
+     */
+    public static void log(Case selectedCase, String severeMessage, Object... object) throws MercuryException {
+        if (!logging)
+            return;
 
-		public String caseMessage;
+        String message = "";
 
-		private Case(String caseMessage) {
-			this.caseMessage = caseMessage;
-		}
-	}
+        for (Object obj : object)
+            message += obj + " ";
 
-	/**
-	 * Logs a message in a case, with an optional severe
-	 * message sevmsg.
-	 */
-	public static void log(Case selectedCase, String severeMessage, Object... object) throws MercuryException {
-		if (!logging)
-			return;
+        if (selectedCase != Case.SEVERE && selectedCase != Case.WARNING && selectedCase != Case.CONSOLEPROBLEM)
+            System.out.println(selectedCase.caseMessage + message);
+        else {
+            System.err.println(selectedCase.caseMessage + message);
 
-		String message = "";
+            if (selectedCase == Case.SEVERE)
+                throw new MercuryException(severeMessage);
+        }
+    }
 
-		for (Object obj : object)
-			message += obj + " ";
+    /**
+     * Logs a message in a case.
+     */
+    public static void log(Case selectedCase, Object... object) {
+        try {
+            log(selectedCase, "No information given.", object);
+        } catch (MercuryException e) {
+            e.printStackTrace();
+        }
+    }
 
-		if (selectedCase != Case.SEVERE && selectedCase != Case.WARNING && selectedCase != Case.CONSOLEPROBLEM)
-			System.out.println(selectedCase.caseMessage + message);
-		else {
-			System.err.println(selectedCase.caseMessage + message);
+    /**
+     * Logs a message in case NULL.
+     */
+    public static void log(Object... object) {
+        log(Case.NULL, object);
+    }
 
-			if (selectedCase == Case.SEVERE)
-				throw new MercuryException(severeMessage);
-		}
-	}
+    /**
+     * Logs a message in case INFO.
+     */
+    public static void info(Object... object) {
+        log(Case.INFO, object);
+    }
 
-	/** Logs a message in a case. */
-	public static void log(Case selectedCase, Object... object) {
-		try {
-			log(selectedCase, "No information given.", object);
-		} catch (MercuryException e) {
-			e.printStackTrace();
-		}
-	}
+    /**
+     * Logs a message in case DEBUG.
+     */
+    public static void debug(Object... object) {
+        log(Case.DEBUG, object);
+    }
 
-	/** Logs a message in case NULL. */
-	public static void log(Object... object) {
-		log(Case.NULL, object);
-	}
+    /**
+     * Logs a message in case WARNING.
+     */
+    public static void warn(Object... object) {
+        log(Case.WARNING, object);
+    }
 
-	/** Logs a message in case INFO. */
-	public static void info(Object... object) {
-		log(Case.INFO, object);
-	}
+    /**
+     * Logs a message in case SEVERE.
+     */
+    public static void severe(Object... object) throws MercuryException {
+        log(Case.SEVERE, object);
+    }
 
-	/** Logs a message in case DEBUG. */
-	public static void debug(Object... object) {
-		log(Case.DEBUG, object);
-	}
+    /**
+     * Logs a message in case CONSOLE.
+     */
+    public static void console(Object... object) {
+        log(Case.CONSOLE, object);
+    }
 
-	/** Logs a message in case WARNING. */
-	public static void warn(Object... object) {
-		log(Case.WARNING, object);
-	}
+    /**
+     * Logs a message in case CONSOLEPROBLEM.
+     */
+    public static void consoleProblem(Object... object) {
+        log(Case.CONSOLEPROBLEM, object);
+    }
 
-	/** Logs a message in case SEVERE. */
-	public static void severe(Object... object) throws MercuryException {
-		log(Case.SEVERE, object);
-	}
+    /**
+     * Prints a new line.
+     */
+    public static void newLine() {
+        System.out.println();
+    }
 
-	/** Logs a message in case CONSOLE. */
-	public static void console(Object... object) {
-		log(Case.CONSOLE, object);
-	}
+    /**
+     * Defines whether or not information can be logged.
+     */
+    public static void setLogging(boolean logging) {
+        Logger.logging = logging;
+    }
 
-	/** Logs a message in case CONSOLEPROBLEM. */
-	public static void consoleProblem(Object... object) {
-		log(Case.CONSOLEPROBLEM, object);
-	}
+    /**
+     * Cases describing the nature of the log.
+     */
+    public static enum Case {
+        NULL(""), INFO("INFO: "), DEBUG("DEBUG: "), WARNING("WARNING: "), SEVERE("SEVERE: "), CONSOLE("CONSOLE: "), CONSOLEPROBLEM("CONSOLE PROBLEM: ");
 
-	/** Prints a new line. */
-	public static void newLine() {
-		System.out.println();
-	}
+        public String caseMessage;
 
-	/** Defines whether or not information can be logged. */
-	public static void setLogging(boolean logging) {
-		Logger.logging = logging;
-	}
+        private Case(String caseMessage) {
+            this.caseMessage = caseMessage;
+        }
+    }
 }

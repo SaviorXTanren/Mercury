@@ -5,12 +5,12 @@ package com.radirius.mercury.graphics.wip.gui;
  */
 public class NewLine extends Component {
 
-	public NewLine() {
-		this(32);
-	}
+    public NewLine() {
+        this(32);
+    }
 
-	public NewLine(int height) {
-		super("", 0, 0, 0, height);
-		TYPE = TYPE_NONSPAN;
-	}
+    public NewLine(int height) {
+        super("", 0, 0, 0, height);
+        TYPE = TYPE_NONSPAN;
+    }
 }

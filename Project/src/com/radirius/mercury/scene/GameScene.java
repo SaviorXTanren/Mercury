@@ -1,8 +1,8 @@
 package com.radirius.mercury.scene;
 
-import java.util.ArrayList;
-
 import com.radirius.mercury.graphics.Graphics;
+
+import java.util.ArrayList;
 
 /**
  * A basic scene graph containing hierarchies of
@@ -11,59 +11,59 @@ import com.radirius.mercury.graphics.Graphics;
  * @author Jeviny
  */
 public class GameScene {
-	/** The children nodes. */
-	private static ArrayList<GameObject> objects = new ArrayList<GameObject>();
+    /**
+     * The children nodes.
+     */
+    private static ArrayList<GameObject> objects = new ArrayList<GameObject>();
 
-	/**
-	 * Adds a child to the list of children nodes.
-	 */
-	public static void addObject(GameObject... object) {
-		for (GameObject object0 : object)
-			objects.add(object0);
-	}
+    /**
+     * Adds a child to the list of children nodes.
+     */
+    public static void addObject(GameObject... object) {
+        for (GameObject object0 : object)
+            objects.add(object0);
+    }
 
-	/**
-	 * Initializes the children nodes.
-	 */
-	public static void init() {
-		for (GameObject object : objects)
-			object.init();
-	}
+    /**
+     * Initializes the children nodes.
+     */
+    public static void init() {
+        for (GameObject object : objects)
+            object.init();
+    }
 
-	/**
-	 * Updates the children nodes.
-	 * 
-	 * @param delta
-	 *            The delta time.
-	 */
-	public static void update(float delta) {
-		for (GameObject object : objects)
-			object.update(delta);
-	}
+    /**
+     * Updates the children nodes.
+     *
+     * @param delta The delta time.
+     */
+    public static void update(float delta) {
+        for (GameObject object : objects)
+            object.update(delta);
+    }
 
-	/**
-	 * Renders the children nodes.
-	 * 
-	 * @param g
-	 *            The Graphics object.
-	 */
-	public static void render(Graphics g) {
-		for (GameObject object : objects)
-			object.render(g);
-	}
+    /**
+     * Renders the children nodes.
+     *
+     * @param g The Graphics object.
+     */
+    public static void render(Graphics g) {
+        for (GameObject object : objects)
+            object.render(g);
+    }
 
-	/**
-	 * Cleans up the children nodes.
-	 */
-	public static void cleanup() {
-		for (GameObject object : objects)
-			object.cleanup();
-	}
+    /**
+     * Cleans up the children nodes.
+     */
+    public static void cleanup() {
+        for (GameObject object : objects)
+            object.cleanup();
+    }
 
-	/**
-	 * @return The objects inside the scene.
-	 */
-	public static ArrayList<GameObject> getObjects() {
-		return objects;
-	}
+    /**
+     * @return The objects inside the scene.
+     */
+    public static ArrayList<GameObject> getObjects() {
+        return objects;
+    }
 }

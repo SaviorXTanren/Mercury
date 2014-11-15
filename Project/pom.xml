@@ -64,7 +64,7 @@
                     <failOnError>false</failOnError>
                 </configuration>
             </plugin>
-        </plugins>        
+        </plugins>
         <extensions>
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
@@ -72,7 +72,7 @@
                 <version>1.0-beta-6</version>
             </extension>
         </extensions>
-    </build>    
+    </build>
     <distributionManagement>
         <repository>
             <id>blha303-ftp</id>
@@ -95,7 +95,7 @@
             <url>http://ooo-maven.googlecode.com/hg/repository</url>
         </repository>
     </repositories>
-    
+
     <dependencies>
         <dependency>
             <groupId>com.jcraft</groupId>

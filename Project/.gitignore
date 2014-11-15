@@ -46,3 +46,6 @@ out/
 
 # JIRA plugin
 atlassian-ide-plugin.xml
+
+# Natives
+natives/

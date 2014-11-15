@@ -7,9 +7,13 @@ package com.radirius.mercury.data;
  * @author wessles
  */
 public interface Data {
-	/** Open, and load data. */
-	public void open();
+    /**
+     * Open, and load data.
+     */
+    public void open();
 
-	/** Close, and save data. */
-	public void close();
+    /**
+     * Close, and save data.
+     */
+    public void close();
 }

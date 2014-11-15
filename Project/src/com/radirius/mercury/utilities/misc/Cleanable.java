@@ -6,8 +6,8 @@ package com.radirius.mercury.utilities.misc;
  * @author Jeviny
  */
 public interface Cleanable {
-	/**
-	 * The method for cleaning up.
-	 */
-	public void cleanup();
+    /**
+     * The method for cleaning up.
+     */
+    public void cleanup();
 }

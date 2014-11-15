@@ -15,81 +15,89 @@ import com.radirius.mercury.utilities.misc.Updatable;
  * @author wessles
  */
 public class Particle implements Updatable, Renderable, Wipeable {
-	/** Size of the particle. */
-	private float size;
+    boolean wiped = false;
+    /**
+     * Size of the particle.
+     */
+    private float size;
+    /**
+     * Position of the particle.
+     */
+    private Vector2f pos;
+    /**
+     * Bounds of the particle.
+     */
+    private Rectangle bounds;
+    /**
+     * The rotation of the particle.
+     */
+    private float rot;
+    /**
+     * The rotational velocity of the particle.
+     */
+    private float rotdirection;
+    /**
+     * The velocity of the particle.
+     */
+    private Vector2f vel;
+    /**
+     * The amount of frames that the particle has
+     * experienced.
+     */
+    private int life;
+    // The parent particle system
+    private ParticleSystem emitter;
 
-	/** Position of the particle. */
-	private Vector2f pos;
-	/** Bounds of the particle. */
-	private Rectangle bounds;
-	/** The rotation of the particle. */
-	private float rot;
-	/** The rotational velocity of the particle. */
-	private float rotdirection;
-	/** The velocity of the particle. */
-	private Vector2f vel;
+    public Particle(float x, float y, float angle, ParticleSystem emitter) {
+        size = emitter.getOptions().size;
 
-	/**
-	 * The amount of frames that the particle has
-	 * experienced.
-	 */
-	private int life;
+        pos = new Vector2f(x, y);
+        vel = new Vector2f(angle);
+        rotdirection = MathUtil.nextBoolean() ? 1 : -1;
+        vel.scale(emitter.getOptions().speed);
 
-	// The parent particle system
-	private ParticleSystem emitter;
+        bounds = new Rectangle(pos.x, pos.y, size);
 
-	public Particle(float x, float y, float angle, ParticleSystem emitter) {
-		size = emitter.getOptions().size;
+        life = emitter.getOptions().lifeinframes;
 
-		pos = new Vector2f(x, y);
-		vel = new Vector2f(angle);
-		rotdirection = MathUtil.nextBoolean() ? 1 : -1;
-		vel.scale(emitter.getOptions().speed);
+        this.emitter = emitter;
+    }
 
-		bounds = new Rectangle(pos.x, pos.y, size);
+    @Override
+    public void update(float delta) {
+        if (life < 0)
+            wipe();
 
-		life = emitter.getOptions().lifeinframes;
+        pos.add(new Vector2f(vel.x * delta, vel.y * delta));
+        vel.add(emitter.getOptions().gravity);
+        vel.scale(emitter.getOptions().acceleration);
 
-		this.emitter = emitter;
-	}
+        size *= emitter.getOptions().growth;
+        if (size <= 0)
+            wipe();
 
-	@Override
-	public void update(float delta) {
-		if (life < 0)
-			wipe();
+        bounds = new Rectangle(pos.x - size / 2, pos.y - size / 2, size);
+        bounds.rotateTo(rot += emitter.getOptions().rotation * rotdirection);
 
-		pos.add(new Vector2f(vel.x * delta, vel.y * delta));
-		vel.add(emitter.getOptions().gravity);
-		vel.scale(emitter.getOptions().acceleration);
+        life -= 1;
+    }
 
-		size *= emitter.getOptions().growth;
-		if (size <= 0)
-			wipe();
+    @Override
+    public void render(Graphics g) {
+        g.setColor(emitter.getOptions().color.duplicate());
+        if (emitter.getOptions().texture == null)
+            g.drawShape(bounds);
+        else
+            g.drawTexture(emitter.getOptions().texture, bounds, g.getColor());
+    }
 
-		bounds = new Rectangle(pos.x - size / 2, pos.y - size / 2, size);
-		bounds.rotateTo(rot += emitter.getOptions().rotation * rotdirection);
+    @Override
+    public void wipe() {
+        wiped = true;
+    }
 
-		life -= 1;
-	}
-
-	@Override
-	public void render(Graphics g) {
-		g.setColor(emitter.getOptions().color.duplicate());
-		if (emitter.getOptions().texture == null)
-			g.drawShape(bounds);
-		else
-			g.drawTexture(emitter.getOptions().texture, bounds, g.getColor());
-	}
-
-	boolean wiped = false;
-
-	@Override
-	public void wipe() {
-		wiped = true;
-	}
-
-	@Override
-	public boolean wiped() {
-		return wiped;
-	}
+    @Override
+    public boolean wiped() {
+        return wiped;
+    }
 }
