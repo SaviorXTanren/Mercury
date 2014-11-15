@@ -1,6 +1,9 @@
 hs_err_pid*
 .settings/
+.idea/
 .classpath
 .project
 .directory
+
 /lib/
+Mercury.iml
