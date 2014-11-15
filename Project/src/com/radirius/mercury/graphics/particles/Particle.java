@@ -38,13 +38,11 @@ public class Particle implements Updatable, Renderable, Wipeable {
 	 * frame.
 	 */
 	public float rotation;
-
 	/**
 	 * The amount of frames that the particle has
 	 * experienced.
 	 */
 	private int life;
-
 	/**
 	 * The parent ParticleSystem.
 	 */
@@ -52,24 +50,17 @@ public class Particle implements Updatable, Renderable, Wipeable {
 
 	public Particle(float x, float y, float angle, ParticleSystem emitter) {
 		this.emitter = emitter;
-
 		texture = emitter.getOptions().texture;
-
 		vel = new Vector2f(angle);
 		vel.scale(emitter.getOptions().speed);
-
 		float size = emitter.getOptions().size;
-
 		if (emitter.getOptions().sidesOfBounds == 4)
 			bounds = new Rectangle(x - size / 2, y - size / 2, size);
 		else
 			bounds = new Polygon(x, y, size / 2, emitter.getOptions().sidesOfBounds);
-
 		color = emitter.getOptions().color.duplicate();
-
 		growth = emitter.getOptions().growth;
 		rotation = emitter.getOptions().rotation;
-		
 		life = emitter.getOptions().lifeinframes;
 	}
 
@@ -77,25 +68,19 @@ public class Particle implements Updatable, Renderable, Wipeable {
 	public void update(float delta) {
 		if (life < 0)
 			wipe();
-
 		vel.scale(emitter.getOptions().acceleration);
 		bounds.translate(vel.x, vel.y);
 		bounds.translate(emitter.getOptions().gravity.x, emitter.getOptions().gravity.y);
-
 		bounds.scale(growth);
-
 		if (bounds.getScale() <= 0)
 			wipe();
-
 		bounds.rotate(rotation);
-
 		life -= 1;
 	}
 
 	@Override
 	public void render(Graphics g) {
 		g.setColor(color);
-
 		if (texture == null)
 			g.drawShape(bounds);
 		else

@@ -7,33 +7,37 @@ import com.radirius.mercury.utilities.misc.Updatable;
 /**
  * A class that allows the dividing of a game into different 'states' or
  * 'screens'.
- * 
+ *
  * @author wessles
  */
 
 public class GameState implements Updatable, Renderable {
-	boolean auto = true;
-	
-	/**
-	 * Executed when the GameState is switched to.
-	 */
-	public void onEnter() {}
+    boolean auto = true;
 
-	/**
-	 * Executed when a different GameState is switched to from this one.
-	 */
-	public void onLeave() {}
+    /**
+     * Executed when the GameState is switched to.
+     */
+    public void onEnter() {
+    }
 
-	@Override
-	public void update(float delta) {}
+    /**
+     * Executed when a different GameState is switched to from this one.
+     */
+    public void onLeave() {
+    }
 
-	@Override
-	public void render(Graphics g) {}
+    @Override
+    public void update(float delta) {
+    }
 
-	/**
-	 * Sets whether the updating and rendering should automatically be called.
-	 */
-	public void setAutomaticUpdateAndRender(boolean auto) {
-		this.auto = auto;
-	}
+    @Override
+    public void render(Graphics g) {
+    }
+
+    /**
+     * Sets whether the updating and rendering should automatically be called.
+     */
+    public void setAutomaticUpdateAndRender(boolean auto) {
+        this.auto = auto;
+    }
 }

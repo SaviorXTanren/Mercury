@@ -1,12 +1,9 @@
 package com.radirius.mercury.graphics.particles;
 
-import com.radirius.mercury.graphics.Color;
-import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.graphics.Texture;
+import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.math.geometry.Vector2f;
 import com.radirius.mercury.utilities.WipingArrayList;
-import com.radirius.mercury.utilities.misc.Renderable;
-import com.radirius.mercury.utilities.misc.Updatable;
+import com.radirius.mercury.utilities.misc.*;
 
 /**
  * An object that simulates a mass of particles.
@@ -23,7 +20,6 @@ public class ParticleSystem implements Updatable, Renderable {
 		 * can go through.
 		 */
 		public float angle = 0;
-
 		/**
 		 * The color of the particles.
 		 */
@@ -50,7 +46,6 @@ public class ParticleSystem implements Updatable, Renderable {
 		 * frame.
 		 */
 		public float rotation = 0;
-
 		/**
 		 * The speed by which the particle will be launched
 		 * out of the emitter.
@@ -77,8 +72,7 @@ public class ParticleSystem implements Updatable, Renderable {
 	private ParticleSetup pesetup;
 
 	/**
-	 * @param pesetup
-	 *            The particle's setup.
+	 * @param pesetup The particle's setup.
 	 */
 	public ParticleSystem(ParticleSetup pesetup) {
 		parts = new WipingArrayList<Particle>();
@@ -88,10 +82,8 @@ public class ParticleSystem implements Updatable, Renderable {
 	/**
 	 * Generates a new particle launching at an angle.
 	 *
-	 * @param point
-	 *            The point from which the particles emmit.
-	 * @param angle
-	 *            The angle at which the particles emmmit.
+	 * @param point The point from which the particles emmit.
+	 * @param angle The angle at which the particles emmmit.
 	 */
 	public void generateParticle(Vector2f point, float angle) {
 		parts.add(new Particle(point.x, point.y, angle, this));
@@ -100,10 +92,8 @@ public class ParticleSystem implements Updatable, Renderable {
 	/**
 	 * Generates new particles launching at random angles.
 	 *
-	 * @param amount
-	 *            The amount of particles to generate.
-	 * @param point
-	 *            The point from which the particles emmit.
+	 * @param amount The amount of particles to generate.
+	 * @param point  The point from which the particles emmit.
 	 */
 	public void generateParticle(int amount, Vector2f point) {
 		for (int p = 0; p < amount; p++) {
@@ -115,7 +105,6 @@ public class ParticleSystem implements Updatable, Renderable {
 	public void update(float delta) {
 		for (Particle part : parts)
 			part.update(delta);
-
 		parts.sweep();
 	}
 

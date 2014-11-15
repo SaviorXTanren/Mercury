@@ -6,4 +6,8 @@ hs_err_pid*
 .directory
 
 /lib/
-Mercury.iml
+/*.iml
+out/
+.idea_modules/
+atlassian-ide-plugin.xml
+natives/

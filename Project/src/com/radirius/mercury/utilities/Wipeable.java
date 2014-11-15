@@ -7,9 +7,13 @@ package com.radirius.mercury.utilities;
  * @author wessles
  */
 public interface Wipeable {
-	/** Wipes the object. */
-	public void wipe();
+    /**
+     * Wipes the object.
+     */
+    public void wipe();
 
-	/** @return Whether or not the object is wiped. */
-	public boolean wiped();
+    /**
+     * @return Whether or not the object is wiped.
+     */
+    public boolean wiped();
 }

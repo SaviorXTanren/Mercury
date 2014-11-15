@@ -7,7 +7,7 @@ package com.radirius.mercury.exceptions;
  */
 @SuppressWarnings("serial")
 public class MercuryException extends Exception {
-	public MercuryException(String reason) {
-		super(reason);
-	}
+    public MercuryException(String reason) {
+        super(reason);
+    }
 }
