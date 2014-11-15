@@ -32,11 +32,11 @@ public class TextBar extends Component {
 	}
 
 	public TextBar(String txt, float x, float y, Color textcolor) {
-		this(txt, getDefaultTextures().getTexture(3), getDefaultTextures().getTexture(3).convertToTexture(true, false), getDefaultTextures().getTexture(4), x, y, textcolor, TrueTypeFont.OPENSANS_REGULAR);
+		this(txt, getDefaultTextures().getTexture(3), getDefaultTextures().getTexture(3).convertToTexture(true, false), getDefaultTextures().getTexture(4), x, y, textcolor, TrueTypeFont.ROBOTO_REGULAR);
 	}
 
 	public TextBar(String txt, Texture left, Texture right, Texture body, float x, float y, Color textcolor) {
-		this(txt, left, right, body, x, y, textcolor, TrueTypeFont.OPENSANS_REGULAR);
+		this(txt, left, right, body, x, y, textcolor, TrueTypeFont.ROBOTO_REGULAR);
 	}
 
 	public TextBar(String txt, Texture left, Texture right, Texture body, float x, float y) {

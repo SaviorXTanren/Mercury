@@ -8,7 +8,7 @@ import com.radirius.mercury.math.geometry.Polygon;
  * 
  * @author Jeviny
  */
-public class ShapeEntity extends BasicEntity {
+public class ShapedEntity extends BasicEntity {
 	/** The shape the entity is wrapped around. */
 	private Polygon shape;
 	
@@ -18,7 +18,7 @@ public class ShapeEntity extends BasicEntity {
 	 * @param shape
 	 *            The base shape.
 	 */
-	public ShapeEntity(Polygon shape) {
+	public ShapedEntity(Polygon shape) {
 		super((float) shape.getBounds().getX(),
 			  (float) shape.getBounds().getY(),
 			  (float) shape.getBounds().getWidth(),

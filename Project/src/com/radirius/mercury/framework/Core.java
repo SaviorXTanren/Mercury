@@ -31,37 +31,71 @@ import com.radirius.mercury.utilities.logging.Logger;
 public abstract class Core {
 	private final Runner runner = Runner.getInstance();
 
-	public final String name;
-	public final int width;
-	public final int height;
-	public final boolean fullscreen;
-	public final boolean vsync;
-	public final boolean multithread;
-	public final boolean devconsole;
-
-	public Core(String name, int width, int height, boolean fullscreen, boolean vsync, boolean multithread, boolean devconsole) {
+	public String name;
+	public int width;
+	public int height;
+	public boolean fullscreen;
+	public boolean vsync;
+	public boolean multithread;
+	public boolean devConsole;
+	public boolean showDebug;
+	public boolean showExtraDebug;
+	public int targetFps;
+	
+	public Core() {
+		this("Untitled Window", 1024, 640);
+	}
+	
+	public Core(String name) {
+		this(name, 1024, 640);
+	}
+	
+	public Core(int width, int height) {
+		this("Untitled Window", width, height);
+	}
+	
+	public Core(String name, int width, int height) {
 		this.name = name;
 		this.width = width;
 		this.height = height;
+		this.fullscreen = false;
+		this.vsync = true;
+		this.multithread = false;
+		this.devConsole = true;
+		this.showDebug = false;
+		this.showExtraDebug = false;
+		this.targetFps = 60;
+	}
+
+	public void setFullscreen(boolean fullscreen) {
 		this.fullscreen = fullscreen;
+	}
+	
+	public void setVsync(boolean vsync) {
 		this.vsync = vsync;
+	}
+	
+	public void setMultithreadedCore(boolean multithread) {
 		this.multithread = multithread;
-		this.devconsole = devconsole;
 	}
-
-	public Core(String name, int width, int height, boolean fullscreen, boolean vsync) {
-		this(name, width, height, fullscreen, vsync, false, false);
+	
+	public void setDevelopersConsole(boolean devConsole) {
+		this.devConsole = devConsole;
 	}
-
-	public Core(String name, int width, int height, boolean fullscreen) {
-		this(name, width, height, fullscreen, true, false, false);
+	
+	public void setTargetFps(int targetFps) {
+		this.targetFps = targetFps;
 	}
-
-	public Core(String name, int width, int height) {
-		this(name, width, height, false, true);
+	
+	public void setDebugDisplays(boolean showDebug) {
+		this.showDebug = showDebug;
 	}
-
-	final GameState defaultGameState = new GameState();
+	
+	public void setExtraDebugDisplays(boolean showExtraDebug) {
+		this.showExtraDebug = showExtraDebug;
+	}
+	
+	private final GameState defaultGameState = new GameState();
 	
 	GameState currentGameState = defaultGameState;
 
@@ -89,7 +123,7 @@ public abstract class Core {
 	 * Initializes and then runs the Runner.
 	 */
 	public void start() {
-		runner.init(this, width, height, fullscreen, vsync, multithread, devconsole);
+		runner.init(this, width, height, fullscreen, vsync, multithread, devConsole, showDebug, showExtraDebug, targetFps);
 		runner.run();
 	}
 

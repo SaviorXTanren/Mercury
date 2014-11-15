@@ -12,7 +12,7 @@ public interface Font extends Resource {
 	/**
 	 * Derive another differently sized instance of this
 	 * font. Very resource heavy, so only call this once
-	 * (NOT every single frame)
+	 * (NOT every single frame).
 	 *
 	 * @return A newly sized font!
 	 */
