@@ -3,7 +3,6 @@ package com.radirius.mercury.graphics.particles;
 import com.radirius.mercury.graphics.Color;
 import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.graphics.Texture;
-import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.math.geometry.Vector2f;
 import com.radirius.mercury.utilities.WipingArrayList;
 import com.radirius.mercury.utilities.misc.Renderable;
@@ -20,17 +19,27 @@ public class ParticleSystem implements Updatable, Renderable {
 	 */
 	public static class ParticleSetup {
 		/**
-		 * The 2 valid angles in between which any particle
+		 * The angle in between which any particle
 		 * can go through.
 		 */
-		public Vector2f validangle = new Vector2f(0, 360);
+		public float angle = 0;
 
-		/** The color of the particles. */
+		/**
+		 * The color of the particles.
+		 */
 		public Color color = Color.DEFAULT_TEXTURE_COLOR;
-		/** The texture of each particle. */
+		/**
+		 * The texture of each particle.
+		 */
 		public Texture texture;
-		/** The size of the particles. */
+		/**
+		 * The size of the particles.
+		 */
 		public float size = 1;
+		/**
+		 * The sides of the bound's shape (4 is a square, 5 is a pentagon, etc.).
+		 */
+		public int sidesOfBounds = 4;
 		/**
 		 * The value by which the size of the particles will
 		 * be multiplied each frame.
@@ -77,16 +86,14 @@ public class ParticleSystem implements Updatable, Renderable {
 	}
 
 	/**
-	 * Generates new particles launching at an angle.
+	 * Generates a new particle launching at an angle.
 	 *
-	 * @param amount
-	 *            The amount of particles to generate.
 	 * @param point
 	 *            The point from which the particles emmit.
 	 * @param angle
 	 *            The angle at which the particles emmmit.
 	 */
-	public void generateParticle(int amount, Vector2f point, float angle) {
+	public void generateParticle(Vector2f point, float angle) {
 		parts.add(new Particle(point.x, point.y, angle, this));
 	}
 
@@ -100,8 +107,7 @@ public class ParticleSystem implements Updatable, Renderable {
 	 */
 	public void generateParticle(int amount, Vector2f point) {
 		for (int p = 0; p < amount; p++) {
-			float angle = (float) MathUtil.random(pesetup.validangle.x, pesetup.validangle.y);
-			generateParticle(1, point, angle);
+			generateParticle(point, pesetup.angle);
 		}
 	}
 

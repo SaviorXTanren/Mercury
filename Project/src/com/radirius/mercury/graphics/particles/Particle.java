@@ -1,12 +1,9 @@
 package com.radirius.mercury.graphics.particles;
 
-import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.math.MathUtil;
-import com.radirius.mercury.math.geometry.Rectangle;
-import com.radirius.mercury.math.geometry.Vector2f;
+import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.math.geometry.*;
 import com.radirius.mercury.utilities.Wipeable;
-import com.radirius.mercury.utilities.misc.Renderable;
-import com.radirius.mercury.utilities.misc.Updatable;
+import com.radirius.mercury.utilities.misc.*;
 
 /**
  * A class that will represent a single particle, with a
@@ -15,19 +12,32 @@ import com.radirius.mercury.utilities.misc.Updatable;
  * @author wessles
  */
 public class Particle implements Updatable, Renderable, Wipeable {
-	/** Size of the particle. */
-	private float size;
-
-	/** Position of the particle. */
-	private Vector2f pos;
-	/** Bounds of the particle. */
-	private Rectangle bounds;
-	/** The rotation of the particle. */
-	private float rot;
-	/** The rotational velocity of the particle. */
-	private float rotdirection;
-	/** The velocity of the particle. */
+	/**
+	 * Bounds of the particle.
+	 */
+	private Polygon bounds;
+	/**
+	 * The texture of each particle.
+	 */
+	public Texture texture;
+	/**
+	 * The color of the particle.
+	 */
+	private Color color;
+	/**
+	 * The velocity of the particle.
+	 */
 	private Vector2f vel;
+	/**
+	 * The value by which the size of the particles will
+	 * be multiplied each frame.
+	 */
+	public float growth;
+	/**
+	 * The amount that each particle will rotate each
+	 * frame.
+	 */
+	public float rotation;
 
 	/**
 	 * The amount of frames that the particle has
@@ -35,22 +45,32 @@ public class Particle implements Updatable, Renderable, Wipeable {
 	 */
 	private int life;
 
-	// The parent particle system
+	/**
+	 * The parent ParticleSystem.
+	 */
 	private ParticleSystem emitter;
 
 	public Particle(float x, float y, float angle, ParticleSystem emitter) {
-		size = emitter.getOptions().size;
+		this.emitter = emitter;
 
-		pos = new Vector2f(x, y);
+		texture = emitter.getOptions().texture;
+
 		vel = new Vector2f(angle);
-		rotdirection = MathUtil.nextBoolean() ? 1 : -1;
 		vel.scale(emitter.getOptions().speed);
 
-		bounds = new Rectangle(pos.x, pos.y, size);
+		float size = emitter.getOptions().size;
 
+		if (emitter.getOptions().sidesOfBounds == 4)
+			bounds = new Rectangle(x - size / 2, y - size / 2, size);
+		else
+			bounds = new Polygon(x, y, size / 2, emitter.getOptions().sidesOfBounds);
+
+		color = emitter.getOptions().color.duplicate();
+
+		growth = emitter.getOptions().growth;
+		rotation = emitter.getOptions().rotation;
+		
 		life = emitter.getOptions().lifeinframes;
-
-		this.emitter = emitter;
 	}
 
 	@Override
@@ -58,27 +78,28 @@ public class Particle implements Updatable, Renderable, Wipeable {
 		if (life < 0)
 			wipe();
 
-		pos.add(new Vector2f(vel.x * delta, vel.y * delta));
-		vel.add(emitter.getOptions().gravity);
 		vel.scale(emitter.getOptions().acceleration);
+		bounds.translate(vel.x, vel.y);
+		bounds.translate(emitter.getOptions().gravity.x, emitter.getOptions().gravity.y);
 
-		size *= emitter.getOptions().growth;
-		if (size <= 0)
+		bounds.scale(growth);
+
+		if (bounds.getScale() <= 0)
 			wipe();
 
-		bounds = new Rectangle(pos.x - size / 2, pos.y - size / 2, size);
-		bounds.rotateTo(rot += emitter.getOptions().rotation * rotdirection);
+		bounds.rotate(rotation);
 
 		life -= 1;
 	}
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(emitter.getOptions().color.duplicate());
-		if (emitter.getOptions().texture == null)
+		g.setColor(color);
+
+		if (texture == null)
 			g.drawShape(bounds);
 		else
-			g.drawTexture(emitter.getOptions().texture, bounds, g.getColor());
+			g.drawTexture(texture, bounds, g.getColor());
 	}
 
 	boolean wiped = false;

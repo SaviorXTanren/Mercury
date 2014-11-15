@@ -54,11 +54,11 @@ public class Polygon extends Shape {
 	 * @param vertices
 	 *            The vertex data.
 	 */
-	public Polygon(Vector2f... vertices) {
+	public Polygon(Vector2f[] vertices) {
 		super(vertices);
 	}
 
-	public Polygon(float... fs) {
+	public Polygon(float[] fs) {
 		super(fs);
 	}
 

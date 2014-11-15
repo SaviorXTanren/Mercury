@@ -299,7 +299,8 @@ public class Shader implements Resource {
 		} catch (Exception exc) {
 			ARBShaderObjects.glDeleteObjectARB(shader);
 
-			throw exc;
+			exc.printStackTrace();
+			return 0;
 		}
 	}
 

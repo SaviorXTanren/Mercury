@@ -15,7 +15,17 @@ public class MathUtil {
 	 *         maximum
 	 */
 	public static final double random(double minimum, double maximum) {
-		return (float) minimum + (int) (Math.random() * (maximum - minimum + 1));
+		return minimum + (Math.random() * (maximum - minimum + 1));
+	}
+
+	/**
+	 * Base method for random number methods.
+	 *
+	 * @return A random double value between minimum and
+	 *         maximum
+	 */
+	public static final float random(float minimum, float maximum) {
+		return minimum + (float)(Math.random() * (maximum - minimum + 1));
 	}
 
 	/**
