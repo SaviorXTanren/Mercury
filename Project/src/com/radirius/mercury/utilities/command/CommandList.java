@@ -8,7 +8,7 @@ import com.radirius.mercury.utilities.logging.Logger;
 
 /**
  * A collection of Commands and Variables to be accessed in
- * the given inputstream (the console by default).
+ * the given InputStream (the console by default).
  *
  * @author wessles
  */
@@ -25,7 +25,7 @@ public class CommandList {
 	public static final HashMap<String, CommandList> commandlists = new HashMap<String, CommandList>();
 
 	/**
-	 * Adds a command list to the map commandlists.
+	 * Adds a command list to the map command lists.
 	 */
 	public static void addCommandList(CommandList cmdl) {
 		if (commandlists.containsKey(cmdl.name))
@@ -122,79 +122,90 @@ public class CommandList {
 	public static CommandList getDefaultCommandList() {
 		if (dcmdl == null) {
 			// Make default CommandList
-			CommandList cmdlmerc = new CommandList("merc", "This is the default Command List for MERCury Developer Console. In it, you will find core functions to MERCury Developer Console that will allow you to modify projects within the runtime.");
+			CommandList cmdlmercury = new CommandList("mercury", "This is the default Command List for Mercury Developer Console. In it, you will find core functions to MERCury Developer Console that will allow you to modify projects within the runtime.");
 
 			// Add in all the commands.
-			cmdlmerc.addCommand(new Command("end", "Ends the program.") {
+			cmdlmercury.addCommand(new Command("end", "Ends the program.") {
 				@Override
 				public void run(String... args) {
 					Runner.getInstance().end();
 				}
 			});
-			cmdlmerc.addCommand(new Command("setFpsTarget", "merc setFpsTarget [Fps Target]\nTargets for, or caps the framerate at a given height.") {
+			
+			cmdlmercury.addCommand(new Command("setFpsTarget", "mercury setFpsTarget [Fps Target]\nTargets for, or caps the framerate at a given height.") {
 				@Override
 				public void run(String... args) {
-					Runner.getInstance().setFPSTarget(Integer.parseInt(args[0]));
+					Runner.getInstance().setTargetFps(Integer.parseInt(args[0]));
 					Logger.console("Framerate targeted for " + Integer.parseInt(args[0]));
 				}
 			});
-			cmdlmerc.addCommand(new Command("setMouseGrab", "merc setMouseGrab [True/False]\nLocks or releases the mouse from the window.") {
+			
+			cmdlmercury.addCommand(new Command("setMouseGrab", "mercury setMouseGrab [True/False]\nLocks or releases the mouse from the window.") {
 				@Override
 				public void run(String... args) {
 					Runner.getInstance().enableMouseGrab(Boolean.valueOf(args[0]));
 					Logger.console("Mouse " + (Boolean.valueOf(args[0]) ? "grabbed" : "released") + ".");
 				}
 			});
-			cmdlmerc.addCommand(new Command("setVsync", "Sets whether or not there is Vertical Sync.") {
+			
+			cmdlmercury.addCommand(new Command("setVsync", "Sets whether or not there is Vertical Sync.") {
 				@Override
 				public void run(String... args) {
 					Runner.getInstance().enableVsync(Boolean.valueOf(args[0]));
 					Logger.console("Vsync set to " + args[0]);
 				}
 			});
-			cmdlmerc.addCommand(new Command("setTitle", "Sets the title of the window.") {
+			
+			cmdlmercury.addCommand(new Command("setTitle", "Sets the title of the window.") {
 				@Override
 				public void run(String... args) {
 					Runner.getInstance().setTitle(args[0]);
 					Logger.console("Window title set to '" + args[0] + ".'");
 				}
 			});
-			cmdlmerc.addCommand(new Command("setDeltaFactor", "Sets the delta factor, or, the number by which delta is multiplied by, to a given number.") {
+			
+			cmdlmercury.addCommand(new Command("setDeltaFactor", "Sets the delta factor, or, the number by which delta is multiplied by, to a given number.") {
 				@Override
 				public void run(String... args) {
 					Runner.getInstance().setDeltaFactor(Float.valueOf(args[0]));
 					Logger.console("Delta factor set to " + args[0]);
 				}
 			});
-			cmdlmerc.addCommand(new Command("setUpdateFreeze", "Sets the freezing of the update.") {
+			
+			cmdlmercury.addCommand(new Command("setUpdateFreeze", "Sets the freezing of the update.") {
 				@Override
 				public void run(String... args) {
 					Runner.getInstance().enableUpdating(Boolean.valueOf(args[0]));
 					Logger.console("Set update freeze to " + Boolean.valueOf(args[0]));
 				}
 			});
-			cmdlmerc.addCommand(new Command("setRenderFreeze", "Sets the freezing of the render.") {
+			
+			cmdlmercury.addCommand(new Command("setRenderFreeze", "Sets the freezing of the render.") {
 				@Override
 				public void run(String... args) {
 					Runner.getInstance().enableRendering(Boolean.valueOf(args[0]));
 					Logger.console("Set render freeze to " + Boolean.valueOf(args[0]));
 				}
 			});
-			cmdlmerc.addCommand(new Command("echo", "Echos your every word.") {
+			
+			cmdlmercury.addCommand(new Command("echo", "Echos your every word.") {
 				@Override
 				public void run(String... args) {
 					for (String s : args)
 						Logger.console(s);
 				}
 			});
-			cmdlmerc.addVariable(new Variable("fps") {
+			
+			cmdlmercury.addVariable(new Variable("fps") {
 				@Override
 				public String get(String... args) {
-					return String.valueOf(Runner.getInstance().getFPS());
+					return String.valueOf(Runner.getInstance().getFps());
 				}
 			});
-			dcmdl = cmdlmerc;
+			
+			dcmdl = cmdlmercury;
 		}
+		
 		return dcmdl;
 	}
 }

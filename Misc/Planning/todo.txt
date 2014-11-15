@@ -87,12 +87,14 @@ Code/Features To-Do List:
 - [-] Add TMX Loader.
 - [-] Add getCenter() functions to textures.
 - [+] Make 'ShapeEntity' class that wraps around entities and takes in a shape.
-- [-] Improve ShapeEntity and possibly rename it to 'ShapedEntity'.
+- [+] Improve ShapeEntity and possibly rename it to 'ShapedEntity'.
 - [-] Add back URL-based loading.
 - [-] Rename '___FromSystem()' functions in Loader to '___FromProject()'. It's just a bit more user-friendly.
 - [+] Clean up GameStates.
 - [+] Clean up Animation and make it interact with Graphics instead of using its own render() functions.
 - [-] Stop update and rendering functions from being called when the splash screens are showing.
+- [-] Add an option for turning on/off automatic updating and rendering in GameScene.
+- [-] Move GameScene and GameState automatic update/render options to Core's flag functions.
 
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:

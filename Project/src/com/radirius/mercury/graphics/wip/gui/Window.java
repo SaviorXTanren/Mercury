@@ -27,27 +27,27 @@ public class Window extends Panel {
 	protected boolean open = true, dragging = false;
 
 	public Window(String name, Rectangle bounds) {
-		this(name, TrueTypeFont.OPENSANS_REGULAR, Color.DEFAULT_DRAWING, bounds, 20);
+		this(name, TrueTypeFont.ROBOTO_REGULAR, Color.DEFAULT_DRAWING, bounds, 20);
 	}
 
 	public Window(String name, Rectangle bounds, float padding) {
-		this(name, TrueTypeFont.OPENSANS_REGULAR, Color.DEFAULT_DRAWING, bounds, padding, getDefaultTextures().getTexture(1), getDefaultTextures().getTexture(2), getDefaultTextures().getTexture(0), new ImageButton(new Rectangle(0, 0, 32, 32)));
+		this(name, TrueTypeFont.ROBOTO_REGULAR, Color.DEFAULT_DRAWING, bounds, padding, getDefaultTextures().getTexture(1), getDefaultTextures().getTexture(2), getDefaultTextures().getTexture(0), new ImageButton(new Rectangle(0, 0, 32, 32)));
 	}
 
 	public Window(String name, Rectangle bounds, float padding, Texture body, Texture border, Texture bar, ImageButton exit) {
-		this(name, TrueTypeFont.OPENSANS_REGULAR, Color.DEFAULT_DRAWING, bounds, padding, body, border, bar.getHeight(), bar, exit);
+		this(name, TrueTypeFont.ROBOTO_REGULAR, Color.DEFAULT_DRAWING, bounds, padding, body, border, bar.getHeight(), bar, exit);
 	}
 
 	public Window(String name, Color namecol, Rectangle bounds) {
-		this(name, TrueTypeFont.OPENSANS_REGULAR, namecol, bounds, 20);
+		this(name, TrueTypeFont.ROBOTO_REGULAR, namecol, bounds, 20);
 	}
 
 	public Window(String name, Color namecol, Rectangle bounds, float padding) {
-		this(name, TrueTypeFont.OPENSANS_REGULAR, namecol, bounds, padding, getDefaultTextures().getTexture(1).convertToTexture(), getDefaultTextures().getTexture(2), getDefaultTextures().getTexture(0), new ImageButton(new Rectangle(0, 0, 32, 32)));
+		this(name, TrueTypeFont.ROBOTO_REGULAR, namecol, bounds, padding, getDefaultTextures().getTexture(1).convertToTexture(), getDefaultTextures().getTexture(2), getDefaultTextures().getTexture(0), new ImageButton(new Rectangle(0, 0, 32, 32)));
 	}
 
 	public Window(String name, Color namecol, Rectangle bounds, float padding, Texture body, Texture border, Texture bar, ImageButton exit) {
-		this(name, TrueTypeFont.OPENSANS_REGULAR, namecol, bounds, padding, body, border, bar.getHeight(), bar, exit);
+		this(name, TrueTypeFont.ROBOTO_REGULAR, namecol, bounds, padding, body, border, bar.getHeight(), bar, exit);
 	}
 
 	public Window(String name, Font namefont, Color namecol, Rectangle bounds) {

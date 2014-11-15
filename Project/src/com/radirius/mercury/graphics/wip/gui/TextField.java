@@ -29,11 +29,11 @@ public class TextField extends TextBar {
 	}
 
 	public TextField(String txt, float x, float y, Color textcolor, int INPUT_TYPE, int limit) {
-		this(txt, getDefaultTextures().getTexture(10), getDefaultTextures().getTexture(10).convertToTexture(true, false), getDefaultTextures().getTexture(11), x, y, textcolor, TrueTypeFont.OPENSANS_REGULAR, INPUT_TYPE, limit);
+		this(txt, getDefaultTextures().getTexture(10), getDefaultTextures().getTexture(10).convertToTexture(true, false), getDefaultTextures().getTexture(11), x, y, textcolor, TrueTypeFont.ROBOTO_REGULAR, INPUT_TYPE, limit);
 	}
 
 	public TextField(String txt, Texture left, Texture right, Texture body, float x, float y, Color textcolor, int INPUT_TYPE, int limit) {
-		this(txt, left, right, body, x, y, textcolor, TrueTypeFont.OPENSANS_REGULAR, INPUT_TYPE, limit);
+		this(txt, left, right, body, x, y, textcolor, TrueTypeFont.ROBOTO_REGULAR, INPUT_TYPE, limit);
 	}
 
 	public TextField(String txt, Texture left, Texture right, Texture body, float x, float y, int INPUT_TYPE, int limit) {

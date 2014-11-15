@@ -162,10 +162,6 @@ public class CommandThread implements Runnable {
 								if (vars.size() < 2)
 									Logger.consoleProblem("Must have at least 2 parameters for a Variable argument. Please type '?' for help.");
 
-								// We have reached the end!
-								// Time to inject!
-								// *cracks knuckles*
-
 								String varcommandlist = vars.get(0).toLowerCase();
 								String varname = vars.get(1).toLowerCase();
 
@@ -291,6 +287,7 @@ public class CommandThread implements Runnable {
 			}
 
 			Command cmd = cmdl.commands.get(command.toLowerCase());
+			
 			if (cmd == null && !list_manual) {
 				Variable var = cmdl.variables.get(command.toLowerCase());
 
@@ -305,7 +302,6 @@ public class CommandThread implements Runnable {
 				continue runloop;
 			}
 
-			// Do crap
 			if (command_manual)
 				Logger.console(cmd.manual);
 			else if (list_manual)

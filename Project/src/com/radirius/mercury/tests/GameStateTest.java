@@ -38,7 +38,7 @@ class GameStateTest extends Core {
 	
 	public void render(Graphics g) {
 		g.setColor(Color.WHITE);
-		g.drawString("Mash Enter.", Runner.getInstance().getCenterX() - TrueTypeFont.OPENSANS_REGULAR.getWidth("Mash Enter.") / 2, 128);
+		g.drawString("Mash Enter.", Runner.getInstance().getCenterX() - TrueTypeFont.ROBOTO_REGULAR.getWidth("Mash Enter.") / 2, 128);
 		
 	}
 	

@@ -17,11 +17,11 @@ public class TextButton extends TextBar implements Button {
 	}
 
 	public TextButton(String txt, float x, float y, Color textcolor, Color backgroundcolor) {
-		this(txt, null, null, null, x, y, textcolor, TrueTypeFont.OPENSANS_REGULAR);
+		this(txt, null, null, null, x, y, textcolor, TrueTypeFont.ROBOTO_REGULAR);
 	}
 
 	public TextButton(String txt, Texture left, Texture right, Texture body, float x, float y, Color textcolor) {
-		this(txt, left, right, body, x, y, textcolor, TrueTypeFont.OPENSANS_REGULAR);
+		this(txt, left, right, body, x, y, textcolor, TrueTypeFont.ROBOTO_REGULAR);
 	}
 
 	public TextButton(String txt, Texture left, Texture right, Texture body, float x, float y) {

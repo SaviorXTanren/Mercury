@@ -39,7 +39,7 @@ public abstract class Command {
 	 *            case-insensitive.
 	 */
 	public Command(String name) {
-		this(name, "Command List Developer did not provide a manual for Command.");
+		this(name, "Command list maker did not provide a manual for Command.");
 	}
 
 	/**
