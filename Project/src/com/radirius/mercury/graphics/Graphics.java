@@ -36,7 +36,7 @@ public interface Graphics {
      * @param x The scale factor of x
      * @param y The scale factor of y
      */
-    public void setScale(float x, float y);
+    public void scale(float x, float y);
 
     /**
      * The last scale that was set in the graphics object's
@@ -53,7 +53,13 @@ public interface Graphics {
     /**
      * Scales the matrix.
      */
-    public void setScale(float factor);
+    public void scale(float factor);
+
+    public void rotate(float rz);
+
+    public float getRotation();
+
+    public void translate(float x, float y);
 
     /**
      * @return The last set font.

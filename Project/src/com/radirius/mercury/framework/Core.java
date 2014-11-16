@@ -1,7 +1,7 @@
 package com.radirius.mercury.framework;
 
 import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.graphics.GraphicsUtils;
+import com.radirius.mercury.utilities.GraphicsUtils;
 import com.radirius.mercury.graphics.Shader;
 import com.radirius.mercury.graphics.VAOGraphics;
 import com.radirius.mercury.resource.Loader;

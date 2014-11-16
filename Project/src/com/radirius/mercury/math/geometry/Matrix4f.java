@@ -1,6 +1,6 @@
 package com.radirius.mercury.math.geometry;
 
-import com.radirius.mercury.graphics.GraphicsUtils;
+import com.radirius.mercury.utilities.GraphicsUtils;
 
 import java.nio.FloatBuffer;
 
@@ -117,8 +117,16 @@ public class Matrix4f {
         for (int j = 0; j < 4; j++) {
             for (int i = 0; i < 4; i++) {
                 for (int k = 0; k < 4; k++) {
-                    temp[i][j] += this.m[k][j] * m.m[j][k];
+                    temp[j][i] += this.m[j][k] * m.m[k][i];
                 }
+            }
+        }
+
+        for (int i=0; i<4; i++)
+        {
+            for (int j=0; j<4; j++)
+            {
+                this.m[i][j] = temp[i][j];
             }
         }
 

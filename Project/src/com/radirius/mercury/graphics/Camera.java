@@ -4,6 +4,7 @@ import com.radirius.mercury.framework.Runner;
 import com.radirius.mercury.math.geometry.Matrix4f;
 import com.radirius.mercury.math.geometry.Rectangle;
 import com.radirius.mercury.math.geometry.Vector2f;
+import com.radirius.mercury.utilities.GraphicsUtils;
 
 /**
  * An object for the camera.
@@ -43,14 +44,21 @@ public class Camera {
      */
     public void pre(Graphics g) {
         GraphicsUtils.pushMatrix();
+        updateTransforms();
+        g.pre();
+    }
 
+    private void updateTransforms()
+    {
+        Runner.getInstance().getGraphics().getBatcher().flush();
+
+        // Update the transformation matrix
         Matrix4f cm = GraphicsUtils.getCurrentMatrix();
 
-        cm.mul(new Matrix4f().initTranslation(origin.x, origin.y)
-                .mul(new Matrix4f().initScale(scale.x, scale.y)
-                .mul(new Matrix4f().initRotation(rot))));
-
-        g.pre();
+        cm.initIdentity()
+                .mul(new Matrix4f().initRotation(rot))
+                .mul(new Matrix4f().initScale(scale.x, scale.y))
+                .mul(new Matrix4f().initTranslation(origin.x, origin.y));
     }
 
     /**
@@ -86,6 +94,7 @@ public class Camera {
     public void scale(float x, float y) {
         scale.x += x;
         scale.y += y;
+        updateTransforms();
     }
 
     /**
@@ -97,6 +106,7 @@ public class Camera {
     public void setScale(float x, float y) {
         scale.x = x;
         scale.y = y;
+        updateTransforms();
     }
 
     /**
@@ -107,6 +117,7 @@ public class Camera {
     public void scale(float scale) {
         this.scale.x += scale;
         this.scale.y += scale;
+        updateTransforms();
     }
 
     /**
@@ -116,6 +127,7 @@ public class Camera {
      */
     public void rotate(float rot) {
         this.rot += rot;
+        updateTransforms();
     }
 
     /**
@@ -127,6 +139,7 @@ public class Camera {
     public void translate(float x, float y) {
         this.x -= x;
         this.y -= y;
+        updateTransforms();
     }
 
     /**
@@ -138,6 +151,7 @@ public class Camera {
     public void translateTo(float x, float y) {
         this.x = x;
         this.y = y;
+        updateTransforms();
     }
 
     /**
@@ -191,6 +205,7 @@ public class Camera {
     public void setScale(float scale) {
         this.scale.x = scale;
         this.scale.y = scale;
+        updateTransforms();
     }
 
     /**
@@ -207,6 +222,7 @@ public class Camera {
      */
     public void setRotation(float rot) {
         this.rot = rot;
+        updateTransforms();
     }
 
     /**

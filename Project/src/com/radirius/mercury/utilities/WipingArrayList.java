@@ -8,7 +8,6 @@ import java.util.Iterator;
  *
  * @author wessles
  */
-@SuppressWarnings("serial")
 public class WipingArrayList<T extends Wipeable> extends ArrayList<T> {
     /**
      * Goes through list, removing any objects that have

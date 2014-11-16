@@ -10,7 +10,7 @@ import org.lwjgl.opengl.GL11;
 /**
  * An object used for graphics. It will draw just about anything for you.
  *
- * @author wessles, Jeviny
+ * @author wessles, Jeviny, Sri Harsha Chilakapati
  */
 public class VAOGraphics implements Graphics {
     private VAOBatcher batcher;
@@ -51,13 +51,19 @@ public class VAOGraphics implements Graphics {
     }
 
     @Override
-    public void setScale(float x, float y) {
+    public void scale(float x, float y) {
         Camera cam = Runner.getInstance().getCamera();
 
         cam.setScale(x, y);
 
         if (!lineWidthChanged)
             lineWidth = 1 / getScale();
+    }
+
+    @Override
+    public void translate(float tx, float ty)
+    {
+        Runner.getInstance().getCamera().setOrigin(new Vector2f(tx, ty));
     }
 
     @Override
@@ -71,8 +77,8 @@ public class VAOGraphics implements Graphics {
     }
 
     @Override
-    public void setScale(float factor) {
-        setScale(factor, factor);
+    public void scale(float factor) {
+        scale(factor, factor);
     }
 
     @Override
@@ -115,6 +121,16 @@ public class VAOGraphics implements Graphics {
         currentColor = color;
 
         batcher.setColor(currentColor);
+    }
+
+    @Override
+    public void rotate(float rz) {
+        Runner.getInstance().getCamera().setRotation(rz);
+    }
+
+    @Override
+    public float getRotation() {
+        return Runner.getInstance().getCamera().getRotation();
     }
 
     @Override

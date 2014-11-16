@@ -4,6 +4,7 @@ import com.radirius.mercury.math.geometry.Rectangle;
 import com.radirius.mercury.math.geometry.Shape;
 import com.radirius.mercury.math.geometry.Triangle;
 import com.radirius.mercury.math.geometry.Vector2f;
+import com.radirius.mercury.utilities.GraphicsUtils;
 import com.radirius.mercury.utilities.logging.Logger;
 import org.lwjgl.BufferUtils;
 
