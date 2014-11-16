@@ -48,8 +48,7 @@ public class Camera {
         g.pre();
     }
 
-    private void updateTransforms()
-    {
+    private void updateTransforms() {
         Runner.getInstance().getGraphics().getBatcher().flush();
 
         // Update the transformation matrix

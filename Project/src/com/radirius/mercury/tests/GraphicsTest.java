@@ -12,11 +12,14 @@ public class GraphicsTest extends Core {
 
     Rectangle rect;
 
-    public GraphicsTest()
-    {
+    public GraphicsTest() {
         super("Graphics Test", 800, 600);
 
         setDebugDisplays(true);
+    }
+
+    public static void main(String[] args) {
+        new GraphicsTest().start();
     }
 
     @Override
@@ -25,7 +28,9 @@ public class GraphicsTest extends Core {
     }
 
     @Override
-    public void update(float delta) { f++; }
+    public void update(float delta) {
+        f++;
+    }
 
     @Override
     public void render(Graphics g) {
@@ -42,10 +47,7 @@ public class GraphicsTest extends Core {
     }
 
     @Override
-    public void cleanup() {}
-
-    public static void main(String[] args) {
-        new GraphicsTest().start();
+    public void cleanup() {
     }
 
 }

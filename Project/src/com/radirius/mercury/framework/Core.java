@@ -1,10 +1,10 @@
 package com.radirius.mercury.framework;
 
 import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.utilities.GraphicsUtils;
 import com.radirius.mercury.graphics.Shader;
 import com.radirius.mercury.graphics.VAOGraphics;
 import com.radirius.mercury.resource.Loader;
+import com.radirius.mercury.utilities.GraphicsUtils;
 import com.radirius.mercury.utilities.logging.Logger;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
@@ -195,8 +195,8 @@ public abstract class Core {
         }
 
         Runner.getInstance().setIcon(Loader.streamFromClasspath("com/radirius/mercury/framework/res/merc_mascot_x16.png"),
-                                     Loader.streamFromClasspath("com/radirius/mercury/framework/res/merc_mascot_x32.png"),
-                                     Loader.streamFromClasspath("com/radirius/mercury/framework/res/merc_mascot_x64.png"));
+                Loader.streamFromClasspath("com/radirius/mercury/framework/res/merc_mascot_x32.png"),
+                Loader.streamFromClasspath("com/radirius/mercury/framework/res/merc_mascot_x64.png"));
     }
 
     /**

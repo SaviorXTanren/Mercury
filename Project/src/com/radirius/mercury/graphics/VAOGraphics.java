@@ -61,8 +61,7 @@ public class VAOGraphics implements Graphics {
     }
 
     @Override
-    public void translate(float tx, float ty)
-    {
+    public void translate(float tx, float ty) {
         Runner.getInstance().getCamera().setOrigin(new Vector2f(tx, ty));
     }
 

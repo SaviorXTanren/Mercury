@@ -39,19 +39,18 @@ public class Polygon extends Shape {
         radius = 0.5f * (xRadius + yRadius);
     }
 
-	/**
-	 * Creates a new Polygon from raw vertex data.
-	 *
-	 * @param vertices
-	 *            The vertex data.
-	 */
-	public Polygon(Vector2f[] vertices) {
-		super(vertices);
-	}
+    /**
+     * Creates a new Polygon from raw vertex data.
+     *
+     * @param vertices The vertex data.
+     */
+    public Polygon(Vector2f[] vertices) {
+        super(vertices);
+    }
 
-	public Polygon(float[] fs) {
-		super(fs);
-	}
+    public Polygon(float[] fs) {
+        super(fs);
+    }
 
     /**
      * @return Basically the vertices for a whole bunch of
