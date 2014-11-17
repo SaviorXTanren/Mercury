@@ -71,13 +71,13 @@ com/radirius/mercury/utilities/misc/Updatable.class
 com/radirius/mercury/utilities/WipingArrayList.class
 com/radirius/mercury/graphics/wip/gui/ImageButton.class
 com/radirius/mercury/utilities/easing/EasingValue.class
+com/radirius/mercury/tests/FrameBufferTest.class
 com/radirius/mercury/framework/Core.class
 com/radirius/mercury/resource/Loader.class
 com/radirius/mercury/data/MercuryData.class
 com/radirius/mercury/math/geometry/Ellipse.class
 com/radirius/mercury/graphics/wip/gui/Container.class
 com/radirius/mercury/graphics/Texture.class
-com/radirius/mercury/tests/MatrixTest.class
 com/radirius/mercury/utilities/command/CommandList$8.class
 com/radirius/mercury/math/geometry/Line.class
 com/radirius/mercury/tests/GameStateTest.class

@@ -5,7 +5,11 @@ import com.radirius.mercury.graphics.font.Font;
 import com.radirius.mercury.graphics.font.TrueTypeFont;
 import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.math.geometry.*;
+import com.radirius.mercury.utilities.GraphicsUtils;
 import org.lwjgl.opengl.GL11;
+
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 
 /**
  * An object used for graphics. It will draw just about anything for you.
@@ -30,6 +34,14 @@ public class VAOGraphics implements Graphics {
 
         backgroundColor = Color.DEFAULT_BACKGROUND;
         currentColor = Color.DEFAULT_DRAWING;
+
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        // Hack: Have a back-up Matrix in-case the methods
+        // are called outside a frame, such as an init method
+        GraphicsUtils.pushMatrix();
+        Runner.getInstance().getCamera().updateTransforms();
     }
 
     @Override
@@ -158,10 +170,9 @@ public class VAOGraphics implements Graphics {
 
     @Override
     public void flush() {
-        Runner.getInstance().getCamera().post(this);
-
         batcher.flush();
 
+        Runner.getInstance().getCamera().post(this);
         Runner.getInstance().getCamera().pre(this);
     }
 

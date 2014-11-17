@@ -1,17 +1,18 @@
 package com.radirius.mercury.graphics;
 
+import com.radirius.mercury.exceptions.MercuryException;
 import com.radirius.mercury.framework.Runner;
 import com.radirius.mercury.utilities.logging.Logger;
 
-import static org.lwjgl.opengl.EXTFramebufferObject.*;
+
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GLContext.getCapabilities;
+import static org.lwjgl.opengl.GL30.*;
 
 /**
  * An object that allows you to 'draw to a texture.' Good
  * for post-processing effects.
  *
- * @author wessles
+ * @author wessles, Sri Harsha Chilakapati
  */
 public class FrameBuffer {
     private final int fboId;
@@ -27,29 +28,34 @@ public class FrameBuffer {
      * Creates a new frame buffer object.
      */
     public static FrameBuffer getFrameBuffer() {
-        if (!isSupported()) {
-            Logger.warn("Framebuffers not supported!");
-
-            return null;
-        }
-
-        int fboId = glGenFramebuffersEXT();
+        int fboId = glGenFramebuffers();
         int texId = glGenTextures();
 
         // Bind
-        glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fboId);
+        glBindFramebuffer(GL_FRAMEBUFFER, fboId);
 
         // Texture Stuff!
         glBindTexture(GL_TEXTURE_2D, texId);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
         int width = (int) Runner.getInstance().getCamera().getWidth(), height = (int) Runner.getInstance().getCamera().getHeight();
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_INT, (java.nio.ByteBuffer) null);
-        glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, texId, 0);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0,GL_RGB, GL_UNSIGNED_BYTE, (java.nio.ByteBuffer) null);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texId, 0);
+        glDrawBuffer(GL_COLOR_ATTACHMENT0);
+
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+            try {
+                throw new MercuryException("Error in Framebuffer");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         // Unbind
-        glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
         Texture.unbindTextures();
 
         return new FrameBuffer(fboId, texId, width, height);
@@ -66,23 +72,16 @@ public class FrameBuffer {
      * Returns to original frame buffer (window).
      */
     public static void releaseFrameBuffers() {
-        glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-    }
-
-    /**
-     * @return If FBOs are supported
-     */
-    public static boolean isSupported() {
-        return getCapabilities().GL_EXT_framebuffer_object;
+        Runner.getInstance().getGraphics().getBatcher().flush();
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
     /**
      * Begins recording of the FBO to the texture object.
      */
     public void use() {
-        Texture.unbindTextures();
-        glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fboId);
-        glPushAttrib(GL_VIEWPORT_BIT);
+        fboTexture.bind();
+        glBindFramebuffer(GL_FRAMEBUFFER, fboId);
         glViewport(0, 0, (int) Runner.getInstance().getCamera().getWidth(), (int) Runner.getInstance().getCamera().getHeight());
         glClear(GL_COLOR_BUFFER_BIT);
     }
@@ -92,7 +91,11 @@ public class FrameBuffer {
      */
     public void release() {
         releaseFrameBuffers();
-        glPopAttrib();
+        Texture.unbindTextures();
+    }
+
+    public void cleanup() {
+        glDeleteFramebuffers(fboId);
     }
 
     /**

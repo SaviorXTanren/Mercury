@@ -365,10 +365,16 @@ public class VAOBatcher implements Batcher {
         if (texture instanceof SubTexture)
             sourceRegion.translate(subtexture.getSubX(), subtexture.getSubY());
 
-        for (Vector2f v : sourceRegion.getVertices()) {
-            v.x /= subtexture.getParentWidth();
-            v.y /= -subtexture.getParentHeight();
-        }
+        if (subtexture != null)
+            for (Vector2f v : sourceRegion.getVertices()) {
+                v.x /= subtexture.getParentWidth();
+                v.y /= -subtexture.getParentHeight();
+            }
+        else
+            for (Vector2f v : sourceRegion.getVertices()) {
+                v.x /= texture.getWidth();
+                v.y /= -texture.getHeight();
+            }
 
         sourceRegion.regen();
 

@@ -45,10 +45,11 @@ public class Camera {
     public void pre(Graphics g) {
         GraphicsUtils.pushMatrix();
         updateTransforms();
+
         g.pre();
     }
 
-    private void updateTransforms() {
+    public void updateTransforms() {
         Runner.getInstance().getGraphics().getBatcher().flush();
 
         // Update the transformation matrix

@@ -227,12 +227,12 @@ public class Runner {
             this.vsync = vsync;
             this.core.initDisplay(width, height, fullscreen, vsync);
 
+            camera = new Camera(0, 0);
+
             graphics = this.core.initGraphics();
             graphics.init();
 
             this.core.initAudio();
-
-            camera = new Camera(0, 0);
 
             input = new Input();
             input.create();
