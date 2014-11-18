@@ -22,7 +22,7 @@ class AnimationTest extends Core {
     @Override
     public void init() {
         spriteSheet = SpriteSheet.loadSpriteSheet(Texture.loadTexture(Loader.streamFromClasspath("com/radirius/mercury/tests/animationTest.png")), 64);
-        animation = new Animation(spriteSheet, 50);
+        animation = new Animation(spriteSheet, 150);
     }
 
     @Override

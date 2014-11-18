@@ -18,7 +18,7 @@ Key:
 [=] - In Progress
 [-] - Incomplete/Not Done
 
-Please use coorect grammar when adding items to the list. To make a comment to the list do as you would do in the
+Please use correct grammar when adding items to the list. To make a comment to the list do as you would do in the
 Java programming language. Make a new line, indent it by 2-4 spaces, add two forward-slashes ('//') with one extra 
 space at the end, and then add the text to your comment. There are also linked to-do's, which are used with `]` brackets.
 
@@ -95,6 +95,8 @@ Code/Features To-Do List:
 - [-] Stop update and rendering functions from being called when the splash screens are showing.
 - [-] Add an option for turning on/off automatic updating and rendering in GameScene.
 - [-] Move GameScene and GameState automatic update/render options to Core's flag functions.
+- [+] Port the codebase to Modern OpenGL (OpenGL 3.3)
+- [-] Add option to stop Animations, or be listened to the end of animation.
 
 ---------------------------------------------------------------------------------------------
 Misc To-Do List:

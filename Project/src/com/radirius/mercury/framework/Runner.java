@@ -324,7 +324,7 @@ public class Runner {
                 core.update(getDelta());
 
                 if (core.currentGameState != null)
-                    if (!core.currentGameState.auto)
+                    if (core.currentGameState.auto)
                         core.currentGameState.update(getDelta());
 
                 GameScene.update(getDelta());

@@ -24,7 +24,7 @@ public class Animation implements Resource {
     private long frameMillis = 0, lastFrameMillis;
 
     /**
-     * @param framerateMillis The frame rate in milliseconds
+     * @param frameTimeMillis The frame rate in milliseconds
      * @param baseTextures    The textures, or frames.
      */
     public Animation(SpriteSheet baseTextures, int frameTimeMillis) {
