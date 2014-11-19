@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.*;
 
 /**
  * An object version of a texture. This will store the width
@@ -72,7 +73,7 @@ public class Texture implements Resource {
      * Loads a texture from in
      */
     public static Texture loadTexture(InputStream inputStream) {
-        return loadTexture(inputStream, false, false, GL_NEAREST);
+        return loadTexture(inputStream, false, false, GL_LINEAR);
     }
 
     /**
@@ -87,7 +88,7 @@ public class Texture implements Resource {
      * flipX horizontally, and flipY vertically.
      */
     public static Texture loadTexture(InputStream inputStream, boolean flipX, boolean flipY) {
-        return loadTexture(inputStream, flipX, flipY, GL_NEAREST);
+        return loadTexture(inputStream, flipX, flipY, GL_LINEAR);
     }
 
     /**
@@ -95,7 +96,7 @@ public class Texture implements Resource {
      * flipX horizontally, and flipY vertically.
      */
     public static Texture loadTexture(BufferedImage bufferedImage, boolean flipX, boolean flipY) {
-        return loadTexture(bufferedImage, flipX, flipY, GL_NEAREST);
+        return loadTexture(bufferedImage, flipX, flipY, GL_LINEAR);
     }
 
     /**
@@ -161,12 +162,16 @@ public class Texture implements Resource {
         return null;
     }
 
+    public static Texture loadTexture(BufferedImage bufferedImage, boolean flipX, boolean flipY, int rot, int filter) {
+        return loadTexture(bufferedImage, flipX, flipY, rot, filter, filter);
+    }
+
     /**
      * Loads a texture from bi, flipping it depending on
      * flipX horizontally, and flipY vertically, rotated by
      * rot, filtered through filter.
      */
-    public static Texture loadTexture(BufferedImage bufferedImage, boolean flipX, boolean flipY, int rot, int filter) {
+    public static Texture loadTexture(BufferedImage bufferedImage, boolean flipX, boolean flipY, int rot, int min_filter, int mag_filter) {
         BufferedImage bufferedImage0 = processBufferedImage(bufferedImage, flipX, flipY, rot);
 
         ByteBuffer buffer = convertBufferedImageToBuffer(bufferedImage0, false, true);
@@ -175,12 +180,13 @@ public class Texture implements Resource {
         glBindTexture(GL_TEXTURE_2D, textureId);
 
         // Set the parameters for filtering
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min_filter);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, mag_filter);
 
         // Push all buffer data into the now configured
         // OpenGL.
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, bufferedImage0.getWidth(), bufferedImage0.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+        glGenerateMipmap(GL_TEXTURE_2D);
 
         // Unbind, so that this texture is not being
         // rendered when you want to
@@ -209,7 +215,7 @@ public class Texture implements Resource {
             tx.scale(flipX ? -1 : 1, flipY ? -1 : 1);
             tx.translate(flipX ? -bufferedImage.getWidth() : 0, flipY ? -bufferedImage.getHeight() : 0);
 
-            AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+            AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
             bufferedImage = op.filter(bufferedImage, null);
         }
 

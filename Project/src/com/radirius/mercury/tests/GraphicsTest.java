@@ -4,6 +4,7 @@ import com.radirius.mercury.framework.Core;
 import com.radirius.mercury.framework.Runner;
 import com.radirius.mercury.graphics.Color;
 import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.math.geometry.Circle;
 import com.radirius.mercury.math.geometry.Rectangle;
 import org.lwjgl.opengl.GL11;
 
@@ -11,6 +12,7 @@ public class GraphicsTest extends Core {
     int f = 0;
 
     Rectangle rect;
+    Circle    circ;
 
     public GraphicsTest() {
         super("Graphics Test", 800, 600);
@@ -19,12 +21,13 @@ public class GraphicsTest extends Core {
     }
 
     public static void main(String[] args) {
-        new FrameBufferTest().start();
+        new GraphicsTest().start();
     }
 
     @Override
     public void init() {
         rect = new Rectangle(100, 100, 100, 100);
+        circ = new Circle(500, 500, 100);
     }
 
     @Override
@@ -44,6 +47,8 @@ public class GraphicsTest extends Core {
 
         rect.rotate(1);
         g.drawRectangle(rect);
+
+        g.drawShape(circ);
     }
 
     @Override

@@ -16,6 +16,8 @@
 'UTF-8'
 -doctitle
 'Mercury 1.0.1.9-dev API'
+-link
+'http://java.sun.com/javase/6/docs/api'
 -use
 -version
 -windowtitle
