@@ -67,7 +67,7 @@ public class Particle implements Updatable, Renderable, Wipeable {
         color = emitter.getOptions().color.duplicate();
         growth = emitter.getOptions().growth;
         rotation = emitter.getOptions().rotation;
-        life = emitter.getOptions().lifeinframes;
+        life = emitter.getOptions().lifeInFrames;
     }
 
     @Override
@@ -75,8 +75,8 @@ public class Particle implements Updatable, Renderable, Wipeable {
         if (life < 0)
             wipe();
         vel.scale(emitter.getOptions().acceleration);
+	    vel.add(emitter.getOptions().gravity);
         bounds.translate(vel.x, vel.y);
-        bounds.translate(emitter.getOptions().gravity.x, emitter.getOptions().gravity.y);
         bounds.scale(growth);
         if (bounds.getScale() <= 0)
             wipe();

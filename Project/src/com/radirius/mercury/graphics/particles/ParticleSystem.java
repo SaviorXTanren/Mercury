@@ -120,6 +120,6 @@ public class ParticleSystem implements Updatable, Renderable {
          * The amount of frames that will pass a single
          * particle before death/removal.
          */
-        public int lifeinframes = 1000;
+        public int lifeInFrames = 1000;
     }
 }

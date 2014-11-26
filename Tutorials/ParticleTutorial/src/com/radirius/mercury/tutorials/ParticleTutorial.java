@@ -44,7 +44,7 @@ public class ParticleTutorial extends Core {
 		psetup.angle = 0;
 
 		// The amount of frames from creation until the particle dies.
-		psetup.lifeinframes = 480;
+		psetup.lifeInFrames = 480;
 		// The color of the particle.
 		psetup.color = new Color(30, 50, 80, 70);
 

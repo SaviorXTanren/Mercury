@@ -11,6 +11,7 @@ import org.lwjgl.BufferUtils;
 import java.nio.FloatBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
@@ -168,9 +169,6 @@ public class VAOBatcher implements Batcher {
 
     @Override
     public void setTexture(Texture texture, int activeIndex) {
-        if (texture.equals(lastTexture))
-            return;
-
         flush();
 
         lastTexture = texture;
@@ -182,7 +180,7 @@ public class VAOBatcher implements Batcher {
 
     @Override
     public void activateTexture(int activateIndex) {
-        glActiveTexture(activateIndex);
+        glActiveTexture(GL_TEXTURE0+activateIndex);
     }
 
     @Override
