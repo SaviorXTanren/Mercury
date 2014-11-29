@@ -6,6 +6,7 @@ import com.radirius.mercury.graphics.Color;
 import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.math.geometry.Circle;
 import com.radirius.mercury.math.geometry.Rectangle;
+import com.radirius.mercury.math.geometry.Vector2f;
 import org.lwjgl.opengl.GL11;
 
 public class GraphicsTest extends Core {
@@ -49,6 +50,11 @@ public class GraphicsTest extends Core {
         g.drawRectangle(rect);
 
         g.drawShape(circ);
+
+
+        Runner.getInstance().getCamera().setOrigin(new Vector2f(100, 100));
+
+        Runner.getInstance().getCamera().rotate(5);
     }
 
     @Override

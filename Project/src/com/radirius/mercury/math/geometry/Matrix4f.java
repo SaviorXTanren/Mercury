@@ -135,10 +135,13 @@ public class Matrix4f {
     public Matrix4f initRotation(float rz) {
         initIdentity();
 
-        m[0][0] = (float) Math.cos(Math.toRadians(rz));
-        m[1][2] = m[0][0];
-        m[0][1] = (float) Math.sin(Math.toRadians(rz));
-        m[1][0] = -m[0][1];
+        float cos = (float) Math.cos(Math.toRadians(rz));
+        float sin = (float) Math.sin(Math.toRadians(rz));
+
+        m[0][0] = cos;
+        m[0][1] = -sin;
+        m[1][0] = sin;
+        m[1][1] = cos;
 
         return this;
     }
