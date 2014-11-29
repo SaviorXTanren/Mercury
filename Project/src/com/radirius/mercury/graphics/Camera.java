@@ -57,9 +57,10 @@ public class Camera {
 
         cm.initIdentity()
                 .mul(new Matrix4f().initTranslation(origin.x, origin.y))
-		        .mul(new Matrix4f().initRotation(rot))
 		        .mul(new Matrix4f().initTranslation(x, y))
-		        .mul(new Matrix4f().initScale(scale.x, scale.y));
+		        .mul(new Matrix4f().initScale(scale.x, scale.y))
+                .mul(new Matrix4f().initRotation(rot));
+//        ;
     }
 
     /**
