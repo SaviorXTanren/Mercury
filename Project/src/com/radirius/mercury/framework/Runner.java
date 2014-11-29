@@ -1,5 +1,6 @@
 package com.radirius.mercury.framework;
 
+import com.radirius.mercury.audio.Audio;
 import com.radirius.mercury.exceptions.MercuryException;
 import com.radirius.mercury.framework.splash.SplashScreen;
 import com.radirius.mercury.graphics.Camera;
@@ -376,6 +377,7 @@ public class Runner {
         Display.update();
 
         Logger.newLine();
+
 
         if (showExtraDebug) {
             Logger.info("Ending Game Loop...");
