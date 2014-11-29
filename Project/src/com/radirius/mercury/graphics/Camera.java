@@ -84,6 +84,7 @@ public class Camera {
      */
     public void setOrigin(Vector2f origin) {
         this.origin = origin;
+	    translate(origin.x, origin.y);
     }
 
     /**
