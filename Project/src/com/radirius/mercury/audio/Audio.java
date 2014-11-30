@@ -34,11 +34,9 @@ public class Audio implements Resource {
 	}
 
 	/**
-	 * Makes a source based off of buffer, and then makes an
-	 * Audio based off of the source.
+	 * Makes a source based off of buffer, and then makes an Audio based off of the source.
 	 *
-	 * @param buffer The integer index of the sound for OpenAL
-	 *               to process.
+	 * @param buffer The integer index of the sound for OpenAL to process.
 	 * @return the audio file.
 	 */
 	public static Audio getAudio(int buffer) {
@@ -56,12 +54,10 @@ public class Audio implements Resource {
 	}
 
 	/**
-	 * Makes a source based off of buffer, and then makes an
-	 * Audio based off of the source.
+	 * Makes a source based off of buffer, and then makes an Audio based off of the source.
 	 *
 	 * @param is     The input file to be read.
-	 * @param format The format of the audio file ("wav",
-	 *               "ogg"...).
+	 * @param format The format of the audio file ("wav", "ogg"...).
 	 * @return the audio file.
 	 */
 	public static Audio getAudio(InputStream is, String format) {
@@ -77,8 +73,7 @@ public class Audio implements Resource {
 	 * Forms a buffer from is.
 	 *
 	 * @param is The stream to the sound file.
-	 * @return The integer index for OpenAL based off of the
-	 * .ogg file at the InputStream is.
+	 * @return The integer index for OpenAL based off of the .ogg file at the InputStream is.
 	 */
 	public static int getOGGBuffer(InputStream is) {
 		IntBuffer buffer = BufferUtils.createIntBuffer(1);
@@ -106,8 +101,7 @@ public class Audio implements Resource {
 	 * Forms a buffer from is.
 	 *
 	 * @param is The stream to the sound file.
-	 * @return The integer index for OpenAL based off of the
-	 * .wav file at the InputStream is.
+	 * @return The integer index for OpenAL based off of the .wav file at the InputStream is.
 	 */
 	public static int getWAVBuffer(InputStream is) {
 		IntBuffer buffer = BufferUtils.createIntBuffer(1);
@@ -133,8 +127,7 @@ public class Audio implements Resource {
 	}
 
 	/**
-	 * Plays the clip. If it is already playing, it will
-	 * restart. If the clip is paused, it will continue.
+	 * Plays the clip. If it is already playing, it will restart. If the clip is paused, it will continue.
 	 *
 	 * @return the audio file.
 	 */
@@ -145,8 +138,7 @@ public class Audio implements Resource {
 	}
 
 	/**
-	 * Plays the clip if it is paused, pauses it if it is
-	 * not paused.
+	 * Plays the clip if it is paused, pauses it if it is not paused.
 	 *
 	 * @return the audio file.
 	 */
@@ -160,8 +152,7 @@ public class Audio implements Resource {
 	}
 
 	/**
-	 * Plays the clip if it is stopped, stops it if it is
-	 * not stopped.
+	 * Plays the clip if it is stopped, stops it if it is not stopped.
 	 *
 	 * @return the audio file.
 	 */
@@ -220,8 +211,7 @@ public class Audio implements Resource {
 	/**
 	 * Sets the volume of the clip.
 	 *
-	 * @param vol A floating point volume value, 0.8 being
-	 *            80%, 1.5 being 150%, etc.
+	 * @param vol A floating point volume value, 0.8 being 80%, 1.5 being 150%, etc.
 	 * @return the audio file.
 	 */
 	public Audio setVolume(float vol) {
@@ -240,8 +230,7 @@ public class Audio implements Resource {
 	/**
 	 * Sets the pitch of the clip.
 	 *
-	 * @param pit A floating point pitch value, 0.8 being
-	 *            80%, 1.5 being 150%, etc.
+	 * @param pit A floating point pitch value, 0.8 being 80%, 1.5 being 150%, etc.
 	 * @return the audio file.
 	 */
 	public Audio setPitch(float pit) {

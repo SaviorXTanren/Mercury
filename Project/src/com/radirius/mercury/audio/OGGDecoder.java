@@ -14,9 +14,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” 
 
 package com.radirius.mercury.audio;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.ByteBuffer;
 
 /**
@@ -25,36 +23,35 @@ import java.nio.ByteBuffer;
  * @author Kevin Glass
  */
 public class OGGDecoder {
-    /**
-     * Get the data out of an OGG file
-     *
-     * @param input The input stream from which to read the
-     *              OGG file
-     * @return The data describing the OGG thats been read
-     * @throws IOException Indicates a failure to read the OGG file
-     */
-    public OGGData getData(InputStream input) throws IOException {
-        if (input == null)
-            throw new IOException("Failed to read OGG file. Does the source exist?");
+	/**
+	 * Get the data out of an OGG file
+	 *
+	 * @param input The input stream from which to read the OGG file
+	 * @return The data describing the OGG thats been read
+	 * @throws IOException Indicates a failure to read the OGG file
+	 */
+	public OGGData getData(InputStream input) throws IOException {
+		if (input == null)
+			throw new IOException("Failed to read OGG file. Does the source exist?");
 
-        ByteArrayOutputStream dataout = new ByteArrayOutputStream();
+		ByteArrayOutputStream dataout = new ByteArrayOutputStream();
 
-        OGGInputStream oggInput = new OGGInputStream(input);
+		OGGInputStream oggInput = new OGGInputStream(input);
 
-        while (!oggInput.atEnd())
-            dataout.write(oggInput.read());
+		while (!oggInput.atEnd())
+			dataout.write(oggInput.read());
 
-        OGGData ogg = new OGGData();
-        ogg.channels = oggInput.getChannels();
-        ogg.rate = oggInput.getRate();
+		OGGData ogg = new OGGData();
+		ogg.channels = oggInput.getChannels();
+		ogg.rate = oggInput.getRate();
 
-        oggInput.close();
+		oggInput.close();
 
-        byte[] data = dataout.toByteArray();
-        ogg.data = ByteBuffer.allocateDirect(data.length);
-        ogg.data.put(data);
-        ogg.data.rewind();
+		byte[] data = dataout.toByteArray();
+		ogg.data = ByteBuffer.allocateDirect(data.length);
+		ogg.data.put(data);
+		ogg.data.rewind();
 
-        return ogg;
-    }
+		return ogg;
+	}
 }

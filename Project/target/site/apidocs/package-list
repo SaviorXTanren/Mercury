@@ -6,7 +6,6 @@ com.radirius.mercury.framework.splash
 com.radirius.mercury.graphics
 com.radirius.mercury.graphics.font
 com.radirius.mercury.graphics.particles
-com.radirius.mercury.graphics.wip.gui
 com.radirius.mercury.input
 com.radirius.mercury.math
 com.radirius.mercury.math.geometry

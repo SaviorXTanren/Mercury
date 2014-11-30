@@ -6,8 +6,8 @@ package com.radirius.mercury.utilities.misc;
  * @author Jeviny
  */
 public interface Initializable {
-    /**
-     * The method for initialization.
-     */
-    public void init();
+	/**
+	 * The method for initialization.
+	 */
+	public void init();
 }

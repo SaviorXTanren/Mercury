@@ -1,7 +1,6 @@
 package com.radirius.mercury.utilities;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * An arraylist that you can wipe Wipeables with.
@@ -9,15 +8,14 @@ import java.util.Iterator;
  * @author wessles
  */
 public class WipingArrayList<T extends Wipeable> extends ArrayList<T> {
-    /**
-     * Goes through list, removing any objects that have
-     * declared themselves 'wiped.'
-     */
-    public void sweep() {
-        for (Iterator<?> i = iterator(); i.hasNext(); ) {
-            Wipeable w = (Wipeable) i.next();
-            if (w.wiped())
-                i.remove();
-        }
-    }
+	/**
+	 * Goes through list, removing any objects that have declared themselves 'wiped.'
+	 */
+	public void sweep() {
+		for (Iterator<?> i = iterator(); i.hasNext(); ) {
+			Wipeable w = (Wipeable) i.next();
+			if (w.wiped())
+				i.remove();
+		}
+	}
 }

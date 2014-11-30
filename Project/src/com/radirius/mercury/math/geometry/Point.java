@@ -7,38 +7,38 @@ package com.radirius.mercury.math.geometry;
  */
 public class Point extends Shape {
 
-    /**
-     * @param x The x position.
-     * @param y The y position.
-     */
-    public Point(float x, float y) {
-        super(x, y);
-    }
+	/**
+	 * @param x The x position.
+	 * @param y The y position.
+	 */
+	public Point(float x, float y) {
+		super(x, y);
+	}
 
-    @Override
-    public String toString() {
-        return "(Point) " + toVector().toString();
-    }
+	@Override
+	public String toString() {
+		return "(Point) " + toVector().toString();
+	}
 
-    @Override
-    public float getArea() {
-        return 1;
-    }
+	@Override
+	public float getArea() {
+		return 1;
+	}
 
-    /**
-     * @return The point in the form of a vector.
-     */
-    public Vector2f toVector() {
-        return new Vector2f(getX(), getY());
-    }
+	/**
+	 * @return The point in the form of a vector.
+	 */
+	public Vector2f toVector() {
+		return new Vector2f(getX(), getY());
+	}
 
-    @Override
-    public boolean intersects(Shape s) {
-        return s.contains(new Vector2f(getX(), getY()));
-    }
+	@Override
+	public boolean intersects(Shape s) {
+		return s.contains(new Vector2f(getX(), getY()));
+	}
 
-    @Override
-    public boolean contains(Vector2f v) {
-        return v.x == getX() && v.y == getY();
-    }
+	@Override
+	public boolean contains(Vector2f v) {
+		return v.x == getX() && v.y == getY();
+	}
 }

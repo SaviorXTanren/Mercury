@@ -1,19 +1,18 @@
 package com.radirius.mercury.utilities;
 
 /**
- * An abstraction for objects that can 'wipe' themselves, or
- * self destruct.
+ * An abstraction for objects that can 'wipe' themselves, or self destruct.
  *
  * @author wessles
  */
 public interface Wipeable {
-    /**
-     * Wipes the object.
-     */
-    public void wipe();
+	/**
+	 * Wipes the object.
+	 */
+	public void wipe();
 
-    /**
-     * @return Whether or not the object is wiped.
-     */
-    public boolean wiped();
+	/**
+	 * @return Whether or not the object is wiped.
+	 */
+	public boolean wiped();
 }

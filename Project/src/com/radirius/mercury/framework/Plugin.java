@@ -6,25 +6,25 @@ package com.radirius.mercury.framework;
  * @author wessles, Jeviny
  */
 public abstract class Plugin {
-    /**
-     * The method for initializing the plugin.
-     */
-    public abstract void init();
+	/**
+	 * The method for initializing the plugin.
+	 */
+	public abstract void init();
 
-    /**
-     * The method for updating.
-     */
-    public abstract void update();
+	/**
+	 * The method for updating.
+	 */
+	public abstract void update();
 
-    /**
-     * The method for cleaning up the plugin.
-     */
-    public abstract void cleanup();
+	/**
+	 * The method for cleaning up the plugin.
+	 */
+	public abstract void cleanup();
 
-    /**
-     * @return The name of the plugin.
-     */
-    public String getName() {
-        return getClass().getSimpleName();
-    }
+	/**
+	 * @return The name of the plugin.
+	 */
+	public String getName() {
+		return getClass().getSimpleName();
+	}
 }
