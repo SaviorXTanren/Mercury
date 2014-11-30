@@ -12,3 +12,4 @@ target/classes
 .idea_modules/
 atlassian-ide-plugin.xml
 natives/
+/target/

@@ -2,7 +2,6 @@ package com.radirius.mercury.graphics;
 
 import com.radirius.mercury.exceptions.MercuryException;
 import com.radirius.mercury.framework.Runner;
-import com.radirius.mercury.utilities.logging.Logger;
 
 
 import static org.lwjgl.opengl.GL11.*;
@@ -31,11 +30,8 @@ public class FrameBuffer {
         int fboId = glGenFramebuffers();
         int texId = glGenTextures();
 
-        // Bind
         glBindFramebuffer(GL_FRAMEBUFFER, fboId);
-
-        // Texture Stuff!
-        glBindTexture(GL_TEXTURE_2D, texId);
+        Texture.bindTextures(texId);
 
         int width = (int) Runner.getInstance().getCamera().getWidth(), height = (int) Runner.getInstance().getCamera().getHeight();
 
@@ -54,7 +50,6 @@ public class FrameBuffer {
             }
         }
 
-        // Unbind
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         Texture.unbindTextures();
 

@@ -4,9 +4,11 @@ import com.radirius.mercury.exceptions.MercuryException;
 import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.resource.Loader;
 import com.radirius.mercury.resource.Resource;
+
 import org.lwjgl.BufferUtils;
 
 import javax.imageio.ImageIO;
+
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -37,7 +39,7 @@ public class Texture implements Resource {
 
     /**
      * Make a texture of the textureId, with a width and
-     * height, based off of bufferedimage buf.
+     * height, based off of BufferedImage bufferedImage.
      *
      * @param textureId     The id of the texture.
      * @param width         The width of the texture.
@@ -58,10 +60,17 @@ public class Texture implements Resource {
     /**
      * Staticly 'bind().'
      */
-    public static void bindTexture(Texture tex) {
-        tex.bind();
+    public static void bindTexture(Texture texture) {
+        texture.bind();
     }
-
+    
+    /**
+     * Binds textures.
+     */
+    public static void bindTextures(int textureId) {
+    	glBindTexture(GL_TEXTURE_2D, textureId);
+    }
+    
     /**
      * Unbinds textures
      */
@@ -70,21 +79,21 @@ public class Texture implements Resource {
     }
 
     /**
-     * Loads a texture from in
+     * Loads a texture from InputStream inputStream.
      */
     public static Texture loadTexture(InputStream inputStream) {
         return loadTexture(inputStream, false, false, GL_LINEAR);
     }
 
     /**
-     * Loads a texture from bi
+     * Loads a texture from BufferedImage bufferedImage.
      */
     public static Texture loadTexture(BufferedImage bufferedImage) {
         return loadTexture(bufferedImage, false, false);
     }
 
     /**
-     * Loads a texture from in, flipping it depending on
+     * Loads a texture from an input stream, flipping it depending on
      * flipX horizontally, and flipY vertically.
      */
     public static Texture loadTexture(InputStream inputStream, boolean flipX, boolean flipY) {
@@ -92,7 +101,7 @@ public class Texture implements Resource {
     }
 
     /**
-     * Loads a texture from bi, flipping it depending on
+     * Loads a texture from a buffered image, flipping it depending on
      * flipX horizontally, and flipY vertically.
      */
     public static Texture loadTexture(BufferedImage bufferedImage, boolean flipX, boolean flipY) {
@@ -102,12 +111,12 @@ public class Texture implements Resource {
     /**
      * Loads a texture from in, filtered through filter.
      */
-    public static Texture loadTexture(InputStream in, int filter) {
-        return loadTexture(in, false, false, filter);
+    public static Texture loadTexture(InputStream inputStream, int filter) {
+        return loadTexture(inputStream, false, false, filter);
     }
 
     /**
-     * Loads a texture from bi, filtered through filter.
+     * Loads a texture from a bufferedImage, filtered through filter.
      */
     public static Texture loadTexture(BufferedImage bufferedImage, int filter) {
         return loadTexture(bufferedImage, false, false, filter);
@@ -118,12 +127,12 @@ public class Texture implements Resource {
      * flipX horizontally, and flipY vertically, filtered
      * through filter.
      */
-    public static Texture loadTexture(InputStream in, boolean flipX, boolean flipY, int filter) {
-        return loadTexture(in, flipX, flipY, 0, filter);
+    public static Texture loadTexture(InputStream inputStream, boolean flipX, boolean flipY, int filter) {
+        return loadTexture(inputStream, flipX, flipY, 0, filter);
     }
 
     /**
-     * Loads a texture from bi, flipping it depending on
+     * Loads a texture from a buffered image, flipping it depending on
      * flipX horizontally, and flipY vertically, filtered
      * through filter.
      */
@@ -132,15 +141,15 @@ public class Texture implements Resource {
     }
 
     /**
-     * Loads a texture from in, rotating it by rot, filtered
+     * Loads a texture from an InputStream, rotating it by rot, filtered
      * through filter.
      */
-    public static Texture loadTexture(InputStream in, int rot, int filter) {
-        return loadTexture(in, false, false, rot, filter);
+    public static Texture loadTexture(InputStream inputStream, int rot, int filter) {
+        return loadTexture(inputStream, false, false, rot, filter);
     }
 
     /**
-     * Loads a texture from bi, rotating it by rot, filtered
+     * Loads a texture from a buffered image, rotating it by rot, filtered
      * through filter.
      */
     public static Texture loadTexture(BufferedImage bufferedImage, int rot, int filter) {
@@ -167,7 +176,7 @@ public class Texture implements Resource {
     }
 
     /**
-     * Loads a texture from bi, flipping it depending on
+     * Loads a texture from a buffered image, flipping it depending on
      * flipX horizontally, and flipY vertically, rotated by
      * rot, filtered through filter.
      */
@@ -262,7 +271,7 @@ public class Texture implements Resource {
         // throw into LWJGL
         ByteBuffer buffer = BufferUtils.createByteBuffer(bufferedImage.getWidth() * bufferedImage.getHeight() * BYTES_PER_PIXEL);
 
-        for (int y = flipY ? bufferedImage.getHeight() - 1 : 0; flipY ? y > -1 : y < bufferedImage.getHeight(); y += flipY ? -1 : 1)
+        for (int y = flipY ? bufferedImage.getHeight() - 1 : 0; flipY ? y > -1 : y < bufferedImage.getHeight(); y += flipY ? -1 : 1) {
             for (int x = flipX ? bufferedImage.getWidth() - 1 : 0; flipX ? x > -1 : x < bufferedImage.getWidth(); x += flipX ? -1 : 1) {
                 int pixel = bufferedImage.getRGB(x, y);
 
@@ -271,6 +280,7 @@ public class Texture implements Resource {
                 buffer.put((byte) (pixel & 0xFF));
                 buffer.put((byte) (pixel >> 24 & 0xFF));
             }
+        }
 
         buffer.flip();
 
@@ -320,7 +330,7 @@ public class Texture implements Resource {
      * Binds the texture.
      */
     public void bind() {
-        glBindTexture(GL_TEXTURE_2D, textureId);
+    	glBindTexture(GL_TEXTURE_2D, textureId);
     }
 
     /**
