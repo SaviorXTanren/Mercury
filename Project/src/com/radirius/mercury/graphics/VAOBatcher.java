@@ -140,8 +140,8 @@ public class VAOBatcher implements Batcher {
 		uploadData();
 
 		// Set uniforms
-		getShader().setUniformf("proj", GraphicsUtils.getProjectionMatrix());
-		getShader().setUniformf("view", GraphicsUtils.getCurrentMatrix());
+		getShader().setUniformMatrix4("proj", GraphicsUtils.getProjectionMatrix());
+		getShader().setUniformMatrix4("view", GraphicsUtils.getCurrentMatrix());
 
 		// Do the actual render
 		glDrawArrays(GL_TRIANGLES, 0, vertexCount);

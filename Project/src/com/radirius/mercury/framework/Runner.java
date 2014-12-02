@@ -309,14 +309,16 @@ public class Runner {
 			if (rendering)
 				glClear(GL_COLOR_BUFFER_BIT);
 
-			if (updating) {
-				core.update(getDelta());
+			if (!showingSplashScreens()) {
+				if (updating) {
+					core.update(getDelta());
 
-				if (core.currentGameState != null)
-					if (core.currentGameState.auto)
-						core.currentGameState.update(getDelta());
+					if (core.currentGameState != null)
+						if (core.currentGameState.auto)
+							core.currentGameState.update(getDelta());
 
-				GameScene.update(getDelta());
+					GameScene.update(getDelta());
+				}
 			}
 
 			// Update timing
@@ -327,7 +329,8 @@ public class Runner {
 				camera.pre(graphics);
 
 				// Render Game
-				if (showSplashScreens(graphics)) {
+
+				if (!showingSplashScreens()) {
 					core.render(graphics);
 
 					if (core.currentGameState != null)
@@ -336,6 +339,8 @@ public class Runner {
 
 					GameScene.render(graphics);
 				}
+
+				showSplashScreens(graphics);
 
 				// Debug
 				if (showDebug) {
@@ -665,30 +670,22 @@ public class Runner {
 		return input;
 	}
 
-	public void setViewport(int x, int y, int width, int height) {
-		glViewport(x, y, width, height);
-	}
-
 	/**
 	 * Shows the current splash screen.
-	 *
-	 * @return Whether there aren't any more splash screens to be shown.
 	 */
-	private boolean showSplashScreens(Graphics g) {
-		if (splidx > splashes.size() - 1)
-			return true;
+	private void showSplashScreens(Graphics g) {
+		if (!showingSplashScreens())
+			return;
 
 		if (!splashes.get(splidx).show(g))
 			splidx++;
-
-		return false;
 	}
 
-	/*
+	/**
 	 * @return Whether the splashes screens are being shown.
 	 */
 	public boolean showingSplashScreens() {
-		if (splidx > splashes.size() - 1)
+		if (splidx >= splashes.size())
 			return false;
 
 		return true;

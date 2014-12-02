@@ -346,7 +346,7 @@ public class Shader implements Resource {
 			glUniform4i(location, values[0], values[1], values[2], values[3]);
 	}
 
-	public void setUniformf(String name, Matrix4f mat) {
+	public void setUniformMatrix4(String name, Matrix4f mat) {
 		int location = glGetUniformLocation(programObject, name);
 		glUniformMatrix4(location, false, mat.getAsFloatBuffer());
 	}
