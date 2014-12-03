@@ -1,12 +1,10 @@
 package com.radirius.mercury.framework;
 
-import com.radirius.mercury.exceptions.MercuryException;
 import com.radirius.mercury.framework.splash.SplashScreen;
 import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.graphics.font.TrueTypeFont;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.math.geometry.Vector2f;
-import com.radirius.mercury.scene.GameScene;
 import com.radirius.mercury.utilities.TaskTiming;
 import com.radirius.mercury.utilities.command.*;
 import com.radirius.mercury.utilities.logging.Logger;
@@ -25,100 +23,59 @@ import static org.lwjgl.opengl.GL11.*;
  * The heart of Mercury. Runs the Core and provides all of the various materials required for your game.
  */
 public class Runner {
-	/**
-	 * The singleton instance of the Runner. This should be the only Runner used.
-	 */
+	/** The singleton instance of the Runner. This should be the only Runner used. */
 	private final static Runner singleton = new Runner();
-	/**
-	 * A list of splash screens.
-	 */
-	private final ArrayList<SplashScreen> splashes = new ArrayList<SplashScreen>();
-	/**
-	 * A list of plugins.
-	 */
-	private final ArrayList<Plugin> plugins = new ArrayList<Plugin>();
-	/**
-	 * A Runnable for the console thread.
-	 */
-	private final CommandThread consoleRunnable = new CommandThread();
-	/**
-	 * A Thread for the console.
-	 */
-	private final Thread consoleThread = new Thread(consoleRunnable);
-	/**
-	 * Whether or not the Runner is running.
-	 */
-	public boolean running = false;
-	public boolean initialized = false;
-	/**
-	 * Whether or not the game is being updated.
-	 */
-	private boolean updating = true;
-	/**
-	 * Whether or not the game is being rendered.
-	 */
-	private boolean rendering = true;
-	/**
-	 * Whether or not v-sync is enabled.
-	 */
-	private boolean vsync;
-	/**
-	 * The delta variable.
-	 */
-	private int delta = 1;
-	/**
-	 * The target framerate.
-	 */
-	private int targetFps = 60;
-	/**
-	 * The current framerate.
-	 */
-	private int fps;
-	/**
-	 * The last frame. Used for calculating the framerate.
-	 */
-	private long lastFrame;
-	/**
-	 * The factor by which the delta time is multiplied.
-	 */
-	private float deltaFactor = 1;
-	/**
-	 * A string that holds debugging data to be rendered to the screen, should `showDebug` be true.
-	 */
-	private String debugData = "";
-	/**
-	 * Whether or not the debug data will be drawn to the screen.
-	 */
-	private boolean showDebug = false;
-	/**
-	 * Whether or not the extra Mercury debug data will be shown in the console.
-	 */
-	private boolean showExtraDebug = false;
-	/**
-	 * The Core being ran.
-	 */
-	private Core core;
-	/**
-	 * The graphics object.
-	 */
-	private Graphics graphics;
-	/**
-	 * The camera object.
-	 */
-	private Camera camera;
-	/**
-	 * The input object.
-	 */
-	private Input input;
-	/**
-	 * The current splash screen.
-	 */
+
+	/** A list of splash screens. */
+	private final ArrayList<SplashScreen> splashes = new ArrayList<>();
+	/** The current splash screen. */
 	private int splidx = 0;
 
-	/*
-	 * We don't want anybody attempting to create another Runner, there's a
-	 * singleton and it should be put to use.
-	 */
+	/** A Runnable for the console thread. */
+	private final CommandThread consoleRunnable = new CommandThread();
+	/** A Thread for the console. */
+	private final Thread consoleThread = new Thread(consoleRunnable);
+
+	/** Whether or not the Runner is running. */
+	public boolean running = false;
+	/** Whether the runner is initialized. */
+	public boolean initialized = false;
+	/** Whether or not the game is being updated. */
+	private boolean updating = true;
+	/** Whether or not the game is being rendered. */
+	private boolean rendering = true;
+	/** Whether the core should initialize on a seperate thread. */
+	private boolean multithread = false;
+
+	/** Whether or not v-sync is enabled. */
+	private boolean vsync;
+
+	/** The delta variable. */
+	private int delta = 1;
+	/** The target framerate. */
+	private int targetFps = 60;
+	/** The current framerate. */
+	private int fps;
+	/** The factor by which the delta time is multiplied. */
+	private float deltaFactor = 1;
+
+	/** A string that holds debugging data to be rendered to the screen, should `showDebug` be true. */
+	private String debugData = "";
+	/** Whether or not the debug data will be drawn to the screen. */
+	private boolean showDebug = false;
+	/** Whether or not the extra Mercury debug data will be shown in the console. */
+	private boolean showExtraDebug = false;
+
+	/** The Core being ran. */
+	private Core core;
+	/** The graphics object. */
+	private Graphics graphics;
+	/** The camera object. */
+	private Camera camera;
+	/** The input object. */
+	private Input input;
+
+	/** We don't want anybody attempting to create another Runner, there's a singleton and it should be put to use. */
 	private Runner() {
 	}
 
@@ -142,120 +99,66 @@ public class Runner {
 	 * @param targetFps   The target framerate.
 	 */
 	public void init(final Core core, int width, int height, boolean fullscreen, boolean vsync, boolean multithread, boolean devConsole, boolean showDebug, boolean showExtraDebug, int targetFps) {
-		if (showExtraDebug) {
-			System.out.println("Mercury Game Library (In-Dev)\n" + "Designed by Radirius\n" + "Website: http://mercurylib.com/");
-			System.out.println("-------------------------------");
-		}
+		System.out.println("Mercury Game Library (In-Dev)\n" + "Designed by Radirius (http://radiri.us/)\n" + "Website: http://mercurylib.com/");
+		System.out.println("-------------------------------");
+
 
 		Logger.warn("You're running a non-stable build of Mercury!\nIf you run into any issues, please leave an issue on GitHub or make a post on the forum.");
 
-		if (showExtraDebug) {
+
+		if (showExtraDebug)
 			Logger.info("Mercury Starting:");
+		if (showExtraDebug)
 			Logger.info("Making Core...");
-			this.core = core;
-			this.vsync = vsync;
+		this.core = core;
 
+		if (showExtraDebug)
 			Logger.info("Making Display & Graphics...");
-			this.core.initDisplay(width, height, fullscreen, vsync);
+		this.vsync = vsync;
+		this.core.initDisplay(width, height, fullscreen, vsync);
 
-			graphics = this.core.initGraphics();
+		graphics = this.core.initGraphics();
+		if (showExtraDebug)
 			Logger.info("OpenGL Version: " + GL11.glGetString(GL11.GL_VERSION));
+		if (showExtraDebug)
 			Logger.info("Display Mode: " + Display.getDisplayMode());
 
-			Logger.info("Starting Graphics...");
-			graphics.init();
-
-			Logger.info("Making Audio...");
-			this.core.initAudio();
-
+		if (showExtraDebug)
 			Logger.info("Making Camera...");
-			camera = new Camera(0, 0);
+		camera = new Camera(0, 0);
 
+		if (showExtraDebug)
+			Logger.info("Starting Graphics...");
+		graphics.init();
+
+		if (showExtraDebug)
+			Logger.info("Making Audio...");
+		this.core.initAudio();
+
+		if (showExtraDebug)
 			Logger.info("Making Input...");
-			input = new Input();
-			input.create();
+		input = new Input();
+		input.create();
 
-			Logger.info("Making Plugins...");
-			for (Plugin plugin : plugins) {
-				Logger.info("\tInitializing " + plugin.getName() + "...");
-
-				plugin.init();
-			}
-
-			Logger.info("Starting Core" + (multithread ? " (On Separate Thread)" : "") + "...");
-
-			if (multithread) {
-				Runnable initthread_run = new Runnable() {
-					@Override
-					public void run() {
-						core.init();
-
-						initialized = true;
-					}
-				};
-
-				Thread initthread = new Thread(initthread_run);
-
-				initthread.run();
-			}
-
-			Logger.info("Making Default CommandList 'mercury...'");
+		if (devConsole) {
+			if (showExtraDebug)
+				Logger.info("Making Default CommandList 'mercury...'");
 			CommandList.addCommandList(CommandList.getDefaultCommandList());
 
-			Logger.info("Starting Developer Console Thread...");
+			if (showExtraDebug)
+				Logger.info("Starting Developer Console Thread...");
 			consoleThread.setName("mercury_devConsole");
 			consoleThread.start();
-
-			this.showDebug = showDebug;
-			this.showExtraDebug = showExtraDebug;
-			this.targetFps = targetFps;
-
-			Logger.info("Ready to begin game loop. Awaiting permission from Core...");
-		} else {
-			this.core = core;
-			this.vsync = vsync;
-			this.core.initDisplay(width, height, fullscreen, vsync);
-
-			camera = new Camera(0, 0);
-
-			graphics = this.core.initGraphics();
-			graphics.init();
-
-			this.core.initAudio();
-
-			input = new Input();
-			input.create();
-
-			for (Plugin plugin : plugins) {
-				Logger.info("\tInitializing " + plugin.getName() + "...");
-
-				plugin.init();
-			}
-
-			if (multithread) {
-				Runnable initthread_run = new Runnable() {
-					@Override
-					public void run() {
-						core.init();
-
-						initialized = true;
-					}
-				};
-
-				Thread initthread = new Thread(initthread_run);
-
-				initthread.run();
-			}
-
-			CommandList.addCommandList(CommandList.getDefaultCommandList());
-
-			consoleThread.setName("mercury_devConsole");
-			consoleThread.start();
-
-			this.showDebug = showDebug;
-			this.showExtraDebug = showExtraDebug;
-			this.targetFps = targetFps;
 		}
+
+		this.showDebug = showDebug;
+		this.showExtraDebug = true;
+		this.targetFps = targetFps;
+		this.multithread = multithread;
+
+		this.initialized = true;
+
+		Logger.info("Ready to begin game loop. Awaiting permission from Core...");
 	}
 
 	/**
@@ -266,9 +169,21 @@ public class Runner {
 			Logger.info("Starting Game Loop...");
 			Logger.newLine();
 		}
+		if (showExtraDebug)
+			Logger.info("Starting Core" + (multithread ? " (On Separate Thread)" : "") + "...");
 
-		core.init();
-		GameScene.init();
+		if (multithread) {
+			Runnable initthread_run = new Runnable() {
+				public void run() {
+					core.init();
+				}
+			};
+
+			Thread initthread = new Thread(initthread_run);
+
+			initthread.run();
+		} else
+			core.init();
 
 		initialized = true;
 
@@ -277,13 +192,12 @@ public class Runner {
 		int FPS1 = 0;
 		long lastfps;
 
-		/*
-		 * Initial 'last time...' Otherwise the first delta will be about
-		 * 50000000.
-		 */
+		long lastFrame;
 		lastfps = lastFrame = Sys.getTime() * 1000 / Sys.getTimerResolution();
 
 		while (running) {
+			/* A bunch of timing calculations */
+
 			// Set time for FPS and Delta calculations
 			long time = Sys.getTime() * 1000 / Sys.getTimerResolution();
 
@@ -304,42 +218,31 @@ public class Runner {
 
 			lastFrame = time;
 
+			/* Updating everything */
+
 			input.poll();
 
-			if (rendering)
-				glClear(GL_COLOR_BUFFER_BIT);
-
-			if (!showingSplashScreens()) {
-				if (updating) {
-					core.update(getDelta());
-
-					if (core.currentGameState != null)
-						if (core.currentGameState.auto)
-							core.currentGameState.update(getDelta());
-
-					GameScene.update(getDelta());
-				}
-			}
+			if (updating)
+				// The core
+				core.update(getDelta());
 
 			// Update timing
 			TaskTiming.update();
 
+			/* Graphical tasks */
+
 			if (rendering) {
+
+				glClear(GL_COLOR_BUFFER_BIT);
+
 				// Pre-Render Camera
 				camera.pre(graphics);
 
 				// Render Game
-
-				if (!showingSplashScreens()) {
+				if (!showingSplashScreens())
 					core.render(graphics);
 
-					if (core.currentGameState != null)
-						if (core.currentGameState.auto)
-							core.currentGameState.render(graphics);
-
-					GameScene.render(graphics);
-				}
-
+				// This should be rendered above
 				showSplashScreens(graphics);
 
 				// Debug
@@ -371,38 +274,21 @@ public class Runner {
 
 		Logger.newLine();
 
+		Logger.info("Ending Game Loop...");
 
-		if (showExtraDebug) {
-			Logger.info("Ending Game Loop...");
+		if (showExtraDebug)
 			Logger.info("Beginning Clean Up:");
 
+		if (showExtraDebug)
 			Logger.info("Cleaning Up Developers Console...");
-			consoleThread.interrupt();
+		consoleThread.interrupt();
 
-			Logger.info("Cleaning Up Core & Plugins...");
-			GameScene.cleanup();
-			core.cleanup();
+		if (showExtraDebug)
+			Logger.info("Cleaning Up Core...");
+		core.cleanup();
 
-			for (Plugin plugin : plugins) {
-				Logger.info("     Cleaning Up '" + plugin.getName() + "' Plugin...");
-
-				plugin.cleanup();
-			}
-
-			Logger.info("Clean Up Complete.");
-			Logger.info("Mercury Shutting Down...");
-		} else {
-			consoleThread.interrupt();
-
-			GameScene.cleanup();
-			core.cleanup();
-
-			for (Plugin plugin : plugins) {
-				Logger.info("\tCleaning Up '" + plugin.getName() + "' Plugin...");
-
-				plugin.cleanup();
-			}
-		}
+		Logger.info("Clean Up Complete.");
+		Logger.info("Mercury Shutting Down...");
 	}
 
 	/**
@@ -489,20 +375,6 @@ public class Runner {
 	 */
 	public float getAspectRatio() {
 		return (float) getWidth() / (float) getHeight();
-	}
-
-	/**
-	 * @return Time in milliseconds.
-	 */
-	public float getMillis() {
-		return System.currentTimeMillis();
-	}
-
-	/**
-	 * @return Time in seconds.
-	 */
-	public float getSeconds() {
-		return getMillis() / 1000f;
 	}
 
 	/**
@@ -699,27 +571,4 @@ public class Runner {
 	public void addSplashScreen(SplashScreen splash) {
 		splashes.add(splash);
 	}
-
-	/**
-	 * Adds a plugin.
-	 *
-	 * @param plugin The plugin to add.
-	 */
-	public void addPlugin(Plugin plugin) {
-		plugins.add(plugin);
-	}
-
-	/**
-	 * @param name The name of the plugin you want.
-	 * @return The plugin corresponding to name.
-	 */
-	public Plugin getPlugin(String name) throws MercuryException {
-		for (Plugin plugin : plugins)
-			if (plugin.getName().equalsIgnoreCase(name))
-				return plugin;
-
-		throw new MercuryException("Plugin '" + name + "' was not found!");
-	}
 }
-
-// no comment

@@ -4,13 +4,17 @@ import java.io.*;
 import java.net.*;
 
 /**
- * A utility for resource management to load different resources from specific roots.
+ * A utility for resource loading from different locations (the classpath and file system).
  *
  * @author wessles, Jeviny
  */
 public class Loader {
+
 	/**
-	 * @return The URL from a classpath.
+	 * Loads a URL of a resource from the classpath.
+	 *
+	 * @param path The path of the resource
+	 * @return The URL of a resource from the classpath
 	 */
 	public static URL loadFromClasspath(String path) {
 		path = path.replace('\\', '/');
@@ -19,7 +23,10 @@ public class Loader {
 	}
 
 	/**
-	 * @return The URL from a file system.
+	 * Loads a URL of a resource from the file system.
+	 *
+	 * @param path The path of the resource
+	 * @return The URL of a resource from the file system
 	 */
 	public static URL loadFromSystem(String path) {
 		path = path.replace('\\', '/');
@@ -34,57 +41,78 @@ public class Loader {
 	}
 
 	/**
-	 * @return The InputStream from a classpath.
+	 * Streams a resource from the classpath.
+	 *
+	 * @param path The path of the resource
+	 * @return The InputStream of a resource from the classpath
 	 */
 	public static InputStream streamFromClasspath(String path) {
-		try {
-			return new BufferedInputStream(loadFromClasspath(path).openStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return null;
+		return streamFromUrl(loadFromClasspath(path));
 	}
 
 	/**
-	 * @return The InputStream from a file system.
+	 * Streams a resource from the file system.
+	 *
+	 * @param path The path of the resource
+	 * @return The InputStream of a resource from the file system
 	 */
 	public static InputStream streamFromSystem(String path) {
-		try {
-			return new BufferedInputStream(loadFromSystem(path).openStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return null;
+		return streamFromUrl(loadFromSystem(path));
 	}
 
 	/**
-	 * @return The URL from a file system. If null, from the classpath. This is for easier modding.
+	 * Loads a URL of a resource from the file system (if null, then from the classpath). This is useful for modding a
+	 * game without going into the classpath.
+	 *
+	 * @param path The path of the resource
+	 * @return A URL of the resource from either the classpath or file system
 	 */
 	public static URL load(String path) {
 		URL filesystem = loadFromSystem(path);
 		URL classpath = loadFromClasspath(path);
 
-		if (filesystem != null)
-			return filesystem;
-		else if (classpath != null)
-			return classpath;
+		try {
+			if (filesystem != null)
+				return filesystem;
+		}
+		// If it is not from the system, then it may be from the classpath.
+		catch (NullPointerException e) {
+			try {
+				if (classpath != null)
+					return classpath;
+			}
+			// If it is not from the system or classpath, then it probably doesn't exist.
+			catch (NullPointerException e2) {
+				return null;
+			}
+		}
 
 		return null;
 	}
 
 	/**
-	 * @return The InputStream from a file system. If null, from the classpath. This is for easier modding.
+	 * Streams a resource from the file system (if null, then from the classpath). This is useful for modding a game
+	 * without going into the classpath.
+	 *
+	 * @param path The path of the resource
+	 * @return An InputStream of the resource from either the classpath or file system
 	 */
 	public static InputStream stream(String path) {
-		InputStream filesystem = streamFromSystem(path);
-		InputStream classpath = streamFromClasspath(path);
+		return streamFromUrl(load(path));
+	}
 
-		if (filesystem != null)
-			return filesystem;
-		else if (classpath != null)
-			return classpath;
+	/**
+	 * Converts a URL into an InputStream.
+	 *
+	 * @param url The URL to convert
+	 * @return The converted InputStream
+	 */
+	public static InputStream streamFromUrl(URL url) {
+		try {
+			return new BufferedInputStream(url.openStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		return null;
 	}

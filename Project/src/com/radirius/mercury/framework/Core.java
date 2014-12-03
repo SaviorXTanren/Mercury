@@ -90,8 +90,9 @@ public abstract class Core {
 	 */
 	public void switchGameState(GameState currentgamestate) {
 		this.currentGameState.onLeave();
+		currentgamestate.onEnter();
+		this.currentGameState = null;
 		this.currentGameState = currentgamestate;
-		this.currentGameState.onEnter();
 	}
 
 	/**
@@ -130,11 +131,31 @@ public abstract class Core {
 	public abstract void update(float delta);
 
 	/**
+	 * Updates the current game state.
+	 *
+	 * @param delta The delta time.
+	 */
+	public void updateState(float delta) {
+		if (currentGameState != null)
+				currentGameState.update(delta);
+	}
+
+	/**
 	 * Called once every frame and used to render graphics.
 	 *
 	 * @param g The Graphics object for rendering.
 	 */
 	public abstract void render(Graphics g);
+
+	/**
+	 * Renders the current game state.
+	 *
+	 * @param g The Graphics object for rendering.
+	 */
+	public void renderState(Graphics g) {
+		if (currentGameState != null)
+				currentGameState.render(g);
+	}
 
 	/**
 	 * Called when the game loop is ended.
@@ -198,7 +219,7 @@ public abstract class Core {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		VAOGraphics graphicsObject = new VAOGraphics();
+		Graphics graphicsObject = new Graphics();
 
 		Shader.loadDefaultShaders();
 		Shader.releaseShaders();

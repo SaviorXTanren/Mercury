@@ -33,6 +33,8 @@ public class SplashScreen {
 		this.showTimeMillis = showTimeMillis;
 		this.splashTexture = splashTexture;
 		this.fitToScreen = fitToScreen;
+
+		this.setSkipButton(Input.KEY_ENTER);
 	}
 
 	/**
@@ -51,7 +53,7 @@ public class SplashScreen {
 	public static SplashScreen getMercuryDefault() {
 		Texture texture = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/mercury/framework/splash/res/splash.png"), Texture.FILTER_LINEAR);
 
-		return new SplashScreen(texture, 4000).setSkipButton(Input.KEY_SPACE, Input.KEY_ENTER);
+		return new SplashScreen(texture, 4000);
 	}
 
 	/**

@@ -6,6 +6,7 @@ import com.radirius.mercury.resource.Loader;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URL;
 
 /**
  * A font type for .TTF's and .OTF's.
@@ -31,10 +32,10 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 	public static final TrueTypeFont ROBOTO_MEDIUM;
 
 	static {
-		ROBOTO_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/Roboto-Bold.ttf"), 22f, 1, true);
-		ROBOTO_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/Roboto-Regular.ttf"), 22f, 1, true);
-		ROBOTO_MEDIUM = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/Roboto-Medium.ttf"), 22f, 1, true);
-		ROBOTO_THIN = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/Roboto-Thin.ttf"), 22f, 1, true);
+		ROBOTO_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/Roboto-Bold.ttf"), 22f, true);
+		ROBOTO_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/Roboto-Regular.ttf"), 22f, true);
+		ROBOTO_MEDIUM = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/Roboto-Medium.ttf"), 22f, true);
+		ROBOTO_THIN = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/Roboto-Thin.ttf"), 22f, true);
 	}
 
 	public static final int STANDARD_CHARACTERS = 256;
@@ -44,9 +45,9 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 	public final IntObject[] chars = new IntObject[STANDARD_CHARACTERS];
 
 	/**
-	 * Defines whether or not the text is anti-aliased.
+	 * Defines whether or not the text is smoothed.
 	 */
-	private boolean antialias;
+	private boolean smooth;
 
 	/**
 	 * The size of the font
@@ -81,14 +82,9 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 	 */
 	private java.awt.Font font;
 
-	/**
-	 * Some more AWT jargon for fonts.
-	 */
-	private FontMetrics fontMetrics;
-
-	private TrueTypeFont(java.awt.Font font, boolean antialias) {
+	private TrueTypeFont(java.awt.Font font, boolean smooth) {
 		this.font = font;
-		this.antialias = antialias;
+		this.smooth = smooth;
 
 		fontSize = font.getSize();
 
@@ -96,23 +92,51 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 	}
 
 	/**
-	 * Let's load a font!
+	 * Loads a font.
 	 *
-	 * @param is        The stream for the font.
-	 * @param size      The size of the font.
-	 * @param style     The style of the font.
-	 * @param antialias Whether or not the text is anti-aliased.
+	 * @param isUrl The URL for the stream for the font.
+	 * @param size  The size of the font.
 	 */
-	public static TrueTypeFont loadTrueTypeFont(InputStream is, float size, int style, boolean antialias) {
+	public static TrueTypeFont loadTrueTypeFont(URL isUrl, float size) {
+		return loadTrueTypeFont(isUrl, size, true);
+	}
+
+	/**
+	 * Loads a font.
+	 *
+	 * @param is   The stream for the font.
+	 * @param size The size of the font.
+	 */
+	public static TrueTypeFont loadTrueTypeFont(InputStream is, float size) {
+		return loadTrueTypeFont(is, size, true);
+	}
+
+	/**
+	 * Loads a font.
+	 *
+	 * @param isUrl  The URL for the stream for the font.
+	 * @param size   The size of the font.
+	 * @param smooth Whether or not the text is smoothed.
+	 */
+	public static TrueTypeFont loadTrueTypeFont(URL isUrl, float size, boolean smooth) {
+		return loadTrueTypeFont(Loader.streamFromUrl(isUrl), size, smooth);
+	}
+
+	/**
+	 * Loads a font.
+	 *
+	 * @param is     The stream for the font.
+	 * @param size   The size of the font.
+	 * @param smooth Whether or not the text is smoothed.
+	 */
+	public static TrueTypeFont loadTrueTypeFont(InputStream is, float size, boolean smooth) {
 		java.awt.Font font;
 		try {
 			font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, is);
 			font = font.deriveFont(size);
 
-			return loadTrueTypeFont(font, antialias);
-		} catch (FontFormatException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+			return loadTrueTypeFont(font, smooth);
+		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
 
@@ -120,14 +144,14 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 	}
 
 	/**
-	 * Let's load a font!
+	 * Loads a font.
 	 *
-	 * @param font      The base awt font.
-	 * @param antialias Whether or not the text is anti-aliased.
+	 * @param font   The base awt font.
+	 * @param smooth Whether or not the text is smoothed.
 	 */
 
-	public static TrueTypeFont loadTrueTypeFont(java.awt.Font font, boolean antialias) {
-		return new TrueTypeFont(font, antialias);
+	public static TrueTypeFont loadTrueTypeFont(java.awt.Font font, boolean smooth) {
+		return new TrueTypeFont(font, smooth);
 	}
 
 	private void createSet() {
@@ -187,8 +211,6 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 
 			// Set the IntObject of the character
 			chars[i] = newIntObject;
-
-			fontImage = null;
 		}
 
 		// Turn black, for coloring reasons.
@@ -203,7 +225,7 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 			}
 
 		// Load texture!
-		fontTexture = Texture.loadTexture(imgTemp);
+		fontTexture = Texture.loadTexture(imgTemp, smooth ? Texture.FILTER_LINEAR : Texture.FILTER_NEAREST);
 	}
 
 	private BufferedImage getFontImage(char ch) {
@@ -211,13 +233,13 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 		BufferedImage tempfontImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) tempfontImage.getGraphics();
 
-		if (antialias)
+		if (smooth)
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		g.setFont(font);
 
 		// Font preperation.
-		fontMetrics = g.getFontMetrics();
+		FontMetrics fontMetrics = g.getFontMetrics();
 
 		float charwidth = fontMetrics.charWidth(ch);
 		// Safety guards just in case.
@@ -236,7 +258,7 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 		BufferedImage fontImage = new BufferedImage((int) charwidth, (int) getHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2d = (Graphics2D) fontImage.getGraphics();
 
-		if (antialias == true)
+		if (smooth)
 			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		g2d.setFont(font);
@@ -255,7 +277,7 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 
 		IntObject intObject = null;
 
-		int currentChar = 0;
+		int currentChar;
 
 		for (char element : message.toCharArray()) {
 			currentChar = element;
@@ -282,12 +304,12 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 
 	@Override
 	public Font deriveFont(float size) {
-		return new TrueTypeFont(font.deriveFont(size), antialias);
+		return new TrueTypeFont(font.deriveFont(size), smooth);
 	}
 
 	@Override
 	public Font deriveFont(int style) {
-		return new TrueTypeFont(font.deriveFont(style), antialias);
+		return new TrueTypeFont(font.deriveFont(style), smooth);
 	}
 
 	@Override

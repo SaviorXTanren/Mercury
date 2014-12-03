@@ -56,7 +56,7 @@ public class Texture implements Resource {
 	 * @return A Texture based off of the streamed image
 	 */
 	public static Texture loadTexture(InputStream inputStream) {
-		return loadTexture(inputStream, GL_LINEAR);
+		return loadTexture(inputStream, FILTER_NEAREST);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class Texture implements Resource {
 	 * @return A Texture based off of the BufferedImage
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage) {
-		return loadTexture(bufferedImage, GL_LINEAR);
+		return loadTexture(bufferedImage, FILTER_NEAREST);
 	}
 
 	/**
@@ -199,15 +199,6 @@ public class Texture implements Resource {
 	}
 
 	/**
-	 * @param width  The width of the Texture
-	 * @param height The height of the Texture
-	 * @return Whether the Texture has power-of-two sides
-	 */
-	public static boolean isPoT(int width, int height) {
-		return (width & width - 1) == 0 && (height & height - 1) == 0;
-	}
-
-	/**
 	 * @return A texture object with no data or source image.
 	 */
 	public static Texture createTextureObject(int textureId, int width, int height) {
@@ -225,14 +216,6 @@ public class Texture implements Resource {
 	}
 
 	/**
-	 * Sets whether or not all Textures will be expanded to the nearest power of two. Keep in mind before you change
-	 * this that PoT Textures allow for faster rendering time.
-	 */
-	public static void setExpandToPowerOfTwo(boolean expandToPoT) {
-		Texture.expandToPoT = expandToPoT;
-	}
-
-	/**
 	 * Binds the texture.
 	 */
 	public void bind() {
@@ -246,10 +229,18 @@ public class Texture implements Resource {
 		unbindTextures();
 	}
 
+	/**
+	 * Binds a texture.
+	 *
+	 * @param textureId The id of the texture
+	 */
 	public static void bindTexture(int textureId) {
 		glBindTexture(GL_TEXTURE_2D, textureId);
 	}
 
+	/**
+	 * Unbinds all textures.
+	 */
 	public static void unbindTextures() {
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
@@ -304,15 +295,30 @@ public class Texture implements Resource {
 	}
 
 	/**
-	 * @return If the Texture is PoT and not a SubTexture.
+	 * @param width  The width of the Texture
+	 * @param height The height of the Texture
+	 * @return Whether the Texture has power-of-two sides
 	 */
-	public boolean fullCapabilities() {
+	public static boolean isPoT(int width, int height) {
+		return (width & width - 1) == 0 && (height & height - 1) == 0;
+	}
+
+	/**
+	 * Sets whether or not all Textures will be expanded to the nearest power of two. Keep in mind before you change
+	 * this that PoT Textures allow for faster rendering time.
+	 */
+	public static void setExpandToPowerOfTwo(boolean expandToPoT) {
+		Texture.expandToPoT = expandToPoT;
+	}
+
+	/**
+	 * @return If the Texture is PoT and not a SubTexture (and in turn, can repeat).
+	 */
+	public boolean isRepeatable() {
 		boolean capable = isPoT();
 
-		if (this instanceof SubTexture) {
-			SubTexture subthis = (SubTexture) this;
-			capable = capable && subthis.getWidth() == subthis.getParentWidth() && subthis.getHeight() == subthis.getParentHeight();
-		}
+		if (this instanceof SubTexture)
+			return false;
 
 		return capable;
 	}

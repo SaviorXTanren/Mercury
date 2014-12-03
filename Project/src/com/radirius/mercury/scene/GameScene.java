@@ -1,6 +1,7 @@
 package com.radirius.mercury.scene;
 
 import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.utilities.*;
 
 import java.util.ArrayList;
 
@@ -9,24 +10,16 @@ import java.util.ArrayList;
  *
  * @author Jeviny
  */
-public class GameScene {
+public class GameScene implements Component {
 	/**
 	 * The children nodes.
 	 */
-	private static ArrayList<GameObject> objects = new ArrayList<GameObject>();
-
-	/**
-	 * Adds a child to the list of children nodes.
-	 */
-	public static void addObject(GameObject... object) {
-		for (GameObject object0 : object)
-			objects.add(object0);
-	}
+	private WipingArrayList<GameObject> objects = new WipingArrayList<GameObject>();
 
 	/**
 	 * Initializes the children nodes.
 	 */
-	public static void init() {
+	public void init() {
 		for (GameObject object : objects)
 			object.init();
 	}
@@ -36,9 +29,11 @@ public class GameScene {
 	 *
 	 * @param delta The delta time.
 	 */
-	public static void update(float delta) {
+	public void update(float delta) {
 		for (GameObject object : objects)
 			object.update(delta);
+
+		objects.sweep();
 	}
 
 	/**
@@ -46,7 +41,7 @@ public class GameScene {
 	 *
 	 * @param g The Graphics object.
 	 */
-	public static void render(Graphics g) {
+	public void render(Graphics g) {
 		for (GameObject object : objects)
 			object.render(g);
 	}
@@ -54,15 +49,23 @@ public class GameScene {
 	/**
 	 * Cleans up the children nodes.
 	 */
-	public static void cleanup() {
+	public void cleanup() {
 		for (GameObject object : objects)
 			object.cleanup();
 	}
 
 	/**
+	 * Adds a child to the list of children nodes.
+	 */
+	public void add(GameObject... object) {
+		for (GameObject object0 : object)
+			objects.add(object0);
+	}
+
+	/**
 	 * @return The objects inside the scene.
 	 */
-	public static ArrayList<GameObject> getObjects() {
+	public ArrayList<GameObject> getObjects() {
 		return objects;
 	}
 }

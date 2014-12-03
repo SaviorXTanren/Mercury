@@ -28,7 +28,8 @@ class AnimationTest extends Core {
 
 	@Override
 	public void render(Graphics g) {
-		g.drawAnimation(animation, 64, 64, 256, 256);
+		g.drawTexture(animation.getCurrentFrame(), 64, 64, 256, 256);
+		animation.passFrame();
 	}
 
 	@Override

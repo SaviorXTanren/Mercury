@@ -1,5 +1,6 @@
 package com.radirius.mercury.scene;
 
+import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.math.geometry.*;
 
 /**
@@ -8,87 +9,101 @@ import com.radirius.mercury.math.geometry.*;
  * @author Jeviny
  */
 public class BasicEntity extends GameObject {
-	private float x, y, rotation;
 	private Rectangle bounds;
 
 	/**
 	 * Creates a new entity.
 	 *
-	 * @param x The x position.
-	 * @param y The y position.
-	 * @param w The width.
-	 * @param h The height.
+	 * @param x The x position
+	 * @param y The y position
+	 * @param w The width
+	 * @param h The height
 	 */
 	public BasicEntity(float x, float y, float w, float h) {
-		this.x = x;
-		this.y = y;
-
 		bounds = new Rectangle(x, y, w, h);
 	}
 
 	/**
-	 * @return The entity's boundaries.
+	 * @return The entity's boundaries
 	 */
 	public Rectangle getBounds() {
-		return (Rectangle) bounds.rotateTo(rotation);
+		return bounds;
 	}
 
 	/**
 	 * Sets the entity's boundaries.
 	 *
-	 * @param bounds The boundaries.
+	 * @param bounds The boundaries
 	 */
 	public void setBounds(Rectangle bounds) {
 		this.bounds = bounds;
 	}
 
 	/**
-	 * @return The entity's name.
+	 * Moves in the direction of the current rotation.
+	 *
+	 * @param speed The speed of the translation
 	 */
-	public String getName() {
-		return getClass().getSimpleName();
+	public void move(float speed) {
+		translate(speed * MathUtil.cos(bounds.getRotation()), speed * MathUtil.sin(bounds.getRotation()));
 	}
 
 	/**
-	 * @return The entity's position.
+	 * Moves by <x, y>.
+	 *
+	 * @param x The amount to move on x
+	 * @param y The amount to move on y
+	 */
+	public void translate(float x, float y) {
+		bounds.translate(x, y);
+	}
+
+	/**
+	 * Moves to (x, y).
+	 *
+	 * @param x Where to move to on x
+	 * @param y Where to move to on y
+	 */
+	public void translateTo(float x, float y) {
+		bounds.translateTo(x, y);
+	}
+
+	/**
+	 * Rotate the object relative to the center of the object.
+	 *
+	 * @param angle The angle of rotation
+	 */
+	public void rotate(float angle) {
+		bounds.rotate(angle);
+	}
+
+	/**
+	 * Rotate the object to a point in rotation relative to the center of the object.
+	 *
+	 * @param angle The angle of rotation that the object will rotate to
+	 */
+	public void rotateTo(float angle) {
+		bounds.rotateTo(angle);
+	}
+
+	/**
+	 * @return The top-right most position of the bounds
 	 */
 	public Vector2f getPosition() {
-		return new Vector2f(x, y);
+		return new Vector2f(bounds.getX(), bounds.getY());
 	}
 
 	/**
-	 * Sets the position of the entity.
-	 *
-	 * @param position The position.
+	 * @return The center of the bounds
 	 */
-	public void setPosition(Vector2f position) {
-		x = position.x;
-		y = position.y;
+	public Vector2f getCenter() {
+		return bounds.getCenter();
 	}
 
 	/**
-	 * Sets the position of the entity.
-	 *
-	 * @param x The x position.
-	 * @param y The y position.
-	 */
-	public void setPosition(float x, float y) {
-		setPosition(new Vector2f(x, y));
-	}
-
-	/**
-	 * @return The entity's rotation.
+	 * @return The current rotation of the object
 	 */
 	public float getRotation() {
-		return rotation;
-	}
-
-	/**
-	 * Sets the rotation of the entity.
-	 *
-	 * @param rotation The rotation.
-	 */
-	public void setRotation(float rotation) {
-		this.rotation = rotation;
+		return bounds.getRotation();
 	}
 }

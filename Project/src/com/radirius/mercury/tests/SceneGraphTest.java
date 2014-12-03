@@ -6,6 +6,8 @@ import com.radirius.mercury.math.geometry.Rectangle;
 import com.radirius.mercury.scene.*;
 
 class SceneGraphTest extends Core {
+	GameScene gameScene = new GameScene();
+
 	public SceneGraphTest() {
 		super("Scene Graph Test", 800, 600);
 	}
@@ -15,7 +17,7 @@ class SceneGraphTest extends Core {
 	}
 
 	public void init() {
-		GameScene.addObject(new TestEntity(64, 64), new TestEntity(226, 150));
+		gameScene.add(new TestEntity(64, 64), new TestEntity(226, 150));
 	}
 
 	public void update(float delta) {

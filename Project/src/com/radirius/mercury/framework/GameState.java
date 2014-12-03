@@ -10,7 +10,6 @@ import com.radirius.mercury.utilities.misc.*;
  */
 
 public class GameState implements Updatable, Renderable {
-	boolean auto = true;
 
 	/**
 	 * Executed when the GameState is switched to.
@@ -30,12 +29,5 @@ public class GameState implements Updatable, Renderable {
 
 	@Override
 	public void render(Graphics g) {
-	}
-
-	/**
-	 * Sets whether the updating and rendering should automatically be called.
-	 */
-	public void setAutomaticUpdateAndRender(boolean auto) {
-		this.auto = auto;
 	}
 }

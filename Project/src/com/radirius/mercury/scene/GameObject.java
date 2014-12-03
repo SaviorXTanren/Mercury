@@ -1,7 +1,7 @@
 package com.radirius.mercury.scene;
 
 import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.utilities.Component;
+import com.radirius.mercury.utilities.*;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author Jeviny
  */
-public class GameObject implements Component {
+public class GameObject implements Component, Wipeable {
 	/**
 	 * The children nodes.
 	 */
@@ -61,5 +61,17 @@ public class GameObject implements Component {
 	public void cleanup() {
 		for (GameObject child : children)
 			child.cleanup();
+	}
+
+	private boolean wiped = false;
+
+	@Override
+	public void wipe() {
+		wiped = true;
+	}
+
+	@Override
+	public boolean wiped() {
+		return wiped;
 	}
 }
