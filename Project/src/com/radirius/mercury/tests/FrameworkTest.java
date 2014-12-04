@@ -14,9 +14,8 @@ class FrameworkTest extends Core {
 		super("Untitled Window", 1600, 900);
 
 		setVsync(false);
-		setExtraDebugDisplays(false);
+		setExtraDebugDisplays(true);
 		setDebugDisplays(true);
-		setFullscreen(true);
 	}
 
 	public static void main(String[] args) {
@@ -28,6 +27,8 @@ class FrameworkTest extends Core {
 		font = (TrueTypeFont) TrueTypeFont.ROBOTO_MEDIUM.deriveFont(42f);
 
 		getRunner().addSplashScreen(SplashScreen.getMercuryDefault());
+		
+		System.out.println("HEY");
 	}
 
 	@Override
@@ -36,11 +37,13 @@ class FrameworkTest extends Core {
 
 	@Override
 	public void render(Graphics g) {
+		System.out.println("HEY");
 		float ym = -(Math.abs((float) Math.sin(f++ / 20.0) * 20.0f));
 
 		g.setFont(font);
 		g.setColor(System.currentTimeMillis() / 512 % 2 != 0 ? Color.RED : Color.BLUE);
-		g.drawString("Mercury Framework Test.", 256, ym + 256);
+		
+			g.drawString("Mercury Framework Test.", 256, ym + 256);
 
 		g.setColor(Color.CARROT);
 		g.drawRectangle(0, 310, 1920, 800);

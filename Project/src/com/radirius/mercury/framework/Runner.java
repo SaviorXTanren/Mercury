@@ -99,76 +99,88 @@ public class Runner {
 	 * @param targetFps   The target framerate.
 	 */
 	public void init(final Core core, int width, int height, boolean fullscreen, boolean vsync, boolean multithread, boolean devConsole, boolean showDebug, boolean showExtraDebug, int targetFps) {
-		System.out.println("Mercury Game Library (In-Dev)\n" + "Designed by Radirius (http://radiri.us/)\n" + "Website: http://mercurylib.com/");
-		System.out.println("-------------------------------");
-
-
+		if (showExtraDebug) {
+			System.out.println("Mercury Game Library (In-Dev)\n" + "Designed by Radirius\n" + "Website: http://mercurylib.com/");
+			System.out.println("-------------------------------");
+		}
+		
 		Logger.warn("You're running a non-stable build of Mercury!\nIf you run into any issues, please leave an issue on GitHub or make a post on the forum.");
-
 
 		if (showExtraDebug)
 			Logger.info("Mercury Starting:");
+		
 		if (showExtraDebug)
 			Logger.info("Making Core...");
+		
 		this.core = core;
 
 		if (showExtraDebug)
 			Logger.info("Making Display & Graphics...");
+		
 		this.vsync = vsync;
 		this.core.initDisplay(width, height, fullscreen, vsync);
 
 		graphics = this.core.initGraphics();
+		
 		if (showExtraDebug)
 			Logger.info("OpenGL Version: " + GL11.glGetString(GL11.GL_VERSION));
+		
 		if (showExtraDebug)
 			Logger.info("Display Mode: " + Display.getDisplayMode());
 
 		if (showExtraDebug)
 			Logger.info("Making Camera...");
+		
 		camera = new Camera(0, 0);
 
 		if (showExtraDebug)
 			Logger.info("Starting Graphics...");
+		
 		graphics.init();
 
 		if (showExtraDebug)
 			Logger.info("Making Audio...");
+		
 		this.core.initAudio();
 
 		if (showExtraDebug)
 			Logger.info("Making Input...");
+		
 		input = new Input();
 		input.create();
 
 		if (devConsole) {
 			if (showExtraDebug)
 				Logger.info("Making Default CommandList 'mercury...'");
+			
 			CommandList.addCommandList(CommandList.getDefaultCommandList());
 
 			if (showExtraDebug)
 				Logger.info("Starting Developer Console Thread...");
+			
 			consoleThread.setName("mercury_devConsole");
 			consoleThread.start();
 		}
 
 		this.showDebug = showDebug;
-		this.showExtraDebug = true;
+		this.showExtraDebug = showExtraDebug;
 		this.targetFps = targetFps;
 		this.multithread = multithread;
 
 		this.initialized = true;
 
-		Logger.info("Ready to begin game loop. Awaiting permission from Core...");
+		if (showExtraDebug)
+			Logger.info("Ready to begin game loop. Awaiting permission from Core...");
+
+		running = true;
 	}
 
-	/**
-	 * The main game loop.
-	 */
 	public void run() {
 		if (showExtraDebug) {
 			Logger.info("Starting Game Loop...");
 			Logger.newLine();
 		}
+		
 		if (showExtraDebug)
 			Logger.info("Starting Core" + (multithread ? " (On Separate Thread)" : "") + "...");
 
@@ -182,113 +194,117 @@ public class Runner {
 			Thread initthread = new Thread(initthread_run);
 
 			initthread.run();
-		} else
+		} else {
 			core.init();
-
-		initialized = true;
-
-		running = true;
-
-		int FPS1 = 0;
-		long lastfps;
-
-		long lastFrame;
-		lastfps = lastFrame = Sys.getTime() * 1000 / Sys.getTimerResolution();
-
+		}
+			
+		int processedFrames = 0;
+		int processedUpdates = 0;
+		
+		double unprocessedSeconds = 0;
+		double secondsPerUpdate = 1 / 60.0;
+		
+		long lastTime = System.nanoTime();
+		
 		while (running) {
-			/* A bunch of timing calculations */
-
-			// Set time for FPS and Delta calculations
-			long time = Sys.getTime() * 1000 / Sys.getTimerResolution();
-
-			// Calculate delta
-			delta = (int) (time - lastFrame);
-
-			// Update FPS
-			if (time - lastfps < 1000)
-				FPS1++;
-			else {
-				lastfps = time;
-				fps = FPS1;
-				FPS1 = 0;
-			}
-
-			if (fps == 0)
-				fps = targetFps;
-
-			lastFrame = time;
-
-			/* Updating everything */
-
-			input.poll();
-
-			if (updating)
-				// The core
-				core.update(getDelta());
-
-			// Update timing
-			TaskTiming.update();
-
-			/* Graphical tasks */
-
-			if (rendering) {
-
-				glClear(GL_COLOR_BUFFER_BIT);
-
-				// Pre-Render Camera
-				camera.pre(graphics);
-
-				// Render Game
-				if (!showingSplashScreens())
-					core.render(graphics);
-
-				// This should be rendered above
-				showSplashScreens(graphics);
-
-				// Debug
-				if (showDebug) {
-					addDebugData("FPS", String.valueOf(getFps()));
-
-					graphics.setFont(TrueTypeFont.ROBOTO_REGULAR);
-					graphics.setColor(Color.WHITE);
-					graphics.drawString(debugData, 1 / graphics.getScale(), 8, 4);
-					debugData = "";
+			long currentTime = System.nanoTime();
+			long passedTime = currentTime - lastTime;
+			
+			lastTime = currentTime;
+			
+			if (passedTime < 0)
+				passedTime = 0;
+			
+			if (passedTime > 100000000)
+				passedTime = 100000000;
+			
+			unprocessedSeconds += passedTime / 1000000000.0;
+			
+			boolean hasUpdate = false;
+			
+			while (unprocessedSeconds > secondsPerUpdate) {
+				input.poll();
+				
+				if (updating)
+					core.update(getDelta());
+				
+				TaskTiming.update();
+				
+				unprocessedSeconds -= secondsPerUpdate;
+				
+				hasUpdate = true;
+				
+				processedUpdates++;
+				
+				if (processedUpdates % 60 == 0) {
+					fps = processedFrames;
+	
+					lastTime += 1000;
+	
+					processedFrames = 0;
 				}
-
-				// Post-Render Camera
-				camera.post(graphics);
 			}
-
-			// Close the window if the window is closed.
+			
+			if (hasUpdate) {
+				if (rendering) {
+					glClear(GL_COLOR_BUFFER_BIT);
+	
+					camera.pre(graphics);
+	
+					if (!showingSplashScreens())
+						core.render(graphics);
+	
+					showSplashScreens(graphics);
+	
+					if (showDebug) {
+						addDebugData("FPS", String.valueOf(getFps()));
+	
+						graphics.setFont(TrueTypeFont.ROBOTO_REGULAR);
+						graphics.setColor(Color.WHITE);
+						graphics.drawString(debugData, 1 / graphics.getScale(), 8, 4);
+						debugData = "";
+					}
+	
+					camera.post(graphics);
+				}
+				
+				processedFrames++;
+			} else {
+				try {
+					Thread.sleep(1);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
 			if (Display.isCloseRequested())
 				end();
 
-			// Update and sync the FPS.
 			Display.update();
 			Display.sync(targetFps);
 		}
+		
+		if (showExtraDebug) {
+			Logger.newLine();
 
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		Display.update();
-
-		Logger.newLine();
-
-		Logger.info("Ending Game Loop...");
-
-		if (showExtraDebug)
+			Logger.info("Ending Game Loop...");
 			Logger.info("Beginning Clean Up:");
-
+		}
+			
 		if (showExtraDebug)
 			Logger.info("Cleaning Up Developers Console...");
+		
 		consoleThread.interrupt();
-
+		
 		if (showExtraDebug)
 			Logger.info("Cleaning Up Core...");
+		
 		core.cleanup();
 
-		Logger.info("Clean Up Complete.");
-		Logger.info("Mercury Shutting Down...");
+		if (showExtraDebug) {
+			Logger.info("Clean Up Complete.");
+			Logger.info("Mercury Shutting Down...");
+		}
 	}
 
 	/**
@@ -434,13 +450,15 @@ public class Runner {
 	public void setIcon(InputStream... icons) {
 		ArrayList<ByteBuffer> buffers = new ArrayList<ByteBuffer>();
 
-		for (InputStream is : icons)
-			if (is != null)
+		for (InputStream is : icons) {
+			if (is != null) {
 				try {
 					buffers.add(Texture.convertBufferedImageToBuffer(ImageIO.read(is)));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+			}
+		}
 
 		ByteBuffer[] bufferarray = new ByteBuffer[buffers.size()];
 

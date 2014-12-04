@@ -86,13 +86,13 @@ public abstract class Core {
 	/**
 	 * Switches to a GameState and after alerting the current GameState.
 	 *
-	 * @param currentgamestate The GameState to switch to.
+	 * @param currentGameState The GameState to switch to.
 	 */
-	public void switchGameState(GameState currentgamestate) {
+	public void switchGameState(GameState currentGameState) {
 		this.currentGameState.onLeave();
-		currentgamestate.onEnter();
+		currentGameState.onEnter();
 		this.currentGameState = null;
-		this.currentGameState = currentgamestate;
+		this.currentGameState = currentGameState;
 	}
 
 	/**
