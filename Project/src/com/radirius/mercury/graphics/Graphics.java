@@ -1,12 +1,14 @@
 package com.radirius.mercury.graphics;
 
-import com.radirius.mercury.framework.Runner;
 import com.radirius.mercury.graphics.font.*;
 import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.math.geometry.*;
 import com.radirius.mercury.utilities.GraphicsUtils;
+import com.radirius.mercury.utilities.logging.Logger;
 import com.radirius.mercury.utilities.misc.*;
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.*;
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * An object used to simplify rendering for those who do not wish to use the batcher.
@@ -21,6 +23,8 @@ public class Graphics implements Initializable, Cleanable {
 	public void init() {
 		batcher = new Batcher();
 		batcher.init();
+
+		camera = new Camera(0, 0);
 
 		currentFont = TrueTypeFont.ROBOTO_REGULAR;
 
@@ -55,11 +59,13 @@ public class Graphics implements Initializable, Cleanable {
 		return batcher;
 	}
 
+	private Camera camera;
+
 	/**
 	 * @return The camera being used
 	 */
 	public Camera getCamera() {
-		return Runner.getInstance().getCamera();
+		return camera;
 	}
 
 	/**
@@ -727,5 +733,23 @@ public class Graphics implements Initializable, Cleanable {
 	@Override
 	public void cleanup() {
 		batcher.cleanup();
+	}
+
+
+	/**
+	 * Initializes graphics & handle OpenGL initialization calls.
+	 */
+	public static Graphics initGraphics() {
+		GraphicsUtils.getProjectionMatrix().initOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		Graphics graphicsObject = new Graphics();
+
+		Shader.loadDefaultShaders();
+		Shader.releaseShaders();
+
+		return graphicsObject;
 	}
 }

@@ -5,7 +5,7 @@ import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.graphics.font.TrueTypeFont;
 import com.radirius.mercury.input.Input;
 
-class GameStateTest extends Core {
+public class GameStateTest extends Core {
 	GameState gs0 = new GameState() {
 		public void render(Graphics g) {
 			g.setBackground(Color.BLUE);
@@ -28,8 +28,8 @@ class GameStateTest extends Core {
 	public void init() {
 	}
 
-	public void update(float delta) {
-		if (Runner.getInstance().getInput().keyClicked(Input.KEY_RETURN)) {
+	public void update() {
+		if (Input.keyClicked(Input.KEY_RETURN)) {
 			if (getCurrentState() == gs0)
 				switchGameState(gs1);
 			else
@@ -39,7 +39,7 @@ class GameStateTest extends Core {
 
 	public void render(Graphics g) {
 		g.setColor(Color.WHITE);
-		g.drawString("Mash Enter.", Runner.getInstance().getCenterX() - TrueTypeFont.ROBOTO_REGULAR.getWidth("Mash Enter.") / 2, 128);
+		g.drawString("Mash Enter.", Window.getCenterX() - TrueTypeFont.ROBOTO_REGULAR.getWidth("Mash Enter.") / 2, 128);
 
 	}
 

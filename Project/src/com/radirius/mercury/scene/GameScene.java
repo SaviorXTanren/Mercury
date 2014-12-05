@@ -26,12 +26,10 @@ public class GameScene implements Component {
 
 	/**
 	 * Updates the children nodes.
-	 *
-	 * @param delta The delta time.
 	 */
-	public void update(float delta) {
+	public void update() {
 		for (GameObject object : objects)
-			object.update(delta);
+			object.update();
 
 		objects.sweep();
 	}

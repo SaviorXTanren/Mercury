@@ -20,7 +20,7 @@ class SceneGraphTest extends Core {
 		gameScene.add(new TestEntity(64, 64), new TestEntity(226, 150));
 	}
 
-	public void update(float delta) {
+	public void update() {
 	}
 
 	public void render(Graphics g) {

@@ -23,7 +23,7 @@ class AnimationTest extends Core {
 	}
 
 	@Override
-	public void update(float delta) {
+	public void update() {
 	}
 
 	@Override

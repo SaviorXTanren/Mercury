@@ -13,8 +13,7 @@ public class GraphicsTest extends Core {
 
 	public GraphicsTest() {
 		super("Graphics Test", 800, 600);
-
-		setDebugDisplays(true);
+		showExtraDebug = true;
 	}
 
 	public static void main(String[] args) {
@@ -28,29 +27,26 @@ public class GraphicsTest extends Core {
 	}
 
 	@Override
-	public void update(float delta) {
+	public void update() {
 		f++;
 	}
 
 	@Override
 	public void render(Graphics g) {
-		g.translate((float) Math.random() * 5, (float) Math.random() * 5);
 
 		g.setColor(Color.CRIMSON);
 		g.setBackground(Color.ASBESTOS);
 
-		Runner.getInstance().addDebugData("OpenGL", GL11.glGetString(GL11.GL_VERSION));
-		Runner.getInstance().addDebugData("Frame", "" + f);
+		addDebugData("OpenGL", GL11.glGetString(GL11.GL_VERSION));
+		addDebugData("Frame", "" + f);
 
 		rect.rotate(1);
 		g.drawRectangle(rect);
 
 		g.drawShape(circ);
 
-
-		Runner.getInstance().getCamera().setOrigin(new Vector2f(100, 100));
-
-		Runner.getInstance().getCamera().rotate(5);
+		getCamera().setOrigin(Window.getCenter());
+		getCamera().rotate(0.1f);
 	}
 
 	@Override

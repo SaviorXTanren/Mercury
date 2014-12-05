@@ -1,7 +1,8 @@
 package com.radirius.mercury.audio;
 
 import com.radirius.mercury.resource.Resource;
-import org.lwjgl.BufferUtils;
+import org.lwjgl.*;
+import org.lwjgl.openal.AL;
 
 import java.io.*;
 import java.nio.IntBuffer;
@@ -269,5 +270,17 @@ public class Audio implements Resource {
 	public void clean() {
 		alDeleteBuffers(buffer);
 		alDeleteSources(source);
+	}
+
+
+	/**
+	 * Initializes audio.
+	 */
+	public static void initAudio() {
+		try {
+			AL.create();
+		} catch (LWJGLException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -13,7 +13,6 @@ com.radirius.mercury.resource
 com.radirius.mercury.scene
 com.radirius.mercury.tests
 com.radirius.mercury.utilities
-com.radirius.mercury.utilities.command
 com.radirius.mercury.utilities.easing
 com.radirius.mercury.utilities.logging
 com.radirius.mercury.utilities.misc
