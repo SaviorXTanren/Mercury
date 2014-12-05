@@ -1,18 +1,19 @@
 package com.radirius.mercury.tests;
 
 import com.radirius.mercury.framework.*;
-import com.radirius.mercury.graphics.*;
-import com.radirius.mercury.math.geometry.*;
+import com.radirius.mercury.graphics.Graphics;
 import org.lwjgl.opengl.GL11;
 
 public class GraphicsTest extends Core {
-	int f = 0;
-
-	Rectangle rect;
-	Circle circ;
 
 	public GraphicsTest() {
 		super("Graphics Test", 800, 600);
+
+		/* You can now just set all the extra variables here (including but not limited to the ones you see here) */
+
+		// Disable vsync
+		vsync = false;
+		// Log progress into program
 		showExtraDebug = true;
 	}
 
@@ -22,35 +23,24 @@ public class GraphicsTest extends Core {
 
 	@Override
 	public void init() {
-		rect = new Rectangle(100, 100, 100, 100);
-		circ = new Circle(500, 500, 100);
 	}
 
 	@Override
 	public void update() {
-		f++;
 	}
 
 	@Override
 	public void render(Graphics g) {
-
-		g.setColor(Color.CRIMSON);
-		g.setBackground(Color.ASBESTOS);
+		/* Notice that functions that previously were in the Runner can now be accessed directly in the Core. */
 
 		addDebugData("OpenGL", GL11.glGetString(GL11.GL_VERSION));
-		addDebugData("Frame", "" + f);
-
-		rect.rotate(1);
-		g.drawRectangle(rect);
-
-		g.drawShape(circ);
+		addDebugData("Vertices Last Rendered", "" + getBatcher().getVerticesLastRendered());
 
 		getCamera().setOrigin(Window.getCenter());
-		getCamera().rotate(0.1f);
+		getCamera().rotate(1f);
 	}
 
 	@Override
 	public void cleanup() {
 	}
-
 }

@@ -224,7 +224,7 @@ public abstract class Core {
 		int processedUpdates = 0;
 
 		double unprocessedSeconds = 0;
-		double secondsPerUpdate = 1 / 60.0;
+		double secondsPerUpdate = 1 / (double)targetFps;
 
 		long lastTime = System.nanoTime();
 
@@ -253,7 +253,7 @@ public abstract class Core {
 
 				processedUpdates++;
 
-				if (processedUpdates % 60 == 0) {
+				if (processedUpdates % (double)targetFps == 0) {
 					fps = processedFrames;
 
 					lastTime += 1000;

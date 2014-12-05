@@ -137,8 +137,6 @@ public class Batcher implements Initializable, Cleanable {
 			return;
 		}
 
-		vertexLastRender = 0;
-
 		active = true;
 	}
 
@@ -151,6 +149,8 @@ public class Batcher implements Initializable, Cleanable {
 
 			return;
 		}
+
+		vertexLastRender = 0;
 
 		flush();
 
