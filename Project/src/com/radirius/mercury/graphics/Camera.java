@@ -1,6 +1,6 @@
 package com.radirius.mercury.graphics;
 
-import com.radirius.mercury.framework.Runner;
+import com.radirius.mercury.framework.*;
 import com.radirius.mercury.math.geometry.*;
 import com.radirius.mercury.utilities.GraphicsUtils;
 
@@ -47,7 +47,7 @@ public class Camera {
 	}
 
 	public void updateTransforms() {
-		Runner.getInstance().getGraphics().getBatcher().flush();
+		Core.getCurrentCore().getBatcher().flush();
 
 		// Update the transformation matrix
 		Matrix4f cm = GraphicsUtils.getCurrentMatrix();
@@ -79,8 +79,9 @@ public class Camera {
 	 * @param origin The point to set the origin to (on screen).
 	 */
 	public void setOrigin(Vector2f origin) {
+		float x = this.origin.x, y = this.origin.y;
 		this.origin = origin;
-		translate(origin.x, origin.y);
+		translate(origin.x-x, origin.y-y);
 	}
 
 	/**
@@ -156,14 +157,14 @@ public class Camera {
 	 * @return The real world width of the camera.
 	 */
 	public float getWidth() {
-		return Runner.getInstance().getWidth() / Runner.getInstance().getGraphics().getScaleDimensions().x;
+		return Window.getWidth() / Core.getCurrentCore().getGraphics().getScaleDimensions().x;
 	}
 
 	/**
 	 * @return The real world height of the camera.
 	 */
 	public float getHeight() {
-		return Runner.getInstance().getHeight() / Runner.getInstance().getGraphics().getScaleDimensions().y;
+		return Window.getHeight() / Core.getCurrentCore().getGraphics().getScaleDimensions().y;
 	}
 
 	/**

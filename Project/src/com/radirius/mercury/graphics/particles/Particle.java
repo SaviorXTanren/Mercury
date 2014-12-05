@@ -62,7 +62,7 @@ public class Particle implements Updatable, Renderable, Wipeable {
 	}
 
 	@Override
-	public void update(float delta) {
+	public void update() {
 		if (life < 0)
 			wipe();
 		vel.scale(emitter.getOptions().acceleration);

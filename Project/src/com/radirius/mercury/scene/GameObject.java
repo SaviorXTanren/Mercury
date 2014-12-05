@@ -34,13 +34,11 @@ public class GameObject implements Component, Wipeable {
 
 	/**
 	 * Updates the children nodes.
-	 *
-	 * @param delta The delta time.
 	 */
 	@Override
-	public void update(float delta) {
+	public void update() {
 		for (GameObject child : children)
-			child.update(delta);
+			child.update();
 	}
 
 	/**

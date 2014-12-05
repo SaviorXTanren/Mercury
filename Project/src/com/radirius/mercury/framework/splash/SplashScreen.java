@@ -1,6 +1,6 @@
 package com.radirius.mercury.framework.splash;
 
-import com.radirius.mercury.framework.Runner;
+import com.radirius.mercury.framework.*;
 import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.math.geometry.Rectangle;
@@ -15,7 +15,6 @@ import com.radirius.mercury.utilities.easing.*;
  * @author wessles, Jeviny
  */
 public class SplashScreen {
-	private static final Runner runner = Runner.getInstance();
 	EasingValue easingValue;
 	private boolean showing = false;
 	private boolean returned = true;
@@ -42,7 +41,7 @@ public class SplashScreen {
 	 * @param showTimeMillis The time that the splash screen is shown.
 	 */
 	public SplashScreen(Texture splashTexture, long showTimeMillis) {
-		this(splashTexture, showTimeMillis, splashTexture.width <= runner.getWidth() && splashTexture.height <= runner.getHeight() ? false : true);
+		this(splashTexture, showTimeMillis, !(splashTexture.width <= Window.getWidth() && splashTexture.height <= Window.getHeight()));
 	}
 
 	/**
@@ -76,12 +75,12 @@ public class SplashScreen {
 		}
 
 		for (int c_skipbtn : skipbutton)
-			if (Runner.getInstance().getInput().keyClicked(c_skipbtn)) {
+			if (Input.keyClicked(c_skipbtn)) {
 				returned = false;
 				showing = false;
 			}
 
-		Rectangle cameraBounds = Runner.getInstance().getCamera().getBounds();
+		Rectangle cameraBounds = Core.getCurrentCore().getCamera().getBounds();
 
 		float width = splashTexture.getWidth();
 		float height = splashTexture.getHeight();

@@ -1,6 +1,6 @@
 package com.radirius.mercury.input;
 
-import com.radirius.mercury.framework.Runner;
+import com.radirius.mercury.framework.Core;
 import com.radirius.mercury.graphics.Camera;
 import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.math.geometry.*;
@@ -146,21 +146,21 @@ public class Input {
 	public static final int MOUSE_RIGHT = 1;
 	public static final int MOUSE_MID = 2;
 
-	private ArrayList<Integer> eventKeyStates = new ArrayList<Integer>();
-	private ArrayList<Integer> eventMouseButtonStates = new ArrayList<Integer>();
-	private ArrayList<ControllerEvent> eventControllerButtonStates = new ArrayList<ControllerEvent>();
+	private static ArrayList<Integer> eventKeyStates = new ArrayList<Integer>();
+	private static ArrayList<Integer> eventMouseButtonStates = new ArrayList<Integer>();
+	private static ArrayList<ControllerEvent> eventControllerButtonStates = new ArrayList<ControllerEvent>();
 
-	private int mousedWheel = 0;
-	private char nextCharacter = 0;
+	private static int mousedWheel = 0;
+	private static char nextCharacter = 0;
 
-	private boolean keyboardPolling = true;
-	private boolean mousePolling = true;
-	private boolean controllerPolling = true;
+	private static boolean keyboardPolling = true;
+	private static boolean mousePolling = true;
+	private static boolean controllerPolling = true;
 
 	/**
 	 * Creates the input things.
 	 */
-	public void create() {
+	public static void init() {
 		try {
 			Mouse.create();
 			Keyboard.create();
@@ -174,7 +174,7 @@ public class Input {
 	/**
 	 * Updates a list of things that happened every frame.
 	 */
-	public void pollKeyboard() {
+	public static void pollKeyboard() {
 		if (!keyboardPolling)
 			return;
 
@@ -189,7 +189,7 @@ public class Input {
 	/**
 	 * Updates a list of things that happened every frame.
 	 */
-	public void pollMouse() {
+	public static void pollMouse() {
 		if (!mousePolling)
 			return;
 
@@ -204,7 +204,7 @@ public class Input {
 	/**
 	 * Updates a list of things that happened every frame.
 	 */
-	public void pollControllers() {
+	public static void pollControllers() {
 		if (!controllerPolling)
 			return;
 
@@ -229,14 +229,14 @@ public class Input {
 	/**
 	 * Polls keyboard and mouse.
 	 */
-	public void poll() {
+	public static void poll() {
 		purgeBuffers();
 		pollKeyboard();
 		pollMouse();
 		pollControllers();
 	}
 
-	public void purgeBuffers() {
+	public static void purgeBuffers() {
 		eventKeyStates.clear();
 		nextCharacter = 0;
 
@@ -248,7 +248,7 @@ public class Input {
 	/**
 	 * @return If key was clicked.
 	 */
-	public boolean keyClicked(int key) {
+	public static boolean keyClicked(int key) {
 		for (Integer eventkey : eventKeyStates)
 			if (eventkey == key)
 				return true;
@@ -258,14 +258,14 @@ public class Input {
 	/**
 	 * @return If any key was clicked.
 	 */
-	public boolean wasKeyClicked() {
+	public static boolean wasKeyClicked() {
 		return eventKeyStates.size() != 0;
 	}
 
 	/**
 	 * @return If key is down.
 	 */
-	public boolean keyDown(int key) {
+	public static boolean keyDown(int key) {
 		if (Keyboard.isKeyDown(key))
 			return true;
 		return false;
@@ -274,28 +274,28 @@ public class Input {
 	/**
 	 * @return If key is up.
 	 */
-	public boolean keyUp(int key) {
+	public static boolean keyUp(int key) {
 		return !keyDown(key);
 	}
 
 	/**
 	 * @return The last character pressed.
 	 */
-	public char getNextCharacter() {
+	public static char getNextCharacter() {
 		return nextCharacter;
 	}
 
 	/**
 	 * Sets whether or not to accept repeating events.
 	 */
-	public void setRepeatEventsEnabled(boolean repeatevents) {
+	public static void setRepeatEventsEnabled(boolean repeatevents) {
 		Keyboard.enableRepeatEvents(repeatevents);
 	}
 
 	/**
 	 * @return If mousebutton was clicked.
 	 */
-	public boolean mouseClicked(int mousebutton) {
+	public static boolean mouseClicked(int mousebutton) {
 		for (Integer eventmousebutton : eventMouseButtonStates)
 			if (eventmousebutton == mousebutton)
 				return true;
@@ -306,49 +306,49 @@ public class Input {
 	/**
 	 * @return If mousebutton is down.
 	 */
-	public boolean mouseDown(int mousebutton) {
+	public static boolean mouseDown(int mousebutton) {
 		return Mouse.isButtonDown(mousebutton);
 	}
 
 	/**
 	 * @return If mousebutton is up.
 	 */
-	public boolean mouseUp(int mousebutton) {
+	public static boolean mouseUp(int mousebutton) {
 		return !mouseDown(mousebutton);
 	}
 
 	/**
 	 * @return If mouse wheel is going up.
 	 */
-	public boolean mouseWheelUp() {
+	public static boolean mouseWheelUp() {
 		return mousedWheel > 0;
 	}
 
 	/**
 	 * @return If mouse wheel is going down.
 	 */
-	public boolean mouseWheelDown() {
+	public static boolean mouseWheelDown() {
 		return mousedWheel < 0;
 	}
 
 	/**
 	 * @return Mouse position.
 	 */
-	public Point getMousePosition() {
+	public static Point getMousePosition() {
 		return new Point(Mouse.getX(), Mouse.getY());
 	}
 
 	/**
 	 * @return Mouse's x position.
 	 */
-	public int getMouseX() {
+	public static int getMouseX() {
 		return Mouse.getX();
 	}
 
 	/**
 	 * @return Mouse's y position.
 	 */
-	public int getMouseY() {
+	public static int getMouseY() {
 		return Mouse.getY();
 	}
 
@@ -356,7 +356,7 @@ public class Input {
 	 * @return The mouse 'correct' position (Has to do with the opengl origin being bottom left, and ours being top
 	 * left).
 	 */
-	public Vector2f getAbsoluteMousePosition() {
+	public static Vector2f getAbsoluteMousePosition() {
 		return new Vector2f(getMouseX(), Display.getHeight() - 1 - getMouseY());
 	}
 
@@ -364,7 +364,7 @@ public class Input {
 	 * @return The mouse position's 'correct' x (Has to do with the opengl origin being bottom left, and ours being top
 	 * left).
 	 */
-	public int getAbsoluteMouseX() {
+	public static int getAbsoluteMouseX() {
 		return (int) getAbsoluteMousePosition().x;
 	}
 
@@ -372,17 +372,16 @@ public class Input {
 	 * @return The mouse position's 'correct' y (Has to do with the opengl origin being bottom left, and ours being top
 	 * left).
 	 */
-	public int getAbsoluteMouseY() {
+	public static int getAbsoluteMouseY() {
 		return (int) getAbsoluteMousePosition().y;
 	}
 
 	/**
-	 * @return The global mouse position based on the displacement of the Runner's Camera and the scaling of the
-	 * graphics.
+	 * @return The global mouse position based on the displacement of the game's camera and the scaling of the graphics.
 	 */
-	public Vector2f getGlobalMousePosition() {
+	public static Vector2f getGlobalMousePosition() {
 		Vector2f globalmousepos = getAbsoluteMousePosition();
-		Camera cam = Runner.getInstance().getCamera();
+		Camera cam = Core.getCurrentCore().getCamera();
 
 		// Scale the mouse position
 		globalmousepos.div(cam.getScaleDimensions());
@@ -409,22 +408,22 @@ public class Input {
 	}
 
 	/**
-	 * @return The global mouse x position based on the displacement of the Runner's Camera and the scaling of the
+	 * @return The global mouse x position based on the displacement of the game's camera and the scaling of the
 	 * graphics.
 	 */
-	public float getGlobalMouseX() {
+	public static float getGlobalMouseX() {
 		return getGlobalMousePosition().x;
 	}
 
 	/**
-	 * @return The global mouse y position based on the displacement of the Runner's Camera and the scaling of the
+	 * @return The global mouse y position based on the displacement of the game's camera and the scaling of the
 	 * graphics.
 	 */
-	public float getGlobalMouseY() {
+	public static float getGlobalMouseY() {
 		return getGlobalMousePosition().y;
 	}
 
-	public void initControllers() {
+	public static void initControllers() {
 		if (Controllers.isCreated())
 			return;
 
@@ -435,7 +434,7 @@ public class Input {
 		}
 	}
 
-	public boolean controllerButtonClicked(int button, int controller) {
+	public static boolean controllerButtonClicked(int button, int controller) {
 		if (!Controllers.isCreated())
 			return false;
 
@@ -449,7 +448,7 @@ public class Input {
 	/**
 	 * @return Whether or not the button on controller is down; null if controllers have not been initialized.
 	 */
-	public boolean controllerButtonDown(int button, int controller) {
+	public static boolean controllerButtonDown(int button, int controller) {
 		if (!Controllers.isCreated())
 			return false;
 
@@ -459,7 +458,7 @@ public class Input {
 	/**
 	 * @return Whether or not the button on controller is up; null if controllers have not been initialized.
 	 */
-	public boolean controllerButtonUp(int button, int controller) {
+	public static boolean controllerButtonUp(int button, int controller) {
 		return !controllerButtonDown(button, controller);
 	}
 
@@ -467,7 +466,7 @@ public class Input {
 	 * @return A vector containing the x and y value of the left analog stick. null if controllers have not been
 	 * initialized.
 	 */
-	public Vector2f getLeftAnalogStick(int controller) {
+	public static Vector2f getLeftAnalogStick(int controller) {
 		if (!Controllers.isCreated())
 			return null;
 
@@ -484,7 +483,7 @@ public class Input {
 	 * @return A vector containing the x and y value of the right analog stick. null if controllers have not been
 	 * initialized.
 	 */
-	public Vector2f getRightAnalogStick(int controller) {
+	public static Vector2f getRightAnalogStick(int controller) {
 		if (!Controllers.isCreated())
 			return null;
 
@@ -500,7 +499,7 @@ public class Input {
 	/**
 	 * @return A vector containing the x and y value of the dpad. null if controllers have not been initialized.
 	 */
-	public Vector2f getDPad(int controller) {
+	public static Vector2f getDPad(int controller) {
 		if (!Controllers.isCreated())
 			return null;
 
@@ -516,7 +515,7 @@ public class Input {
 	/**
 	 * @return The amount of controllers. -1 if controllers have not been initialized.
 	 */
-	public int getControllerCount() {
+	public static int getControllerCount() {
 		if (!Controllers.isCreated())
 			return -1;
 
@@ -528,7 +527,7 @@ public class Input {
 	 *
 	 * @param keyboard Enable keyboard polling?
 	 */
-	public void setKeyboardPollingEnabled(boolean keyboard) {
+	public static void setKeyboardPollingEnabled(boolean keyboard) {
 		keyboardPolling = keyboard;
 	}
 
@@ -537,7 +536,7 @@ public class Input {
 	 *
 	 * @param mouse Enable mouse polling?
 	 */
-	public void setMousePollingEnabled(boolean mouse) {
+	public static void setMousePollingEnabled(boolean mouse) {
 		mousePolling = mouse;
 	}
 
@@ -546,7 +545,7 @@ public class Input {
 	 *
 	 * @param controller Enable controller polling?
 	 */
-	public void setControllerPollingEnabled(boolean controller) {
+	public static void setControllerPollingEnabled(boolean controller) {
 		controllerPolling = controller;
 	}
 
@@ -557,7 +556,7 @@ public class Input {
 	 * @param mouse      Enable mouse polling?
 	 * @param controller Enable controller polling?
 	 */
-	public void setPollingEnabled(boolean keyboard, boolean mouse, boolean controller) {
+	public static void setPollingEnabled(boolean keyboard, boolean mouse, boolean controller) {
 		keyboardPolling = keyboard;
 		mousePolling = mouse;
 		controllerPolling = controller;

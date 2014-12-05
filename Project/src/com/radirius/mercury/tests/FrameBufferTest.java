@@ -14,8 +14,6 @@ public class FrameBufferTest extends Core {
 
 	public FrameBufferTest() {
 		super("FrameBuffer Test", 800, 600);
-
-		setDebugDisplays(true);
 	}
 
 	public static void main(String[] args) {
@@ -30,7 +28,7 @@ public class FrameBufferTest extends Core {
 	}
 
 	@Override
-	public void update(float delta) {
+	public void update() {
 		f++;
 	}
 
@@ -50,8 +48,8 @@ public class FrameBufferTest extends Core {
 		g.drawTexture(frameBuffer.getTextureObject(), rect);
 		rect.rotate(1);
 
-		Runner.getInstance().addDebugData("OpenGL", GL11.glGetString(GL11.GL_VERSION));
-		Runner.getInstance().addDebugData("Frame", "" + f);
+		addDebugData("OpenGL", GL11.glGetString(GL11.GL_VERSION));
+		addDebugData("Frame", "" + f);
 	}
 
 	@Override

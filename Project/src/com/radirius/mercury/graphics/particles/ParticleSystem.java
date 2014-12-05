@@ -45,9 +45,9 @@ public class ParticleSystem implements Updatable, Renderable {
 	}
 
 	@Override
-	public void update(float delta) {
+	public void update() {
 		for (Particle part : parts)
-			part.update(delta);
+			part.update();
 		parts.sweep();
 	}
 

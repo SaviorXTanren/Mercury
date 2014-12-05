@@ -1,7 +1,7 @@
 package com.radirius.mercury.graphics;
 
 import com.radirius.mercury.exceptions.MercuryException;
-import com.radirius.mercury.framework.Runner;
+import com.radirius.mercury.framework.*;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
@@ -30,7 +30,7 @@ public class FrameBuffer {
 		glBindFramebuffer(GL_FRAMEBUFFER, fboId);
 		Texture.bindTexture(texId);
 
-		int width = (int) Runner.getInstance().getCamera().getWidth(), height = (int) Runner.getInstance().getCamera().getHeight();
+		int width = Window.getWidth(), height = Window.getHeight();
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, (java.nio.ByteBuffer) null);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -54,17 +54,10 @@ public class FrameBuffer {
 	}
 
 	/**
-	 * Staticly 'use().'
-	 */
-	public static void useFrameBuffer(FrameBuffer fbo) {
-		fbo.use();
-	}
-
-	/**
 	 * Returns to original frame buffer (window).
 	 */
 	public static void releaseFrameBuffers() {
-		Runner.getInstance().getGraphics().getBatcher().flush();
+		Core.getCurrentCore().getBatcher().flush();
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
@@ -74,7 +67,7 @@ public class FrameBuffer {
 	public void use() {
 		fboTexture.bind();
 		glBindFramebuffer(GL_FRAMEBUFFER, fboId);
-		glViewport(0, 0, (int) Runner.getInstance().getCamera().getWidth(), (int) Runner.getInstance().getCamera().getHeight());
+		glViewport(0, 0, Window.getWidth(), Window.getHeight());
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 

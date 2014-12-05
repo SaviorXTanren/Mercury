@@ -24,7 +24,7 @@ public class GameState implements Updatable, Renderable {
 	}
 
 	@Override
-	public void update(float delta) {
+	public void update() {
 	}
 
 	@Override
