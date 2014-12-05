@@ -41,9 +41,19 @@ public class ShaderTest extends Core {
 
     @Override
     public void render(Graphics g) {
+        // Flush the batcher
+        getBatcher().flush();
+
+        // Use the shader
         shader.use();
         shader.setUniformf("u_color", 1, 0, 0, 1); // Red color
+
+        // Draw the rectangle
         g.drawRectangle(rect);
+
+        // Flush and release the shader
+        getBatcher().flush();
+        shader.release();
     }
 
     @Override
