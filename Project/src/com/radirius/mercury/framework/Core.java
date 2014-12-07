@@ -221,35 +221,45 @@ public abstract class Core {
 		}
 
 		final float nanosInMilliSecond = 1000000.0f;
-        final float frameTime          = 1000 / targetFps;
-        final float maxFrameSkips      = 5;
-
+//        final float frameTime          = 1000.0f / targetFps;
+//        final float maxFrameSkips      = 5;
+//
+//        Logger.log("Target FPS: " + targetFps);
+//        Logger.log("Frame Time: " + frameTime);
+//
         long gameTime    = (long) (System.nanoTime() / nanosInMilliSecond);
-        long currentTime = gameTime;
-
-        int framesSkipped;
-
+        long currentTime;
+//
+        long fpsTime = 0;
+        long lastTime = 0;
+//
+//        int framesSkipped;
+//
         int processedFrames  = 0;
 
 		while (running) {
-            framesSkipped = 0;
-
+//            framesSkipped = 0;
+//
             currentTime = (long) (System.nanoTime() / nanosInMilliSecond);
-
-            while (currentTime > gameTime && framesSkipped < maxFrameSkips) {
+//
+            fpsTime += currentTime - lastTime;
+//
+//            while (currentTime - gameTime > frameTime && framesSkipped < maxFrameSkips) {
                 Input.poll();
 
                 update();
                 TaskTiming.update();
 
-                framesSkipped++;
-                gameTime += frameTime;
+                processedFrames++;
+//                framesSkipped++;
+//                gameTime += frameTime;
 
-                if (processedFrames % targetFps == 0) {
+                if (fpsTime >= 1000) {
                     fps = processedFrames;
+                    fpsTime = 0;
                     processedFrames = 0;
                 }
-            }
+//            }
 
             // Render
             glClear(GL_COLOR_BUFFER_BIT);
@@ -274,13 +284,12 @@ public abstract class Core {
 
             getCamera().post(graphics);
 
-            processedFrames++;
-
 			if (Display.isCloseRequested())
 				end();
 
 			Display.update();
-			Display.sync(targetFps);
+Display.sync(targetFps);
+            lastTime = currentTime;
 		}
 
 
