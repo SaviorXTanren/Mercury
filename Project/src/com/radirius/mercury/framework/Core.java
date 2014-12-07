@@ -220,79 +220,61 @@ public abstract class Core {
 			Logger.newLine();
 		}
 
-		int processedFrames = 0;
-		int processedUpdates = 0;
+		final float nanosInMilliSecond = 1000000.0f;
+        final float frameTime          = 1000 / targetFps;
+        final float maxFrameSkips      = 5;
 
-		double unprocessedSeconds = 0;
-		double secondsPerUpdate = 1 / (double)targetFps;
+        long gameTime    = (long) (System.nanoTime() / nanosInMilliSecond);
+        long currentTime = gameTime;
 
-		long lastTime = System.nanoTime();
+        int framesSkipped;
+
+        int processedFrames  = 0;
 
 		while (running) {
-			long currentTime = System.nanoTime();
-			long passedTime = currentTime - lastTime;
+            framesSkipped = 0;
 
-			lastTime = currentTime;
+            currentTime = (long) (System.nanoTime() / nanosInMilliSecond);
 
-			passedTime = Math.max(0, Math.min(passedTime, 100000000));
+            while (currentTime > gameTime && framesSkipped < maxFrameSkips) {
+                Input.poll();
 
-			unprocessedSeconds += passedTime / 1000000000.0;
+                update();
+                TaskTiming.update();
 
-			boolean hasUpdate = false;
+                framesSkipped++;
+                gameTime += frameTime;
 
-			while (unprocessedSeconds > secondsPerUpdate) {
-				Input.poll();
+                if (processedFrames % targetFps == 0) {
+                    fps = processedFrames;
+                    processedFrames = 0;
+                }
+            }
 
-				update();
+            // Render
+            glClear(GL_COLOR_BUFFER_BIT);
 
-				TaskTiming.update();
+            getCamera().pre(graphics);
 
-				unprocessedSeconds -= secondsPerUpdate;
+            if (!showingSplashScreens())
+                render(graphics);
+            else
+                showSplashScreens(graphics);
 
-				hasUpdate = true;
+            if (renderDebug) {
+                addDebugData("FPS", String.valueOf(getFps()));
 
-				processedUpdates++;
+                Font tempFont = graphics.getFont();
+                graphics.setFont(TrueTypeFont.ROBOTO_REGULAR);
+                graphics.setColor(Color.WHITE);
+                graphics.drawString(debugData, 1 / graphics.getScale(), 8, 4);
+                debugData = "";
+                graphics.setFont(tempFont);
+            }
 
-				if (processedUpdates % (double)targetFps == 0) {
-					fps = processedFrames;
+            getCamera().post(graphics);
 
-					lastTime += 1000;
-
-					processedFrames = 0;
-				}
-			}
-
-			if (hasUpdate) {
-				glClear(GL_COLOR_BUFFER_BIT);
-
-				getCamera().pre(graphics);
-
-				if (!showingSplashScreens())
-					render(graphics);
-
-				showSplashScreens(graphics);
-
-				if (renderDebug) {
-					addDebugData("FPS", String.valueOf(getFps()));
-
-					Font tempFont = graphics.getFont();
-					graphics.setFont(TrueTypeFont.ROBOTO_REGULAR);
-					graphics.setColor(Color.WHITE);
-					graphics.drawString(debugData, 1 / graphics.getScale(), 8, 4);
-					debugData = "";
-					graphics.setFont(tempFont);
-				}
-
-				getCamera().post(graphics);
-
-				processedFrames++;
-			} else {
-				try {
-					Thread.sleep(1);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
+            processedFrames++;
 
 			if (Display.isCloseRequested())
 				end();

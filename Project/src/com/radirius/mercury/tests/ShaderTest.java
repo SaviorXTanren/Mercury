@@ -12,26 +12,27 @@ public class ShaderTest extends Core {
     private Shader    shader;
     private Rectangle rect;
 
-    private String source = "#version 330 core                     \n" +
-                            "                                      \n" +
-                            "uniform sampler2D u_texture;          \n" +
-                            "uniform vec4      u_color;            \n" +
-                            "                                      \n" +
-                            "in vec4 v_color;                      \n" +
-                            "in vec4 v_texcoord;                   \n" +
-                            "                                      \n" +
-                            "out vec4 fragColor;                   \n" +
-                            "                                      \n" +
-                            "void main() {                         \n" +
-                            "    fragColor = u_color;              \n" +
-                            "}";
-
     public ShaderTest() {
         super("Mercury ShaderTest");
     }
 
     @Override
     public void init() {
+        // Fragment shader source
+        String source = "#version 330 core                     \n" +
+                        "                                      \n" +
+                        "uniform sampler2D u_texture;          \n" +
+                        "uniform vec4      u_color;            \n" +
+                        "                                      \n" +
+                        "in vec4 v_color;                      \n" +
+                        "in vec4 v_texcoord;                   \n" +
+                        "                                      \n" +
+                        "out vec4 fragColor;                   \n" +
+                        "                                      \n" +
+                        "void main() {                         \n" +
+                        "    fragColor = u_color;              \n" +
+                        "}";
+
         shader = Shader.getShader(source, Shader.FRAGMENT_SHADER);
         rect   = new Rectangle(100, 100, 100, 100);
     }
