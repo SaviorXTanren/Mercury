@@ -7,6 +7,7 @@ import com.radirius.mercury.graphics.font.*;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.utilities.TaskTiming;
 import com.radirius.mercury.utilities.logging.Logger;
+import org.lwjgl.Sys;
 import org.lwjgl.opengl.*;
 
 import java.util.ArrayList;
@@ -158,12 +159,18 @@ public abstract class Core {
 	/** A string that holds debugging data to be rendered to the screen, should `renderDebug` be true */
 	private String debugData = "";
 
+    /**
+     * @return The current time in milliseconds
+     */
+    public double getCurrentTime() {
+        return Sys.getTime() * 1000.0 / Sys.getTimerResolution();
+    }
+
 	/**
 	 * Initializes the library, preparing for the loop
 	 */
 	public void run() {
 		currentCore = this;
-
 
 		/* Initializing, preparing for the game loop. */
 
@@ -220,46 +227,42 @@ public abstract class Core {
 			Logger.newLine();
 		}
 
-		final float nanosInMilliSecond = 1000000.0f;
-//        final float frameTime          = 1000.0f / targetFps;
-//        final float maxFrameSkips      = 5;
-//
-//        Logger.log("Target FPS: " + targetFps);
-//        Logger.log("Frame Time: " + frameTime);
-//
-        long gameTime    = (long) (System.nanoTime() / nanosInMilliSecond);
-        long currentTime;
-//
-        long fpsTime = 0;
-        long lastTime = 0;
-//
-//        int framesSkipped;
-//
-        int processedFrames  = 0;
+        double current;
+        double previous = getCurrentTime();
+        double elapsed;
+        double lag      = 0;
 
-		while (running) {
-//            framesSkipped = 0;
-//
-            currentTime = (long) (System.nanoTime() / nanosInMilliSecond);
-//
-            fpsTime += currentTime - lastTime;
-//
-//            while (currentTime - gameTime > frameTime && framesSkipped < maxFrameSkips) {
-                Input.poll();
+        int    processedUpdates = 0;
+        double lastFPSUpdate = 0;
 
+        final double MS_PER_UPDATE = 1000.0 / targetFps;
+
+        while (running) {
+            if (Display.isCloseRequested())
+                break;
+
+            current  = getCurrentTime();
+            elapsed  = current - previous;
+            previous = current;
+
+            lag += elapsed;
+
+            Input.poll();
+
+            while (lag >= MS_PER_UPDATE) {
                 update();
                 TaskTiming.update();
 
-                processedFrames++;
-//                framesSkipped++;
-//                gameTime += frameTime;
+                lag -= MS_PER_UPDATE;
+                processedUpdates++;
 
-                if (fpsTime >= 1000) {
-                    fps = processedFrames;
-                    fpsTime = 0;
-                    processedFrames = 0;
+                if (current - lastFPSUpdate >= 1000)
+                {
+                    fps = processedUpdates;
+                    processedUpdates = 0;
+                    lastFPSUpdate = current;
                 }
-//            }
+            }
 
             // Render
             glClear(GL_COLOR_BUFFER_BIT);
@@ -288,9 +291,79 @@ public abstract class Core {
 				end();
 
 			Display.update();
-Display.sync(targetFps);
-            lastTime = currentTime;
-		}
+        }
+
+//		final float nanosInMilliSecond = 1000000.0f;
+//        final float frameTime          = 1000.0f / targetFps;
+//        final float maxFrameSkips      = 5;
+//
+//        Logger.log("Target FPS: " + targetFps);
+//        Logger.log("Frame Time: " + frameTime);
+//
+//        long gameTime    = (long) (System.nanoTime() / nanosInMilliSecond);
+//        long currentTime;
+////
+//        long fpsTime = 0;
+//        long lastTime = 0;
+////
+////        int framesSkipped;
+////
+//        int processedFrames  = 0;
+//
+//		while (running) {
+////            framesSkipped = 0;
+////
+//            currentTime = (long) (System.nanoTime() / nanosInMilliSecond);
+////
+//            fpsTime += currentTime - lastTime;
+////
+////            while (currentTime - gameTime > frameTime && framesSkipped < maxFrameSkips) {
+//                Input.poll();
+//
+//                update();
+//                TaskTiming.update();
+//
+//                processedFrames++;
+////                framesSkipped++;
+////                gameTime += frameTime;
+//
+//                if (fpsTime >= 1000) {
+//                    fps = processedFrames;
+//                    fpsTime = 0;
+//                    processedFrames = 0;
+//                }
+////            }
+//
+//            // Render
+//            glClear(GL_COLOR_BUFFER_BIT);
+//
+//            getCamera().pre(graphics);
+//
+//            if (!showingSplashScreens())
+//                render(graphics);
+//            else
+//                showSplashScreens(graphics);
+//
+//            if (renderDebug) {
+//                addDebugData("FPS", String.valueOf(getFps()));
+//
+//                Font tempFont = graphics.getFont();
+//                graphics.setFont(TrueTypeFont.ROBOTO_REGULAR);
+//                graphics.setColor(Color.WHITE);
+//                graphics.drawString(debugData, 1 / graphics.getScale(), 8, 4);
+//                debugData = "";
+//                graphics.setFont(tempFont);
+//            }
+//
+//            getCamera().post(graphics);
+//
+//			if (Display.isCloseRequested())
+//				end();
+//
+//			Display.update();
+//            Display.sync(targetFps);
+//            lastTime = currentTime;
+//		}
 
 
 		/* Game loop ends; cleaning up. */
