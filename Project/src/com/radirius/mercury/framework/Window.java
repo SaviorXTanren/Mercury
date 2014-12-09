@@ -102,21 +102,6 @@ public class Window {
 		Display.setIcon(bufferarray);
 	}
 
-//TODO Add this on
-//	/**
-//	 * @return The framerate.
-//	 */
-//	public int getFps() {
-//		return fps;
-//	}
-//
-//	/**
-//	 * @param targetFps The new FPS target
-//	 */
-//	public void setTargetFps(int targetFps) {
-//		this.targetFps = targetFps;
-//	}
-
 	/**
 	 * Enables or disables mouse grabbing.
 	 *

@@ -1,6 +1,7 @@
 package com.radirius.mercury.tests;
 
 import com.radirius.mercury.framework.Core;
+import com.radirius.mercury.framework.CoreSetup;
 import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.math.geometry.Rectangle;
 import com.radirius.mercury.scene.*;
@@ -8,12 +9,14 @@ import com.radirius.mercury.scene.*;
 class SceneGraphTest extends Core {
 	GameScene gameScene = new GameScene();
 
-	public SceneGraphTest() {
-		super("Scene Graph Test", 800, 600);
+	public SceneGraphTest(CoreSetup setup) {
+		super(setup);
 	}
 
 	public static void main(String[] args) {
-		new SceneGraphTest().start();
+		CoreSetup setup = new CoreSetup("Scene Graph Test");
+		
+		new SceneGraphTest(setup).start();
 	}
 
 	public void init() {

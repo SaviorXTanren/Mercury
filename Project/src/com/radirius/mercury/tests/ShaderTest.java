@@ -1,6 +1,7 @@
 package com.radirius.mercury.tests;
 
 import com.radirius.mercury.framework.Core;
+import com.radirius.mercury.framework.CoreSetup;
 import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.graphics.Shader;
 import com.radirius.mercury.math.geometry.Rectangle;
@@ -12,8 +13,14 @@ public class ShaderTest extends Core {
     private Shader    shader;
     private Rectangle rect;
 
-    public ShaderTest() {
-        super("Mercury ShaderTest");
+    public ShaderTest(CoreSetup setup) {
+        super(setup);
+    }
+
+    public static void main(String[] args) {
+    	CoreSetup setup = new CoreSetup("Mercury Shader Test");
+    	
+    	new ShaderTest(setup).start();
     }
 
     @Override
@@ -60,9 +67,5 @@ public class ShaderTest extends Core {
     @Override
     public void cleanup() {
         shader.clean();
-    }
-
-    public static void main(String[] args) {
-        new ShaderTest().start();
     }
 }

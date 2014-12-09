@@ -5,19 +5,21 @@ import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.math.geometry.Rectangle;
 import org.lwjgl.opengl.GL11;
 
-public class FrameBufferTest extends Core {
+class FrameBufferTest extends Core {
 	int f = 0;
 
 	Rectangle rect;
 
 	FrameBuffer frameBuffer;
 
-	public FrameBufferTest() {
-		super("FrameBuffer Test", 800, 600);
+	public FrameBufferTest(CoreSetup setup) {
+		super(setup);
 	}
 
 	public static void main(String[] args) {
-		new FrameBufferTest().start();
+		CoreSetup setup = new CoreSetup("Framebuffer Test");
+		
+		new FrameBufferTest(setup).start();
 	}
 
 	@Override
@@ -39,7 +41,7 @@ public class FrameBufferTest extends Core {
 			g.setColor(Color.CRIMSON);
 			g.drawRectangle(100, 100, 100, 100);
 			g.setColor(Color.CLOUDS);
-			g.drawString("This is rendered to framebuffer!!", 0, 0);
+			g.drawString("This is rendered to a framebuffer!", 0, 0);
 		}
 		frameBuffer.release();
 

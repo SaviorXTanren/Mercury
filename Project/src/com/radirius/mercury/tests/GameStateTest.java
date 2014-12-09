@@ -5,7 +5,7 @@ import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.graphics.font.TrueTypeFont;
 import com.radirius.mercury.input.Input;
 
-public class GameStateTest extends Core {
+class GameStateTest extends Core {
 	GameState gs0 = new GameState() {
 		public void render(Graphics g) {
 			g.setBackground(Color.BLUE);
@@ -17,13 +17,16 @@ public class GameStateTest extends Core {
 		}
 	};
 
-	public GameStateTest() {
-		super("Game State Test", 800, 600);
+	public GameStateTest(CoreSetup setup) {
+		super(setup);
 	}
 
 	public static void main(String[] args) {
-		new GameStateTest().start();
+		CoreSetup setup = new CoreSetup("GameState Test");
+		
+		new GameStateTest(setup).start();
 	}
+
 
 	public void init() {
 	}

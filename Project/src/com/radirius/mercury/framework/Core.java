@@ -29,20 +29,10 @@ public abstract class Core {
 		return currentCore;
 	}
 
-	public String name;
+	private CoreSetup coreSetup;
 
-	public Core(String name) {
-		this.name = name;
-	}
-
-	public Core(int width, int height) {
-		this("Untitled Window", width, height);
-	}
-
-	public Core(String name, int width, int height) {
-		this.name = name;
-		this.width = width;
-		this.height = height;
+	public Core(CoreSetup coreSetup) {
+		this.coreSetup = coreSetup;
 	}
 
 	/**
@@ -60,8 +50,9 @@ public abstract class Core {
 	}
 
 	/**
-	 * Used to initialize all resources, and for whatever you wish to do for initialization. May run on a seperate
-	 * thread, while the main Thread continues to the game loop.
+	 * Used to initialize all resources, and for whatever you wish to do for
+	 * initialization. May run on a seperate thread, while the main Thread
+	 * continues to the game loop.
 	 */
 	public abstract void init();
 
@@ -73,7 +64,8 @@ public abstract class Core {
 	/**
 	 * Called once every frame and used to render graphics.
 	 *
-	 * @param g The Graphics object for rendering.
+	 * @param g
+	 *            The Graphics object for rendering.
 	 */
 	public abstract void render(Graphics g);
 
@@ -82,9 +74,7 @@ public abstract class Core {
 	 */
 	public abstract void cleanup();
 
-
 	/* Game state. */
-
 
 	private final GameState defaultGameState = new GameState();
 	private GameState currentGameState = defaultGameState;
@@ -100,7 +90,8 @@ public abstract class Core {
 	/**
 	 * Renders the current game state.
 	 *
-	 * @param g The Graphics object for rendering.
+	 * @param g
+	 *            The Graphics object for rendering.
 	 */
 	public void renderState(Graphics g) {
 		if (currentGameState != null)
@@ -110,11 +101,14 @@ public abstract class Core {
 	/**
 	 * Switches to a GameState and after alerting the current GameState.
 	 *
-	 * @param currentGameState The GameState to switch to.
+	 * @param currentGameState
+	 *            The GameState to switch to.
 	 */
 	public void switchGameState(GameState currentGameState) {
 		this.currentGameState.onLeave();
+		
 		currentGameState.onEnter();
+		
 		this.currentGameState = null;
 		this.currentGameState = currentGameState;
 	}
@@ -126,28 +120,6 @@ public abstract class Core {
 		return currentGameState;
 	}
 
-
-	/* The initialization variables. */
-
-
-	/** Whether or not the extra Mercury debug data will be shown in the console. */
-	protected boolean showExtraDebug = false;
-	/** Whether or not the debug data will be drawn to the screen. */
-	protected boolean renderDebug = true;
-
-	/** The width of the window */
-	protected int width = 1280;
-	/** The height of the window */
-	protected int height = 720;
-	/** Whether the window will attempt fullscreen */
-	protected boolean fullscreen = false;
-	/** The target framerate. */
-	protected int targetFps = 60;
-	/** Whether or not v-sync is enabled */
-	protected boolean vsync = true;
-
-	/* Private data. */
-
 	/** A list of splash screens */
 	private final ArrayList<SplashScreen> splashes = new ArrayList<>();
 	/** The current splash screen */
@@ -156,15 +128,18 @@ public abstract class Core {
 	/** Whether or not the Runner is running */
 	private boolean running = false;
 
-	/** A string that holds debugging data to be rendered to the screen, should `renderDebug` be true */
+	/**
+	 * A string that holds debugging data to be rendered to the screen, should
+	 * `renderDebug` be true
+	 */
 	private String debugData = "";
 
-    /**
-     * @return The current time in milliseconds
-     */
-    public double getCurrentTime() {
-        return Sys.getTime() * 1000.0 / Sys.getTimerResolution();
-    }
+	/**
+	 * @return The current time in milliseconds
+	 */
+	public double getCurrentTime() {
+		return Sys.getTime() * 1000.0 / Sys.getTimerResolution();
+	}
 
 	/**
 	 * Initializes the library, preparing for the loop
@@ -174,25 +149,24 @@ public abstract class Core {
 
 		/* Initializing, preparing for the game loop. */
 
-
-		if (showExtraDebug) {
+		if (coreSetup.showConsoleDebug) {
 			System.out.println("Mercury Game Library (In-Dev)\n" + "Designed by Radirius\n" + "Website: http://mercurylib.com/");
 			System.out.println("-------------------------------");
 		}
 
 		Logger.warn("You're running a non-stable build of Mercury!\nIf you run into any issues, please leave an issue on GitHub or make a post on the forum.");
 
-		if (showExtraDebug)
+		if (coreSetup.showConsoleDebug)
 			Logger.info("Mercury Starting:");
 
-		if (showExtraDebug)
+		if (coreSetup.showConsoleDebug)
 			Logger.info("Making Display & Graphics...");
 
-		Window.initDisplay(name, width, height, fullscreen, vsync);
+		Window.initDisplay(coreSetup.name, coreSetup.width, coreSetup.height, coreSetup.fullScreen, coreSetup.vSync);
 
 		graphics = Graphics.initGraphics();
 
-		if (showExtraDebug) {
+		if (coreSetup.showConsoleDebug) {
 			Logger.info("OpenGL Version: " + GL11.glGetString(GL11.GL_VERSION));
 			Logger.info("Display Mode: " + Display.getDisplayMode());
 
@@ -201,175 +175,93 @@ public abstract class Core {
 
 		graphics.init();
 
-		if (showExtraDebug)
+		if (coreSetup.showConsoleDebug)
 			Logger.info("Initializing Audio...");
 
 		Audio.initAudio();
 
-		if (showExtraDebug)
+		if (coreSetup.showConsoleDebug)
 			Logger.info("Initializing Input...");
 
 		Input.init();
 
-		if (showExtraDebug)
+		if (coreSetup.showConsoleDebug)
 			Logger.info("Initializing Core...");
 
 		init();
 
 		running = true;
 
-
-		/* The actual game loop */
-
-
-		if (showExtraDebug) {
+		if (coreSetup.showConsoleDebug) {
 			Logger.info("Starting Game Loop...");
 			Logger.newLine();
 		}
 
-        double current;
-        double previous = getCurrentTime();
-        double elapsed;
-        double lag      = 0;
+		double current;
+		double previous = getCurrentTime();
+		double elapsed;
+		double lag = 0;
 
-        int    processedUpdates = 0;
-        double lastFPSUpdate = 0;
+		int processedUpdates = 0;
+		double lastFPSUpdate = 0;
 
-        final double MS_PER_UPDATE = 1000.0 / targetFps;
+		final double MS_PER_UPDATE = 1000.0 / coreSetup.targetFps;
 
-        while (running) {
-            if (Display.isCloseRequested())
-                break;
+		while (running) {
+			if (Display.isCloseRequested())
+				break;
 
-            current  = getCurrentTime();
-            elapsed  = current - previous;
-            previous = current;
+			current = getCurrentTime();
+			elapsed = current - previous;
+			previous = current;
 
-            lag += elapsed;
+			lag += elapsed;
 
-            Input.poll();
+			Input.poll();
 
-            while (lag >= MS_PER_UPDATE) {
-                update();
-                TaskTiming.update();
+			while (lag >= MS_PER_UPDATE) {
+				update();
+				TaskTiming.update();
 
-                lag -= MS_PER_UPDATE;
-                processedUpdates++;
+				lag -= MS_PER_UPDATE;
+				processedUpdates++;
 
-                if (current - lastFPSUpdate >= 1000)
-                {
-                    fps = processedUpdates;
-                    processedUpdates = 0;
-                    lastFPSUpdate = current;
-                }
-            }
+				if (current - lastFPSUpdate >= 1000) {
+					fps = processedUpdates;
+					processedUpdates = 0;
+					lastFPSUpdate = current;
+				}
+			}
 
-            // Render
-            glClear(GL_COLOR_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT);
 
-            getCamera().pre(graphics);
+			getCamera().pre(graphics);
 
-            if (!showingSplashScreens())
-                render(graphics);
-            else
-                showSplashScreens(graphics);
+			if (!showingSplashScreens())
+				render(graphics);
+			else
+				showSplashScreens(graphics);
 
-            if (renderDebug) {
-                addDebugData("FPS", String.valueOf(getFps()));
+			if (coreSetup.showDebug) {
+				addDebugData("FPS", String.valueOf(getFps()));
 
-                Font tempFont = graphics.getFont();
-                graphics.setFont(TrueTypeFont.ROBOTO_REGULAR);
-                graphics.setColor(Color.WHITE);
-                graphics.drawString(debugData, 1 / graphics.getScale(), 8, 4);
-                debugData = "";
-                graphics.setFont(tempFont);
-            }
+				Font tempFont = graphics.getFont();
+				graphics.setFont(TrueTypeFont.ROBOTO_REGULAR);
+				graphics.setColor(Color.WHITE);
+				graphics.drawString(debugData, 1 / graphics.getScale(), 8, 4);
+				debugData = "";
+				graphics.setFont(tempFont);
+			}
 
-            getCamera().post(graphics);
+			getCamera().post(graphics);
 
 			if (Display.isCloseRequested())
 				end();
 
 			Display.update();
-        }
+		}
 
-//		final float nanosInMilliSecond = 1000000.0f;
-//        final float frameTime          = 1000.0f / targetFps;
-//        final float maxFrameSkips      = 5;
-//
-//        Logger.log("Target FPS: " + targetFps);
-//        Logger.log("Frame Time: " + frameTime);
-//
-//        long gameTime    = (long) (System.nanoTime() / nanosInMilliSecond);
-//        long currentTime;
-////
-//        long fpsTime = 0;
-//        long lastTime = 0;
-////
-////        int framesSkipped;
-////
-//        int processedFrames  = 0;
-//
-//		while (running) {
-////            framesSkipped = 0;
-////
-//            currentTime = (long) (System.nanoTime() / nanosInMilliSecond);
-////
-//            fpsTime += currentTime - lastTime;
-////
-////            while (currentTime - gameTime > frameTime && framesSkipped < maxFrameSkips) {
-//                Input.poll();
-//
-//                update();
-//                TaskTiming.update();
-//
-//                processedFrames++;
-////                framesSkipped++;
-////                gameTime += frameTime;
-//
-//                if (fpsTime >= 1000) {
-//                    fps = processedFrames;
-//                    fpsTime = 0;
-//                    processedFrames = 0;
-//                }
-////            }
-//
-//            // Render
-//            glClear(GL_COLOR_BUFFER_BIT);
-//
-//            getCamera().pre(graphics);
-//
-//            if (!showingSplashScreens())
-//                render(graphics);
-//            else
-//                showSplashScreens(graphics);
-//
-//            if (renderDebug) {
-//                addDebugData("FPS", String.valueOf(getFps()));
-//
-//                Font tempFont = graphics.getFont();
-//                graphics.setFont(TrueTypeFont.ROBOTO_REGULAR);
-//                graphics.setColor(Color.WHITE);
-//                graphics.drawString(debugData, 1 / graphics.getScale(), 8, 4);
-//                debugData = "";
-//                graphics.setFont(tempFont);
-//            }
-//
-//            getCamera().post(graphics);
-//
-//			if (Display.isCloseRequested())
-//				end();
-//
-//			Display.update();
-//            Display.sync(targetFps);
-//            lastTime = currentTime;
-//		}
-
-
-		/* Game loop ends; cleaning up. */
-
-
-		if (showExtraDebug) {
+		if (coreSetup.showConsoleDebug) {
 			Logger.newLine();
 
 			Logger.info("Ending Game Loop...");
@@ -380,18 +272,15 @@ public abstract class Core {
 
 		cleanup();
 
-		if (showExtraDebug)
+		if (coreSetup.showConsoleDebug)
 			Logger.info("Cleaning up Graphics...");
 
 		graphics.cleanup();
 
-		if (showExtraDebug) {
+		if (coreSetup.showConsoleDebug) {
 			Logger.info("Clean Up Complete.");
 			Logger.info("Mercury Shutting Down...");
 		}
-
-
-		/* Goodbye ;(. */
 
 		currentCore = null;
 	}
@@ -431,11 +320,13 @@ public abstract class Core {
 	}
 
 	/**
-	 * Adds information to the debugdata. Debug data is wiped every single update frame, so this is to be called every
-	 * frame.
+	 * Adds information to the debugdata. Debug data is wiped every single
+	 * update frame, so this is to be called every frame.
 	 *
-	 * @param name  The name of the debug information
-	 * @param value The value of the debug information
+	 * @param name
+	 *            The name of the debug information
+	 * @param value
+	 *            The value of the debug information
 	 */
 	public void addDebugData(String name, String value) {
 		name.trim();
@@ -444,9 +335,7 @@ public abstract class Core {
 		debugData += name + ": " + value + "\n";
 	}
 
-
 	/* Splash screen logic. */
-
 
 	/**
 	 * Shows the current splash screen
@@ -472,7 +361,8 @@ public abstract class Core {
 	/**
 	 * Adds a splash screen to the queue.
 	 *
-	 * @param splash The splash screen to add
+	 * @param splash
+	 *            The splash screen to add
 	 */
 	public void addSplashScreen(SplashScreen splash) {
 		splashes.add(splash);

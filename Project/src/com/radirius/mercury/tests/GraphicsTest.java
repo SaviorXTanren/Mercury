@@ -2,23 +2,21 @@ package com.radirius.mercury.tests;
 
 import com.radirius.mercury.framework.*;
 import com.radirius.mercury.graphics.Graphics;
+
 import org.lwjgl.opengl.GL11;
 
-public class GraphicsTest extends Core {
+class GraphicsTest extends Core {
 
-	public GraphicsTest() {
-		super("Graphics Test", 800, 600);
-
-		/* You can now just set all the extra variables here (including but not limited to the ones you see here) */
-
-		// Disable vsync
-		vsync = false;
-		// Log progress into program
-		showExtraDebug = true;
+	public GraphicsTest(CoreSetup setup) {
+		super(setup);
 	}
 
 	public static void main(String[] args) {
-		new GraphicsTest().start();
+		CoreSetup setup = new CoreSetup("Graphics Test");
+		setup.vSync = false;
+		setup.showConsoleDebug = true;
+		
+		new GraphicsTest(setup).start();
 	}
 
 	@Override
