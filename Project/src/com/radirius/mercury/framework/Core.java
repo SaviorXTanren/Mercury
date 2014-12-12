@@ -329,8 +329,8 @@ public abstract class Core {
 	 *            The value of the debug information
 	 */
 	public void addDebugData(String name, String value) {
-		name.trim();
-		value.trim();
+		name = name.trim();
+		value = value.trim();
 
 		debugData += name + ": " + value + "\n";
 	}
@@ -352,10 +352,7 @@ public abstract class Core {
 	 * @return Whether the splashes screens are being shown
 	 */
 	public boolean showingSplashScreens() {
-		if (splidx >= splashes.size())
-			return false;
-
-		return true;
+		return splidx < splashes.size();
 	}
 
 	/**

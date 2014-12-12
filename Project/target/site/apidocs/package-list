@@ -12,6 +12,7 @@ com.radirius.mercury.math.geometry
 com.radirius.mercury.resource
 com.radirius.mercury.scene
 com.radirius.mercury.tests
+com.radirius.mercury.tutorials
 com.radirius.mercury.utilities
 com.radirius.mercury.utilities.easing
 com.radirius.mercury.utilities.logging

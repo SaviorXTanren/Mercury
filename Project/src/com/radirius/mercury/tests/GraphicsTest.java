@@ -15,6 +15,7 @@ class GraphicsTest extends Core {
 		CoreSetup setup = new CoreSetup("Graphics Test");
 		setup.vSync = false;
 		setup.showConsoleDebug = true;
+		setup.showDebug = true;
 		
 		new GraphicsTest(setup).start();
 	}
@@ -35,7 +36,7 @@ class GraphicsTest extends Core {
 		addDebugData("Vertices Last Rendered", "" + getBatcher().getVerticesLastRendered());
 
 		getCamera().setOrigin(Window.getCenter());
-		getCamera().rotate(1f);
+		getCamera().rotate(0.01f);
 	}
 
 	@Override
