@@ -81,6 +81,7 @@ public class MercuryData implements Data {
 			write = new PrintWriter(new FileOutputStream(new File(location)));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			return;
 		}
 
 		for (int i = 0; i < values.size(); i++) {
