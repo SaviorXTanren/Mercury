@@ -1,6 +1,7 @@
 package com.radirius.mercury.tutorials;
 
-import com.radirius.mercury.framework.*;
+import com.radirius.mercury.framework.Core;
+import com.radirius.mercury.framework.CoreSetup;
 import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.math.geometry.Rectangle;
@@ -23,14 +24,15 @@ public class Mouse extends Core {
 		mouse.start();
 	}
 
-	public void init() {
-	}
+	@Override
+	public void init() {}
 
-	public void update() {
-	}
+	@Override
+	public void update() {}
 
 	Rectangle cursor = new Rectangle(0, 0, 10, 10);
 
+	@Override
 	public void render(Graphics g) {
 		// Grows the cursor by 100% every time the left button is clicked.
 		if (Input.mouseClicked(Input.MOUSE_LEFT))
@@ -42,6 +44,6 @@ public class Mouse extends Core {
 		g.drawShape(cursor);
 	}
 
-	public void cleanup() {
-	}
+	@Override
+	public void cleanup() {}
 }

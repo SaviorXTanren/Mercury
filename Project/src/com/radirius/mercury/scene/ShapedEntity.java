@@ -20,16 +20,13 @@ public class ShapedEntity extends BasicEntity {
 	 * @param shape The base shape.
 	 */
 	public ShapedEntity(Polygon shape) {
-		super((float) shape.getBounds().getX(),
-				(float) shape.getBounds().getY(),
-				(float) shape.getBounds().getWidth(),
-				(float) shape.getBounds().getHeight());
+		super(shape.getBounds().getX(), shape.getBounds().getY(), shape.getBounds().getWidth(), shape.getBounds().getHeight());
 
 		this.shape = shape;
 	}
 
 	/**
-	 * @return The base shape.
+	 * Returns The base shape.
 	 */
 	public Polygon getBase() {
 		return shape;

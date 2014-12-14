@@ -1,7 +1,8 @@
 package com.radirius.mercury.graphics;
 
 /**
- * A class for sub-textures. These objects are just like regular textures, but represent a portion of them.
+ * A class for sub-textures. These objects are just like regular textures, but
+ * represent a portion of them.
  *
  * @author wessles
  */
@@ -27,52 +28,52 @@ public class SubTexture extends Texture {
 	}
 
 	/**
-	 * This is useful for when you want the functionality of a real Texture from a SubTexture, such as GL_REPEAT, which
-	 * is impossible with SubTextures.
+	 * This is useful for when you want the functionality of a real Texture from
+	 * a SubTexture, such as GL_REPEAT, which is impossible with SubTextures.
 	 *
-	 * @return A Texture version of the SubTexture.
+	 * Returns A Texture version of the SubTexture.
 	 */
 	public Texture convertToTexture() {
 		return Texture.loadTexture(getParent().getSourceImage().getSubimage(x, y, getWidth(), getHeight()));
 	}
 
 	/**
-	 * @return Returns the parent Texture.
+	 * Returns Returns the parent Texture.
 	 */
 	public Texture getParent() {
 		return parent;
 	}
 
 	/**
-	 * @return The x location of the subtexture on the parent texture.
+	 * Returns The x location of the subtexture on the parent texture.
 	 */
 	public int getSubX() {
 		return x;
 	}
 
 	/**
-	 * @return The y location of the subtexture on the parent texture.
+	 * Returns The y location of the subtexture on the parent texture.
 	 */
 	public int getSubY() {
 		return y;
 	}
 
 	/**
-	 * @return The second x location of the subtexture on the parent texture.
+	 * Returns The second x location of the subtexture on the parent texture.
 	 */
 	public int getSubX2() {
 		return x2;
 	}
 
 	/**
-	 * @return The second y location of the subtexture on the parent texture.
+	 * Returns The second y location of the subtexture on the parent texture.
 	 */
 	public int getSubY2() {
 		return y2;
 	}
 
 	/**
-	 * @return The width of the subtexture of the parent texture.
+	 * Returns The width of the subtexture of the parent texture.
 	 */
 	@Override
 	public int getWidth() {
@@ -80,7 +81,7 @@ public class SubTexture extends Texture {
 	}
 
 	/**
-	 * @return The height of the subtexture of the parent texture.
+	 * Returns The height of the subtexture of the parent texture.
 	 */
 	@Override
 	public int getHeight() {
@@ -88,14 +89,14 @@ public class SubTexture extends Texture {
 	}
 
 	/**
-	 * @return The width of the parent texture.
+	 * Returns The width of the parent texture.
 	 */
 	public int getParentWidth() {
 		return width;
 	}
 
 	/**
-	 * @return The width of the parent texture.
+	 * Returns The width of the parent texture.
 	 */
 	public int getParentHeight() {
 		return height;

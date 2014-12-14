@@ -1,9 +1,14 @@
 package com.radirius.mercury.graphics.particles;
 
-import com.radirius.mercury.graphics.*;
-import com.radirius.mercury.math.geometry.*;
+import com.radirius.mercury.graphics.Color;
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.graphics.Texture;
+import com.radirius.mercury.math.geometry.Polygon;
+import com.radirius.mercury.math.geometry.Rectangle;
+import com.radirius.mercury.math.geometry.Vector2f;
 import com.radirius.mercury.utilities.Wipeable;
-import com.radirius.mercury.utilities.misc.*;
+import com.radirius.mercury.utilities.misc.Renderable;
+import com.radirius.mercury.utilities.misc.Updatable;
 
 /**
  * A class that will represent a single particle, with a parent particle system.
@@ -16,7 +21,8 @@ public class Particle implements Updatable, Renderable, Wipeable {
 	 */
 	public Texture texture;
 	/**
-	 * The value by which the size of the particles will be multiplied each frame.
+	 * The value by which the size of the particles will be multiplied each
+	 * frame.
 	 */
 	public float growth;
 	/**

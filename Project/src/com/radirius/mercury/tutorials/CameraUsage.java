@@ -1,7 +1,10 @@
 package com.radirius.mercury.tutorials;
 
-import com.radirius.mercury.framework.*;
-import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.framework.Core;
+import com.radirius.mercury.framework.CoreSetup;
+import com.radirius.mercury.framework.Window;
+import com.radirius.mercury.graphics.Camera;
+import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.math.geometry.Rectangle;
 
@@ -22,15 +25,17 @@ public class CameraUsage extends Core {
 		cameraUsage.start();
 	}
 
+	@Override
 	public void init() {
 		getCamera().setOrigin(Window.getCenter());
 	}
 
 	Rectangle rectangle = new Rectangle(100, 200, 100, 100);
 
-	public void update() {
-	}
+	@Override
+	public void update() {}
 
+	@Override
 	public void render(Graphics g) {
 		Camera camera = g.getCamera();
 
@@ -57,6 +62,6 @@ public class CameraUsage extends Core {
 		g.drawShape(rectangle);
 	}
 
-	public void cleanup() {
-	}
+	@Override
+	public void cleanup() {}
 }

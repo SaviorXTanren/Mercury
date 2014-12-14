@@ -1,9 +1,12 @@
 package com.radirius.mercury.graphics.particles;
 
-import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.graphics.Color;
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.graphics.Texture;
 import com.radirius.mercury.math.geometry.Vector2f;
 import com.radirius.mercury.utilities.WipingArrayList;
-import com.radirius.mercury.utilities.misc.*;
+import com.radirius.mercury.utilities.misc.Renderable;
+import com.radirius.mercury.utilities.misc.Updatable;
 
 /**
  * An object that simulates a mass of particles.
@@ -36,7 +39,7 @@ public class ParticleSystem implements Updatable, Renderable {
 	 * Generates new particles launching at random angles.
 	 *
 	 * @param amount The amount of particles to generate.
-	 * @param point  The point from which the particles emmit.
+	 * @param point The point from which the particles emmit.
 	 */
 	public void generateParticle(int amount, Vector2f point) {
 		for (int p = 0; p < amount; p++) {
@@ -58,7 +61,7 @@ public class ParticleSystem implements Updatable, Renderable {
 	}
 
 	/**
-	 * @return The ParticleSetup options.
+	 * Returns The ParticleSetup options.
 	 */
 	public ParticleSetup getOptions() {
 		return pesetup;
@@ -85,11 +88,13 @@ public class ParticleSystem implements Updatable, Renderable {
 		 */
 		public float size = 1;
 		/**
-		 * The sides of the bound's shape (4 is a square, 5 is a pentagon, etc.).
+		 * The sides of the bound's shape (4 is a square, 5 is a pentagon,
+		 * etc.).
 		 */
 		public int sidesOfBounds = 4;
 		/**
-		 * The value by which the size of the particles will be multiplied each frame.
+		 * The value by which the size of the particles will be multiplied each
+		 * frame.
 		 */
 		public float growth = 1;
 		/**
@@ -101,7 +106,8 @@ public class ParticleSystem implements Updatable, Renderable {
 		 */
 		public float speed = 0.01f;
 		/**
-		 * The value by which the velocity of a particle will be multiplied each frame.
+		 * The value by which the velocity of a particle will be multiplied each
+		 * frame.
 		 */
 		public float acceleration = 0.98f;
 		/**
@@ -109,7 +115,8 @@ public class ParticleSystem implements Updatable, Renderable {
 		 */
 		public Vector2f gravity = new Vector2f(0, 0);
 		/**
-		 * The amount of frames that will pass a single particle before death/removal.
+		 * The amount of frames that will pass a single particle before
+		 * death/removal.
 		 */
 		public int lifeInFrames = 1000;
 	}

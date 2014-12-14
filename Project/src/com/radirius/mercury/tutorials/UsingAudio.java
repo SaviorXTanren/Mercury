@@ -1,7 +1,8 @@
 package com.radirius.mercury.tutorials;
 
 import com.radirius.mercury.audio.Audio;
-import com.radirius.mercury.framework.*;
+import com.radirius.mercury.framework.Core;
+import com.radirius.mercury.framework.CoreSetup;
 import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.resource.Loader;
@@ -25,12 +26,14 @@ public class UsingAudio extends Core {
 
 	Audio cgop;
 
+	@Override
 	public void init() {
 		cgop = Audio.getAudio(Loader.streamFromClasspath("com/radirius/mercury/tutorials/CG-OP.ogg"), "OGG");
 
 		Input.setRepeatEventsEnabled(false);
 	}
 
+	@Override
 	public void update() {
 		if (Input.keyClicked(Input.KEY_SPACE))
 			cgop.play();
@@ -45,20 +48,20 @@ public class UsingAudio extends Core {
 
 		// Amplify / deamplify the volume
 		if (Input.keyDown(Input.KEY_UP))
-			cgop.setVolume(cgop.getVolume()+0.01f);
-		else if(Input.keyDown(Input.KEY_DOWN))
-			cgop.setVolume(cgop.getVolume()-0.01f);
+			cgop.setVolume(cgop.getVolume() + 0.01f);
+		else if (Input.keyDown(Input.KEY_DOWN))
+			cgop.setVolume(cgop.getVolume() - 0.01f);
 
 		// Raise / lower the pitch
 		if (Input.keyDown(Input.KEY_LEFT))
-			cgop.setPitch(cgop.getPitch()+0.01f);
-		else if(Input.keyDown(Input.KEY_RIGHT))
-			cgop.setPitch(cgop.getPitch()-0.01f);
+			cgop.setPitch(cgop.getPitch() + 0.01f);
+		else if (Input.keyDown(Input.KEY_RIGHT))
+			cgop.setPitch(cgop.getPitch() - 0.01f);
 	}
 
-	public void render(Graphics g) {
-	}
+	@Override
+	public void render(Graphics g) {}
 
-	public void cleanup() {
-	}
+	@Override
+	public void cleanup() {}
 }

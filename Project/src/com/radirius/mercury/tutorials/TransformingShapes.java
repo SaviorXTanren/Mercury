@@ -1,7 +1,8 @@
 package com.radirius.mercury.tutorials;
 
-import com.radirius.mercury.framework.*;
-import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.framework.Core;
+import com.radirius.mercury.framework.CoreSetup;
+import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.math.geometry.Rectangle;
 
@@ -23,19 +24,17 @@ public class TransformingShapes extends Core {
 	}
 
 	@Override
-	public void init() {
-	}
+	public void init() {}
 
 	@Override
-	public void update() {
-	}
+	public void update() {}
 
 	// A 100x100 rectangle at (10, 10)
 	Rectangle rectangle = new Rectangle(10, 10, 100, 100);
 
 	@Override
 	public void render(Graphics g) {
-		if(!Input.keyDown(Input.KEY_SPACE))
+		if (!Input.keyDown(Input.KEY_SPACE))
 			return;
 		rectangle.translate(4f, 2f);
 		rectangle.rotate(0.1f);
@@ -44,6 +43,5 @@ public class TransformingShapes extends Core {
 	}
 
 	@Override
-	public void cleanup() {
-	}
+	public void cleanup() {}
 }

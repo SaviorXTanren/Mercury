@@ -1,18 +1,27 @@
 package com.radirius.mercury.graphics;
 
-import com.radirius.mercury.math.geometry.*;
-import com.radirius.mercury.utilities.GraphicsUtils;
-import com.radirius.mercury.utilities.logging.Logger;
-import com.radirius.mercury.utilities.misc.*;
-import org.lwjgl.BufferUtils;
+import static org.lwjgl.opengl.GL11.GL_FLOAT;
+import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
+import static org.lwjgl.opengl.GL11.glDrawArrays;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
+import static org.lwjgl.opengl.GL15.*;
+import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
+import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
+import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
+import static org.lwjgl.opengl.GL30.glBindVertexArray;
+import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
+import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 import java.nio.FloatBuffer;
 
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL13.*;
-import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL20.*;
-import static org.lwjgl.opengl.GL30.*;
+import org.lwjgl.BufferUtils;
+
+import com.radirius.mercury.math.geometry.*;
+import com.radirius.mercury.utilities.GraphicsUtils;
+import com.radirius.mercury.utilities.logging.Logger;
+import com.radirius.mercury.utilities.misc.Cleanable;
+import com.radirius.mercury.utilities.misc.Initializable;
 
 /**
  * An OpenGL batcher that manages and pushes vertices.
@@ -46,8 +55,8 @@ public class Batcher implements Initializable, Cleanable {
 	private int vboTexID;
 
 	/**
-	 * Private function to create OpenGL vertex arrays and initialize the VBO DataStore to the max size of the render
-	 * stack.
+	 * Private function to create OpenGL vertex arrays and initialize the VBO
+	 * DataStore to the max size of the render stack.
 	 */
 	private void initGlBuffers() {
 		vaoID = glGenVertexArrays();
@@ -106,7 +115,8 @@ public class Batcher implements Initializable, Cleanable {
 	}
 
 	/**
-	 * Private function to handle uploading the data to the OpenGL native layer. Also sets the data pointers.
+	 * Private function to handle uploading the data to the OpenGL native layer.
+	 * Also sets the data pointers.
 	 */
 	private void uploadData() {
 		glBindBuffer(GL_ARRAY_BUFFER, vboVertID);
@@ -158,7 +168,7 @@ public class Batcher implements Initializable, Cleanable {
 	}
 
 	/**
-	 * @return Whether the batcher is in use (between pre() and post() calls)
+	 * Returns Whether the batcher is in use (between pre() and post() calls)
 	 */
 	public boolean isActive() {
 		return active;
@@ -186,8 +196,9 @@ public class Batcher implements Initializable, Cleanable {
 	/**
 	 * Sets the texture.
 	 *
-	 * @param texture     The texture to set
-	 * @param activeIndex The activation index (0 is GL_TEXTURE0, 1 is GL_TEXTURE1, etc.)
+	 * @param texture The texture to set
+	 * @param activeIndex The activation index (0 is GL_TEXTURE0, 1 is
+	 *        GL_TEXTURE1, etc.)
 	 */
 	public void setTexture(Texture texture, int activeIndex) {
 		flush();
@@ -202,15 +213,16 @@ public class Batcher implements Initializable, Cleanable {
 	/**
 	 * Sets the active texture using glActiveTexture().
 	 *
-	 * @param activateIndex The activation index (0 is GL_TEXTURE0, 1 is GL_TEXTURE1, etc.)
+	 * @param activateIndex The activation index (0 is GL_TEXTURE0, 1 is
+	 *        GL_TEXTURE1, etc.)
 	 */
 	public void activateTexture(int activateIndex) {
 		glActiveTexture(GL_TEXTURE0 + activateIndex);
 	}
 
 	/**
-	 * Sets the texture to a blank default (not to be confused with unbinding; this sets the texture to an empty black
-	 * texture).
+	 * Sets the texture to a blank default (not to be confused with unbinding;
+	 * this sets the texture to an empty black texture).
 	 */
 	public void clearTextures() {
 		if (lastTexture.equals(Texture.getEmptyTexture()))
@@ -223,7 +235,7 @@ public class Batcher implements Initializable, Cleanable {
 	}
 
 	/**
-	 * @return The last set texture
+	 * Returns The last set texture
 	 */
 	public Texture getTexture() {
 		return lastTexture;
@@ -254,7 +266,7 @@ public class Batcher implements Initializable, Cleanable {
 	}
 
 	/**
-	 * @return The current color.
+	 * Returns The current color.
 	 */
 	public Color getColor() {
 		return lastColor;
@@ -291,7 +303,7 @@ public class Batcher implements Initializable, Cleanable {
 	}
 
 	/**
-	 * @return The last set shader.
+	 * Returns The last set shader.
 	 */
 	public Shader getShader() {
 		return lastShader;
@@ -301,8 +313,8 @@ public class Batcher implements Initializable, Cleanable {
 	 * Draws a texture.
 	 *
 	 * @param texture The texture to draw
-	 * @param x       The x position
-	 * @param y       The y position
+	 * @param x The x position
+	 * @param y The y position
 	 */
 	public void drawTexture(Texture texture, float x, float y) {
 		drawTexture(texture, x, y, texture.getWidth(), texture.getHeight());
@@ -312,10 +324,10 @@ public class Batcher implements Initializable, Cleanable {
 	 * Draws a texture.
 	 *
 	 * @param texture The texture to draw
-	 * @param x       The x position
-	 * @param y       The y position
-	 * @param w       The width
-	 * @param h       The height
+	 * @param x The x position
+	 * @param y The y position
+	 * @param w The width
+	 * @param h The height
 	 */
 	public void drawTexture(Texture texture, float x, float y, float w, float h) {
 		drawTexture(texture, new Rectangle(x, y, w, h));
@@ -325,14 +337,14 @@ public class Batcher implements Initializable, Cleanable {
 	 * Draws a texture.
 	 *
 	 * @param texture The texture to draw
-	 * @param sx1     The near source x coordinate
-	 * @param sy1     The near source y coordinate
-	 * @param sx2     The far source x coordinate
-	 * @param sy2     The far source y coordinate
-	 * @param x       The x position
-	 * @param y       The y position
-	 * @param w       The width
-	 * @param h       The height
+	 * @param sx1 The near source x coordinate
+	 * @param sy1 The near source y coordinate
+	 * @param sx2 The far source x coordinate
+	 * @param sy2 The far source y coordinate
+	 * @param x The x position
+	 * @param y The y position
+	 * @param w The width
+	 * @param h The height
 	 */
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, float w, float h) {
 		drawTexture(texture, new Rectangle(sx1, sy1, sx2 - sx1, sy2 - sy1), new Rectangle(x, y, w, h));
@@ -342,7 +354,7 @@ public class Batcher implements Initializable, Cleanable {
 	 * Draws a texture.
 	 *
 	 * @param texture The texture to draw
-	 * @param region  The shape to draw the texture to
+	 * @param region The shape to draw the texture to
 	 */
 	public void drawTexture(Texture texture, Shape region) {
 		drawTexture(texture, new Rectangle(0, 0, texture.getWidth(), texture.getHeight()), region);
@@ -351,9 +363,9 @@ public class Batcher implements Initializable, Cleanable {
 	/**
 	 * Draws a texture.
 	 *
-	 * @param texture      The texture to draw
+	 * @param texture The texture to draw
 	 * @param sourceRegion The region of the texture to draw
-	 * @param region       The shape to draw the texture to
+	 * @param region The shape to draw the texture to
 	 */
 	public void drawTexture(Texture texture, Shape sourceRegion, Shape region) {
 		drawTexture(texture, sourceRegion, region, Color.DEFAULT_TEXTURE_COLOR);
@@ -363,9 +375,9 @@ public class Batcher implements Initializable, Cleanable {
 	 * Draws a tinted texture.
 	 *
 	 * @param texture The texture to draw
-	 * @param x       The x position
-	 * @param y       The y position
-	 * @param tint    The color to tint the texture
+	 * @param x The x position
+	 * @param y The y position
+	 * @param tint The color to tint the texture
 	 */
 	public void drawTexture(Texture texture, float x, float y, Color tint) {
 		drawTexture(texture, x, y, texture.getWidth(), texture.getHeight(), tint);
@@ -375,11 +387,11 @@ public class Batcher implements Initializable, Cleanable {
 	 * Draws a tinted texture.
 	 *
 	 * @param texture The texture to draw
-	 * @param x       The x position
-	 * @param y       The y position
-	 * @param w       The width
-	 * @param h       The height
-	 * @param tint    The color to tint the texture
+	 * @param x The x position
+	 * @param y The y position
+	 * @param w The width
+	 * @param h The height
+	 * @param tint The color to tint the texture
 	 */
 	public void drawTexture(Texture texture, float x, float y, float w, float h, Color tint) {
 		drawTexture(texture, new Rectangle(x, y, w, h), tint);
@@ -389,15 +401,15 @@ public class Batcher implements Initializable, Cleanable {
 	 * Draws a tinted texture.
 	 *
 	 * @param texture The texture to draw
-	 * @param sx1     The near source x coordinate
-	 * @param sy1     The near source y coordinate
-	 * @param sx2     The far source x coordinate
-	 * @param sy2     The far source y coordinate
-	 * @param x       The x position
-	 * @param y       The y position
-	 * @param w       The width
-	 * @param h       The height
-	 * @param tint    The color to tint the texture
+	 * @param sx1 The near source x coordinate
+	 * @param sy1 The near source y coordinate
+	 * @param sx2 The far source x coordinate
+	 * @param sy2 The far source y coordinate
+	 * @param x The x position
+	 * @param y The y position
+	 * @param w The width
+	 * @param h The height
+	 * @param tint The color to tint the texture
 	 */
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, float w, float h, Color tint) {
 		drawTexture(texture, new Rectangle(sx1, sy1, sx2 - sx1, sy2 - sy1), new Rectangle(x, y, w, h), tint);
@@ -407,8 +419,8 @@ public class Batcher implements Initializable, Cleanable {
 	 * Draws a tinted texture.
 	 *
 	 * @param texture The texture to draw
-	 * @param region  The shape to draw the texture to
-	 * @param tint    The color to tint the texture
+	 * @param region The shape to draw the texture to
+	 * @param tint The color to tint the texture
 	 */
 	public void drawTexture(Texture texture, Shape region, Color tint) {
 		drawTexture(texture, new Rectangle(0, 0, texture.getWidth(), texture.getHeight()), region, tint);
@@ -505,11 +517,11 @@ public class Batcher implements Initializable, Cleanable {
 	/**
 	 * Adds a new vertex to the buffer.
 	 *
-	 * @param x     The x position
-	 * @param y     The y position
+	 * @param x The x position
+	 * @param y The y position
 	 * @param color The color of the vertex
-	 * @param u     The source x coordinate
-	 * @param v     The source y coordinate
+	 * @param u The source x coordinate
+	 * @param v The source y coordinate
 	 */
 	public void vertex(float x, float y, Color color, float u, float v) {
 		vertex(x, y, color.r, color.g, color.b, color.a, u, v);
@@ -549,7 +561,8 @@ public class Batcher implements Initializable, Cleanable {
 	/**
 	 * Adds a new vertex to the buffer.
 	 *
-	 * @param vdo The data of the vertex (position, color, and source coordinates)
+	 * @param vdo The data of the vertex (position, color, and source
+	 *        coordinates)
 	 */
 	public void vertex(VertexData vdo) {
 		vd.put(vdo.x).put(vdo.y);
@@ -560,8 +573,9 @@ public class Batcher implements Initializable, Cleanable {
 	}
 
 	/**
-	 * Calls flush() if allocate's amount of vertices exceed the limit. If you don't call this before you draw one or
-	 * more shapes, it could result in a shape being split into two data flushes.
+	 * Calls flush() if allocate's amount of vertices exceed the limit. If you
+	 * don't call this before you draw one or more shapes, it could result in a
+	 * shape being split into two data flushes.
 	 *
 	 * @param allocate The amount of vertices you will draw
 	 */
@@ -574,7 +588,7 @@ public class Batcher implements Initializable, Cleanable {
 	private int vertexLastRender = 0;
 
 	/**
-	 * @return The amount of vertices rendered in the last frame
+	 * Returns The amount of vertices rendered in the last frame
 	 */
 	public int getVerticesLastRendered() {
 		return vertexLastRender;
@@ -593,7 +607,8 @@ public class Batcher implements Initializable, Cleanable {
 	}
 
 	/**
-	 * A class to hold the data of a vertex (position, color, and source coordinates).
+	 * A class to hold the data of a vertex (position, color, and source
+	 * coordinates).
 	 */
 	public static class VertexData {
 		float x, y, r, g, b, a, u, v;

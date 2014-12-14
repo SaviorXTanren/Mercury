@@ -1,21 +1,20 @@
 package com.radirius.mercury.framework;
 
-import com.radirius.mercury.graphics.*;
-import com.radirius.mercury.math.geometry.Vector2f;
-import com.radirius.mercury.resource.Loader;
-import com.radirius.mercury.utilities.GraphicsUtils;
-import com.radirius.mercury.utilities.logging.Logger;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.openal.AL;
-import org.lwjgl.opengl.*;
-
-import javax.imageio.ImageIO;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
-import static org.lwjgl.opengl.GL11.*;
+import javax.imageio.ImageIO;
+
+import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.*;
+
+import com.radirius.mercury.graphics.Texture;
+import com.radirius.mercury.math.geometry.Vector2f;
+import com.radirius.mercury.resource.Loader;
+import com.radirius.mercury.utilities.logging.Logger;
 
 /**
  * @author wessles
@@ -23,49 +22,49 @@ import static org.lwjgl.opengl.GL11.*;
 public class Window {
 
 	/**
-	 * @return The width of the display.
+	 * Returns The width of the display.
 	 */
 	public static int getWidth() {
 		return Display.getWidth();
 	}
 
 	/**
-	 * @return The height of the display.
+	 * Returns The height of the display.
 	 */
 	public static int getHeight() {
 		return Display.getHeight();
 	}
 
 	/**
-	 * @return The horizontal center of the display.
+	 * Returns The horizontal center of the display.
 	 */
 	public static int getCenterX() {
 		return getWidth() / 2;
 	}
 
 	/**
-	 * @return The vertical center of the display.
+	 * Returns The vertical center of the display.
 	 */
 	public static int getCenterY() {
 		return getHeight() / 2;
 	}
 
 	/**
-	 * @return The center of the display.
+	 * Returns The center of the display.
 	 */
 	public static Vector2f getCenter() {
 		return new Vector2f(getCenterX(), getCenterY());
 	}
 
 	/**
-	 * @return The aspect ratio of the display.
+	 * Returns The aspect ratio of the display.
 	 */
 	public static float getAspectRatio() {
 		return (float) getWidth() / (float) getHeight();
 	}
 
 	/**
-	 * @return Whether or not the window has the focus.
+	 * Returns Whether or not the window has the focus.
 	 */
 	public static boolean isFocused() {
 		return Display.isActive();
@@ -81,7 +80,8 @@ public class Window {
 	}
 
 	/**
-	 * Sets the icon for given size(s). Recommended sizes that you should put in are x16, x32, and x64.
+	 * Sets the icon for given size(s). Recommended sizes that you should put in
+	 * are x16, x32, and x64.
 	 *
 	 * @param icons Icon(s) for the game.
 	 */
@@ -92,7 +92,8 @@ public class Window {
 			if (is != null)
 				try {
 					buffers.add(Texture.convertBufferedImageToBuffer(ImageIO.read(is)));
-				} catch (IOException e) {
+				}
+				catch (IOException e) {
 					e.printStackTrace();
 				}
 
@@ -123,11 +124,11 @@ public class Window {
 	/**
 	 * Initializes the display.
 	 *
-	 * @param name       The name of the display.
-	 * @param width      The width of the display.
-	 * @param height     The height of the display.
+	 * @param name The name of the display.
+	 * @param width The width of the display.
+	 * @param height The height of the display.
 	 * @param fullscreen Whether or not fullscreen is enabled.
-	 * @param vsync      Whether or not v-sync is used.
+	 * @param vsync Whether or not v-sync is used.
 	 */
 	public static void initDisplay(String name, int width, int height, boolean fullscreen, boolean vsync) {
 		try {
@@ -160,12 +161,11 @@ public class Window {
 			ContextAttribs contextAttribs = new ContextAttribs(3, 2).withProfileCore(true);
 
 			Display.create(format, contextAttribs);
-		} catch (LWJGLException e) {
+		}
+		catch (LWJGLException e) {
 			e.printStackTrace();
 		}
 
-		setIcon(Loader.streamFromClasspath("com/radirius/mercury/framework/res/merc_mascot_x16.png"),
-				Loader.streamFromClasspath("com/radirius/mercury/framework/res/merc_mascot_x32.png"),
-				Loader.streamFromClasspath("com/radirius/mercury/framework/res/merc_mascot_x64.png"));
+		setIcon(Loader.streamFromClasspath("com/radirius/mercury/framework/res/merc_mascot_x16.png"), Loader.streamFromClasspath("com/radirius/mercury/framework/res/merc_mascot_x32.png"), Loader.streamFromClasspath("com/radirius/mercury/framework/res/merc_mascot_x64.png"));
 	}
 }

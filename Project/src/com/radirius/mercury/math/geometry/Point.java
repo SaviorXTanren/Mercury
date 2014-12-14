@@ -26,7 +26,7 @@ public class Point extends Shape {
 	}
 
 	/**
-	 * @return The point in the form of a vector.
+	 * Returns The point in the form of a vector.
 	 */
 	public Vector2f toVector() {
 		return new Vector2f(getX(), getY());

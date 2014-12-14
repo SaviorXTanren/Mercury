@@ -112,7 +112,7 @@ public class Color {
 	}
 
 	/**
-	 * @return The red component.
+	 * Returns The red component.
 	 */
 	public float getRed() {
 		return r;
@@ -126,7 +126,7 @@ public class Color {
 	}
 
 	/**
-	 * @return The green component.
+	 * Returns The green component.
 	 */
 	public float getGreen() {
 		return g;
@@ -140,7 +140,7 @@ public class Color {
 	}
 
 	/**
-	 * @return The blue component.
+	 * Returns The blue component.
 	 */
 	public float getBlue() {
 		return b;
@@ -154,7 +154,7 @@ public class Color {
 	}
 
 	/**
-	 * @return The alpha component.
+	 * Returns The alpha component.
 	 */
 	public float getAlpha() {
 		return a;

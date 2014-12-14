@@ -1,9 +1,11 @@
 package com.radirius.mercury.tests;
 
-import com.radirius.mercury.framework.*;
-import com.radirius.mercury.graphics.Graphics;
-
 import org.lwjgl.opengl.GL11;
+
+import com.radirius.mercury.framework.Core;
+import com.radirius.mercury.framework.CoreSetup;
+import com.radirius.mercury.framework.Window;
+import com.radirius.mercury.graphics.Graphics;
 
 class GraphicsTest extends Core {
 
@@ -16,21 +18,22 @@ class GraphicsTest extends Core {
 		setup.vSync = false;
 		setup.showConsoleDebug = true;
 		setup.showDebug = true;
-		
+
 		new GraphicsTest(setup).start();
 	}
 
 	@Override
-	public void init() {
-	}
+	public void init() {}
 
 	@Override
-	public void update() {
-	}
+	public void update() {}
 
 	@Override
 	public void render(Graphics g) {
-		/* Notice that functions that previously were in the Runner can now be accessed directly in the Core. */
+		/*
+		 * Notice that functions that previously were in the Runner can now be
+		 * accessed directly in the Core.
+		 */
 
 		addDebugData("OpenGL", GL11.glGetString(GL11.GL_VERSION));
 		addDebugData("Vertices Last Rendered", "" + getBatcher().getVerticesLastRendered());
@@ -40,6 +43,5 @@ class GraphicsTest extends Core {
 	}
 
 	@Override
-	public void cleanup() {
-	}
+	public void cleanup() {}
 }

@@ -1,11 +1,13 @@
 package com.radirius.mercury.utilities;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Scanner;
 
 /**
- * A utility class for reading tile maps from Doppler Indie Games. Credit to Doppler from https://github.com/doppl3r.
+ * A utility class for reading tile maps from Doppler Indie Games. Credit to
+ * Doppler from https://github.com/doppl3r.
  *
  * @author wessles, Jeviny
  */
@@ -13,7 +15,8 @@ public class DopplerReader {
 	public static final int DIGITS_PER_TILE = 4;
 
 	/**
-	 * @return A 2D array representing what the map file contains. Each integer is stored result[x][y].
+	 * Returns A 2D array representing what the map file contains. Each integer
+	 * is stored result[x][y].
 	 */
 	public static int[][] getTiles(URL in) throws IOException {
 		int[] dimensions = readDimensions(in.openStream());
@@ -41,7 +44,7 @@ public class DopplerReader {
 
 		scanner.close();
 
-		return new int[]{width, height};
+		return new int[] { width, height };
 	}
 
 	private static int[][] readData(int width, int height, InputStream in) {

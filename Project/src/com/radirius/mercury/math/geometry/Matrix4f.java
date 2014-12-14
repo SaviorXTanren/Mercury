@@ -1,11 +1,12 @@
 package com.radirius.mercury.math.geometry;
 
-import com.radirius.mercury.utilities.GraphicsUtils;
-
 import java.nio.FloatBuffer;
 
+import com.radirius.mercury.utilities.GraphicsUtils;
+
 /**
- * A simple Matrix4f class to use in shaders and simple transformations like scaling, translating and rotating.
+ * A simple Matrix4f class to use in shaders and simple transformations like
+ * scaling, translating and rotating.
  *
  * @author Sri Harsha Chilakapati
  */
@@ -30,7 +31,7 @@ public class Matrix4f {
 	/**
 	 * Initializes the matrix to Identity matrix
 	 *
-	 * @return This matrix for chaining operations
+	 * Returns This matrix for chaining operations
 	 */
 	public Matrix4f initIdentity() {
 		for (int i = 0; i < 4; i++) {
@@ -45,7 +46,7 @@ public class Matrix4f {
 	/**
 	 * Initializes the matrix to Zero matrix
 	 *
-	 * @return This matrix for chaining operations
+	 * Returns This matrix for chaining operations
 	 */
 	public Matrix4f initZero() {
 		for (int i = 0; i < 4; i++) {
@@ -58,7 +59,7 @@ public class Matrix4f {
 	}
 
 	/**
-	 * @return A copy of this matrix
+	 * Returns A copy of this matrix
 	 */
 	public Matrix4f copy() {
 		Matrix4f m = new Matrix4f();
@@ -75,8 +76,8 @@ public class Matrix4f {
 	/**
 	 * Performs matrix addition between two matrices
 	 *
-	 * @param m The matrix to add to this
-	 * @return This matrix for chaining operations
+	 * @param m The matrix to add to this Returns This matrix for chaining
+	 *        operations
 	 */
 	public Matrix4f add(Matrix4f m) {
 		for (int i = 0; i < 4; i++) {
@@ -91,8 +92,8 @@ public class Matrix4f {
 	/**
 	 * Performs matrix subtraction between two matrices
 	 *
-	 * @param m The matrix to subtract from this
-	 * @return This matrix for chaining operations
+	 * @param m The matrix to subtract from this Returns This matrix for
+	 *        chaining operations
 	 */
 	public Matrix4f sub(Matrix4f m) {
 		for (int i = 0; i < 4; i++) {
@@ -107,8 +108,8 @@ public class Matrix4f {
 	/**
 	 * Performs matrix multiplication between two matrices
 	 *
-	 * @param m The matrix to multiply with this
-	 * @return This matrix for chaining operations
+	 * @param m The matrix to multiply with this Returns This matrix for
+	 *        chaining operations
 	 */
 	public Matrix4f mul(Matrix4f m) {
 		float temp[][] = new float[4][4];
@@ -129,7 +130,7 @@ public class Matrix4f {
 	/**
 	 * Initializes this matrix into a rotation matrix over z-axis
 	 *
-	 * @return This matrix for chaining operations
+	 * Returns This matrix for chaining operations
 	 */
 	public Matrix4f initRotation(float rz) {
 		initIdentity();
@@ -148,7 +149,7 @@ public class Matrix4f {
 	/**
 	 * Initializes this matrix into a scaling matrix
 	 *
-	 * @return This matrix for chaining operations
+	 * Returns This matrix for chaining operations
 	 */
 	public Matrix4f initScale(float sx, float sy) {
 		initIdentity();
@@ -162,7 +163,7 @@ public class Matrix4f {
 	/**
 	 * Initializes this matrix into a scaling matrix
 	 *
-	 * @return This matrix for chaining operations
+	 * Returns This matrix for chaining operations
 	 */
 	public Matrix4f initScale(float s) {
 		return initScale(s, s);
@@ -171,7 +172,7 @@ public class Matrix4f {
 	/**
 	 * Initializes this matrix into a translation matrix
 	 *
-	 * @return This matrix for chaining operations
+	 * Returns This matrix for chaining operations
 	 */
 	public Matrix4f initTranslation(float tx, float ty) {
 		initIdentity();
@@ -183,16 +184,16 @@ public class Matrix4f {
 	}
 
 	/**
-	 * Initializes this matrix into a transformation matrix, which transforms the vertices into orthographic
-	 * projection.
+	 * Initializes this matrix into a transformation matrix, which transforms
+	 * the vertices into orthographic projection.
 	 *
-	 * @param left   The left most coordinate of the Display
-	 * @param right  The right most coordinate of the Display
+	 * @param left The left most coordinate of the Display
+	 * @param right The right most coordinate of the Display
 	 * @param bottom The bottom most coordinate of the Display
-	 * @param top    The top most coordinate of the Display
-	 * @param zNear  The near depth clipping plane
-	 * @param zFar   The far depth clipping plane
-	 * @return This matrix for chaining operations
+	 * @param top The top most coordinate of the Display
+	 * @param zNear The near depth clipping plane
+	 * @param zFar The far depth clipping plane Returns This matrix for chaining
+	 *        operations
 	 */
 	public Matrix4f initOrtho(float left, float right, float bottom, float top, float zNear, float zFar) {
 		initIdentity();
@@ -217,8 +218,8 @@ public class Matrix4f {
 	 * Gets a value in this matrix at a specific row and column
 	 *
 	 * @param x The row of the matrix
-	 * @param y The column of the matrix
-	 * @return The value at [x][y] in the matrix
+	 * @param y The column of the matrix Returns The value at [x][y] in the
+	 *        matrix
 	 */
 	public float get(int x, int y) {
 		return m[x][y];
@@ -227,10 +228,9 @@ public class Matrix4f {
 	/**
 	 * Sets a value in this matrix at a specific row and column
 	 *
-	 * @param x   The row of the matrix
-	 * @param y   The column of the matrix
-	 * @param val The value to be set
-	 * @return This matrix for sizing operations
+	 * @param x The row of the matrix
+	 * @param y The column of the matrix
+	 * @param val The value to be set Returns This matrix for sizing operations
 	 */
 	public Matrix4f set(int x, int y, float val) {
 		m[x][y] = val;
@@ -241,8 +241,8 @@ public class Matrix4f {
 	/**
 	 * Sets the elements in this matrix to the elements of another matrix.
 	 *
-	 * @param m The source matrix whose matrix to copy.
-	 * @return This matrix for chaining operations
+	 * @param m The source matrix whose matrix to copy. Returns This matrix for
+	 *        chaining operations
 	 */
 	public Matrix4f setTo(Matrix4f m) {
 		for (int i = 0; i < 4; i++) {
@@ -255,7 +255,7 @@ public class Matrix4f {
 	}
 
 	/**
-	 * @return A FloatBuffer which contains this matrix in column-major order.
+	 * Returns A FloatBuffer which contains this matrix in column-major order.
 	 */
 	public FloatBuffer getAsFloatBuffer() {
 		mBuffer.clear();

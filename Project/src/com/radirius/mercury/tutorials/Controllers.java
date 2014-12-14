@@ -1,9 +1,12 @@
 package com.radirius.mercury.tutorials;
 
-import com.radirius.mercury.framework.*;
-import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.framework.Core;
+import com.radirius.mercury.framework.CoreSetup;
+import com.radirius.mercury.graphics.Color;
+import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.input.Input;
-import com.radirius.mercury.math.geometry.*;
+import com.radirius.mercury.math.geometry.Rectangle;
+import com.radirius.mercury.math.geometry.Vector2f;
 
 /**
  * @author wessles
@@ -22,12 +25,14 @@ public class Controllers extends Core {
 		controllers.start();
 	}
 
+	@Override
 	public void init() {
 		Input.initControllers();
 	}
 
-	Rectangle rectangle = new Rectangle(0,0,100,100);
+	Rectangle rectangle = new Rectangle(0, 0, 100, 100);
 
+	@Override
 	public void update() {
 		// The 0 is referring to the controller of the analog stick.
 		int controllerIndex = 0;
@@ -36,23 +41,23 @@ public class Controllers extends Core {
 
 		rectangle.translate(leftValue.x, leftValue.y);
 
-
 		int buttonIndex = 9; // Commonly the start button, will end the game.
 
-		if(Input.controllerButtonClicked(buttonIndex, controllerIndex))
+		if (Input.controllerButtonClicked(buttonIndex, controllerIndex))
 			end();
 
-		if(Input.controllerButtonDown(0, controllerIndex))
+		if (Input.controllerButtonDown(0, controllerIndex))
 			getGraphics().setBackground(Color.BLACK);
 		else
 			getGraphics().setBackground(Color.WHITE);
 	}
 
+	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.GRAY);
 		g.drawShape(rectangle);
 	}
 
-	public void cleanup() {
-	}
+	@Override
+	public void cleanup() {}
 }

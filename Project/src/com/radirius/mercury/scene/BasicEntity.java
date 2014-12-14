@@ -1,7 +1,8 @@
 package com.radirius.mercury.scene;
 
 import com.radirius.mercury.math.MathUtil;
-import com.radirius.mercury.math.geometry.*;
+import com.radirius.mercury.math.geometry.Rectangle;
+import com.radirius.mercury.math.geometry.Vector2f;
 
 /**
  * A base for all Entities that have a function in a Mercury game's environment.
@@ -24,7 +25,7 @@ public class BasicEntity extends GameObject {
 	}
 
 	/**
-	 * @return The entity's boundaries
+	 * Returns The entity's boundaries
 	 */
 	public Rectangle getBounds() {
 		return bounds;
@@ -78,7 +79,8 @@ public class BasicEntity extends GameObject {
 	}
 
 	/**
-	 * Rotate the object to a point in rotation relative to the center of the object.
+	 * Rotate the object to a point in rotation relative to the center of the
+	 * object.
 	 *
 	 * @param angle The angle of rotation that the object will rotate to
 	 */
@@ -87,21 +89,21 @@ public class BasicEntity extends GameObject {
 	}
 
 	/**
-	 * @return The top-right most position of the bounds
+	 * Returns The top-right most position of the bounds
 	 */
 	public Vector2f getPosition() {
 		return new Vector2f(bounds.getX(), bounds.getY());
 	}
 
 	/**
-	 * @return The center of the bounds
+	 * Returns The center of the bounds
 	 */
 	public Vector2f getCenter() {
 		return bounds.getCenter();
 	}
 
 	/**
-	 * @return The current rotation of the object
+	 * Returns The current rotation of the object
 	 */
 	public float getRotation() {
 		return bounds.getRotation();

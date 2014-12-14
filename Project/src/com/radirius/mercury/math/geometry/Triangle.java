@@ -19,8 +19,8 @@ public class Triangle extends Polygon {
 	}
 
 	/**
-	 * Creates a new triangle taking in the location data for the top-center, bottom-left and bottom-right parts of the
-	 * triangle.
+	 * Creates a new triangle taking in the location data for the top-center,
+	 * bottom-left and bottom-right parts of the triangle.
 	 *
 	 * @param x1 The top-center x position.
 	 * @param y1 The top-center y position.
@@ -30,7 +30,7 @@ public class Triangle extends Polygon {
 	 * @param y3 The bottom-right y position.
 	 */
 	public Triangle(float x1, float y1, float x2, float y2, float x3, float y3) {
-		super(new float[]{x1, y1, x2, y2, x3, y3});
+		super(new float[] { x1, y1, x2, y2, x3, y3 });
 	}
 
 	@Override

@@ -1,7 +1,9 @@
 package com.radirius.mercury.tutorials;
 
-import com.radirius.mercury.framework.*;
-import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.framework.Core;
+import com.radirius.mercury.framework.CoreSetup;
+import com.radirius.mercury.graphics.Color;
+import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.math.geometry.Rectangle;
 
 /**
@@ -22,12 +24,10 @@ public class BasicRendering extends Core {
 	}
 
 	@Override
-	public void init() {
-	}
+	public void init() {}
 
 	@Override
-	public void update() {
-	}
+	public void update() {}
 
 	@Override
 	public void render(Graphics g) {
@@ -47,6 +47,5 @@ public class BasicRendering extends Core {
 	}
 
 	@Override
-	public void cleanup() {
-	}
+	public void cleanup() {}
 }

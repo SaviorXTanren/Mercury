@@ -28,21 +28,21 @@ public class Line extends Shape {
 	}
 
 	/**
-	 * @return The slope of the line.
+	 * Returns The slope of the line.
 	 */
 	public float getSlope() {
 		return slope;
 	}
 
 	/**
-	 * @return The y intercept.
+	 * Returns The y intercept.
 	 */
 	public float getYIntercept() {
 		return yIntercept;
 	}
 
 	/**
-	 * @return The x intercept.
+	 * Returns The x intercept.
 	 */
 	public float getXIntercept() {
 		return xIntercept;

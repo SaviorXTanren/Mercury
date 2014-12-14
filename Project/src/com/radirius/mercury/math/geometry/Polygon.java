@@ -11,11 +11,12 @@ public class Polygon extends Shape {
 	private float radius;
 
 	/**
-	 * Creates a new Polygon taking in the center position on the x/y axis, radius and number of sides.
+	 * Creates a new Polygon taking in the center position on the x/y axis,
+	 * radius and number of sides.
 	 *
-	 * @param xCenter  The center x position.
-	 * @param yCenter  The center y position.
-	 * @param radius   The radius of the polygon.
+	 * @param xCenter The center x position.
+	 * @param yCenter The center y position.
+	 * @param radius The radius of the polygon.
 	 * @param numSides The number of sides on the polygon.
 	 */
 	public Polygon(float xCenter, float yCenter, float radius, int numSides) {
@@ -23,12 +24,13 @@ public class Polygon extends Shape {
 	}
 
 	/**
-	 * Creates a new Polygon taking in the center position on the x/y axis, x/y radius and number of sides.
+	 * Creates a new Polygon taking in the center position on the x/y axis, x/y
+	 * radius and number of sides.
 	 *
-	 * @param xCenter  The center x position.
-	 * @param yCenter  The center y position.
-	 * @param xRadius  The x radius of the polygon.
-	 * @param yRadius  The y radius of the polygon.
+	 * @param xCenter The center x position.
+	 * @param yCenter The center y position.
+	 * @param xRadius The x radius of the polygon.
+	 * @param yRadius The y radius of the polygon.
 	 * @param numSides The number of sides on the polygon.
 	 */
 	public Polygon(float xCenter, float yCenter, float xRadius, float yRadius, int numSides) {
@@ -51,7 +53,8 @@ public class Polygon extends Shape {
 	}
 
 	/**
-	 * @return Basically the vertices for a whole bunch of triangles 'slices' that make up a 'pie.'
+	 * Returns Basically the vertices for a whole bunch of triangles 'slices'
+	 * that make up a 'pie.'
 	 */
 	protected static Vector2f[] getTrigVerts(float x, float y, float xRadius, float yRadius, int numSides) {
 		if (numSides < 3)

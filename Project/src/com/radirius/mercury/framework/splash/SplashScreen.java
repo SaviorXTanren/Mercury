@@ -1,13 +1,17 @@
 package com.radirius.mercury.framework.splash;
 
-import com.radirius.mercury.framework.*;
-import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.framework.Core;
+import com.radirius.mercury.framework.Window;
+import com.radirius.mercury.graphics.Color;
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.graphics.Texture;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.math.geometry.Rectangle;
 import com.radirius.mercury.resource.Loader;
 import com.radirius.mercury.utilities.TaskTiming;
 import com.radirius.mercury.utilities.TaskTiming.Task;
-import com.radirius.mercury.utilities.easing.*;
+import com.radirius.mercury.utilities.easing.EasingUtils;
+import com.radirius.mercury.utilities.easing.EasingValue;
 
 /**
  * A base for all splash screens.
@@ -21,12 +25,13 @@ public class SplashScreen {
 	private long showTimeMillis;
 	private Texture splashTexture;
 	private boolean fitToScreen;
-	private int[] skipbutton = new int[]{};
+	private int[] skipbutton = new int[] {};
 
 	/**
-	 * @param splashTexture  The texture of the splash screen.
+	 * @param splashTexture The texture of the splash screen.
 	 * @param showTimeMillis The time that the splash screen is shown.
-	 * @param fitToScreen    Whether or not to fit the image to the screen while still maintaining the aspect ratio.
+	 * @param fitToScreen Whether or not to fit the image to the screen while
+	 *        still maintaining the aspect ratio.
 	 */
 	public SplashScreen(Texture splashTexture, long showTimeMillis, boolean fitToScreen) {
 		this.showTimeMillis = showTimeMillis;
@@ -37,7 +42,7 @@ public class SplashScreen {
 	}
 
 	/**
-	 * @param splashTexture  The texture of the splash screen.
+	 * @param splashTexture The texture of the splash screen.
 	 * @param showTimeMillis The time that the splash screen is shown.
 	 */
 	public SplashScreen(Texture splashTexture, long showTimeMillis) {
@@ -47,7 +52,7 @@ public class SplashScreen {
 	/**
 	 * Show some love for Mercury by using a shiny Mercury splash screen!
 	 *
-	 * @return The love of Mercury's developers. <3
+	 * Returns The love of Mercury's developers. <3
 	 */
 	public static SplashScreen getMercuryDefault() {
 		Texture texture = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/mercury/framework/splash/res/splash.png"), Texture.FILTER_LINEAR);
@@ -56,9 +61,10 @@ public class SplashScreen {
 	}
 
 	/**
-	 * Shows the splash screen on screen, whilst checking if it is time to stop as well.
+	 * Shows the splash screen on screen, whilst checking if it is time to stop
+	 * as well.
 	 *
-	 * @return Whether or not the splash is done.
+	 * Returns Whether or not the splash is done.
 	 */
 	public boolean show(Graphics g) {
 		if (!showing) {
@@ -104,8 +110,7 @@ public class SplashScreen {
 	/**
 	 * Sets the buttons (from Input) for skipping the splash screen.
 	 *
-	 * @param skipbutton The button for skipping
-	 * @return the splash screen
+	 * @param skipbutton The button for skipping Returns the splash screen
 	 */
 	public SplashScreen setSkipButton(int... skipbutton) {
 		this.skipbutton = skipbutton;

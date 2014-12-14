@@ -1,13 +1,15 @@
 package com.radirius.mercury.graphics;
 
-import com.radirius.mercury.exceptions.MercuryException;
-import com.radirius.mercury.framework.*;
-
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
 
+import com.radirius.mercury.exceptions.MercuryException;
+import com.radirius.mercury.framework.Core;
+import com.radirius.mercury.framework.Window;
+
 /**
- * An object that allows you to 'draw to a texture.' Good for post-processing effects.
+ * An object that allows you to 'draw to a texture.' Good for post-processing
+ * effects.
  *
  * @author wessles, Sri Harsha Chilakapati
  */
@@ -42,7 +44,8 @@ public class FrameBuffer {
 		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
 			try {
 				throw new MercuryException("Error in Framebuffer");
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -84,7 +87,7 @@ public class FrameBuffer {
 	}
 
 	/**
-	 * @return The last recorded texture.
+	 * Returns The last recorded texture.
 	 */
 	public Texture getTextureObject() {
 		return fboTexture;

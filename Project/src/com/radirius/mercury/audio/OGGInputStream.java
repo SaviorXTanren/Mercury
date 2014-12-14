@@ -14,17 +14,21 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” 
 
 package com.radirius.mercury.audio;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
+import org.lwjgl.BufferUtils;
+
 import com.jcraft.jogg.*;
 import com.jcraft.jorbis.*;
 import com.radirius.mercury.utilities.logging.Logger;
-import org.lwjgl.BufferUtils;
-
-import java.io.*;
-import java.nio.*;
 
 /**
- * An input stream that can extract ogg data. This class is a bit of an experiment with continuations so uses thread
- * where possibly not required. It's just a test to see if continuations make sense in some cases.
+ * An input stream that can extract ogg data. This class is a bit of an
+ * experiment with continuations so uses thread where possibly not required.
+ * It's just a test to see if continuations make sense in some cases.
  *
  * @author Kevin Glass
  */
@@ -170,7 +174,7 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
 	/**
 	 * Get the number of bytes on the stream
 	 *
-	 * @return The number of the bytes on the stream
+	 * Returns The number of the bytes on the stream
 	 */
 	public int getLength() {
 		return total;
@@ -211,7 +215,7 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
 	/**
 	 * Get a page and packet from that page
 	 *
-	 * @return True if there was a page available
+	 * Returns True if there was a page available
 	 */
 	private boolean getPageAndPacket() {
 		// grab some data at the head of the stream. We want
@@ -233,7 +237,8 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
 
 		try {
 			bytes = input.read(buffer, index, 4096);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			Logger.warn("Failure reading in vorbis");
 			e.printStackTrace();
 			endOfStream = true;
@@ -320,7 +325,8 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
 
 			try {
 				bytes = input.read(buffer, index, 4096);
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				Logger.warn("Failed to read Vorbis: ");
 				e.printStackTrace();
 
@@ -460,7 +466,8 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
 
 						try {
 							bytes = input.read(buffer, index, 4096);
-						} catch (Exception e) {
+						}
+						catch (Exception e) {
 							Logger.warn("Failure during vorbis decoding");
 							e.printStackTrace();
 
@@ -538,7 +545,8 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
 					return -1;
 				else
 					return i;
-			} catch (IOException e) {
+			}
+			catch (IOException e) {
 				e.printStackTrace();
 				return i;
 			}
@@ -558,6 +566,5 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
 	 * @see java.io.InputStream#close()
 	 */
 	@Override
-	public void close() throws IOException {
-	}
+	public void close() throws IOException {}
 }

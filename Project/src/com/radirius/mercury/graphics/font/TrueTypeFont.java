@@ -1,12 +1,13 @@
 package com.radirius.mercury.graphics.font;
 
-import com.radirius.mercury.graphics.Texture;
-import com.radirius.mercury.resource.Loader;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+
+import com.radirius.mercury.graphics.Texture;
+import com.radirius.mercury.resource.Loader;
 
 /**
  * A font type for .TTF's and .OTF's.
@@ -95,7 +96,7 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 	 * Loads a font.
 	 *
 	 * @param isUrl The URL for the stream for the font.
-	 * @param size  The size of the font.
+	 * @param size The size of the font.
 	 */
 	public static TrueTypeFont loadTrueTypeFont(URL isUrl, float size) {
 		return loadTrueTypeFont(isUrl, size, true);
@@ -104,7 +105,7 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 	/**
 	 * Loads a font.
 	 *
-	 * @param is   The stream for the font.
+	 * @param is The stream for the font.
 	 * @param size The size of the font.
 	 */
 	public static TrueTypeFont loadTrueTypeFont(InputStream is, float size) {
@@ -114,8 +115,8 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 	/**
 	 * Loads a font.
 	 *
-	 * @param isUrl  The URL for the stream for the font.
-	 * @param size   The size of the font.
+	 * @param isUrl The URL for the stream for the font.
+	 * @param size The size of the font.
 	 * @param smooth Whether or not the text is smoothed.
 	 */
 	public static TrueTypeFont loadTrueTypeFont(URL isUrl, float size, boolean smooth) {
@@ -125,8 +126,8 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 	/**
 	 * Loads a font.
 	 *
-	 * @param is     The stream for the font.
-	 * @param size   The size of the font.
+	 * @param is The stream for the font.
+	 * @param size The size of the font.
 	 * @param smooth Whether or not the text is smoothed.
 	 */
 	public static TrueTypeFont loadTrueTypeFont(InputStream is, float size, boolean smooth) {
@@ -136,7 +137,8 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 			font = font.deriveFont(size);
 
 			return loadTrueTypeFont(font, smooth);
-		} catch (FontFormatException | IOException e) {
+		}
+		catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
 
@@ -146,7 +148,7 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 	/**
 	 * Loads a font.
 	 *
-	 * @param font   The base awt font.
+	 * @param font The base awt font.
 	 * @param smooth Whether or not the text is smoothed.
 	 */
 

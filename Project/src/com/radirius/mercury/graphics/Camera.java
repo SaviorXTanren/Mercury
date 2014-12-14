@@ -1,7 +1,10 @@
 package com.radirius.mercury.graphics;
 
-import com.radirius.mercury.framework.*;
-import com.radirius.mercury.math.geometry.*;
+import com.radirius.mercury.framework.Core;
+import com.radirius.mercury.framework.Window;
+import com.radirius.mercury.math.geometry.Matrix4f;
+import com.radirius.mercury.math.geometry.Rectangle;
+import com.radirius.mercury.math.geometry.Vector2f;
 import com.radirius.mercury.utilities.GraphicsUtils;
 
 /**
@@ -52,11 +55,7 @@ public class Camera {
 		// Update the transformation matrix
 		Matrix4f cm = GraphicsUtils.getCurrentMatrix();
 
-		cm.initIdentity()
-				.mul(new Matrix4f().initTranslation(origin.x, origin.y))
-				.mul(new Matrix4f().initScale(scale.x, scale.y))
-				.mul(new Matrix4f().initRotation(rot))
-				.mul(new Matrix4f().initTranslation(x, y));
+		cm.initIdentity().mul(new Matrix4f().initTranslation(origin.x, origin.y)).mul(new Matrix4f().initScale(scale.x, scale.y)).mul(new Matrix4f().initRotation(rot)).mul(new Matrix4f().initTranslation(x, y));
 	}
 
 	/**
@@ -69,7 +68,7 @@ public class Camera {
 	}
 
 	/**
-	 * @return The origin point (on screen).
+	 * Returns The origin point (on screen).
 	 */
 	public Vector2f getOrigin() {
 		return origin;
@@ -81,7 +80,7 @@ public class Camera {
 	public void setOrigin(Vector2f origin) {
 		float x = this.origin.x, y = this.origin.y;
 		this.origin = origin;
-		translate(origin.x-x, origin.y-y);
+		translate(origin.x - x, origin.y - y);
 	}
 
 	/**
@@ -154,42 +153,42 @@ public class Camera {
 	}
 
 	/**
-	 * @return The real world width of the camera.
+	 * Returns The real world width of the camera.
 	 */
 	public float getWidth() {
 		return Window.getWidth() / Core.getCurrentCore().getGraphics().getScaleDimensions().x;
 	}
 
 	/**
-	 * @return The real world height of the camera.
+	 * Returns The real world height of the camera.
 	 */
 	public float getHeight() {
 		return Window.getHeight() / Core.getCurrentCore().getGraphics().getScaleDimensions().y;
 	}
 
 	/**
-	 * @return The real world x position of the camera.
+	 * Returns The real world x position of the camera.
 	 */
 	public float getPositionX() {
 		return getPosition().x;
 	}
 
 	/**
-	 * @return The real world y position of the camera.
+	 * Returns The real world y position of the camera.
 	 */
 	public float getPositionY() {
 		return getPosition().y;
 	}
 
 	/**
-	 * @return The scaling / zoom of the camera per axis.
+	 * Returns The scaling / zoom of the camera per axis.
 	 */
 	public Vector2f getScaleDimensions() {
 		return scale;
 	}
 
 	/**
-	 * @return The scaling / zoom of the camera.
+	 * Returns The scaling / zoom of the camera.
 	 */
 	public float getScale() {
 		// Return the average
@@ -208,7 +207,7 @@ public class Camera {
 	}
 
 	/**
-	 * @return The rotation of the camera by its origin.
+	 * Returns The rotation of the camera by its origin.
 	 */
 	public float getRotation() {
 		return rot;
@@ -225,7 +224,7 @@ public class Camera {
 	}
 
 	/**
-	 * @return The real world position of the camera.
+	 * Returns The real world position of the camera.
 	 */
 	public Vector2f getPosition() {
 		return new Vector2f(-x, -y);

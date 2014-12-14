@@ -1,8 +1,8 @@
 package com.radirius.mercury.utilities;
 
-import com.radirius.mercury.math.geometry.Vector2f;
-
 import java.util.ArrayList;
+
+import com.radirius.mercury.math.geometry.Vector2f;
 
 /**
  * A utilities class for arrays.

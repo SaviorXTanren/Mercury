@@ -1,9 +1,10 @@
 package com.radirius.mercury.scene;
 
-import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.utilities.*;
-
 import java.util.ArrayList;
+
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.utilities.Component;
+import com.radirius.mercury.utilities.WipingArrayList;
 
 /**
  * A basic scene graph containing hierarchies of GameObjects.
@@ -19,6 +20,7 @@ public class GameScene implements Component {
 	/**
 	 * Initializes the children nodes.
 	 */
+	@Override
 	public void init() {
 		for (GameObject object : objects)
 			object.init();
@@ -27,6 +29,7 @@ public class GameScene implements Component {
 	/**
 	 * Updates the children nodes.
 	 */
+	@Override
 	public void update() {
 		for (GameObject object : objects)
 			object.update();
@@ -39,6 +42,7 @@ public class GameScene implements Component {
 	 *
 	 * @param g The Graphics object.
 	 */
+	@Override
 	public void render(Graphics g) {
 		for (GameObject object : objects)
 			object.render(g);
@@ -47,6 +51,7 @@ public class GameScene implements Component {
 	/**
 	 * Cleans up the children nodes.
 	 */
+	@Override
 	public void cleanup() {
 		for (GameObject object : objects)
 			object.cleanup();
@@ -61,7 +66,7 @@ public class GameScene implements Component {
 	}
 
 	/**
-	 * @return The objects inside the scene.
+	 * Returns The objects inside the scene.
 	 */
 	public ArrayList<GameObject> getObjects() {
 		return objects;

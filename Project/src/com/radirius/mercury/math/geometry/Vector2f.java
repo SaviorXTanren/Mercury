@@ -18,7 +18,6 @@ public class Vector2f {
 		y = MathUtil.sin(theta);
 	}
 
-
 	public Vector2f add(Vector2f vec) {
 		x += vec.x;
 		y += vec.y;
@@ -32,7 +31,6 @@ public class Vector2f {
 
 		return this;
 	}
-
 
 	public Vector2f sub(Vector2f vec) {
 		x -= vec.x;
@@ -48,14 +46,12 @@ public class Vector2f {
 		return this;
 	}
 
-
 	public Vector2f mul(Vector2f vec) {
 		x *= vec.x;
 		y *= vec.y;
 
 		return this;
 	}
-
 
 	public Vector2f div(Vector2f vec) {
 		x /= vec.x;
@@ -71,7 +67,6 @@ public class Vector2f {
 		return this;
 	}
 
-
 	public Vector2f set(Vector2f vec) {
 		x = vec.x;
 		y = vec.y;
@@ -79,13 +74,11 @@ public class Vector2f {
 		return this;
 	}
 
-
 	public Vector2f set(float... coords) {
 		set(new Vector2f(coords[0], coords[1]));
 
 		return this;
 	}
-
 
 	public Vector2f scale(float amt) {
 		x *= amt;
@@ -94,18 +87,15 @@ public class Vector2f {
 		return this;
 	}
 
-
 	public Vector2f negate() {
 		scale(-1);
 
 		return this;
 	}
 
-
 	public float length() {
 		return (float) Math.sqrt(x * x + y * y);
 	}
-
 
 	public Vector2f normalize() {
 		float l = length();
@@ -115,11 +105,9 @@ public class Vector2f {
 		return this;
 	}
 
-
 	public float dot(Vector2f vec) {
 		return x * vec.x + y * vec.y;
 	}
-
 
 	public float distance(Vector2f vec) {
 		float dx = vec.x - x;
@@ -143,7 +131,6 @@ public class Vector2f {
 		return (float) Math.toDegrees(Math.atan2(y, x));
 	}
 
-
 	public Vector2f copy() {
 		return new Vector2f(x, y);
 	}
@@ -152,7 +139,7 @@ public class Vector2f {
 		return new Vector2f(0, 0);
 	}
 
-
+	@Override
 	public String toString() {
 		return "(" + x + ", " + y + ")";
 	}

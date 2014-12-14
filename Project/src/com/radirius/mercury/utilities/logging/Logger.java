@@ -3,7 +3,8 @@ package com.radirius.mercury.utilities.logging;
 import com.radirius.mercury.exceptions.MercuryException;
 
 /**
- * A class that will log in different levels of impact, from NULL to SEVERE. SEVERE being the program killer.
+ * A class that will log in different levels of impact, from NULL to SEVERE.
+ * SEVERE being the program killer.
  *
  * @author wessles, Jeviny
  */
@@ -41,7 +42,8 @@ public class Logger {
 	public static void log(Case selectedCase, Object... object) {
 		try {
 			log(selectedCase, "No information given.", object);
-		} catch (MercuryException e) {
+		}
+		catch (MercuryException e) {
 			e.printStackTrace();
 		}
 	}

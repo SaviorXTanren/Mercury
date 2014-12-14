@@ -1,9 +1,9 @@
 package com.radirius.mercury.math.geometry;
 
+import java.util.ArrayList;
+
 import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.utilities.ArrayUtils;
-
-import java.util.ArrayList;
 
 /**
  * The abstraction of all shapes.
@@ -87,7 +87,8 @@ public class Shape {
 	}
 
 	/**
-	 * @param coords The coordinates of all vertices in the shape. Will be parsed for every 2 values into a Vec2.
+	 * @param coords The coordinates of all vertices in the shape. Will be
+	 *        parsed for every 2 values into a Vec2.
 	 */
 	protected Shape(float... coords) {
 		this(ArrayUtils.getVector2fs(coords));
@@ -102,7 +103,7 @@ public class Shape {
 	}
 
 	/**
-	 * @return Whether s intersects with this shape.
+	 * Returns Whether s intersects with this shape.
 	 */
 	public boolean intersects(Shape s) {
 		for (Shape child : children)
@@ -112,7 +113,7 @@ public class Shape {
 		// More vertices will cause more lag. Beware.
 
 		// Loop through all of the vertices!
-		for (int vertex0 = 0; vertex0 < vertices.length; ) {
+		for (int vertex0 = 0; vertex0 < vertices.length;) {
 			// The 'line1vertex1' and 'line1vertex2'
 			//
 			// For the second point, we want to make sure
@@ -135,7 +136,7 @@ public class Shape {
 			// Now, for each line in this shape, we need to
 			// test all lines in
 			// the other shape.
-			for (int vertex1 = 0; vertex1 < s.vertices.length; ) {
+			for (int vertex1 = 0; vertex1 < s.vertices.length;) {
 				Vector2f l2v1 = s.vertices[vertex1], l2v2 = s.vertices.length > 2 ? s.vertices[++vertex1 % s.vertices.length] : s.vertices[++vertex1];
 				Line l2 = new Line(l2v1, l2v2);
 
@@ -149,7 +150,7 @@ public class Shape {
 	}
 
 	/**
-	 * @return Whether all vertices of s is inside of this shape.
+	 * Returns Whether all vertices of s is inside of this shape.
 	 */
 	public boolean contains(Shape s) {
 		for (Vector2f v : s.vertices)
@@ -160,7 +161,7 @@ public class Shape {
 	}
 
 	/**
-	 * @return Whether v is inside of this shape.
+	 * Returns Whether v is inside of this shape.
 	 */
 	public boolean contains(Vector2f v) {
 		for (Shape child : children)
@@ -186,8 +187,7 @@ public class Shape {
 	 * Moves all vertices by x and y.
 	 *
 	 * @param x The amount every vertex should move on x.
-	 * @param y The amount every vertex should move on y.
-	 * @return The Shape.
+	 * @param y The amount every vertex should move on y. Returns The Shape.
 	 */
 	public Shape translate(float x, float y) {
 		for (Vector2f vertex : vertices) {
@@ -206,9 +206,10 @@ public class Shape {
 	/**
 	 * Moves all vertices to x and y.
 	 *
-	 * @param x Where every vertex should move relative to the nearest point of the shape on x.
-	 * @param y Where every vertex should move relative to the nearest point of the shape on y.
-	 * @return The Shape.
+	 * @param x Where every vertex should move relative to the nearest point of
+	 *        the shape on x.
+	 * @param y Where every vertex should move relative to the nearest point of
+	 *        the shape on y. Returns The Shape.
 	 */
 	public Shape translateTo(float x, float y) {
 		return translate(x - this.x, y - this.y);
@@ -219,8 +220,8 @@ public class Shape {
 	 *
 	 * @param xOrigin The origin's x.
 	 * @param yOrigin The origin's y.
-	 * @param angle   The angle by which the object will rotate relative to the origin.
-	 * @return The Shape.
+	 * @param angle The angle by which the object will rotate relative to the
+	 *        origin. Returns The Shape.
 	 */
 	public Shape rotate(float xOrigin, float yOrigin, float angle) {
 		if (angle == 0)
@@ -253,8 +254,7 @@ public class Shape {
 	/**
 	 * Rotate the object relative to the center of the object.
 	 *
-	 * @param angle The angle of rotation.
-	 * @return The Shape.
+	 * @param angle The angle of rotation. Returns The Shape.
 	 */
 	public Shape rotate(float angle) {
 		return rotate(center.x, center.y, angle);
@@ -265,18 +265,19 @@ public class Shape {
 	 *
 	 * @param origx The origin's x.
 	 * @param origy The origin's y.
-	 * @param angle The angle by which the object will rotate to relative to the origin.
-	 * @return The Shape.
+	 * @param angle The angle by which the object will rotate to relative to the
+	 *        origin. Returns The Shape.
 	 */
 	public Shape rotateTo(float origx, float origy, float angle) {
 		return rotate(origx, origy, angle - rot);
 	}
 
 	/**
-	 * Rotate the object to a point in rotation relative to the center of the object.
+	 * Rotate the object to a point in rotation relative to the center of the
+	 * object.
 	 *
 	 * @param angle The angle of rotation that the object will rotate to.
-	 * @return The Shape.
+	 *        Returns The Shape.
 	 */
 	public Shape rotateTo(float angle) {
 		return rotateTo(center.x, center.y, angle);
@@ -285,7 +286,7 @@ public class Shape {
 	/**
 	 * Scales a shape from a point.
 	 *
-	 * @return The Shape.
+	 * Returns The Shape.
 	 */
 	public Shape scale(Vector2f point, float scale) {
 		translate(-point.x, -point.y);
@@ -310,7 +311,7 @@ public class Shape {
 	/**
 	 * Scales a shape from the center of the shape.
 	 *
-	 * @return The Shape.
+	 * Returns The Shape.
 	 */
 	public Shape scale(float scale) {
 		return scale(getCenter(), scale);
@@ -319,7 +320,7 @@ public class Shape {
 	/**
 	 * Scales a shape from a point.
 	 *
-	 * @return The Shape.
+	 * Returns The Shape.
 	 */
 	public Shape scaleTo(Vector2f point, float scale) {
 		return scale(point, scale / this.scale);
@@ -328,7 +329,7 @@ public class Shape {
 	/**
 	 * Scales a shape from the center of the shape.
 	 *
-	 * @return The Shape.
+	 * Returns The Shape.
 	 */
 	public Shape scaleTo(float scale) {
 		return scaleTo(getCenter(), scale);
@@ -337,7 +338,7 @@ public class Shape {
 	/**
 	 * Flips the object over the y axis, relative to the mean center.
 	 *
-	 * @return The Shape.
+	 * Returns The Shape.
 	 */
 	public Shape flipX() {
 		for (Vector2f v : vertices)
@@ -351,7 +352,7 @@ public class Shape {
 	/**
 	 * Flips the object over the y axis, relative to the mean center.
 	 *
-	 * @return The Shape.
+	 * Returns The Shape.
 	 */
 	public Shape flipY() {
 		for (Vector2f v : vertices)
@@ -363,77 +364,78 @@ public class Shape {
 	}
 
 	/**
-	 * @return A VERY rough estimate of area.
+	 * Returns A VERY rough estimate of area.
 	 */
 	public float getArea() {
 		return getWidth() * getHeight();
 	}
 
 	/**
-	 * @return The x of the nearest vertex.
+	 * Returns The x of the nearest vertex.
 	 */
 	public float getX() {
 		return x;
 	}
 
 	/**
-	 * @return The y of the nearest vertex.
+	 * Returns The y of the nearest vertex.
 	 */
 	public float getY() {
 		return y;
 	}
 
 	/**
-	 * @return The x of the farthest vertex.
+	 * Returns The x of the farthest vertex.
 	 */
 	public float getX2() {
 		return x2;
 	}
 
 	/**
-	 * @return The y of the farthest vertex.
+	 * Returns The y of the farthest vertex.
 	 */
 	public float getY2() {
 		return y2;
 	}
 
 	/**
-	 * @return The difference between the nearest x and the farthest x.
+	 * Returns The difference between the nearest x and the farthest x.
 	 */
 	public float getWidth() {
 		return Math.abs(x2 - x);
 	}
 
 	/**
-	 * @return The difference between the nearest y and the farthest y.
+	 * Returns The difference between the nearest y and the farthest y.
 	 */
 	public float getHeight() {
 		return Math.abs(y2 - y);
 	}
 
 	/**
-	 * @return The rotation of the object.
+	 * Returns The rotation of the object.
 	 */
 	public float getRotation() {
 		return rot;
 	}
 
 	/**
-	 * @return The scale of the object.
+	 * Returns The scale of the object.
 	 */
 	public float getScale() {
 		return scale;
 	}
 
 	/**
-	 * @return The center of the object.
+	 * Returns The center of the object.
 	 */
 	public Vector2f getCenter() {
 		return center;
 	}
 
 	/**
-	 * This method will regenerate all of the values after you directly modify things.
+	 * This method will regenerate all of the values after you directly modify
+	 * things.
 	 */
 	public void regen() {
 		x = vertices[0].x;
@@ -464,7 +466,7 @@ public class Shape {
 	}
 
 	/**
-	 * @return All vertices of the object.
+	 * Returns All vertices of the object.
 	 */
 	public Vector2f[] getVertices() {
 		return vertices;
@@ -473,7 +475,7 @@ public class Shape {
 	/**
 	 * Adds a child shape.
 	 *
-	 * @return The Shape.
+	 * Returns The Shape.
 	 */
 	public Shape addChild(Shape... child) {
 		for (Shape s : child) {
@@ -486,7 +488,7 @@ public class Shape {
 	}
 
 	/**
-	 * @return All child shapes.
+	 * Returns All child shapes.
 	 */
 	public ArrayList<Shape> getChildren() {
 		return children;
@@ -495,7 +497,7 @@ public class Shape {
 	/**
 	 * Makes me an orphan. Parent will lose me from it's ArrayList of children.
 	 *
-	 * @return The Shape.
+	 * Returns The Shape.
 	 */
 	public Shape clearParent() {
 		parent.children.remove(this);
@@ -506,7 +508,7 @@ public class Shape {
 	}
 
 	/**
-	 * @return The parent shape of me.
+	 * Returns The parent shape of me.
 	 */
 	public Shape getParent() {
 		return parent;
@@ -515,7 +517,7 @@ public class Shape {
 	/**
 	 * Sets the parent of the shape.
 	 *
-	 * @return The Shape.
+	 * Returns The Shape.
 	 */
 	public Shape setParent(Shape parent) {
 		parent.addChild(this);
@@ -524,14 +526,14 @@ public class Shape {
 	}
 
 	/**
-	 * @return A duplicate of the shape.
+	 * Returns A duplicate of the shape.
 	 */
 	public Shape duplicate() {
 		return new Shape(this);
 	}
 
 	/**
-	 * @return The shape boundaries.
+	 * Returns The shape boundaries.
 	 */
 	public Rectangle getBounds() {
 		return (Rectangle) new Rectangle(x, y, w, h).rotate(rot);

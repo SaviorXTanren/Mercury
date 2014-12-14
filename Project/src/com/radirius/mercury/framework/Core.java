@@ -1,18 +1,22 @@
 package com.radirius.mercury.framework;
 
-import com.radirius.mercury.audio.Audio;
-import com.radirius.mercury.framework.splash.SplashScreen;
-import com.radirius.mercury.graphics.*;
-import com.radirius.mercury.graphics.font.*;
-import com.radirius.mercury.input.Input;
-import com.radirius.mercury.utilities.TaskTiming;
-import com.radirius.mercury.utilities.logging.Logger;
-import org.lwjgl.Sys;
-import org.lwjgl.opengl.*;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
 
 import java.util.ArrayList;
 
-import static org.lwjgl.opengl.GL11.*;
+import org.lwjgl.Sys;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
+
+import com.radirius.mercury.audio.Audio;
+import com.radirius.mercury.framework.splash.SplashScreen;
+import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.graphics.font.Font;
+import com.radirius.mercury.graphics.font.TrueTypeFont;
+import com.radirius.mercury.input.Input;
+import com.radirius.mercury.utilities.TaskTiming;
+import com.radirius.mercury.utilities.logging.Logger;
 
 /**
  * The Core initializes the game, runs the game loop, and cleans up.
@@ -24,11 +28,12 @@ import static org.lwjgl.opengl.GL11.*;
 public abstract class Core {
 	private static Core currentCore;
 
-	/** @return The core that is currently running. */
+	/** Returns The core that is currently running. */
 	public static Core getCurrentCore() {
 		return currentCore;
 	}
 
+	/** The Core's CoreSetup. */
 	private CoreSetup coreSetup;
 
 	public Core(CoreSetup coreSetup) {
@@ -64,8 +69,7 @@ public abstract class Core {
 	/**
 	 * Called once every frame and used to render graphics.
 	 *
-	 * @param g
-	 *            The Graphics object for rendering.
+	 * @param g The Graphics object for rendering.
 	 */
 	public abstract void render(Graphics g);
 
@@ -90,8 +94,7 @@ public abstract class Core {
 	/**
 	 * Renders the current game state.
 	 *
-	 * @param g
-	 *            The Graphics object for rendering.
+	 * @param g The Graphics object for rendering.
 	 */
 	public void renderState(Graphics g) {
 		if (currentGameState != null)
@@ -101,27 +104,26 @@ public abstract class Core {
 	/**
 	 * Switches to a GameState and after alerting the current GameState.
 	 *
-	 * @param currentGameState
-	 *            The GameState to switch to.
+	 * @param currentGameState The GameState to switch to.
 	 */
 	public void switchGameState(GameState currentGameState) {
 		this.currentGameState.onLeave();
-		
 		currentGameState.onEnter();
-		
+
 		this.currentGameState = null;
 		this.currentGameState = currentGameState;
 	}
 
 	/**
-	 * @return The current GameState.
+	 * Returns The current GameState.
 	 */
 	public GameState getCurrentState() {
 		return currentGameState;
 	}
 
 	/** A list of splash screens */
-	private final ArrayList<SplashScreen> splashes = new ArrayList<>();
+	private final ArrayList<SplashScreen> splashes = new ArrayList<SplashScreen>();
+
 	/** The current splash screen */
 	private int splidx = 0;
 
@@ -135,7 +137,7 @@ public abstract class Core {
 	private String debugData = "";
 
 	/**
-	 * @return The current time in milliseconds
+	 * Returns The current time in milliseconds
 	 */
 	public double getCurrentTime() {
 		return Sys.getTime() * 1000.0 / Sys.getTimerResolution();
@@ -150,7 +152,7 @@ public abstract class Core {
 		/* Initializing, preparing for the game loop. */
 
 		if (coreSetup.showConsoleDebug) {
-			System.out.println("Mercury Game Library (In-Dev)\n" + "Designed by Radirius\n" + "Website: http://mercurylib.com/");
+			System.out.println("Mercury Game Library (In-Dev)\n" + "Website: http://mercurylib.com/");
 			System.out.println("-------------------------------");
 		}
 
@@ -220,7 +222,9 @@ public abstract class Core {
 			Input.poll();
 
 			while (lag >= MS_PER_UPDATE) {
-				update();
+				if (!showingSplashScreens())
+					update();
+
 				TaskTiming.update();
 
 				lag -= MS_PER_UPDATE;
@@ -289,7 +293,7 @@ public abstract class Core {
 	private int fps;
 
 	/**
-	 * @return The framerate
+	 * Returns The framerate
 	 */
 	public int getFps() {
 		return fps;
@@ -299,21 +303,21 @@ public abstract class Core {
 	private Graphics graphics;
 
 	/**
-	 * @return The graphics object
+	 * Returns The graphics object
 	 */
 	public Graphics getGraphics() {
 		return graphics;
 	}
 
 	/**
-	 * @return The batcher
+	 * Returns The batcher
 	 */
 	public Batcher getBatcher() {
 		return getGraphics().getBatcher();
 	}
 
 	/**
-	 * @return The camera
+	 * Returns The camera
 	 */
 	public Camera getCamera() {
 		return getGraphics().getCamera();
@@ -323,10 +327,8 @@ public abstract class Core {
 	 * Adds information to the debugdata. Debug data is wiped every single
 	 * update frame, so this is to be called every frame.
 	 *
-	 * @param name
-	 *            The name of the debug information
-	 * @param value
-	 *            The value of the debug information
+	 * @param name The name of the debug information
+	 * @param value The value of the debug information
 	 */
 	public void addDebugData(String name, String value) {
 		name = name.trim();
@@ -349,7 +351,7 @@ public abstract class Core {
 	}
 
 	/**
-	 * @return Whether the splashes screens are being shown
+	 * Returns Whether the splashes screens are being shown
 	 */
 	public boolean showingSplashScreens() {
 		return splidx < splashes.size();
@@ -358,8 +360,7 @@ public abstract class Core {
 	/**
 	 * Adds a splash screen to the queue.
 	 *
-	 * @param splash
-	 *            The splash screen to add
+	 * @param splash The splash screen to add
 	 */
 	public void addSplashScreen(SplashScreen splash) {
 		splashes.add(splash);

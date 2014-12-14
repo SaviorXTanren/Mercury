@@ -1,19 +1,24 @@
 package com.radirius.mercury.graphics;
 
-import com.radirius.mercury.exceptions.MercuryException;
-import com.radirius.mercury.resource.*;
-import org.lwjgl.BufferUtils;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.nio.ByteBuffer;
-
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+
+import javax.imageio.ImageIO;
+
+import org.lwjgl.BufferUtils;
+
+import com.radirius.mercury.exceptions.MercuryException;
+import com.radirius.mercury.resource.Loader;
+import com.radirius.mercury.resource.Resource;
+
 /**
- * An object version of a texture. This will store the width and height of the object.
+ * An object version of a texture. This will store the width and height of the
+ * object.
  *
  * @author wessles, Jeviny
  */
@@ -32,13 +37,14 @@ public class Texture implements Resource {
 	public ByteBuffer buffer;
 
 	/**
-	 * Make a texture of the textureId, with a width and height, based off of BufferedImage bufferedImage
+	 * Make a texture of the textureId, with a width and height, based off of
+	 * BufferedImage bufferedImage
 	 *
-	 * @param textureId     The id of the texture
-	 * @param width         The width of the texture
-	 * @param height        The height of the texture
+	 * @param textureId The id of the texture
+	 * @param width The width of the texture
+	 * @param height The height of the texture
 	 * @param bufferedImage The source of the image, the BufferedImage
-	 * @param buffer        The original buffer
+	 * @param buffer The original buffer
 	 */
 	public Texture(int textureId, int width, int height, BufferedImage bufferedImage, ByteBuffer buffer) {
 		this.textureId = textureId;
@@ -52,8 +58,8 @@ public class Texture implements Resource {
 	/**
 	 * Loads a Texture
 	 *
-	 * @param inputStream The stream of the image to load
-	 * @return A Texture based off of the streamed image
+	 * @param inputStream The stream of the image to load Returns A Texture
+	 *        based off of the streamed image
 	 */
 	public static Texture loadTexture(InputStream inputStream) {
 		return loadTexture(inputStream, FILTER_NEAREST);
@@ -62,8 +68,8 @@ public class Texture implements Resource {
 	/**
 	 * Loads a Texture
 	 *
-	 * @param bufferedImage The image to load
-	 * @return A Texture based off of the BufferedImage
+	 * @param bufferedImage The image to load Returns A Texture based off of the
+	 *        BufferedImage
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage) {
 		return loadTexture(bufferedImage, FILTER_NEAREST);
@@ -73,8 +79,8 @@ public class Texture implements Resource {
 	 * Loads a Texture
 	 *
 	 * @param inputStream The stream of the image to load
-	 * @param filter      Both the min and mag filter
-	 * @return A Texture based off of the streamed image
+	 * @param filter Both the min and mag filter Returns A Texture based off of
+	 *        the streamed image
 	 */
 	public static Texture loadTexture(InputStream inputStream, int filter) {
 		return loadTexture(inputStream, filter, filter);
@@ -84,8 +90,8 @@ public class Texture implements Resource {
 	 * Loads a Texture
 	 *
 	 * @param bufferedImage The image to load
-	 * @param filter        Both the min and mag filter
-	 * @return A Texture based off of the BufferedImage
+	 * @param filter Both the min and mag filter Returns A Texture based off of
+	 *        the BufferedImage
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage, int filter) {
 		return loadTexture(bufferedImage, filter, filter);
@@ -95,14 +101,15 @@ public class Texture implements Resource {
 	 * Loads a Texture
 	 *
 	 * @param inputStream The stream of the image to load
-	 * @param minFilter   The min filter
-	 * @param magFilter   The mag filter
-	 * @return A Texture based off of the streamed image
+	 * @param minFilter The min filter
+	 * @param magFilter The mag filter Returns A Texture based off of the
+	 *        streamed image
 	 */
 	public static Texture loadTexture(InputStream inputStream, int minFilter, int magFilter) {
 		try {
 			return loadTexture(ImageIO.read(inputStream), minFilter, magFilter);
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 
@@ -113,9 +120,9 @@ public class Texture implements Resource {
 	 * Loads a Texture
 	 *
 	 * @param bufferedImage The image to load
-	 * @param minFilter     The min filter
-	 * @param magFilter     The mag filter
-	 * @return A Texture based off of the BufferedImage
+	 * @param minFilter The min filter
+	 * @param magFilter The mag filter Returns A Texture based off of the
+	 *        BufferedImage
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage, int minFilter, int magFilter) {
 		BufferedImage bufferedImage0 = processBufferedImage(bufferedImage);
@@ -140,12 +147,14 @@ public class Texture implements Resource {
 	}
 
 	public static BufferedImage processBufferedImage(BufferedImage bufferedImage) {
-		// Power of two stuffs. This is actually kind of a wierd problem with OpenGL, but it has to do with speed things.
+		// Power of two stuffs. This is actually kind of a wierd problem with
+		// OpenGL, but it has to do with speed things.
 		boolean PoT = isPoT(bufferedImage.getWidth(), bufferedImage.getHeight());
 
 		BufferedImage bufferedImage0 = bufferedImage;
 
-		// Power of two expansion; we will set the width and height to their nearest larger PoT, since PoT is way faster
+		// Power of two expansion; we will set the width and height to their
+		// nearest larger PoT, since PoT is way faster
 		if (!PoT && expandToPoT) {
 			int newwidth = 0, newheight = 0;
 
@@ -199,14 +208,14 @@ public class Texture implements Resource {
 	}
 
 	/**
-	 * @return A texture object with no data or source image.
+	 * Returns A texture object with no data or source image.
 	 */
 	public static Texture createTextureObject(int textureId, int width, int height) {
 		return new Texture(textureId, width, height, null, null);
 	}
 
 	/**
-	 * @return The a blank white Texture.
+	 * Returns The a blank white Texture.
 	 */
 	public static Texture getEmptyTexture() {
 		if (BLANK_TEXTURE == null)
@@ -246,41 +255,42 @@ public class Texture implements Resource {
 	}
 
 	/**
-	 * @return The texture's width.
+	 * Returns The texture's width.
 	 */
 	public int getWidth() {
 		return width;
 	}
 
 	/**
-	 * @return The texture's height.
+	 * Returns The texture's height.
 	 */
 	public int getHeight() {
 		return height;
 	}
 
 	/**
-	 * @return Whether or not the texture is PoT.
+	 * Returns Whether or not the texture is PoT.
 	 */
 	public boolean isPoT() {
 		return isPoT(getWidth(), getHeight());
 	}
 
 	/**
-	 * @return The texture's id.
+	 * Returns The texture's id.
 	 */
 	public int getTextureId() {
 		return textureId;
 	}
 
 	/**
-	 * @return The source image.
+	 * Returns The source image.
 	 */
 	public BufferedImage getSourceImage() {
 		if (bufferedImage == null)
 			try {
 				throw new MercuryException("No source image given.");
-			} catch (MercuryException e) {
+			}
+			catch (MercuryException e) {
 				e.printStackTrace();
 			}
 
@@ -288,31 +298,33 @@ public class Texture implements Resource {
 	}
 
 	/**
-	 * @return The original buffer.
+	 * Returns The original buffer.
 	 */
 	public ByteBuffer getBuffer() {
 		return buffer;
 	}
 
 	/**
-	 * @param width  The width of the Texture
-	 * @param height The height of the Texture
-	 * @return Whether the Texture has power-of-two sides
+	 * @param width The width of the Texture
+	 * @param height The height of the Texture Returns Whether the Texture has
+	 *        power-of-two sides
 	 */
 	public static boolean isPoT(int width, int height) {
 		return (width & width - 1) == 0 && (height & height - 1) == 0;
 	}
 
 	/**
-	 * Sets whether or not all Textures will be expanded to the nearest power of two. Keep in mind before you change
-	 * this that PoT Textures allow for faster rendering time.
+	 * Sets whether or not all Textures will be expanded to the nearest power of
+	 * two. Keep in mind before you change this that PoT Textures allow for
+	 * faster rendering time.
 	 */
 	public static void setExpandToPowerOfTwo(boolean expandToPoT) {
 		Texture.expandToPoT = expandToPoT;
 	}
 
 	/**
-	 * @return If the Texture is PoT and not a SubTexture (and in turn, can repeat).
+	 * Returns If the Texture is PoT and not a SubTexture (and in turn, can
+	 * repeat).
 	 */
 	public boolean isRepeatable() {
 		boolean capable = isPoT();

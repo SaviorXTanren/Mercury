@@ -10,18 +10,18 @@ import com.radirius.mercury.resource.Resource;
  */
 public interface Font extends Resource {
 	/**
-	 * Derive another differently sized instance of this font. Very resource heavy, so only call this once (NOT every
-	 * single frame).
+	 * Derive another differently sized instance of this font. Very resource
+	 * heavy, so only call this once (NOT every single frame).
 	 *
-	 * @return A newly sized font!
+	 * Returns A newly sized font!
 	 */
 	public Font deriveFont(float size);
 
 	/**
-	 * Derive another differently sized instance of this font. Very resource heavy, so only call this once (NOT every
-	 * single frame)
+	 * Derive another differently sized instance of this font. Very resource
+	 * heavy, so only call this once (NOT every single frame)
 	 *
-	 * @return A newly sized font!
+	 * Returns A newly sized font!
 	 */
 	public Font deriveFont(int style);
 
@@ -31,27 +31,28 @@ public interface Font extends Resource {
 	public float getSize();
 
 	/**
-	 * @return The height of the font.
+	 * Returns The height of the font.
 	 */
 	public float getHeight();
 
 	/**
-	 * @return The width of a given string in I, the font.
+	 * Returns The width of a given string in I, the font.
 	 */
 	public float getWidth(String message);
 
 	/**
-	 * @return The maximum width that a given string of length len could be.
+	 * Returns The maximum width that a given string of length len could be.
 	 */
 	public float getMaxWidth(int length);
 
 	/**
-	 * @return The average width of all number/letter characters, multiplied by len.
+	 * Returns The average width of all number/letter characters, multiplied by
+	 * len.
 	 */
 	public float getAverageWidth(int length);
 
 	/**
-	 * @return The overall texture used for rendering the font.
+	 * Returns The overall texture used for rendering the font.
 	 */
 	public Texture getFontTexture();
 }

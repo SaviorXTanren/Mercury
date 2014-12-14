@@ -1,6 +1,7 @@
 package com.radirius.mercury.tutorials;
 
-import com.radirius.mercury.framework.*;
+import com.radirius.mercury.framework.Core;
+import com.radirius.mercury.framework.CoreSetup;
 import com.radirius.mercury.graphics.Graphics;
 
 /**
@@ -21,18 +22,14 @@ public class MakingAWindow extends Core {
 	}
 
 	@Override
-	public void init() {
-	}
+	public void init() {}
 
 	@Override
-	public void update() {
-	}
+	public void update() {}
 
 	@Override
-	public void render(Graphics g) {
-	}
+	public void render(Graphics g) {}
 
 	@Override
-	public void cleanup() {
-	}
+	public void cleanup() {}
 }

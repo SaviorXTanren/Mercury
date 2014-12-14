@@ -1,14 +1,19 @@
 package com.radirius.mercury.utilities;
 
-import com.radirius.mercury.math.geometry.Matrix4f;
-
-import java.nio.*;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 import java.util.Stack;
 
+import com.radirius.mercury.math.geometry.Matrix4f;
+
 /**
- * A simple Utility class for the Graphics engine which contains some utility OpenGL rendering functions which are
- * required by the classes in this graphics package. <p/> This class also emulates Matrix-Stack, to simplify the access
- * to Modern OpenGL methods, mainly for Batcher, Camera and the Graphics classes.
+ * A simple Utility class for the Graphics engine which contains some utility
+ * OpenGL rendering functions which are required by the classes in this graphics
+ * package.
+ * <p/>
+ * This class also emulates Matrix-Stack, to simplify the access to Modern
+ * OpenGL methods, mainly for Batcher, Camera and the Graphics classes.
  *
  * @author Sri Harsha Chilakapati
  */

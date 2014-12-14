@@ -1,14 +1,16 @@
 package com.radirius.mercury.input;
 
-import com.radirius.mercury.framework.Core;
-import com.radirius.mercury.graphics.Camera;
-import com.radirius.mercury.math.MathUtil;
-import com.radirius.mercury.math.geometry.*;
+import java.util.ArrayList;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.*;
 import org.lwjgl.opengl.Display;
 
-import java.util.ArrayList;
+import com.radirius.mercury.framework.Core;
+import com.radirius.mercury.graphics.Camera;
+import com.radirius.mercury.math.MathUtil;
+import com.radirius.mercury.math.geometry.Point;
+import com.radirius.mercury.math.geometry.Vector2f;
 
 /**
  * An object form of input.
@@ -164,7 +166,8 @@ public class Input {
 		try {
 			Mouse.create();
 			Keyboard.create();
-		} catch (LWJGLException e) {
+		}
+		catch (LWJGLException e) {
 			e.printStackTrace();
 		}
 
@@ -246,7 +249,7 @@ public class Input {
 	}
 
 	/**
-	 * @return If key was clicked.
+	 * Returns If key was clicked.
 	 */
 	public static boolean keyClicked(int key) {
 		for (Integer eventkey : eventKeyStates)
@@ -256,14 +259,14 @@ public class Input {
 	}
 
 	/**
-	 * @return If any key was clicked.
+	 * Returns If any key was clicked.
 	 */
 	public static boolean wasKeyClicked() {
 		return eventKeyStates.size() != 0;
 	}
 
 	/**
-	 * @return If key is down.
+	 * Returns If key is down.
 	 */
 	public static boolean keyDown(int key) {
 		if (Keyboard.isKeyDown(key))
@@ -272,14 +275,14 @@ public class Input {
 	}
 
 	/**
-	 * @return If key is up.
+	 * Returns If key is up.
 	 */
 	public static boolean keyUp(int key) {
 		return !keyDown(key);
 	}
 
 	/**
-	 * @return The last character pressed.
+	 * Returns The last character pressed.
 	 */
 	public static char getNextCharacter() {
 		return nextCharacter;
@@ -293,7 +296,7 @@ public class Input {
 	}
 
 	/**
-	 * @return If mousebutton was clicked.
+	 * Returns If mousebutton was clicked.
 	 */
 	public static boolean mouseClicked(int mousebutton) {
 		for (Integer eventmousebutton : eventMouseButtonStates)
@@ -304,80 +307,81 @@ public class Input {
 	}
 
 	/**
-	 * @return If mousebutton is down.
+	 * Returns If mousebutton is down.
 	 */
 	public static boolean mouseDown(int mousebutton) {
 		return Mouse.isButtonDown(mousebutton);
 	}
 
 	/**
-	 * @return If mousebutton is up.
+	 * Returns If mousebutton is up.
 	 */
 	public static boolean mouseUp(int mousebutton) {
 		return !mouseDown(mousebutton);
 	}
 
 	/**
-	 * @return If mouse wheel is going up.
+	 * Returns If mouse wheel is going up.
 	 */
 	public static boolean mouseWheelUp() {
 		return mousedWheel > 0;
 	}
 
 	/**
-	 * @return If mouse wheel is going down.
+	 * Returns If mouse wheel is going down.
 	 */
 	public static boolean mouseWheelDown() {
 		return mousedWheel < 0;
 	}
 
 	/**
-	 * @return Mouse position.
+	 * Returns Mouse position.
 	 */
 	public static Point getMousePosition() {
 		return new Point(Mouse.getX(), Mouse.getY());
 	}
 
 	/**
-	 * @return Mouse's x position.
+	 * Returns Mouse's x position.
 	 */
 	public static int getMouseX() {
 		return Mouse.getX();
 	}
 
 	/**
-	 * @return Mouse's y position.
+	 * Returns Mouse's y position.
 	 */
 	public static int getMouseY() {
 		return Mouse.getY();
 	}
 
 	/**
-	 * @return The mouse 'correct' position (Has to do with the opengl origin being bottom left, and ours being top
-	 * left).
+	 * Returns The mouse 'correct' position (Has to do with the opengl origin
+	 * being bottom left, and ours being top left).
 	 */
 	public static Vector2f getAbsoluteMousePosition() {
 		return new Vector2f(getMouseX(), Display.getHeight() - 1 - getMouseY());
 	}
 
 	/**
-	 * @return The mouse position's 'correct' x (Has to do with the opengl origin being bottom left, and ours being top
-	 * left).
+	 * Returns The mouse position's 'correct' x (Has to do with the opengl
+	 * origin being bottom left, and ours being top left).
 	 */
 	public static int getAbsoluteMouseX() {
 		return (int) getAbsoluteMousePosition().x;
 	}
 
 	/**
-	 * @return The mouse position's 'correct' y (Has to do with the opengl origin being bottom left, and ours being top
-	 * left).
+	 * Returns The mouse position's 'correct' y (Has to do with the opengl
+	 * origin being bottom left, and ours being top left).
 	 */
 	public static int getAbsoluteMouseY() {
 		return (int) getAbsoluteMousePosition().y;
 	}
 
 	/**
-	 * @return The global mouse position based on the displacement of the game's camera and the scaling of the graphics.
+	 * Returns The global mouse position based on the displacement of the game's
+	 * camera and the scaling of the graphics.
 	 */
 	public static Vector2f getGlobalMousePosition() {
 		Vector2f globalmousepos = getAbsoluteMousePosition();
@@ -408,16 +412,16 @@ public class Input {
 	}
 
 	/**
-	 * @return The global mouse x position based on the displacement of the game's camera and the scaling of the
-	 * graphics.
+	 * Returns The global mouse x position based on the displacement of the
+	 * game's camera and the scaling of the graphics.
 	 */
 	public static float getGlobalMouseX() {
 		return getGlobalMousePosition().x;
 	}
 
 	/**
-	 * @return The global mouse y position based on the displacement of the game's camera and the scaling of the
-	 * graphics.
+	 * Returns The global mouse y position based on the displacement of the
+	 * game's camera and the scaling of the graphics.
 	 */
 	public static float getGlobalMouseY() {
 		return getGlobalMousePosition().y;
@@ -429,7 +433,8 @@ public class Input {
 
 		try {
 			Controllers.create();
-		} catch (LWJGLException e) {
+		}
+		catch (LWJGLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -446,7 +451,8 @@ public class Input {
 	}
 
 	/**
-	 * @return Whether or not the button on controller is down; null if controllers have not been initialized.
+	 * Returns Whether or not the button on controller is down; null if
+	 * controllers have not been initialized.
 	 */
 	public static boolean controllerButtonDown(int button, int controller) {
 		if (!Controllers.isCreated())
@@ -456,15 +462,16 @@ public class Input {
 	}
 
 	/**
-	 * @return Whether or not the button on controller is up; null if controllers have not been initialized.
+	 * Returns Whether or not the button on controller is up; null if
+	 * controllers have not been initialized.
 	 */
 	public static boolean controllerButtonUp(int button, int controller) {
 		return !controllerButtonDown(button, controller);
 	}
 
 	/**
-	 * @return A vector containing the x and y value of the left analog stick. null if controllers have not been
-	 * initialized.
+	 * Returns A vector containing the x and y value of the left analog stick.
+	 * null if controllers have not been initialized.
 	 */
 	public static Vector2f getLeftAnalogStick(int controller) {
 		if (!Controllers.isCreated())
@@ -480,8 +487,8 @@ public class Input {
 	}
 
 	/**
-	 * @return A vector containing the x and y value of the right analog stick. null if controllers have not been
-	 * initialized.
+	 * Returns A vector containing the x and y value of the right analog stick.
+	 * null if controllers have not been initialized.
 	 */
 	public static Vector2f getRightAnalogStick(int controller) {
 		if (!Controllers.isCreated())
@@ -497,7 +504,8 @@ public class Input {
 	}
 
 	/**
-	 * @return A vector containing the x and y value of the dpad. null if controllers have not been initialized.
+	 * Returns A vector containing the x and y value of the dpad. null if
+	 * controllers have not been initialized.
 	 */
 	public static Vector2f getDPad(int controller) {
 		if (!Controllers.isCreated())
@@ -513,7 +521,8 @@ public class Input {
 	}
 
 	/**
-	 * @return The amount of controllers. -1 if controllers have not been initialized.
+	 * Returns The amount of controllers. -1 if controllers have not been
+	 * initialized.
 	 */
 	public static int getControllerCount() {
 		if (!Controllers.isCreated())
@@ -552,8 +561,8 @@ public class Input {
 	/**
 	 * Enables event polling.
 	 *
-	 * @param keyboard   Enable keyboard polling?
-	 * @param mouse      Enable mouse polling?
+	 * @param keyboard Enable keyboard polling?
+	 * @param mouse Enable mouse polling?
 	 * @param controller Enable controller polling?
 	 */
 	public static void setPollingEnabled(boolean keyboard, boolean mouse, boolean controller) {

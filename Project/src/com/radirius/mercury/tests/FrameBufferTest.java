@@ -1,9 +1,13 @@
 package com.radirius.mercury.tests;
 
-import com.radirius.mercury.framework.*;
-import com.radirius.mercury.graphics.*;
-import com.radirius.mercury.math.geometry.Rectangle;
 import org.lwjgl.opengl.GL11;
+
+import com.radirius.mercury.framework.Core;
+import com.radirius.mercury.framework.CoreSetup;
+import com.radirius.mercury.graphics.Color;
+import com.radirius.mercury.graphics.FrameBuffer;
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.math.geometry.Rectangle;
 
 class FrameBufferTest extends Core {
 	int f = 0;
@@ -18,7 +22,7 @@ class FrameBufferTest extends Core {
 
 	public static void main(String[] args) {
 		CoreSetup setup = new CoreSetup("Framebuffer Test");
-		
+
 		new FrameBufferTest(setup).start();
 	}
 

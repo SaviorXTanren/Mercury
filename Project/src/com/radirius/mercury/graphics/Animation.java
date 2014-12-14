@@ -1,6 +1,5 @@
 package com.radirius.mercury.graphics;
 
-import com.radirius.mercury.math.geometry.*;
 import com.radirius.mercury.resource.Resource;
 
 /**
@@ -23,7 +22,7 @@ public class Animation implements Resource {
 
 	/**
 	 * @param frameTimeMillis The frame rate in milliseconds
-	 * @param baseTextures    The textures, or frames.
+	 * @param baseTextures The textures, or frames.
 	 */
 	public Animation(SpriteSheet baseTextures, int frameTimeMillis) {
 		this(baseTextures, frameTimeMillis, 0, baseTextures.getNumberOfSubTextures() - 1);
@@ -31,7 +30,7 @@ public class Animation implements Resource {
 
 	/**
 	 * @param frameTimeMillis The frame rate in milliseconds
-	 * @param baseTextures    The textures, or frames.
+	 * @param baseTextures The textures, or frames.
 	 */
 	public Animation(SpriteSheet baseTextures, int frameTimeMillis, boolean bounce) {
 		this(frameTimeMillis, baseTextures, 0, baseTextures.getNumberOfSubTextures() - 1, bounce);
@@ -39,9 +38,9 @@ public class Animation implements Resource {
 
 	/**
 	 * @param frameTimeMillis The frame rate in milliseconds
-	 * @param baseTextures    The textures, or frames.
-	 * @param startFrame      The first frame of the animation.
-	 * @param endFrame        The last frame of the animation.
+	 * @param baseTextures The textures, or frames.
+	 * @param startFrame The first frame of the animation.
+	 * @param endFrame The last frame of the animation.
 	 */
 	public Animation(SpriteSheet baseTextures, int frameTimeMillis, int startFrame, int endFrame) {
 		this(frameTimeMillis, baseTextures, startFrame, endFrame, false);
@@ -49,10 +48,11 @@ public class Animation implements Resource {
 
 	/**
 	 * @param frameTimeMillis The frame rate in milliseconds
-	 * @param baseTextures    The textures, or frames.
-	 * @param startFrame      The first frame of the animation.
-	 * @param endFrame        The last frame of the animation.
-	 * @param bounce          Whether or not the animation should reverse once it gets to the end.
+	 * @param baseTextures The textures, or frames.
+	 * @param startFrame The first frame of the animation.
+	 * @param endFrame The last frame of the animation.
+	 * @param bounce Whether or not the animation should reverse once it gets to
+	 *        the end.
 	 */
 	public Animation(int frameTimeMillis, SpriteSheet baseTextures, int startFrame, int endFrame, boolean bounce) {
 		this.frameTimeMillis = frameTimeMillis;
@@ -73,40 +73,19 @@ public class Animation implements Resource {
 	}
 
 	/**
-	 * Renders the current frame at x and y.
-	 */
-	public void render(float x, float y, Graphics g) {
-		render(x, y, baseTextures.getTexture(frame).getWidth(), baseTextures.getTexture(0).getHeight(), g);
-	}
-
-	/**
-	 * Renders the current frame at x and y, with a size of width w by height h.
-	 */
-	public void render(float x, float y, float w, float h, Graphics g) {
-		render(new Rectangle(x, y, w, h), g);
-	}
-
-	public void render(Shape region, Graphics g) {
-		g.drawTexture(getCurrentFrame(), region);
-	}
-
-	public void render(Shape sourceRegion, Shape region, Graphics g) {
-		g.drawTexture(getCurrentFrame(), sourceRegion, region);
-	}
-
-	/**
 	 * Useful if you want to render the frames in a special way.
 	 *
-	 * @return The current frame.
+	 * Returns The current frame.
 	 */
 	public SubTexture getCurrentFrame() {
 		return baseTextures.getTexture(frame);
 	}
 
 	/**
-	 * Moves on to the next frame in the animation if the current frame has been around more than the frame-rate.
+	 * Moves on to the next frame in the animation if the current frame has been
+	 * around more than the frame-rate.
 	 *
-	 * @return Whether or not this is the last frame.
+	 * Returns Whether or not this is the last frame.
 	 */
 	public boolean passFrame() {
 		frameMillis = System.currentTimeMillis();
@@ -130,7 +109,7 @@ public class Animation implements Resource {
 	}
 
 	/**
-	 * @return The current frame.
+	 * Returns The current frame.
 	 */
 	public int getFrame() {
 		return frame;
@@ -144,21 +123,21 @@ public class Animation implements Resource {
 	}
 
 	/**
-	 * @return How many frames there are.
+	 * Returns How many frames there are.
 	 */
 	public int getLength() {
 		return last - first;
 	}
 
 	/**
-	 * @return Whether or not we are at the last frame.
+	 * Returns Whether or not we are at the last frame.
 	 */
 	public boolean isLastFrame() {
 		return bounce ? frame == first : frame == last;
 	}
 
 	/**
-	 * @return The textures for all the frames.
+	 * Returns The textures for all the frames.
 	 */
 	public SpriteSheet getTextures() {
 		return baseTextures;

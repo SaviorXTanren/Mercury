@@ -1,9 +1,10 @@
 package com.radirius.mercury.scene;
 
-import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.utilities.*;
-
 import java.util.ArrayList;
+
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.utilities.Component;
+import com.radirius.mercury.utilities.Wipeable;
 
 /**
  * A scene graph node.
