@@ -28,7 +28,7 @@ public class UsingAudio extends Core {
 
 	@Override
 	public void init() {
-		cgop = Audio.getAudio(Loader.streamFromClasspath("com/radirius/mercury/tutorials/CG-OP.ogg"), "OGG");
+		cgop = Audio.getAudio(Loader.getResourceAsStream("com/radirius/mercury/tutorials/CG-OP.ogg"), "OGG");
 
 		Input.setRepeatEventsEnabled(false);
 	}

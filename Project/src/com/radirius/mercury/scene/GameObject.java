@@ -25,6 +25,20 @@ public class GameObject implements Component, Wipeable {
 	}
 
 	/**
+	 * Removes a child to the list of children nodes.
+	 */
+	public void removeChild(GameObject child) {
+		children.remove(child);
+	}
+	
+	/**
+	 * Removes all children of the children nodes.
+	 */
+	public void removeAllChildren() {
+		children.clear();
+	}
+	
+	/**
 	 * Initializes the children nodes.
 	 */
 	@Override

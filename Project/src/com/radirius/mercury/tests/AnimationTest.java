@@ -3,6 +3,7 @@ package com.radirius.mercury.tests;
 import com.radirius.mercury.framework.Core;
 import com.radirius.mercury.framework.CoreSetup;
 import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.resource.ClasspathLocation;
 import com.radirius.mercury.resource.Loader;
 
 class AnimationTest extends Core {
@@ -17,13 +18,13 @@ class AnimationTest extends Core {
 		CoreSetup setup = new CoreSetup("Animation Test");
 		setup.width = 1280;
 		setup.height = 720;
-
+		
 		new AnimationTest(setup).start();
 	}
 
 	@Override
 	public void init() {
-		spriteSheet = SpriteSheet.loadSpriteSheet(Texture.loadTexture(Loader.streamFromClasspath("com/radirius/mercury/tests/animationTest.png")), 64);
+		spriteSheet = SpriteSheet.loadSpriteSheet(Texture.loadTexture(Loader.getResourceAsStream("com/radirius/mercury/tests/animationTest.png")), 64);
 		animation = new Animation(spriteSheet, 150);
 	}
 

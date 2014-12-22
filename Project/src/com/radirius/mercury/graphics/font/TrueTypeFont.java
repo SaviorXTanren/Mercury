@@ -23,20 +23,10 @@ public class TrueTypeFont implements com.radirius.mercury.graphics.font.Font {
 	 * The default Roboto Regular font.
 	 */
 	public static final TrueTypeFont ROBOTO_REGULAR;
-	/**
-	 * The default Roboto Thin font.
-	 */
-	public static final TrueTypeFont ROBOTO_THIN;
-	/**
-	 * The default Roboto Medium font.
-	 */
-	public static final TrueTypeFont ROBOTO_MEDIUM;
 
 	static {
-		ROBOTO_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/Roboto-Bold.ttf"), 22f, true);
-		ROBOTO_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/Roboto-Regular.ttf"), 22f, true);
-		ROBOTO_MEDIUM = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/Roboto-Medium.ttf"), 22f, true);
-		ROBOTO_THIN = TrueTypeFont.loadTrueTypeFont(Loader.streamFromClasspath("com/radirius/mercury/graphics/font/res/Roboto-Thin.ttf"), 22f, true);
+		ROBOTO_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.getResourceAsStream("com/radirius/mercury/graphics/font/res/Roboto-Bold.ttf"), 22f, true);
+		ROBOTO_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.getResourceAsStream("com/radirius/mercury/graphics/font/res/Roboto-Regular.ttf"), 22f, true);
 	}
 
 	public static final int STANDARD_CHARACTERS = 256;

@@ -35,7 +35,7 @@ public class ParticleTest extends Core {
 	public void init() {
 		ParticleSystem.ParticleSetup smokeSetup = new ParticleSystem.ParticleSetup();
 		smokeSetup.size = 64;
-		smokeSetup.texture = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/mercury/tests/cloud.png"));
+		smokeSetup.texture = Texture.loadTexture(Loader.getResourceAsStream("com/radirius/mercury/tests/cloud.png"));
 		smokeSetup.color = Color.CONCRETE.duplicate();
 		smokeSetup.color.a = 0.04f;
 

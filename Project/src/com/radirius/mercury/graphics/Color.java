@@ -27,15 +27,18 @@ public class Color {
 	public static final Color ASBESTOS = new Color(127, 140, 141);
 
 	public static final Color WHITE = new Color(255, 255, 255);
-	public static final Color DEFAULT_DRAWING = WHITE;
 	public static final Color MARBLE = new Color(188, 188, 188);
 	public static final Color GREY = new Color(125, 125, 125);
 	public static final Color COAL = new Color(63, 63, 63);
 	public static final Color BLACK = new Color(0, 0, 0);
+	
+	public static final Color DEFAULT_DRAWING = WHITE;
 	public static final Color DEFAULT_BACKGROUND = BLACK;
 	public static final Color DEFAULT_TEXTURE_COLOR = BLACK;
+	
 	public static final Color CLEAR = new Color(0, 0, 0, 0);
 	public static final Color GRAY = GREY.duplicate();
+	
 	/**
 	 * Red, Green, Blue, and Alpha variables.
 	 */

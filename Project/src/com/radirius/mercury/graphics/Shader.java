@@ -189,10 +189,10 @@ public class Shader implements Resource {
 
 		try {
 			if (type == Shader.FRAGMENT_SHADER) {
-				vertShader = createVertexShader(readShader(Loader.streamFromClasspath("com/radirius/mercury/graphics/res/default_shader.vert")));
+				vertShader = createVertexShader(readShader(Loader.getResourceAsStream("com/radirius/mercury/graphics/res/default_shader.vert")));
 				fragShader = createFragmentShader(source);
 			} else if (type == Shader.VERTEX_SHADER) {
-				fragShader = createFragmentShader(readShader(Loader.streamFromClasspath("com/radirius/mercury/graphics/res/default_shader.frag")));
+				fragShader = createFragmentShader(readShader(Loader.getResourceAsStream("com/radirius/mercury/graphics/res/default_shader.frag")));
 				vertShader = createVertexShader(source);
 			}
 		}
@@ -327,7 +327,7 @@ public class Shader implements Resource {
 	 */
 	public static void loadDefaultShaders() {
 		if (DEFAULT_SHADER == null)
-			DEFAULT_SHADER = Shader.getShader(Loader.streamFromClasspath("com/radirius/mercury/graphics/res/default_shader.vert"), Loader.streamFromClasspath("com/radirius/mercury/graphics/res/default_shader.frag"));
+			DEFAULT_SHADER = Shader.getShader(Loader.getResourceAsStream("com/radirius/mercury/graphics/res/default_shader.vert"), Loader.getResourceAsStream("com/radirius/mercury/graphics/res/default_shader.frag"));
 	}
 
 	/**

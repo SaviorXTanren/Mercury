@@ -166,6 +166,6 @@ public class Window {
 			e.printStackTrace();
 		}
 
-		setIcon(Loader.streamFromClasspath("com/radirius/mercury/framework/res/merc_mascot_x16.png"), Loader.streamFromClasspath("com/radirius/mercury/framework/res/merc_mascot_x32.png"), Loader.streamFromClasspath("com/radirius/mercury/framework/res/merc_mascot_x64.png"));
+		setIcon(Loader.getResourceAsStream("com/radirius/mercury/framework/res/merc_mascot_x16.png"), Loader.getResourceAsStream("com/radirius/mercury/framework/res/merc_mascot_x32.png"), Loader.getResourceAsStream("com/radirius/mercury/framework/res/merc_mascot_x64.png"));
 	}
 }

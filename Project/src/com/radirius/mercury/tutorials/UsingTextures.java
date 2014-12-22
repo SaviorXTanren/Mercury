@@ -32,7 +32,7 @@ public class UsingTextures extends Core {
 	@Override
 	public void init() {
 		// Creates an InputStream for the Texture.
-		InputStream stream = Loader.streamFromClasspath("com/radirius/mercury/tutorials/monalisa.png");
+		InputStream stream = Loader.getResourceAsStream("com/radirius/mercury/tutorials/monalisa.png");
 
 		// Loads Texture from stream.
 		texture = Texture.loadTexture(stream);

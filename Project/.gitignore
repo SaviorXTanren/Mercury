@@ -7,7 +7,6 @@ hs_err_pid*
 
 /lib/
 /*.iml
-out/
 target/classes
 .idea_modules/
 atlassian-ide-plugin.xml

@@ -55,7 +55,7 @@ public class SplashScreen {
 	 * Returns The love of Mercury's developers. <3
 	 */
 	public static SplashScreen getMercuryDefault() {
-		Texture texture = Texture.loadTexture(Loader.streamFromClasspath("com/radirius/mercury/framework/splash/res/splash.png"), Texture.FILTER_LINEAR);
+		Texture texture = Texture.loadTexture(Loader.getResourceAsStream("com/radirius/mercury/framework/splash/res/splash.png"), Texture.FILTER_LINEAR);
 
 		return new SplashScreen(texture, 4000);
 	}

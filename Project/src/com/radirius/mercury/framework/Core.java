@@ -15,6 +15,8 @@ import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.graphics.font.Font;
 import com.radirius.mercury.graphics.font.TrueTypeFont;
 import com.radirius.mercury.input.Input;
+import com.radirius.mercury.resource.ClasspathLocation;
+import com.radirius.mercury.resource.Loader;
 import com.radirius.mercury.utilities.TaskTiming;
 import com.radirius.mercury.utilities.logging.Logger;
 
@@ -151,11 +153,12 @@ public abstract class Core {
 
 		/* Initializing, preparing for the game loop. */
 
-		if (coreSetup.showConsoleDebug) {
-			System.out.println("Mercury Game Library (In-Dev)\n" + "Website: http://mercurylib.com/");
-			System.out.println("-------------------------------");
-		}
-
+		System.out.println("Mercury Game Library (In-Dev)\n" + "Website: http://mercurylib.com/");
+		System.out.println("-------------------------------");
+		System.out.println();
+		
+		Loader.addLocation(new ClasspathLocation());
+		
 		Logger.warn("You're running a non-stable build of Mercury!\nIf you run into any issues, please leave an issue on GitHub or make a post on the forum.");
 
 		if (coreSetup.showConsoleDebug)
@@ -207,7 +210,7 @@ public abstract class Core {
 		int processedUpdates = 0;
 		double lastFPSUpdate = 0;
 
-		final double MS_PER_UPDATE = 1000.0 / coreSetup.targetFps;
+		double millisPerUpdate = 1000.0 / coreSetup.targetFps;
 
 		while (running) {
 			if (Display.isCloseRequested())
@@ -221,13 +224,13 @@ public abstract class Core {
 
 			Input.poll();
 
-			while (lag >= MS_PER_UPDATE) {
+			while (lag >= millisPerUpdate) {
 				if (!showingSplashScreens())
 					update();
 
 				TaskTiming.update();
 
-				lag -= MS_PER_UPDATE;
+				lag -= millisPerUpdate;
 				processedUpdates++;
 
 				if (current - lastFPSUpdate >= 1000) {

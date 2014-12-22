@@ -9,7 +9,6 @@ import org.lwjgl.opengl.Display;
 import com.radirius.mercury.framework.Core;
 import com.radirius.mercury.graphics.Camera;
 import com.radirius.mercury.math.MathUtil;
-import com.radirius.mercury.math.geometry.Point;
 import com.radirius.mercury.math.geometry.Vector2f;
 
 /**
@@ -337,8 +336,8 @@ public class Input {
 	/**
 	 * Returns Mouse position.
 	 */
-	public static Point getMousePosition() {
-		return new Point(Mouse.getX(), Mouse.getY());
+	public static Vector2f getMousePosition() {
+		return new Vector2f(Mouse.getX(), Mouse.getY());
 	}
 
 	/**

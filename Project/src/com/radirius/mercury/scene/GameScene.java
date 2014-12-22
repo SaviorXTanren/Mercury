@@ -66,6 +66,21 @@ public class GameScene implements Component {
 	}
 
 	/**
+	 * Removes a child from the list of children nodes.
+	 */
+	public void remove(GameObject... object) {
+		for (GameObject object0 : object)
+			objects.remove(object0);
+	}
+	
+	/**
+	 * Clears the scene.
+	 */
+	public void clear() {
+		objects.clear();
+	}
+	
+	/**
 	 * Returns The objects inside the scene.
 	 */
 	public ArrayList<GameObject> getObjects() {

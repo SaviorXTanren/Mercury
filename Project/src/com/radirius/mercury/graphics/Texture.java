@@ -219,7 +219,7 @@ public class Texture implements Resource {
 	 */
 	public static Texture getEmptyTexture() {
 		if (BLANK_TEXTURE == null)
-			BLANK_TEXTURE = loadTexture(Loader.streamFromClasspath("com/radirius/mercury/graphics/res/empty.png"));
+			BLANK_TEXTURE = loadTexture(Loader.getResourceAsStream("com/radirius/mercury/graphics/res/empty.png"));
 
 		return BLANK_TEXTURE;
 	}
