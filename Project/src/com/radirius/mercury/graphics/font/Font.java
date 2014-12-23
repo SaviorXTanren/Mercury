@@ -10,49 +10,55 @@ import com.radirius.mercury.resource.Resource;
  */
 public interface Font extends Resource {
 	/**
-	 * Derive another differently sized instance of this font. Very resource
-	 * heavy, so only call this once (NOT every single frame).
+	 * Derive another differently sized instance of this font; very resource heavy.
 	 *
-	 * Returns A newly sized font!
+	 * @return A newly sized font
 	 */
 	public Font deriveFont(float size);
 
 	/**
-	 * Derive another differently sized instance of this font. Very resource
-	 * heavy, so only call this once (NOT every single frame)
+	 * Derive another differently sized instance of this font; very resource heavy.
 	 *
-	 * Returns A newly sized font!
+	 * @return A newly sized font
 	 */
 	public Font deriveFont(int style);
 
 	/**
-	 * The size of the font.
+	 * @return The size of the font
 	 */
 	public float getSize();
 
 	/**
-	 * Returns The height of the font.
+	 * @return The height of the font
 	 */
 	public float getHeight();
 
 	/**
-	 * Returns The width of a given string in I, the font.
+	 * @param message The string to find the height of
+	 * @return The height of the string in the font
+	 */
+	public float getHeight(String message);
+
+	/**
+	 * @param message The string to find the width of
+	 * @return The width of the string in the font
 	 */
 	public float getWidth(String message);
 
 	/**
-	 * Returns The maximum width that a given string of length len could be.
+	 * @param length The length of a string
+	 * @return The maximum width that a string of a length could be
 	 */
 	public float getMaxWidth(int length);
 
 	/**
-	 * Returns The average width of all number/letter characters, multiplied by
-	 * len.
+	 * @param length The length of a string
+	 * @return The average width of all number/letter characters, multiplied by a certain length
 	 */
 	public float getAverageWidth(int length);
 
 	/**
-	 * Returns The overall texture used for rendering the font.
+	 * @return The overall texture used for rendering the font
 	 */
 	public Texture getFontTexture();
 }

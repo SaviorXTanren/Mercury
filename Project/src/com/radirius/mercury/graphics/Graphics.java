@@ -1,21 +1,16 @@
 package com.radirius.mercury.graphics;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
-
-import com.radirius.mercury.graphics.font.Font;
-import com.radirius.mercury.graphics.font.TrueTypeFont;
+import com.radirius.mercury.graphics.font.*;
 import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.math.geometry.*;
 import com.radirius.mercury.utilities.GraphicsUtils;
-import com.radirius.mercury.utilities.misc.Cleanable;
-import com.radirius.mercury.utilities.misc.Initializable;
+import com.radirius.mercury.utilities.misc.*;
+import org.lwjgl.opengl.*;
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
- * An object used to simplify rendering for those who do not wish to use the
- * batcher.
+ * An object used to simplify rendering for those who do not wish to use the batcher.
  *
  * @author wessles
  * @author Jeviny
@@ -199,8 +194,7 @@ public class Graphics implements Initializable, Cleanable {
 	}
 
 	/**
-	 * Returns The boundries of the camera (the window's frame in the game
-	 * world)
+	 * Returns The boundries of the camera (the window's frame in the game world)
 	 */
 	public Rectangle getCameraBounds() {
 		return getCamera().getBounds();
@@ -285,8 +279,8 @@ public class Graphics implements Initializable, Cleanable {
 	 * Draws a string.
 	 *
 	 * @param message The string to draw
-	 * @param x The x position
-	 * @param y The y position
+	 * @param x       The x position
+	 * @param y       The y position
 	 */
 	public void drawString(String message, float x, float y) {
 		drawString(message, currentFont, x, y);
@@ -296,9 +290,9 @@ public class Graphics implements Initializable, Cleanable {
 	 * Draws a string with a certain font.
 	 *
 	 * @param message The string to draw
-	 * @param font The font in which to draw the string
-	 * @param x The x position
-	 * @param y The y position
+	 * @param font    The font in which to draw the string
+	 * @param x       The x position
+	 * @param y       The y position
 	 */
 	public void drawString(String message, Font font, float x, float y) {
 		drawString(message, 1, font, x, y);
@@ -308,9 +302,9 @@ public class Graphics implements Initializable, Cleanable {
 	 * Draws a scaled string.
 	 *
 	 * @param message The string to draw
-	 * @param scale The scale of the string
-	 * @param x The x position
-	 * @param y The y position
+	 * @param scale   The scale of the string
+	 * @param x       The x position
+	 * @param y       The y position
 	 */
 	public void drawString(String message, float scale, float x, float y) {
 		drawString(message, scale, currentFont, x, y);
@@ -320,10 +314,10 @@ public class Graphics implements Initializable, Cleanable {
 	 * Draws a scaled string with a certain font.
 	 *
 	 * @param message The string to draw
-	 * @param scale The scale of the string
-	 * @param font The font in which to draw the string
-	 * @param x The x position
-	 * @param y The y position
+	 * @param scale   The scale of the string
+	 * @param font    The font in which to draw the string
+	 * @param x       The x position
+	 * @param y       The y position
 	 */
 	public void drawString(String message, float scale, Font font, float x, float y) {
 		if (font instanceof TrueTypeFont) {
@@ -348,11 +342,67 @@ public class Graphics implements Initializable, Cleanable {
 	}
 
 	/**
+	 * Draws a centered string.
+	 *
+	 * @param message The centered string to draw
+	 * @param x       The x position
+	 * @param y       The y position
+	 */
+	public void drawCenteredString(String message, float x, float y) {
+		drawCenteredString(message, currentFont, x, y);
+	}
+
+	/**
+	 * Draws a centered string with a certain font.
+	 *
+	 * @param message The centered string to draw
+	 * @param font    The font in which to draw the centered string
+	 * @param x       The x position
+	 * @param y       The y position
+	 */
+	public void drawCenteredString(String message, Font font, float x, float y) {
+		drawCenteredString(message, 1, font, x, y);
+	}
+
+	/**
+	 * Draws a scaled centered string.
+	 *
+	 * @param message The centered string to draw
+	 * @param scale   The scale of the centered string
+	 * @param x       The x position
+	 * @param y       The y position
+	 */
+	public void drawCenteredString(String message, float scale, float x, float y) {
+		drawCenteredString(message, scale, currentFont, x, y);
+	}
+
+	/**
+	 * Draws a scaled centered string with a certain font.
+	 *
+	 * @param message The centered string to draw
+	 * @param scale   The scale of the centered string
+	 * @param font    The font in which to draw the centered string
+	 * @param x       The x position
+	 * @param y       The y position
+	 */
+	public void drawCenteredString(String message, float scale, Font font, float x, float y) {
+		if (font instanceof TrueTypeFont) {
+			float width = font.getWidth(message) * scale;
+			float height = font.getHeight(message) * scale;
+
+			x -= width / 2;
+			y -= height / 2;
+
+			drawString(message, scale, font, x, y);
+		}
+	}
+
+	/**
 	 * Draws a texture.
 	 *
 	 * @param texture The texture to draw
-	 * @param x The x position
-	 * @param y The y position
+	 * @param x       The x position
+	 * @param y       The y position
 	 */
 	public void drawTexture(Texture texture, float x, float y) {
 		drawTexture(texture, x, y, texture.getWidth(), texture.getHeight());
@@ -362,10 +412,10 @@ public class Graphics implements Initializable, Cleanable {
 	 * Draws a texture.
 	 *
 	 * @param texture The texture to draw
-	 * @param x The x position
-	 * @param y The y position
-	 * @param w The width
-	 * @param h The height
+	 * @param x       The x position
+	 * @param y       The y position
+	 * @param w       The width
+	 * @param h       The height
 	 */
 	public void drawTexture(Texture texture, float x, float y, float w, float h) {
 		drawTexture(texture, new Rectangle(x, y, w, h));
@@ -375,14 +425,14 @@ public class Graphics implements Initializable, Cleanable {
 	 * Draws a texture.
 	 *
 	 * @param texture The texture to draw
-	 * @param sx1 The near source x coordinate
-	 * @param sy1 The near source y coordinate
-	 * @param sx2 The far source x coordinate
-	 * @param sy2 The far source y coordinate
-	 * @param x The x position
-	 * @param y The y position
-	 * @param w The width
-	 * @param h The height
+	 * @param sx1     The near source x coordinate
+	 * @param sy1     The near source y coordinate
+	 * @param sx2     The far source x coordinate
+	 * @param sy2     The far source y coordinate
+	 * @param x       The x position
+	 * @param y       The y position
+	 * @param w       The width
+	 * @param h       The height
 	 */
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, float w, float h) {
 		drawTexture(texture, new Rectangle(sx1, sy1, sx2 - sx1, sy2 - sy1), new Rectangle(x, y, w, h));
@@ -392,7 +442,7 @@ public class Graphics implements Initializable, Cleanable {
 	 * Draws a texture.
 	 *
 	 * @param texture The texture to draw
-	 * @param region The shape to draw the texture to
+	 * @param region  The shape to draw the texture to
 	 */
 	public void drawTexture(Texture texture, Shape region) {
 		drawTexture(texture, new Rectangle(0, 0, texture.getWidth(), texture.getHeight()), region);
@@ -401,9 +451,9 @@ public class Graphics implements Initializable, Cleanable {
 	/**
 	 * Draws a texture.
 	 *
-	 * @param texture The texture to draw
+	 * @param texture      The texture to draw
 	 * @param sourceRegion The region of the texture to draw
-	 * @param region The shape to draw the texture to
+	 * @param region       The shape to draw the texture to
 	 */
 	public void drawTexture(Texture texture, Shape sourceRegion, Shape region) {
 		batcher.drawTexture(texture, sourceRegion, region);
@@ -413,9 +463,9 @@ public class Graphics implements Initializable, Cleanable {
 	 * Draws a tinted texture.
 	 *
 	 * @param texture The texture to draw
-	 * @param x The x position
-	 * @param y The y position
-	 * @param tint The color to tint the texture
+	 * @param x       The x position
+	 * @param y       The y position
+	 * @param tint    The color to tint the texture
 	 */
 	public void drawTexture(Texture texture, float x, float y, Color tint) {
 		drawTexture(texture, x, y, texture.getWidth(), texture.getHeight(), tint);
@@ -425,11 +475,11 @@ public class Graphics implements Initializable, Cleanable {
 	 * Draws a tinted texture.
 	 *
 	 * @param texture The texture to draw
-	 * @param x The x position
-	 * @param y The y position
-	 * @param w The width
-	 * @param h The height
-	 * @param tint The color to tint the texture
+	 * @param x       The x position
+	 * @param y       The y position
+	 * @param w       The width
+	 * @param h       The height
+	 * @param tint    The color to tint the texture
 	 */
 	public void drawTexture(Texture texture, float x, float y, float w, float h, Color tint) {
 		drawTexture(texture, new Rectangle(x, y, w, h), tint);
@@ -439,15 +489,15 @@ public class Graphics implements Initializable, Cleanable {
 	 * Draws a tinted texture.
 	 *
 	 * @param texture The texture to draw
-	 * @param sx1 The near source x coordinate
-	 * @param sy1 The near source y coordinate
-	 * @param sx2 The far source x coordinate
-	 * @param sy2 The far source y coordinate
-	 * @param x The x position
-	 * @param y The y position
-	 * @param w The width
-	 * @param h The height
-	 * @param tint The color to tint the texture
+	 * @param sx1     The near source x coordinate
+	 * @param sy1     The near source y coordinate
+	 * @param sx2     The far source x coordinate
+	 * @param sy2     The far source y coordinate
+	 * @param x       The x position
+	 * @param y       The y position
+	 * @param w       The width
+	 * @param h       The height
+	 * @param tint    The color to tint the texture
 	 */
 	public void drawTexture(Texture texture, float sx1, float sy1, float sx2, float sy2, float x, float y, float w, float h, Color tint) {
 		drawTexture(texture, new Rectangle(sx1, sy1, sx2 - sx1, sy2 - sy1), new Rectangle(x, y, w, h), tint);
@@ -457,8 +507,8 @@ public class Graphics implements Initializable, Cleanable {
 	 * Draws a tinted texture.
 	 *
 	 * @param texture The texture to draw
-	 * @param region The shape to draw the texture to
-	 * @param tint The color to tint the texture
+	 * @param region  The shape to draw the texture to
+	 * @param tint    The color to tint the texture
 	 */
 	public void drawTexture(Texture texture, Shape region, Color tint) {
 		drawTexture(texture, new Rectangle(0, 0, texture.getWidth(), texture.getHeight()), region, tint);
@@ -467,10 +517,10 @@ public class Graphics implements Initializable, Cleanable {
 	/**
 	 * Draws a tinted texture.
 	 *
-	 * @param texture The texture to draw
+	 * @param texture      The texture to draw
 	 * @param sourceRegion The region of the texture to draw
-	 * @param region The shape to draw the texture to
-	 * @param tint The color to tint the texture
+	 * @param region       The shape to draw the texture to
+	 * @param tint         The color to tint the texture
 	 */
 	public void drawTexture(Texture texture, Shape sourceRegion, Shape region, Color tint) {
 		batcher.drawTexture(texture, sourceRegion, region, tint);
@@ -677,9 +727,9 @@ public class Graphics implements Initializable, Cleanable {
 
 	/**
 	 * Draws an animation.
-	 * 
+	 *
 	 * @param animation The animation to draw
-	 * @param region The region to draw the animation to.
+	 * @param region    The region to draw the animation to.
 	 */
 	public void drawAnimation(Animation animation, Shape region) {
 		drawTexture(animation.getCurrentFrame(), region);
@@ -687,10 +737,10 @@ public class Graphics implements Initializable, Cleanable {
 
 	/**
 	 * Draws an animation.
-	 * 
-	 * @param animation The animation to draw
+	 *
+	 * @param animation    The animation to draw
 	 * @param sourceRegion fsdfsdf
-	 * @param region The region to draw the animation to.
+	 * @param region       The region to draw the animation to.
 	 */
 	public void drawAnimation(Animation animation, Shape sourceRegion, Shape region) {
 		drawTexture(animation.getCurrentFrame(), sourceRegion, region);
@@ -758,10 +808,8 @@ public class Graphics implements Initializable, Cleanable {
 
 		drawFunctionlessRectangle(new Rectangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y));
 
-		if (smoothJoints) {
+		if (smoothJoints)
 			drawShape(new Polygon(line.getVertices()[0].x, line.getVertices()[0].y, lineWidth / 2, 8));
-			drawShape(new Polygon(line.getVertices()[1].x, line.getVertices()[1].y, lineWidth / 2, 8));
-		}
 	}
 
 	@Override
