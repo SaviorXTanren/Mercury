@@ -1,16 +1,14 @@
 package com.radirius.mercury.graphics;
 
-import com.radirius.mercury.framework.Core;
-import com.radirius.mercury.framework.Window;
-import com.radirius.mercury.math.geometry.Matrix4f;
-import com.radirius.mercury.math.geometry.Rectangle;
-import com.radirius.mercury.math.geometry.Vector2f;
+import com.radirius.mercury.framework.*;
+import com.radirius.mercury.math.geometry.*;
 import com.radirius.mercury.utilities.GraphicsUtils;
 
 /**
  * An object for the camera.
  *
  * @author wessles
+ * @author Sri Harsha Chilakapati
  */
 public class Camera {
 	/**

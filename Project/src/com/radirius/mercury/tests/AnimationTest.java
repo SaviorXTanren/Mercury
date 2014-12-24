@@ -3,10 +3,12 @@ package com.radirius.mercury.tests;
 import com.radirius.mercury.framework.Core;
 import com.radirius.mercury.framework.CoreSetup;
 import com.radirius.mercury.graphics.*;
-import com.radirius.mercury.resource.ClasspathLocation;
 import com.radirius.mercury.resource.Loader;
 
-class AnimationTest extends Core {
+/**
+ * @author wessles
+ */
+public class AnimationTest extends Core {
 	Animation animation;
 	SpriteSheet spriteSheet;
 
@@ -24,8 +26,8 @@ class AnimationTest extends Core {
 
 	@Override
 	public void init() {
-		spriteSheet = SpriteSheet.loadSpriteSheet(Texture.loadTexture(Loader.getResourceAsStream("com/radirius/mercury/tests/animationTest.png")), 64);
-		animation = new Animation(spriteSheet, 150);
+		spriteSheet = SpriteSheet.loadSpriteSheet(Texture.loadTexture(Loader.getResourceAsStream("com/radirius/mercury/tests/animationTest.png")), 4);
+		animation = new Animation(spriteSheet, 20, true);
 	}
 
 	@Override

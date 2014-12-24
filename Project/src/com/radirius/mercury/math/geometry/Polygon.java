@@ -5,7 +5,8 @@ import com.radirius.mercury.math.MathUtil;
 /**
  * A shape with any amount of sides.
  *
- * @author wessles, Jeviny
+ * @author wessles
+ * @author Jeviny
  */
 public class Polygon extends Shape {
 	private float radius;

@@ -5,7 +5,9 @@ import com.radirius.mercury.resource.Resource;
 /**
  * A class for spritesheets.
  *
- * @author wessles, opiop65, Jeviny
+ * @author wessles
+ * @author opiop65
+ * @author Jeviny
  */
 public class SpriteSheet implements Resource {
 	private Texture baseTexture;
@@ -17,17 +19,15 @@ public class SpriteSheet implements Resource {
 	}
 
 	/**
-	 * Slices the Texture baseTexture up, cutting horizontally and vertically
-	 * every divSize length.
+	 * Slices the Texture baseTexture up, cutting horizontally and vertically every divSize length.
 	 */
 	public static SpriteSheet loadSpriteSheet(Texture baseTexture, int divSize) {
 		return loadSpriteSheet(baseTexture, divSize, divSize);
 	}
 
 	/**
-	 * Slices the Texture baseTexture up, cutting vertically every divWidth
-	 * length, and cutting horizontally every divHeight length. The sub-textures
-	 * are counted reading left to right.
+	 * Slices the Texture baseTexture up, cutting vertically every divWidth length, and cutting horizontally every
+	 * divHeight length. The sub-textures are counted reading left to right.
 	 */
 	public static SpriteSheet loadSpriteSheet(Texture baseTexture, int divWidth, int divHeight) {
 		SubTexture texture = (SubTexture) baseTexture;
@@ -48,8 +48,7 @@ public class SpriteSheet implements Resource {
 	}
 
 	/**
-	 * Returns A sprite-sheet based off of Texture baseTexture, with SubTextures
-	 * subTextures.
+	 * Returns A sprite-sheet based off of Texture baseTexture, with SubTextures subTextures.
 	 */
 	public static SpriteSheet loadSpriteSheet(Texture baseTexture, SubTexture... subTextures) {
 		return new SpriteSheet(baseTexture, subTextures);
@@ -70,6 +69,13 @@ public class SpriteSheet implements Resource {
 	}
 
 	/**
+	 * Returns The textures.
+	 */
+	public SubTexture[] getTextures() {
+		return subTextures;
+	}
+
+	/**
 	 * Returns The base texture for all SubTextures.
 	 */
 	public Texture getBaseTexture() {
@@ -77,5 +83,6 @@ public class SpriteSheet implements Resource {
 	}
 
 	@Override
-	public void clean() {}
+	public void clean() {
+	}
 }

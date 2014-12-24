@@ -16,7 +16,8 @@ import com.radirius.mercury.utilities.easing.EasingValue;
 /**
  * A base for all splash screens.
  *
- * @author wessles, Jeviny
+ * @author wessles
+ * @author Jeviny
  */
 public class SplashScreen {
 	EasingValue easingValue;

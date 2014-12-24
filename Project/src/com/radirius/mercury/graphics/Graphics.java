@@ -320,25 +320,23 @@ public class Graphics implements Initializable, Cleanable {
 	 * @param y       The y position
 	 */
 	public void drawString(String message, float scale, Font font, float x, float y) {
-		if (font instanceof TrueTypeFont) {
-			TrueTypeFont ttf = (TrueTypeFont) font;
-
 			float xCurrent = 0;
 
 			for (int i = 0; i < message.toCharArray().length; i++) {
 				if (message.toCharArray()[i] == '\n') {
-					y += ttf.getHeight() * scale;
+					y += font.getHeight() * scale;
 
 					xCurrent = 0;
+
+					continue;
 				}
 
-				TrueTypeFont.IntObject intObject = ttf.chars[message.toCharArray()[i]];
+				SubTexture subTexture = font.getFontSpriteSheet().getTexture(message.toCharArray()[i]);
 
-				batcher.drawTexture(font.getFontTexture(), new Rectangle(intObject.x, intObject.y, intObject.w, intObject.h), new Rectangle(x + xCurrent, y, intObject.w * scale, intObject.h * scale), getColor());
+				batcher.drawTexture(subTexture, new Rectangle(x + xCurrent, y, subTexture.getWidth() * scale, subTexture.getHeight() * scale), getColor());
 
-				xCurrent += intObject.w * scale;
+				xCurrent += subTexture.getWidth() * scale;
 			}
-		}
 	}
 
 	/**
@@ -553,8 +551,7 @@ public class Graphics implements Initializable, Cleanable {
 
 			// # of sides == # of vertices
 			// 3 == number of vertices in triangle
-			// 3 * # of vertices = number of vertices we
-			// need.
+			// 3 * # of vertices = number of vertices we need.
 			batcher.flushOnOverflow(3 * vertices.length);
 
 			for (int c = 0; c < vertices.length; c++) {
@@ -808,8 +805,10 @@ public class Graphics implements Initializable, Cleanable {
 
 		drawFunctionlessRectangle(new Rectangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y));
 
-		if (smoothJoints)
+		if (smoothJoints) {
 			drawShape(new Polygon(line.getVertices()[0].x, line.getVertices()[0].y, lineWidth / 2, 8));
+			drawShape(new Polygon(line.getVertices()[1].x, line.getVertices()[1].y, lineWidth / 2, 8));
+		}
 	}
 
 	@Override

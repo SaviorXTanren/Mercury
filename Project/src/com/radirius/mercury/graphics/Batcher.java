@@ -142,7 +142,7 @@ public class Batcher implements Initializable, Cleanable {
 	 */
 	public void pre() {
 		if (active) {
-			Logger.warn("Must be inactive before calling pre(); ignoring request.");
+			Logger.log(true, "Must be inactive before calling pre(); ignoring request.");
 
 			return;
 		}
@@ -155,7 +155,7 @@ public class Batcher implements Initializable, Cleanable {
 	 */
 	public void post() {
 		if (!active) {
-			Logger.warn("Must be active before calling post(); ignoring request.");
+			Logger.log(true, "Must be active before calling post(); ignoring request.");
 
 			return;
 		}
@@ -433,8 +433,7 @@ public class Batcher implements Initializable, Cleanable {
 		Color beforecolor = getColor();
 		setColor(tint);
 
-		Shape tsourceregion = new Shape(sourceRegion);
-		sourceRegion = tsourceregion;
+		sourceRegion = new Shape(sourceRegion);
 
 		// Make a hypothetical sub-texture of the texture
 		SubTexture subtexture = null;

@@ -3,7 +3,8 @@ package com.radirius.mercury.math.geometry;
 /**
  * A line class.
  *
- * @author wessles, Jeviny
+ * @author wessles
+ * @author Jeviny
  */
 public class Line extends Shape {
 	private float slope;

@@ -124,7 +124,7 @@ public abstract class Core {
 	}
 
 	/** A list of splash screens */
-	private final ArrayList<SplashScreen> splashes = new ArrayList<SplashScreen>();
+	private final ArrayList<SplashScreen> splashes = new ArrayList<>();
 
 	/** The current splash screen */
 	private int splidx = 0;
@@ -159,46 +159,46 @@ public abstract class Core {
 		
 		Loader.addLocation(new ClasspathLocation());
 		
-		Logger.warn("You're running a non-stable build of Mercury!\nIf you run into any issues, please leave an issue on GitHub or make a post on the forum.");
+		Logger.log(true, "You're running a non-stable build of Mercury!\nIf you run into any issues, please leave an issue on GitHub or make a post on the forum.");
 
 		if (coreSetup.showConsoleDebug)
-			Logger.info("Mercury Starting:");
+			Logger.log("Mercury Starting:");
 
 		if (coreSetup.showConsoleDebug)
-			Logger.info("Making Display & Graphics...");
+			Logger.log("Making Display & Graphics...");
 
 		Window.initDisplay(coreSetup.name, coreSetup.width, coreSetup.height, coreSetup.fullScreen, coreSetup.vSync);
 
 		graphics = Graphics.initGraphics();
 
 		if (coreSetup.showConsoleDebug) {
-			Logger.info("OpenGL Version: " + GL11.glGetString(GL11.GL_VERSION));
-			Logger.info("Display Mode: " + Display.getDisplayMode());
+			Logger.log("OpenGL Version: " + GL11.glGetString(GL11.GL_VERSION));
+			Logger.log("Display Mode: " + Display.getDisplayMode());
 
-			Logger.info("Initializing Graphics...");
+			Logger.log("Initializing Graphics...");
 		}
 
 		graphics.init();
 
 		if (coreSetup.showConsoleDebug)
-			Logger.info("Initializing Audio...");
+			Logger.log("Initializing Audio...");
 
 		Audio.initAudio();
 
 		if (coreSetup.showConsoleDebug)
-			Logger.info("Initializing Input...");
+			Logger.log("Initializing Input...");
 
 		Input.init();
 
 		if (coreSetup.showConsoleDebug)
-			Logger.info("Initializing Core...");
+			Logger.log("Initializing Core...");
 
 		init();
 
 		running = true;
 
 		if (coreSetup.showConsoleDebug) {
-			Logger.info("Starting Game Loop...");
+			Logger.log("Starting Game Loop...");
 			Logger.newLine();
 		}
 
@@ -222,9 +222,9 @@ public abstract class Core {
 
 			lag += elapsed;
 
-			Input.poll();
-
 			while (lag >= millisPerUpdate) {
+				Input.poll();
+
 				if (!showingSplashScreens())
 					update();
 
@@ -271,22 +271,22 @@ public abstract class Core {
 		if (coreSetup.showConsoleDebug) {
 			Logger.newLine();
 
-			Logger.info("Ending Game Loop...");
-			Logger.info("Beginning Clean Up:");
+			Logger.log("Ending Game Loop...");
+			Logger.log("Beginning Clean Up:");
 
-			Logger.info("Cleaning Up Core...");
+			Logger.log("Cleaning Up Core...");
 		}
 
 		cleanup();
 
 		if (coreSetup.showConsoleDebug)
-			Logger.info("Cleaning up Graphics...");
+			Logger.log("Cleaning up Graphics...");
 
 		graphics.cleanup();
 
 		if (coreSetup.showConsoleDebug) {
-			Logger.info("Clean Up Complete.");
-			Logger.info("Mercury Shutting Down...");
+			Logger.log("Clean Up Complete.");
+			Logger.log("Mercury Shutting Down...");
 		}
 
 		currentCore = null;

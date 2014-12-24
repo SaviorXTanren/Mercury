@@ -11,7 +11,8 @@ import com.radirius.mercury.framework.Window;
  * An object that allows you to 'draw to a texture.' Good for post-processing
  * effects.
  *
- * @author wessles, Sri Harsha Chilakapati
+ * @author wessles
+ * @author Sri Harsha Chilakapati
  */
 public class FrameBuffer {
 	private final int fboId;

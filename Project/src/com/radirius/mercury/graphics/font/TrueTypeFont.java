@@ -1,8 +1,9 @@
 package com.radirius.mercury.graphics.font;
 
-import com.radirius.mercury.graphics.Texture;
+import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.resource.Loader;
 
+import java.awt.Color;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -11,7 +12,9 @@ import java.net.URL;
 /**
  * A font type for .TTF's and .OTF's.
  *
- * @author wessles, Jeviny, Sri Harsha Chilakapati
+ * @author wessles
+ * @author Jeviny
+ * @author Sri Harsha Chilakapati
  */
 public class TrueTypeFont implements Font {
 	/**
@@ -28,11 +31,10 @@ public class TrueTypeFont implements Font {
 		ROBOTO_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.getResourceAsStream("com/radirius/mercury/graphics/font/res/Roboto-Regular.ttf"), 22f, true);
 	}
 
-	public static final int STANDARD_CHARACTERS = 256;
 	/**
 	 * All data for all characters.
 	 */
-	public final IntObject[] chars = new IntObject[STANDARD_CHARACTERS];
+	public SpriteSheet characters;
 
 	/**
 	 * Defines whether or not the text is smoothed.
@@ -42,30 +44,25 @@ public class TrueTypeFont implements Font {
 	/**
 	 * The size of the font
 	 */
-	private float fontSize = 0;
+	private float fontSize;
 
 	/**
 	 * The height of the font
 	 */
-	private float fontHeight = 0;
+	private float fontHeight;
 
 	/**
 	 * The maximum number/letter character width
 	 */
-	private float fontMaxWidth = 0;
+	private float fontMaxWidth;
 
 	/**
 	 * The average number/letter character width
 	 */
-	private float fontAverageWidth = 0;
+	private float fontAverageWidth;
 
-	/**
-	 * The overall texture used for rendering the font.
-	 */
-	private Texture fontTexture;
-
-	private int baseWidth = 0;
-	private int baseHeight = 0;
+	private int baseWidth;
+	private int baseHeight;
 
 	/**
 	 * Some AWT jargon for fonts.
@@ -169,53 +166,45 @@ public class TrueTypeFont implements Font {
 		float positionX = 0;
 		float positionY = 0;
 
-		// Loop through all standard characters (256 of
-		// them)
+		int subXs[] = new int[STANDARD_CHARACTERS], subYs[] = new int[STANDARD_CHARACTERS], subWidths[] = new int[STANDARD_CHARACTERS], subHeights[] = new int[STANDARD_CHARACTERS];
+
+		// Loop through all standard characters (256 of them)
 		for (int i = 0; i < STANDARD_CHARACTERS; i++) {
 			char ch = (char) i;
 
 			// BufferedImage for the character
 			BufferedImage fontImage = getFontImage(ch);
 
-			// New IntObject with width and height of
-			// fontImage.
-			IntObject newIntObject = new IntObject();
-			newIntObject.w = fontImage.getWidth();
-			newIntObject.h = fontImage.getHeight();
-
-			// Go to next row if there is no room on x axis.
-			if (positionX + newIntObject.w >= baseWidth) {
+			// Go to next row if there is no room on x axis
+			if (positionX + fontImage.getWidth() >= baseWidth) {
 				positionX = 0;
 				positionY += getHeight();
 			}
 
-			// Set the positions
-			newIntObject.x = positionX;
-			newIntObject.y = positionY;
-
-			// Draw the character onto the font image.
+			g.setColor(Color.BLACK);
+			// Draw the character onto the font image
 			g.drawImage(fontImage, (int) positionX, (int) positionY, null);
 
-			// Next position on x axis.
-			positionX += newIntObject.w;
+			// Set the parameters of the character at i
+			subXs[i] = (int) positionX;
+			subYs[i] = (int) positionY;
 
-			// Set the IntObject of the character
-			chars[i] = newIntObject;
+			// Next position on x axis.
+			positionX += fontImage.getWidth();
+
+			// Set the parameters of the character at i
+			subWidths[i] = fontImage.getWidth();
+			subHeights[i] = fontImage.getHeight();
 		}
 
-		// Turn black, for coloring reasons.
-		for (int x = 0; x < imgTemp.getWidth(); x++)
-			for (int y = 0; y < imgTemp.getHeight(); y++) {
-				int rgba = imgTemp.getRGB(x, y);
+		// Load texture and spritesheet.
+		Texture fontTexture = Texture.loadTexture(imgTemp, Texture.FILTER_NEAREST);
 
-				Color col = new Color(rgba, true);
-				col = new Color(255 - col.getRed(), 255 - col.getGreen(), 255 - col.getBlue(), col.getAlpha());
+		SubTexture[] characterSubs = new SubTexture[STANDARD_CHARACTERS];
+		for (int i = 0; i < characterSubs.length; i++)
+			characterSubs[i] = new SubTexture(fontTexture, subXs[i], subYs[i], subXs[i] + subWidths[i], subYs[i] + subHeights[i]);
 
-				imgTemp.setRGB(x, y, col.getRGB());
-			}
-
-		// Load texture!
-		fontTexture = Texture.loadTexture(imgTemp, Texture.FILTER_NEAREST);
+		this.characters = SpriteSheet.loadSpriteSheet(fontTexture, characterSubs);
 	}
 
 	private BufferedImage getFontImage(char ch) {
@@ -253,60 +242,25 @@ public class TrueTypeFont implements Font {
 
 		g2d.setFont(font);
 
-		// Set the text color to white, set x and y, and
-		// return to font image.
+		// Set the text color to white, set x and y, and return to font image.
 		g.setColor(Color.WHITE);
 		g2d.drawString(String.valueOf(ch), 0, fontMetrics.getAscent());
 
 		return fontImage;
 	}
 
-	@Override
-	public float getWidth(String message) {
-		float totalWidth = 0;
-		float lineWidth = 0;
-
-		IntObject intObject = null;
-
-		for (char element : message.toCharArray()) {
-			if (element < STANDARD_CHARACTERS)
-				intObject = chars[element];
-
-			if (element == '\n') {
-				totalWidth = Math.max(totalWidth, lineWidth);
-				lineWidth = 0;
-			}
-
-			if (intObject != null)
-				lineWidth += intObject.w;
-		}
-
-		totalWidth = Math.max(totalWidth, lineWidth);
-
-		return totalWidth;
-	}
-
-	@Override
-	public float getMaxWidth(int len) {
-		return len * fontMaxWidth;
-	}
-
-	@Override
-	public float getAverageWidth(int len) {
-		return len * fontAverageWidth;
-	}
-
-	@Override
-	public Font deriveFont(float size) {
+	/**
+	 * Derive another differently sized instance of this font; very resource heavy.
+	 *
+	 * @return A newly sized font
+	 */
+	public TrueTypeFont deriveFont(float size) {
 		return new TrueTypeFont(font.deriveFont(size), smooth);
 	}
 
-	@Override
-	public Font deriveFont(int style) {
-		return new TrueTypeFont(font.deriveFont(style), smooth);
-	}
-
-	@Override
+	/**
+	 * Returns the size of the font
+	 */
 	public float getSize() {
 		return fontSize;
 	}
@@ -324,26 +278,55 @@ public class TrueTypeFont implements Font {
 			if (c == '\n')
 				lines++;
 
-		return lines;
+		return lines * getHeight();
+	}
+
+	@Override
+	public float getWidth(String message) {
+		float totalWidth = 0;
+		float lineWidth = 0;
+
+		for (char element : message.toCharArray()) {
+			SubTexture characterSub = null;
+
+			if (element < STANDARD_CHARACTERS)
+				characterSub = characters.getTexture(element);
+
+			if (element == '\n') {
+				totalWidth = Math.max(totalWidth, lineWidth);
+				lineWidth = 0;
+			}
+
+			lineWidth += characterSub.getWidth();
+		}
+
+		totalWidth = Math.max(totalWidth, lineWidth);
+
+		return totalWidth;
+	}
+
+	@Override
+	public float getMaxWidth(int length) {
+		return length * fontMaxWidth;
+	}
+
+	@Override
+	public float getAverageWidth(int length) {
+		return length * fontAverageWidth;
 	}
 
 	@Override
 	public Texture getFontTexture() {
-		return fontTexture;
+		return characters.getBaseTexture();
 	}
 
 	@Override
-	public void clean() {
-		fontTexture.clean();
+	public SpriteSheet getFontSpriteSheet() {
+		return characters;
 	}
 
-	/**
-	 * An object type for storing data for each character.
-	 */
-	public static class IntObject {
-		public float w;
-		public float h;
-		public float x;
-		public float y;
+	@Override
+	public void cleanup() {
+		characters.clean();
 	}
 }

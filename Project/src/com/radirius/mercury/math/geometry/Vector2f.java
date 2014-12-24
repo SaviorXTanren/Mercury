@@ -4,6 +4,8 @@ import com.radirius.mercury.math.MathUtil;
 
 /**
  * A class for 2-dimensional vectors.
+ *
+ * @author wessles
  */
 public class Vector2f {
 	public float x = 0, y = 0;

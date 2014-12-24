@@ -6,7 +6,10 @@ import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.graphics.font.TrueTypeFont;
 import com.radirius.mercury.input.Input;
 
-class GameStateTest extends Core {
+/**
+ * @author wessles
+ */
+public class GameStateTest extends Core {
 	GameState gs0 = new GameState() {
 		@Override
 		public void render(Graphics g) {

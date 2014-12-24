@@ -1,14 +1,14 @@
 package com.radirius.mercury.tests;
 
-import com.radirius.mercury.framework.Core;
-import com.radirius.mercury.framework.CoreSetup;
-import com.radirius.mercury.graphics.Color;
-import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.framework.*;
+import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.math.geometry.Rectangle;
-import com.radirius.mercury.scene.BasicEntity;
-import com.radirius.mercury.scene.GameScene;
+import com.radirius.mercury.scene.*;
 
-class SceneGraphTest extends Core {
+/**
+ * @author wessles
+ */
+public class SceneGraphTest extends Core {
 	GameScene gameScene = new GameScene();
 
 	public SceneGraphTest(CoreSetup setup) {
@@ -27,13 +27,16 @@ class SceneGraphTest extends Core {
 	}
 
 	@Override
-	public void update() {}
+	public void update() {
+	}
 
 	@Override
-	public void render(Graphics g) {}
+	public void render(Graphics g) {
+	}
 
 	@Override
-	public void cleanup() {}
+	public void cleanup() {
+	}
 
 	private class TestEntity extends BasicEntity {
 		float t = 0;

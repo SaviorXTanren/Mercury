@@ -1,10 +1,7 @@
 package com.radirius.mercury.tests;
 
-import com.radirius.mercury.framework.Core;
-import com.radirius.mercury.framework.CoreSetup;
-import com.radirius.mercury.graphics.Color;
-import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.graphics.Texture;
+import com.radirius.mercury.framework.*;
+import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.graphics.particles.ParticleSystem;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.math.MathUtil;
@@ -36,7 +33,7 @@ public class ParticleTest extends Core {
 		ParticleSystem.ParticleSetup smokeSetup = new ParticleSystem.ParticleSetup();
 		smokeSetup.size = 64;
 		smokeSetup.texture = Texture.loadTexture(Loader.getResourceAsStream("com/radirius/mercury/tests/cloud.png"));
-		smokeSetup.color = Color.CONCRETE.duplicate();
+		smokeSetup.color = Color.WHITE.duplicate();
 		smokeSetup.color.a = 0.04f;
 
 		smokeSetup.gravity = new Vector2f(0, -0.1f);
@@ -59,5 +56,6 @@ public class ParticleTest extends Core {
 	}
 
 	@Override
-	public void cleanup() {}
+	public void cleanup() {
+	}
 }

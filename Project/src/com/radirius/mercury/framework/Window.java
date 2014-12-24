@@ -17,6 +17,8 @@ import com.radirius.mercury.resource.Loader;
 import com.radirius.mercury.utilities.logging.Logger;
 
 /**
+ * A class for the control of the Window.
+ *
  * @author wessles
  */
 public class Window {
@@ -149,7 +151,7 @@ public class Window {
 				}
 
 				if (!matchedDimensions)
-					Logger.warn("Dimensions " + width + "x" + height + " is not supported! Disabling fullscreen.");
+					Logger.log(true, "Dimensions " + width + "x" + height + " is not supported! Disabling fullscreen.");
 				else
 					Display.setFullscreen(true);
 			}

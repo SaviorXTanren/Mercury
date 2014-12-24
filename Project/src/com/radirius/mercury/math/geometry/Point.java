@@ -3,7 +3,8 @@ package com.radirius.mercury.math.geometry;
 /**
  * A point shape. No sides, just a point.
  *
- * @author wessles, Jeviny
+ * @author wessles
+ * @author Jeviny
  */
 public class Point extends Shape {
 

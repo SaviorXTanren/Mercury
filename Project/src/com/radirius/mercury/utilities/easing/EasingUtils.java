@@ -2,6 +2,8 @@ package com.radirius.mercury.utilities.easing;
 
 /**
  * A class for easing utilities.
+ *
+ * @author wessles
  */
 public class EasingUtils {
 	/**

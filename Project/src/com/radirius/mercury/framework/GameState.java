@@ -9,6 +9,7 @@ import com.radirius.mercury.utilities.misc.Updatable;
  * 'screens'.
  *
  * @author wessles
+ * @author Jeviny
  */
 public class GameState implements Updatable, Renderable {
 

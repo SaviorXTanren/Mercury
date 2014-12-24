@@ -20,7 +20,8 @@ import com.radirius.mercury.resource.Resource;
  * An object version of a texture. This will store the width and height of the
  * object.
  *
- * @author wessles, Jeviny
+ * @author wessles
+ * @author Jeviny
  */
 public class Texture implements Resource {
 	public static final int FILTER_NEAREST = GL_NEAREST, FILTER_LINEAR = GL_LINEAR;

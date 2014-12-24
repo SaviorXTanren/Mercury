@@ -9,7 +9,8 @@ import java.util.Scanner;
  * A utility class for reading tile maps from Doppler Indie Games. Credit to
  * Doppler from https://github.com/doppl3r.
  *
- * @author wessles, Jeviny
+ * @author wessles
+ * @author Jeviny
  */
 public class DopplerReader {
 	public static final int DIGITS_PER_TILE = 4;

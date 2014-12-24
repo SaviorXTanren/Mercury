@@ -3,7 +3,8 @@ package com.radirius.mercury.math;
 /**
  * A utilities class for math.
  *
- * @author wessles, Jeviny
+ * @author wessles
+ * @author Jeviny
  */
 public class MathUtil {
 	public static final float PI = 3.14159265358979323846264338327f;

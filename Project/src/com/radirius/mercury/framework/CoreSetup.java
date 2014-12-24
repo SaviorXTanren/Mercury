@@ -1,5 +1,11 @@
 package com.radirius.mercury.framework;
 
+/**
+ * A setup class for the Core.
+ *
+ * @author wessles
+ * @author Jeviny
+ */
 public class CoreSetup {
 	/** The name of the window. */
 	public String name;
@@ -29,7 +35,7 @@ public class CoreSetup {
 
 	/**
 	 * Create the CoreSetup
-	 * 
+	 *
 	 * @param name The name of the window.
 	 */
 	public CoreSetup(String name) {

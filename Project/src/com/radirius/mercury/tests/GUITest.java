@@ -6,6 +6,9 @@ import com.radirius.mercury.graphics.Color;
 import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.graphics.gui.Button;
 
+/**
+ * @author wessles
+ */
 public class GUITest extends Core {
 	public GUITest(CoreSetup setup) {
 		super(setup);

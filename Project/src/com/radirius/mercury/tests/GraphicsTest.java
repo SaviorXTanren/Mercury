@@ -1,13 +1,16 @@
 package com.radirius.mercury.tests;
 
+import com.radirius.mercury.framework.*;
+import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.graphics.font.BitmapFont;
+import com.radirius.mercury.math.MathUtil;
+import com.radirius.mercury.resource.Loader;
 import org.lwjgl.opengl.GL11;
 
-import com.radirius.mercury.framework.Core;
-import com.radirius.mercury.framework.CoreSetup;
-import com.radirius.mercury.framework.Window;
-import com.radirius.mercury.graphics.Graphics;
-
-class GraphicsTest extends Core {
+/**
+ * @author wessles
+ */
+public class GraphicsTest extends Core {
 
 	public GraphicsTest(CoreSetup setup) {
 		super(setup);
@@ -16,32 +19,35 @@ class GraphicsTest extends Core {
 	public static void main(String[] args) {
 		CoreSetup setup = new CoreSetup("Graphics Test");
 		setup.vSync = false;
-		setup.showConsoleDebug = true;
 		setup.showDebug = true;
 
 		new GraphicsTest(setup).start();
 	}
 
 	@Override
-	public void init() {}
+	public void init() {
+		getGraphics().setFont(BitmapFont.loadBitmapFont(Loader.getResourceAsStream("com/radirius/mercury/tests/bitmap.png"), 16, 16));
+	}
 
 	@Override
-	public void update() {}
+	public void update() {
+	}
+
+	int msgProgress = 0;
+	String fullMsg = "Testing BitMap fonts..\nI think it's working!";
 
 	@Override
 	public void render(Graphics g) {
-		/*
-		 * Notice that functions that previously were in the Runner can now be
-		 * accessed directly in the Core.
-		 */
-
 		addDebugData("OpenGL", GL11.glGetString(GL11.GL_VERSION));
 		addDebugData("Vertices Last Rendered", "" + getBatcher().getVerticesLastRendered());
+
+		g.drawString(fullMsg.substring(0, msgProgress += msgProgress < fullMsg.length() ? (MathUtil.chance(0.01f) ? 1 : 0) : 0), 100, 100);
 
 		getCamera().setOrigin(Window.getCenter());
 		getCamera().rotate(0.01f);
 	}
 
 	@Override
-	public void cleanup() {}
+	public void cleanup() {
+	}
 }

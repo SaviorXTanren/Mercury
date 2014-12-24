@@ -5,7 +5,8 @@ import static com.radirius.mercury.utilities.easing.EasingUtils.*;
 /**
  * An object that makes easing easier. (No Pun Intended).
  *
- * @author wessles, Jeviny
+ * @author wessles
+ * @author Jeviny
  */
 public class EasingValue {
 	public int easeType;

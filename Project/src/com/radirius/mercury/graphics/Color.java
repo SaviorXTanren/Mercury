@@ -2,6 +2,11 @@ package com.radirius.mercury.graphics;
 
 /**
  * A class for a color that will hold R, G, B, and A values.
+ *
+ * @author wessles
+ * @author Jeviny
+ * @author opiop65
+ * @author KevGlass
  */
 public class Color {
 	public static final Color TURQUOISE = new Color(26, 188, 156);
@@ -34,7 +39,7 @@ public class Color {
 	
 	public static final Color DEFAULT_DRAWING = WHITE;
 	public static final Color DEFAULT_BACKGROUND = BLACK;
-	public static final Color DEFAULT_TEXTURE_COLOR = BLACK;
+	public static final Color DEFAULT_TEXTURE_COLOR = WHITE;
 	
 	public static final Color CLEAR = new Color(0, 0, 0, 0);
 	public static final Color GRAY = GREY.duplicate();

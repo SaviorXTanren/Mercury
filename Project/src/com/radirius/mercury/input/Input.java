@@ -14,7 +14,8 @@ import com.radirius.mercury.math.geometry.Vector2f;
 /**
  * An object form of input.
  *
- * @author wessles, Jeviny
+ * @author wessles
+ * @author Jeviny
  */
 public class Input {
 	public static final int KEY_ESCAPE = 0x01;

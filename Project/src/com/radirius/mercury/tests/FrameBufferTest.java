@@ -9,7 +9,10 @@ import com.radirius.mercury.graphics.FrameBuffer;
 import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.math.geometry.Rectangle;
 
-class FrameBufferTest extends Core {
+/**
+ * @author wessles
+ */
+public class FrameBufferTest extends Core {
 	int f = 0;
 
 	Rectangle rect;

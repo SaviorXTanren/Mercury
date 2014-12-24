@@ -1,35 +1,20 @@
 package com.radirius.mercury.graphics.font;
 
-import com.radirius.mercury.graphics.Texture;
-import com.radirius.mercury.resource.Resource;
+import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.utilities.misc.Cleanable;
 
 /**
- * An abstraction for fonts.
+ * An abstraction for all font types.
  *
  * @author wessles
  */
-public interface Font extends Resource {
-	/**
-	 * Derive another differently sized instance of this font; very resource heavy.
-	 *
-	 * @return A newly sized font
-	 */
-	public Font deriveFont(float size);
+public interface Font extends Cleanable {
+
+	/** The bare-minimum amount of characters. */
+	public final static int STANDARD_CHARACTERS = 256;
 
 	/**
-	 * Derive another differently sized instance of this font; very resource heavy.
-	 *
-	 * @return A newly sized font
-	 */
-	public Font deriveFont(int style);
-
-	/**
-	 * @return The size of the font
-	 */
-	public float getSize();
-
-	/**
-	 * @return The height of the font
+	 * Returns the height of the font
 	 */
 	public float getHeight();
 
@@ -58,7 +43,12 @@ public interface Font extends Resource {
 	public float getAverageWidth(int length);
 
 	/**
-	 * @return The overall texture used for rendering the font
+	 * Returns the overall texture used for rendering the font
 	 */
 	public Texture getFontTexture();
+
+	/**
+	 * Returns the spritesheet of the characters in the font
+	 */
+	public SpriteSheet getFontSpriteSheet();
 }
