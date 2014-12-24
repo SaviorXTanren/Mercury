@@ -257,7 +257,7 @@ public class Graphics implements Initializable, Cleanable {
 		return batcher.getColor();
 	}
 
-	private Font currentFont;
+	private Font currentFont, oldFont;
 
 	/**
 	 * Sets the current font.
@@ -320,6 +320,9 @@ public class Graphics implements Initializable, Cleanable {
 	 * @param y       The y position
 	 */
 	public void drawString(String message, float scale, Font font, float x, float y) {
+		if (oldFont == null)
+			oldFont = getFont();
+		
 		if (font instanceof TrueTypeFont) {
 			TrueTypeFont ttf = (TrueTypeFont) font;
 
@@ -339,6 +342,8 @@ public class Graphics implements Initializable, Cleanable {
 				xCurrent += intObject.w * scale;
 			}
 		}
+		
+		setFont(oldFont);
 	}
 
 	/**
@@ -808,8 +813,10 @@ public class Graphics implements Initializable, Cleanable {
 
 		drawFunctionlessRectangle(new Rectangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y));
 
-		if (smoothJoints)
+		if (smoothJoints) {
 			drawShape(new Polygon(line.getVertices()[0].x, line.getVertices()[0].y, lineWidth / 2, 8));
+			drawShape(new Polygon(line.getVertices()[1].x, line.getVertices()[1].y, lineWidth / 2, 8));
+		}
 	}
 
 	@Override
