@@ -76,7 +76,7 @@
     </build>
     <distributionManagement>
         <repository>
-            <id>blha303-ftp</id>
+            <id>blha303-repo</id>
             <url>ftp://repo.blha303.biz/</url>
         </repository>
     </distributionManagement>

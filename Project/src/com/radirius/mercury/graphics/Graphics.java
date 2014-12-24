@@ -257,7 +257,7 @@ public class Graphics implements Initializable, Cleanable {
 		return batcher.getColor();
 	}
 
-	private Font currentFont;
+	private Font currentFont, oldFont;
 
 	/**
 	 * Sets the current font.
@@ -320,23 +320,28 @@ public class Graphics implements Initializable, Cleanable {
 	 * @param y       The y position
 	 */
 	public void drawString(String message, float scale, Font font, float x, float y) {
-			float xCurrent = 0;
+		if (oldFont == null)
+			oldFont = getFont();
 
-			for (int i = 0; i < message.toCharArray().length; i++) {
-				if (message.toCharArray()[i] == '\n') {
-					y += font.getHeight() * scale;
+		float xCurrent = 0;
 
-					xCurrent = 0;
+		for (int i = 0; i < message.toCharArray().length; i++) {
+			if (message.toCharArray()[i] == '\n') {
+				y += font.getHeight() * scale;
 
-					continue;
-				}
+				xCurrent = 0;
 
-				SubTexture subTexture = font.getFontSpriteSheet().getTexture(message.toCharArray()[i]);
-
-				batcher.drawTexture(subTexture, new Rectangle(x + xCurrent, y, subTexture.getWidth() * scale, subTexture.getHeight() * scale), getColor());
-
-				xCurrent += subTexture.getWidth() * scale;
+				continue;
 			}
+
+			SubTexture subTexture = font.getFontSpriteSheet().getTexture(message.toCharArray()[i]);
+
+			batcher.drawTexture(subTexture, new Rectangle(x + xCurrent, y, subTexture.getWidth() * scale, subTexture.getHeight() * scale), getColor());
+
+			xCurrent += subTexture.getWidth() * scale;
+		}
+
+		setFont(oldFont);
 	}
 
 	/**

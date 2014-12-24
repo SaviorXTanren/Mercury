@@ -1,24 +1,30 @@
 package com.radirius.mercury.graphics.gui;
 
-import com.radirius.mercury.framework.Core;
 import com.radirius.mercury.graphics.Color;
 import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.graphics.Texture;
-import com.radirius.mercury.input.Input;
+import com.radirius.mercury.graphics.font.Font;
+import com.radirius.mercury.graphics.font.TrueTypeFont;
 import com.radirius.mercury.math.geometry.Rectangle;
 
 public abstract class Button extends Component {
 	public Texture idleTexture, hoverTexture, clickTexture;
 	public String message = "";
+	public Font drawFont;
 
 	public Button(String message, float x, float y) {
-		this(message, new Rectangle(x - 16, y - 8, Core.getCurrentCore().getGraphics().getFont().getWidth(message) + 16, Core.getCurrentCore().getGraphics().getFont().getHeight() + 8));
+		this(message, new Rectangle(x - 16, y - 8, TrueTypeFont.ROBOTO_REGULAR.getWidth(message) + 16, TrueTypeFont.ROBOTO_REGULAR.getHeight() + 8));
 	}
 
 	public Button(String message, Rectangle boundaries) {
+		this(message, TrueTypeFont.ROBOTO_REGULAR, boundaries);
+	}
+
+	public Button(String message, Font drawFont, Rectangle boundaries) {
 		super(boundaries);
 
 		this.message = message;
+		this.drawFont = drawFont;
 		
 		addDefaultActionCheck();
 	}
@@ -28,9 +34,14 @@ public abstract class Button extends Component {
 	}
 
 	public Button(String message, Texture idleTexture, Texture hoverTexture, Texture clickTexture, Rectangle boundaries) {
+		this(message, TrueTypeFont.ROBOTO_REGULAR, idleTexture, hoverTexture, clickTexture, boundaries);
+	}
+
+	public Button(String message, Font drawFont, Texture idleTexture, Texture hoverTexture, Texture clickTexture, Rectangle boundaries) {
 		super(boundaries);
 
 		this.message = message;
+		this.drawFont = drawFont;
 		this.idleTexture = idleTexture;
 		this.hoverTexture = hoverTexture;
 		this.clickTexture = clickTexture;
@@ -53,13 +64,14 @@ public abstract class Button extends Component {
 			else if (state == CLICKED)
 				g.drawTexture(clickTexture, boundaries);
 		} else {
+			g.setFont(drawFont);
 			g.setLineWidth(8);
 
-			if (state == IDLE || state == CLICKED) {
+			if (state == IDLE) {
 				g.setColor(new Color(39, 174, 96));
 				g.drawRectangle(boundaries);
 				g.traceRectangle(boundaries);
-			} else if (state == HOVERED) {
+			} else if (state == HOVERED || state == CLICKED) {
 				g.setColor(new Color(46, 204, 113));
 				g.drawRectangle(boundaries);
 				g.traceRectangle(boundaries);
