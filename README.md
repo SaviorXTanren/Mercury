@@ -1,8 +1,8 @@
 ![Mercury](http://jeviny.pw/junk/MercuryLogoOctober2014.png)  
 
-Mercury is a small game library designed to simplify the complex and shorten the tedious for both the beginning and the experienced. With it, you can use the best aspects of OpenGL in a super easy and organized way that is optimized for game programming. It's mainly built around the concept that beginners and newcomers to game development should be able to start with the basics and then move up onto a more complex plane of development with the veterans, all on the same platform.  
+Mercury is a game library designed to simplify the complex and shorten the tedious for both the beginning and the experienced. With it, you can make use of the best aspects of OpenGL in an easy and organized way optimized for game development. It's built so that both beginners and newcomers to game development are able to start with the basics and then move up onto a more complex plane of development with the veterans on the same platform.  
 
-Mercury puts all of its effort into keeping things short and simple. The initial setup of a game consists only of making a single class; then you are done. The interface is entirely documented for easy and fast learning. Once you get started, there is nothing between you and your killer game except coding and creativity. 
+Mercury sticks to keeping things short and simple. The initial setup of a game consists only of making a single class; then you are done. The interface is entirely documented for easy and fast learning. Once you get started, there is nothing between you and your killer game except coding and creativity. 
 
 Mercury is entirely built around the wishes of its users, so please do not hesitate to suggest and critique!
 
@@ -10,12 +10,12 @@ Mercury is entirely built around the wishes of its users, so please do not hesit
 **[Official Website](http://mercurylib.com/)**  
 **[Community Forum](http://mercurylib.com/forum)**  
 **[Documentation](http://htmlpreview.github.io/?https://raw.githubusercontent.com/Radirius/Mercury/master/Project/target/site/apidocs/index.html)**  
-**[Wiki + Guides](https://github.com/Radirius/Mercury/wiki/)**  
+**[Guide](https://github.com/Radirius/Mercury/wiki/)**  
 
-We also have an [IRC Channel](http://webchat.esper.net/?channels=#Mercury) that you can visit to ask questions, talk about the library, and just chat! (#Mercury on irc.esper.net)
+We also have an [IRC Channel](http://webchat.esper.net/?channels=#Mercury) that you can visit to ask questions, talk about the library, and just chat! (`#Mercury` on `irc.esper.net`)
 
 ## Features
-Mercury comes packed with just enough features built in to it to ensure that the games you make with Mercury are brilliant. These features include, but aren't limited to: a particle engine, hardware-accelerated OpenGL graphics, image post-processing, geometry, various audio capabilities, and a simple GUI toolkit that allows for the easy creation of graphical user interfaces. There will also be many others to come.
+Mercury comes packed with just enough features built in to it to ensure that your games are brilliant, yet lightweight. These features include, but aren't limited to: a particle engine, hardware-accelerated OpenGL graphics, image post-processing, geometry, various audio capabilities, and a simple GUI toolkit that allows for the easy creation of graphical user interfaces. There are/will be others.
 
 ## Report Bugs
 You can report any problems you find in the library using the [Github Issue Tracker](https://github.com/Radirius/Mercury/issues).
