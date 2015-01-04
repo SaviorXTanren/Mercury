@@ -430,7 +430,7 @@ public class Batcher implements Initializable, Cleanable {
 		if (region.getVertices().length != sourceRegion.getVertices().length)
 			throw new IllegalArgumentException("The source region and the region must have an equal amount of vertices.");
 
-		Color beforecolor = getColor();
+		Color beforeColor = getColor();
 		setColor(tint);
 
 		sourceRegion = new Shape(sourceRegion);
@@ -498,7 +498,7 @@ public class Batcher implements Initializable, Cleanable {
 			}
 		}
 
-		setColor(beforecolor);
+		setColor(beforeColor);
 	}
 
 	/**
@@ -572,7 +572,7 @@ public class Batcher implements Initializable, Cleanable {
 	}
 
 	/**
-	 * Calls flush() if allocate's amount of vertices exceed the limit. If you
+	 * Calls flush() if allocated amount of vertices exceed the limit. If you
 	 * don't call this before you draw one or more shapes, it could result in a
 	 * shape being split into two data flushes.
 	 *

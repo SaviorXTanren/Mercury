@@ -11,10 +11,11 @@ import com.radirius.mercury.math.MathUtil;
  * of textures.
  *
  * @author wessles
+ * @author Sri Harsha Chilakapati
  */
 public class ImageUtil {
 	public static BufferedImage flip(BufferedImage image, boolean x, boolean y) {
-		// Flip the bufferedimage
+		// Flip the BufferedImage
 		if (x || y) {
 			AffineTransform tx = new AffineTransform();
 			tx.scale(x ? -1 : 1, y ? -1 : 1);
@@ -24,11 +25,11 @@ public class ImageUtil {
 			return op.filter(image, null);
 		}
 
-		return null;
+		return image;
 	}
 
 	public static BufferedImage rotate(BufferedImage image, float rot) {
-		// Rotate the bufferedimage
+		// Rotate the BufferedImage
 		if (rot != 0) {
 			rot *= -1;
 			rot -= 90;
@@ -40,6 +41,6 @@ public class ImageUtil {
 			return op.filter(image, null);
 		}
 
-		return null;
+		return image;
 	}
 }

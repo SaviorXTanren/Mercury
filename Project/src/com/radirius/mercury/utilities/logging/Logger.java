@@ -7,6 +7,7 @@ import java.io.PrintStream;
  *
  * @author wessles
  * @author Jeviny
+ * @author Sri Harsha Chilakapati
  */
 public class Logger {
 	/**
@@ -24,7 +25,7 @@ public class Logger {
 	/**
 	 * Logs a message.
 	 */
-	public static void log(boolean warn, Object[] object) {
+	public static void log(boolean warn, Object... object) {
 		if (!logging)
 			return;
 
@@ -35,13 +36,6 @@ public class Logger {
 
 		PrintStream printStream = warn ? System.err : System.out;
 		printStream.println(message + "");
-	}
-
-	/**
-	 * Logs a message.
-	 */
-	public static void log(boolean warn, Object object) {
-		log(warn, new Object[]{object});
 	}
 
 	/**

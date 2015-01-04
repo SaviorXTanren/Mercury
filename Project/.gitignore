@@ -7,8 +7,13 @@ hs_err_pid*
 
 /lib/
 /*.iml
+/*.ipr
+/*.iws
+/._*
+
 target/classes
 .idea_modules/
 atlassian-ide-plugin.xml
 natives/
 /target/
+
