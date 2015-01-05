@@ -151,7 +151,7 @@ public class Window {
 				}
 
 				if (!matchedDimensions)
-					Logger.log(true, "Dimensions " + width + "x" + height + " is not supported! Disabling fullscreen.");
+					Logger.warn("Dimensions " + width + "x" + height + " is not supported! Disabling fullscreen.");
 				else
 					Display.setFullscreen(true);
 			}

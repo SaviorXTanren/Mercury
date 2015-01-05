@@ -1,14 +1,9 @@
 package com.radirius.mercury.tests;
 
-import com.radirius.mercury.framework.Core;
-import com.radirius.mercury.framework.CoreSetup;
-import com.radirius.mercury.graphics.Color;
-import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.graphics.font.Font;
-import com.radirius.mercury.graphics.font.TrueTypeFont;
-import com.radirius.mercury.graphics.gui.Button;
-import com.radirius.mercury.graphics.gui.Label;
-import com.radirius.mercury.resource.Loader;
+import com.radirius.mercury.framework.*;
+import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.graphics.wip.gui.*;
+import com.radirius.mercury.input.Input;
 import com.radirius.mercury.scene.GameScene;
 
 /**
@@ -20,37 +15,37 @@ public class GUITest extends Core {
 	public GUITest(CoreSetup setup) {
 		super(setup);
 	}
-	
-	Font test1, test2;
-	
+
+	TextBar textBar;
 	Button button;
-	Label label;
-	
-	Color backgroundCol = Color.BLACK;
 
 	@Override
 	public void init() {
 		gameScene = new GameScene();
 
-		test1 = TrueTypeFont.loadTrueTypeFont(Loader.getResourceAsStream("com/radirius/mercury/tests/test1.ttf"), 48f);
-		test2 = TrueTypeFont.loadTrueTypeFont(Loader.getResourceAsStream("com/radirius/mercury/tests/test1.ttf"), 22f);
-		
-		button = new Button("Click Me!", 72, 72) {
+		textBar = new TextBar("");
+
+		TextBar title = new TextBar("This is a title!", Color.RED);
+
+		button = new Button("Press me!") {
 			@Override
-			public void act() {
-				if (backgroundCol == Color.BLACK)
-					backgroundCol = Color.RED;
-				else
-					backgroundCol = Color.BLACK;
+			public void onMouseClick() {
+				getGraphics().setBackground(getGraphics().getBackground() == Color.YELLOW ? Color.RED : Color.YELLOW);
 			}
 
 			@Override
-			public void noAct() {}
+			public void onMouseHover() {
+				button.backgroundColor = Color.GREEN;
+			}
+
+			@Override
+			public void onNoMouseHover() {
+				button.backgroundColor = Color.CHARCOAL;
+			}
 		};
-		
-		label = new Label("A Mercury Label.", test1, 164, 128);
-		
-		gameScene.add(button, label);
+
+		textBar.addChild(title, button);
+
 		gameScene.init();
 	}
 
@@ -61,25 +56,27 @@ public class GUITest extends Core {
 
 	@Override
 	public void render(Graphics g) {
-		g.setBackground(backgroundCol);
-		
+		textBar.update();
+		textBar.render(g, 100, 100);
+
+		char nextChar = Input.getNextCharacter();
+		if (nextChar != 0)
+			textBar.message += nextChar;
+
 		gameScene.render(g);
-		
-		g.setFont(test2);
-		g.drawString("*muffled 'ayy lmao' in the distance*", 640, 480);
 	}
 
 	@Override
 	public void cleanup() {
 		gameScene.cleanup();
 	}
-	
+
 	public static void main(String[] args) {
 		CoreSetup setup = new CoreSetup("GUI Test");
 		setup.width = 1280;
 		setup.height = 720;
 		setup.showDebug = true;
-		
+
 		new GUITest(setup).start();
 	}
 }

@@ -78,7 +78,7 @@ public class ParticleSystem implements Updatable, Renderable {
 		/**
 		 * The color of the particles.
 		 */
-		public Color color = Color.DEFAULT_TEXTURE_COLOR;
+		public Color color = Color.DEFAULT_TEXTURE;
 		/**
 		 * The texture of each particle.
 		 */

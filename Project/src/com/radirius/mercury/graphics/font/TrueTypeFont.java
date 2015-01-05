@@ -2,6 +2,7 @@ package com.radirius.mercury.graphics.font;
 
 import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.resource.Loader;
+import com.radirius.mercury.utilities.logging.Logger;
 
 import java.awt.Color;
 import java.awt.*;
@@ -272,6 +273,11 @@ public class TrueTypeFont implements Font {
 
 	@Override
 	public float getHeight(String message) {
+		message = message.trim();
+
+		if (message.length() == 0)
+			return 0;
+
 		int lines = 1;
 
 		for (char c : message.toCharArray())

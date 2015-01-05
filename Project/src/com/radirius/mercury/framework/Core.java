@@ -159,7 +159,7 @@ public abstract class Core {
 		
 		Loader.addLocation(new ClasspathLocation());
 		
-		Logger.log(true, "You're running a non-stable build of Mercury!\nIf you run into any issues, please leave an issue on GitHub or make a post on the forum.");
+		Logger.warn("You're running a non-stable build of Mercury!\nIf you run into any issues, please leave an issue on GitHub or make a post on the forum.");
 
 		if (coreSetup.showConsoleDebug)
 			Logger.log("Mercury Starting:");

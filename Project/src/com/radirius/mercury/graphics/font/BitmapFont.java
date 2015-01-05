@@ -26,7 +26,7 @@ public class BitmapFont implements Font {
 	 */
 	private BitmapFont(SpriteSheet characters) {
 		if (characters.getNumberOfSubTextures() < STANDARD_CHARACTERS)
-			Logger.log(true, "Recommended to have at least " + STANDARD_CHARACTERS + " characters in a font; may encounter issues.");
+			Logger.warn("Recommended to have at least " + STANDARD_CHARACTERS + " characters in a font; may encounter issues.");
 
 		this.characters = characters;
 

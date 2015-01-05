@@ -1,9 +1,9 @@
 package com.radirius.mercury.math.geometry;
 
-import java.util.ArrayList;
-
 import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.utilities.ArrayUtils;
+
+import java.util.ArrayList;
 
 /**
  * The abstraction of all shapes.
@@ -87,8 +87,7 @@ public class Shape {
 	}
 
 	/**
-	 * @param coords The coordinates of all vertices in the shape. Will be
-	 *        parsed for every 2 values into a Vec2.
+	 * @param coords The coordinates of all vertices in the shape. Will be parsed for every 2 values into a Vec2.
 	 */
 	protected Shape(float... coords) {
 		this(ArrayUtils.getVector2fs(coords));
@@ -113,7 +112,7 @@ public class Shape {
 		// More vertices will cause more lag. Beware.
 
 		// Loop through all of the vertices!
-		for (int vertex0 = 0; vertex0 < vertices.length;) {
+		for (int vertex0 = 0; vertex0 < vertices.length; ) {
 			// The 'line1vertex1' and 'line1vertex2'
 			//
 			// For the second point, we want to make sure
@@ -136,7 +135,7 @@ public class Shape {
 			// Now, for each line in this shape, we need to
 			// test all lines in
 			// the other shape.
-			for (int vertex1 = 0; vertex1 < s.vertices.length;) {
+			for (int vertex1 = 0; vertex1 < s.vertices.length; ) {
 				Vector2f l2v1 = s.vertices[vertex1], l2v2 = s.vertices.length > 2 ? s.vertices[++vertex1 % s.vertices.length] : s.vertices[++vertex1];
 				Line l2 = new Line(l2v1, l2v2);
 
@@ -206,10 +205,8 @@ public class Shape {
 	/**
 	 * Moves all vertices to x and y.
 	 *
-	 * @param x Where every vertex should move relative to the nearest point of
-	 *        the shape on x.
-	 * @param y Where every vertex should move relative to the nearest point of
-	 *        the shape on y. Returns The Shape.
+	 * @param x Where every vertex should move relative to the nearest point of the shape on x.
+	 * @param y Where every vertex should move relative to the nearest point of the shape on y. Returns The Shape.
 	 */
 	public Shape translateTo(float x, float y) {
 		return translate(x - this.x, y - this.y);
@@ -220,8 +217,7 @@ public class Shape {
 	 *
 	 * @param xOrigin The origin's x.
 	 * @param yOrigin The origin's y.
-	 * @param angle The angle by which the object will rotate relative to the
-	 *        origin. Returns The Shape.
+	 * @param angle   The angle by which the object will rotate relative to the origin. Returns The Shape.
 	 */
 	public Shape rotate(float xOrigin, float yOrigin, float angle) {
 		if (angle == 0)
@@ -265,19 +261,16 @@ public class Shape {
 	 *
 	 * @param origx The origin's x.
 	 * @param origy The origin's y.
-	 * @param angle The angle by which the object will rotate to relative to the
-	 *        origin. Returns The Shape.
+	 * @param angle The angle by which the object will rotate to relative to the origin. Returns The Shape.
 	 */
 	public Shape rotateTo(float origx, float origy, float angle) {
 		return rotate(origx, origy, angle - rot);
 	}
 
 	/**
-	 * Rotate the object to a point in rotation relative to the center of the
-	 * object.
+	 * Rotate the object to a point in rotation relative to the center of the object.
 	 *
-	 * @param angle The angle of rotation that the object will rotate to.
-	 *        Returns The Shape.
+	 * @param angle The angle of rotation that the object will rotate to. Returns The Shape.
 	 */
 	public Shape rotateTo(float angle) {
 		return rotateTo(center.x, center.y, angle);
@@ -285,7 +278,6 @@ public class Shape {
 
 	/**
 	 * Scales a shape from a point.
-	 *
 	 * Returns The Shape.
 	 */
 	public Shape scale(Vector2f point, float scale) {
@@ -310,7 +302,6 @@ public class Shape {
 
 	/**
 	 * Scales a shape from the center of the shape.
-	 *
 	 * Returns The Shape.
 	 */
 	public Shape scale(float scale) {
@@ -319,7 +310,6 @@ public class Shape {
 
 	/**
 	 * Scales a shape from a point.
-	 *
 	 * Returns The Shape.
 	 */
 	public Shape scaleTo(Vector2f point, float scale) {
@@ -328,7 +318,6 @@ public class Shape {
 
 	/**
 	 * Scales a shape from the center of the shape.
-	 *
 	 * Returns The Shape.
 	 */
 	public Shape scaleTo(float scale) {
@@ -337,7 +326,6 @@ public class Shape {
 
 	/**
 	 * Flips the object over the y axis, relative to the mean center.
-	 *
 	 * Returns The Shape.
 	 */
 	public Shape flipX() {
@@ -351,7 +339,6 @@ public class Shape {
 
 	/**
 	 * Flips the object over the y axis, relative to the mean center.
-	 *
 	 * Returns The Shape.
 	 */
 	public Shape flipY() {
@@ -434,8 +421,7 @@ public class Shape {
 	}
 
 	/**
-	 * This method will regenerate all of the values after you directly modify
-	 * things.
+	 * This method will regenerate all of the values after you directly modify things.
 	 */
 	public void regen() {
 		x = vertices[0].x;
@@ -474,7 +460,6 @@ public class Shape {
 
 	/**
 	 * Adds a child shape.
-	 *
 	 * Returns The Shape.
 	 */
 	public Shape addChild(Shape... child) {
@@ -496,7 +481,6 @@ public class Shape {
 
 	/**
 	 * Makes me an orphan. Parent will lose me from it's ArrayList of children.
-	 *
 	 * Returns The Shape.
 	 */
 	public Shape clearParent() {
@@ -516,7 +500,6 @@ public class Shape {
 
 	/**
 	 * Sets the parent of the shape.
-	 *
 	 * Returns The Shape.
 	 */
 	public Shape setParent(Shape parent) {

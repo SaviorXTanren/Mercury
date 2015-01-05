@@ -39,7 +39,7 @@ public class Mouse extends Core {
 			cursor.scale(2f);
 
 		// Moves the cursor rectangle to the mouse's position.
-		cursor.translateTo(Input.getAbsoluteMouseX(), Input.getAbsoluteMouseY());
+		cursor.translateTo(Input.getMouseX(), Input.getMouseY());
 
 		g.drawShape(cursor);
 	}

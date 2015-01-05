@@ -7,6 +7,8 @@ import com.radirius.mercury.utilities.GraphicsUtils;
 import com.radirius.mercury.utilities.misc.*;
 import org.lwjgl.opengl.*;
 
+import java.util.Stack;
+
 import static org.lwjgl.opengl.GL11.*;
 
 /**
@@ -27,8 +29,7 @@ public class Graphics implements Initializable, Cleanable {
 
 		currentFont = TrueTypeFont.ROBOTO_REGULAR;
 
-		// Hack: Have a back-up Matrix in-case the methods
-		// are called outside a frame, such as an init method
+		// Hack: Have a back-up Matrix in-case the methods are called outside a frame, such as an init method
 		GraphicsUtils.pushMatrix();
 		getCamera().updateTransforms();
 	}
@@ -257,7 +258,7 @@ public class Graphics implements Initializable, Cleanable {
 		return batcher.getColor();
 	}
 
-	private Font currentFont, oldFont;
+	private Font currentFont;
 
 	/**
 	 * Sets the current font.
@@ -273,6 +274,50 @@ public class Graphics implements Initializable, Cleanable {
 	 */
 	public Font getFont() {
 		return currentFont;
+	}
+
+	/**
+	 * A tiny class to store the current color and font.
+	 */
+	private class GraphicsAttributes {
+		public Color color;
+		public Font font;
+		public float lineWidth;
+		public boolean smoothJoints;
+
+		public GraphicsAttributes(Color color, Font font, float lineWidth, boolean smoothJoints) {
+			this.color = color;
+			this.font = font;
+			this.lineWidth = lineWidth;
+			this.smoothJoints = smoothJoints;
+		}
+	}
+
+	/**
+	 * A stack of stored color and font attributes.
+	 */
+	private Stack<GraphicsAttributes> attributeStack = new Stack<>();
+
+	public void pushAttributes() {
+		// Copy current attributes to stack
+		attributeStack.push(new GraphicsAttributes(getColor(), getFont(), getLineWidth(), isSmoothJoints()));
+		// Default the current attributes
+		defaultAttributes();
+	}
+
+	public void popAttributes() {
+		GraphicsAttributes popped = attributeStack.pop();
+		setColor(popped.color);
+		setFont(popped.font);
+		setLineWidth(popped.lineWidth);
+		setSmoothJoints(popped.smoothJoints);
+	}
+
+	public void defaultAttributes() {
+		batcher.setColor(Color.DEFAULT_DRAWING);
+		setFont(TrueTypeFont.ROBOTO_REGULAR);
+		this.lineWidth = 1f;
+		this.smoothJoints = true;
 	}
 
 	/**
@@ -320,8 +365,7 @@ public class Graphics implements Initializable, Cleanable {
 	 * @param y       The y position
 	 */
 	public void drawString(String message, float scale, Font font, float x, float y) {
-		if (oldFont == null)
-			oldFont = getFont();
+		Font oldFont = getFont();
 
 		float xCurrent = 0;
 

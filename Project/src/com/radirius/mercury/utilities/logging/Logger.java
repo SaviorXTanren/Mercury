@@ -1,7 +1,5 @@
 package com.radirius.mercury.utilities.logging;
 
-import java.io.PrintStream;
-
 /**
  * A utility for shortening logging. This logger takes in objects to log, as opposed to a single string.
  *
@@ -24,7 +22,7 @@ public class Logger {
 	/**
 	 * Logs a message.
 	 */
-	public static void log(boolean warn, Object[] object) {
+	public static void log(Object... object) {
 		if (!logging)
 			return;
 
@@ -33,22 +31,22 @@ public class Logger {
 		for (Object obj : object)
 			message += obj.toString() + " ";
 
-		PrintStream printStream = warn ? System.err : System.out;
-		printStream.println(message + "");
+		System.out.println(message + "");
 	}
 
 	/**
-	 * Logs a message.
+	 * Warns a message.
 	 */
-	public static void log(boolean warn, Object object) {
-		log(warn, new Object[]{object});
-	}
+	public static void warn(Object... object) {
+		if (!logging)
+			return;
 
-	/**
-	 * Logs a message.
-	 */
-	public static void log(Object... object) {
-		log(false, object);
+		String message = "";
+
+		for (Object obj : object)
+			message += obj.toString() + " ";
+
+		System.err.println(message + "");
 	}
 
 	/**
