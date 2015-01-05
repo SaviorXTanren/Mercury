@@ -24,6 +24,9 @@ You can report any problems you find in the library using the [Github Issue Trac
 Don't be shy! Mercury is still in development and needs all the help it can get to grow successfully.  
 [Contribution Guide](https://github.com/Radirius/Mercury/wiki/Contribution-Guide) on the wiki.
 
+## Maven Repository
+You can use the maven repo at repo.radiri.us.
+
 ## Radirius Contact Information
 | Name                   | Mail                            | Website                                 |
 |------------------------|---------------------------------|-----------------------------------------|
