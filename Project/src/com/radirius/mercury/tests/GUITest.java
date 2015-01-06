@@ -2,6 +2,7 @@ package com.radirius.mercury.tests;
 
 import com.radirius.mercury.framework.*;
 import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.graphics.font.TrueTypeFont;
 import com.radirius.mercury.graphics.wip.gui.*;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.scene.GameScene;
@@ -16,18 +17,22 @@ public class GUITest extends Core {
 		super(setup);
 	}
 
-	TextBar textBar;
-	Button button;
+	TextBar title;
 
 	@Override
 	public void init() {
 		gameScene = new GameScene();
 
-		textBar = new TextBar("");
+		title = new TextBar("This is a title!", Color.OCEAN_BLUE);
 
-		TextBar title = new TextBar("This is a title!", Color.RED);
+		TextBar textBar0 = new TextBar("This is a little sub-text. See that button below?");
+		textBar0.font = ((TrueTypeFont)title.font).deriveFont(15f);
 
-		button = new Button("Press me!") {
+		TextBar textBar1 = new TextBar("More sub-text. And guess what lies below my magnificance?");
+		textBar1.font = ((TrueTypeFont)title.font).deriveFont(15f);
+
+		title.addChild(textBar0, textBar1);
+		textBar0.addChild(new Button("Press me!") {
 			@Override
 			public void onMouseClick() {
 				getGraphics().setBackground(getGraphics().getBackground() == Color.YELLOW ? Color.RED : Color.YELLOW);
@@ -35,16 +40,30 @@ public class GUITest extends Core {
 
 			@Override
 			public void onMouseHover() {
-				button.backgroundColor = Color.GREEN;
+				this.backgroundColor = Color.GREEN;
 			}
 
 			@Override
 			public void onNoMouseHover() {
-				button.backgroundColor = Color.CHARCOAL;
+				this.backgroundColor = Color.CHARCOAL;
 			}
-		};
+		});
+		textBar1.addChild(new Button("Press me!") {
+			@Override
+			public void onMouseClick() {
+				getGraphics().setBackground(getGraphics().getBackground() == Color.YELLOW ? Color.RED : Color.YELLOW);
+			}
 
-		textBar.addChild(title, button);
+			@Override
+			public void onMouseHover() {
+				this.backgroundColor = Color.GREEN;
+			}
+
+			@Override
+			public void onNoMouseHover() {
+				this.backgroundColor = Color.CHARCOAL;
+			}
+		});
 
 		gameScene.init();
 	}
@@ -56,12 +75,8 @@ public class GUITest extends Core {
 
 	@Override
 	public void render(Graphics g) {
-		textBar.update();
-		textBar.render(g, 100, 100);
-
-		char nextChar = Input.getNextCharacter();
-		if (nextChar != 0)
-			textBar.message += nextChar;
+		title.update();
+		title.render(g, 100, 100);
 
 		gameScene.render(g);
 	}

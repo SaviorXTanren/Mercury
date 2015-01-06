@@ -4,6 +4,7 @@ import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.graphics.font.*;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.math.geometry.*;
+import com.radirius.mercury.utilities.logging.Logger;
 import com.radirius.mercury.utilities.misc.Updatable;
 
 import java.util.ArrayList;
@@ -29,7 +30,14 @@ public class Component implements Updatable {
 
 	/** The different types of backgrounds. */
 	public static enum BackgroundType {
-		noBackground, coloredBackground, texturedBackground, tintedTexturedBackground
+		/** Will display no background. */
+		noBackground,
+		/** Will display a background of a certain color. */
+		coloredBackground,
+		/** Will display a texture as its background. */
+		texturedBackground,
+		/** Will display a texture (tinted to the background color) as its background. */
+		tintedTexturedBackground
 	}
 
 	/** The type of background. */
@@ -41,7 +49,12 @@ public class Component implements Updatable {
 
 	/** The different types of borders. */
 	public static enum BorderType {
-		noBorder, border, smoothBorder
+		/** No border at all */
+		noBorder,
+		/** A rectangular border */
+		border,
+		/** A smoothed rectangular border */
+		smoothBorder
 	}
 
 	/** The type of border. */
@@ -62,6 +75,20 @@ public class Component implements Updatable {
 	public float marginLeft, marginRight, marginUp, marginDown;
 	/** Padding. */
 	public float paddingLeft, paddingRight, paddingUp, paddingDown;
+
+	/** The way the component will sort under its parent. */
+	public static enum ComponentType {
+		/** This option will make this component take up a line. */
+		div,
+		/**
+		 * This option will make this component continue horizontally unless it runs out of horizontal space, in which
+		 * case it goes to the next line.
+		 */
+		span
+	}
+
+	/** The way the component will sort under its parent. */
+	public ComponentType componentType = ComponentType.div;
 
 	/** Children components. */
 	public ArrayList<Component> children = new ArrayList<>();
@@ -186,8 +213,8 @@ public class Component implements Updatable {
 	}
 
 	/**
-	 * The Generic Recursive Component renderer (the GRC, for short). It will render every type of component, as well as
-	 * its children, relying only on the options of the component(s).
+	 * The generic component renderer. It will render every type of component, as well as its children, relying only on
+	 * the options of the component(s).
 	 *
 	 * @param g The graphics object.
 	 * @param x The x position of the component
@@ -261,7 +288,7 @@ public class Component implements Updatable {
 			float componentHeight = component.getTotalHeight(componentMessage);
 
 			// If this string will go over the cutoff
-			if (cx + componentWidth > contentWidth) {
+			if (cx + componentWidth > contentWidth || component.componentType == ComponentType.div) {
 				// Go down a line
 				cx = 0;
 				cy += maxHeightThisLine;
@@ -352,14 +379,7 @@ public class Component implements Updatable {
 	}
 
 	protected Vector2f getChildrenSize() {
-		float totalWidth = 0, maxHeight = 0;
-
-		for (Component component : children) {
-			totalWidth += component.getTotalWidth();
-			maxHeight = Math.max(component.getTotalHeight(), maxHeight);
-		}
-
-		return new Vector2f(totalWidth, maxHeight);
+		return getChildrenSize(Float.MAX_VALUE);
 	}
 
 	protected Vector2f getChildrenSize(float cutoffWidth) {
@@ -375,25 +395,25 @@ public class Component implements Updatable {
 			float componentHeight = component.getTotalHeight(componentMessage);
 
 			// If this string will go over the cutoff
-			if (x + componentWidth > cutoffWidth) {
+			if (x + componentWidth > cutoffWidth || component.componentType == ComponentType.div) {
 				// Go down a line
-				childrenWidth = Math.max(x, childrenWidth);
 				x = 0;
 				y += maxHeightThisLine;
 				maxHeightThisLine = 0;
 			}
 
 			x += componentWidth;
+			childrenWidth = Math.max(x, childrenWidth);
 			maxHeightThisLine = Math.max(componentHeight, maxHeightThisLine);
 		}
 		childrenWidth = Math.max(x, childrenWidth);
-		childrenHeight = y + maxHeightThisLine;
+		childrenHeight = y+maxHeightThisLine;
 
 		return new Vector2f(childrenWidth, childrenHeight);
 	}
 
 	private Rectangle bodyBounds = new Rectangle(0, 0, 0, 0);
-	;
+
 
 	public Rectangle getBodyBounds() {
 		return bodyBounds;
