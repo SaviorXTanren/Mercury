@@ -25,7 +25,7 @@ Don't be shy! Mercury is still in development and needs all the help it can get 
 [Contribution Guide](https://github.com/Radirius/Mercury/wiki/Contribution-Guide) on the wiki.
 
 ## Maven Repository
-You can use the maven repo at [repo.radiri.us](http://repo.radiri.us/).
+You can use the maven repo at [repo.radiri.us](http://repo.radiri.us/com/radirius/mercury/Mercury/).
 
 ## Radirius Contact Information
 | Name                   | Mail                            | Website                                 |
