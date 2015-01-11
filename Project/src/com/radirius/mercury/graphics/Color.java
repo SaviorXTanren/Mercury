@@ -39,7 +39,7 @@ public class Color {
 	
 	public static final Color DEFAULT_DRAWING = WHITE;
 	public static final Color DEFAULT_BACKGROUND = BLACK;
-	public static final Color DEFAULT_TEXTURE = WHITE;
+	public static final Color DEFAULT_TEXTURE = BLACK;
 	
 	public static final Color CLEAR = new Color(0, 0, 0, 0);
 	public static final Color GRAY = GREY.duplicate();
