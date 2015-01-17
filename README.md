@@ -9,8 +9,7 @@ Mercury sticks to keeping things short and simple. The initial setup of a game c
 Mercury is entirely built around the wishes of its users, so please do not hesitate to suggest and critique!
 
 ## Links
-**[Official Website](http://mercurylib.com/)** - **[Community Forum](http://mercurylib.com/forum)**  
-**[Documentation](http://htmlpreview.github.io/?https://raw.githubusercontent.com/Radirius/Mercury/master/Project/out/site/apidocs/index.html)** - **[Wiki/Guides](https://github.com/Radirius/Mercury/wiki/)**  
+**[Official Website](http://mercurylib.com/)** - **[Community Forum](http://mercurylib.com/forum)** - **[Documentation](http://htmlpreview.github.io/?https://raw.githubusercontent.com/Radirius/Mercury/master/Project/out/site/apidocs/index.html)** - **[Wiki/Guides](https://github.com/Radirius/Mercury/wiki/)**  
 
 We also have an [IRC Channel](http://webchat.esper.net/?channels=#Mercury) that you can visit to ask questions, talk about the library, and just chat! (`#Mercury` on `irc.esper.net`)
 
