@@ -2,7 +2,7 @@
 
 ## About
 
-Mercury is a game library designed to simplify the complex and shorten the tedious for both the beginning and the experienced. With it, you can make use of OpenGL in an easy and organized way optimized for game development. It's built so that both beginners and newcomers to game development are able to start with the basics and then move up onto a more complex plane of development with the veterans, on the same platform.  
+Mercury is a game library designed to simplify the complex and shorten the tedious for both the beginning and the experienced. With it, you can make use of OpenGL in an easy and organized way optimized for game development. It's built so that both beginners and newcomers to game development can to start with the basics and then move up onto a more complex plane of development with the veterans, all on the same platform. We believe that game development is something everybody should be able to do with ease, and that's what this project aims to help with.
 
 Mercury sticks to keeping things short and simple. The initial setup of a game consists only of making a single class; then you are done. The interface is entirely documented for easy and fast learning. Once you get started, there is nothing between you and your killer game except coding and creativity. 
 
@@ -21,7 +21,7 @@ You can report any problems you find in the library using the [Github Issue Trac
 
 ## Contribute
 Don't be shy! Mercury is still in development and needs all the help it can get to grow successfully.  
-[Contribution Guide](https://github.com/Radirius/Mercury/wiki/Contribution-Guide) on the wiki.
+Read the [Contribution Guide](https://github.com/Radirius/Mercury/wiki/Contribution-Guide) on the wiki to begin contributing.
 
 ## Maven Repository
 You can use the maven repo at [repo.radiri.us](http://repo.radiri.us/com/radirius/mercury/Mercury/).
