@@ -156,6 +156,8 @@ public class Batcher implements Initializable, Cleanable, Usable {
 			return;
 		}
 
+		Shader.DEFAULT_SHADER.bind();
+
 		active = true;
 	}
 

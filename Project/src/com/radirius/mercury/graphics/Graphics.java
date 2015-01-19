@@ -406,7 +406,7 @@ public class Graphics implements Initializable, Cleanable {
 	 * @param y       The y position
 	 */
 	public void drawString(String message, float scale, Font font, float x, float y) {
-		drawString(message, scale, font, x, y, Color.DEFAULT_TEXTURE);
+		drawString(message, scale, font, x, y, Color.DEFAULT_DRAWING);
 	}
 
 	/**
@@ -526,7 +526,7 @@ public class Graphics implements Initializable, Cleanable {
 	 * @param y       The y position
 	 */
 	public void drawCenteredString(String message, float scale, Font font, float x, float y) {
-		drawCenteredString(message, scale, font, x, y, Color.DEFAULT_TEXTURE);
+		drawCenteredString(message, scale, font, x, y, Color.DEFAULT_DRAWING);
 	}
 
 	/**

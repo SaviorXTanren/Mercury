@@ -75,9 +75,6 @@ public class GUITest extends Core {
 
 	@Override
 	public void render(Graphics g) {
-		g.drawRectangle(0,0,
-				100,100);
-
 		title.update();
 		title.render(g, 100, 100);
 
