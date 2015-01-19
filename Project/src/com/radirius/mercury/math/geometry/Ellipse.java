@@ -16,8 +16,8 @@ public class Ellipse extends Polygon {
 	public float radx, rady;
 
 	/**
-	 * @param x The x position of the center.
-	 * @param y The y position of the center.
+	 * @param x    The x position of the center.
+	 * @param y    The y position of the center.
 	 * @param radx The radius of the circle in the x axis.
 	 * @param rady The radius of the circle in the y axis.
 	 */

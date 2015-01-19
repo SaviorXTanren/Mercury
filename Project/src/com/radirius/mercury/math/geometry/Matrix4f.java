@@ -1,8 +1,8 @@
 package com.radirius.mercury.math.geometry;
 
-import java.nio.FloatBuffer;
-
 import com.radirius.mercury.utilities.GraphicsUtils;
+
+import java.nio.FloatBuffer;
 
 /**
  * A simple Matrix4f class to use in shaders and simple transformations like
@@ -30,7 +30,7 @@ public class Matrix4f {
 
 	/**
 	 * Initializes the matrix to Identity matrix
-	 *
+	 * <p/>
 	 * Returns This matrix for chaining operations
 	 */
 	public Matrix4f initIdentity() {
@@ -45,7 +45,7 @@ public class Matrix4f {
 
 	/**
 	 * Initializes the matrix to Zero matrix
-	 *
+	 * <p/>
 	 * Returns This matrix for chaining operations
 	 */
 	public Matrix4f initZero() {
@@ -77,7 +77,7 @@ public class Matrix4f {
 	 * Performs matrix addition between two matrices
 	 *
 	 * @param m The matrix to add to this Returns This matrix for chaining
-	 *        operations
+	 *          operations
 	 */
 	public Matrix4f add(Matrix4f m) {
 		for (int i = 0; i < 4; i++) {
@@ -93,7 +93,7 @@ public class Matrix4f {
 	 * Performs matrix subtraction between two matrices
 	 *
 	 * @param m The matrix to subtract from this Returns This matrix for
-	 *        chaining operations
+	 *          chaining operations
 	 */
 	public Matrix4f sub(Matrix4f m) {
 		for (int i = 0; i < 4; i++) {
@@ -109,7 +109,7 @@ public class Matrix4f {
 	 * Performs matrix multiplication between two matrices
 	 *
 	 * @param m The matrix to multiply with this Returns This matrix for
-	 *        chaining operations
+	 *          chaining operations
 	 */
 	public Matrix4f mul(Matrix4f m) {
 		float temp[][] = new float[4][4];
@@ -129,7 +129,7 @@ public class Matrix4f {
 
 	/**
 	 * Initializes this matrix into a rotation matrix over z-axis
-	 *
+	 * <p/>
 	 * Returns This matrix for chaining operations
 	 */
 	public Matrix4f initRotation(float rz) {
@@ -148,7 +148,7 @@ public class Matrix4f {
 
 	/**
 	 * Initializes this matrix into a scaling matrix
-	 *
+	 * <p/>
 	 * Returns This matrix for chaining operations
 	 */
 	public Matrix4f initScale(float sx, float sy) {
@@ -162,7 +162,7 @@ public class Matrix4f {
 
 	/**
 	 * Initializes this matrix into a scaling matrix
-	 *
+	 * <p/>
 	 * Returns This matrix for chaining operations
 	 */
 	public Matrix4f initScale(float s) {
@@ -171,7 +171,7 @@ public class Matrix4f {
 
 	/**
 	 * Initializes this matrix into a translation matrix
-	 *
+	 * <p/>
 	 * Returns This matrix for chaining operations
 	 */
 	public Matrix4f initTranslation(float tx, float ty) {
@@ -187,13 +187,13 @@ public class Matrix4f {
 	 * Initializes this matrix into a transformation matrix, which transforms
 	 * the vertices into orthographic projection.
 	 *
-	 * @param left The left most coordinate of the Display
-	 * @param right The right most coordinate of the Display
+	 * @param left   The left most coordinate of the Display
+	 * @param right  The right most coordinate of the Display
 	 * @param bottom The bottom most coordinate of the Display
-	 * @param top The top most coordinate of the Display
-	 * @param zNear The near depth clipping plane
-	 * @param zFar The far depth clipping plane Returns This matrix for chaining
-	 *        operations
+	 * @param top    The top most coordinate of the Display
+	 * @param zNear  The near depth clipping plane
+	 * @param zFar   The far depth clipping plane Returns This matrix for chaining
+	 *               operations
 	 */
 	public Matrix4f initOrtho(float left, float right, float bottom, float top, float zNear, float zFar) {
 		initIdentity();
@@ -219,7 +219,7 @@ public class Matrix4f {
 	 *
 	 * @param x The row of the matrix
 	 * @param y The column of the matrix Returns The value at [x][y] in the
-	 *        matrix
+	 *          matrix
 	 */
 	public float get(int x, int y) {
 		return m[x][y];
@@ -228,8 +228,8 @@ public class Matrix4f {
 	/**
 	 * Sets a value in this matrix at a specific row and column
 	 *
-	 * @param x The row of the matrix
-	 * @param y The column of the matrix
+	 * @param x   The row of the matrix
+	 * @param y   The column of the matrix
 	 * @param val The value to be set Returns This matrix for sizing operations
 	 */
 	public Matrix4f set(int x, int y, float val) {
@@ -242,7 +242,7 @@ public class Matrix4f {
 	 * Sets the elements in this matrix to the elements of another matrix.
 	 *
 	 * @param m The source matrix whose matrix to copy. Returns This matrix for
-	 *        chaining operations
+	 *          chaining operations
 	 */
 	public Matrix4f setTo(Matrix4f m) {
 		for (int i = 0; i < 4; i++) {

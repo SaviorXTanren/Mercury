@@ -1,10 +1,9 @@
 package com.radirius.mercury.utilities;
 
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-
 import com.radirius.mercury.math.MathUtil;
+
+import java.awt.geom.AffineTransform;
+import java.awt.image.*;
 
 /**
  * A utility for modifying BufferedImages. Can be used to modify source images

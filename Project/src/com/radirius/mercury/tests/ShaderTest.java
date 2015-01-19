@@ -1,9 +1,7 @@
 package com.radirius.mercury.tests;
 
-import com.radirius.mercury.framework.Core;
-import com.radirius.mercury.framework.CoreSetup;
-import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.graphics.Shader;
+import com.radirius.mercury.framework.*;
+import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.math.geometry.Rectangle;
 
 /**
@@ -34,18 +32,17 @@ public class ShaderTest extends Core {
 	}
 
 	@Override
-	public void update() {}
+	public void update() {
+	}
 
 	@Override
 	public void render(Graphics g) {
 		// Use the shader
-		g.getBatcher().setShader(shader);
+		shader.bind();
 		shader.setUniformf("u_color", 1, 0, 0, 1); // Red color
 
 		// Draw the rectangle
 		g.drawRectangle(rect);
-
-		g.getBatcher().clearShaders();
 	}
 
 	@Override

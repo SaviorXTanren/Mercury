@@ -14,9 +14,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” 
 
 package com.radirius.mercury.audio;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.ByteBuffer;
 
 /**
@@ -29,7 +27,7 @@ public class OGGDecoder {
 	 * Get the data out of an OGG file
 	 *
 	 * @param input The input stream from which to read the OGG file Returns The
-	 *        data describing the OGG thats been read
+	 *              data describing the OGG thats been read
 	 * @throws IOException Indicates a failure to read the OGG file
 	 */
 	public OGGData getData(InputStream input) throws IOException {

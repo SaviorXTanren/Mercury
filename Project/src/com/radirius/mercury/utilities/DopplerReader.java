@@ -1,7 +1,6 @@
 package com.radirius.mercury.utilities;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -19,7 +18,7 @@ public class DopplerReader {
 	 * Returns A 2D array representing what the map file contains. Each integer
 	 * is stored result[x][y].
 	 */
-	public static int[][] getTiles(URL in) throws IOException {
+	public static int[][] getTilesValues(URL in) throws IOException {
 		int[] dimensions = readDimensions(in.openStream());
 		int width = dimensions[0], height = dimensions[1];
 
@@ -45,7 +44,7 @@ public class DopplerReader {
 
 		scanner.close();
 
-		return new int[] { width, height };
+		return new int[]{width, height};
 	}
 
 	private static int[][] readData(int width, int height, InputStream in) {

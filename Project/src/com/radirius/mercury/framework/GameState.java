@@ -1,8 +1,7 @@
 package com.radirius.mercury.framework;
 
 import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.utilities.misc.Renderable;
-import com.radirius.mercury.utilities.misc.Updatable;
+import com.radirius.mercury.utilities.misc.*;
 
 /**
  * A class that allows the dividing of a game into different 'states' or
@@ -16,16 +15,20 @@ public class GameState implements Updatable, Renderable {
 	/**
 	 * Executed when the GameState is entered.
 	 */
-	public void onEnter() {}
+	public void onEnter() {
+	}
 
 	/**
 	 * Executed when a different GameState is left.
 	 */
-	public void onLeave() {}
+	public void onLeave() {
+	}
 
 	@Override
-	public void update() {}
+	public void update() {
+	}
 
 	@Override
-	public void render(Graphics g) {}
+	public void render(Graphics g) {
+	}
 }

@@ -10,11 +10,11 @@ public class Star extends Polygon {
 	 * Creates a new star taking in the center x/y positions, the inner/outer
 	 * radius and number of sides.
 	 *
-	 * @param xCenter The center x position.
-	 * @param yCenter The center y position.
+	 * @param xCenter     The center x position.
+	 * @param yCenter     The center y position.
 	 * @param innerRadius The inner radius of the star.
 	 * @param outerRadius The outer radius of the star.
-	 * @param numSides The number of sides on the star.
+	 * @param numSides    The number of sides on the star.
 	 */
 	public Star(float xCenter, float yCenter, float innerRadius, float outerRadius, int numSides) {
 		this(xCenter, yCenter, innerRadius, innerRadius, outerRadius, outerRadius, numSides);
@@ -24,13 +24,13 @@ public class Star extends Polygon {
 	 * Creates a new star taking in the center x/y positions, the x/y
 	 * inner/outer radius and number of sides.
 	 *
-	 * @param xCenter The center x position.
-	 * @param yCenter The center y position.
+	 * @param xCenter      The center x position.
+	 * @param yCenter      The center y position.
 	 * @param innerXRadius The inner x radius of the star.
 	 * @param innerYRadius The inner y radius of the star.
 	 * @param outerXRadius The outer x radius of the star.
 	 * @param outerYRadius The outer y radius of the star.
-	 * @param numSides The number of sides on the star.
+	 * @param numSides     The number of sides on the star.
 	 */
 	public Star(float xCenter, float yCenter, float innerXRadius, float innerYRadius, float outerXRadius, float outerYRadius, int numSides) {
 		super(xCenter, yCenter, innerXRadius, innerYRadius, numSides);

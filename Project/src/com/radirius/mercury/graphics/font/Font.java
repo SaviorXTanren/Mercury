@@ -10,8 +10,15 @@ import com.radirius.mercury.utilities.misc.Cleanable;
  */
 public interface Font extends Cleanable {
 
-	/** The bare-minimum amount of characters. */
+	/**
+	 * The bare-minimum amount of characters.
+	 */
 	public final static int STANDARD_CHARACTERS = 256;
+
+	/**
+	 * A margin for preventing texture bleeding.
+	 */
+	public static int ANTI_TEXTURE_BLEEDING_MARGIN = 2;
 
 	/**
 	 * Returns the height of the font

@@ -1,11 +1,9 @@
 package com.radirius.mercury.utilities;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.util.Stack;
-
 import com.radirius.mercury.math.geometry.Matrix4f;
+
+import java.nio.*;
+import java.util.Stack;
 
 /**
  * A simple Utility class for the Graphics engine which contains some utility

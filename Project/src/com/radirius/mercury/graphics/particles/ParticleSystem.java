@@ -1,12 +1,9 @@
 package com.radirius.mercury.graphics.particles;
 
-import com.radirius.mercury.graphics.Color;
-import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.graphics.Texture;
+import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.math.geometry.Vector2f;
 import com.radirius.mercury.utilities.WipingArrayList;
-import com.radirius.mercury.utilities.misc.Renderable;
-import com.radirius.mercury.utilities.misc.Updatable;
+import com.radirius.mercury.utilities.misc.*;
 
 /**
  * An object that simulates a mass of particles.
@@ -39,7 +36,7 @@ public class ParticleSystem implements Updatable, Renderable {
 	 * Generates new particles launching at random angles.
 	 *
 	 * @param amount The amount of particles to generate.
-	 * @param point The point from which the particles emmit.
+	 * @param point  The point from which the particles emmit.
 	 */
 	public void generateParticle(int amount, Vector2f point) {
 		for (int p = 0; p < amount; p++) {

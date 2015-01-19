@@ -31,19 +31,14 @@
  */
 package com.radirius.mercury.audio;
 
-import java.io.*;
-import java.net.URL;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.ShortBuffer;
-
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-
+import com.sun.media.sound.WaveFileReader;
 import org.lwjgl.openal.AL10;
 
-import com.sun.media.sound.WaveFileReader;
+import javax.sound.sampled.*;
+import javax.sound.sampled.AudioInputStream;
+import java.io.*;
+import java.net.URL;
+import java.nio.*;
 
 /**
  * Utitlity class for loading wavefiles.
@@ -69,8 +64,8 @@ public class WaveData {
 	/**
 	 * Creates a new WaveData
 	 *
-	 * @param data actual wave data
-	 * @param format format of wave data
+	 * @param data       actual wave data
+	 * @param format     format of wave data
 	 * @param samplerate sample rate of data
 	 */
 	private WaveData(ByteBuffer data, int format, int samplerate) {
@@ -83,7 +78,7 @@ public class WaveData {
 	 * Creates a WaveData container from the specified url
 	 *
 	 * @param path URL to file Returns WaveData containing data, or null if a
-	 *        failure occured
+	 *             failure occured
 	 */
 	public static WaveData create(URL path) {
 		try {
@@ -92,8 +87,7 @@ public class WaveData {
 			// and mixing unsigned and signed code
 			// we will use the reader directly
 			return create(new WaveFileReader().getAudioInputStream(new BufferedInputStream(path.openStream())));
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			org.lwjgl.LWJGLUtil.log("Unable to create from: " + path + ", " + e.getMessage());
 			return null;
 		}
@@ -103,7 +97,7 @@ public class WaveData {
 	 * Creates a WaveData container from the specified in the classpath
 	 *
 	 * @param path path to file (relative, and in classpath) Returns WaveData
-	 *        containing data, or null if a failure occured
+	 *             containing data, or null if a failure occured
 	 */
 	public static WaveData create(String path) {
 		return create(Thread.currentThread().getContextClassLoader().getResource(path));
@@ -113,13 +107,12 @@ public class WaveData {
 	 * Creates a WaveData container from the specified inputstream
 	 *
 	 * @param is InputStream to read from Returns WaveData containing data, or
-	 *        null if a failure occured
+	 *           null if a failure occured
 	 */
 	public static WaveData create(InputStream is) {
 		try {
 			return create(AudioSystem.getAudioInputStream(is));
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			org.lwjgl.LWJGLUtil.log("Unable to create from inputstream, " + e.getMessage());
 			return null;
 		}
@@ -129,13 +122,12 @@ public class WaveData {
 	 * Creates a WaveData container from the specified bytes
 	 *
 	 * @param buffer array of bytes containing the complete wave file Returns
-	 *        WaveData containing data, or null if a failure occured
+	 *               WaveData containing data, or null if a failure occured
 	 */
 	public static WaveData create(byte[] buffer) {
 		try {
 			return create(AudioSystem.getAudioInputStream(new BufferedInputStream(new ByteArrayInputStream(buffer))));
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			org.lwjgl.LWJGLUtil.log("Unable to create from byte array, " + e.getMessage());
 			return null;
 		}
@@ -147,7 +139,7 @@ public class WaveData {
 	 * buffer will be copied using get(byte[]).
 	 *
 	 * @param buffer ByteBuffer containing sound file Returns WaveData
-	 *        containing data, or null if a failure occured
+	 *               containing data, or null if a failure occured
 	 */
 	public static WaveData create(ByteBuffer buffer) {
 		try {
@@ -161,8 +153,7 @@ public class WaveData {
 			}
 
 			return create(bytes);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			org.lwjgl.LWJGLUtil.log("Unable to create from ByteBuffer, " + e.getMessage());
 
 			return null;
@@ -173,7 +164,7 @@ public class WaveData {
 	 * Creates a WaveData container from the specified stream
 	 *
 	 * @param ais AudioInputStream to read from Returns WaveData containing
-	 *        data, or null if a failure occured
+	 *            data, or null if a failure occured
 	 */
 	public static WaveData create(AudioInputStream ais) {
 		AudioFormat audioformat = ais.getFormat();
@@ -212,8 +203,7 @@ public class WaveData {
 				total += read;
 
 			buffer = convertAudioBytes(buf, audioformat.getSampleSizeInBits() == 16, audioformat.isBigEndian() ? ByteOrder.BIG_ENDIAN : ByteOrder.LITTLE_ENDIAN);
-		}
-		catch (IOException ioe) {
+		} catch (IOException ioe) {
 			return null;
 		}
 
@@ -221,8 +211,8 @@ public class WaveData {
 
 		try {
 			ais.close();
+		} catch (IOException ioe) {
 		}
-		catch (IOException ioe) {}
 
 		return wavedata;
 	}

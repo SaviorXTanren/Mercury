@@ -25,23 +25,23 @@ import java.io.IOException;
 interface AudioInputStream {
 	/**
 	 * Get the number of channels used by the audio
-	 *
+	 * <p/>
 	 * Returns The number of channels used by the audio
 	 */
 	public int getChannels();
 
 	/**
 	 * The play back rate described in the underling audio file
-	 *
+	 * <p/>
 	 * Returns The playback rate
 	 */
 	public int getRate();
 
 	/**
 	 * Read a single byte from the stream
-	 *
+	 * <p/>
 	 * Returns The single byte read
-	 * 
+	 *
 	 * @throws IOException Indicates a failure to read the underlying media
 	 * @see java.io.InputStream#read()
 	 */
@@ -51,7 +51,7 @@ interface AudioInputStream {
 	 * Read up to data.length bytes from the stream
 	 *
 	 * @param data The array to read into Returns The number of bytes read or -1
-	 *        to indicate no more bytes are available
+	 *             to indicate no more bytes are available
 	 * @throws IOException Indicates a failure to read the underlying media
 	 * @see java.io.InputStream#read(byte[])
 	 */
@@ -61,9 +61,9 @@ interface AudioInputStream {
 	 * Read up to len bytes from the stream
 	 *
 	 * @param data The array to read into
-	 * @param ofs The offset into the array at which to start writing
-	 * @param len The maximum number of bytes to read Returns The number of
-	 *        bytes read or -1 to indicate no more bytes are available
+	 * @param ofs  The offset into the array at which to start writing
+	 * @param len  The maximum number of bytes to read Returns The number of
+	 *             bytes read or -1 to indicate no more bytes are available
 	 * @throws IOException Indicates a failure to read the underlying media
 	 * @see java.io.InputStream#read(byte[], int, int)
 	 */
@@ -71,7 +71,7 @@ interface AudioInputStream {
 
 	/**
 	 * Check if the stream is at the end, i.e. end of file or URL
-	 *
+	 * <p/>
 	 * Returns True if the stream has no more data available
 	 */
 	public boolean atEnd();

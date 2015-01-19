@@ -11,7 +11,7 @@ public class MathUtil {
 
 	/**
 	 * Base method for random number methods.
-	 *
+	 * <p/>
 	 * Returns A random double value between minimum and maximum
 	 */
 	public static double random(double minimum, double maximum) {
@@ -20,7 +20,7 @@ public class MathUtil {
 
 	/**
 	 * Base method for random number methods.
-	 *
+	 * <p/>
 	 * Returns A random double value between minimum and maximum
 	 */
 	public static float random(float minimum, float maximum) {
@@ -36,7 +36,7 @@ public class MathUtil {
 
 	/**
 	 * @param percent Percent chance of true Returns A boolean that has a
-	 *        percent% chance of being true.
+	 *                percent% chance of being true.
 	 */
 	public static boolean chance(int percent) {
 		if (percent > 100)
@@ -50,7 +50,7 @@ public class MathUtil {
 
 	/**
 	 * @param percent Percent chance of true Returns A boolean that has a
-	 *        percent% chance of being true.
+	 *                percent% chance of being true.
 	 */
 	public static boolean chance(float percent) {
 		if (percent > 1)

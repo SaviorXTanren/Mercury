@@ -1,7 +1,10 @@
 package com.radirius.mercury.graphics;
 
+import com.radirius.mercury.framework.Core;
 import com.radirius.mercury.math.geometry.Matrix4f;
 import com.radirius.mercury.resource.*;
+import com.radirius.mercury.utilities.GraphicsUtils;
+import com.radirius.mercury.utilities.misc.Bindable;
 import org.lwjgl.opengl.GL11;
 
 import java.io.*;
@@ -22,7 +25,7 @@ import static org.lwjgl.opengl.GL20.*;
  * @author Jeviny
  * @author Sri Harsha Chilakapati
  */
-public class Shader implements Resource {
+public class Shader implements Resource, Bindable {
 	/**
 	 * The vertex shader type.
 	 */
@@ -40,20 +43,6 @@ public class Shader implements Resource {
 	 */
 	public Shader(int programObject) {
 		this.programObject = programObject;
-	}
-
-	/**
-	 * Staticly 'use().'
-	 */
-	public static void useShader(Shader shader) {
-		shader.use();
-	}
-
-	/**
-	 * Set the shader to default.
-	 */
-	public static void releaseShaders() {
-		glUseProgram(DEFAULT_SHADER.programObject);
 	}
 
 	/**
@@ -297,24 +286,32 @@ public class Shader implements Resource {
 	}
 
 	/**
-	 * Uses the shader (only use if you know what you are doing).
+	 * Starts the shader for use, also uploading the uniform projection and view matrix to the shader.
 	 */
-	public void use() {
+	@Override
+	public void bind() {
+		// Flush previous data
+		Core.getCurrentCore().getBatcher().flush();
+
 		glUseProgram(programObject);
+
+		setUniformMatrix4("proj", GraphicsUtils.getProjectionMatrix());
+		setUniformMatrix4("view", GraphicsUtils.getCurrentMatrix());
 	}
 
 	/**
-	 * Sets the shader to default.
+	 * Sets the shader to the Mercury default.
 	 */
+	@Override
 	public void release() {
-		releaseShaders();
+		DEFAULT_SHADER.bind();
 	}
 
 	/**
-	 * Passes a uniform variable into the shader
+	 * Passes a uniform variable into all shaders.
 	 *
-	 * @param name   The name of the variable.
-	 * @param values The values you wish to pass in.
+	 * @param name   The name of the variable
+	 * @param values The values you wish to pass in
 	 */
 	public void setUniformf(String name, float... values) {
 		int location = glGetUniformLocation(programObject, name);
@@ -330,10 +327,10 @@ public class Shader implements Resource {
 	}
 
 	/**
-	 * Passes a uniform variable into the shader
+	 * Passes a uniform variable into a shader.
 	 *
-	 * @param name   The name of the variable.
-	 * @param values The values you wish to pass in.
+	 * @param name   The name of the variable
+	 * @param values The values you wish to pass in
 	 */
 	public void setUniformi(String name, int... values) {
 		int location = glGetUniformLocation(programObject, name);
@@ -348,6 +345,12 @@ public class Shader implements Resource {
 			glUniform4i(location, values[0], values[1], values[2], values[3]);
 	}
 
+	/**
+	 * Passes a uniform variable into a shader.
+	 *
+	 * @param name The name of the variable
+	 * @param mat  The matrix you wish to pass in
+	 */
 	public void setUniformMatrix4(String name, Matrix4f mat) {
 		int location = glGetUniformLocation(programObject, name);
 		glUniformMatrix4(location, false, mat.getAsFloatBuffer());

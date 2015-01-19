@@ -1,16 +1,13 @@
 package com.radirius.mercury.audio;
 
-import static org.lwjgl.openal.AL10.*;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.IntBuffer;
-
-import org.lwjgl.BufferUtils;
-import org.lwjgl.LWJGLException;
+import com.radirius.mercury.resource.Resource;
+import org.lwjgl.*;
 import org.lwjgl.openal.AL;
 
-import com.radirius.mercury.resource.Resource;
+import java.io.*;
+import java.nio.IntBuffer;
+
+import static org.lwjgl.openal.AL10.*;
 
 /**
  * An object for loading and using sounds.
@@ -43,7 +40,7 @@ public class Audio implements Resource {
 	 * the source.
 	 *
 	 * @param buffer The integer index of the sound for OpenAL to process.
-	 *        Returns the audio file.
+	 *               Returns the audio file.
 	 */
 	public static Audio getAudio(int buffer) {
 		IntBuffer source = BufferUtils.createIntBuffer(1);
@@ -63,9 +60,9 @@ public class Audio implements Resource {
 	 * Makes a source based off of buffer, and then makes an Audio based off of
 	 * the source.
 	 *
-	 * @param is The input file to be read.
+	 * @param is     The input file to be read.
 	 * @param format The format of the audio file ("wav", "ogg"...). Returns the
-	 *        audio file.
+	 *               audio file.
 	 */
 	public static Audio getAudio(InputStream is, String format) {
 		if (format.equalsIgnoreCase("wav"))
@@ -80,7 +77,7 @@ public class Audio implements Resource {
 	 * Forms a buffer from is.
 	 *
 	 * @param is The stream to the sound file. Returns The integer index for
-	 *        OpenAL based off of the .ogg file at the InputStream is.
+	 *           OpenAL based off of the .ogg file at the InputStream is.
 	 */
 	public static int getOGGBuffer(InputStream is) {
 		IntBuffer buffer = BufferUtils.createIntBuffer(1);
@@ -90,8 +87,7 @@ public class Audio implements Resource {
 
 		try {
 			ogg = decoder.getData(is);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
@@ -109,7 +105,7 @@ public class Audio implements Resource {
 	 * Forms a buffer from is.
 	 *
 	 * @param is The stream to the sound file. Returns The integer index for
-	 *        OpenAL based off of the .wav file at the InputStream is.
+	 *           OpenAL based off of the .wav file at the InputStream is.
 	 */
 	public static int getWAVBuffer(InputStream is) {
 		IntBuffer buffer = BufferUtils.createIntBuffer(1);
@@ -137,7 +133,7 @@ public class Audio implements Resource {
 	/**
 	 * Plays the clip. If it is already playing, it will restart. If the clip is
 	 * paused, it will continue.
-	 *
+	 * <p/>
 	 * Returns the audio file.
 	 */
 	public Audio play() {
@@ -148,7 +144,7 @@ public class Audio implements Resource {
 
 	/**
 	 * Plays the clip if it is paused, pauses it if it is not paused.
-	 *
+	 * <p/>
 	 * Returns the audio file.
 	 */
 	public Audio togglePause() {
@@ -162,7 +158,7 @@ public class Audio implements Resource {
 
 	/**
 	 * Plays the clip if it is stopped, stops it if it is not stopped.
-	 *
+	 * <p/>
 	 * Returns the audio file.
 	 */
 	public Audio toggleStop() {
@@ -183,7 +179,7 @@ public class Audio implements Resource {
 
 	/**
 	 * Pauses the clip. Reversible by play().
-	 *
+	 * <p/>
 	 * Returns the audio file.
 	 */
 	public Audio pause() {
@@ -201,7 +197,7 @@ public class Audio implements Resource {
 
 	/**
 	 * Stops the clip.
-	 *
+	 * <p/>
 	 * Returns the audio file.
 	 */
 	public Audio stop() {
@@ -221,7 +217,7 @@ public class Audio implements Resource {
 	 * Sets the volume of the clip.
 	 *
 	 * @param vol A floating point volume value, 0.8 being 80%, 1.5 being 150%,
-	 *        etc. Returns the audio file.
+	 *            etc. Returns the audio file.
 	 */
 	public Audio setVolume(float vol) {
 		alSourcef(source, AL_GAIN, vol);
@@ -240,7 +236,7 @@ public class Audio implements Resource {
 	 * Sets the pitch of the clip.
 	 *
 	 * @param pit A floating point pitch value, 0.8 being 80%, 1.5 being 150%,
-	 *        etc. Returns the audio file.
+	 *            etc. Returns the audio file.
 	 */
 	public Audio setPitch(float pit) {
 		alSourcef(source, AL_PITCH, pit);
@@ -285,8 +281,7 @@ public class Audio implements Resource {
 	public static void initAudio() {
 		try {
 			AL.create();
-		}
-		catch (LWJGLException e) {
+		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
 	}

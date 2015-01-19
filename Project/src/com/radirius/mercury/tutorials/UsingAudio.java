@@ -1,8 +1,7 @@
 package com.radirius.mercury.tutorials;
 
 import com.radirius.mercury.audio.Audio;
-import com.radirius.mercury.framework.Core;
-import com.radirius.mercury.framework.CoreSetup;
+import com.radirius.mercury.framework.*;
 import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.resource.Loader;
@@ -60,8 +59,10 @@ public class UsingAudio extends Core {
 	}
 
 	@Override
-	public void render(Graphics g) {}
+	public void render(Graphics g) {
+	}
 
 	@Override
-	public void cleanup() {}
+	public void cleanup() {
+	}
 }

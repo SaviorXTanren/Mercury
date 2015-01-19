@@ -1,20 +1,17 @@
 package com.radirius.mercury.graphics;
 
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL30.glGenerateMipmap;
-
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.ByteBuffer;
-
-import javax.imageio.ImageIO;
-
+import com.radirius.mercury.exceptions.MercuryException;
+import com.radirius.mercury.resource.*;
+import com.radirius.mercury.utilities.misc.Bindable;
 import org.lwjgl.BufferUtils;
 
-import com.radirius.mercury.exceptions.MercuryException;
-import com.radirius.mercury.resource.Loader;
-import com.radirius.mercury.resource.Resource;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.nio.ByteBuffer;
+
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
 /**
  * An object version of a texture. This will store the width and height of the
@@ -23,7 +20,7 @@ import com.radirius.mercury.resource.Resource;
  * @author wessles
  * @author Jeviny
  */
-public class Texture implements Resource {
+public class Texture implements Resource, Bindable {
 	public static final int FILTER_NEAREST = GL_NEAREST, FILTER_LINEAR = GL_LINEAR;
 
 	protected static final int BYTES_PER_PIXEL = 4;
@@ -41,11 +38,11 @@ public class Texture implements Resource {
 	 * Make a texture of the textureId, with a width and height, based off of
 	 * BufferedImage bufferedImage
 	 *
-	 * @param textureId The id of the texture
-	 * @param width The width of the texture
-	 * @param height The height of the texture
+	 * @param textureId     The id of the texture
+	 * @param width         The width of the texture
+	 * @param height        The height of the texture
 	 * @param bufferedImage The source of the image, the BufferedImage
-	 * @param buffer The original buffer
+	 * @param buffer        The original buffer
 	 */
 	public Texture(int textureId, int width, int height, BufferedImage bufferedImage, ByteBuffer buffer) {
 		this.textureId = textureId;
@@ -60,7 +57,7 @@ public class Texture implements Resource {
 	 * Loads a Texture
 	 *
 	 * @param inputStream The stream of the image to load Returns A Texture
-	 *        based off of the streamed image
+	 *                    based off of the streamed image
 	 */
 	public static Texture loadTexture(InputStream inputStream) {
 		return loadTexture(inputStream, FILTER_NEAREST);
@@ -70,7 +67,7 @@ public class Texture implements Resource {
 	 * Loads a Texture
 	 *
 	 * @param bufferedImage The image to load Returns A Texture based off of the
-	 *        BufferedImage
+	 *                      BufferedImage
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage) {
 		return loadTexture(bufferedImage, FILTER_NEAREST);
@@ -80,8 +77,8 @@ public class Texture implements Resource {
 	 * Loads a Texture
 	 *
 	 * @param inputStream The stream of the image to load
-	 * @param filter Both the min and mag filter Returns A Texture based off of
-	 *        the streamed image
+	 * @param filter      Both the min and mag filter Returns A Texture based off of
+	 *                    the streamed image
 	 */
 	public static Texture loadTexture(InputStream inputStream, int filter) {
 		return loadTexture(inputStream, filter, filter);
@@ -91,8 +88,8 @@ public class Texture implements Resource {
 	 * Loads a Texture
 	 *
 	 * @param bufferedImage The image to load
-	 * @param filter Both the min and mag filter Returns A Texture based off of
-	 *        the BufferedImage
+	 * @param filter        Both the min and mag filter Returns A Texture based off of
+	 *                      the BufferedImage
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage, int filter) {
 		return loadTexture(bufferedImage, filter, filter);
@@ -102,15 +99,14 @@ public class Texture implements Resource {
 	 * Loads a Texture
 	 *
 	 * @param inputStream The stream of the image to load
-	 * @param minFilter The min filter
-	 * @param magFilter The mag filter Returns A Texture based off of the
-	 *        streamed image
+	 * @param minFilter   The min filter
+	 * @param magFilter   The mag filter Returns A Texture based off of the
+	 *                    streamed image
 	 */
 	public static Texture loadTexture(InputStream inputStream, int minFilter, int magFilter) {
 		try {
 			return loadTexture(ImageIO.read(inputStream), minFilter, magFilter);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
@@ -121,9 +117,9 @@ public class Texture implements Resource {
 	 * Loads a Texture
 	 *
 	 * @param bufferedImage The image to load
-	 * @param minFilter The min filter
-	 * @param magFilter The mag filter Returns A Texture based off of the
-	 *        BufferedImage
+	 * @param minFilter     The min filter
+	 * @param magFilter     The mag filter Returns A Texture based off of the
+	 *                      BufferedImage
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage, int minFilter, int magFilter) {
 		BufferedImage bufferedImage0 = processBufferedImage(bufferedImage);
@@ -228,31 +224,21 @@ public class Texture implements Resource {
 	/**
 	 * Binds the texture.
 	 */
+	@Override
 	public void bind() {
-		bindTexture(textureId);
+		glBindTexture(GL_TEXTURE_2D, textureId);
 	}
 
 	/**
 	 * Unbinds the texture.
 	 */
-	public void unbind() {
-		unbindTextures();
+	@Override
+	public void release() {
+		releaseTextures();
 	}
 
-	/**
-	 * Binds a texture.
-	 *
-	 * @param textureId The id of the texture
-	 */
-	public static void bindTexture(int textureId) {
-		glBindTexture(GL_TEXTURE_2D, textureId);
-	}
-
-	/**
-	 * Unbinds all textures.
-	 */
-	public static void unbindTextures() {
-		glBindTexture(GL_TEXTURE_2D, 0);
+	public static void releaseTextures() {
+		BLANK_TEXTURE.bind();
 	}
 
 	/**
@@ -290,8 +276,7 @@ public class Texture implements Resource {
 		if (bufferedImage == null)
 			try {
 				throw new MercuryException("No source image given.");
-			}
-			catch (MercuryException e) {
+			} catch (MercuryException e) {
 				e.printStackTrace();
 			}
 
@@ -306,9 +291,9 @@ public class Texture implements Resource {
 	}
 
 	/**
-	 * @param width The width of the Texture
+	 * @param width  The width of the Texture
 	 * @param height The height of the Texture Returns Whether the Texture has
-	 *        power-of-two sides
+	 *               power-of-two sides
 	 */
 	public static boolean isPoT(int width, int height) {
 		return (width & width - 1) == 0 && (height & height - 1) == 0;
@@ -330,10 +315,8 @@ public class Texture implements Resource {
 	public boolean isRepeatable() {
 		boolean capable = isPoT();
 
-		if (this instanceof SubTexture)
-			return false;
+		return !(this instanceof SubTexture) && capable;
 
-		return capable;
 	}
 
 	@Override

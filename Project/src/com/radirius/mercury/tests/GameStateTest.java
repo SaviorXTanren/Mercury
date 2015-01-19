@@ -1,8 +1,7 @@
 package com.radirius.mercury.tests;
 
 import com.radirius.mercury.framework.*;
-import com.radirius.mercury.graphics.Color;
-import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.graphics.font.TrueTypeFont;
 import com.radirius.mercury.input.Input;
 
@@ -34,7 +33,8 @@ public class GameStateTest extends Core {
 	}
 
 	@Override
-	public void init() {}
+	public void init() {
+	}
 
 	@Override
 	public void update() {

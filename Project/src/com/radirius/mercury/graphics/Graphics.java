@@ -38,16 +38,17 @@ public class Graphics implements Initializable, Cleanable {
 	 * Pre rendering code.
 	 */
 	public void pre() {
-		batcher.pre();
+		batcher.begin();
 
-		GL11.glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+		glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
 	/**
 	 * Post rendering code.
 	 */
 	public void post() {
-		batcher.post();
+		batcher.end();
 	}
 
 	private Batcher batcher;
@@ -219,6 +220,8 @@ public class Graphics implements Initializable, Cleanable {
 		return backgroundColor;
 	}
 
+	private Color currentColor = Color.DEFAULT_DRAWING;
+
 	/**
 	 * Sets the drawing color.
 	 *
@@ -248,14 +251,14 @@ public class Graphics implements Initializable, Cleanable {
 	 * @param color The new drawing color
 	 */
 	public void setColor(Color color) {
-		batcher.setColor(color);
+		currentColor = color;
 	}
 
 	/**
 	 * Returns The current drawing color
 	 */
 	public Color getColor() {
-		return batcher.getColor();
+		return currentColor;
 	}
 
 	private Font currentFont;
@@ -314,7 +317,7 @@ public class Graphics implements Initializable, Cleanable {
 	}
 
 	public void defaultAttributes() {
-		batcher.setColor(Color.DEFAULT_DRAWING);
+		setColor(Color.DEFAULT_DRAWING);
 		setFont(TrueTypeFont.ROBOTO_REGULAR);
 		this.lineWidth = 1f;
 		this.smoothJoints = true;
@@ -332,7 +335,19 @@ public class Graphics implements Initializable, Cleanable {
 	}
 
 	/**
-	 * Draws a string with a certain font.
+	 * Draws a string.
+	 *
+	 * @param message The string to draw
+	 * @param x       The x position
+	 * @param y       The y position
+	 * @param color   The color of the text
+	 */
+	public void drawString(String message, float x, float y, Color color) {
+		drawString(message, currentFont, x, y, color);
+	}
+
+	/**
+	 * Draws a string.
 	 *
 	 * @param message The string to draw
 	 * @param font    The font in which to draw the string
@@ -344,7 +359,20 @@ public class Graphics implements Initializable, Cleanable {
 	}
 
 	/**
-	 * Draws a scaled string.
+	 * Draws a string.
+	 *
+	 * @param message The string to draw
+	 * @param font    The font in which to draw the string
+	 * @param x       The x position
+	 * @param y       The y position
+	 * @param color   The color of the text
+	 */
+	public void drawString(String message, Font font, float x, float y, Color color) {
+		drawString(message, 1, font, x, y, color);
+	}
+
+	/**
+	 * Draws a string.
 	 *
 	 * @param message The string to draw
 	 * @param scale   The scale of the string
@@ -356,7 +384,20 @@ public class Graphics implements Initializable, Cleanable {
 	}
 
 	/**
-	 * Draws a scaled string with a certain font.
+	 * Draws a string.
+	 *
+	 * @param message The string to draw
+	 * @param scale   The scale of the string
+	 * @param x       The x position
+	 * @param y       The y position
+	 * @param color   The color of the text
+	 */
+	public void drawString(String message, float scale, float x, float y, Color color) {
+		drawString(message, scale, currentFont, x, y, color);
+	}
+
+	/**
+	 * Draws a string.
 	 *
 	 * @param message The string to draw
 	 * @param scale   The scale of the string
@@ -365,6 +406,20 @@ public class Graphics implements Initializable, Cleanable {
 	 * @param y       The y position
 	 */
 	public void drawString(String message, float scale, Font font, float x, float y) {
+		drawString(message, scale, font, x, y, Color.DEFAULT_TEXTURE);
+	}
+
+	/**
+	 * Draws a string.
+	 *
+	 * @param message The string to draw
+	 * @param scale   The scale of the string
+	 * @param font    The font in which to draw the string
+	 * @param x       The x position
+	 * @param y       The y position
+	 * @param color   The color of the text
+	 */
+	public void drawString(String message, float scale, Font font, float x, float y, Color color) {
 		Font oldFont = getFont();
 
 		float xCurrent = 0;
@@ -380,7 +435,7 @@ public class Graphics implements Initializable, Cleanable {
 
 			SubTexture subTexture = font.getFontSpriteSheet().getTexture(message.toCharArray()[i]);
 
-			batcher.drawTexture(subTexture, new Rectangle(x + xCurrent, y, subTexture.getWidth() * scale, subTexture.getHeight() * scale), getColor());
+			drawTexture(subTexture, new Rectangle(x + xCurrent, y, subTexture.getWidth() * scale, subTexture.getHeight() * scale), color);
 
 			xCurrent += subTexture.getWidth() * scale;
 		}
@@ -389,9 +444,9 @@ public class Graphics implements Initializable, Cleanable {
 	}
 
 	/**
-	 * Draws a centered string.
+	 * Draws a string centered at x and y.
 	 *
-	 * @param message The centered string to draw
+	 * @param message The string to draw
 	 * @param x       The x position
 	 * @param y       The y position
 	 */
@@ -400,10 +455,22 @@ public class Graphics implements Initializable, Cleanable {
 	}
 
 	/**
-	 * Draws a centered string with a certain font.
+	 * Draws a string centered at x and y.
 	 *
-	 * @param message The centered string to draw
-	 * @param font    The font in which to draw the centered string
+	 * @param message The string to draw
+	 * @param x       The x position
+	 * @param y       The y position
+	 * @param color   The color of the text
+	 */
+	public void drawCenteredString(String message, float x, float y, Color color) {
+		drawCenteredString(message, currentFont, x, y, color);
+	}
+
+	/**
+	 * Draws a string centered at x and y.
+	 *
+	 * @param message The string to draw
+	 * @param font    The font in which to draw the string
 	 * @param x       The x position
 	 * @param y       The y position
 	 */
@@ -412,10 +479,23 @@ public class Graphics implements Initializable, Cleanable {
 	}
 
 	/**
-	 * Draws a scaled centered string.
+	 * Draws a string centered at x and y.
 	 *
-	 * @param message The centered string to draw
-	 * @param scale   The scale of the centered string
+	 * @param message The string to draw
+	 * @param font    The font in which to draw the string
+	 * @param x       The x position
+	 * @param y       The y position
+	 * @param color   The color of the text
+	 */
+	public void drawCenteredString(String message, Font font, float x, float y, Color color) {
+		drawCenteredString(message, 1, font, x, y, color);
+	}
+
+	/**
+	 * Draws a string centered at x and y.
+	 *
+	 * @param message The string to draw
+	 * @param scale   The scale of the string
 	 * @param x       The x position
 	 * @param y       The y position
 	 */
@@ -424,15 +504,42 @@ public class Graphics implements Initializable, Cleanable {
 	}
 
 	/**
-	 * Draws a scaled centered string with a certain font.
+	 * Draws a string centered at x and y.
 	 *
-	 * @param message The centered string to draw
-	 * @param scale   The scale of the centered string
-	 * @param font    The font in which to draw the centered string
+	 * @param message The string to draw
+	 * @param scale   The scale of the string
+	 * @param x       The x position
+	 * @param y       The y position
+	 * @param color   The color of the text
+	 */
+	public void drawCenteredString(String message, float scale, float x, float y, Color color) {
+		drawCenteredString(message, scale, currentFont, x, y, color);
+	}
+
+	/**
+	 * Draws a string centered at x and y.
+	 *
+	 * @param message The string to draw
+	 * @param scale   The scale of the string
+	 * @param font    The font in which to draw the string
 	 * @param x       The x position
 	 * @param y       The y position
 	 */
 	public void drawCenteredString(String message, float scale, Font font, float x, float y) {
+		drawCenteredString(message, scale, font, x, y, Color.DEFAULT_TEXTURE);
+	}
+
+	/**
+	 * Draws a string centered at x and y.
+	 *
+	 * @param message The string to draw
+	 * @param scale   The scale of the string
+	 * @param font    The font in which to draw the string
+	 * @param x       The x position
+	 * @param y       The y position
+	 * @param color   The color of the text
+	 */
+	public void drawCenteredString(String message, float scale, Font font, float x, float y, Color color) {
 		if (font instanceof TrueTypeFont) {
 			float width = font.getWidth(message) * scale;
 			float height = font.getHeight(message) * scale;
@@ -440,7 +547,7 @@ public class Graphics implements Initializable, Cleanable {
 			x -= width / 2;
 			y -= height / 2;
 
-			drawString(message, scale, font, x, y);
+			drawString(message, scale, font, x, y, color);
 		}
 	}
 
@@ -612,9 +719,9 @@ public class Graphics implements Initializable, Cleanable {
 					batcher.vertex(vertices[c].x, vertices[c].y, 0, 0);
 
 				if (c >= vertices.length - 1)
-					batcher.vertex(vertices[vertices.length - 1].x, vertices[vertices.length - 1].y, 0, 0);
+					batcher.vertex(vertices[vertices.length - 1].x, vertices[vertices.length - 1].y, currentColor, 0, 0);
 				else
-					batcher.vertex(vertices[c + 1].x, vertices[c + 1].y, 0, 0);
+					batcher.vertex(vertices[c + 1].x, vertices[c + 1].y, currentColor, 0, 0);
 			}
 		}
 	}
@@ -724,13 +831,13 @@ public class Graphics implements Initializable, Cleanable {
 
 			batcher.flushOnOverflow(6);
 
-			batcher.vertex(x1, y1, 0, 0);
-			batcher.vertex(x2, y2, 0, 0);
-			batcher.vertex(x4, y4, 0, 0);
+			batcher.vertex(x1, y1, currentColor, 0, 0);
+			batcher.vertex(x2, y2, currentColor, 0, 0);
+			batcher.vertex(x4, y4, currentColor, 0, 0);
 
-			batcher.vertex(x3, y3, 0, 0);
-			batcher.vertex(x4, y4, 0, 0);
-			batcher.vertex(x2, y2, 0, 0);
+			batcher.vertex(x3, y3, currentColor, 0, 0);
+			batcher.vertex(x4, y4, currentColor, 0, 0);
+			batcher.vertex(x2, y2, currentColor, 0, 0);
 		}
 	}
 
@@ -877,7 +984,6 @@ public class Graphics implements Initializable, Cleanable {
 		Graphics graphicsObject = new Graphics();
 
 		Shader.loadDefaultShaders();
-		Shader.releaseShaders();
 
 		return graphicsObject;
 	}

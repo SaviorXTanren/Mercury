@@ -30,7 +30,7 @@ public class SubTexture extends Texture {
 	/**
 	 * This is useful for when you want the functionality of a real Texture from
 	 * a SubTexture, such as GL_REPEAT, which is impossible with SubTextures.
-	 *
+	 * <p/>
 	 * Returns A Texture version of the SubTexture.
 	 */
 	public Texture convertToTexture() {

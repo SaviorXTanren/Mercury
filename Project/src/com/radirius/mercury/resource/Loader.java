@@ -1,7 +1,6 @@
 package com.radirius.mercury.resource;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -50,23 +49,23 @@ public class Loader {
 	 * Loads a URL of a resource from the file system.
 	 *
 	 * @param path The path of the resource Returns The URL of a resource from
-	 *        the file system.
+	 *             the file system.
 	 */
 	public static URL getResource(String path) {
 		URL url = null;
-		
+
 		for (int i = 0; i < locations.size(); i++) {
 			Location location = locations.get(i);
-			
+
 			url = location.getResource(path);
-			
+
 			if (url != null)
 				break;
 		}
-		
+
 		if (url == null)
 			throw new RuntimeException("Resource not found: " + path);
-			
+
 		return url;
 	}
 
@@ -74,12 +73,12 @@ public class Loader {
 	 * Streams a resource from the file system.
 	 *
 	 * @param path The path of the resource Returns The InputStream of a
-	 *        resource from the file system.
+	 *             resource from the file system.
 	 */
 	public static InputStream getResourceAsStream(String path) {
 		return streamFromUrl(getResource(path));
 	}
-	
+
 	/**
 	 * Converts a URL into an InputStream.
 	 *

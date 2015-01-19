@@ -1,17 +1,17 @@
 package com.radirius.mercury.scene;
 
-import java.util.ArrayList;
-
 import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.utilities.Component;
 import com.radirius.mercury.utilities.Wipeable;
+import com.radirius.mercury.utilities.misc.Entity;
+
+import java.util.ArrayList;
 
 /**
  * A scene graph node.
  *
  * @author Jeviny
  */
-public class GameObject implements Component, Wipeable {
+public class GameObject implements Entity, Wipeable {
 	/**
 	 * The children nodes.
 	 */
@@ -30,14 +30,14 @@ public class GameObject implements Component, Wipeable {
 	public void removeChild(GameObject child) {
 		children.remove(child);
 	}
-	
+
 	/**
 	 * Removes all children of the children nodes.
 	 */
 	public void removeAllChildren() {
 		children.clear();
 	}
-	
+
 	/**
 	 * Initializes the children nodes.
 	 */

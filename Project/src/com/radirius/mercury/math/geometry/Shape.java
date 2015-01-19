@@ -1,7 +1,6 @@
 package com.radirius.mercury.math.geometry;
 
 import com.radirius.mercury.math.MathUtil;
-import com.radirius.mercury.utilities.ArrayUtils;
 
 import java.util.ArrayList;
 
@@ -87,10 +86,28 @@ public class Shape {
 	}
 
 	/**
-	 * @param coords The coordinates of all vertices in the shape. Will be parsed for every 2 values into a Vec2.
+	 * @param coordinates The coordinates of all vertices in the shape. Will be parsed for every 2 values into a Vec2.
 	 */
-	protected Shape(float... coords) {
-		this(ArrayUtils.getVector2fs(coords));
+	protected Shape(float... coordinates) {
+		this(getVector2fs(coordinates));
+	}
+
+	/**
+	 * Sorts an even number of float values into 2 dimensional vectors.
+	 *
+	 * @param coordinates The x/y pattern of floats
+	 * @return An array of 2 dimensional vectors based on coordinates
+	 */
+	protected static Vector2f[] getVector2fs(float... coordinates) {
+		if (coordinates.length % 2 != 0)
+			throw new IllegalArgumentException("Vertex coordinates must be even!");
+
+		Vector2f[] vectors = new Vector2f[coordinates.length / 2];
+
+		for (int v = 0; v < coordinates.length; v += 2)
+			vectors[v / 2] = new Vector2f(coordinates[v], coordinates[v + 1]);
+
+		return vectors;
 	}
 
 	/**
@@ -176,10 +193,7 @@ public class Shape {
 			sumAngle += angle;
 		}
 
-		if (sumAngle != 360)
-			return false;
-
-		return true;
+		return sumAngle == 360;
 	}
 
 	/**

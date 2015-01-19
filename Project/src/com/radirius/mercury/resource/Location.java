@@ -5,7 +5,7 @@ import java.net.URL;
 
 /**
  * A location that a resource can be loaded from.
- * 
+ *
  * @author Jeviny
  */
 public interface Location {
@@ -14,7 +14,7 @@ public interface Location {
 	 *
 	 * @param location The location to the resource to retrieve.
 	 * @return A stream from which the resource can be read or null if the
-	 *         resource can't be found in this location.
+	 * resource can't be found in this location.
 	 */
 	public InputStream getResourceAsStream(String location);
 

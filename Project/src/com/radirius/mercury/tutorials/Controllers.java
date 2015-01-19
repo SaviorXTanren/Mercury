@@ -1,12 +1,9 @@
 package com.radirius.mercury.tutorials;
 
-import com.radirius.mercury.framework.Core;
-import com.radirius.mercury.framework.CoreSetup;
-import com.radirius.mercury.graphics.Color;
-import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.framework.*;
+import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.input.Input;
-import com.radirius.mercury.math.geometry.Rectangle;
-import com.radirius.mercury.math.geometry.Vector2f;
+import com.radirius.mercury.math.geometry.*;
 
 /**
  * @author wessles
@@ -59,5 +56,6 @@ public class Controllers extends Core {
 	}
 
 	@Override
-	public void cleanup() {}
+	public void cleanup() {
+	}
 }

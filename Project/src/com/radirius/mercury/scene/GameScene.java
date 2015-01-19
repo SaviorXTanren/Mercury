@@ -1,17 +1,17 @@
 package com.radirius.mercury.scene;
 
-import java.util.ArrayList;
-
 import com.radirius.mercury.graphics.Graphics;
-import com.radirius.mercury.utilities.Component;
 import com.radirius.mercury.utilities.WipingArrayList;
+import com.radirius.mercury.utilities.misc.Entity;
+
+import java.util.ArrayList;
 
 /**
  * A basic scene graph containing hierarchies of GameObjects.
  *
  * @author Jeviny
  */
-public class GameScene implements Component {
+public class GameScene implements Entity {
 	/**
 	 * The children nodes.
 	 */
@@ -72,14 +72,14 @@ public class GameScene implements Component {
 		for (GameObject object0 : object)
 			objects.remove(object0);
 	}
-	
+
 	/**
 	 * Clears the scene.
 	 */
 	public void clear() {
 		objects.clear();
 	}
-	
+
 	/**
 	 * Returns The objects inside the scene.
 	 */

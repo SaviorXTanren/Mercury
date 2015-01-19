@@ -1,13 +1,9 @@
 package com.radirius.mercury.tests;
 
-import org.lwjgl.opengl.GL11;
-
-import com.radirius.mercury.framework.Core;
-import com.radirius.mercury.framework.CoreSetup;
-import com.radirius.mercury.graphics.Color;
-import com.radirius.mercury.graphics.FrameBuffer;
-import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.framework.*;
+import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.math.geometry.Rectangle;
+import org.lwjgl.opengl.GL11;
 
 /**
  * @author wessles
@@ -43,16 +39,14 @@ public class FrameBufferTest extends Core {
 
 	@Override
 	public void render(Graphics g) {
-		frameBuffer.use();
-		{
-			g.setColor(Color.CRIMSON);
-			g.drawRectangle(100, 100, 100, 100);
-			g.setColor(Color.CLOUDS);
-			g.drawString("This is rendered to a framebuffer!", 0, 0);
-		}
-		frameBuffer.release();
+		frameBuffer.bind();
 
-		g.setBackground(Color.BLACK);
+		g.setColor(Color.CRIMSON);
+		g.drawRectangle(100, 100, 100, 100);
+		g.setColor(Color.CLOUDS);
+		g.drawString("This is rendered to a framebuffer!", 0, 0);
+
+		frameBuffer.release();
 
 		g.drawTexture(frameBuffer.getTextureObject(), rect);
 		rect.rotate(1);

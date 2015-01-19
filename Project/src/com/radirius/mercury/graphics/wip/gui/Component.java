@@ -4,7 +4,6 @@ import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.graphics.font.*;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.math.geometry.*;
-import com.radirius.mercury.utilities.logging.Logger;
 import com.radirius.mercury.utilities.misc.Updatable;
 
 import java.util.ArrayList;
@@ -21,64 +20,114 @@ import java.util.ArrayList;
  * @author wessles
  */
 public class Component implements Updatable {
-	/** The main message displayed above the children components. */
+	/**
+	 * The main message displayed above the children components.
+	 */
 	public String message;
-	/** The color of the main message. */
+	/**
+	 * The color of the main message.
+	 */
 	public Color textColor = Color.DEFAULT_DRAWING;
-	/** The font of the main message. */
+	/**
+	 * The font of the main message.
+	 */
 	public Font font = TrueTypeFont.ROBOTO_REGULAR;
 
-	/** The different types of backgrounds. */
+	/**
+	 * The different types of backgrounds.
+	 */
 	public static enum BackgroundType {
-		/** Will display no background. */
+		/**
+		 * Will display no background.
+		 */
 		noBackground,
-		/** Will display a background of a certain color. */
+		/**
+		 * Will display a background of a certain color.
+		 */
 		coloredBackground,
-		/** Will display a texture as its background. */
+		/**
+		 * Will display a texture as its background.
+		 */
 		texturedBackground,
-		/** Will display a texture (tinted to the background color) as its background. */
+		/**
+		 * Will display a texture (tinted to the background color) as its background.
+		 */
 		tintedTexturedBackground
 	}
 
-	/** The type of background. */
+	/**
+	 * The type of background.
+	 */
 	public BackgroundType background = BackgroundType.noBackground;
-	/** The color of the background (will also tint texture if the background type is tintedTexturedBackground). */
+	/**
+	 * The color of the background (will also tint texture if the background type is tintedTexturedBackground).
+	 */
 	public Color backgroundColor = Color.DEFAULT_TEXTURE;
-	/** The texture for the background. */
+	/**
+	 * The texture for the background.
+	 */
 	public Texture backgroundTexture;
 
-	/** The different types of borders. */
+	/**
+	 * The different types of borders.
+	 */
 	public static enum BorderType {
-		/** No border at all */
+		/**
+		 * No border at all
+		 */
 		noBorder,
-		/** A rectangular border */
+		/**
+		 * A rectangular border
+		 */
 		border,
-		/** A smoothed rectangular border */
+		/**
+		 * A smoothed rectangular border
+		 */
 		smoothBorder
 	}
 
-	/** The type of border. */
+	/**
+	 * The type of border.
+	 */
 	public BorderType border = BorderType.noBorder;
-	/** The thickness of the border. */
+	/**
+	 * The thickness of the border.
+	 */
 	public float borderThickness = 1f;
-	/** The color of the border. */
+	/**
+	 * The color of the border.
+	 */
 	public Color borderColor = Color.WHITE;
 
-	/** Meaning that the size fits its text */
+	/**
+	 * Meaning that the size fits its text
+	 */
 	public static final int fitText = -1;
-	/** The width of the component. */
+	/**
+	 * The width of the component.
+	 */
 	public float width = fitText;
-	/** The height of the component. */
+	/**
+	 * The height of the component.
+	 */
 	public float height = fitText;
 
-	/** Spacing. */
+	/**
+	 * Spacing.
+	 */
 	public float marginLeft, marginRight, marginUp, marginDown;
-	/** Padding. */
+	/**
+	 * Padding.
+	 */
 	public float paddingLeft, paddingRight, paddingUp, paddingDown;
 
-	/** The way the component will sort under its parent. */
+	/**
+	 * The way the component will sort under its parent.
+	 */
 	public static enum ComponentType {
-		/** This option will make this component take up a line. */
+		/**
+		 * This option will make this component take up a line.
+		 */
 		div,
 		/**
 		 * This option will make this component continue horizontally unless it runs out of horizontal space, in which
@@ -87,12 +136,18 @@ public class Component implements Updatable {
 		span
 	}
 
-	/** The way the component will sort under its parent. */
+	/**
+	 * The way the component will sort under its parent.
+	 */
 	public ComponentType componentType = ComponentType.div;
 
-	/** Children components. */
+	/**
+	 * Children components.
+	 */
 	public ArrayList<Component> children = new ArrayList<>();
-	/** Parent component. */
+	/**
+	 * Parent component.
+	 */
 	public Component parent;
 
 	/**
@@ -200,15 +255,21 @@ public class Component implements Updatable {
 			return false;
 	}
 
-	/** Child-overwritable method called when mouse clicks the body of the component. */
+	/**
+	 * Child-overwritable method called when mouse clicks the body of the component.
+	 */
 	public void onMouseClick() {
 	}
 
-	/** Child-overwritable method called when mouse hovers over the body of the component. */
+	/**
+	 * Child-overwritable method called when mouse hovers over the body of the component.
+	 */
 	public void onMouseHover() {
 	}
 
-	/** Child-overwritable method called when mouse does not hover over the body of the component. */
+	/**
+	 * Child-overwritable method called when mouse does not hover over the body of the component.
+	 */
 	public void onNoMouseHover() {
 	}
 
@@ -407,7 +468,7 @@ public class Component implements Updatable {
 			maxHeightThisLine = Math.max(componentHeight, maxHeightThisLine);
 		}
 		childrenWidth = Math.max(x, childrenWidth);
-		childrenHeight = y+maxHeightThisLine;
+		childrenHeight = y + maxHeightThisLine;
 
 		return new Vector2f(childrenWidth, childrenHeight);
 	}

@@ -1,7 +1,6 @@
 package com.radirius.mercury.tests;
 
-import com.radirius.mercury.framework.Core;
-import com.radirius.mercury.framework.CoreSetup;
+import com.radirius.mercury.framework.*;
 import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.resource.Loader;
 
@@ -20,7 +19,7 @@ public class AnimationTest extends Core {
 		CoreSetup setup = new CoreSetup("Animation Test");
 		setup.width = 1280;
 		setup.height = 720;
-		
+
 		new AnimationTest(setup).start();
 	}
 
@@ -31,7 +30,8 @@ public class AnimationTest extends Core {
 	}
 
 	@Override
-	public void update() {}
+	public void update() {
+	}
 
 	@Override
 	public void render(Graphics g) {
@@ -40,5 +40,6 @@ public class AnimationTest extends Core {
 	}
 
 	@Override
-	public void cleanup() {}
+	public void cleanup() {
+	}
 }

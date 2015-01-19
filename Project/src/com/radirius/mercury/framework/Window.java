@@ -1,20 +1,17 @@
 package com.radirius.mercury.framework;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-
-import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.*;
-
 import com.radirius.mercury.graphics.Texture;
 import com.radirius.mercury.math.geometry.Vector2f;
 import com.radirius.mercury.resource.Loader;
 import com.radirius.mercury.utilities.logging.Logger;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.*;
+
+import javax.imageio.ImageIO;
+import java.io.*;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 /**
  * A class for the control of the Window.
@@ -94,8 +91,7 @@ public class Window {
 			if (is != null)
 				try {
 					buffers.add(Texture.convertBufferedImageToBuffer(ImageIO.read(is)));
-				}
-				catch (IOException e) {
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 
@@ -126,11 +122,11 @@ public class Window {
 	/**
 	 * Initializes the display.
 	 *
-	 * @param name The name of the display.
-	 * @param width The width of the display.
-	 * @param height The height of the display.
+	 * @param name       The name of the display.
+	 * @param width      The width of the display.
+	 * @param height     The height of the display.
 	 * @param fullscreen Whether or not fullscreen is enabled.
-	 * @param vsync Whether or not v-sync is used.
+	 * @param vsync      Whether or not v-sync is used.
 	 */
 	public static void initDisplay(String name, int width, int height, boolean fullscreen, boolean vsync) {
 		try {
@@ -163,8 +159,7 @@ public class Window {
 			ContextAttribs contextAttribs = new ContextAttribs(3, 2).withProfileCore(true);
 
 			Display.create(format, contextAttribs);
-		}
-		catch (LWJGLException e) {
+		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
 

@@ -1,7 +1,6 @@
 package com.radirius.mercury.tutorials;
 
-import com.radirius.mercury.framework.Core;
-import com.radirius.mercury.framework.CoreSetup;
+import com.radirius.mercury.framework.*;
 import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.math.geometry.Rectangle;
@@ -25,10 +24,12 @@ public class Mouse extends Core {
 	}
 
 	@Override
-	public void init() {}
+	public void init() {
+	}
 
 	@Override
-	public void update() {}
+	public void update() {
+	}
 
 	Rectangle cursor = new Rectangle(0, 0, 10, 10);
 
@@ -45,5 +46,6 @@ public class Mouse extends Core {
 	}
 
 	@Override
-	public void cleanup() {}
+	public void cleanup() {
+	}
 }

@@ -1,24 +1,19 @@
 package com.radirius.mercury.framework;
 
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
-
-import java.util.ArrayList;
-
-import org.lwjgl.Sys;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
-
 import com.radirius.mercury.audio.Audio;
 import com.radirius.mercury.framework.splash.SplashScreen;
 import com.radirius.mercury.graphics.*;
-import com.radirius.mercury.graphics.font.Font;
-import com.radirius.mercury.graphics.font.TrueTypeFont;
+import com.radirius.mercury.graphics.font.*;
 import com.radirius.mercury.input.Input;
-import com.radirius.mercury.resource.ClasspathLocation;
-import com.radirius.mercury.resource.Loader;
+import com.radirius.mercury.resource.*;
 import com.radirius.mercury.utilities.TaskTiming;
 import com.radirius.mercury.utilities.logging.Logger;
+import org.lwjgl.Sys;
+import org.lwjgl.opengl.*;
+
+import java.util.ArrayList;
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * The Core initializes the game, runs the game loop, and cleans up.
@@ -30,12 +25,16 @@ import com.radirius.mercury.utilities.logging.Logger;
 public abstract class Core {
 	private static Core currentCore;
 
-	/** Returns The core that is currently running. */
+	/**
+	 * Returns The core that is currently running.
+	 */
 	public static Core getCurrentCore() {
 		return currentCore;
 	}
 
-	/** The Core's CoreSetup. */
+	/**
+	 * The Core's CoreSetup.
+	 */
 	private CoreSetup coreSetup;
 
 	public Core(CoreSetup coreSetup) {
@@ -123,13 +122,19 @@ public abstract class Core {
 		return currentGameState;
 	}
 
-	/** A list of splash screens */
+	/**
+	 * A list of splash screens
+	 */
 	private final ArrayList<SplashScreen> splashes = new ArrayList<>();
 
-	/** The current splash screen */
+	/**
+	 * The current splash screen
+	 */
 	private int splidx = 0;
 
-	/** Whether or not the Runner is running */
+	/**
+	 * Whether or not the Runner is running
+	 */
 	private boolean running = false;
 
 	/**
@@ -156,10 +161,10 @@ public abstract class Core {
 		System.out.println("Mercury Game Library (In-Dev)\n" + "Website: http://mercurylib.com/");
 		System.out.println("-------------------------------");
 		System.out.println();
-		
+
 		Loader.addLocation(new ClasspathLocation());
-		
-		Logger.warn("You're running a non-stable build of Mercury!\nIf you run into any issues, please leave an issue on GitHub or make a post on the forum.");
+
+		Logger.warn("You're running a non-stable build of Mercury!\nIf you run into any issues, please leave an issue on GitHub or make a end on the forum.");
 
 		if (coreSetup.showConsoleDebug)
 			Logger.log("Mercury Starting:");
@@ -240,8 +245,6 @@ public abstract class Core {
 				}
 			}
 
-			glClear(GL_COLOR_BUFFER_BIT);
-
 			getCamera().pre(graphics);
 
 			if (!showingSplashScreens())
@@ -292,7 +295,9 @@ public abstract class Core {
 		currentCore = null;
 	}
 
-	/** The current framerate. */
+	/**
+	 * The current framerate.
+	 */
 	private int fps;
 
 	/**
@@ -302,7 +307,9 @@ public abstract class Core {
 		return fps;
 	}
 
-	/** The graphics object */
+	/**
+	 * The graphics object
+	 */
 	private Graphics graphics;
 
 	/**
@@ -330,7 +337,7 @@ public abstract class Core {
 	 * Adds information to the debugdata. Debug data is wiped every single
 	 * update frame, so this is to be called every frame.
 	 *
-	 * @param name The name of the debug information
+	 * @param name  The name of the debug information
 	 * @param value The value of the debug information
 	 */
 	public void addDebugData(String name, String value) {

@@ -1,8 +1,7 @@
 package com.radirius.mercury.scene;
 
 import com.radirius.mercury.math.MathUtil;
-import com.radirius.mercury.math.geometry.Rectangle;
-import com.radirius.mercury.math.geometry.Vector2f;
+import com.radirius.mercury.math.geometry.*;
 
 /**
  * A base for all Entities that have a function in a Mercury game's environment.

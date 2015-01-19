@@ -2,8 +2,7 @@ package com.radirius.mercury.data;
 
 import java.io.*;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * A way to store information outside of local data and store data in files.
@@ -32,7 +31,7 @@ public class MercuryData implements Data {
 
 	/**
 	 * @param property The property you are modifying (case sensitive).
-	 * @param value The value that you are changing the property to.
+	 * @param value    The value that you are changing the property to.
 	 */
 	public void setProperty(String property, String value) {
 		values.put(property, value);
@@ -40,7 +39,7 @@ public class MercuryData implements Data {
 
 	/**
 	 * @param prop The property you want to see the value of. Returns The
-	 *        property's value. If it does not exist, you get null.
+	 *             property's value. If it does not exist, you get null.
 	 */
 	public String getProperty(String prop) {
 		return values.get(prop);
@@ -52,8 +51,7 @@ public class MercuryData implements Data {
 
 		try {
 			scanner = new Scanner(new FileInputStream(location));
-		}
-		catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
@@ -64,8 +62,7 @@ public class MercuryData implements Data {
 			if (split.length <= 1)
 				try {
 					throw new IOException("Corrupted data file.");
-				}
-				catch (IOException e) {
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 
@@ -84,8 +81,7 @@ public class MercuryData implements Data {
 
 		try {
 			write = new PrintWriter(new FileOutputStream(new File(location)));
-		}
-		catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return;
 		}
