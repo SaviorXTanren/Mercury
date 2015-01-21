@@ -15,14 +15,17 @@ public class Camera {
 	 * The position on its respective axis
 	 */
 	float x, y;
+
 	/**
 	 * The scaling / zoom of the camera
 	 */
 	Vector2f scale = new Vector2f(1, 1);
+
 	/**
 	 * Rotation of the camera
 	 */
 	float rot = 0;
+
 	/**
 	 * The point on the screen that anchors the camera to the world.
 	 */
