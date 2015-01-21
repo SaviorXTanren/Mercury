@@ -29,7 +29,6 @@ public class Graphics implements Initializable, Cleanable {
 
 		currentFont = TrueTypeFont.ROBOTO_REGULAR;
 
-		// Hack: Have a back-up Matrix in-case the methods are called outside a frame, such as an init method
 		GraphicsUtils.pushMatrix();
 		getCamera().updateTransforms();
 	}
@@ -196,7 +195,7 @@ public class Graphics implements Initializable, Cleanable {
 	}
 
 	/**
-	 * Returns The boundries of the camera (the window's frame in the game world)
+	 * Returns The boundaries of the camera (the window's frame in the game world)
 	 */
 	public Rectangle getCameraBounds() {
 		return getCamera().getBounds();
@@ -304,8 +303,6 @@ public class Graphics implements Initializable, Cleanable {
 	public void pushAttributes() {
 		// Copy current attributes to stack
 		attributeStack.push(new GraphicsAttributes(getColor(), getFont(), getLineWidth(), isSmoothJoints()));
-		// Default the current attributes
-		defaultAttributes();
 	}
 
 	public void popAttributes() {
@@ -406,7 +403,7 @@ public class Graphics implements Initializable, Cleanable {
 	 * @param y       The y position
 	 */
 	public void drawString(String message, float scale, Font font, float x, float y) {
-		drawString(message, scale, font, x, y, Color.DEFAULT_DRAWING);
+		drawString(message, scale, font, x, y, currentColor);
 	}
 
 	/**
@@ -526,7 +523,7 @@ public class Graphics implements Initializable, Cleanable {
 	 * @param y       The y position
 	 */
 	public void drawCenteredString(String message, float scale, Font font, float x, float y) {
-		drawCenteredString(message, scale, font, x, y, Color.DEFAULT_DRAWING);
+		drawCenteredString(message, scale, font, x, y, currentColor);
 	}
 
 	/**
