@@ -128,9 +128,12 @@ public class Color {
 
 	/**
 	 * Sets the red component.
+	 *
+	 * @return This color
 	 */
-	public void setRed(float r) {
+	public Color setRed(float r) {
 		this.r = r;
+		return this;
 	}
 
 	/**
@@ -142,9 +145,12 @@ public class Color {
 
 	/**
 	 * Sets the green component.
+	 *
+	 * @return This color
 	 */
-	public void setGreen(float g) {
+	public Color setGreen(float g) {
 		this.g = g;
+		return this;
 	}
 
 	/**
@@ -156,9 +162,12 @@ public class Color {
 
 	/**
 	 * Sets the blue component.
+	 *
+	 * @return This color
 	 */
-	public void setBlue(float b) {
+	public Color setBlue(float b) {
 		this.b = b;
+		return this;
 	}
 
 	/**
@@ -170,9 +179,12 @@ public class Color {
 
 	/**
 	 * Sets the alpha component.
+	 *
+	 * @return This color
 	 */
-	public void setAlpha(float a) {
+	public Color setAlpha(float a) {
 		this.a = a;
+		return this;
 	}
 
 	/**
@@ -207,6 +219,34 @@ public class Color {
 	 */
 	public void set(float r, float g, float b) {
 		set(r, g, b, 255);
+	}
+
+	/**
+	 * Adds to the color values (not including alpha).
+	 *
+	 * @param adder The value to add
+	 * @return This color
+	 */
+	public Color add(float adder) {
+		this.r += adder;
+		this.g += adder;
+		this.b += adder;
+
+		return this;
+	}
+
+	/**
+	 * Multiplies the color values (not including alpha).
+	 *
+	 * @param factor The factor to multiply by
+	 * @return This color
+	 */
+	public Color multiply(float factor) {
+		this.r *= factor;
+		this.g *= factor;
+		this.b *= factor;
+
+		return this;
 	}
 
 	/**

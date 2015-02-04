@@ -227,8 +227,9 @@ public abstract class Core {
 
 			lag += elapsed;
 
+			Input.poll();
+
 			while (lag >= millisPerUpdate) {
-				Input.poll();
 
 				if (!showingSplashScreens())
 					update();
