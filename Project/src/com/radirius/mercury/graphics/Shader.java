@@ -36,6 +36,7 @@ public class Shader implements Resource, Bindable {
 	 */
 	public static final int FRAGMENT_SHADER = 1;
 	public static Shader DEFAULT_SHADER;
+	private static Shader currentShader = DEFAULT_SHADER;
 	private final int programObject;
 
 	/**
@@ -290,13 +291,12 @@ public class Shader implements Resource, Bindable {
 	 */
 	@Override
 	public void bind() {
+		currentShader = this;
+
 		// Flush previous data
 		Core.getCurrentCore().getBatcher().flush();
 
 		glUseProgram(programObject);
-
-		setUniformMatrix4("proj", GraphicsUtils.getProjectionMatrix());
-		setUniformMatrix4("view", GraphicsUtils.getCurrentMatrix());
 	}
 
 	/**
@@ -359,5 +359,12 @@ public class Shader implements Resource, Bindable {
 	@Override
 	public void clean() {
 		glDeleteProgram(programObject);
+	}
+
+	/**
+	 * Returns the currently bound shader.
+	 */
+	public static Shader getCurrentShader() {
+		return currentShader;
 	}
 }

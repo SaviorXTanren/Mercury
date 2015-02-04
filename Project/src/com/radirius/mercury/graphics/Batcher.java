@@ -1,6 +1,7 @@
 package com.radirius.mercury.graphics;
 
 import com.radirius.mercury.math.geometry.*;
+import com.radirius.mercury.utilities.GraphicsUtils;
 import com.radirius.mercury.utilities.logging.Logger;
 import com.radirius.mercury.utilities.misc.*;
 import org.lwjgl.BufferUtils;
@@ -70,6 +71,9 @@ public class Batcher implements Initializable, Cleanable, Usable {
 	 * Uploads data to OpenGL.
 	 */
 	public void flush() {
+		Shader.getCurrentShader().setUniformMatrix4("proj", GraphicsUtils.getProjectionMatrix());
+		Shader.getCurrentShader().setUniformMatrix4("view", GraphicsUtils.getCurrentMatrix());
+
 		vd.flip();
 		cd.flip();
 		td.flip();

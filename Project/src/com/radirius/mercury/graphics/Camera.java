@@ -51,8 +51,6 @@ public class Camera {
 	}
 
 	public void updateTransforms() {
-		Core.getCurrentCore().getBatcher().flush();
-
 		// Update the transformation matrix
 		Matrix4f cm = GraphicsUtils.getCurrentMatrix();
 

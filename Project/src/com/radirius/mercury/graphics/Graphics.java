@@ -112,28 +112,6 @@ public class Graphics implements Initializable, Cleanable {
 	}
 
 	/**
-	 * Scales the camera.
-	 *
-	 * @param x The x scaling
-	 * @param y The y scaling
-	 */
-	public void scale(float x, float y) {
-		getCamera().setScale(x, y);
-
-		if (!lineWidthChanged)
-			lineWidth = 1 / getScale();
-	}
-
-	/**
-	 * Scales the camera.
-	 *
-	 * @param factor The factor by which to scale
-	 */
-	public void scale(float factor) {
-		scale(factor, factor);
-	}
-
-	/**
 	 * Sets the scale of the camera.
 	 *
 	 * @param x The x scaling
@@ -152,7 +130,7 @@ public class Graphics implements Initializable, Cleanable {
 	 * @param scale The scale
 	 */
 	public void setScale(float scale) {
-		scale(scale, scale);
+		setScale(scale, scale);
 	}
 
 	/**

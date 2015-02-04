@@ -1,7 +1,7 @@
 package com.radirius.mercury.tests;
 
 import com.radirius.mercury.framework.*;
-import com.radirius.mercury.graphics.Graphics;
+import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.graphics.wip.gui.*;
 import com.radirius.mercury.scene.GameScene;
 
@@ -51,11 +51,11 @@ public class GUITest extends Core {
 	@Override
 	public void update() {
 		gameScene.update();
+		panel.update();
 	}
 
 	@Override
 	public void render(Graphics g) {
-		panel.update();
 		panel.render(g);
 
 		gameScene.render(g);
