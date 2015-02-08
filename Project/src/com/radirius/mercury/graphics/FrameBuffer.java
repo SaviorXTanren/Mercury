@@ -3,7 +3,6 @@ package com.radirius.mercury.graphics;
 import com.radirius.mercury.exceptions.MercuryException;
 import com.radirius.mercury.framework.*;
 import com.radirius.mercury.utilities.misc.*;
-import org.lwjgl.opengl.*;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;

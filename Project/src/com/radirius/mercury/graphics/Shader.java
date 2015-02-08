@@ -3,7 +3,6 @@ package com.radirius.mercury.graphics;
 import com.radirius.mercury.framework.Core;
 import com.radirius.mercury.math.geometry.Matrix4f;
 import com.radirius.mercury.resource.*;
-import com.radirius.mercury.utilities.GraphicsUtils;
 import com.radirius.mercury.utilities.misc.Bindable;
 import org.lwjgl.opengl.GL11;
 

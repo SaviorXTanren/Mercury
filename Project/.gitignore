@@ -17,3 +17,5 @@ atlassian-ide-plugin.xml
 natives/
 /target/
 
+# This is the private script that wesley uses to update out/ with the newest build
+target2out.sh

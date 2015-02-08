@@ -3,7 +3,7 @@ package com.radirius.mercury.framework;
 import com.radirius.mercury.audio.Audio;
 import com.radirius.mercury.framework.splash.SplashScreen;
 import com.radirius.mercury.graphics.*;
-import com.radirius.mercury.graphics.font.*;
+import com.radirius.mercury.graphics.font.TrueTypeFont;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.resource.*;
 import com.radirius.mercury.utilities.TaskTiming;
@@ -12,8 +12,6 @@ import org.lwjgl.Sys;
 import org.lwjgl.opengl.*;
 
 import java.util.ArrayList;
-
-import static org.lwjgl.opengl.GL11.*;
 
 /**
  * The Core initializes the game, runs the game loop, and cleans up.
@@ -130,7 +128,7 @@ public abstract class Core {
 	/**
 	 * The current splash screen
 	 */
-	private int splidx = 0;
+	private int splashIndex = 0;
 
 	/**
 	 * Whether or not the Runner is running
@@ -227,14 +225,12 @@ public abstract class Core {
 
 			lag += elapsed;
 
-			Input.poll();
-
 			while (lag >= millisPerUpdate) {
+				Input.poll();
+				TaskTiming.update();
 
 				if (!showingSplashScreens())
 					update();
-
-				TaskTiming.update();
 
 				lag -= millisPerUpdate;
 				processedUpdates++;
@@ -253,21 +249,12 @@ public abstract class Core {
 			else
 				showSplashScreens(graphics);
 
-			if (coreSetup.showDebug) {
-				addDebugData("FPS", String.valueOf(getFps()));
-
-				Font tempFont = graphics.getFont();
-				graphics.setFont(TrueTypeFont.ROBOTO_REGULAR);
-				graphics.setColor(Color.WHITE);
-				graphics.drawString(debugData, 1 / graphics.getScale(), 8, 4);
-				debugData = "";
-				graphics.setFont(tempFont);
-			}
+			addDebugData("FPS", String.valueOf(fps));
+			if (coreSetup.showDebug)
+				graphics.drawString(debugData, 1 / graphics.getScale(), TrueTypeFont.ROBOTO_REGULAR, getCamera().getBounds().getVertices()[0].getX() + 8, getCamera().getBounds().getVertices()[0].getY() + 4, Color.WHITE);
+			debugData = "";
 
 			getCamera().post(graphics);
-
-			if (Display.isCloseRequested())
-				end();
 
 			Display.update();
 		}
@@ -297,12 +284,12 @@ public abstract class Core {
 	}
 
 	/**
-	 * The current framerate.
+	 * The current frame rate.
 	 */
 	private int fps;
 
 	/**
-	 * Returns The framerate
+	 * Returns The frame rate
 	 */
 	public int getFps() {
 		return fps;
@@ -335,7 +322,7 @@ public abstract class Core {
 	}
 
 	/**
-	 * Adds information to the debugdata. Debug data is wiped every single
+	 * Adds information to the debug data. Debug data is wiped every single
 	 * update frame, so this is to be called every frame.
 	 *
 	 * @param name  The name of the debug information
@@ -357,15 +344,15 @@ public abstract class Core {
 		if (!showingSplashScreens())
 			return;
 
-		if (!splashes.get(splidx).show(g))
-			splidx++;
+		if (!splashes.get(splashIndex).show(g))
+			splashIndex++;
 	}
 
 	/**
 	 * Returns Whether the splashes screens are being shown
 	 */
 	public boolean showingSplashScreens() {
-		return splidx < splashes.size();
+		return splashIndex < splashes.size();
 	}
 
 	/**

@@ -39,8 +39,8 @@ public class Checkbox extends Component {
 	@Override
 	public void update() {
 		super.update();
-		if(isFocused())
-			if(Input.keyClicked(Input.KEY_SPACE))
+		if (isFocused())
+			if (Input.keyClicked(Input.KEY_SPACE))
 				onMouseClick();
 	}
 

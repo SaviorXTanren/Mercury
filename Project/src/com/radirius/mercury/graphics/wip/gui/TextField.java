@@ -10,7 +10,7 @@ public class TextField extends Component {
 	protected StringBuilder text;
 
 	/**
-	 * @param message         The content text
+	 * @param message The content text
 	 */
 	public TextField(String message) {
 		this.text = new StringBuilder(message);

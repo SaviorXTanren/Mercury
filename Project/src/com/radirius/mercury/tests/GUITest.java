@@ -1,7 +1,7 @@
 package com.radirius.mercury.tests;
 
 import com.radirius.mercury.framework.*;
-import com.radirius.mercury.graphics.*;
+import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.graphics.wip.gui.*;
 import com.radirius.mercury.scene.GameScene;
 

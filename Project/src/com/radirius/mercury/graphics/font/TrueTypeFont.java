@@ -63,9 +63,6 @@ public class TrueTypeFont implements Font {
 	 */
 	private float fontAverageWidth;
 
-	private int baseWidth;
-	private int baseHeight;
-
 	/**
 	 * Some AWT jargon for fonts.
 	 */
@@ -144,19 +141,10 @@ public class TrueTypeFont implements Font {
 	}
 
 	private void createSet() {
-		for (int i = 0; i < STANDARD_CHARACTERS; i++) {
-			char ch = (char) i;
-
-			BufferedImage fontimg = getFontImage(ch);
-
-			baseWidth += fontimg.getWidth() + ANTI_TEXTURE_BLEEDING_MARGIN * 2;
-			baseHeight = Math.max(fontimg.getHeight() + ANTI_TEXTURE_BLEEDING_MARGIN * 2, baseHeight);
-		}
-
-		baseWidth /= 8;
-		baseHeight *= 8;
-
 		// Make a graphics object for the buffered image.
+		int baseWidth = 512;
+		int baseHeight = 512;
+
 		BufferedImage imgTemp = new BufferedImage(baseWidth, baseHeight, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) imgTemp.getGraphics();
 
@@ -170,15 +158,30 @@ public class TrueTypeFont implements Font {
 
 		int subXs[] = new int[STANDARD_CHARACTERS], subYs[] = new int[STANDARD_CHARACTERS], subWidths[] = new int[STANDARD_CHARACTERS], subHeights[] = new int[STANDARD_CHARACTERS];
 
+		g.setFont(font);
+		g.setColor(Color.BLACK);
+		if (smooth)
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		// Font preparation.
+		FontMetrics fontMetrics = g.getFontMetrics();
+		fontHeight = fontMetrics.getHeight();
+
 		// Loop through all standard characters (256 of them)
 		for (int i = 0; i < STANDARD_CHARACTERS; i++) {
 			char ch = (char) i;
 
-			// BufferedImage for the character
-			BufferedImage fontImage = getFontImage(ch);
+			float charWidth = fontMetrics.charWidth(ch);
+			// Safety guards just in case.
+			if (charWidth <= 0)
+				charWidth = 1;
+			if (Character.isLetterOrDigit(ch)) {
+				fontMaxWidth = Math.max(fontMaxWidth, charWidth);
+				fontAverageWidth += charWidth / STANDARD_CHARACTERS;
+			}
 
 			// Go to next row if there is no room on x axis
-			if (positionX + fontImage.getWidth() + ANTI_TEXTURE_BLEEDING_MARGIN * 2 >= baseWidth) {
+			if (positionX + charWidth + ANTI_TEXTURE_BLEEDING_MARGIN * 2 >= baseWidth) {
 				positionX = 0;
 				positionY += getHeight() + ANTI_TEXTURE_BLEEDING_MARGIN;
 			}
@@ -186,18 +189,18 @@ public class TrueTypeFont implements Font {
 			positionX += ANTI_TEXTURE_BLEEDING_MARGIN;
 
 			// Draw the character onto the font image
-			g.drawImage(fontImage, (int) positionX, (int) positionY, null);
+			g.drawString(String.valueOf(ch), (int) positionX, (int) positionY + fontMetrics.getAscent());
 
 			// Set the parameters of the character at i
 			subXs[i] = (int) positionX;
 			subYs[i] = (int) positionY;
 
 			// Next position on x axis.
-			positionX += fontImage.getWidth() + ANTI_TEXTURE_BLEEDING_MARGIN;
+			positionX += charWidth + ANTI_TEXTURE_BLEEDING_MARGIN;
 
 			// Set the parameters of the character at i
-			subWidths[i] = fontImage.getWidth();
-			subHeights[i] = fontImage.getHeight();
+			subWidths[i] = (int) charWidth;
+			subHeights[i] = (int) getHeight();
 		}
 
 		// Load texture and sprite sheet.
@@ -208,46 +211,6 @@ public class TrueTypeFont implements Font {
 			characterSubs[i] = new SubTexture(fontTexture, subXs[i], subYs[i], subXs[i] + subWidths[i], subYs[i] + subHeights[i]);
 
 		this.characters = SpriteSheet.loadSpriteSheet(fontTexture, characterSubs);
-	}
-
-	private BufferedImage getFontImage(char ch) {
-		// Make and init graphics for character image.
-		BufferedImage tempFontImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g = (Graphics2D) tempFontImage.getGraphics();
-
-		if (smooth)
-			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-		g.setFont(font);
-
-		// Font preparation.
-		FontMetrics fontMetrics = g.getFontMetrics();
-
-		float charWidth = fontMetrics.charWidth(ch);
-		// Safety guards just in case.
-		if (charWidth <= 0)
-			charWidth = 1;
-
-		if (Character.isLetterOrDigit(ch)) {
-			fontMaxWidth = Math.max(fontMaxWidth, charWidth);
-			fontAverageWidth += charWidth / STANDARD_CHARACTERS;
-		}
-
-		// Height!
-		fontHeight = fontMetrics.getHeight();
-
-		// Now to the actual image!
-		BufferedImage fontImage = new BufferedImage((int) charWidth, (int) getHeight(), BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g2d = (Graphics2D) fontImage.getGraphics();
-
-		if (smooth)
-			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-		g2d.setFont(font);
-		g2d.setColor(Color.BLACK);
-		g2d.drawString(String.valueOf(ch), 0, fontMetrics.getAscent());
-
-		return fontImage;
 	}
 
 	/**
@@ -293,10 +256,7 @@ public class TrueTypeFont implements Font {
 		float lineWidth = 0;
 
 		for (char element : message.toCharArray()) {
-			SubTexture characterSub = null;
-
-			if (element < STANDARD_CHARACTERS)
-				characterSub = characters.getTexture(element);
+			SubTexture characterSub = characters.getTexture(element);
 
 			if (element == '\n') {
 				totalWidth = Math.max(totalWidth, lineWidth);

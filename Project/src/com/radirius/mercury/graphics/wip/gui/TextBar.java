@@ -21,58 +21,63 @@ public class TextBar extends TextField {
 	public void update() {
 		super.update();
 
-		if (!isFocused())
-			return;
+		try {
+			if (!isFocused())
+				return;
 
-		if (cursorIndex == -1)
-			cursorIndex = text.length() - 1;
+			if (cursorIndex == -1)
+				cursorIndex = text.length() - 1;
 
 
-		float contentWidth = width == fitText ? Float.MAX_VALUE : getContentWidth();
+			float contentWidth = width == fitText ? Float.MAX_VALUE : getContentWidth();
 
-		// Remove cursor
-		char nextCharacter = Input.getNextCharacter();
+			// Remove cursor
+			char nextCharacter = Input.getNextCharacter();
 
-		if (nextCharacter != 0 /* No character typed */) {
-			if (nextCharacter != 8 /* Backspace */) {
-				if (font.getWidth(text.toString() + nextCharacter + cursor) <= contentWidth) {
-					text.insert(cursorIndex, nextCharacter);
-					cursorIndex++;
-				}
-			} else if (text.length() != 0)
-				if (Input.keyDown(Input.KEY_LCONTROL)) {
-					int lastSpace = text.substring(0, cursorIndex).lastIndexOf(" ");
-					lastSpace = lastSpace == -1 ? 0 : lastSpace;
-					text.replace(lastSpace, cursorIndex, "");
-					cursorIndex = lastSpace;
-				} else if (cursorIndex > 0) {
-					text.deleteCharAt(cursorIndex - 1);
-					cursorIndex = Math.max(0, cursorIndex - 1);
-				}
-		}
-
-		if (Input.keyDown(Input.KEY_LCONTROL)) {
-			if (Input.keyClicked(Input.KEY_LEFT))
-				cursorIndex = text.substring(0, cursorIndex).lastIndexOf(' ');
-			else if (Input.keyClicked(Input.KEY_RIGHT)) {
-				cursorIndex = text.indexOf(" ", cursorIndex + 1);
-				if (cursorIndex < 0)
-					cursorIndex = text.length();
-			} else if (Input.keyClicked(Input.KEY_V)) {
-				String clipData = Clipboard.fetch();
-				while (font.getWidth(text.toString() + clipData + cursor) > contentWidth && clipData.length() > 0)
-					clipData = clipData.substring(0, clipData.length() - 1);
-				text.insert(cursorIndex-1, clipData);
-				cursorIndex += clipData.length();
+			if (nextCharacter != 0 /* No character typed */) {
+				if (nextCharacter != 8 /* Backspace */) {
+					if (font.getWidth(text.toString() + nextCharacter + cursor) <= contentWidth) {
+						text.insert(cursorIndex, nextCharacter);
+						cursorIndex++;
+					}
+				} else if (text.length() != 0)
+					if (Input.keyDown(Input.KEY_LCONTROL)) {
+						int lastSpace = text.substring(0, cursorIndex).lastIndexOf(" ");
+						lastSpace = lastSpace == -1 ? 0 : lastSpace;
+						text.replace(lastSpace, cursorIndex, "");
+						cursorIndex = lastSpace;
+					} else if (cursorIndex > 0) {
+						text.deleteCharAt(cursorIndex - 1);
+						cursorIndex = Math.max(0, cursorIndex - 1);
+					}
 			}
-		} else {
-			if (Input.keyClicked(Input.KEY_LEFT))
-				cursorIndex = cursorIndex - 1;
-			else if (Input.keyClicked(Input.KEY_RIGHT))
-				cursorIndex = cursorIndex + 1;
-		}
 
-		cursorIndex = Math.max(0, Math.min(text.length(), cursorIndex));
+			if (Input.keyDown(Input.KEY_LCONTROL)) {
+				if (Input.keyClicked(Input.KEY_LEFT))
+					cursorIndex = text.substring(0, cursorIndex).lastIndexOf(' ');
+				else if (Input.keyClicked(Input.KEY_RIGHT)) {
+					cursorIndex = text.indexOf(" ", cursorIndex + 1);
+					if (cursorIndex < 0)
+						cursorIndex = text.length();
+				} else if (Input.keyClicked(Input.KEY_V)) {
+					String clipData = Clipboard.fetch();
+					while (font.getWidth(text.toString() + clipData + cursor) > contentWidth && clipData.length() > 0)
+						clipData = clipData.substring(0, clipData.length() - 1);
+					text.insert(cursorIndex - 1, clipData);
+					cursorIndex += clipData.length();
+				}
+			} else {
+				if (Input.keyClicked(Input.KEY_LEFT))
+					cursorIndex = cursorIndex - 1;
+				else if (Input.keyClicked(Input.KEY_RIGHT))
+					cursorIndex = cursorIndex + 1;
+			}
+
+			cursorIndex = Math.max(0, Math.min(text.length(), cursorIndex));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			// These exceptions are bad, but let's not crash the program if it happens.
+			e.printStackTrace();
+		}
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.math.geometry.*;
 import com.radirius.mercury.utilities.GraphicsUtils;
 import com.radirius.mercury.utilities.misc.*;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.Display;
 
 import java.util.Stack;
 
@@ -669,9 +669,9 @@ public class Graphics implements Initializable, Cleanable {
 			if (polygon0 instanceof Triangle) {
 				batcher.flushOnOverflow(3);
 
-				batcher.vertex(vertices[0].x, vertices[0].y, 0, 0);
-				batcher.vertex(vertices[1].x, vertices[1].y, 0, 0);
-				batcher.vertex(vertices[2].x, vertices[2].y, 0, 0);
+				batcher.vertex(vertices[0].x, vertices[0].y, currentColor, 0, 0);
+				batcher.vertex(vertices[1].x, vertices[1].y, currentColor, 0, 0);
+				batcher.vertex(vertices[2].x, vertices[2].y, currentColor, 0, 0);
 
 				continue;
 			} else if (polygon0 instanceof Rectangle) {
@@ -686,12 +686,12 @@ public class Graphics implements Initializable, Cleanable {
 			batcher.flushOnOverflow(3 * vertices.length);
 
 			for (int c = 0; c < vertices.length; c++) {
-				batcher.vertex(polygon0.getCenter().x, polygon0.getCenter().y, 0, 0);
+				batcher.vertex(polygon0.getCenter().x, polygon0.getCenter().y, currentColor, 0, 0);
 
 				if (c >= vertices.length - 1)
-					batcher.vertex(vertices[0].x, vertices[0].y, 0, 0);
+					batcher.vertex(vertices[0].x, vertices[0].y, currentColor, 0, 0);
 				else
-					batcher.vertex(vertices[c].x, vertices[c].y, 0, 0);
+					batcher.vertex(vertices[c].x, vertices[c].y, currentColor, 0, 0);
 
 				if (c >= vertices.length - 1)
 					batcher.vertex(vertices[vertices.length - 1].x, vertices[vertices.length - 1].y, currentColor, 0, 0);
