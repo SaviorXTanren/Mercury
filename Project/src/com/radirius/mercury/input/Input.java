@@ -17,6 +17,7 @@ import java.util.ArrayList;
  * @author Jeviny
  */
 public class Input {
+	// Keyboard
 	public static final int KEY_ESCAPE = 0x01;
 	public static final int KEY_1 = 0x02;
 	public static final int KEY_2 = 0x03;
@@ -143,9 +144,39 @@ public class Input {
 	public static final int KEY_APPS = 0xDD;
 	public static final int KEY_POWER = 0xDE;
 	public static final int KEY_SLEEP = 0xDF;
+
+	// Mouse
 	public static final int MOUSE_LEFT = 0;
 	public static final int MOUSE_RIGHT = 1;
 	public static final int MOUSE_MID = 2;
+
+	// Controller indexes
+	public static final int CONTROLLER_0 = 0;
+	public static final int CONTROLLER_1 = 1;
+	public static final int CONTROLLER_2 = 2;
+	public static final int CONTROLLER_3 = 3;
+	public static final int CONTROLLER_4 = 4;
+	public static final int CONTROLLER_5 = 5;
+	public static final int CONTROLLER_6 = 6;
+	public static final int CONTROLLER_7 = 7;
+	public static final int CONTROLLER_8 = 8;
+	public static final int CONTROLLER_9 = 9;
+
+	// Controller controls
+	public static final int CONTROLLER_A = 2;
+	public static final int CONTROLLER_B = 1;
+	public static final int CONTROLLER_Y = 0;
+	public static final int CONTROLLER_X = 3;
+	public static final int CONTROLLER_LTRIGGER = 4;
+	public static final int CONTROLLER_RTRIGGER = 5;
+	public static final int CONTROLLER_LBUMPER = 6;
+	public static final int CONTROLLER_RBUMPER = 7;
+	public static final int CONTROLLER_SELECT = 8;
+	public static final int CONTROLLER_START = 9;
+	public static final int CONTROLLER_LSTICKCLICK = 10;
+	public static final int CONTROLLER_RSTICKCLICK = 11;
+
+	private static Mapper mapper = null;
 
 	private static ArrayList<Integer> eventKeyStates = new ArrayList<Integer>();
 	private static ArrayList<Integer> eventMouseButtonStates = new ArrayList<Integer>();
@@ -170,6 +201,22 @@ public class Input {
 		}
 
 		setRepeatEventsEnabled(true);
+	}
+
+	/**
+	 * Sets the input mapper.
+	 *
+	 * @param mapper The new input mapper.
+	 */
+	public static void setMapper(Mapper mapper) {
+		Input.mapper = mapper;
+	}
+
+	/**
+	 * Returns the current input mapper.
+	 */
+	public Mapper getMapper() {
+		return mapper;
 	}
 
 	/**
@@ -250,6 +297,12 @@ public class Input {
 	 * Returns If key was clicked.
 	 */
 	public static boolean keyClicked(int key) {
+		if (mapper != null) {
+			int newKey = mapper.get(key);
+			if (newKey != Mapper.NO_VALUE)
+				key = newKey;
+		}
+
 		for (Integer eventkey : eventKeyStates)
 			if (eventkey == key)
 				return true;
@@ -267,9 +320,13 @@ public class Input {
 	 * Returns If key is down.
 	 */
 	public static boolean keyDown(int key) {
-		if (Keyboard.isKeyDown(key))
-			return true;
-		return false;
+		if (mapper != null) {
+			int newKey = mapper.get(key);
+			if (newKey != Mapper.NO_VALUE)
+				key = newKey;
+		}
+
+		return Keyboard.isKeyDown(key);
 	}
 
 	/**
@@ -319,6 +376,13 @@ public class Input {
 	}
 
 	/**
+	 * Returns If any button was clicked.
+	 */
+	public static boolean wasMouseClicked() {
+		return eventMouseButtonStates.size() != 0;
+	}
+
+	/**
 	 * Returns If mouse wheel is going up.
 	 */
 	public static boolean mouseWheelUp() {
@@ -361,31 +425,31 @@ public class Input {
 	 * graphics.
 	 */
 	public static Vector2f getGlobalMousePosition() {
-		Vector2f globalmousepos = getMousePosition();
+		Vector2f globalMousePosition = getMousePosition();
 		Camera cam = Core.getCurrentCore().getCamera();
 
 		// Scale the mouse position
-		globalmousepos.div(cam.getScaleDimensions());
+		globalMousePosition.div(cam.getScaleDimensions());
 		// Move the mouse position to the camera
-		globalmousepos.add(new Vector2f(cam.getPositionX() - cam.getOrigin().x / cam.getScaleDimensions().x, cam.getPositionY() - cam.getOrigin().y / cam.getScaleDimensions().y));
+		globalMousePosition.add(new Vector2f(cam.getPositionX() - cam.getOrigin().x / cam.getScaleDimensions().x, cam.getPositionY() - cam.getOrigin().y / cam.getScaleDimensions().y));
 
 		// Rotate to alignment
-		float origx = cam.getPositionX();
-		float origy = cam.getPositionY();
+		float originX = cam.getPositionX();
+		float originY = cam.getPositionY();
 
 		float s = MathUtil.sin(-cam.getRotation());
 		float c = MathUtil.cos(-cam.getRotation());
 
-		globalmousepos.x -= origx;
-		globalmousepos.y -= origy;
+		globalMousePosition.x -= originX;
+		globalMousePosition.y -= originY;
 
-		float xnew = globalmousepos.x * c - globalmousepos.y * s;
-		float ynew = globalmousepos.x * s + globalmousepos.y * c;
+		float newX = globalMousePosition.x * c - globalMousePosition.y * s;
+		float newY = globalMousePosition.x * s + globalMousePosition.y * c;
 
-		globalmousepos.x = xnew + origx;
-		globalmousepos.y = ynew + origy;
+		globalMousePosition.x = newX + originX;
+		globalMousePosition.y = newY + originY;
 
-		return globalmousepos;
+		return globalMousePosition;
 	}
 
 	/**
@@ -416,9 +480,6 @@ public class Input {
 	}
 
 	public static boolean controllerButtonClicked(int button, int controller) {
-		if (!Controllers.isCreated())
-			return false;
-
 		for (ControllerEvent cevent : eventControllerButtonStates)
 			if (cevent.button == button && cevent.controller == controller)
 				return true;
@@ -430,9 +491,6 @@ public class Input {
 	 * Returns Whether or not the button on controller is down; null if controllers have not been initialized.
 	 */
 	public static boolean controllerButtonDown(int button, int controller) {
-		if (!Controllers.isCreated())
-			return false;
-
 		return Controllers.getController(controller).isButtonPressed(button);
 	}
 
@@ -444,13 +502,17 @@ public class Input {
 	}
 
 	/**
+	 * Returns If any button was pressed.
+	 */
+	public static boolean wasControllerPressed() {
+		return eventControllerButtonStates.size() != 0;
+	}
+
+	/**
 	 * Returns A vector containing the x and y value of the left analog stick. null if controllers have not been
 	 * initialized.
 	 */
 	public static Vector2f getLeftAnalogStick(int controller) {
-		if (!Controllers.isCreated())
-			return null;
-
 		Vector2f result = new Vector2f(0, 0);
 
 		Controller control = Controllers.getController(controller);
@@ -465,9 +527,6 @@ public class Input {
 	 * initialized.
 	 */
 	public static Vector2f getRightAnalogStick(int controller) {
-		if (!Controllers.isCreated())
-			return null;
-
 		Vector2f result = new Vector2f(0, 0);
 
 		Controller control = Controllers.getController(controller);
@@ -481,9 +540,6 @@ public class Input {
 	 * Returns A vector containing the x and y value of the dpad. null if controllers have not been initialized.
 	 */
 	public static Vector2f getDPad(int controller) {
-		if (!Controllers.isCreated())
-			return null;
-
 		Vector2f result = new Vector2f(0, 0);
 
 		Controller control = Controllers.getController(controller);

@@ -137,14 +137,14 @@ public class Graphics implements Initializable, Cleanable {
 	 * Returns The dimensions of the current camera scaling
 	 */
 	public Vector2f getScaleDimensions() {
-		return getCamera().scale;
+		return getCamera().getScaleDimensions();
 	}
 
 	/**
 	 * Returns The scaling of the camera
 	 */
 	public float getScale() {
-		return (getCamera().scale.x + getCamera().scale.y) / 2;
+		return (getScaleDimensions().x + getScaleDimensions().y) / 2;
 	}
 
 	/**
@@ -516,13 +516,14 @@ public class Graphics implements Initializable, Cleanable {
 	 */
 	public void drawCenteredString(String message, float scale, Font font, float x, float y, Color color) {
 		if (font instanceof TrueTypeFont) {
-			float width = font.getWidth(message) * scale;
-			float height = font.getHeight(message) * scale;
+			float height = font.getHeight() * scale;
 
-			x -= width / 2;
-			y -= height / 2;
-
-			drawString(message, scale, font, x, y, color);
+			String[] lines = message.split("\n");
+			for (String line : lines) {
+				float width = font.getWidth(line) * scale;
+				drawString(line, scale, font, x - width / 2, y - height / 2, color);
+				y += height;
+			}
 		}
 	}
 

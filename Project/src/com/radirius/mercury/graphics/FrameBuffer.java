@@ -17,13 +17,16 @@ public class FrameBuffer implements Cleanable, Bindable {
 	private final int fboId;
 	private final Texture fboTexture;
 	private final int width, height;
+	private final Color backgroundColor;
 
-	private FrameBuffer(int fboId, int texId, int width, int height) {
+	private FrameBuffer(int fboId, int texId, int width, int height, Color backgroundColor) {
 		this.fboId = fboId;
 		fboTexture = Texture.createTextureObject(texId, width, height);
 		this.width = width;
 		this.height = height;
+		this.backgroundColor = backgroundColor;
 	}
+
 
 	/**
 	 * Creates a new frame buffer object.
@@ -31,23 +34,46 @@ public class FrameBuffer implements Cleanable, Bindable {
 	 * @return A new frame buffer object
 	 */
 	public static FrameBuffer getFrameBuffer() {
-		return getFrameBuffer(Window.getWidth(), Window.getHeight());
+		return getFrameBuffer(Color.CLEAR);
 	}
 
 	/**
 	 * Creates a new frame buffer object.
 	 *
-	 * @param width  The width of the frame
-	 * @param height The height of the frame
+	 * @param background The background color (can be transparent)
 	 * @return A new frame buffer object
 	 */
-	public static FrameBuffer getFrameBuffer(int width, int height) {
+	public static FrameBuffer getFrameBuffer(Color background) {
+		return getFrameBuffer(GL_NEAREST, background);
+	}
+
+	/**
+	 * Creates a new frame buffer object.
+	 *
+	 * @param filtering  The GL texture filter of the frame
+	 * @param background The background color (can be transparent)
+	 * @return A new frame buffer object
+	 */
+	public static FrameBuffer getFrameBuffer(int filtering, Color background) {
+		return getFrameBuffer(Window.getWidth(), Window.getHeight(), filtering, background);
+	}
+
+	/**
+	 * Creates a new frame buffer object.
+	 *
+	 * @param width      The width of the frame
+	 * @param height     The height of the frame
+	 * @param filtering  The GL texture filter of the frame
+	 * @param background The background color (can be transparent)
+	 * @return A new frame buffer object
+	 */
+	public static FrameBuffer getFrameBuffer(int width, int height, int filtering, Color background) {
 		int texId = glGenTextures();
 		glBindTexture(GL_TEXTURE_2D, texId);
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (java.nio.ByteBuffer) null);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filtering);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filtering);
 
 		int fboId = glGenFramebuffers();
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fboId);
@@ -64,7 +90,7 @@ public class FrameBuffer implements Cleanable, Bindable {
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-		return new FrameBuffer(fboId, texId, width, height);
+		return new FrameBuffer(fboId, texId, width, height, background);
 	}
 
 	/**
@@ -77,7 +103,7 @@ public class FrameBuffer implements Cleanable, Bindable {
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fboId);
 
 		glViewport(0, 0, width, height);
-		glClearColor(0f, 0f, 0f, 0f);
+		glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 

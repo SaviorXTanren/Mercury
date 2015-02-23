@@ -189,36 +189,49 @@ public class Color {
 
 	/**
 	 * Sets the color with RGBA values in integers.
+	 *
+	 * @return This Color
 	 */
-	public void set(int r, int g, int b, int a) {
+	public Color set(int r, int g, int b, int a) {
 		this.r = r / 255f;
 		this.g = g / 255f;
 		this.b = b / 255f;
 		this.a = a / 255f;
+
+		return this;
 	}
 
 	/**
 	 * Sets the color with RGB values in integers.
+	 *
+	 * @return This Color
 	 */
-	public void set(int r, int g, int b) {
+	public Color set(int r, int g, int b) {
 		set(r, g, b, 1f);
+		return this;
 	}
 
 	/**
 	 * Sets the color with RGBA values.
+	 *
+	 * @return This Color
 	 */
-	public void set(float r, float g, float b, float a) {
+	public Color set(float r, float g, float b, float a) {
 		this.r = r;
 		this.g = g;
 		this.b = b;
 		this.a = a;
+		return this;
 	}
 
 	/**
 	 * Sets the color with RGB values.
+	 *
+	 * @return This Color
 	 */
-	public void set(float r, float g, float b) {
+	public Color set(float r, float g, float b) {
 		set(r, g, b, 255);
+		return this;
 	}
 
 	/**

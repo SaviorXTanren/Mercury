@@ -2,6 +2,7 @@ package com.radirius.mercury.graphics.font;
 
 import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.resource.Loader;
+import com.radirius.mercury.utilities.logging.Logger;
 
 import java.awt.Color;
 import java.awt.*;
@@ -74,7 +75,80 @@ public class TrueTypeFont implements Font {
 
 		fontSize = font.getSize();
 
-		createSet();
+		// Make a graphics object for the buffered image.
+		int baseWidth = 1024;
+		int baseHeight = 1024;
+
+		BufferedImage imgTemp = new BufferedImage(baseWidth, baseHeight, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) imgTemp.getGraphics();
+
+		// Set the color to transparent
+		g.setColor(new Color(255, 255, 255, 0));
+		g.fillRect(0, 0, baseWidth, baseHeight);
+
+		// Initialize temporary variables.
+		float positionX = 0;
+		float positionY = ANTI_TEXTURE_BLEEDING_MARGIN;
+
+		int subXs[] = new int[STANDARD_CHARACTERS], subYs[] = new int[STANDARD_CHARACTERS], subWidths[] = new int[STANDARD_CHARACTERS], subHeights[] = new int[STANDARD_CHARACTERS];
+
+		g.setFont(font);
+		g.setColor(Color.BLACK);
+		if (smooth)
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		// Font preparation.
+		FontMetrics fontMetrics = g.getFontMetrics();
+		fontHeight = fontMetrics.getHeight();
+
+		// Loop through all standard characters (256 of them)
+		for (int i = 0; i < STANDARD_CHARACTERS; i++) {
+			char ch = (char) i;
+
+			float charWidth = fontMetrics.charWidth(ch);
+			// Safety guards just in case.
+			if (charWidth <= 0)
+				charWidth = 1;
+			if (Character.isLetterOrDigit(ch)) {
+				fontMaxWidth = Math.max(fontMaxWidth, charWidth);
+				fontAverageWidth += charWidth / STANDARD_CHARACTERS;
+			}
+
+			// Go to next row if there is no room on x axis
+			if (positionX + charWidth + ANTI_TEXTURE_BLEEDING_MARGIN * 2 >= baseWidth) {
+				positionX = 0;
+				positionY += getHeight() + ANTI_TEXTURE_BLEEDING_MARGIN;
+				if (positionY + getHeight() + ANTI_TEXTURE_BLEEDING_MARGIN > baseHeight) {
+					Logger.warn("TrueTypeFont does not support fonts this big, the maximum texture size being 1024x1024px. Aborting.");
+					return;
+				}
+			}
+
+			positionX += ANTI_TEXTURE_BLEEDING_MARGIN;
+
+			// Draw the character onto the font image
+			g.drawString(String.valueOf(ch), (int) positionX, (int) positionY + fontMetrics.getAscent());
+
+			// Set the parameters of the character at i
+			subXs[i] = (int) positionX;
+			subYs[i] = (int) positionY;
+
+			// Next position on x axis.
+			positionX += charWidth + ANTI_TEXTURE_BLEEDING_MARGIN;
+
+			// Set the parameters of the character at i
+			subWidths[i] = (int) charWidth;
+			subHeights[i] = (int) getHeight();
+		}
+
+		// Load texture and sprite sheet.
+		Texture fontTexture = Texture.loadTexture(imgTemp, Texture.FILTER_NEAREST);
+
+		SubTexture[] characterSubs = new SubTexture[STANDARD_CHARACTERS];
+		for (int i = 0; i < characterSubs.length; i++)
+			characterSubs[i] = new SubTexture(fontTexture, subXs[i], subYs[i], subXs[i] + subWidths[i], subYs[i] + subHeights[i]);
+
+		this.characters = SpriteSheet.loadSpriteSheet(fontTexture, characterSubs);
 	}
 
 	/**
@@ -138,79 +212,6 @@ public class TrueTypeFont implements Font {
 
 	public static TrueTypeFont loadTrueTypeFont(java.awt.Font font, boolean smooth) {
 		return new TrueTypeFont(font, smooth);
-	}
-
-	private void createSet() {
-		// Make a graphics object for the buffered image.
-		int baseWidth = 512;
-		int baseHeight = 512;
-
-		BufferedImage imgTemp = new BufferedImage(baseWidth, baseHeight, BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g = (Graphics2D) imgTemp.getGraphics();
-
-		// Set the color to transparent
-		g.setColor(new Color(255, 255, 255, 0));
-		g.fillRect(0, 0, baseWidth, baseHeight);
-
-		// Initialize temporary variables.
-		float positionX = 0;
-		float positionY = ANTI_TEXTURE_BLEEDING_MARGIN;
-
-		int subXs[] = new int[STANDARD_CHARACTERS], subYs[] = new int[STANDARD_CHARACTERS], subWidths[] = new int[STANDARD_CHARACTERS], subHeights[] = new int[STANDARD_CHARACTERS];
-
-		g.setFont(font);
-		g.setColor(Color.BLACK);
-		if (smooth)
-			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-		// Font preparation.
-		FontMetrics fontMetrics = g.getFontMetrics();
-		fontHeight = fontMetrics.getHeight();
-
-		// Loop through all standard characters (256 of them)
-		for (int i = 0; i < STANDARD_CHARACTERS; i++) {
-			char ch = (char) i;
-
-			float charWidth = fontMetrics.charWidth(ch);
-			// Safety guards just in case.
-			if (charWidth <= 0)
-				charWidth = 1;
-			if (Character.isLetterOrDigit(ch)) {
-				fontMaxWidth = Math.max(fontMaxWidth, charWidth);
-				fontAverageWidth += charWidth / STANDARD_CHARACTERS;
-			}
-
-			// Go to next row if there is no room on x axis
-			if (positionX + charWidth + ANTI_TEXTURE_BLEEDING_MARGIN * 2 >= baseWidth) {
-				positionX = 0;
-				positionY += getHeight() + ANTI_TEXTURE_BLEEDING_MARGIN;
-			}
-
-			positionX += ANTI_TEXTURE_BLEEDING_MARGIN;
-
-			// Draw the character onto the font image
-			g.drawString(String.valueOf(ch), (int) positionX, (int) positionY + fontMetrics.getAscent());
-
-			// Set the parameters of the character at i
-			subXs[i] = (int) positionX;
-			subYs[i] = (int) positionY;
-
-			// Next position on x axis.
-			positionX += charWidth + ANTI_TEXTURE_BLEEDING_MARGIN;
-
-			// Set the parameters of the character at i
-			subWidths[i] = (int) charWidth;
-			subHeights[i] = (int) getHeight();
-		}
-
-		// Load texture and sprite sheet.
-		Texture fontTexture = Texture.loadTexture(imgTemp, Texture.FILTER_NEAREST);
-
-		SubTexture[] characterSubs = new SubTexture[STANDARD_CHARACTERS];
-		for (int i = 0; i < characterSubs.length; i++)
-			characterSubs[i] = new SubTexture(fontTexture, subXs[i], subYs[i], subXs[i] + subWidths[i], subYs[i] + subHeights[i]);
-
-		this.characters = SpriteSheet.loadSpriteSheet(fontTexture, characterSubs);
 	}
 
 	/**

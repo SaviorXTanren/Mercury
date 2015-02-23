@@ -268,6 +268,7 @@ public abstract class Core {
 			Logger.log("Cleaning Up Core...");
 		}
 
+		currentGameState.onLeave();
 		cleanup();
 
 		if (coreSetup.showConsoleDebug)

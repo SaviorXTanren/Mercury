@@ -48,8 +48,8 @@ public class Loader {
 	/**
 	 * Loads a URL of a resource from the file system.
 	 *
-	 * @param path The path of the resource Returns The URL of a resource from
-	 *             the file system.
+	 * @param path The path of the resource
+	 * @return The URL of a resource from the file system
 	 */
 	public static URL getResource(String path) {
 		URL url = null;
@@ -67,6 +67,16 @@ public class Loader {
 			throw new RuntimeException("Resource not found: " + path);
 
 		return url;
+	}
+
+	/**
+	 * Loads a File resource from the file system.
+	 *
+	 * @param path The path of the resource
+	 * @return The File resource from the file system
+	 */
+	public static File getResourceAsFile(String path) {
+		return new File(getResource(path).getFile().replaceAll("%20", " "));
 	}
 
 	/**

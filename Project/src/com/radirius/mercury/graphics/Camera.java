@@ -14,17 +14,17 @@ public class Camera {
 	/**
 	 * The position on its respective axis
 	 */
-	float x, y;
+	private float x, y;
 
 	/**
 	 * The scaling / zoom of the camera
 	 */
-	Vector2f scale = new Vector2f(1, 1);
+	private Vector2f scale = new Vector2f(1, 1);
 
 	/**
 	 * Rotation of the camera
 	 */
-	float rot = 0;
+	private float rot = 0;
 
 	/**
 	 * The point on the screen that anchors the camera to the world.
@@ -57,7 +57,12 @@ public class Camera {
 		// Update the transformation matrix
 		Matrix4f cm = GraphicsUtils.getCurrentMatrix();
 
-		cm.initIdentity().mul(new Matrix4f().initTranslation(origin.x, origin.y)).mul(new Matrix4f().initScale(scale.x, scale.y)).mul(new Matrix4f().initRotation(rot)).mul(new Matrix4f().initTranslation(x, y));
+		if (rot < 0)
+			rot = 360 + rot;
+		if (rot > 360)
+			rot = 360 % rot;
+
+		cm.initIdentity().mul(new Matrix4f().initTranslation(origin.x, origin.y)).mul(new Matrix4f().initScale(scale.x, scale.y)).mul(new Matrix4f().initRotation(rot)).mul(new Matrix4f().initTranslation(-x, -y));
 	}
 
 	/**
@@ -88,24 +93,24 @@ public class Camera {
 	/**
 	 * Zooms the camera in / scales the scene.
 	 *
-	 * @param x The value by which to scale horizontally.
-	 * @param y The value by which to scale vertically.
-	 */
-	public void scale(float x, float y) {
-		scale.x += x;
-		scale.y += y;
-		updateTransforms();
-	}
-
-	/**
-	 * Zooms the camera in / scales the scene.
-	 *
 	 * @param x The value to set the horizontal scaling.
 	 * @param y The value to set the vertical scaling.
 	 */
 	public void setScale(float x, float y) {
 		scale.x = x;
 		scale.y = y;
+		updateTransforms();
+	}
+
+	/**
+	 * Zooms the camera in / scales the scene.
+	 *
+	 * @param x The value by which to scale horizontally.
+	 * @param y The value by which to scale vertically.
+	 */
+	public void scale(float x, float y) {
+		scale.x += x;
+		scale.y += y;
 		updateTransforms();
 	}
 
@@ -121,65 +126,32 @@ public class Camera {
 	}
 
 	/**
+	 * Returns The rotation of the camera by its origin.
+	 */
+	public float getRotation() {
+		return rot;
+	}
+
+	/**
+	 * Sets the camera rotation on its origin.
+	 *
+	 * @param rot The amount of rotation.
+	 */
+	public void setRotation(float rot) {
+		this.rot = rot;
+
+		updateTransforms();
+	}
+
+	/**
 	 * Rotates the camera on its origin.
 	 *
 	 * @param rot The amount by which to rotate
 	 */
 	public void rotate(float rot) {
 		this.rot += rot;
+
 		updateTransforms();
-	}
-
-	/**
-	 * Translates the camera by x and y.
-	 *
-	 * @param x The x movement.
-	 * @param y The y movement.
-	 */
-	public void translate(float x, float y) {
-		this.x -= x;
-		this.y -= y;
-		updateTransforms();
-	}
-
-	/**
-	 * Translates the camera to x and y.
-	 *
-	 * @param x The x position.
-	 * @param y The y position.
-	 */
-	public void translateTo(float x, float y) {
-		this.x = x;
-		this.y = y;
-		updateTransforms();
-	}
-
-	/**
-	 * Returns The real world width of the camera.
-	 */
-	public float getWidth() {
-		return Window.getWidth() / Core.getCurrentCore().getGraphics().getScaleDimensions().x;
-	}
-
-	/**
-	 * Returns The real world height of the camera.
-	 */
-	public float getHeight() {
-		return Window.getHeight() / Core.getCurrentCore().getGraphics().getScaleDimensions().y;
-	}
-
-	/**
-	 * Returns The real world x position of the camera.
-	 */
-	public float getPositionX() {
-		return getPosition().x;
-	}
-
-	/**
-	 * Returns The real world y position of the camera.
-	 */
-	public float getPositionY() {
-		return getPosition().y;
 	}
 
 	/**
@@ -209,27 +181,62 @@ public class Camera {
 	}
 
 	/**
-	 * Returns The rotation of the camera by its origin.
+	 * Returns The real world position of the camera.
 	 */
-	public float getRotation() {
-		return rot;
+	public Vector2f getPosition() {
+		return new Vector2f(x, y);
 	}
 
 	/**
-	 * Sets the camera rotation on its origin.
-	 *
-	 * @param rot The amount of rotation.
+	 * Returns The real world x position of the camera.
 	 */
-	public void setRotation(float rot) {
-		this.rot = rot;
+	public float getPositionX() {
+		return getPosition().x;
+	}
+
+	/**
+	 * Returns The real world y position of the camera.
+	 */
+	public float getPositionY() {
+		return getPosition().y;
+	}
+
+	/**
+	 * Translates the camera to x and y.
+	 *
+	 * @param x The x position.
+	 * @param y The y position.
+	 */
+	public void translateTo(float x, float y) {
+		this.x = x;
+		this.y = y;
 		updateTransforms();
 	}
 
 	/**
-	 * Returns The real world position of the camera.
+	 * Translates the camera by x and y.
+	 *
+	 * @param x The x movement.
+	 * @param y The y movement.
 	 */
-	public Vector2f getPosition() {
-		return new Vector2f(-x, -y);
+	public void translate(float x, float y) {
+		this.x += x;
+		this.y += y;
+		updateTransforms();
+	}
+
+	/**
+	 * Returns The real world width of the camera.
+	 */
+	public float getWidth() {
+		return Window.getWidth() / Core.getCurrentCore().getGraphics().getScaleDimensions().x;
+	}
+
+	/**
+	 * Returns The real world height of the camera.
+	 */
+	public float getHeight() {
+		return Window.getHeight() / Core.getCurrentCore().getGraphics().getScaleDimensions().y;
 	}
 
 	/**
