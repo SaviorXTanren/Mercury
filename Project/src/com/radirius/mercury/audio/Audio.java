@@ -83,12 +83,13 @@ public class Audio implements Resource {
 		IntBuffer buffer = BufferUtils.createIntBuffer(1);
 
 		OGGDecoder decoder = new OGGDecoder();
-		OGGData ogg = null;
+		OGGData ogg;
 
 		try {
 			ogg = decoder.getData(is);
 		} catch (IOException e) {
 			e.printStackTrace();
+			return -1;
 		}
 
 		alGenBuffers(buffer);
@@ -263,7 +264,7 @@ public class Audio implements Resource {
 	}
 
 	/**
-	 * Returns a seperate audio object of the same buffer.
+	 * Returns a separate audio object of the same buffer.
 	 */
 	public Audio duplicate() {
 		return getAudio(buffer);

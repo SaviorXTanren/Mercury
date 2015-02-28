@@ -27,19 +27,19 @@ public class OGGDecoder {
 	 * Get the data out of an OGG file
 	 *
 	 * @param input The input stream from which to read the OGG file Returns The
-	 *              data describing the OGG thats been read
+	 *              data describing the OGG that's been read
 	 * @throws IOException Indicates a failure to read the OGG file
 	 */
 	public OGGData getData(InputStream input) throws IOException {
 		if (input == null)
 			throw new IOException("Failed to read OGG file. Does the source exist?");
 
-		ByteArrayOutputStream dataout = new ByteArrayOutputStream();
+		ByteArrayOutputStream dataOut = new ByteArrayOutputStream();
 
 		OGGInputStream oggInput = new OGGInputStream(input);
 
 		while (!oggInput.atEnd())
-			dataout.write(oggInput.read());
+			dataOut.write(oggInput.read());
 
 		OGGData ogg = new OGGData();
 		ogg.channels = oggInput.getChannels();
@@ -47,7 +47,7 @@ public class OGGDecoder {
 
 		oggInput.close();
 
-		byte[] data = dataout.toByteArray();
+		byte[] data = dataOut.toByteArray();
 		ogg.data = ByteBuffer.allocateDirect(data.length);
 		ogg.data.put(data);
 		ogg.data.rewind();

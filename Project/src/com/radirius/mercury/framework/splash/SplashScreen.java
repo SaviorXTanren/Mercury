@@ -22,7 +22,7 @@ public class SplashScreen {
 	private long showTimeMillis;
 	private Texture splashTexture;
 	private boolean fitToScreen;
-	private int[] skipbutton = new int[]{};
+	private int[] skipButton = new int[]{};
 
 	/**
 	 * @param splashTexture  The texture of the splash screen.
@@ -77,8 +77,8 @@ public class SplashScreen {
 			showing = true;
 		}
 
-		for (int c_skipbtn : skipbutton)
-			if (Input.keyClicked(c_skipbtn)) {
+		for (int cSkipButton : skipButton)
+			if (Input.keyClicked(cSkipButton)) {
 				returned = false;
 				showing = false;
 			}
@@ -107,10 +107,10 @@ public class SplashScreen {
 	/**
 	 * Sets the buttons (from Input) for skipping the splash screen.
 	 *
-	 * @param skipbutton The button for skipping Returns the splash screen
+	 * @param skipButton The button for skipping Returns the splash screen
 	 */
-	public SplashScreen setSkipButton(int... skipbutton) {
-		this.skipbutton = skipbutton;
+	public SplashScreen setSkipButton(int... skipButton) {
+		this.skipButton = skipButton;
 
 		return this;
 	}

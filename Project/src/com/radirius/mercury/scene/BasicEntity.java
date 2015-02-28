@@ -1,6 +1,5 @@
 package com.radirius.mercury.scene;
 
-import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.math.geometry.*;
 
 /**
@@ -45,7 +44,7 @@ public class BasicEntity extends GameObject {
 	 * @param speed The speed of the translation
 	 */
 	public void move(float speed) {
-		translate(speed * MathUtil.cos(bounds.getRotation()), speed * MathUtil.sin(bounds.getRotation()));
+		translate(speed * (float) Math.cos(bounds.getRotation()), speed * (float) Math.sin(bounds.getRotation()));
 	}
 
 	/**
@@ -83,8 +82,8 @@ public class BasicEntity extends GameObject {
 	 *
 	 * @param angle The angle of rotation that the object will rotate to
 	 */
-	public void rotateTo(float angle) {
-		bounds.rotateTo(angle);
+	public void setRotation(float angle) {
+		bounds.setRotation(angle);
 	}
 
 	/**

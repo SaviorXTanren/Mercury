@@ -28,6 +28,11 @@ public class CoreSetup {
 	public int targetFps = 60;
 
 	/**
+	 * Whether or not to update multiple times while making up for the fixed time step.
+	 */
+	public boolean makeupTimeStepWithUpdates = false;
+
+	/**
 	 * Whether the window will attempt fullscreen.
 	 */
 	public boolean fullScreen = false;

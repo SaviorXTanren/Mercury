@@ -15,7 +15,7 @@ public class GameObject implements Entity, Wipeable {
 	/**
 	 * The children nodes.
 	 */
-	protected ArrayList<GameObject> children = new ArrayList<GameObject>();
+	protected ArrayList<GameObject> children = new ArrayList<>();
 
 	/**
 	 * Adds a child to the list of children nodes.

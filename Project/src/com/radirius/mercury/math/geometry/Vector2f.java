@@ -1,7 +1,5 @@
 package com.radirius.mercury.math.geometry;
 
-import com.radirius.mercury.math.MathUtil;
-
 /**
  * A class for 2-dimensional vectors.
  *
@@ -16,8 +14,8 @@ public class Vector2f {
 	}
 
 	public Vector2f(float theta) {
-		x = MathUtil.cos(theta);
-		y = MathUtil.sin(theta);
+		x = (float) Math.cos(theta);
+		y = (float) Math.sin(theta);
 	}
 
 	public Vector2f add(Vector2f vec) {
@@ -42,8 +40,8 @@ public class Vector2f {
 	}
 
 	public Vector2f sub(float theta) {
-		x -= MathUtil.cos(theta);
-		y -= MathUtil.sin(theta);
+		x -= Math.cos(theta);
+		y -= Math.sin(theta);
 
 		return this;
 	}
@@ -119,9 +117,8 @@ public class Vector2f {
 	}
 
 	public Vector2f rotate(float angle) {
-		double rad = MathUtil.toRadians(angle);
-		double cos = MathUtil.cos((float) rad);
-		double sin = MathUtil.sin((float) rad);
+		double cos = Math.cos(angle);
+		double sin = Math.sin(angle);
 
 		x = (float) (x * cos - y * sin);
 		y = (float) (x * sin + y * cos);
@@ -130,7 +127,7 @@ public class Vector2f {
 	}
 
 	public float theta() {
-		return (float) Math.toDegrees(Math.atan2(y, x));
+		return (float) Math.atan2(y, x);
 	}
 
 	public Vector2f copy() {

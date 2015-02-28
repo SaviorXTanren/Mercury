@@ -12,21 +12,21 @@ import com.radirius.mercury.utilities.misc.*;
  */
 public class ParticleSystem implements Updatable, Renderable {
 	private WipingArrayList<Particle> parts;
-	private ParticleSetup pesetup;
+	private ParticleSetup particleEmissionSetup;
 
 	/**
-	 * @param pesetup The particle's setup.
+	 * @param particleEmissionSetup The particle's setup.
 	 */
-	public ParticleSystem(ParticleSetup pesetup) {
-		parts = new WipingArrayList<Particle>();
-		this.pesetup = pesetup;
+	public ParticleSystem(ParticleSetup particleEmissionSetup) {
+		parts = new WipingArrayList<>();
+		this.particleEmissionSetup = particleEmissionSetup;
 	}
 
 	/**
 	 * Generates a new particle launching at an angle.
 	 *
-	 * @param point The point from which the particles emmit.
-	 * @param angle The angle at which the particles emmmit.
+	 * @param point The point from which the particles emit.
+	 * @param angle The angle at which the particles emit.
 	 */
 	public void generateParticle(Vector2f point, float angle) {
 		parts.add(new Particle(point.x, point.y, angle, this));
@@ -36,11 +36,11 @@ public class ParticleSystem implements Updatable, Renderable {
 	 * Generates new particles launching at random angles.
 	 *
 	 * @param amount The amount of particles to generate.
-	 * @param point  The point from which the particles emmit.
+	 * @param point  The point from which the particles emit.
 	 */
 	public void generateParticle(int amount, Vector2f point) {
 		for (int p = 0; p < amount; p++) {
-			generateParticle(point, pesetup.angle);
+			generateParticle(point, particleEmissionSetup.angle);
 		}
 	}
 
@@ -61,7 +61,7 @@ public class ParticleSystem implements Updatable, Renderable {
 	 * Returns The ParticleSetup options.
 	 */
 	public ParticleSetup getOptions() {
-		return pesetup;
+		return particleEmissionSetup;
 	}
 
 	/**

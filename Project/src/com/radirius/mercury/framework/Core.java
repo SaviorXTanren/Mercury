@@ -55,7 +55,7 @@ public abstract class Core {
 
 	/**
 	 * Used to initialize all resources, and for whatever you wish to do for
-	 * initialization. May run on a seperate thread, while the main Thread
+	 * initialization. May run on a separate thread, while the main Thread
 	 * continues to the game loop.
 	 */
 	public abstract void init();
@@ -225,12 +225,25 @@ public abstract class Core {
 
 			lag += elapsed;
 
-			while (lag >= millisPerUpdate) {
-				Input.poll();
-				TaskTiming.update();
+			// Whether update() has been called once
+			boolean updatedOnce = false;
 
-				if (!showingSplashScreens())
+			while (lag >= millisPerUpdate) {
+				if (coreSetup.makeupTimeStepWithUpdates) {
+					Input.poll();
+					TaskTiming.update();
+				}
+
+				// Only update multiple times if specified
+				if (!showingSplashScreens() && (!updatedOnce || !coreSetup.makeupTimeStepWithUpdates)) {
+					if (!coreSetup.makeupTimeStepWithUpdates) {
+						Input.poll();
+						TaskTiming.update();
+					}
+
 					update();
+					updatedOnce = true;
+				}
 
 				lag -= millisPerUpdate;
 				processedUpdates++;
@@ -250,8 +263,11 @@ public abstract class Core {
 				showSplashScreens(graphics);
 
 			addDebugData("FPS", String.valueOf(fps));
-			if (coreSetup.showDebug)
+			if (coreSetup.showDebug) {
+				graphics.setRotation(0);
+				graphics.setScale(1);
 				graphics.drawString(debugData, 1 / graphics.getScale(), TrueTypeFont.ROBOTO_REGULAR, getCamera().getBounds().getVertices()[0].getX() + 8, getCamera().getBounds().getVertices()[0].getY() + 4, Color.WHITE);
+			}
 			debugData = "";
 
 			getCamera().post(graphics);

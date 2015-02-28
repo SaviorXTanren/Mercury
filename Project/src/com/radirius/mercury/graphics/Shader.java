@@ -6,7 +6,8 @@ import com.radirius.mercury.resource.*;
 import com.radirius.mercury.utilities.misc.Bindable;
 import org.lwjgl.opengl.GL11;
 
-import java.io.*;
+import java.io.InputStream;
+import java.util.Scanner;
 
 import static org.lwjgl.opengl.GL20.*;
 
@@ -90,18 +91,15 @@ public class Shader implements Resource, Bindable {
 	 *                       and fragmentSource.
 	 */
 	public static Shader getShader(String vertexSource, String fragmentSource) {
-		int vertShader = 0;
-		int fragShader = 0;
+		int vertShader;
+		int fragShader;
 
 		try {
 			vertShader = createVertexShader(vertexSource);
 			fragShader = createFragmentShader(fragmentSource);
-		} catch (Exception exc) {
-			exc.printStackTrace();
+		} catch (Exception exception) {
+			exception.printStackTrace();
 			return null;
-		} finally {
-			if (vertShader == 0 || fragShader == 0)
-				return null;
 		}
 
 		int program = glCreateProgram();
@@ -129,7 +127,7 @@ public class Shader implements Resource, Bindable {
 
 	/**
 	 * @param source The stream to the source file.
-	 * @param type   The type of shader (the other half will use the MERCury default shader). Returns A shader based off
+	 * @param type   The type of shader (the other half will use the Mercury default shader). Returns A shader based off
 	 *               of the stream source, of the type type.
 	 */
 	public static Shader getShader(InputStream source, int type) {
@@ -156,9 +154,6 @@ public class Shader implements Resource, Bindable {
 		} catch (Exception exc) {
 			exc.printStackTrace();
 			return null;
-		} finally {
-			if (vertShader == 0 || fragShader == 0)
-				return null;
 		}
 
 		int program = glCreateProgram();
@@ -215,59 +210,17 @@ public class Shader implements Resource, Bindable {
 		}
 	}
 
+	/**
+	 * Loads a shader from an input stream
+	 */
 	private static String readShader(InputStream in) {
-		StringBuilder source = new StringBuilder();
+		String source = "";
+		Scanner scanner = new Scanner(in);
 
-		Exception exception = null;
+		while (scanner.hasNextLine())
+			source += scanner.nextLine() + "\n";
 
-		BufferedReader reader;
-
-		try {
-			reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
-
-			Exception innerExc = null;
-
-			try {
-				String line;
-
-				while ((line = reader.readLine()) != null)
-					source.append(line).append('\n');
-			} catch (Exception exc) {
-				exception = exc;
-			} finally {
-				try {
-					reader.close();
-				} catch (Exception exc) {
-					if (innerExc == null)
-						innerExc = exc;
-					else
-						exc.printStackTrace();
-				}
-			}
-
-			if (innerExc != null)
-				throw innerExc;
-		} catch (Exception exc) {
-			exception = exc;
-		} finally {
-			try {
-				in.close();
-			} catch (Exception exc) {
-				if (exception == null)
-					exception = exc;
-				else
-					exc.printStackTrace();
-			}
-
-			if (exception != null)
-				try {
-					throw exception;
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-		}
-
-		return source.toString();
+		return source;
 	}
 
 	/**

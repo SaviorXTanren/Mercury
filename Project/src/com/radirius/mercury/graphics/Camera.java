@@ -58,9 +58,9 @@ public class Camera {
 		Matrix4f cm = GraphicsUtils.getCurrentMatrix();
 
 		if (rot < 0)
-			rot = 360 + rot;
-		if (rot > 360)
-			rot = 360 % rot;
+			rot = (float) (2 * Math.PI + rot);
+		if (rot > 2 * Math.PI)
+			rot = (float) ((2 * Math.PI) % rot);
 
 		cm.initIdentity().mul(new Matrix4f().initTranslation(origin.x, origin.y)).mul(new Matrix4f().initScale(scale.x, scale.y)).mul(new Matrix4f().initRotation(rot)).mul(new Matrix4f().initTranslation(-x, -y));
 	}

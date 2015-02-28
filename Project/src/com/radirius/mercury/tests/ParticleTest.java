@@ -4,7 +4,7 @@ import com.radirius.mercury.framework.*;
 import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.graphics.particles.ParticleSystem;
 import com.radirius.mercury.input.Input;
-import com.radirius.mercury.math.MathUtil;
+import com.radirius.mercury.math.RandomUtil;
 import com.radirius.mercury.math.geometry.Vector2f;
 import com.radirius.mercury.resource.Loader;
 
@@ -43,8 +43,8 @@ public class ParticleTest extends Core {
 	@Override
 	public void update() {
 		for (int i = 0; i < 5; i++) {
-			smoke.getOptions().speed = MathUtil.random(0.5f, 1.5f);
-			smoke.getOptions().angle = MathUtil.random(0, -180);
+			smoke.getOptions().speed = RandomUtil.random(0.5f, 1.5f);
+			smoke.getOptions().angle = RandomUtil.random(0, -(float) Math.PI);
 			smoke.generateParticle(1, Input.getGlobalMousePosition());
 		}
 		smoke.update();

@@ -144,7 +144,7 @@ public class Texture implements Resource, Bindable {
 	}
 
 	public static BufferedImage processBufferedImage(BufferedImage bufferedImage) {
-		// Power of two stuffs. This is actually kind of a wierd problem with
+		// Power of two stuffs. This is actually kind of a weird problem with
 		// OpenGL, but it has to do with speed things.
 		boolean PoT = isPoT(bufferedImage.getWidth(), bufferedImage.getHeight());
 
@@ -153,25 +153,25 @@ public class Texture implements Resource, Bindable {
 		// Power of two expansion; we will set the width and height to their
 		// nearest larger PoT, since PoT is way faster
 		if (!PoT && expandToPoT) {
-			int newwidth = 0, newheight = 0;
+			int newWidth = 0, newHeight = 0;
 
 			boolean done = false;
 
 			for (int power = 1; !done; power += 1) {
 				int pot = (int) Math.pow(2, power);
 
-				if (newwidth == 0)
+				if (newWidth == 0)
 					if (pot >= bufferedImage.getWidth())
-						newwidth = pot;
+						newWidth = pot;
 
-				if (newheight == 0)
+				if (newHeight == 0)
 					if (pot >= bufferedImage.getHeight())
-						newheight = pot;
+						newHeight = pot;
 
-				done = newwidth != 0 && newheight != 0;
+				done = newWidth != 0 && newHeight != 0;
 			}
 
-			BufferedImage bufferedImage1 = new BufferedImage(newwidth, newheight, bufferedImage.getType());
+			BufferedImage bufferedImage1 = new BufferedImage(newWidth, newHeight, bufferedImage.getType());
 
 			bufferedImage1.getGraphics().drawImage(bufferedImage, 0, 0, null);
 			bufferedImage0 = bufferedImage1;
@@ -181,7 +181,7 @@ public class Texture implements Resource, Bindable {
 	}
 
 	public static ByteBuffer convertBufferedImageToBuffer(BufferedImage bufferedImage, boolean flipX, boolean flipY) {
-		// A buffer to store with bufferedimage data and throw into OpenGL
+		// A buffer to store with buffered image data and throw into OpenGL
 		ByteBuffer buffer = BufferUtils.createByteBuffer(bufferedImage.getWidth() * bufferedImage.getHeight() * BYTES_PER_PIXEL);
 
 		for (int y = flipY ? bufferedImage.getHeight() - 1 : 0; flipY ? y > -1 : y < bufferedImage.getHeight(); y += flipY ? -1 : 1) {

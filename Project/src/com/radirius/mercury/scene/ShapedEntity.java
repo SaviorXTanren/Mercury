@@ -37,6 +37,6 @@ public class ShapedEntity extends BasicEntity {
 	 */
 	@Override
 	public void render(Graphics g) {
-		g.traceShape((Polygon) shape.rotateTo(getBounds().getRotation()));
+		g.traceShape((Polygon) shape.setRotation(getBounds().getRotation()));
 	}
 }

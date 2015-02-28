@@ -1,7 +1,7 @@
 package com.radirius.mercury.graphics;
 
 /**
- * A class for sub-textures. These objects are just like regular textures, but
+ * A class for sub textures. These objects are just like regular textures, but
  * represent a portion of them.
  *
  * @author wessles
@@ -45,35 +45,35 @@ public class SubTexture extends Texture {
 	}
 
 	/**
-	 * Returns The x location of the subtexture on the parent texture.
+	 * Returns The x location of the sub texture on the parent texture.
 	 */
 	public int getSubX() {
 		return x;
 	}
 
 	/**
-	 * Returns The y location of the subtexture on the parent texture.
+	 * Returns The y location of the sub texture on the parent texture.
 	 */
 	public int getSubY() {
 		return y;
 	}
 
 	/**
-	 * Returns The second x location of the subtexture on the parent texture.
+	 * Returns The second x location of the sub texture on the parent texture.
 	 */
 	public int getSubX2() {
 		return x2;
 	}
 
 	/**
-	 * Returns The second y location of the subtexture on the parent texture.
+	 * Returns The second y location of the sub texture on the parent texture.
 	 */
 	public int getSubY2() {
 		return y2;
 	}
 
 	/**
-	 * Returns The width of the subtexture of the parent texture.
+	 * Returns The width of the sub texture of the parent texture.
 	 */
 	@Override
 	public int getWidth() {
@@ -81,7 +81,7 @@ public class SubTexture extends Texture {
 	}
 
 	/**
-	 * Returns The height of the subtexture of the parent texture.
+	 * Returns The height of the sub texture of the parent texture.
 	 */
 	@Override
 	public int getHeight() {

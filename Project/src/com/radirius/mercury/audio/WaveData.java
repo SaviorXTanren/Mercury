@@ -41,7 +41,7 @@ import java.net.URL;
 import java.nio.*;
 
 /**
- * Utitlity class for loading wavefiles.
+ * Utility class for loading wave files.
  *
  * @author Brian Matzon <brian@matzon.dk>
  */
@@ -66,26 +66,22 @@ public class WaveData {
 	 *
 	 * @param data       actual wave data
 	 * @param format     format of wave data
-	 * @param samplerate sample rate of data
+	 * @param sampleRate sample rate of data
 	 */
-	private WaveData(ByteBuffer data, int format, int samplerate) {
+	private WaveData(ByteBuffer data, int format, int sampleRate) {
 		this.data = data;
 		this.format = format;
-		this.samplerate = samplerate;
+		this.samplerate = sampleRate;
 	}
 
 	/**
 	 * Creates a WaveData container from the specified url
 	 *
 	 * @param path URL to file Returns WaveData containing data, or null if a
-	 *             failure occured
+	 *             failure occurred
 	 */
 	public static WaveData create(URL path) {
 		try {
-			// due to an issue with
-			// AudioSystem.getAudioInputStream
-			// and mixing unsigned and signed code
-			// we will use the reader directly
 			return create(new WaveFileReader().getAudioInputStream(new BufferedInputStream(path.openStream())));
 		} catch (Exception e) {
 			org.lwjgl.LWJGLUtil.log("Unable to create from: " + path + ", " + e.getMessage());
@@ -97,23 +93,23 @@ public class WaveData {
 	 * Creates a WaveData container from the specified in the classpath
 	 *
 	 * @param path path to file (relative, and in classpath) Returns WaveData
-	 *             containing data, or null if a failure occured
+	 *             containing data, or null if a failure occurred
 	 */
 	public static WaveData create(String path) {
 		return create(Thread.currentThread().getContextClassLoader().getResource(path));
 	}
 
 	/**
-	 * Creates a WaveData container from the specified inputstream
+	 * Creates a WaveData container from the specified input stream
 	 *
 	 * @param is InputStream to read from Returns WaveData containing data, or
-	 *           null if a failure occured
+	 *           null if a failure occurred
 	 */
 	public static WaveData create(InputStream is) {
 		try {
 			return create(AudioSystem.getAudioInputStream(is));
 		} catch (Exception e) {
-			org.lwjgl.LWJGLUtil.log("Unable to create from inputstream, " + e.getMessage());
+			org.lwjgl.LWJGLUtil.log("Unable to create from input stream, " + e.getMessage());
 			return null;
 		}
 	}
@@ -122,7 +118,7 @@ public class WaveData {
 	 * Creates a WaveData container from the specified bytes
 	 *
 	 * @param buffer array of bytes containing the complete wave file Returns
-	 *               WaveData containing data, or null if a failure occured
+	 *               WaveData containing data, or null if a failure occurred
 	 */
 	public static WaveData create(byte[] buffer) {
 		try {
@@ -134,16 +130,16 @@ public class WaveData {
 	}
 
 	/**
-	 * Creates a WaveData container from the specified ByetBuffer. If the buffer
+	 * Creates a WaveData container from the specified ByteBuffer. If the buffer
 	 * is backed by an array, it will be used directly, else the contents of the
 	 * buffer will be copied using get(byte[]).
 	 *
 	 * @param buffer ByteBuffer containing sound file Returns WaveData
-	 *               containing data, or null if a failure occured
+	 *               containing data, or null if a failure occurred
 	 */
 	public static WaveData create(ByteBuffer buffer) {
 		try {
-			byte[] bytes = null;
+			byte[] bytes;
 
 			if (buffer.hasArray())
 				bytes = buffer.array();
@@ -164,7 +160,7 @@ public class WaveData {
 	 * Creates a WaveData container from the specified stream
 	 *
 	 * @param ais AudioInputStream to read from Returns WaveData containing
-	 *            data, or null if a failure occured
+	 *            data, or null if a failure occurred
 	 */
 	public static WaveData create(AudioInputStream ais) {
 		AudioFormat audioformat = ais.getFormat();
@@ -188,16 +184,13 @@ public class WaveData {
 		} else
 			assert false : "Only mono or stereo is supported";
 
-		ByteBuffer buffer = null;
+		ByteBuffer buffer;
 
 		try {
 			int available = ais.available();
 
-			if (available <= 0)
-				available = ais.getFormat().getChannels() * (int) ais.getFrameLength() * ais.getFormat().getSampleSizeInBits() / 8;
-
 			byte[] buf = new byte[ais.available()];
-			int read = 0, total = 0;
+			int read, total = 0;
 
 			while ((read = ais.read(buf, total, buf.length - total)) != -1 && total < buf.length)
 				total += read;
@@ -211,36 +204,36 @@ public class WaveData {
 
 		try {
 			ais.close();
-		} catch (IOException ioe) {
+		} catch (IOException ignored) {
 		}
 
 		return wavedata;
 	}
 
 	private static ByteBuffer convertAudioBytes(byte[] audio_bytes, boolean two_bytes_data, ByteOrder order) {
-		ByteBuffer dest = ByteBuffer.allocateDirect(audio_bytes.length);
-		dest.order(ByteOrder.nativeOrder());
+		ByteBuffer destination = ByteBuffer.allocateDirect(audio_bytes.length);
+		destination.order(ByteOrder.nativeOrder());
 
 		ByteBuffer src = ByteBuffer.wrap(audio_bytes);
 		src.order(order);
 
 		if (two_bytes_data) {
-			ShortBuffer dest_short = dest.asShortBuffer();
+			ShortBuffer destination_short = destination.asShortBuffer();
 			ShortBuffer src_short = src.asShortBuffer();
 
 			while (src_short.hasRemaining())
-				dest_short.put(src_short.get());
+				destination_short.put(src_short.get());
 		} else
 			while (src.hasRemaining())
-				dest.put(src.get());
+				destination.put(src.get());
 
-		dest.rewind();
+		destination.rewind();
 
-		return dest;
+		return destination;
 	}
 
 	/**
-	 * Disposes the wavedata
+	 * Disposes the wave data
 	 */
 	public void dispose() {
 		data.clear();

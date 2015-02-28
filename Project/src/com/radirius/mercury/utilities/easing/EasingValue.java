@@ -32,30 +32,43 @@ public class EasingValue {
 		switch (easeType) {
 			case LINEAR_TWEEN:
 				easeValue = linearTween(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
+				break;
 			case BOUNCING_LINEAR_TWEEN:
 				easeValue = bouncingLinearTween(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
+				break;
 			case EASE_QUAD:
 				easeValue = easeQuad(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
+				break;
 			case BOUNCING_EASE_QUAD:
 				easeValue = bouncingEaseQuad(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
+				break;
 			case EASE_CUBIC:
 				easeValue = easeCubic(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
+				break;
 			case BOUNCING_EASE_CUBIC:
 				easeValue = bouncingEaseCubic(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
+				break;
 			case EASE_QUINT:
 				easeValue = easeQuint(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
+				break;
 			case BOUNCING_EASE_QUINT:
 				easeValue = bouncingEaseQuint(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
+				break;
 			case EASE_SINE:
 				easeValue = easeSine(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
+				break;
 			case BOUNCING_EASE_SINE:
 				easeValue = bouncingEaseSine(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
+				break;
 			case EASE_EXPO:
 				easeValue = easeExpo(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
+				break;
 			case BOUNCING_EASE_EXPO:
 				easeValue = bouncingEaseExpo(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
+				break;
 			case EASE_CIRCLE:
 				easeValue = easeCircle(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
+				break;
 			case BOUNCING_EASE_CIRCLE:
 				easeValue = bouncingEaseCircle(System.currentTimeMillis() - startMillis, startVal, endVal, durationMillis);
 		}

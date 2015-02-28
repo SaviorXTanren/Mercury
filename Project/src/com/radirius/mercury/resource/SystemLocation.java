@@ -25,11 +25,7 @@ public class SystemLocation implements Location {
 	public URL getResource(String path) {
 		try {
 			File file = new File(root, path);
-
-			if (!file.exists())
-				file = new File(path);
-			if (!file.exists())
-				return null;
+			file.createNewFile();
 
 			return file.toURI().toURL();
 		} catch (IOException e) {
@@ -41,9 +37,7 @@ public class SystemLocation implements Location {
 	public InputStream getResourceAsStream(String path) {
 		try {
 			File file = new File(root, path);
-
-			if (!file.exists())
-				file = new File(path);
+			file.createNewFile();
 
 			return new FileInputStream(file);
 		} catch (IOException e) {

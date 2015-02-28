@@ -23,11 +23,11 @@ public class UsingAudio extends Core {
 		usingAudio.start();
 	}
 
-	Audio cgop;
+	Audio opening;
 
 	@Override
 	public void init() {
-		cgop = Audio.getAudio(Loader.getResourceAsStream("com/radirius/mercury/tutorials/CG-OP.ogg"), "OGG");
+		opening = Audio.getAudio(Loader.getResourceAsStream("com/radirius/mercury/tutorials/CG-OP.ogg"), "OGG");
 
 		Input.setRepeatEventsEnabled(false);
 	}
@@ -35,27 +35,27 @@ public class UsingAudio extends Core {
 	@Override
 	public void update() {
 		if (Input.keyClicked(Input.KEY_SPACE))
-			cgop.play();
+			opening.play();
 		else if (Input.keyClicked(Input.KEY_LCONTROL))
-			cgop.pause();
+			opening.pause();
 		else if (Input.keyClicked(Input.KEY_ESCAPE))
-			cgop.stop();
+			opening.stop();
 
 		// Toggle looping
 		if (Input.keyDown(Input.KEY_L))
-			cgop.setLooping(!cgop.isLooping());
+			opening.setLooping(!opening.isLooping());
 
-		// Amplify / deamplify the volume
+		// Amplify / de-amplify the volume
 		if (Input.keyDown(Input.KEY_UP))
-			cgop.setVolume(cgop.getVolume() + 0.01f);
+			opening.setVolume(opening.getVolume() + 0.01f);
 		else if (Input.keyDown(Input.KEY_DOWN))
-			cgop.setVolume(cgop.getVolume() - 0.01f);
+			opening.setVolume(opening.getVolume() - 0.01f);
 
 		// Raise / lower the pitch
 		if (Input.keyDown(Input.KEY_LEFT))
-			cgop.setPitch(cgop.getPitch() + 0.01f);
+			opening.setPitch(opening.getPitch() + 0.01f);
 		else if (Input.keyDown(Input.KEY_RIGHT))
-			cgop.setPitch(cgop.getPitch() - 0.01f);
+			opening.setPitch(opening.getPitch() - 0.01f);
 	}
 
 	@Override

@@ -17,7 +17,7 @@ import java.util.Stack;
  */
 public class GraphicsUtils {
 
-	private static Stack<Matrix4f> matrixStack = new Stack<Matrix4f>();
+	private static Stack<Matrix4f> matrixStack = new Stack<>();
 	private static Matrix4f projection = new Matrix4f();
 
 	public static void pushMatrix() {

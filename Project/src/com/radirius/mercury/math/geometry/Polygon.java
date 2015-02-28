@@ -1,7 +1,5 @@
 package com.radirius.mercury.math.geometry;
 
-import com.radirius.mercury.math.MathUtil;
-
 /**
  * A shape with any amount of sides.
  *
@@ -35,7 +33,7 @@ public class Polygon extends Shape {
 	 * @param numSides The number of sides on the polygon.
 	 */
 	public Polygon(float xCenter, float yCenter, float xRadius, float yRadius, int numSides) {
-		this(getTrigVerts(xCenter, yCenter, xRadius, yRadius, numSides));
+		this(getTrigVertices(xCenter, yCenter, xRadius, yRadius, numSides));
 
 		radius = 0.5f * (xRadius + yRadius);
 	}
@@ -57,7 +55,7 @@ public class Polygon extends Shape {
 	 * Returns Basically the vertices for a whole bunch of triangles 'slices'
 	 * that make up a 'pie.'
 	 */
-	protected static Vector2f[] getTrigVerts(float x, float y, float xRadius, float yRadius, int numSides) {
+	protected static Vector2f[] getTrigVertices(float x, float y, float xRadius, float yRadius, int numSides) {
 		if (numSides < 3)
 			throw new IllegalArgumentException("A polygon must have at least 3 sides!");
 
@@ -65,13 +63,13 @@ public class Polygon extends Shape {
 
 		// Start at 270, so that we have an upwards-facing
 		// polygon. More fun that way.
-		float angle = 270, step = 360 / numSides;
+		float angle = (float) (1.5 * Math.PI), step = (float) (2 * Math.PI / numSides);
 
 		for (int a = 0; a < numSides; a++) {
-			if (angle > 360)
-				angle %= 360;
+			if (angle > 2 * Math.PI)
+				angle %= 2 * Math.PI;
 
-			vertices[a] = new Vector2f(x + MathUtil.cos(angle) * xRadius, y + MathUtil.sin(angle) * yRadius);
+			vertices[a] = new Vector2f(x + (float) Math.cos(angle) * xRadius, y + (float) Math.sin(angle) * yRadius);
 
 			angle += step;
 		}

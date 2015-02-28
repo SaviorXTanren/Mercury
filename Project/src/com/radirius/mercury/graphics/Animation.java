@@ -13,12 +13,12 @@ public class Animation implements Resource {
 
 	private int frame = 0;
 	private int first = 0, last = 0;
-	private int framestep = 1;
+	private int frameStep = 1;
 
 	private boolean bounce;
 
 	private int frameTimeMillis;
-	private long frameMillis = 0, lastFrameMillis;
+	private long lastFrameMillis;
 
 	/**
 	 * @param frameTimeMillis The frame rate in milliseconds
@@ -83,19 +83,19 @@ public class Animation implements Resource {
 	 * Returns Whether or not this is the last frame.
 	 */
 	public boolean passFrame() {
-		frameMillis = System.currentTimeMillis();
+		long frameMillis = System.currentTimeMillis();
 
 		if (frameMillis - lastFrameMillis >= frameTimeMillis) {
 
-			int maybeFrame = frame + framestep;
+			int maybeFrame = frame + frameStep;
 
 			if (maybeFrame >= last || maybeFrame < 0)
 				if (bounce)
-					framestep *= -1;
+					frameStep *= -1;
 				else
 					frame = first;
 
-			frame += framestep;
+			frame += frameStep;
 
 			lastFrameMillis = System.currentTimeMillis();
 

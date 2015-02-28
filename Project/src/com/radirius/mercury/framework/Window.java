@@ -85,7 +85,7 @@ public class Window {
 	 * @param icons Icon(s) for the game.
 	 */
 	public static void setIcon(InputStream... icons) {
-		ArrayList<ByteBuffer> buffers = new ArrayList<ByteBuffer>();
+		ArrayList<ByteBuffer> buffers = new ArrayList<>();
 
 		for (InputStream is : icons)
 			if (is != null)
@@ -95,10 +95,10 @@ public class Window {
 					e.printStackTrace();
 				}
 
-		ByteBuffer[] bufferarray = new ByteBuffer[buffers.size()];
+		ByteBuffer[] bufferArray = new ByteBuffer[buffers.size()];
 
-		buffers.toArray(bufferarray);
-		Display.setIcon(bufferarray);
+		buffers.toArray(bufferArray);
+		Display.setIcon(bufferArray);
 	}
 
 	/**

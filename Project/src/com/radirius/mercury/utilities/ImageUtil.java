@@ -1,7 +1,5 @@
 package com.radirius.mercury.utilities;
 
-import com.radirius.mercury.math.MathUtil;
-
 import java.awt.geom.AffineTransform;
 import java.awt.image.*;
 
@@ -14,7 +12,6 @@ import java.awt.image.*;
  */
 public class ImageUtil {
 	public static BufferedImage flip(BufferedImage image, boolean x, boolean y) {
-		// Flip the BufferedImage
 		if (x || y) {
 			AffineTransform tx = new AffineTransform();
 			tx.scale(x ? -1 : 1, y ? -1 : 1);
@@ -28,13 +25,12 @@ public class ImageUtil {
 	}
 
 	public static BufferedImage rotate(BufferedImage image, float rot) {
-		// Rotate the BufferedImage
 		if (rot != 0) {
 			rot *= -1;
-			rot -= 90;
+			rot -= Math.PI / 2;
 
 			AffineTransform transform = new AffineTransform();
-			transform.rotate(MathUtil.toRadians(rot), image.getWidth() / 2, image.getHeight() / 2);
+			transform.rotate(rot, image.getWidth() / 2, image.getHeight() / 2);
 
 			AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
 			return op.filter(image, null);

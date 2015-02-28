@@ -11,7 +11,7 @@ import java.io.*;
 import java.net.URL;
 
 /**
- * A font type for .TTF's and .OTF's.
+ * A font type for .TTFs and .OTFs.
  *
  * @author wessles
  * @author Jeviny
@@ -75,80 +75,83 @@ public class TrueTypeFont implements Font {
 
 		fontSize = font.getSize();
 
-		// Make a graphics object for the buffered image.
 		int baseWidth = 1024;
 		int baseHeight = 1024;
 
-		BufferedImage imgTemp = new BufferedImage(baseWidth, baseHeight, BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g = (Graphics2D) imgTemp.getGraphics();
+		while (characters == null) {
+			// Make a graphics object for the buffered image.
+			BufferedImage imgTemp = new BufferedImage(baseWidth, baseHeight, BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g = (Graphics2D) imgTemp.getGraphics();
 
-		// Set the color to transparent
-		g.setColor(new Color(255, 255, 255, 0));
-		g.fillRect(0, 0, baseWidth, baseHeight);
+			// Set the color to transparent
+			g.setColor(new Color(255, 255, 255, 0));
+			g.fillRect(0, 0, baseWidth, baseHeight);
 
-		// Initialize temporary variables.
-		float positionX = 0;
-		float positionY = ANTI_TEXTURE_BLEEDING_MARGIN;
+			// Initialize temporary variables.
+			float positionX = 0;
+			float positionY = ANTI_TEXTURE_BLEEDING_MARGIN;
 
-		int subXs[] = new int[STANDARD_CHARACTERS], subYs[] = new int[STANDARD_CHARACTERS], subWidths[] = new int[STANDARD_CHARACTERS], subHeights[] = new int[STANDARD_CHARACTERS];
+			int subXs[] = new int[STANDARD_CHARACTERS], subYs[] = new int[STANDARD_CHARACTERS], subWidths[] = new int[STANDARD_CHARACTERS], subHeights[] = new int[STANDARD_CHARACTERS];
 
-		g.setFont(font);
-		g.setColor(Color.BLACK);
-		if (smooth)
-			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			g.setFont(font);
+			g.setColor(Color.BLACK);
+			if (smooth)
+				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-		// Font preparation.
-		FontMetrics fontMetrics = g.getFontMetrics();
-		fontHeight = fontMetrics.getHeight();
+			// Font preparation.
+			FontMetrics fontMetrics = g.getFontMetrics();
+			fontHeight = fontMetrics.getHeight();
 
-		// Loop through all standard characters (256 of them)
-		for (int i = 0; i < STANDARD_CHARACTERS; i++) {
-			char ch = (char) i;
+			// Loop through all standard characters (256 of them)
+			for (int i = 0; i < STANDARD_CHARACTERS; i++) {
+				char ch = (char) i;
 
-			float charWidth = fontMetrics.charWidth(ch);
-			// Safety guards just in case.
-			if (charWidth <= 0)
-				charWidth = 1;
-			if (Character.isLetterOrDigit(ch)) {
-				fontMaxWidth = Math.max(fontMaxWidth, charWidth);
-				fontAverageWidth += charWidth / STANDARD_CHARACTERS;
-			}
-
-			// Go to next row if there is no room on x axis
-			if (positionX + charWidth + ANTI_TEXTURE_BLEEDING_MARGIN * 2 >= baseWidth) {
-				positionX = 0;
-				positionY += getHeight() + ANTI_TEXTURE_BLEEDING_MARGIN;
-				if (positionY + getHeight() + ANTI_TEXTURE_BLEEDING_MARGIN > baseHeight) {
-					Logger.warn("TrueTypeFont does not support fonts this big, the maximum texture size being 1024x1024px. Aborting.");
-					return;
+				float charWidth = fontMetrics.charWidth(ch);
+				// Safety guards just in case.
+				if (charWidth <= 0)
+					charWidth = 1;
+				if (Character.isLetterOrDigit(ch)) {
+					fontMaxWidth = Math.max(fontMaxWidth, charWidth);
+					fontAverageWidth += charWidth / STANDARD_CHARACTERS;
 				}
+
+				// Go to next row if there is no room on x axis
+				if (positionX + charWidth + ANTI_TEXTURE_BLEEDING_MARGIN * 2 >= baseWidth) {
+					positionX = 0;
+					positionY += getHeight() + ANTI_TEXTURE_BLEEDING_MARGIN;
+					if (positionY + getHeight() + ANTI_TEXTURE_BLEEDING_MARGIN > baseHeight) {
+						Logger.warn("TrueTypeFont texture exceeded " + baseWidth + "x" + baseHeight + "; retrying at " + baseWidth + "x" + baseHeight * 2 + ".");
+						baseHeight *= 2;
+						continue;
+					}
+				}
+
+				positionX += ANTI_TEXTURE_BLEEDING_MARGIN;
+
+				// Draw the character onto the font image
+				g.drawString(String.valueOf(ch), (int) positionX, (int) positionY + fontMetrics.getAscent());
+
+				// Set the parameters of the character at i
+				subXs[i] = (int) positionX;
+				subYs[i] = (int) positionY;
+
+				// Next position on x axis.
+				positionX += charWidth + ANTI_TEXTURE_BLEEDING_MARGIN;
+
+				// Set the parameters of the character at i
+				subWidths[i] = (int) charWidth;
+				subHeights[i] = (int) getHeight();
 			}
 
-			positionX += ANTI_TEXTURE_BLEEDING_MARGIN;
+			// Load texture and sprite sheet.
+			Texture fontTexture = Texture.loadTexture(imgTemp, Texture.FILTER_NEAREST);
 
-			// Draw the character onto the font image
-			g.drawString(String.valueOf(ch), (int) positionX, (int) positionY + fontMetrics.getAscent());
+			SubTexture[] characterSubs = new SubTexture[STANDARD_CHARACTERS];
+			for (int i = 0; i < characterSubs.length; i++)
+				characterSubs[i] = new SubTexture(fontTexture, subXs[i], subYs[i], subXs[i] + subWidths[i], subYs[i] + subHeights[i]);
 
-			// Set the parameters of the character at i
-			subXs[i] = (int) positionX;
-			subYs[i] = (int) positionY;
-
-			// Next position on x axis.
-			positionX += charWidth + ANTI_TEXTURE_BLEEDING_MARGIN;
-
-			// Set the parameters of the character at i
-			subWidths[i] = (int) charWidth;
-			subHeights[i] = (int) getHeight();
+			this.characters = SpriteSheet.loadSpriteSheet(fontTexture, characterSubs);
 		}
-
-		// Load texture and sprite sheet.
-		Texture fontTexture = Texture.loadTexture(imgTemp, Texture.FILTER_NEAREST);
-
-		SubTexture[] characterSubs = new SubTexture[STANDARD_CHARACTERS];
-		for (int i = 0; i < characterSubs.length; i++)
-			characterSubs[i] = new SubTexture(fontTexture, subXs[i], subYs[i], subXs[i] + subWidths[i], subYs[i] + subHeights[i]);
-
-		this.characters = SpriteSheet.loadSpriteSheet(fontTexture, characterSubs);
 	}
 
 	/**

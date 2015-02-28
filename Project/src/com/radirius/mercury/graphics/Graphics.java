@@ -1,7 +1,6 @@
 package com.radirius.mercury.graphics;
 
 import com.radirius.mercury.graphics.font.*;
-import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.math.geometry.*;
 import com.radirius.mercury.utilities.GraphicsUtils;
 import com.radirius.mercury.utilities.misc.*;
@@ -868,7 +867,7 @@ public class Graphics implements Initializable, Cleanable {
 	 * Draws an animation.
 	 *
 	 * @param animation    The animation to draw
-	 * @param sourceRegion fsdfsdf
+	 * @param sourceRegion The source region of the animation to draw.
 	 * @param region       The region to draw the animation to.
 	 */
 	public void drawAnimation(Animation animation, Shape sourceRegion, Shape region) {
@@ -928,12 +927,12 @@ public class Graphics implements Initializable, Cleanable {
 	private void drawFunctionlessLine(Line line) {
 		float dx = line.getVertices()[0].x - line.getVertices()[1].x;
 		float dy = line.getVertices()[0].y - line.getVertices()[1].y;
-		float angle = MathUtil.atan2(dx, dy) - 90;
+		float angle = (float) (Math.atan2(dy, dx) - Math.PI / 2);
 
-		Vector2f p1 = new Vector2f(line.getVertices()[0].x - MathUtil.cos(angle) * lineWidth / 2, line.getVertices()[0].y - MathUtil.sin(angle) * lineWidth / 2);
-		Vector2f p2 = new Vector2f(line.getVertices()[0].x + MathUtil.cos(angle) * lineWidth / 2, line.getVertices()[0].y + MathUtil.sin(angle) * lineWidth / 2);
-		Vector2f p3 = new Vector2f(line.getVertices()[1].x + MathUtil.cos(angle) * lineWidth / 2, line.getVertices()[1].y + MathUtil.sin(angle) * lineWidth / 2);
-		Vector2f p4 = new Vector2f(line.getVertices()[1].x - MathUtil.cos(angle) * lineWidth / 2, line.getVertices()[1].y - MathUtil.sin(angle) * lineWidth / 2);
+		Vector2f p1 = new Vector2f(line.getVertices()[0].x - (float) Math.cos(angle) * lineWidth / 2, line.getVertices()[0].y - (float) Math.sin(angle) * lineWidth / 2);
+		Vector2f p2 = new Vector2f(line.getVertices()[0].x + (float) Math.cos(angle) * lineWidth / 2, line.getVertices()[0].y + (float) Math.sin(angle) * lineWidth / 2);
+		Vector2f p3 = new Vector2f(line.getVertices()[1].x + (float) Math.cos(angle) * lineWidth / 2, line.getVertices()[1].y + (float) Math.sin(angle) * lineWidth / 2);
+		Vector2f p4 = new Vector2f(line.getVertices()[1].x - (float) Math.cos(angle) * lineWidth / 2, line.getVertices()[1].y - (float) Math.sin(angle) * lineWidth / 2);
 
 		drawFunctionlessRectangle(new Rectangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y));
 

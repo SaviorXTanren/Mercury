@@ -1,7 +1,5 @@
 package com.radirius.mercury.math.geometry;
 
-import com.radirius.mercury.math.MathUtil;
-
 import java.util.ArrayList;
 
 /**
@@ -11,7 +9,7 @@ import java.util.ArrayList;
  */
 public class Shape {
 	protected Shape parent = null;
-	protected ArrayList<Shape> children = new ArrayList<Shape>();
+	protected ArrayList<Shape> children = new ArrayList<>();
 
 	/**
 	 * All of the vertices that make up the shape.
@@ -188,7 +186,7 @@ public class Shape {
 
 		for (Vector2f v2 : vertices) {
 			float dx = v.x - v2.x, dy = v.y - v2.x;
-			float angle = MathUtil.atan2(dy, dx);
+			float angle = (float) Math.atan2(dy, dx);
 
 			sumAngle += angle;
 		}
@@ -229,26 +227,26 @@ public class Shape {
 	/**
 	 * Rotate the object relative to a origin.
 	 *
-	 * @param xOrigin The origin's x.
-	 * @param yOrigin The origin's y.
+	 * @param originX The origin's x.
+	 * @param originY The origin's y.
 	 * @param angle   The angle by which the object will rotate relative to the origin. Returns The Shape.
 	 */
-	public Shape rotate(float xOrigin, float yOrigin, float angle) {
-		if (angle == 0)
+	public Shape rotate(float originX, float originY, float angle) {
+		if (angle == 0 || angle == 2 * Math.PI)
 			return this;
 
 		for (Vector2f vertex : vertices) {
-			float s = MathUtil.sin(angle);
-			float c = MathUtil.cos(angle);
+			float s = (float) Math.sin(angle);
+			float c = (float) Math.cos(angle);
 
-			vertex.x -= xOrigin;
-			vertex.y -= yOrigin;
+			vertex.x -= originX;
+			vertex.y -= originY;
 
 			float xNew = vertex.x * c - vertex.y * s;
 			float yNew = vertex.x * s + vertex.y * c;
 
-			vertex.x = xNew + xOrigin;
-			vertex.y = yNew + yOrigin;
+			vertex.x = xNew + originX;
+			vertex.y = yNew + originY;
 		}
 
 		rot += angle;
@@ -256,7 +254,7 @@ public class Shape {
 		regen();
 
 		for (Shape s : children)
-			s.rotate(xOrigin, yOrigin, angle);
+			s.rotate(originX, originY, angle);
 
 		return this;
 	}
@@ -273,12 +271,12 @@ public class Shape {
 	/**
 	 * Rotate the object to a point in rotation relative to a origin.
 	 *
-	 * @param origx The origin's x.
-	 * @param origy The origin's y.
-	 * @param angle The angle by which the object will rotate to relative to the origin. Returns The Shape.
+	 * @param originX The origin's x.
+	 * @param originY The origin's y.
+	 * @param angle   The angle by which the object will rotate to relative to the origin. Returns The Shape.
 	 */
-	public Shape rotateTo(float origx, float origy, float angle) {
-		return rotate(origx, origy, angle - rot);
+	public Shape setRotation(float originX, float originY, float angle) {
+		return rotate(originX, originY, angle - rot);
 	}
 
 	/**
@@ -286,8 +284,8 @@ public class Shape {
 	 *
 	 * @param angle The angle of rotation that the object will rotate to. Returns The Shape.
 	 */
-	public Shape rotateTo(float angle) {
-		return rotateTo(center.x, center.y, angle);
+	public Shape setRotation(float angle) {
+		return setRotation(center.x, center.y, angle);
 	}
 
 	/**
@@ -326,7 +324,7 @@ public class Shape {
 	 * Scales a shape from a point.
 	 * Returns The Shape.
 	 */
-	public Shape scaleTo(Vector2f point, float scale) {
+	public Shape setScale(Vector2f point, float scale) {
 		return scale(point, scale / this.scale);
 	}
 
@@ -334,34 +332,8 @@ public class Shape {
 	 * Scales a shape from the center of the shape.
 	 * Returns The Shape.
 	 */
-	public Shape scaleTo(float scale) {
-		return scaleTo(getCenter(), scale);
-	}
-
-	/**
-	 * Flips the object over the y axis, relative to the mean center.
-	 * Returns The Shape.
-	 */
-	public Shape flipX() {
-		for (Vector2f v : vertices)
-			v.add(new Vector2f(0, (getCenter().y - v.y) * 2));
-
-		regen();
-
-		return this;
-	}
-
-	/**
-	 * Flips the object over the y axis, relative to the mean center.
-	 * Returns The Shape.
-	 */
-	public Shape flipY() {
-		for (Vector2f v : vertices)
-			v.add(new Vector2f((getCenter().x - v.x) * 2, 0));
-
-		regen();
-
-		return this;
+	public Shape setScale(float scale) {
+		return setScale(getCenter(), scale);
 	}
 
 	/**

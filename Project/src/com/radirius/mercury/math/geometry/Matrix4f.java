@@ -64,11 +64,8 @@ public class Matrix4f {
 	public Matrix4f copy() {
 		Matrix4f m = new Matrix4f();
 
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				m.m[i][j] = this.m[i][j];
-			}
-		}
+		for (int i = 0; i < 4; i++)
+			System.arraycopy(this.m[i], 0, m.m[i], 0, 4);
 
 		return m;
 	}
@@ -135,8 +132,8 @@ public class Matrix4f {
 	public Matrix4f initRotation(float rz) {
 		initIdentity();
 
-		float cos = (float) Math.cos(Math.toRadians(rz));
-		float sin = (float) Math.sin(Math.toRadians(rz));
+		float cos = (float) Math.cos(rz);
+		float sin = (float) Math.sin(rz);
 
 		m[0][0] = cos;
 		m[0][1] = -sin;
@@ -245,11 +242,8 @@ public class Matrix4f {
 	 *          chaining operations
 	 */
 	public Matrix4f setTo(Matrix4f m) {
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				this.m[i][j] = m.m[i][j];
-			}
-		}
+		for (int i = 0; i < 4; i++)
+			System.arraycopy(m.m[i], 0, this.m[i], 0, 4);
 
 		return this;
 	}

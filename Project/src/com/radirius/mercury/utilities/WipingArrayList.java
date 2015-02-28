@@ -3,7 +3,7 @@ package com.radirius.mercury.utilities;
 import java.util.*;
 
 /**
- * An arraylist that you can wipe Wipeables with.
+ * An array list that you can wipe wipeables with.
  *
  * @author wessles
  */

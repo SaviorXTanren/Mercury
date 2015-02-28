@@ -1,7 +1,5 @@
 package com.radirius.mercury.math.geometry;
 
-import com.radirius.mercury.math.MathUtil;
-
 /**
  * @author wessles
  */
@@ -45,13 +43,13 @@ public class Star extends Polygon {
 	 * Just goes through every second vertex and shoots it outward to the outer
 	 * radius, forming points.
 	 */
-	protected void extendPoints(float push_radiusx, float push_radiusy) {
+	protected void extendPoints(float pushRadiusX, float pushRadiusY) {
 		for (int v0 = 0; v0 < vertices.length; v0 += 2) {
 			Vector2f v1 = vertices[v0];
 
-			float angletocenter = MathUtil.atan2(center.x - v1.x, center.y - v1.y);
+			float angleToCenter = (float) Math.atan2(center.y - v1.y, center.x - v1.x);
 
-			v1.add(new Vector2f(-MathUtil.cos(angletocenter) * push_radiusx, -MathUtil.sin(angletocenter) * push_radiusy));
+			v1.add(new Vector2f(-(float) Math.cos(angleToCenter) * pushRadiusX, -(float) Math.sin(angleToCenter) * pushRadiusY));
 		}
 	}
 }

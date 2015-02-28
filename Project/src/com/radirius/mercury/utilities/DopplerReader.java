@@ -22,9 +22,7 @@ public class DopplerReader {
 		int[] dimensions = readDimensions(in.openStream());
 		int width = dimensions[0], height = dimensions[1];
 
-		int[][] result = readData(width, height, in.openStream());
-
-		return result;
+		return readData(width, height, in.openStream());
 	}
 
 	private static int[] readDimensions(InputStream in) {

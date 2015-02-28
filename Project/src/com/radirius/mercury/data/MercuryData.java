@@ -20,7 +20,7 @@ public class MercuryData implements Data {
 	/**
 	 * The values of the data file. This is temporary in-code storage.
 	 */
-	public HashMap<String, String> values = new HashMap<String, String>();
+	public HashMap<String, String> values = new HashMap<>();
 
 	/**
 	 * @param url URL indicating the location of the file.
@@ -47,12 +47,13 @@ public class MercuryData implements Data {
 
 	@Override
 	public void open() {
-		Scanner scanner = null;
+		Scanner scanner;
 
 		try {
 			scanner = new Scanner(new FileInputStream(location));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			return;
 		}
 
 		while (scanner.hasNextLine()) {
@@ -77,7 +78,7 @@ public class MercuryData implements Data {
 
 	@Override
 	public void close() {
-		PrintWriter write = null;
+		PrintWriter write;
 
 		try {
 			write = new PrintWriter(new FileOutputStream(new File(location)));

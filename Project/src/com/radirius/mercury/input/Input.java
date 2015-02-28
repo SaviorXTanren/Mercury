@@ -2,7 +2,6 @@ package com.radirius.mercury.input;
 
 import com.radirius.mercury.framework.Core;
 import com.radirius.mercury.graphics.Camera;
-import com.radirius.mercury.math.MathUtil;
 import com.radirius.mercury.math.geometry.Vector2f;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.*;
@@ -178,9 +177,9 @@ public class Input {
 
 	private static Mapper mapper = null;
 
-	private static ArrayList<Integer> eventKeyStates = new ArrayList<Integer>();
-	private static ArrayList<Integer> eventMouseButtonStates = new ArrayList<Integer>();
-	private static ArrayList<ControllerEvent> eventControllerButtonStates = new ArrayList<ControllerEvent>();
+	private static ArrayList<Integer> eventKeyStates = new ArrayList<>();
+	private static ArrayList<Integer> eventMouseButtonStates = new ArrayList<>();
+	private static ArrayList<ControllerEvent> eventControllerButtonStates = new ArrayList<>();
 
 	private static int mousedWheel = 0;
 	private static char nextCharacter = 0;
@@ -303,8 +302,8 @@ public class Input {
 				key = newKey;
 		}
 
-		for (Integer eventkey : eventKeyStates)
-			if (eventkey == key)
+		for (Integer eventKey : eventKeyStates)
+			if (eventKey == key)
 				return true;
 		return false;
 	}
@@ -346,33 +345,33 @@ public class Input {
 	/**
 	 * Sets whether or not to accept repeating events.
 	 */
-	public static void setRepeatEventsEnabled(boolean repeatevents) {
-		Keyboard.enableRepeatEvents(repeatevents);
+	public static void setRepeatEventsEnabled(boolean repeatEvents) {
+		Keyboard.enableRepeatEvents(repeatEvents);
 	}
 
 	/**
-	 * Returns If mousebutton was clicked.
+	 * Returns If mouse button was clicked.
 	 */
-	public static boolean mouseClicked(int mousebutton) {
-		for (Integer eventmousebutton : eventMouseButtonStates)
-			if (eventmousebutton == mousebutton)
+	public static boolean mouseClicked(int mouseButton) {
+		for (Integer eventMouseButton : eventMouseButtonStates)
+			if (eventMouseButton == mouseButton)
 				return true;
 
 		return false;
 	}
 
 	/**
-	 * Returns If mousebutton is down.
+	 * Returns If mouse button is down.
 	 */
-	public static boolean mouseDown(int mousebutton) {
-		return Mouse.isButtonDown(mousebutton);
+	public static boolean mouseDown(int mouseButton) {
+		return Mouse.isButtonDown(mouseButton);
 	}
 
 	/**
-	 * Returns If mousebutton is up.
+	 * Returns If mouse button is up.
 	 */
-	public static boolean mouseUp(int mousebutton) {
-		return !mouseDown(mousebutton);
+	public static boolean mouseUp(int mouseButton) {
+		return !mouseDown(mouseButton);
 	}
 
 	/**
@@ -437,8 +436,8 @@ public class Input {
 		float originX = cam.getPositionX();
 		float originY = cam.getPositionY();
 
-		float s = MathUtil.sin(-cam.getRotation());
-		float c = MathUtil.cos(-cam.getRotation());
+		float s = (float) Math.sin(-cam.getRotation());
+		float c = (float) Math.cos(-cam.getRotation());
 
 		globalMousePosition.x -= originX;
 		globalMousePosition.y -= originY;
@@ -480,8 +479,8 @@ public class Input {
 	}
 
 	public static boolean controllerButtonClicked(int button, int controller) {
-		for (ControllerEvent cevent : eventControllerButtonStates)
-			if (cevent.button == button && cevent.controller == controller)
+		for (ControllerEvent controllerEvent : eventControllerButtonStates)
+			if (controllerEvent.button == button && controllerEvent.controller == controller)
 				return true;
 
 		return false;
@@ -537,7 +536,7 @@ public class Input {
 	}
 
 	/**
-	 * Returns A vector containing the x and y value of the dpad. null if controllers have not been initialized.
+	 * Returns A vector containing the x and y value of the d-pad. null if controllers have not been initialized.
 	 */
 	public static Vector2f getDPad(int controller) {
 		Vector2f result = new Vector2f(0, 0);

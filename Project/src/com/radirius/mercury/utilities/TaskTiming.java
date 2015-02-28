@@ -11,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author wessles
  */
 public class TaskTiming {
-	private static CopyOnWriteArrayList<Task> tasks = new CopyOnWriteArrayList<Task>();
+	private static CopyOnWriteArrayList<Task> tasks = new CopyOnWriteArrayList<>();
 
 	/**
 	 * Adds a task.
@@ -61,11 +61,11 @@ public class TaskTiming {
 
 		/**
 		 * @param timeout     The time to pass before the task is started.
-		 * @param reccurances The number of times the task repeats (infinite if
+		 * @param recurrences The number of times the task repeats (infinite if
 		 *                    less than 1).
 		 */
-		public Task(long timeout, int reccurances) {
-			this(timeout, reccurances, false);
+		public Task(long timeout, int recurrences) {
+			this(timeout, recurrences, false);
 		}
 
 		/**
@@ -78,12 +78,12 @@ public class TaskTiming {
 
 		/**
 		 * @param timeout     The time to pass before the task is started.
-		 * @param reccurances The number of times the task repeats (infinite if
+		 * @param recurrences The number of times the task repeats (infinite if
 		 *                    less than 1).
 		 * @param loop        Whether the task is to recur infinitely.
 		 */
-		public Task(long timeout, int reccurances, boolean loop) {
-			recur = reccurances;
+		public Task(long timeout, int recurrences, boolean loop) {
+			recur = recurrences;
 
 			birth = System.currentTimeMillis();
 

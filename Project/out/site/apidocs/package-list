@@ -11,6 +11,7 @@ com.radirius.mercury.graphics.wip.gui.themes
 com.radirius.mercury.input
 com.radirius.mercury.math
 com.radirius.mercury.math.geometry
+com.radirius.mercury.math.geometry.wip
 com.radirius.mercury.resource
 com.radirius.mercury.scene
 com.radirius.mercury.tests

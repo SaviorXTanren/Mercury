@@ -22,7 +22,7 @@ public class BitmapFont implements Font {
 	/**
 	 * Loads a font.
 	 *
-	 * @param characters The spritesheet containing all of the characters in the font.
+	 * @param characters The sprite sheet containing all of the characters in the font.
 	 */
 	private BitmapFont(SpriteSheet characters) {
 		if (characters.getNumberOfSubTextures() < STANDARD_CHARACTERS)
@@ -34,28 +34,28 @@ public class BitmapFont implements Font {
 	}
 
 	public static BitmapFont loadBitmapFont(InputStream is, int width, int height) {
-		BufferedImage bi = null;
+		BufferedImage bitmapImage;
 
 		try {
-			bi = ImageIO.read(is);
+			bitmapImage = ImageIO.read(is);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
 		}
 
 		// Turn black, for font rendering reasons.
-		for (int x = 0; x < bi.getWidth(); x++)
-			for (int y = 0; y < bi.getHeight(); y++) {
-				int rgba = bi.getRGB(x, y);
+		for (int x = 0; x < bitmapImage.getWidth(); x++)
+			for (int y = 0; y < bitmapImage.getHeight(); y++) {
+				int rgba = bitmapImage.getRGB(x, y);
 
 				java.awt.Color col = new java.awt.Color(rgba, true);
 				col = new java.awt.Color(255 - col.getRed(), 255 - col.getGreen(), 255 - col.getBlue(), col.getAlpha());
 
-				bi.setRGB(x, y, col.getRGB());
+				bitmapImage.setRGB(x, y, col.getRGB());
 			}
 
 		// Get the characters
-		SpriteSheet spriteSheet = SpriteSheet.loadSpriteSheet(Texture.loadTexture(bi), width, height);
+		SpriteSheet spriteSheet = SpriteSheet.loadSpriteSheet(Texture.loadTexture(bitmapImage), width, height);
 
 		return new BitmapFont(spriteSheet);
 	}

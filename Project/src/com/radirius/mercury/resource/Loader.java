@@ -1,5 +1,7 @@
 package com.radirius.mercury.resource;
 
+import com.radirius.mercury.utilities.logging.Logger;
+
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
  * @author Kevin Glass
  */
 public class Loader {
-	private static ArrayList<Location> locations = new ArrayList<Location>();
+	private static ArrayList<Location> locations = new ArrayList<>();
 
 	static {
 		locations.add(new ClasspathLocation());
@@ -22,7 +24,7 @@ public class Loader {
 	/**
 	 * Add a location that will be searched for resources
 	 *
-	 * @param location The location that will be searched for resoruces
+	 * @param location The location that will be searched for resources
 	 */
 	public static void addLocation(Location location) {
 		locations.add(location);
@@ -54,9 +56,7 @@ public class Loader {
 	public static URL getResource(String path) {
 		URL url = null;
 
-		for (int i = 0; i < locations.size(); i++) {
-			Location location = locations.get(i);
-
+		for (Location location : locations) {
 			url = location.getResource(path);
 
 			if (url != null)
@@ -64,7 +64,7 @@ public class Loader {
 		}
 
 		if (url == null)
-			throw new RuntimeException("Resource not found: " + path);
+			Logger.warn("Resource not found: " + path);
 
 		return url;
 	}
@@ -76,7 +76,15 @@ public class Loader {
 	 * @return The File resource from the file system
 	 */
 	public static File getResourceAsFile(String path) {
-		return new File(getResource(path).getFile().replaceAll("%20", " "));
+		File file = new File(getResource(path).getFile().replaceAll("%20", " "));
+
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return file;
 	}
 
 	/**

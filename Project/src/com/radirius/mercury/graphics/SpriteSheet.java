@@ -3,7 +3,7 @@ package com.radirius.mercury.graphics;
 import com.radirius.mercury.resource.Resource;
 
 /**
- * A class for spritesheets.
+ * A class for sprite sheets.
  *
  * @author wessles
  * @author opiop65
@@ -55,14 +55,14 @@ public class SpriteSheet implements Resource {
 	}
 
 	/**
-	 * Returns The number of subtextures.
+	 * Returns The number of sub textures.
 	 */
 	public int getNumberOfSubTextures() {
 		return subTextures.length;
 	}
 
 	/**
-	 * Returns The texture corresponding to the texnum.
+	 * Returns The texture corresponding to the texture number.
 	 */
 	public SubTexture getTexture(int numTextures) {
 		return subTextures[numTextures];

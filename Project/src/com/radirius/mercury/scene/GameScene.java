@@ -4,7 +4,7 @@ import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.utilities.WipingArrayList;
 import com.radirius.mercury.utilities.misc.Entity;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * A basic scene graph containing hierarchies of GameObjects.
@@ -15,7 +15,7 @@ public class GameScene implements Entity {
 	/**
 	 * The children nodes.
 	 */
-	private WipingArrayList<GameObject> objects = new WipingArrayList<GameObject>();
+	private WipingArrayList<GameObject> objects = new WipingArrayList<>();
 
 	/**
 	 * Initializes the children nodes.
@@ -61,8 +61,7 @@ public class GameScene implements Entity {
 	 * Adds a child to the list of children nodes.
 	 */
 	public void add(GameObject... object) {
-		for (GameObject object0 : object)
-			objects.add(object0);
+		Collections.addAll(objects, object);
 	}
 
 	/**
