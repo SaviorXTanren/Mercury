@@ -37,12 +37,12 @@ public class Mouse extends Core {
 	public void render(Graphics g) {
 		// Grows the cursor by 100% every time the left button is clicked.
 		if (Input.mouseClicked(Input.MOUSE_LEFT))
-			cursor.scale(2f);
+			cursor.dilate(2f);
 
 		// Moves the cursor rectangle to the mouse's position.
 		cursor.translateTo(Input.getMouseX(), Input.getMouseY());
 
-		g.drawShape(cursor);
+		g.drawFigure(cursor);
 	}
 
 	@Override

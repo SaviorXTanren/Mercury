@@ -205,14 +205,15 @@ public class Input {
 	/**
 	 * Sets the input mapper.
 	 *
-	 * @param mapper The new input mapper.
+	 * @param mapper
+	 * 		The new input mapper.
 	 */
 	public static void setMapper(Mapper mapper) {
 		Input.mapper = mapper;
 	}
 
 	/**
-	 * Returns the current input mapper.
+	 * @return the current input mapper.
 	 */
 	public Mapper getMapper() {
 		return mapper;
@@ -293,7 +294,7 @@ public class Input {
 	}
 
 	/**
-	 * Returns If key was clicked.
+	 * @return if key was clicked.
 	 */
 	public static boolean keyClicked(int key) {
 		if (mapper != null) {
@@ -309,14 +310,14 @@ public class Input {
 	}
 
 	/**
-	 * Returns If any key was clicked.
+	 * @return if any key was clicked.
 	 */
 	public static boolean wasKeyClicked() {
 		return eventKeyStates.size() != 0;
 	}
 
 	/**
-	 * Returns If key is down.
+	 * @return if key is down.
 	 */
 	public static boolean keyDown(int key) {
 		if (mapper != null) {
@@ -329,14 +330,14 @@ public class Input {
 	}
 
 	/**
-	 * Returns If key is up.
+	 * @return if key is up.
 	 */
 	public static boolean keyUp(int key) {
 		return !keyDown(key);
 	}
 
 	/**
-	 * Returns The last character pressed.
+	 * @return the last character pressed.
 	 */
 	public static char getNextCharacter() {
 		return nextCharacter;
@@ -350,7 +351,7 @@ public class Input {
 	}
 
 	/**
-	 * Returns If mouse button was clicked.
+	 * @return if mouse button was clicked.
 	 */
 	public static boolean mouseClicked(int mouseButton) {
 		for (Integer eventMouseButton : eventMouseButtonStates)
@@ -361,42 +362,42 @@ public class Input {
 	}
 
 	/**
-	 * Returns If mouse button is down.
+	 * @return if mouse button is down.
 	 */
 	public static boolean mouseDown(int mouseButton) {
 		return Mouse.isButtonDown(mouseButton);
 	}
 
 	/**
-	 * Returns If mouse button is up.
+	 * @return if mouse button is up.
 	 */
 	public static boolean mouseUp(int mouseButton) {
 		return !mouseDown(mouseButton);
 	}
 
 	/**
-	 * Returns If any button was clicked.
+	 * @return if any button was clicked.
 	 */
 	public static boolean wasMouseClicked() {
 		return eventMouseButtonStates.size() != 0;
 	}
 
 	/**
-	 * Returns If mouse wheel is going up.
+	 * @return if mouse wheel is going up.
 	 */
 	public static boolean mouseWheelUp() {
 		return mousedWheel > 0;
 	}
 
 	/**
-	 * Returns If mouse wheel is going down.
+	 * @return if mouse wheel is going down.
 	 */
 	public static boolean mouseWheelDown() {
 		return mousedWheel < 0;
 	}
 
 	/**
-	 * Returns The mouse 'correct' position (Has to do with the opengl origin being bottom left, and ours being top
+	 * @return the mouse 'correct' position (Has to do with the opengl origin being bottom left, and ours being top
 	 * left).
 	 */
 	public static Vector2f getMousePosition() {
@@ -404,7 +405,7 @@ public class Input {
 	}
 
 	/**
-	 * Returns The mouse position's 'correct' x (Has to do with the opengl origin being bottom left, and ours being top
+	 * @return the mouse position's 'correct' x (Has to do with the opengl origin being bottom left, and ours being top
 	 * left).
 	 */
 	public static int getMouseX() {
@@ -412,7 +413,7 @@ public class Input {
 	}
 
 	/**
-	 * Returns The mouse position's 'correct' y (Has to do with the opengl origin being bottom left, and ours being top
+	 * @return the mouse position's 'correct' y (Has to do with the opengl origin being bottom left, and ours being top
 	 * left).
 	 */
 	public static int getMouseY() {
@@ -420,8 +421,7 @@ public class Input {
 	}
 
 	/**
-	 * Returns The global mouse position based on the displacement of the game's camera and the scaling of the
-	 * graphics.
+	 * @return the global mouse position based on the displacement of the game's camera and the scaling of the graphics.
 	 */
 	public static Vector2f getGlobalMousePosition() {
 		Vector2f globalMousePosition = getMousePosition();
@@ -452,7 +452,7 @@ public class Input {
 	}
 
 	/**
-	 * Returns The global mouse x position based on the displacement of the game's camera and the scaling of the
+	 * @return the global mouse x position based on the displacement of the game's camera and the scaling of the
 	 * graphics.
 	 */
 	public static float getGlobalMouseX() {
@@ -460,7 +460,7 @@ public class Input {
 	}
 
 	/**
-	 * Returns The global mouse y position based on the displacement of the game's camera and the scaling of the
+	 * @return the global mouse y position based on the displacement of the game's camera and the scaling of the
 	 * graphics.
 	 */
 	public static float getGlobalMouseY() {
@@ -487,28 +487,28 @@ public class Input {
 	}
 
 	/**
-	 * Returns Whether or not the button on controller is down; null if controllers have not been initialized.
+	 * @return whether or not the button on controller is down; null if controllers have not been initialized.
 	 */
 	public static boolean controllerButtonDown(int button, int controller) {
 		return Controllers.getController(controller).isButtonPressed(button);
 	}
 
 	/**
-	 * Returns Whether or not the button on controller is up; null if controllers have not been initialized.
+	 * @return whether or not the button on controller is up; null if controllers have not been initialized.
 	 */
 	public static boolean controllerButtonUp(int button, int controller) {
 		return !controllerButtonDown(button, controller);
 	}
 
 	/**
-	 * Returns If any button was pressed.
+	 * @return if any button was pressed.
 	 */
 	public static boolean wasControllerPressed() {
 		return eventControllerButtonStates.size() != 0;
 	}
 
 	/**
-	 * Returns A vector containing the x and y value of the left analog stick. null if controllers have not been
+	 * @return a vector containing the x and y value of the left analog stick. null if controllers have not been
 	 * initialized.
 	 */
 	public static Vector2f getLeftAnalogStick(int controller) {
@@ -522,7 +522,7 @@ public class Input {
 	}
 
 	/**
-	 * Returns A vector containing the x and y value of the right analog stick. null if controllers have not been
+	 * @return a vector containing the x and y value of the right analog stick. null if controllers have not been
 	 * initialized.
 	 */
 	public static Vector2f getRightAnalogStick(int controller) {
@@ -536,7 +536,7 @@ public class Input {
 	}
 
 	/**
-	 * Returns A vector containing the x and y value of the d-pad. null if controllers have not been initialized.
+	 * @return a vector containing the x and y value of the d-pad. null if controllers have not been initialized.
 	 */
 	public static Vector2f getDPad(int controller) {
 		Vector2f result = new Vector2f(0, 0);
@@ -549,7 +549,7 @@ public class Input {
 	}
 
 	/**
-	 * Returns The amount of controllers. -1 if controllers have not been initialized.
+	 * @return the amount of controllers. -1 if controllers have not been initialized.
 	 */
 	public static int getControllerCount() {
 		if (!Controllers.isCreated())
@@ -561,7 +561,8 @@ public class Input {
 	/**
 	 * Enables event polling.
 	 *
-	 * @param keyboard Enable keyboard polling?
+	 * @param keyboard
+	 * 		Enable keyboard polling?
 	 */
 	public static void setKeyboardPollingEnabled(boolean keyboard) {
 		keyboardPolling = keyboard;
@@ -570,7 +571,8 @@ public class Input {
 	/**
 	 * Enables event polling.
 	 *
-	 * @param mouse Enable mouse polling?
+	 * @param mouse
+	 * 		Enable mouse polling?
 	 */
 	public static void setMousePollingEnabled(boolean mouse) {
 		mousePolling = mouse;
@@ -579,7 +581,8 @@ public class Input {
 	/**
 	 * Enables event polling.
 	 *
-	 * @param controller Enable controller polling?
+	 * @param controller
+	 * 		Enable controller polling?
 	 */
 	public static void setControllerPollingEnabled(boolean controller) {
 		controllerPolling = controller;
@@ -588,9 +591,12 @@ public class Input {
 	/**
 	 * Enables event polling.
 	 *
-	 * @param keyboard   Enable keyboard polling?
-	 * @param mouse      Enable mouse polling?
-	 * @param controller Enable controller polling?
+	 * @param keyboard
+	 * 		Enable keyboard polling?
+	 * @param mouse
+	 * 		Enable mouse polling?
+	 * @param controller
+	 * 		Enable controller polling?
 	 */
 	public static void setPollingEnabled(boolean keyboard, boolean mouse, boolean controller) {
 		keyboardPolling = keyboard;

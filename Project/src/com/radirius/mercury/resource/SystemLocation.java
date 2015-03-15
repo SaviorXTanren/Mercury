@@ -15,7 +15,8 @@ public class SystemLocation implements Location {
 	/**
 	 * Create a new resource path based on the file system.
 	 *
-	 * @param root The root of the file system to search.
+	 * @param root
+	 * 		The root of the file system to search.
 	 */
 	public SystemLocation(File root) {
 		this.root = root;
@@ -25,21 +26,8 @@ public class SystemLocation implements Location {
 	public URL getResource(String path) {
 		try {
 			File file = new File(root, path);
-			file.createNewFile();
 
 			return file.toURI().toURL();
-		} catch (IOException e) {
-			return null;
-		}
-	}
-
-	@Override
-	public InputStream getResourceAsStream(String path) {
-		try {
-			File file = new File(root, path);
-			file.createNewFile();
-
-			return new FileInputStream(file);
 		} catch (IOException e) {
 			return null;
 		}

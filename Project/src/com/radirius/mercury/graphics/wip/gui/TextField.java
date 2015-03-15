@@ -10,7 +10,8 @@ public class TextField extends Component {
 	protected StringBuilder text;
 
 	/**
-	 * @param message The content text
+	 * @param message
+	 * 		The content text
 	 */
 	public TextField(String message) {
 		this.text = new StringBuilder(message);
@@ -18,7 +19,7 @@ public class TextField extends Component {
 	}
 
 	/**
-	 * Returns the text of the field.
+	 * @return the text of the field.
 	 */
 	public StringBuilder getText() {
 		return text;
@@ -27,8 +28,10 @@ public class TextField extends Component {
 	/**
 	 * Sets the text of the field.
 	 *
-	 * @param text The new text
-	 * @return This component
+	 * @param text
+	 * 		The new text
+	 *
+	 * @return this component
 	 */
 	public TextField setText(String text) {
 		this.text.replace(0, Math.max(0, text.length() - 1), text);

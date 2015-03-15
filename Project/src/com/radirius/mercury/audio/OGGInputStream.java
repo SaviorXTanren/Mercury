@@ -23,9 +23,8 @@ import java.io.*;
 import java.nio.*;
 
 /**
- * An input stream that can extract ogg data. This class is a bit of an
- * experiment with continuations so uses thread where possibly not required.
- * It's just a test to see if continuations make sense in some cases.
+ * An input stream that can extract ogg data. This class is a bit of an experiment with continuations so uses thread
+ * where possibly not required. It's just a test to see if continuations make sense in some cases.
  *
  * @author Kevin Glass
  */
@@ -116,8 +115,11 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
 	/**
 	 * Create a new stream to decode OGG data
 	 *
-	 * @param input The input stream from which to read the OGG file
-	 * @throws IOException Indicates a failure to read from the supplied stream
+	 * @param input
+	 * 		The input stream from which to read the OGG file
+	 *
+	 * @throws IOException
+	 * 		Indicates a failure to read from the supplied stream
 	 */
 	public OGGInputStream(InputStream input) throws IOException {
 		this.input = input;
@@ -129,8 +131,8 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
 
 	/**
 	 * Get the number of bytes on the stream
-	 * <p/>
-	 * Returns The number of the bytes on the stream
+	 *
+	 * @return the number of the bytes on the stream
 	 */
 	public int getLength() {
 		return total;
@@ -149,7 +151,8 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
 	/**
 	 * Initialize the streams and thread involved in the streaming of OGG data
 	 *
-	 * @throws IOException Indicates a failure to link up the streams
+	 * @throws IOException
+	 * 		Indicates a failure to link up the streams
 	 */
 	private void init() throws IOException {
 		initVorbis();
@@ -170,8 +173,8 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
 
 	/**
 	 * Get a page and packet from that page
-	 * <p/>
-	 * Returns True if there was a page available
+	 *
+	 * @return true if there was a page available
 	 */
 	private boolean getPageAndPacket() {
 		int index = syncState.buffer(4096);
@@ -302,7 +305,8 @@ public class OGGInputStream extends InputStream implements AudioInputStream {
 	/**
 	 * Decode the OGG file as shown in the jogg / jorbis examples
 	 *
-	 * @throws IOException Indicates a failure to read from the supplied stream
+	 * @throws IOException
+	 * 		Indicates a failure to read from the supplied stream
 	 */
 	private void readPCM() throws IOException {
 		boolean wrote = false;

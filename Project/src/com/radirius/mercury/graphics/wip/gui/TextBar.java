@@ -105,8 +105,10 @@ public class TextBar extends TextField {
 	/**
 	 * Sets the cursor character.
 	 *
-	 * @param cursor The new cursor
-	 * @return This text bar
+	 * @param cursor
+	 * 		The new cursor
+	 *
+	 * @return this text bar
 	 */
 	public TextBar setCursor(char cursor) {
 		this.cursor = cursor;

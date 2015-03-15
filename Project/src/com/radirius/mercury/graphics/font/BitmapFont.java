@@ -22,7 +22,8 @@ public class BitmapFont implements Font {
 	/**
 	 * Loads a font.
 	 *
-	 * @param characters The sprite sheet containing all of the characters in the font.
+	 * @param characters
+	 * 		The sprite sheet containing all of the characters in the font.
 	 */
 	private BitmapFont(SpriteSheet characters) {
 		if (characters.getNumberOfSubTextures() < STANDARD_CHARACTERS)

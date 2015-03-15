@@ -4,8 +4,7 @@ import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.utilities.misc.*;
 
 /**
- * A class that allows the dividing of a game into different 'states' or
- * 'screens'.
+ * A class that allows the dividing of a game into different 'states' or 'screens'.
  *
  * @author wessles
  * @author Jeviny

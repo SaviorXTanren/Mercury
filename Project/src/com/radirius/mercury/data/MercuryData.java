@@ -1,12 +1,13 @@
 package com.radirius.mercury.data;
 
+import com.radirius.mercury.utilities.logging.Logger;
+
 import java.io.*;
 import java.net.URL;
 import java.util.*;
 
 /**
- * A way to store information outside of local data and store data in files.
- * Uses a system of properties and values.
+ * A way to store information outside of local data and store data in files. Uses a system of properties and values.
  *
  * @author wessles
  * @author Jeviny
@@ -15,7 +16,7 @@ public class MercuryData implements Data {
 	/**
 	 * Location of the data file.
 	 */
-	public String location;
+	public File location;
 
 	/**
 	 * The values of the data file. This is temporary in-code storage.
@@ -23,23 +24,28 @@ public class MercuryData implements Data {
 	public HashMap<String, String> values = new HashMap<>();
 
 	/**
-	 * @param url URL indicating the location of the file.
+	 * @param file
+	 * 		The file.
 	 */
-	public MercuryData(URL url) {
-		location = url.getFile();
+	public MercuryData(File file) {
+		location = file;
 	}
 
 	/**
-	 * @param property The property you are modifying (case sensitive).
-	 * @param value    The value that you are changing the property to.
+	 * @param property
+	 * 		The property you are modifying (case sensitive).
+	 * @param value
+	 * 		The value that you are changing the property to.
 	 */
 	public void setProperty(String property, String value) {
 		values.put(property, value);
 	}
 
 	/**
-	 * @param prop The property you want to see the value of. Returns The
-	 *             property's value. If it does not exist, you get null.
+	 * @param prop
+	 * 		The property you want to see the value of.
+	 *
+	 * @return the property's value. If it does not exist, you get null.
 	 */
 	public String getProperty(String prop) {
 		return values.get(prop);
@@ -50,7 +56,7 @@ public class MercuryData implements Data {
 		Scanner scanner;
 
 		try {
-			scanner = new Scanner(new FileInputStream(location));
+			scanner = new Scanner(location);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return;
@@ -81,7 +87,7 @@ public class MercuryData implements Data {
 		PrintWriter write;
 
 		try {
-			write = new PrintWriter(new FileOutputStream(new File(location)));
+			write = new PrintWriter(location);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return;

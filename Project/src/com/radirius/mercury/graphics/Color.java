@@ -52,10 +52,14 @@ public class Color {
 	/**
 	 * Creates a color with all 4 RGBA components.
 	 *
-	 * @param r The Red Component.
-	 * @param g The Green Component.
-	 * @param b The Blue Component.
-	 * @param a The Alpha Component.
+	 * @param r
+	 * 		The Red Component.
+	 * @param g
+	 * 		The Green Component.
+	 * @param b
+	 * 		The Blue Component.
+	 * @param a
+	 * 		The Alpha Component.
 	 */
 	public Color(float r, float g, float b, float a) {
 		this.r = r;
@@ -67,9 +71,12 @@ public class Color {
 	/**
 	 * Creates a color with 3 RGB components.
 	 *
-	 * @param r The Red Component.
-	 * @param g The Green Component.
-	 * @param b The Blue Component.
+	 * @param r
+	 * 		The Red Component.
+	 * @param g
+	 * 		The Green Component.
+	 * @param b
+	 * 		The Blue Component.
 	 */
 	public Color(float r, float g, float b) {
 		this.r = r;
@@ -81,10 +88,14 @@ public class Color {
 	/**
 	 * Creates a color with all 4 RGBA components in integers.
 	 *
-	 * @param r The Red Component.
-	 * @param g The Green Component.
-	 * @param b The Blue Component.
-	 * @param a The Alpha Component.
+	 * @param r
+	 * 		The Red Component.
+	 * @param g
+	 * 		The Green Component.
+	 * @param b
+	 * 		The Blue Component.
+	 * @param a
+	 * 		The Alpha Component.
 	 */
 	public Color(int r, int g, int b, int a) {
 		this.r = r / 255f;
@@ -96,9 +107,12 @@ public class Color {
 	/**
 	 * Creates a color with 3 RGB components in integers.
 	 *
-	 * @param r The Red Component.
-	 * @param g The Green Component.
-	 * @param b The Blue Component.
+	 * @param r
+	 * 		The Red Component.
+	 * @param g
+	 * 		The Green Component.
+	 * @param b
+	 * 		The Blue Component.
 	 */
 	public Color(int r, int g, int b) {
 		this.r = r / 255f;
@@ -110,7 +124,8 @@ public class Color {
 	/**
 	 * Creates a color with a hex notation.
 	 *
-	 * @param value The integer to take the color from.
+	 * @param value
+	 * 		The integer to take the color from.
 	 */
 	public Color(int value) {
 		r = value >> 16 & 0xff;
@@ -120,7 +135,7 @@ public class Color {
 	}
 
 	/**
-	 * Returns The red component.
+	 * @return the red component.
 	 */
 	public float getRed() {
 		return r;
@@ -129,7 +144,7 @@ public class Color {
 	/**
 	 * Sets the red component.
 	 *
-	 * @return This color
+	 * @return this color
 	 */
 	public Color setRed(float r) {
 		this.r = r;
@@ -137,7 +152,7 @@ public class Color {
 	}
 
 	/**
-	 * Returns The green component.
+	 * @return the green component.
 	 */
 	public float getGreen() {
 		return g;
@@ -146,7 +161,7 @@ public class Color {
 	/**
 	 * Sets the green component.
 	 *
-	 * @return This color
+	 * @return this color
 	 */
 	public Color setGreen(float g) {
 		this.g = g;
@@ -154,7 +169,7 @@ public class Color {
 	}
 
 	/**
-	 * Returns The blue component.
+	 * @return the blue component.
 	 */
 	public float getBlue() {
 		return b;
@@ -163,7 +178,7 @@ public class Color {
 	/**
 	 * Sets the blue component.
 	 *
-	 * @return This color
+	 * @return this color
 	 */
 	public Color setBlue(float b) {
 		this.b = b;
@@ -171,7 +186,7 @@ public class Color {
 	}
 
 	/**
-	 * Returns The alpha component.
+	 * @return the alpha component.
 	 */
 	public float getAlpha() {
 		return a;
@@ -180,7 +195,7 @@ public class Color {
 	/**
 	 * Sets the alpha component.
 	 *
-	 * @return This color
+	 * @return this color
 	 */
 	public Color setAlpha(float a) {
 		this.a = a;
@@ -190,7 +205,7 @@ public class Color {
 	/**
 	 * Sets the color with RGBA values in integers.
 	 *
-	 * @return This Color
+	 * @return this Color
 	 */
 	public Color set(int r, int g, int b, int a) {
 		this.r = r / 255f;
@@ -204,7 +219,7 @@ public class Color {
 	/**
 	 * Sets the color with RGB values in integers.
 	 *
-	 * @return This Color
+	 * @return this Color
 	 */
 	public Color set(int r, int g, int b) {
 		set(r, g, b, 1f);
@@ -214,7 +229,7 @@ public class Color {
 	/**
 	 * Sets the color with RGBA values.
 	 *
-	 * @return This Color
+	 * @return this Color
 	 */
 	public Color set(float r, float g, float b, float a) {
 		this.r = r;
@@ -227,7 +242,7 @@ public class Color {
 	/**
 	 * Sets the color with RGB values.
 	 *
-	 * @return This Color
+	 * @return this Color
 	 */
 	public Color set(float r, float g, float b) {
 		set(r, g, b, 255);
@@ -237,8 +252,10 @@ public class Color {
 	/**
 	 * Adds to the color values (not including alpha).
 	 *
-	 * @param adder The value to add
-	 * @return This color
+	 * @param adder
+	 * 		The value to add
+	 *
+	 * @return this color
 	 */
 	public Color add(float adder) {
 		this.r += adder;
@@ -251,8 +268,10 @@ public class Color {
 	/**
 	 * Multiplies the color values (not including alpha).
 	 *
-	 * @param factor The factor to multiply by
-	 * @return This color
+	 * @param factor
+	 * 		The factor to multiply by
+	 *
+	 * @return this color
 	 */
 	public Color multiply(float factor) {
 		this.r *= factor;

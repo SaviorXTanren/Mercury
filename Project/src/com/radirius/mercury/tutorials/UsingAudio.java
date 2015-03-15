@@ -4,7 +4,7 @@ import com.radirius.mercury.audio.Audio;
 import com.radirius.mercury.framework.*;
 import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.input.Input;
-import com.radirius.mercury.resource.Loader;
+import com.radirius.mercury.resource.*;
 
 /**
  * @author wessles
@@ -27,7 +27,9 @@ public class UsingAudio extends Core {
 
 	@Override
 	public void init() {
+		Loader.pushLocation(new ClasspathLocation());
 		opening = Audio.getAudio(Loader.getResourceAsStream("com/radirius/mercury/tutorials/CG-OP.ogg"), "OGG");
+		Loader.popLocation();
 
 		Input.setRepeatEventsEnabled(false);
 	}

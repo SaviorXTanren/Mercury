@@ -59,7 +59,8 @@ public class GameObject implements Entity, Wipeable {
 	/**
 	 * Renders the children nodes.
 	 *
-	 * @param g The Graphics object.
+	 * @param g
+	 * 		The Graphics object.
 	 */
 	@Override
 	public void render(Graphics g) {

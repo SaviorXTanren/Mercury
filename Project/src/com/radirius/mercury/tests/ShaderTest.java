@@ -42,7 +42,7 @@ public class ShaderTest extends Core {
 		shader.setUniformf("u_color", 1, 0, 0, 1); // Red color
 
 		// Draw the rectangle
-		g.drawRectangle(rect);
+		g.drawFigure(rect);
 	}
 
 	@Override

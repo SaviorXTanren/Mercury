@@ -8,8 +8,10 @@ import com.radirius.mercury.input.Input;
  */
 public class Checkbox extends Component {
 	/**
-	 * @param message         The content text
-	 * @param tickedInitially Initially ticked checkbox?
+	 * @param message
+	 * 		The content text
+	 * @param tickedInitially
+	 * 		Initially ticked checkbox?
 	 */
 	public Checkbox(String message, boolean tickedInitially) {
 		super(message);
@@ -28,7 +30,8 @@ public class Checkbox extends Component {
 	}
 
 	/**
-	 * @param message The content text
+	 * @param message
+	 * 		The content text
 	 */
 	public Checkbox(String message) {
 		this(message, false);
@@ -84,7 +87,7 @@ public class Checkbox extends Component {
 	}
 
 	/**
-	 * Returns whether the checkbox has been ticked.
+	 * @return whether the checkbox has been ticked.
 	 */
 	public boolean isTicked() {
 		return isTicked;
@@ -93,7 +96,7 @@ public class Checkbox extends Component {
 	protected TickBox tickBox;
 
 	/**
-	 * Returns the tick-box sub-component
+	 * @return the tick-box sub-component
 	 */
 	public Component getTickBox() {
 		return tickBox;

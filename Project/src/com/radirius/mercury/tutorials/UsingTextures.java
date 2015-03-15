@@ -4,7 +4,7 @@ import com.radirius.mercury.framework.*;
 import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.math.geometry.Rectangle;
-import com.radirius.mercury.resource.Loader;
+import com.radirius.mercury.resource.*;
 
 import java.io.InputStream;
 
@@ -30,7 +30,9 @@ public class UsingTextures extends Core {
 	@Override
 	public void init() {
 		// Creates an InputStream for the Texture.
+		Loader.pushLocation(new ClasspathLocation());
 		InputStream stream = Loader.getResourceAsStream("com/radirius/mercury/tutorials/monaLisa.png");
+		Loader.popLocation();
 
 		// Loads Texture from stream.
 		texture = Texture.loadTexture(stream);
@@ -49,7 +51,7 @@ public class UsingTextures extends Core {
 			return;
 		rectangle.translate(4f, 2f);
 		rectangle.rotate(0.1f);
-		rectangle.scale(1.01f);
+		rectangle.dilate(1.01f);
 		g.drawTexture(texture, rectangle);
 	}
 

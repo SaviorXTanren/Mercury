@@ -1,36 +1,41 @@
 package com.radirius.mercury.math.geometry;
 
 /**
- * A shape with any amount of sides.
+ * A figure with 3 or more sides.
  *
  * @author wessles
  * @author Jeviny
  */
-public class Polygon extends Shape {
-	private float radius;
-
+public class Polygon extends Figure {
 	/**
-	 * Creates a new Polygon taking in the center position on the x/y axis,
-	 * radius and number of sides.
+	 * Creates a new Polygon taking in the center position on the x/y axis, radius and number of sides.
 	 *
-	 * @param xCenter  The center x position.
-	 * @param yCenter  The center y position.
-	 * @param radius   The radius of the polygon.
-	 * @param numSides The number of sides on the polygon.
+	 * @param xCenter
+	 * 		The center x position.
+	 * @param yCenter
+	 * 		The center y position.
+	 * @param radius
+	 * 		The radius of the polygon.
+	 * @param numSides
+	 * 		The number of sides on the polygon.
 	 */
 	public Polygon(float xCenter, float yCenter, float radius, int numSides) {
 		this(xCenter, yCenter, radius, radius, numSides);
 	}
 
 	/**
-	 * Creates a new Polygon taking in the center position on the x/y axis, x/y
-	 * radius and number of sides.
+	 * Creates a new Polygon taking in the center position on the x/y axis, x/y radius and number of sides.
 	 *
-	 * @param xCenter  The center x position.
-	 * @param yCenter  The center y position.
-	 * @param xRadius  The x radius of the polygon.
-	 * @param yRadius  The y radius of the polygon.
-	 * @param numSides The number of sides on the polygon.
+	 * @param xCenter
+	 * 		The center x position.
+	 * @param yCenter
+	 * 		The center y position.
+	 * @param xRadius
+	 * 		The x radius of the polygon.
+	 * @param yRadius
+	 * 		The y radius of the polygon.
+	 * @param numSides
+	 * 		The number of sides on the polygon.
 	 */
 	public Polygon(float xCenter, float yCenter, float xRadius, float yRadius, int numSides) {
 		this(getTrigVertices(xCenter, yCenter, xRadius, yRadius, numSides));
@@ -41,7 +46,8 @@ public class Polygon extends Shape {
 	/**
 	 * Creates a new Polygon from raw vertex data.
 	 *
-	 * @param vertices The vertex data.
+	 * @param vertices
+	 * 		The vertex data.
 	 */
 	public Polygon(Vector2f[] vertices) {
 		super(vertices);
@@ -52,8 +58,7 @@ public class Polygon extends Shape {
 	}
 
 	/**
-	 * Returns Basically the vertices for a whole bunch of triangles 'slices'
-	 * that make up a 'pie.'
+	 * @return basically the vertices for a whole bunch of triangles 'slices' that make up a 'pie.'
 	 */
 	protected static Vector2f[] getTrigVertices(float x, float y, float xRadius, float yRadius, int numSides) {
 		if (numSides < 3)
@@ -61,7 +66,7 @@ public class Polygon extends Shape {
 
 		Vector2f[] vertices = new Vector2f[numSides];
 
-		// Start at 270, so that we have an upwards-facing
+		// Start at 1.5PI, so that we have an upwards-facing
 		// polygon. More fun that way.
 		float angle = (float) (1.5 * Math.PI), step = (float) (2 * Math.PI / numSides);
 
@@ -77,8 +82,10 @@ public class Polygon extends Shape {
 		return vertices;
 	}
 
+	private float radius;
+
 	@Override
-	public boolean contains(Vector2f vector) {
-		return vector.distance(getCenter()) < radius;
+	public boolean contains(Vector2f vertex) {
+		return vertex.distance(getCenter()) < radius;
 	}
 }

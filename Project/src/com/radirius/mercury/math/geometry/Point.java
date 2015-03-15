@@ -1,25 +1,27 @@
 package com.radirius.mercury.math.geometry;
 
 /**
- * A point shape. No sides, just a point.
+ * A figure of exactly 1 point.
  *
  * @author wessles
  * @author Jeviny
  */
-public class Point extends Shape {
+public class Point extends Figure {
 
-	/**
-	 * @param x The x position.
-	 * @param y The y position.
-	 */
 	public Point(float x, float y) {
 		super(x, y);
 	}
 
 	@Override
-	public String toString() {
-		return "(Point) " + toVector().toString();
+	public boolean intersects(Figure figure) {
+		return figure.contains(new Vector2f(getX(), getY()));
 	}
+
+	@Override
+	public boolean contains(Vector2f vertex) {
+		return vertex.x == getX() && vertex.y == getY();
+	}
+
 
 	@Override
 	public float getArea() {
@@ -27,19 +29,14 @@ public class Point extends Shape {
 	}
 
 	/**
-	 * Returns The point in the form of a vector.
+	 * @return the point in the form of a vector.
 	 */
 	public Vector2f toVector() {
 		return new Vector2f(getX(), getY());
 	}
 
 	@Override
-	public boolean intersects(Shape s) {
-		return s.contains(new Vector2f(getX(), getY()));
-	}
-
-	@Override
-	public boolean contains(Vector2f v) {
-		return v.x == getX() && v.y == getY();
+	public String toString() {
+		return "(Point) " + toVector().toString();
 	}
 }

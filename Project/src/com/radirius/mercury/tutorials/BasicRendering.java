@@ -36,14 +36,14 @@ public class BasicRendering extends Core {
 		// Set the color of the rectangle
 		g.setColor(Color.GREEN);
 		// Draw the solid green rectangle
-		g.drawShape(rectangle);
+		g.drawFigure(rectangle);
 
 		// A 100x100 rectangle at (500, 500)
 		Rectangle rectangle2 = new Rectangle(500, 500, 100, 100);
 		// Set the color of the rectangle
 		g.setColor(Color.BLUE);
 		// Trace the green rectangle
-		g.traceShape(rectangle2);
+		g.traceFigure(rectangle2);
 	}
 
 	@Override

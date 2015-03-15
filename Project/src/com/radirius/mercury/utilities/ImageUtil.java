@@ -4,8 +4,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.*;
 
 /**
- * A utility for modifying BufferedImages. Can be used to modify source images
- * of textures.
+ * A utility for modifying BufferedImages. Can be used to modify source images of textures.
  *
  * @author wessles
  * @author Sri Harsha Chilakapati

@@ -130,17 +130,8 @@ public class Vector2f {
 		return (float) Math.atan2(y, x);
 	}
 
-	public Vector2f copy() {
+	public Vector2f duplicate() {
 		return new Vector2f(x, y);
-	}
-
-	public Vector2f setZero() {
-		return new Vector2f(0, 0);
-	}
-
-	@Override
-	public String toString() {
-		return "(" + x + ", " + y + ")";
 	}
 
 	public float getX() {
@@ -149,5 +140,10 @@ public class Vector2f {
 
 	public float getY() {
 		return y;
+	}
+
+	@Override
+	public String toString() {
+		return "(" + x + ", " + y + ")";
 	}
 }

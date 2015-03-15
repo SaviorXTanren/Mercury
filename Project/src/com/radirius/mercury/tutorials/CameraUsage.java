@@ -57,7 +57,7 @@ public class CameraUsage extends Core {
 				camera.rotate(4);
 		}
 
-		g.drawShape(rectangle);
+		g.drawFigure(rectangle);
 	}
 
 	@Override

@@ -26,9 +26,12 @@ public class OGGDecoder {
 	/**
 	 * Get the data out of an OGG file
 	 *
-	 * @param input The input stream from which to read the OGG file Returns The
-	 *              data describing the OGG that's been read
-	 * @throws IOException Indicates a failure to read the OGG file
+	 * @param input
+	 * 		The input stream from which to read the OGG file
+	 *
+	 * @return the data describing the OGG that's been read
+	 * @throws IOException
+	 * 		Indicates a failure to read the OGG file
 	 */
 	public OGGData getData(InputStream input) throws IOException {
 		if (input == null)

@@ -11,7 +11,8 @@ import static com.radirius.mercury.input.Input.*;
  */
 public class Mapper {
 	/**
-	 * A mapper for dvorak layouts. Temporary until we implement LWJGL3, which will recognize mechanical locations as opposed to virtual ones. We can't upgrade to LWJGL3 until it is further developed.
+	 * A mapper for dvorak layouts. Temporary until we implement LWJGL3, which will recognize mechanical locations as
+	 * opposed to virtual ones. We can't upgrade to LWJGL3 until it is further developed.
 	 */
 	public static Mapper LAYOUT_DVORAK = new Mapper();
 

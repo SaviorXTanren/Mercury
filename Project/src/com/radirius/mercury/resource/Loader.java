@@ -4,7 +4,7 @@ import com.radirius.mercury.utilities.logging.Logger;
 
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * A utility for resource loading from different locations.
@@ -14,54 +14,53 @@ import java.util.ArrayList;
  * @author Kevin Glass
  */
 public class Loader {
-	private static ArrayList<Location> locations = new ArrayList<>();
-
-	static {
-		locations.add(new ClasspathLocation());
-		locations.add(new SystemLocation(new File(".")));
-	}
+	private static Stack<Location> locationStack = new Stack<>();
 
 	/**
-	 * Add a location that will be searched for resources
+	 * Pushes the location onto the location stack.
 	 *
-	 * @param location The location that will be searched for resources
+	 * @param location
+	 * 		The new location
 	 */
-	public static void addLocation(Location location) {
-		locations.add(location);
+	public static void pushLocation(Location location) {
+		locationStack.push(location);
 	}
 
 	/**
-	 * Remove a location that will be no longer be searched for resources
+	 * Pops the location stack.
+	 */
+	public static void popLocation() {
+		locationStack.pop();
+	}
+
+	/**
+	 * Clears the location stack.
+	 */
+	public static void clearLocations() {
+		locationStack.clear();
+	}
+
+	/**
+	 * @return the location stack.
+	 */
+	public static Stack<Location> getLocationStack() {
+		return locationStack;
+	}
+
+	/**
+	 * Loads a URL of a resource. If the resource is not found in the top location of the stack, then the next location
+	 * will be checked until either the resource is found, or there are no more locations.
 	 *
-	 * @param location The location that will be removed from the search list
-	 */
-	public static void removeLocation(Location location) {
-		locations.remove(location);
-	}
-
-	/**
-	 * Remove all the locations, no resources will be found until new locations
-	 * have been added
-	 */
-	public static void removeAllLocations() {
-		locations.clear();
-	}
-
-	/**
-	 * Loads a URL of a resource from the file system.
+	 * @param path
+	 * 		The path of the resource
 	 *
-	 * @param path The path of the resource
-	 * @return The URL of a resource from the file system
+	 * @return the URL of a resource
 	 */
 	public static URL getResource(String path) {
-		URL url = null;
+		URL url = locationStack.peek().getResource(path);
 
-		for (Location location : locations) {
-			url = location.getResource(path);
-
-			if (url != null)
-				break;
-		}
+		int i = locationStack.size();
+		while (i > 0 && url == null) url = locationStack.get(i--).getResource(path);
 
 		if (url == null)
 			Logger.warn("Resource not found: " + path);
@@ -70,28 +69,24 @@ public class Loader {
 	}
 
 	/**
-	 * Loads a File resource from the file system.
+	 * Loads a File resource.
 	 *
-	 * @param path The path of the resource
-	 * @return The File resource from the file system
+	 * @param path
+	 * 		The path of the resource
+	 *
+	 * @return the File resource
 	 */
 	public static File getResourceAsFile(String path) {
-		File file = new File(getResource(path).getFile().replaceAll("%20", " "));
-
-		try {
-			file.createNewFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return file;
+		return new File(getResource(path).getFile().replaceAll("%20", " "));
 	}
 
 	/**
-	 * Streams a resource from the file system.
+	 * Streams a resource from the url of {@link #getResource(String path)}.
 	 *
-	 * @param path The path of the resource Returns The InputStream of a
-	 *             resource from the file system.
+	 * @param path
+	 * 		The path of the resource
+	 *
+	 * @return the InputStream of a resource.
 	 */
 	public static InputStream getResourceAsStream(String path) {
 		return streamFromUrl(getResource(path));
@@ -100,7 +95,10 @@ public class Loader {
 	/**
 	 * Converts a URL into an InputStream.
 	 *
-	 * @param url The URL to convert Returns The converted InputStream.
+	 * @param url
+	 * 		The URL to convert
+	 *
+	 * @return the converted InputStream.
 	 */
 	public static InputStream streamFromUrl(URL url) {
 		try {

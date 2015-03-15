@@ -55,7 +55,8 @@ public class CoreSetup {
 	/**
 	 * Create the CoreSetup
 	 *
-	 * @param name The name of the window.
+	 * @param name
+	 * 		The name of the window.
 	 */
 	public CoreSetup(String name) {
 		this.name = name;

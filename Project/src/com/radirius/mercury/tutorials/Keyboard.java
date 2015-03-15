@@ -41,9 +41,9 @@ public class Keyboard extends Core {
 
 		// If left control is tapped, grow by 100%.
 		if (Input.keyClicked(Input.KEY_LCONTROL))
-			rectangle.scale(2f);
+			rectangle.dilate(2f);
 
-		g.drawShape(rectangle);
+		g.drawFigure(rectangle);
 	}
 
 	@Override

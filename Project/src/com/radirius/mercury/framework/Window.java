@@ -2,7 +2,7 @@ package com.radirius.mercury.framework;
 
 import com.radirius.mercury.graphics.Texture;
 import com.radirius.mercury.math.geometry.Vector2f;
-import com.radirius.mercury.resource.Loader;
+import com.radirius.mercury.resource.*;
 import com.radirius.mercury.utilities.logging.Logger;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
@@ -21,49 +21,49 @@ import java.util.ArrayList;
 public class Window {
 
 	/**
-	 * Returns The width of the display.
+	 * @return the width of the display.
 	 */
 	public static int getWidth() {
 		return Display.getWidth();
 	}
 
 	/**
-	 * Returns The height of the display.
+	 * @return the height of the display.
 	 */
 	public static int getHeight() {
 		return Display.getHeight();
 	}
 
 	/**
-	 * Returns The horizontal center of the display.
+	 * @return the horizontal center of the display.
 	 */
 	public static int getCenterX() {
 		return getWidth() / 2;
 	}
 
 	/**
-	 * Returns The vertical center of the display.
+	 * @return the vertical center of the display.
 	 */
 	public static int getCenterY() {
 		return getHeight() / 2;
 	}
 
 	/**
-	 * Returns The center of the display.
+	 * @return the center of the display.
 	 */
 	public static Vector2f getCenter() {
 		return new Vector2f(getCenterX(), getCenterY());
 	}
 
 	/**
-	 * Returns The aspect ratio of the display.
+	 * @return the aspect ratio of the display.
 	 */
 	public static float getAspectRatio() {
 		return (float) getWidth() / (float) getHeight();
 	}
 
 	/**
-	 * Returns Whether or not the window has the focus.
+	 * @return whether or not the window has the focus.
 	 */
 	public static boolean isFocused() {
 		return Display.isActive();
@@ -72,17 +72,18 @@ public class Window {
 	/**
 	 * Sets the title of the window.
 	 *
-	 * @param title The title of the window.
+	 * @param title
+	 * 		The title of the window.
 	 */
 	public static void setTitle(String title) {
 		Display.setTitle(title);
 	}
 
 	/**
-	 * Sets the icon for given size(s). Recommended sizes that you should put in
-	 * are x16, x32, and x64.
+	 * Sets the icon for given size(s). Recommended sizes that you should put in are x16, x32, and x64.
 	 *
-	 * @param icons Icon(s) for the game.
+	 * @param icons
+	 * 		Icon(s) for the game.
 	 */
 	public static void setIcon(InputStream... icons) {
 		ArrayList<ByteBuffer> buffers = new ArrayList<>();
@@ -104,7 +105,8 @@ public class Window {
 	/**
 	 * Enables or disables mouse grabbing.
 	 *
-	 * @param grab Whether or not to grab the mouse.
+	 * @param grab
+	 * 		Whether or not to grab the mouse.
 	 */
 	public static void setMouseGrabbed(boolean grab) {
 		Mouse.setGrabbed(grab);
@@ -113,7 +115,8 @@ public class Window {
 	/**
 	 * Sets whether or not v-sync is enabled.
 	 *
-	 * @param vsync Whether or not to use v-sync.
+	 * @param vsync
+	 * 		Whether or not to use v-sync.
 	 */
 	public static void setVsync(boolean vsync) {
 		Display.setVSyncEnabled(vsync);
@@ -122,11 +125,16 @@ public class Window {
 	/**
 	 * Initializes the display.
 	 *
-	 * @param name       The name of the display.
-	 * @param width      The width of the display.
-	 * @param height     The height of the display.
-	 * @param fullscreen Whether or not fullscreen is enabled.
-	 * @param vsync      Whether or not v-sync is used.
+	 * @param name
+	 * 		The name of the display.
+	 * @param width
+	 * 		The width of the display.
+	 * @param height
+	 * 		The height of the display.
+	 * @param fullscreen
+	 * 		Whether or not fullscreen is enabled.
+	 * @param vsync
+	 * 		Whether or not v-sync is used.
 	 */
 	public static void initDisplay(String name, int width, int height, boolean fullscreen, boolean vsync) {
 		try {
@@ -146,10 +154,14 @@ public class Window {
 					}
 				}
 
-				if (!matchedDimensions)
-					Logger.warn("Dimensions " + width + "x" + height + " is not supported! Disabling fullscreen.");
-				else
-					Display.setFullscreen(true);
+				if (!matchedDimensions) {
+					Logger.warn("Dimensions " + width + "x" + height + " is not supported! The following resolutions are supported:");
+
+					for (DisplayMode dm : modes)
+						Logger.log(" -" + dm.getWidth() + "x" + dm.getHeight());
+				}
+
+				Display.setFullscreen(true);
 			}
 
 			Display.setDisplayMode(dimensions);
@@ -163,6 +175,8 @@ public class Window {
 			e.printStackTrace();
 		}
 
+		Loader.pushLocation(new ClasspathLocation());
 		setIcon(Loader.getResourceAsStream("com/radirius/mercury/framework/res/merc_mascot_x16.png"), Loader.getResourceAsStream("com/radirius/mercury/framework/res/merc_mascot_x32.png"), Loader.getResourceAsStream("com/radirius/mercury/framework/res/merc_mascot_x64.png"));
+		Loader.popLocation();
 	}
 }

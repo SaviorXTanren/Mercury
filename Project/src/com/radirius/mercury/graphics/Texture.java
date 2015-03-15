@@ -14,8 +14,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
 /**
- * An object version of a texture. This will store the width and height of the
- * object.
+ * An object version of a texture. This will store the width and height of the object.
  *
  * @author wessles
  * @author Jeviny
@@ -35,14 +34,18 @@ public class Texture implements Resource, Bindable {
 	public ByteBuffer buffer;
 
 	/**
-	 * Make a texture of the textureId, with a width and height, based off of
-	 * BufferedImage bufferedImage
+	 * Make a texture of the textureId, with a width and height, based off of BufferedImage bufferedImage
 	 *
-	 * @param textureId     The id of the texture
-	 * @param width         The width of the texture
-	 * @param height        The height of the texture
-	 * @param bufferedImage The source of the image, the BufferedImage
-	 * @param buffer        The original buffer
+	 * @param textureId
+	 * 		The id of the texture
+	 * @param width
+	 * 		The width of the texture
+	 * @param height
+	 * 		The height of the texture
+	 * @param bufferedImage
+	 * 		The source of the image, the BufferedImage
+	 * @param buffer
+	 * 		The original buffer
 	 */
 	public Texture(int textureId, int width, int height, BufferedImage bufferedImage, ByteBuffer buffer) {
 		this.textureId = textureId;
@@ -56,8 +59,10 @@ public class Texture implements Resource, Bindable {
 	/**
 	 * Loads a Texture
 	 *
-	 * @param inputStream The stream of the image to load Returns A Texture
-	 *                    based off of the streamed image
+	 * @param inputStream
+	 * 		The stream of the image to load
+	 *
+	 * @return a Texture based off of the streamed image
 	 */
 	public static Texture loadTexture(InputStream inputStream) {
 		return loadTexture(inputStream, FILTER_NEAREST);
@@ -66,8 +71,10 @@ public class Texture implements Resource, Bindable {
 	/**
 	 * Loads a Texture
 	 *
-	 * @param bufferedImage The image to load Returns A Texture based off of the
-	 *                      BufferedImage
+	 * @param bufferedImage
+	 * 		The image to load
+	 *
+	 * @return a Texture based off of the BufferedImage
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage) {
 		return loadTexture(bufferedImage, FILTER_NEAREST);
@@ -76,9 +83,12 @@ public class Texture implements Resource, Bindable {
 	/**
 	 * Loads a Texture
 	 *
-	 * @param inputStream The stream of the image to load
-	 * @param filter      Both the min and mag filter Returns A Texture based off of
-	 *                    the streamed image
+	 * @param inputStream
+	 * 		The stream of the image to load
+	 * @param filter
+	 * 		Both the min and mag filter
+	 *
+	 * @return a Texture based off of the streamed image
 	 */
 	public static Texture loadTexture(InputStream inputStream, int filter) {
 		return loadTexture(inputStream, filter, filter);
@@ -87,9 +97,12 @@ public class Texture implements Resource, Bindable {
 	/**
 	 * Loads a Texture
 	 *
-	 * @param bufferedImage The image to load
-	 * @param filter        Both the min and mag filter Returns A Texture based off of
-	 *                      the BufferedImage
+	 * @param bufferedImage
+	 * 		The image to load
+	 * @param filter
+	 * 		Both the min and mag filter
+	 *
+	 * @return a Texture based off of the BufferedImage
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage, int filter) {
 		return loadTexture(bufferedImage, filter, filter);
@@ -98,10 +111,14 @@ public class Texture implements Resource, Bindable {
 	/**
 	 * Loads a Texture
 	 *
-	 * @param inputStream The stream of the image to load
-	 * @param minFilter   The min filter
-	 * @param magFilter   The mag filter Returns A Texture based off of the
-	 *                    streamed image
+	 * @param inputStream
+	 * 		The stream of the image to load
+	 * @param minFilter
+	 * 		The min filter
+	 * @param magFilter
+	 * 		The mag filter
+	 *
+	 * @return a Texture based off of the streamed image
 	 */
 	public static Texture loadTexture(InputStream inputStream, int minFilter, int magFilter) {
 		try {
@@ -116,10 +133,14 @@ public class Texture implements Resource, Bindable {
 	/**
 	 * Loads a Texture
 	 *
-	 * @param bufferedImage The image to load
-	 * @param minFilter     The min filter
-	 * @param magFilter     The mag filter Returns A Texture based off of the
-	 *                      BufferedImage
+	 * @param bufferedImage
+	 * 		The image to load
+	 * @param minFilter
+	 * 		The min filter
+	 * @param magFilter
+	 * 		The mag filter
+	 *
+	 * @return a Texture based off of the BufferedImage
 	 */
 	public static Texture loadTexture(BufferedImage bufferedImage, int minFilter, int magFilter) {
 		BufferedImage bufferedImage0 = processBufferedImage(bufferedImage);
@@ -205,18 +226,22 @@ public class Texture implements Resource, Bindable {
 	}
 
 	/**
-	 * Returns A texture object with no data or source image.
+	 * @return a texture object with no data or source image.
 	 */
 	public static Texture createTextureObject(int textureId, int width, int height) {
 		return new Texture(textureId, width, height, null, null);
 	}
 
 	/**
-	 * Returns The a blank white Texture.
+	 * @return the a blank white Texture.
 	 */
 	public static Texture getEmptyTexture() {
-		if (BLANK_TEXTURE == null)
-			BLANK_TEXTURE = loadTexture(Loader.getResourceAsStream("com/radirius/mercury/graphics/res/empty.png"));
+		if (BLANK_TEXTURE != null)
+			return BLANK_TEXTURE;
+
+		Loader.pushLocation(new ClasspathLocation());
+		BLANK_TEXTURE = loadTexture(Loader.getResourceAsStream("com/radirius/mercury/graphics/res/empty.png"));
+		Loader.popLocation();
 
 		return BLANK_TEXTURE;
 	}
@@ -242,35 +267,35 @@ public class Texture implements Resource, Bindable {
 	}
 
 	/**
-	 * Returns The texture's width.
+	 * @return the texture's width.
 	 */
 	public int getWidth() {
 		return width;
 	}
 
 	/**
-	 * Returns The texture's height.
+	 * @return the texture's height.
 	 */
 	public int getHeight() {
 		return height;
 	}
 
 	/**
-	 * Returns Whether or not the texture is PoT.
+	 * @return whether or not the texture is PoT.
 	 */
 	public boolean isPoT() {
 		return isPoT(getWidth(), getHeight());
 	}
 
 	/**
-	 * Returns The texture's id.
+	 * @return the texture's id.
 	 */
 	public int getTextureId() {
 		return textureId;
 	}
 
 	/**
-	 * Returns The source image.
+	 * @return the source image.
 	 */
 	public BufferedImage getSourceImage() {
 		if (bufferedImage == null)
@@ -284,33 +309,34 @@ public class Texture implements Resource, Bindable {
 	}
 
 	/**
-	 * Returns The original buffer.
+	 * @return the original buffer.
 	 */
 	public ByteBuffer getBuffer() {
 		return buffer;
 	}
 
 	/**
-	 * @param width  The width of the Texture
-	 * @param height The height of the Texture Returns Whether the Texture has
-	 *               power-of-two sides
+	 * @param width
+	 * 		The width of the Texture
+	 * @param height
+	 * 		The height of the Texture
+	 *
+	 * @return whether the Texture has power-of-two sides
 	 */
 	public static boolean isPoT(int width, int height) {
 		return (width & width - 1) == 0 && (height & height - 1) == 0;
 	}
 
 	/**
-	 * Sets whether or not all Textures will be expanded to the nearest power of
-	 * two. Keep in mind before you change this that PoT Textures allow for
-	 * faster rendering time.
+	 * Sets whether or not all Textures will be expanded to the nearest power of two. Keep in mind before you change
+	 * this that PoT Textures allow for faster rendering time.
 	 */
 	public static void setExpandToPowerOfTwo(boolean expandToPoT) {
 		Texture.expandToPoT = expandToPoT;
 	}
 
 	/**
-	 * Returns If the Texture is PoT and not a SubTexture (and in turn, can
-	 * repeat).
+	 * @return if the Texture is PoT and not a SubTexture (and in turn, can repeat).
 	 */
 	public boolean isRepeatable() {
 		boolean capable = isPoT();

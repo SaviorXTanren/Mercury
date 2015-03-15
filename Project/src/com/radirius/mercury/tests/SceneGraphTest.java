@@ -48,7 +48,7 @@ public class SceneGraphTest extends Core {
 		@Override
 		public void render(Graphics g) {
 			g.setColor(Color.WHITE);
-			g.drawRectangle((Rectangle) getBounds().rotate(t++));
+			g.drawFigure((Rectangle) getBounds().rotate(t++));
 		}
 	}
 }

@@ -10,30 +10,35 @@ public class Ellipse extends Polygon {
 	 * Maximum amount of sides that can be rendered when rendering an ellipse.
 	 */
 	public static int MAX_SIDES = 40;
+
 	/**
 	 * The radius in the respective axis.
 	 */
-	public float radx, rady;
+	public float radiusX, radiusY;
 
 	/**
-	 * @param x    The x position of the center.
-	 * @param y    The y position of the center.
-	 * @param radx The radius of the circle in the x axis.
-	 * @param rady The radius of the circle in the y axis.
+	 * @param x
+	 * 		The x position of the center.
+	 * @param y
+	 * 		The y position of the center.
+	 * @param radiusX
+	 * 		The radius of the circle in the x axis.
+	 * @param radiusY
+	 * 		The radius of the circle in the y axis.
 	 */
-	public Ellipse(float x, float y, float radx, float rady) {
-		super(x, y, radx, rady, MAX_SIDES);
-		this.radx = radx;
-		this.rady = rady;
+	public Ellipse(float x, float y, float radiusX, float radiusY) {
+		super(x, y, radiusX, radiusY, MAX_SIDES);
+		this.radiusX = radiusX;
+		this.radiusY = radiusY;
 	}
 
 	// They are round, with a lot of vertices. This isn't
 	// pixel-perfect, but it
 	// is good enough.
 	@Override
-	public boolean intersects(Shape s) {
-		if (s instanceof Ellipse)
-			for (Vector2f v : s.vertices)
+	public boolean intersects(Figure figure) {
+		if (figure instanceof Ellipse)
+			for (Vector2f v : figure.vertices)
 				if (contains(v))
 					return true;
 
@@ -41,16 +46,14 @@ public class Ellipse extends Polygon {
 	}
 
 	@Override
-	public boolean contains(Vector2f v) {
-		// Source
-		// http://math.stackexchange.com/questions/76457/check-if-a-point-is-within-an-ellipse
-		float test = (v.x - getCenter().x) * (v.x - getCenter().x) / (radx * radx) + (v.y - getCenter().y) * (v.y - getCenter().y) / (rady * rady);
+	public boolean contains(Vector2f vertex) {
+		float test = (vertex.x - getCenter().x) * (vertex.x - getCenter().x) / (radiusX * radiusX) + (vertex.y - getCenter().y) * (vertex.y - getCenter().y) / (radiusY * radiusY);
 
 		return test <= 1;
 	}
 
 	@Override
 	public float getArea() {
-		return 3.14f * radx * rady;
+		return 3.14f * radiusX * radiusY;
 	}
 }

@@ -1,7 +1,7 @@
 package com.radirius.mercury.graphics.font;
 
 import com.radirius.mercury.graphics.*;
-import com.radirius.mercury.resource.Loader;
+import com.radirius.mercury.resource.*;
 import com.radirius.mercury.utilities.logging.Logger;
 
 import java.awt.Color;
@@ -29,8 +29,10 @@ public class TrueTypeFont implements Font {
 	public static final TrueTypeFont ROBOTO_REGULAR;
 
 	static {
+		Loader.pushLocation(new ClasspathLocation());
 		ROBOTO_BOLD = TrueTypeFont.loadTrueTypeFont(Loader.getResourceAsStream("com/radirius/mercury/graphics/font/res/Roboto-Bold.ttf"), 22f, true);
 		ROBOTO_REGULAR = TrueTypeFont.loadTrueTypeFont(Loader.getResourceAsStream("com/radirius/mercury/graphics/font/res/Roboto-Regular.ttf"), 22f, true);
+		Loader.popLocation();
 	}
 
 
@@ -78,6 +80,7 @@ public class TrueTypeFont implements Font {
 		int baseWidth = 1024;
 		int baseHeight = 1024;
 
+		nullCharactersLoop:
 		while (characters == null) {
 			// Make a graphics object for the buffered image.
 			BufferedImage imgTemp = new BufferedImage(baseWidth, baseHeight, BufferedImage.TYPE_INT_ARGB);
@@ -120,9 +123,10 @@ public class TrueTypeFont implements Font {
 					positionX = 0;
 					positionY += getHeight() + ANTI_TEXTURE_BLEEDING_MARGIN;
 					if (positionY + getHeight() + ANTI_TEXTURE_BLEEDING_MARGIN > baseHeight) {
-						Logger.warn("TrueTypeFont texture exceeded " + baseWidth + "x" + baseHeight + "; retrying at " + baseWidth + "x" + baseHeight * 2 + ".");
+						Logger.warn("TrueTypeFont texture exceeded " + baseWidth + "x" + baseHeight + "; retrying at " + baseWidth * 2 + "x" + baseHeight * 2 + ".");
+						baseWidth *= 2;
 						baseHeight *= 2;
-						continue;
+						continue nullCharactersLoop;
 					}
 				}
 
@@ -157,8 +161,10 @@ public class TrueTypeFont implements Font {
 	/**
 	 * Loads a font.
 	 *
-	 * @param isUrl The URL for the stream for the font.
-	 * @param size  The size of the font.
+	 * @param isUrl
+	 * 		The URL for the stream for the font.
+	 * @param size
+	 * 		The size of the font.
 	 */
 	public static TrueTypeFont loadTrueTypeFont(URL isUrl, float size) {
 		return loadTrueTypeFont(isUrl, size, true);
@@ -167,8 +173,10 @@ public class TrueTypeFont implements Font {
 	/**
 	 * Loads a font.
 	 *
-	 * @param is   The stream for the font.
-	 * @param size The size of the font.
+	 * @param is
+	 * 		The stream for the font.
+	 * @param size
+	 * 		The size of the font.
 	 */
 	public static TrueTypeFont loadTrueTypeFont(InputStream is, float size) {
 		return loadTrueTypeFont(is, size, true);
@@ -177,20 +185,27 @@ public class TrueTypeFont implements Font {
 	/**
 	 * Loads a font.
 	 *
-	 * @param isUrl  The URL for the stream for the font.
-	 * @param size   The size of the font.
-	 * @param smooth Whether or not the text is smoothed.
+	 * @param isUrl
+	 * 		The URL for the stream for the font.
+	 * @param size
+	 * 		The size of the font.
+	 * @param smooth
+	 * 		Whether or not the text is smoothed.
 	 */
 	public static TrueTypeFont loadTrueTypeFont(URL isUrl, float size, boolean smooth) {
-		return loadTrueTypeFont(Loader.streamFromUrl(isUrl), size, smooth);
+		InputStream stream = Loader.streamFromUrl(isUrl);
+		return loadTrueTypeFont(stream, size, smooth);
 	}
 
 	/**
 	 * Loads a font.
 	 *
-	 * @param is     The stream for the font.
-	 * @param size   The size of the font.
-	 * @param smooth Whether or not the text is smoothed.
+	 * @param is
+	 * 		The stream for the font.
+	 * @param size
+	 * 		The size of the font.
+	 * @param smooth
+	 * 		Whether or not the text is smoothed.
 	 */
 	public static TrueTypeFont loadTrueTypeFont(InputStream is, float size, boolean smooth) {
 		java.awt.Font font;
@@ -209,8 +224,10 @@ public class TrueTypeFont implements Font {
 	/**
 	 * Loads a font.
 	 *
-	 * @param font   The base awt font.
-	 * @param smooth Whether or not the text is smoothed.
+	 * @param font
+	 * 		The base awt font.
+	 * @param smooth
+	 * 		Whether or not the text is smoothed.
 	 */
 
 	public static TrueTypeFont loadTrueTypeFont(java.awt.Font font, boolean smooth) {
@@ -220,14 +237,14 @@ public class TrueTypeFont implements Font {
 	/**
 	 * Derive another differently sized instance of this font; very resource heavy.
 	 *
-	 * @return A newly sized font
+	 * @return a newly sized font
 	 */
 	public TrueTypeFont deriveFont(float size) {
 		return new TrueTypeFont(font.deriveFont(size), smooth);
 	}
 
 	/**
-	 * Returns the size of the font
+	 * @return the size of the font
 	 */
 	public float getSize() {
 		return fontSize;

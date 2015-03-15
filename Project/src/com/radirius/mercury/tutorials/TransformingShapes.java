@@ -35,12 +35,14 @@ public class TransformingShapes extends Core {
 
 	@Override
 	public void render(Graphics g) {
+		g.traceFigure(rectangle);
+
 		if (!Input.keyDown(Input.KEY_SPACE))
 			return;
+
 		rectangle.translate(4f, 2f);
 		rectangle.rotate(0.1f);
-		rectangle.scale(1.01f);
-		g.drawShape(rectangle);
+		rectangle.dilate(1.01f);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.radirius.mercury.audio;
 
 import com.radirius.mercury.resource.Resource;
+import com.radirius.mercury.utilities.logging.Logger;
 import org.lwjgl.*;
 import org.lwjgl.openal.AL;
 
@@ -27,8 +28,10 @@ public class Audio implements Resource {
 	protected final int buffer;
 
 	/**
-	 * @param source The source index for OpenAL.
-	 * @param buffer The buffer for OpenAL to process.
+	 * @param source
+	 * 		The source index for OpenAL.
+	 * @param buffer
+	 * 		The buffer for OpenAL to process.
 	 */
 	protected Audio(int source, int buffer) {
 		this.source = source;
@@ -36,11 +39,12 @@ public class Audio implements Resource {
 	}
 
 	/**
-	 * Makes a source based off of buffer, and then makes an Audio based off of
-	 * the source.
+	 * Makes a source based off of buffer, and then makes an Audio based off of the source.
 	 *
-	 * @param buffer The integer index of the sound for OpenAL to process.
-	 *               Returns the audio file.
+	 * @param buffer
+	 * 		The integer index of the sound for OpenAL to process.
+	 *
+	 * @return the audio file.
 	 */
 	public static Audio getAudio(int buffer) {
 		IntBuffer source = BufferUtils.createIntBuffer(1);
@@ -57,18 +61,22 @@ public class Audio implements Resource {
 	}
 
 	/**
-	 * Makes a source based off of buffer, and then makes an Audio based off of
-	 * the source.
+	 * Makes a source based off of buffer, and then makes an Audio based off of the source.
 	 *
-	 * @param is     The input file to be read.
-	 * @param format The format of the audio file ("wav", "ogg"...). Returns the
-	 *               audio file.
+	 * @param is
+	 * 		The input file to be read.
+	 * @param format
+	 * 		The format of the audio file ("wav", "ogg"...).
+	 *
+	 * @return the audio file.
 	 */
 	public static Audio getAudio(InputStream is, String format) {
 		if (format.equalsIgnoreCase("wav"))
 			return getAudio(getWAVBuffer(is));
 		else if (format.equalsIgnoreCase("ogg"))
 			return getAudio(getOGGBuffer(is));
+		else
+			Logger.warn("Audio format '" + format + "' is not currently supported.");
 
 		return null;
 	}
@@ -76,8 +84,10 @@ public class Audio implements Resource {
 	/**
 	 * Forms a buffer from is.
 	 *
-	 * @param is The stream to the sound file. Returns The integer index for
-	 *           OpenAL based off of the .ogg file at the InputStream is.
+	 * @param is
+	 * 		The stream to the sound file.
+	 *
+	 * @return the integer index for OpenAL based off of the .ogg file at the InputStream is.
 	 */
 	public static int getOGGBuffer(InputStream is) {
 		IntBuffer buffer = BufferUtils.createIntBuffer(1);
@@ -105,8 +115,10 @@ public class Audio implements Resource {
 	/**
 	 * Forms a buffer from is.
 	 *
-	 * @param is The stream to the sound file. Returns The integer index for
-	 *           OpenAL based off of the .wav file at the InputStream is.
+	 * @param is
+	 * 		The stream to the sound file.
+	 *
+	 * @return the integer index for OpenAL based off of the .wav file at the InputStream is.
 	 */
 	public static int getWAVBuffer(InputStream is) {
 		IntBuffer buffer = BufferUtils.createIntBuffer(1);
@@ -125,17 +137,16 @@ public class Audio implements Resource {
 	}
 
 	/**
-	 * Returns Whether or not the clip is playing.
+	 * @return whether or not the clip is playing.
 	 */
 	public boolean isPlaying() {
 		return alGetSourcei(source, AL_SOURCE_STATE) == AL_PLAYING;
 	}
 
 	/**
-	 * Plays the clip. If it is already playing, it will restart. If the clip is
-	 * paused, it will continue.
-	 * <p/>
-	 * Returns the audio file.
+	 * Plays the clip. If it is already playing, it will restart. If the clip is paused, it will continue.
+	 *
+	 * @return the audio file.
 	 */
 	public Audio play() {
 		alSourcePlay(source);
@@ -145,8 +156,8 @@ public class Audio implements Resource {
 
 	/**
 	 * Plays the clip if it is paused, pauses it if it is not paused.
-	 * <p/>
-	 * Returns the audio file.
+	 *
+	 * @return the audio file.
 	 */
 	public Audio togglePause() {
 		if (isPaused())
@@ -159,8 +170,8 @@ public class Audio implements Resource {
 
 	/**
 	 * Plays the clip if it is stopped, stops it if it is not stopped.
-	 * <p/>
-	 * Returns the audio file.
+	 *
+	 * @return the audio file.
 	 */
 	public Audio toggleStop() {
 		if (isStopped())
@@ -172,7 +183,7 @@ public class Audio implements Resource {
 	}
 
 	/**
-	 * Returns Whether or not the clip is paused.
+	 * @return whether or not the clip is paused.
 	 */
 	public boolean isPaused() {
 		return alGetBoolean(AL_PAUSED);
@@ -180,8 +191,8 @@ public class Audio implements Resource {
 
 	/**
 	 * Pauses the clip. Reversible by play().
-	 * <p/>
-	 * Returns the audio file.
+	 *
+	 * @return the audio file.
 	 */
 	public Audio pause() {
 		alSourcePause(source);
@@ -190,7 +201,7 @@ public class Audio implements Resource {
 	}
 
 	/**
-	 * Returns Whether or not the clip is stopped.
+	 * @return whether or not the clip is stopped.
 	 */
 	public boolean isStopped() {
 		return alGetSourcei(source, AL_SOURCE_STATE) == AL_STOPPED;
@@ -198,8 +209,8 @@ public class Audio implements Resource {
 
 	/**
 	 * Stops the clip.
-	 * <p/>
-	 * Returns the audio file.
+	 *
+	 * @return the audio file.
 	 */
 	public Audio stop() {
 		alSourceStop(source);
@@ -208,7 +219,7 @@ public class Audio implements Resource {
 	}
 
 	/**
-	 * Returns The volume of the clip.
+	 * @return the volume of the clip.
 	 */
 	public float getVolume() {
 		return alGetSourcef(source, AL_GAIN);
@@ -217,8 +228,10 @@ public class Audio implements Resource {
 	/**
 	 * Sets the volume of the clip.
 	 *
-	 * @param vol A floating point volume value, 0.8 being 80%, 1.5 being 150%,
-	 *            etc. Returns the audio file.
+	 * @param vol
+	 * 		A floating point volume value, 0.8 being 80%, 1.5 being 150%, etc.
+	 *
+	 * @return the audio file.
 	 */
 	public Audio setVolume(float vol) {
 		alSourcef(source, AL_GAIN, vol);
@@ -227,7 +240,7 @@ public class Audio implements Resource {
 	}
 
 	/**
-	 * Returns The pitch of the clip.
+	 * @return the pitch of the clip.
 	 */
 	public float getPitch() {
 		return alGetSourcef(source, AL_PITCH);
@@ -236,8 +249,10 @@ public class Audio implements Resource {
 	/**
 	 * Sets the pitch of the clip.
 	 *
-	 * @param pit A floating point pitch value, 0.8 being 80%, 1.5 being 150%,
-	 *            etc. Returns the audio file.
+	 * @param pit
+	 * 		A floating point pitch value, 0.8 being 80%, 1.5 being 150%, etc.
+	 *
+	 * @return the audio file.
 	 */
 	public Audio setPitch(float pit) {
 		alSourcef(source, AL_PITCH, pit);
@@ -246,7 +261,7 @@ public class Audio implements Resource {
 	}
 
 	/**
-	 * Returns Whether or not the clip is looping.
+	 * @return whether or not the clip is looping.
 	 */
 	public boolean isLooping() {
 		return alGetSourcei(source, AL_LOOPING) == AL_LOOPING;
@@ -255,7 +270,10 @@ public class Audio implements Resource {
 	/**
 	 * Sets whether or not the clip should loop.
 	 *
-	 * @param loop Whether or not the clip should loop. Returns the audio file.
+	 * @param loop
+	 * 		Whether or not the clip should loop.
+	 *
+	 * @return the audio file.
 	 */
 	public Audio setLooping(boolean loop) {
 		alSourcei(source, AL_LOOPING, loop ? AL_TRUE : AL_FALSE);
@@ -264,7 +282,7 @@ public class Audio implements Resource {
 	}
 
 	/**
-	 * Returns a separate audio object of the same buffer.
+	 * @return a separate audio object of the same buffer.
 	 */
 	public Audio duplicate() {
 		return getAudio(buffer);

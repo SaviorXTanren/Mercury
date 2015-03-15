@@ -21,37 +21,50 @@ public class Animation implements Resource {
 	private long lastFrameMillis;
 
 	/**
-	 * @param frameTimeMillis The frame rate in milliseconds
-	 * @param baseTextures    The textures, or frames.
+	 * @param frameTimeMillis
+	 * 		The frame rate in milliseconds
+	 * @param baseTextures
+	 * 		The textures, or frames.
 	 */
 	public Animation(SpriteSheet baseTextures, int frameTimeMillis) {
 		this(baseTextures, frameTimeMillis, 0, baseTextures.getNumberOfSubTextures() - 1);
 	}
 
 	/**
-	 * @param frameTimeMillis The frame rate in milliseconds
-	 * @param baseTextures    The textures, or frames.
+	 * @param frameTimeMillis
+	 * 		The frame rate in milliseconds
+	 * @param baseTextures
+	 * 		The textures, or frames.
 	 */
 	public Animation(SpriteSheet baseTextures, int frameTimeMillis, boolean bounce) {
 		this(frameTimeMillis, baseTextures, 0, baseTextures.getNumberOfSubTextures() - 1, bounce);
 	}
 
 	/**
-	 * @param frameTimeMillis The frame rate in milliseconds
-	 * @param baseTextures    The textures, or frames.
-	 * @param startFrame      The first frame of the animation.
-	 * @param endFrame        The last frame of the animation.
+	 * @param frameTimeMillis
+	 * 		The frame rate in milliseconds
+	 * @param baseTextures
+	 * 		The textures, or frames.
+	 * @param startFrame
+	 * 		The first frame of the animation.
+	 * @param endFrame
+	 * 		The last frame of the animation.
 	 */
 	public Animation(SpriteSheet baseTextures, int frameTimeMillis, int startFrame, int endFrame) {
 		this(frameTimeMillis, baseTextures, startFrame, endFrame, false);
 	}
 
 	/**
-	 * @param frameTimeMillis The frame rate in milliseconds
-	 * @param baseTextures    The textures, or frames.
-	 * @param startFrame      The first frame of the animation.
-	 * @param endFrame        The last frame of the animation.
-	 * @param bounce          Whether or not the animation should reverse once it gets to the end.
+	 * @param frameTimeMillis
+	 * 		The frame rate in milliseconds
+	 * @param baseTextures
+	 * 		The textures, or frames.
+	 * @param startFrame
+	 * 		The first frame of the animation.
+	 * @param endFrame
+	 * 		The last frame of the animation.
+	 * @param bounce
+	 * 		Whether or not the animation should reverse once it gets to the end.
 	 */
 	public Animation(int frameTimeMillis, SpriteSheet baseTextures, int startFrame, int endFrame, boolean bounce) {
 		this.frameTimeMillis = frameTimeMillis;
@@ -72,7 +85,9 @@ public class Animation implements Resource {
 	}
 
 	/**
-	 * Useful if you want to render the frames in a special way. Returns The current frame.
+	 * Useful if you want to render the frames in a special way.
+	 *
+	 * @return the current frame.
 	 */
 	public SubTexture getCurrentFrame() {
 		return baseTextures.getTexture(frame);
@@ -80,7 +95,8 @@ public class Animation implements Resource {
 
 	/**
 	 * Moves on to the next frame in the animation if the current frame has been around more than the frame-rate.
-	 * Returns Whether or not this is the last frame.
+	 *
+	 * @return whether or not this is the last frame.
 	 */
 	public boolean passFrame() {
 		long frameMillis = System.currentTimeMillis();
@@ -106,7 +122,7 @@ public class Animation implements Resource {
 	}
 
 	/**
-	 * Returns The current frame.
+	 * @return the current frame.
 	 */
 	public int getFrame() {
 		return frame;
@@ -120,21 +136,21 @@ public class Animation implements Resource {
 	}
 
 	/**
-	 * Returns How many frames there are.
+	 * @return how many frames there are.
 	 */
 	public int getLength() {
 		return last - first;
 	}
 
 	/**
-	 * Returns Whether or not we are at the last frame.
+	 * @return whether or not we are at the last frame.
 	 */
 	public boolean isLastFrame() {
 		return bounce ? frame == first : frame == last;
 	}
 
 	/**
-	 * Returns The textures for all the frames.
+	 * @return the textures for all the frames.
 	 */
 	public SpriteSheet getTextures() {
 		return baseTextures;

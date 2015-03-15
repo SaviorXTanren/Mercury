@@ -5,7 +5,6 @@ import com.radirius.mercury.framework.splash.SplashScreen;
 import com.radirius.mercury.graphics.*;
 import com.radirius.mercury.graphics.font.TrueTypeFont;
 import com.radirius.mercury.input.Input;
-import com.radirius.mercury.resource.*;
 import com.radirius.mercury.utilities.TaskTiming;
 import com.radirius.mercury.utilities.logging.Logger;
 import org.lwjgl.Sys;
@@ -24,7 +23,7 @@ public abstract class Core {
 	private static Core currentCore;
 
 	/**
-	 * Returns The core that is currently running.
+	 * @return the core that is currently running.
 	 */
 	public static Core getCurrentCore() {
 		return currentCore;
@@ -54,9 +53,8 @@ public abstract class Core {
 	}
 
 	/**
-	 * Used to initialize all resources, and for whatever you wish to do for
-	 * initialization. May run on a separate thread, while the main Thread
-	 * continues to the game loop.
+	 * Used to initialize all resources, and for whatever you wish to do for initialization. May run on a separate
+	 * thread, while the main Thread continues to the game loop.
 	 */
 	public abstract void init();
 
@@ -68,7 +66,8 @@ public abstract class Core {
 	/**
 	 * Called once every frame and used to render graphics.
 	 *
-	 * @param g The Graphics object for rendering.
+	 * @param g
+	 * 		The Graphics object for rendering.
 	 */
 	public abstract void render(Graphics g);
 
@@ -93,7 +92,8 @@ public abstract class Core {
 	/**
 	 * Renders the current game state.
 	 *
-	 * @param g The Graphics object for rendering.
+	 * @param g
+	 * 		The Graphics object for rendering.
 	 */
 	public void renderState(Graphics g) {
 		if (currentGameState != null)
@@ -103,7 +103,8 @@ public abstract class Core {
 	/**
 	 * Switches to a GameState and after alerting the current GameState.
 	 *
-	 * @param currentGameState The GameState to switch to.
+	 * @param currentGameState
+	 * 		The GameState to switch to.
 	 */
 	public void switchGameState(GameState currentGameState) {
 		this.currentGameState.onLeave();
@@ -114,7 +115,7 @@ public abstract class Core {
 	}
 
 	/**
-	 * Returns The current GameState.
+	 * @return the current GameState.
 	 */
 	public GameState getCurrentState() {
 		return currentGameState;
@@ -136,13 +137,12 @@ public abstract class Core {
 	private boolean running = false;
 
 	/**
-	 * A string that holds debugging data to be rendered to the screen, should
-	 * `renderDebug` be true
+	 * A string that holds debugging data to be rendered to the screen, should `renderDebug` be true
 	 */
 	private String debugData = "";
 
 	/**
-	 * Returns The current time in milliseconds
+	 * @return the current time in milliseconds
 	 */
 	public double getCurrentTime() {
 		return Sys.getTime() * 1000.0 / Sys.getTimerResolution();
@@ -160,9 +160,7 @@ public abstract class Core {
 		System.out.println("-------------------------------");
 		System.out.println();
 
-		Loader.addLocation(new ClasspathLocation());
-
-		Logger.warn("You're running a non-stable build of Mercury!\nIf you run into any issues, please leave an issue on GitHub or make a end on the forum.");
+		Logger.warn("You're running a non-stable build of Mercury!\nIf you run into any issues, please leave an issue on GitHub or make a post on the forum.");
 
 		if (coreSetup.showConsoleDebug)
 			Logger.log("Mercury Starting:");
@@ -306,7 +304,7 @@ public abstract class Core {
 	private int fps;
 
 	/**
-	 * Returns The frame rate
+	 * @return the frame rate
 	 */
 	public int getFps() {
 		return fps;
@@ -318,32 +316,34 @@ public abstract class Core {
 	private Graphics graphics;
 
 	/**
-	 * Returns The graphics object
+	 * @return the graphics object
 	 */
 	public Graphics getGraphics() {
 		return graphics;
 	}
 
 	/**
-	 * Returns The batcher
+	 * @return the batcher
 	 */
 	public Batcher getBatcher() {
 		return getGraphics().getBatcher();
 	}
 
 	/**
-	 * Returns The camera
+	 * @return the camera
 	 */
 	public Camera getCamera() {
 		return getGraphics().getCamera();
 	}
 
 	/**
-	 * Adds information to the debug data. Debug data is wiped every single
-	 * update frame, so this is to be called every frame.
+	 * Adds information to the debug data. Debug data is wiped every update frame, so this is to be called every
+	 * frame.
 	 *
-	 * @param name  The name of the debug information
-	 * @param value The value of the debug information
+	 * @param name
+	 * 		The name of the debug information
+	 * @param value
+	 * 		The value of the debug information
 	 */
 	public void addDebugData(String name, String value) {
 		name = name.trim();
@@ -366,7 +366,7 @@ public abstract class Core {
 	}
 
 	/**
-	 * Returns Whether the splashes screens are being shown
+	 * @return whether the splashes screens are being shown
 	 */
 	public boolean showingSplashScreens() {
 		return splashIndex < splashes.size();
@@ -375,7 +375,8 @@ public abstract class Core {
 	/**
 	 * Adds a splash screen to the queue.
 	 *
-	 * @param splash The splash screen to add
+	 * @param splash
+	 * 		The splash screen to add
 	 */
 	public void addSplashScreen(SplashScreen splash) {
 		splashes.add(splash);

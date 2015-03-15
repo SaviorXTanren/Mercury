@@ -2,7 +2,7 @@ package com.radirius.mercury.tests;
 
 import com.radirius.mercury.framework.*;
 import com.radirius.mercury.graphics.*;
-import com.radirius.mercury.resource.Loader;
+import com.radirius.mercury.resource.*;
 
 /**
  * @author wessles
@@ -25,7 +25,9 @@ public class AnimationTest extends Core {
 
 	@Override
 	public void init() {
+		Loader.pushLocation(new ClasspathLocation());
 		spriteSheet = SpriteSheet.loadSpriteSheet(Texture.loadTexture(Loader.getResourceAsStream("com/radirius/mercury/tests/animationTest.png")), 4);
+		Loader.popLocation();
 		animation = new Animation(spriteSheet, 20, true);
 	}
 

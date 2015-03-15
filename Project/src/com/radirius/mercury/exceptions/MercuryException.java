@@ -12,7 +12,8 @@ public class MercuryException extends Exception {
 	/**
 	 * Create a new exception with a given reason.
 	 *
-	 * @param reason The reason for this exception.
+	 * @param reason
+	 * 		The reason for this exception.
 	 */
 	public MercuryException(String reason) {
 		super(reason);
@@ -21,8 +22,10 @@ public class MercuryException extends Exception {
 	/**
 	 * Create a new exception with a given reason.
 	 *
-	 * @param reason The reason for this exception.
-	 * @param e      The exception causing this exception to be thrown.
+	 * @param reason
+	 * 		The reason for this exception.
+	 * @param e
+	 * 		The exception causing this exception to be thrown.
 	 */
 	public MercuryException(String reason, Throwable e) {
 		super(reason, e);

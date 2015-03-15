@@ -40,14 +40,15 @@ public class Shader implements Resource, Bindable {
 	private final int programObject;
 
 	/**
-	 * @param programObject The id for the program object you wish to encapsulate.
+	 * @param programObject
+	 * 		The id for the program object you wish to encapsulate.
 	 */
 	public Shader(int programObject) {
 		this.programObject = programObject;
 	}
 
 	/**
-	 * Returns A shader based off of the two program objects vert and frag.
+	 * @return a shader based off of the two program objects vert and frag.
 	 */
 	public static Shader getShader(int vert, int frag) {
 		int program = glCreateProgram();
@@ -78,17 +79,24 @@ public class Shader implements Resource, Bindable {
 	}
 
 	/**
-	 * @param vertexIn   The vertex shader's file
-	 * @param fragmentIn The fragment shader's file. Returns A shader based off of the files in vin and fin.
+	 * @param vertexIn
+	 * 		The vertex shader's file
+	 * @param fragmentIn
+	 * 		The fragment shader's file.
+	 *
+	 * @return a shader based off of the files in vin and fin.
 	 */
 	public static Shader getShader(InputStream vertexIn, InputStream fragmentIn) {
 		return getShader(readShader(vertexIn), readShader(fragmentIn));
 	}
 
 	/**
-	 * @param vertexSource   The source of the vertex shader.
-	 * @param fragmentSource The source of the fragment shader. Returns A shader based off of the sources vertexSource
-	 *                       and fragmentSource.
+	 * @param vertexSource
+	 * 		The source of the vertex shader.
+	 * @param fragmentSource
+	 * 		The source of the fragment shader.
+	 *
+	 * @return a shader based off of the sources vertexSource and fragmentSource.
 	 */
 	public static Shader getShader(String vertexSource, String fragmentSource) {
 		int vertShader;
@@ -126,24 +134,31 @@ public class Shader implements Resource, Bindable {
 	}
 
 	/**
-	 * @param source The stream to the source file.
-	 * @param type   The type of shader (the other half will use the Mercury default shader). Returns A shader based off
-	 *               of the stream source, of the type type.
+	 * @param source
+	 * 		The stream to the source file.
+	 * @param type
+	 * 		The type of shader (the other half will use the Mercury default shader).
+	 *
+	 * @return a shader based off of the stream source, of the type type.
 	 */
 	public static Shader getShader(InputStream source, int type) {
 		return getShader(readShader(source), type);
 	}
 
 	/**
-	 * @param source The source of the shader.
-	 * @param type   The type of shader (the other half will use the Mercury defaults). Returns A shader based off of
-	 *               the source of the type type.
+	 * @param source
+	 * 		The source of the shader.
+	 * @param type
+	 * 		The type of shader (the other half will use the Mercury defaults).
+	 *
+	 * @return a shader based off of the source of the type type.
 	 */
 	public static Shader getShader(String source, int type) {
 		int vertShader = 0;
 		int fragShader = 0;
 
 		try {
+			Loader.pushLocation(new ClasspathLocation());
 			if (type == Shader.FRAGMENT_SHADER) {
 				vertShader = createVertexShader(readShader(Loader.getResourceAsStream("com/radirius/mercury/graphics/res/default_shader.vert")));
 				fragShader = createFragmentShader(source);
@@ -151,6 +166,7 @@ public class Shader implements Resource, Bindable {
 				fragShader = createFragmentShader(readShader(Loader.getResourceAsStream("com/radirius/mercury/graphics/res/default_shader.frag")));
 				vertShader = createVertexShader(source);
 			}
+			Loader.popLocation();
 		} catch (Exception exc) {
 			exc.printStackTrace();
 			return null;
@@ -227,12 +243,15 @@ public class Shader implements Resource, Bindable {
 	 * Loads the default shaders for Mercury (not to be confused with shader 0).
 	 */
 	public static void loadDefaultShaders() {
-		if (DEFAULT_SHADER == null)
-			DEFAULT_SHADER = Shader.getShader(Loader.getResourceAsStream("com/radirius/mercury/graphics/res/default_shader.vert"), Loader.getResourceAsStream("com/radirius/mercury/graphics/res/default_shader.frag"));
+		if (DEFAULT_SHADER != null)
+			return;
+		Loader.pushLocation(new ClasspathLocation());
+		DEFAULT_SHADER = Shader.getShader(Loader.getResourceAsStream("com/radirius/mercury/graphics/res/default_shader.vert"), Loader.getResourceAsStream("com/radirius/mercury/graphics/res/default_shader.frag"));
+		Loader.popLocation();
 	}
 
 	/**
-	 * Returns The id for the encapsulated program object.
+	 * @return the id for the encapsulated program object.
 	 */
 	public int getProgramObject() {
 		return programObject;
@@ -262,8 +281,10 @@ public class Shader implements Resource, Bindable {
 	/**
 	 * Passes a uniform variable into all shaders.
 	 *
-	 * @param name   The name of the variable
-	 * @param values The values you wish to pass in
+	 * @param name
+	 * 		The name of the variable
+	 * @param values
+	 * 		The values you wish to pass in
 	 */
 	public void setUniformf(String name, float... values) {
 		int location = glGetUniformLocation(programObject, name);
@@ -281,8 +302,10 @@ public class Shader implements Resource, Bindable {
 	/**
 	 * Passes a uniform variable into a shader.
 	 *
-	 * @param name   The name of the variable
-	 * @param values The values you wish to pass in
+	 * @param name
+	 * 		The name of the variable
+	 * @param values
+	 * 		The values you wish to pass in
 	 */
 	public void setUniformi(String name, int... values) {
 		int location = glGetUniformLocation(programObject, name);
@@ -300,8 +323,10 @@ public class Shader implements Resource, Bindable {
 	/**
 	 * Passes a uniform variable into a shader.
 	 *
-	 * @param name The name of the variable
-	 * @param mat  The matrix you wish to pass in
+	 * @param name
+	 * 		The name of the variable
+	 * @param mat
+	 * 		The matrix you wish to pass in
 	 */
 	public void setUniformMatrix4(String name, Matrix4f mat) {
 		int location = glGetUniformLocation(programObject, name);
@@ -314,7 +339,7 @@ public class Shader implements Resource, Bindable {
 	}
 
 	/**
-	 * Returns the currently bound shader.
+	 * @return the currently bound shader.
 	 */
 	public static Shader getCurrentShader() {
 		return currentShader;

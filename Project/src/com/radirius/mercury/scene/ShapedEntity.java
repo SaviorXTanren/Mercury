@@ -17,16 +17,17 @@ public class ShapedEntity extends BasicEntity {
 	/**
 	 * Creates the shaped entity.
 	 *
-	 * @param shape The base shape.
+	 * @param shape
+	 * 		The base shape.
 	 */
 	public ShapedEntity(Polygon shape) {
-		super(shape.getBounds().getX(), shape.getBounds().getY(), shape.getBounds().getWidth(), shape.getBounds().getHeight());
+		super(shape.getBoundingBox().getX(), shape.getBoundingBox().getY(), shape.getBoundingBox().getWidth(), shape.getBoundingBox().getHeight());
 
 		this.shape = shape;
 	}
 
 	/**
-	 * Returns The base shape.
+	 * @return the base shape.
 	 */
 	public Polygon getBase() {
 		return shape;
@@ -37,6 +38,6 @@ public class ShapedEntity extends BasicEntity {
 	 */
 	@Override
 	public void render(Graphics g) {
-		g.traceShape((Polygon) shape.setRotation(getBounds().getRotation()));
+		g.traceFigure((Polygon) shape.setRotation(getBounds().getRotation()));
 	}
 }

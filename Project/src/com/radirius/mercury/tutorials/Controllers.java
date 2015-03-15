@@ -52,7 +52,7 @@ public class Controllers extends Core {
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.GRAY);
-		g.drawShape(rectangle);
+		g.drawFigure(rectangle);
 	}
 
 	@Override

@@ -15,7 +15,8 @@ public class ParticleSystem implements Updatable, Renderable {
 	private ParticleSetup particleEmissionSetup;
 
 	/**
-	 * @param particleEmissionSetup The particle's setup.
+	 * @param particleEmissionSetup
+	 * 		The particle's setup.
 	 */
 	public ParticleSystem(ParticleSetup particleEmissionSetup) {
 		parts = new WipingArrayList<>();
@@ -25,8 +26,10 @@ public class ParticleSystem implements Updatable, Renderable {
 	/**
 	 * Generates a new particle launching at an angle.
 	 *
-	 * @param point The point from which the particles emit.
-	 * @param angle The angle at which the particles emit.
+	 * @param point
+	 * 		The point from which the particles emit.
+	 * @param angle
+	 * 		The angle at which the particles emit.
 	 */
 	public void generateParticle(Vector2f point, float angle) {
 		parts.add(new Particle(point.x, point.y, angle, this));
@@ -35,8 +38,10 @@ public class ParticleSystem implements Updatable, Renderable {
 	/**
 	 * Generates new particles launching at random angles.
 	 *
-	 * @param amount The amount of particles to generate.
-	 * @param point  The point from which the particles emit.
+	 * @param amount
+	 * 		The amount of particles to generate.
+	 * @param point
+	 * 		The point from which the particles emit.
 	 */
 	public void generateParticle(int amount, Vector2f point) {
 		for (int p = 0; p < amount; p++) {
@@ -58,7 +63,7 @@ public class ParticleSystem implements Updatable, Renderable {
 	}
 
 	/**
-	 * Returns The ParticleSetup options.
+	 * @return the ParticleSetup options.
 	 */
 	public ParticleSetup getOptions() {
 		return particleEmissionSetup;
@@ -85,13 +90,11 @@ public class ParticleSystem implements Updatable, Renderable {
 		 */
 		public float size = 1;
 		/**
-		 * The sides of the bound's shape (4 is a square, 5 is a pentagon,
-		 * etc.).
+		 * The sides of the bound's shape (4 is a square, 5 is a pentagon, etc.).
 		 */
 		public int sidesOfBounds = 4;
 		/**
-		 * The value by which the size of the particles will be multiplied each
-		 * frame.
+		 * The value by which the size of the particles will be multiplied each frame.
 		 */
 		public float growth = 1;
 		/**
@@ -103,8 +106,7 @@ public class ParticleSystem implements Updatable, Renderable {
 		 */
 		public float speed = 0.01f;
 		/**
-		 * The value by which the velocity of a particle will be multiplied each
-		 * frame.
+		 * The value by which the velocity of a particle will be multiplied each frame.
 		 */
 		public float acceleration = 0.98f;
 		/**
@@ -112,8 +114,7 @@ public class ParticleSystem implements Updatable, Renderable {
 		 */
 		public Vector2f gravity = new Vector2f(0, 0);
 		/**
-		 * The amount of frames that will pass a single particle before
-		 * death/removal.
+		 * The amount of frames that will pass a single particle before death/removal.
 		 */
 		public int lifeInFrames = 1000;
 	}

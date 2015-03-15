@@ -12,7 +12,7 @@ public interface Wipeable {
 	public void wipe();
 
 	/**
-	 * Returns Whether or not the object is wiped.
+	 * @return whether or not the object is wiped.
 	 */
 	public boolean wiped();
 }

@@ -40,7 +40,8 @@ public class GameScene implements Entity {
 	/**
 	 * Renders the children nodes.
 	 *
-	 * @param g The Graphics object.
+	 * @param g
+	 * 		The Graphics object.
 	 */
 	@Override
 	public void render(Graphics g) {
@@ -80,7 +81,7 @@ public class GameScene implements Entity {
 	}
 
 	/**
-	 * Returns The objects inside the scene.
+	 * @return the objects inside the scene.
 	 */
 	public ArrayList<GameObject> getObjects() {
 		return objects;

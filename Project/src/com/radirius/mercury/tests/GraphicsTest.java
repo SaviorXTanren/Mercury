@@ -4,7 +4,7 @@ import com.radirius.mercury.framework.*;
 import com.radirius.mercury.graphics.Graphics;
 import com.radirius.mercury.graphics.font.BitmapFont;
 import com.radirius.mercury.math.RandomUtil;
-import com.radirius.mercury.resource.Loader;
+import com.radirius.mercury.resource.*;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -26,7 +26,9 @@ public class GraphicsTest extends Core {
 
 	@Override
 	public void init() {
+		Loader.pushLocation(new ClasspathLocation());
 		getGraphics().setFont(BitmapFont.loadBitmapFont(Loader.getResourceAsStream("com/radirius/mercury/tests/bitmap.png"), 16, 16));
+		Loader.popLocation();
 	}
 
 	@Override

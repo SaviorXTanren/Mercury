@@ -21,41 +21,49 @@ public interface Font extends Cleanable {
 	public static int ANTI_TEXTURE_BLEEDING_MARGIN = 2;
 
 	/**
-	 * Returns the height of the font
+	 * @return the height of the font
 	 */
 	public float getHeight();
 
 	/**
-	 * @param message The string to find the height of
-	 * @return The height of the string in the font
+	 * @param message
+	 * 		The string to find the height of
+	 *
+	 * @return the height of the string in the font
 	 */
 	public float getHeight(String message);
 
 	/**
-	 * @param message The string to find the width of
-	 * @return The width of the string in the font
+	 * @param message
+	 * 		The string to find the width of
+	 *
+	 * @return the width of the string in the font
 	 */
 	public float getWidth(String message);
 
 	/**
-	 * @param length The length of a string
-	 * @return The maximum width that a string of a length could be
+	 * @param length
+	 * 		The length of a string
+	 *
+	 * @return the maximum width that a string of a length could be
 	 */
 	public float getMaxWidth(int length);
 
 	/**
-	 * @param length The length of a string
-	 * @return The average width of all number/letter characters, multiplied by a certain length
+	 * @param length
+	 * 		The length of a string
+	 *
+	 * @return the average width of all number/letter characters, multiplied by a certain length
 	 */
 	public float getAverageWidth(int length);
 
 	/**
-	 * Returns the overall texture used for rendering the font
+	 * @return the overall texture used for rendering the font
 	 */
 	public Texture getFontTexture();
 
 	/**
-	 * Returns the spritesheet of the characters in the font
+	 * @return the spritesheet of the characters in the font
 	 */
 	public SpriteSheet getFontSpriteSheet();
 }

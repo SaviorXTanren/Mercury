@@ -16,8 +16,7 @@ public class Particle implements Updatable, Renderable, Wipeable {
 	 */
 	public Texture texture;
 	/**
-	 * The value by which the size of the particles will be multiplied each
-	 * frame.
+	 * The value by which the size of the particles will be multiplied each frame.
 	 */
 	public float growth;
 	/**
@@ -69,8 +68,8 @@ public class Particle implements Updatable, Renderable, Wipeable {
 		vel.scale(emitter.getOptions().acceleration);
 		vel.add(emitter.getOptions().gravity);
 		bounds.translate(vel.x, vel.y);
-		bounds.scale(growth);
-		if (bounds.getScale() <= 0)
+		bounds.dilate(growth);
+		if (bounds.getDilation() <= 0)
 			wipe();
 		bounds.rotate(rotation);
 		life -= 1;
@@ -80,7 +79,7 @@ public class Particle implements Updatable, Renderable, Wipeable {
 	public void render(Graphics g) {
 		g.setColor(color);
 		if (texture == null)
-			g.drawShape(bounds);
+			g.drawFigure(bounds);
 		else
 			g.drawTexture(texture, bounds, g.getColor());
 	}

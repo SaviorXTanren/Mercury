@@ -1,6 +1,5 @@
 package com.radirius.mercury.resource;
 
-import java.io.InputStream;
 import java.net.URL;
 
 /**
@@ -15,12 +14,5 @@ public class ClasspathLocation implements Location {
 		String resourceLocation = path.replace('\\', '/');
 
 		return Loader.class.getClassLoader().getResource(resourceLocation);
-	}
-
-	@Override
-	public InputStream getResourceAsStream(String path) {
-		String resourceLocation = path.replace('\\', '/');
-
-		return Loader.class.getClassLoader().getResourceAsStream(resourceLocation);
 	}
 }

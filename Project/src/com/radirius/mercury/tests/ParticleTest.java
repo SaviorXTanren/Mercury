@@ -6,7 +6,7 @@ import com.radirius.mercury.graphics.particles.ParticleSystem;
 import com.radirius.mercury.input.Input;
 import com.radirius.mercury.math.RandomUtil;
 import com.radirius.mercury.math.geometry.Vector2f;
-import com.radirius.mercury.resource.Loader;
+import com.radirius.mercury.resource.*;
 
 /**
  * @author wessles
@@ -32,7 +32,9 @@ public class ParticleTest extends Core {
 	public void init() {
 		ParticleSystem.ParticleSetup smokeSetup = new ParticleSystem.ParticleSetup();
 		smokeSetup.size = 64;
+		Loader.pushLocation(new ClasspathLocation());
 		smokeSetup.texture = Texture.loadTexture(Loader.getResourceAsStream("com/radirius/mercury/tests/cloud.png"));
+		Loader.popLocation();
 		smokeSetup.color = Color.WHITE.duplicate();
 		smokeSetup.color.a = 0.04f;
 

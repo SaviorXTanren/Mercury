@@ -48,35 +48,35 @@ public class SpriteSheet implements Resource {
 	}
 
 	/**
-	 * Returns A sprite-sheet based off of Texture baseTexture, with SubTextures subTextures.
+	 * @return a sprite-sheet based off of Texture baseTexture, with SubTextures subTextures.
 	 */
 	public static SpriteSheet loadSpriteSheet(Texture baseTexture, SubTexture... subTextures) {
 		return new SpriteSheet(baseTexture, subTextures);
 	}
 
 	/**
-	 * Returns The number of sub textures.
+	 * @return the number of sub textures.
 	 */
 	public int getNumberOfSubTextures() {
 		return subTextures.length;
 	}
 
 	/**
-	 * Returns The texture corresponding to the texture number.
+	 * @return the texture corresponding to the texture number.
 	 */
 	public SubTexture getTexture(int numTextures) {
 		return subTextures[numTextures];
 	}
 
 	/**
-	 * Returns The textures.
+	 * @return the textures.
 	 */
 	public SubTexture[] getTextures() {
 		return subTextures;
 	}
 
 	/**
-	 * Returns The base texture for all SubTextures.
+	 * @return the base texture for all SubTextures.
 	 */
 	public Texture getBaseTexture() {
 		return baseTexture;

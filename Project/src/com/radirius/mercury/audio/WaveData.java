@@ -64,9 +64,12 @@ public class WaveData {
 	/**
 	 * Creates a new WaveData
 	 *
-	 * @param data       actual wave data
-	 * @param format     format of wave data
-	 * @param sampleRate sample rate of data
+	 * @param data
+	 * 		actual wave data
+	 * @param format
+	 * 		format of wave data
+	 * @param sampleRate
+	 * 		sample rate of data
 	 */
 	private WaveData(ByteBuffer data, int format, int sampleRate) {
 		this.data = data;
@@ -77,8 +80,10 @@ public class WaveData {
 	/**
 	 * Creates a WaveData container from the specified url
 	 *
-	 * @param path URL to file Returns WaveData containing data, or null if a
-	 *             failure occurred
+	 * @param path
+	 * 		URL to file
+	 *
+	 * @return waveData containing data, or null if a failure occurred
 	 */
 	public static WaveData create(URL path) {
 		try {
@@ -92,8 +97,10 @@ public class WaveData {
 	/**
 	 * Creates a WaveData container from the specified in the classpath
 	 *
-	 * @param path path to file (relative, and in classpath) Returns WaveData
-	 *             containing data, or null if a failure occurred
+	 * @param path
+	 * 		path to file (relative, and in classpath)
+	 *
+	 * @return waveData containing data, or null if a failure occurred
 	 */
 	public static WaveData create(String path) {
 		return create(Thread.currentThread().getContextClassLoader().getResource(path));
@@ -102,8 +109,10 @@ public class WaveData {
 	/**
 	 * Creates a WaveData container from the specified input stream
 	 *
-	 * @param is InputStream to read from Returns WaveData containing data, or
-	 *           null if a failure occurred
+	 * @param is
+	 * 		InputStream to read from
+	 *
+	 * @return waveData containing data, or null if a failure occurred
 	 */
 	public static WaveData create(InputStream is) {
 		try {
@@ -117,8 +126,9 @@ public class WaveData {
 	/**
 	 * Creates a WaveData container from the specified bytes
 	 *
-	 * @param buffer array of bytes containing the complete wave file Returns
-	 *               WaveData containing data, or null if a failure occurred
+	 * @param buffer
+	 * 		array of bytes containing the complete wave file Returns WaveData containing data, or null if a failure
+	 * 		occurred
 	 */
 	public static WaveData create(byte[] buffer) {
 		try {
@@ -130,12 +140,13 @@ public class WaveData {
 	}
 
 	/**
-	 * Creates a WaveData container from the specified ByteBuffer. If the buffer
-	 * is backed by an array, it will be used directly, else the contents of the
-	 * buffer will be copied using get(byte[]).
+	 * Creates a WaveData container from the specified ByteBuffer. If the buffer is backed by an array, it will be used
+	 * directly, else the contents of the buffer will be copied using get(byte[]).
 	 *
-	 * @param buffer ByteBuffer containing sound file Returns WaveData
-	 *               containing data, or null if a failure occurred
+	 * @param buffer
+	 * 		ByteBuffer containing sound file
+	 *
+	 * @return waveData containing data, or null if a failure occurred
 	 */
 	public static WaveData create(ByteBuffer buffer) {
 		try {
@@ -159,8 +170,10 @@ public class WaveData {
 	/**
 	 * Creates a WaveData container from the specified stream
 	 *
-	 * @param ais AudioInputStream to read from Returns WaveData containing
-	 *            data, or null if a failure occurred
+	 * @param ais
+	 * 		AudioInputStream to read from
+	 *
+	 * @return waveData containing data, or null if a failure occurred
 	 */
 	public static WaveData create(AudioInputStream ais) {
 		AudioFormat audioformat = ais.getFormat();

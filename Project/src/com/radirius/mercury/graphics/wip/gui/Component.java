@@ -122,8 +122,10 @@ public class Component implements Updatable {
 	/**
 	 * Shorthand to set all margins to the same value.
 	 *
-	 * @param margin The new margin for all sides
-	 * @return This component
+	 * @param margin
+	 * 		The new margin for all sides
+	 *
+	 * @return this component
 	 */
 	public Component setMargin(float margin) {
 		this.marginLeft = margin;
@@ -142,8 +144,10 @@ public class Component implements Updatable {
 	/**
 	 * Shorthand to set all padding to the same value.
 	 *
-	 * @param padding The new padding for all sides
-	 * @return This component
+	 * @param padding
+	 * 		The new padding for all sides
+	 *
+	 * @return this component
 	 */
 	public Component setPadding(float padding) {
 		this.paddingLeft = padding;
@@ -209,7 +213,7 @@ public class Component implements Updatable {
 	}
 
 	/**
-	 * Returns if the component is focused.
+	 * @return if the component is focused.
 	 */
 	public boolean isFocused() {
 		return focusable && this == focusedComponent;
@@ -228,7 +232,8 @@ public class Component implements Updatable {
 	}
 
 	/**
-	 * Children of the component. If the object is not a component or string, it will be treated as a string from *.toString().
+	 * Children of the component. If the object is not a component or string, it will be treated as a string from
+	 * *.toString().
 	 */
 	public ArrayList<Object> children = new ArrayList<>();
 	/**
@@ -239,8 +244,10 @@ public class Component implements Updatable {
 	/**
 	 * Adds a component or string as a child to component.
 	 *
-	 * @param child The child(ren) to add
-	 * @return This component
+	 * @param child
+	 * 		The child(ren) to add
+	 *
+	 * @return this component
 	 */
 	public Component addChild(Object... child) {
 		for (Object object : child)
@@ -256,8 +263,10 @@ public class Component implements Updatable {
 	/**
 	 * Removes a component or string as a child.
 	 *
-	 * @param child The child to remove
-	 * @return This component
+	 * @param child
+	 * 		The child to remove
+	 *
+	 * @return this component
 	 */
 	public Component removeChild(Object child) {
 		if (child instanceof Component)
@@ -270,8 +279,10 @@ public class Component implements Updatable {
 	/**
 	 * Removes child at index.
 	 *
-	 * @param index The index of the child to remove
-	 * @return This component
+	 * @param index
+	 * 		The index of the child to remove
+	 *
+	 * @return this component
 	 */
 	public Component removeChild(int index) {
 		removeChild(children.get(index));
@@ -279,7 +290,8 @@ public class Component implements Updatable {
 	}
 
 	/**
-	 * @param message The content text
+	 * @param message
+	 * 		The content text
 	 */
 	public Component(String message) {
 		this();
@@ -293,8 +305,10 @@ public class Component implements Updatable {
 	/**
 	 * Applies a theme to this component only.
 	 *
-	 * @param theme The theme to apply
-	 * @return This component
+	 * @param theme
+	 * 		The theme to apply
+	 *
+	 * @return this component
 	 */
 	public Component applyTheme(Theme theme) {
 		for (Class<?> klass : theme.getNodes().keySet())
@@ -307,8 +321,10 @@ public class Component implements Updatable {
 	/**
 	 * Applies a theme to this component and its children.
 	 *
-	 * @param theme The theme to apply
-	 * @return This component
+	 * @param theme
+	 * 		The theme to apply
+	 *
+	 * @return this component
 	 */
 	public Component applyThemeRecursively(Theme theme) {
 		applyTheme(theme);
@@ -393,7 +409,7 @@ public class Component implements Updatable {
 	private float lastTotalWidth;
 
 	/**
-	 * Returns the last total width calculated in update().
+	 * @return the last total width calculated in update().
 	 */
 	public float getTotalWidth() {
 		return lastTotalWidth;
@@ -405,70 +421,70 @@ public class Component implements Updatable {
 	private float lastTotalHeight;
 
 	/**
-	 * Returns the last total height calculated in update().
+	 * @return the last total height calculated in update().
 	 */
 	public float getTotalHeight() {
 		return lastTotalHeight;
 	}
 
 	/**
-	 * Returns the boundaries of the whole component (including margins).
+	 * @return the boundaries of the whole component (including margins).
 	 */
 	public Rectangle getTotalBounds() {
 		return new Rectangle(x, y, getTotalWidth(), getTotalHeight());
 	}
 
 	/**
-	 * Returns the last body width calculated in update().
+	 * @return the last body width calculated in update().
 	 */
 	public float getBodyWidth() {
 		return getTotalWidth() - borderThickness - marginLeft - marginRight - borderThickness;
 	}
 
 	/**
-	 * Returns the last body height calculated in update().
+	 * @return the last body height calculated in update().
 	 */
 	public float getBodyHeight() {
 		return getTotalHeight() - borderThickness - marginUp - marginDown - borderThickness;
 	}
 
 	/**
-	 * Returns the boundaries of the component (excluding margins).
+	 * @return the boundaries of the component (excluding margins).
 	 */
 	public Rectangle getBodyBounds() {
 		return new Rectangle(x + marginLeft, y + marginUp, getBodyWidth(), getBodyHeight());
 	}
 
 	/**
-	 * Returns the last content width calculated in update().
+	 * @return the last content width calculated in update().
 	 */
 	public float getContentWidth() {
 		return getBodyWidth() - paddingLeft - paddingRight;
 	}
 
 	/**
-	 * Returns the last content height calculated in update().
+	 * @return the last content height calculated in update().
 	 */
 	public float getContentHeight() {
 		return getBodyHeight() - paddingUp - paddingDown;
 	}
 
 	/**
-	 * Returns the boundaries of the component's content.
+	 * @return the boundaries of the component's content.
 	 */
 	public Rectangle getContentBounds() {
 		return new Rectangle(x + borderThickness + marginLeft + paddingLeft, y + borderThickness + marginUp + paddingUp, getContentWidth(), getContentHeight());
 	}
 
 	/**
-	 * Returns whether or not the mouse hovers over the body of the component.
+	 * @return whether or not the mouse hovers over the body of the component.
 	 */
 	public boolean isHovered() {
 		return getBodyBounds().contains(Input.getGlobalMousePosition());
 	}
 
 	/**
-	 * Returns whether or not the mouse clicked on the body of the component.
+	 * @return whether or not the mouse clicked on the body of the component.
 	 */
 	public boolean isClicked() {
 		return isHovered() && Input.mouseClicked(Input.MOUSE_LEFT);
@@ -496,7 +512,8 @@ public class Component implements Updatable {
 	 * The generic component renderer. It will render every type of component, as well as its children, relying only on
 	 * the options of the component(s).
 	 *
-	 * @param g The graphics object
+	 * @param g
+	 * 		The graphics object
 	 */
 	public void render(Graphics g) {
 		/* Save the graphics options before they change. */
@@ -519,9 +536,9 @@ public class Component implements Updatable {
 
 		if (border == BorderType.smoothBorder) {
 			g.setLineWidth(borderThickness * 2);
-			g.traceShape(bodyBounds);
+			g.traceFigure(bodyBounds);
 		} else if (border == BorderType.border) {
-			g.drawShape(new Rectangle(x + marginLeft - borderThickness, y + marginUp - borderThickness, getBodyWidth() + borderThickness * 2, getBodyHeight() + borderThickness * 2));
+			g.drawFigure(new Rectangle(x + marginLeft - borderThickness, y + marginUp - borderThickness, getBodyWidth() + borderThickness * 2, getBodyHeight() + borderThickness * 2));
 		}
 
 		// Render the background
@@ -538,7 +555,7 @@ public class Component implements Updatable {
 
 		if (background == BackgroundType.coloredBackground) {
 			g.setColor(color);
-			g.drawShape(bodyBounds);
+			g.drawFigure(bodyBounds);
 		} else if (background == BackgroundType.texturedBackground) {
 			if (backgroundTexture != null)
 				g.drawTexture(backgroundTexture, bodyBounds);
@@ -557,7 +574,7 @@ public class Component implements Updatable {
 	/**
 	 * Processes the children. If g is not null, then it will render them as well. Cutoff width is assumed infinite.
 	 *
-	 * @return The width / height that all children/sub-children take up
+	 * @return the width / height that all children/sub-children take up
 	 */
 	protected Vector2f processChildren() {
 		return processChildren(Float.MAX_VALUE, null, 0, 0);
@@ -566,8 +583,10 @@ public class Component implements Updatable {
 	/**
 	 * Processes the children. If g is not null, then it will render them as well.
 	 *
-	 * @param cutoffWidth The cutoff width for when there needs to be a new line
-	 * @return The width / height that all children/sub-children take up
+	 * @param cutoffWidth
+	 * 		The cutoff width for when there needs to be a new line
+	 *
+	 * @return the width / height that all children/sub-children take up
 	 */
 	protected Vector2f processChildren(float cutoffWidth) {
 		return processChildren(cutoffWidth, null, 0, 0);
@@ -576,10 +595,14 @@ public class Component implements Updatable {
 	/**
 	 * Processes the children. If g is not null, then it will render them as well. Cutoff width is assumed infinite.
 	 *
-	 * @param g A graphics object for rendering the children (only will render if not null)
-	 * @param x The starting x
-	 * @param y The starting y
-	 * @return The width / height that all children/sub-children take up
+	 * @param g
+	 * 		A graphics object for rendering the children (only will render if not null)
+	 * @param x
+	 * 		The starting x
+	 * @param y
+	 * 		The starting y
+	 *
+	 * @return the width / height that all children/sub-children take up
 	 */
 	protected Vector2f processChildren(Graphics g, float x, float y) {
 		return processChildren(Float.MAX_VALUE, g, x, y);
@@ -588,11 +611,16 @@ public class Component implements Updatable {
 	/**
 	 * Processes the children. If g is not null, then it will render them as well.
 	 *
-	 * @param cutoffWidth The cutoff width for when there needs to be a new line
-	 * @param g           A graphics object for rendering the children (only will render if not null)
-	 * @param x           The starting x
-	 * @param y           The starting y
-	 * @return The width / height that all children/sub-children take up
+	 * @param cutoffWidth
+	 * 		The cutoff width for when there needs to be a new line
+	 * @param g
+	 * 		A graphics object for rendering the children (only will render if not null)
+	 * @param x
+	 * 		The starting x
+	 * @param y
+	 * 		The starting y
+	 *
+	 * @return the width / height that all children/sub-children take up
 	 */
 	protected Vector2f processChildren(float cutoffWidth, Graphics g, float x, float y) {
 		float originalX = x;
@@ -720,8 +748,10 @@ public class Component implements Updatable {
 	/**
 	 * Adds an action check.
 	 *
-	 * @param actionCheck The check to add
-	 * @return This component
+	 * @param actionCheck
+	 * 		The check to add
+	 *
+	 * @return this component
 	 */
 	public Component addActionCheck(ActionCheck actionCheck) {
 		actionCheck.setParent(this);

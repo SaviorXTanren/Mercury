@@ -11,8 +11,7 @@ public class WipingArrayList<T extends Wipeable> extends ArrayList<T> {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Goes through list, removing any objects that have declared themselves
-	 * 'wiped.'
+	 * Goes through list, removing any objects that have declared themselves 'wiped.'
 	 */
 	public void sweep() {
 		for (Iterator<?> i = iterator(); i.hasNext(); ) {
