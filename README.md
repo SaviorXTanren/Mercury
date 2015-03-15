@@ -29,9 +29,9 @@ You can use the maven repo at [repo.radiri.us](http://repo.radiri.us/com/radiriu
 ## Radirius Contact Information
 | Name                   | Mail                            | Website                                 |
 |------------------------|---------------------------------|-----------------------------------------|
-| Support                | contact@radiri.us               | [radiri.us](http://radiri.us/)          |
+| General Support        | contact@radiri.us               | [radiri.us](http://radiri.us/)          |
 | Wesley LaFerriere      | wesley.laferriere@gmail.com     | [wessles.com](http://wessles.com/)      |
-| Kristoffer Parsons     | kristoffer@jeviny.pw            | [jeviny.pw](http://jeviny.pw/)          |
+| Kristoffer Parsons     | jeviny@radiri.us                | [jeviny.pw](http://jeviny.pw/)          |
 
 ## License
 Mercury is licensed under the [MIT Public License](http://opensource.org/licenses/MIT).

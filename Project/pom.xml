@@ -4,13 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.radirius.mercury</groupId>
     <artifactId>Mercury</artifactId>
-    <version>1.0.1.11-dev</version>
+    <version>1.0.1.11-SNAPSHOT</version>
     <name>Mercury</name>
     <description>The Simple Java Game Library</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <build>
+        <defaultGoal>clean install</defaultGoal>
         <sourceDirectory>src</sourceDirectory>
         <resources>
             <resource>
