@@ -21,6 +21,8 @@ public class FrameBufferTest extends Core {
 
 	public static void main(String[] args) {
 		CoreSetup setup = new CoreSetup("Framebuffer Test");
+        setup.vSync = true;
+        setup.showDebug = true;
 
 		new FrameBufferTest(setup).start();
 	}
@@ -49,10 +51,10 @@ public class FrameBufferTest extends Core {
 		frameBuffer.release();
 
 		g.drawTexture(frameBuffer.getTextureObject(), rect);
-		rect.rotate(1);
+		rect.rotate((float) Math.toRadians(1));
 
 		addDebugData("OpenGL", GL11.glGetString(GL11.GL_VERSION));
-		addDebugData("Frame", "" + f);
+		addDebugData("Frame", "" + getFps());
 	}
 
 	@Override

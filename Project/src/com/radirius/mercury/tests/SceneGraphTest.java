@@ -28,10 +28,12 @@ public class SceneGraphTest extends Core {
 
 	@Override
 	public void update() {
+        gameScene.update();
 	}
 
 	@Override
 	public void render(Graphics g) {
+        gameScene.render(g);
 	}
 
 	@Override
@@ -48,7 +50,7 @@ public class SceneGraphTest extends Core {
 		@Override
 		public void render(Graphics g) {
 			g.setColor(Color.WHITE);
-			g.drawFigure((Rectangle) getBounds().rotate(t++));
+			g.drawFigure((Rectangle) getBounds().rotate((float) Math.toRadians(t++)));
 		}
 	}
 }

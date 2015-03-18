@@ -24,8 +24,20 @@ public class ShaderTest extends Core {
 	@Override
 	public void init() {
 		// Fragment shader source
-		String source = "#version 330 core                     \n" + "                                      \n" + "uniform sampler2D u_texture;          \n" + "uniform vec4      u_color;            \n" + "                                      \n" + "in vec4 v_color;                      \n" + "in vec4 v_texcoord;                   \n"
-				+ "                                      \n" + "out vec4 fragColor;                   \n" + "                                      \n" + "void main() {                         \n" + "    fragColor = u_color;              \n" + "}";
+		String source = "#version 330 core                          \n" +
+                        "                                           \n" +
+                        "uniform sampler2D u_texture;               \n" +
+                        "uniform vec4      u_color;                 \n" +
+                        "                                           \n" +
+                        "in vec4 v_color;                           \n" +
+                        "in vec4 v_texcoord;                        \n" +
+                        "                                           \n" +
+                        "out vec4 fragColor;                        \n" +
+                        "                                           \n" +
+                        "void main() {                              \n" +
+                        "    fragColor = vec4(0.5, 0.2, 0.1, 1.0);  \n" +
+                        "    fragColor *= u_color;                  \n" +
+                        "}";
 
 		shader = Shader.getShader(source, Shader.FRAGMENT_SHADER);
 		rect = new Rectangle(100, 100, 100, 100);

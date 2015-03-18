@@ -48,13 +48,12 @@ public class GameStateTest extends Core {
 
 	@Override
 	public void render(Graphics g) {
+        getCurrentState().render(g);
 		g.setColor(Color.WHITE);
 		g.drawString("Mash Enter.", Window.getCenterX() - TrueTypeFont.ROBOTO_REGULAR.getWidth("Mash Enter.") / 2, 128);
-
 	}
 
 	@Override
 	public void cleanup() {
-
 	}
 }
