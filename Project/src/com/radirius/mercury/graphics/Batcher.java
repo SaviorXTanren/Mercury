@@ -448,7 +448,7 @@ public class Batcher implements Initializable, Cleanable, Usable {
 			flushOnOverflow(3 * vertices.length);
 
 			for (int c = 0; c < vertices.length; c++) {
-				vertex(region.getCenter().x, region.getCenter().y, sourceRegion.getCenter().x, sourceRegion.getCenter().y);
+				vertex(region.getCenter().x, region.getCenter().y, tint, sourceRegion.getCenter().x, sourceRegion.getCenter().y);
 
 				if (c >= vertices.length - 1) {
 					vertex(vertices[0].x, vertices[0].y, tint, sourceVertices[0].x, sourceVertices[0].y);

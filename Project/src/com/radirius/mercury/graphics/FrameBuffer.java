@@ -4,7 +4,9 @@ import com.radirius.mercury.exceptions.MercuryException;
 import com.radirius.mercury.framework.*;
 import com.radirius.mercury.utilities.misc.*;
 
+import org.lwjgl.opengl.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL30.*;
 
 /**
@@ -77,6 +79,8 @@ public class FrameBuffer implements Cleanable, Bindable {
 	 * @return A new frame buffer object
 	 */
 	public static FrameBuffer getFrameBuffer(int width, int height, int filtering, Color background) {
+		glEnable(GL_MULTISAMPLE);
+
 		int texId = glGenTextures();
 		glBindTexture(GL_TEXTURE_2D, texId);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (java.nio.ByteBuffer) null);
@@ -118,12 +122,23 @@ public class FrameBuffer implements Cleanable, Bindable {
 	 */
 	@Override
 	public void bind() {
-		// Flush previous data
-		Core.getCurrentCore().getBatcher().flush();
+		bind(true, true);
+	}
+
+	/**
+	 * Begins recording of the FBO to the texture object.
+	 */
+	public void bind(boolean flush, boolean clear) {
+		if (flush) {
+			// Flush previous data
+			Core.getCurrentCore().getBatcher().flush();
+		}
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fboId);
 		glViewport(0, 0, width, height);
-		glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
-		glClear(GL_COLOR_BUFFER_BIT);
+		if (clear) {
+			glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+			glClear(GL_COLOR_BUFFER_BIT);
+		}
 	}
 
 	/**
