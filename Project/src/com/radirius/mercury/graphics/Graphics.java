@@ -3,6 +3,7 @@ package com.radirius.mercury.graphics;
 import com.radirius.mercury.graphics.font.*;
 import com.radirius.mercury.math.geometry.*;
 import com.radirius.mercury.utilities.GraphicsUtils;
+import com.radirius.mercury.utilities.logging.Logger;
 import com.radirius.mercury.utilities.misc.*;
 import org.lwjgl.opengl.Display;
 
@@ -454,18 +455,65 @@ public class Graphics implements Initializable, Cleanable {
 
 		float xCurrent = 0;
 
-		for (int i = 0; i < message.toCharArray().length; i++) {
-			if (message.toCharArray()[i] == '\n') {
+		Stack<Color> colorStack = new Stack<>();
+		colorStack.push(color);
+
+		char[] messageArray = message.toCharArray();
+
+		for (int i = 0; i < messageArray.length; i++) {
+			if (messageArray[i] == '\n') {
 				y += font.getHeight() * scale;
 
 				xCurrent = 0;
 
 				continue;
 			}
+			// Color changing!
+			if (messageArray[i] == '`') {
+				i++;
 
-			SubTexture subTexture = font.getFontSpriteSheet().getTexture(message.toCharArray()[i]);
+				// "``" means to pop the current color off the stack
+				if (messageArray[i] == '`') {
+					if (colorStack.size() > 1)
+						colorStack.pop();
+				} else {
+					String colorCode = "";
 
-			drawTexture(subTexture, new Rectangle(x + xCurrent, y, subTexture.getWidth() * scale, subTexture.getHeight() * scale), color);
+					try {
+						while (messageArray[i] != '`' || i >= messageArray.length) {
+							colorCode += messageArray[i];
+							i++;
+						}
+
+						String[] colorValues = colorCode.split(" ");
+
+						float r = 1f, g = 1f, b = 1f, a = 1f;
+
+						if (colorValues.length > 0) {
+							r = Float.valueOf(colorValues[0]);
+							if (colorValues.length > 1) {
+								g = Float.valueOf(colorValues[1]);
+								if (colorValues.length > 2) {
+									b = Float.valueOf(colorValues[2]);
+									if (colorValues.length > 3) {
+										a = Float.valueOf(colorValues[3]);
+									}
+								}
+							}
+						}
+
+						colorStack.push(new Color(r, g, b, a));
+					} catch (Exception e) {
+						Logger.warn("Color code in string '" + message + "' has faulty color code '" + colorCode + "'. Must be formatted \" `[r] [g] [b] [a]` \", all being numbers between 0.0 and 1.0, with alpha being optional.");
+					}
+				}
+
+				continue;
+			}
+
+			SubTexture subTexture = font.getFontSpriteSheet().getTexture(messageArray[i]);
+
+			drawTexture(subTexture, new Rectangle(x + xCurrent, y, subTexture.getWidth() * scale, subTexture.getHeight() * scale), colorStack.peek());
 
 			xCurrent += subTexture.getWidth() * scale;
 		}
@@ -611,7 +659,30 @@ public class Graphics implements Initializable, Cleanable {
 
 			String[] lines = message.split("\n");
 			for (String line : lines) {
-				float width = font.getWidth(line) * scale;
+
+				StringBuilder sterileLine = new StringBuilder(line);
+				try {
+					int charIndex = 0;
+					while (charIndex < sterileLine.length()) {
+						if (sterileLine.charAt(charIndex) == '`') {
+							while (sterileLine.charAt(charIndex + 1) != '`') {
+								sterileLine.deleteCharAt(charIndex + 1);
+							}
+
+							while (sterileLine.charAt(charIndex) == '`') {
+								sterileLine.deleteCharAt(charIndex);
+								if (charIndex > sterileLine.length() - 1) break;
+							}
+						}
+
+						charIndex++;
+					}
+				} catch (Exception e) {
+					Logger.log("In string '" + message + "', something went wrong in parsing the escape characters out (`).");
+				}
+
+				float width = font.getWidth(sterileLine.toString()) * scale;
+
 				drawString(line, scale, font, x - width / 2, y - height / 2, color);
 				y += height;
 			}

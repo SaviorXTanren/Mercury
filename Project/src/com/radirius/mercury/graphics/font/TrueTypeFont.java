@@ -77,8 +77,8 @@ public class TrueTypeFont implements Font {
 
 		fontSize = font.getSize();
 
-		int baseWidth = 1024;
-		int baseHeight = 1024;
+		int baseWidth = 2048;
+		int baseHeight = 2048;
 
 		nullCharactersLoop:
 		while (characters == null) {

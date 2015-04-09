@@ -79,7 +79,7 @@ public abstract class Core {
 	/* Game state. */
 
 	private final GameState defaultGameState = new GameState();
-	private GameState currentGameState = defaultGameState;
+	private GameState currentGameState = defaultGameState, lastGameState = currentGameState;
 
 	/**
 	 * Updates the current game state.
@@ -108,6 +108,7 @@ public abstract class Core {
 	 */
 	public void switchGameState(GameState currentGameState) {
 		this.currentGameState.onLeave();
+		this.lastGameState = this.currentGameState;
 		currentGameState.onEnter();
 
 		this.currentGameState = null;
@@ -119,6 +120,10 @@ public abstract class Core {
 	 */
 	public GameState getCurrentState() {
 		return currentGameState;
+	}
+
+	public GameState getLastState() {
+		return lastGameState;
 	}
 
 	/**
@@ -193,6 +198,7 @@ public abstract class Core {
 
 		if (coreSetup.showConsoleDebug)
 			Logger.log("Initializing Core...");
+
 
 		init();
 
@@ -337,8 +343,7 @@ public abstract class Core {
 	}
 
 	/**
-	 * Adds information to the debug data. Debug data is wiped every update frame, so this is to be called every
-	 * frame.
+	 * Adds information to the debug data. Debug data is wiped every update frame, so this is to be called every frame.
 	 *
 	 * @param name
 	 * 		The name of the debug information
